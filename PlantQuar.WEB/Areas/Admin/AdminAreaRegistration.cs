@@ -3,7 +3,7 @@
 namespace PlantQuar.WEB.Areas.Admin
 {
     public class AdminAreaRegistration : AreaRegistration 
-    {
+    {//EditFromEslam_2398
         public override string AreaName 
         {
             get 
