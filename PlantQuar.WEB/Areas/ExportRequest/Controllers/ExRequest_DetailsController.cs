@@ -19,7 +19,7 @@ namespace PlantQuar.WEB.Areas.ExportRequest
         // GET: ExportRequest/ExRequest_Details
         public ActionResult Index(long requestId)
         {
-            //eslam maher edit from my visual studio_ \
+            //eslam maher edit from my visual studio_ \2398
 
 
             var res = APIHandeling.getData("Export_CheckRequest_API?requestId=" + requestId);
