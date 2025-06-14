@@ -528,7 +528,7 @@ namespace PlantQuar.BLL.BLL.Committee
 
         public Dictionary<string, object> Insert_Committee(EX_RequestCommittee_QuickDTO entity, List<string> Device_Info)
         {
-
+            //sayed
             try
             {
                 int Check_Eny_Insert = 0;
