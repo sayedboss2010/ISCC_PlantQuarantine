@@ -11,7 +11,7 @@ using System.Web.Mvc;
 namespace PlantQuar.WEB.Areas.Export_CheckRequest.Controllers
 {
     public class QuickRequestDetailsController : Controller
-    {
+    {//Edit_EslamMaher_ 2398
         // GET: Export_CheckRequest/QuickRequestDetails
         public ActionResult Index(string Ex_CheckRequest_Number)
         {
