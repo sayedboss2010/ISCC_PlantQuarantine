@@ -13,6 +13,7 @@ namespace PlantQuar.API.Controllers.Employee
     public class Employee_Track_APIController : ApiController
     {
         //Eslam10000
+        //hjghj
         Employee_TrackBLL cBLL = new Employee_TrackBLL();
 
         public HttpResponseMessage GetOutlet_ID_List(int Outlet)
