@@ -1,0 +1,350 @@
+﻿@{
+    ViewBag.Title = "@PlantQuar.Web.Language.Resource_data1.Manafest";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.Web.Language.Resource_data1.Manafest</h2>
+}
+@section filter{
+   <div class="row" style="margin-bottom: 20px;">
+    <label class="col-md-3"> @PlantQuar.Web.Language.Resource_data1.ManafestNumber</label>
+    <input type="text" class="form-inline col-md-3" autocomplete="off" name="txt_AR_BTNSearch" id="txt_AR_BTNSearch" />
+       <div class="col-md-3"></div>
+    <input type="button" class="col-lg-1 col-md-2 btn btn-primary" id="LoadRecordsButton" value="@PlantQuar.Web.Language.Resource_data1.Search">
+</div>
+}
+@section Path{
+    <li>@PlantQuar.Web.Language.Resource_data1.Import</li>
+    <li class="active">@PlantQuar.Web.Language.Resource_data1.Manafest</li>
+}
+@*<link rel="stylesheet" href="timepicker.css">
+
+<script src="~/scripts/jquery.timepicker.min.js"></script>*@
+<link href="~/Content/jquery.timepicker.css" rel="stylesheet" />
+<script src="~/scripts/jquery.timepicker.js"></script>
+@*<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>*@
+
+<style>
+    #jtable-create-form, #jtable-edit-form {
+        width: 690px !important;
+        overflow: hidden !important;
+        height: 540px !important;
+    }
+     .jtable-input-field-container:nth-of-type(1),  .jtable-input-field-container:nth-of-type(2),
+     .jtable-input-field-container:nth-of-type(3),  .jtable-input-field-container:nth-of-type(4),
+     .jtable-input-field-container:nth-of-type(5),  .jtable-input-field-container:nth-of-type(6),
+     .jtable-input-field-container:nth-of-type(7),  .jtable-input-field-container:nth-of-type(8),
+     .jtable-input-field-container:nth-of-type(9),  .jtable-input-field-container:nth-of-type(10),
+     .jtable-input-field-container:nth-of-type(11), .jtable-input-field-container:nth-of-type(12),
+     .jtable-input-field-container:nth-of-type(13), .jtable-input-field-container:nth-of-type(14),
+     .jtable-input-field-container:nth-of-type(15), .jtable-input-field-container:nth-of-type(16),
+     .jtable-input-field-container:nth-of-type(17), .jtable-input-field-container:nth-of-type(18),
+     .jtable-input-field-container:nth-of-type(19), .jtable-input-field-container:nth-of-type(20),
+     .jtable-input-field-container:nth-of-type(21)
+    {
+        margin-bottom: 2px;
+        float: right;
+        width: 30% !important;
+    }
+    #GADDLlst, #outLST {
+        font-size: 14px;
+    }
+    .jtable thead tr {
+        height: 50px;
+    }
+        .jtable thead tr th .jtable-column-header-container {
+            bottom: 12px!important;
+        }
+    div.jtable-main-container > table.jtable > thead th.jtable-column-header-sortable div.jtable-column-header-container {
+        bottom: 12px!important;
+    }
+    #Im_ManafestList {
+        width: 111%;
+        position: relative;
+        left: 52px;
+    }
+</style>
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $('#Im_ManafestList').jtable({
+                title: '@PlantQuar.Web.Language.Resource_data1.Manafest',
+                paging: true,
+                pageSize: 10,
+                sorting: true,
+                columnResizable: true,
+                columnSelectable: true,
+                saveUserPreferences: true,
+                actions: {
+
+                    listAction: 'listIm_Manafest',
+                    createAction: 'CreateIm_Manafest',
+                    updateAction: 'UpdateIm_Manafest',
+                    deleteAction: 'DeleteIm_Manafest'
+
+                },
+                fields: {
+                    ID: {
+                        key: true,
+                        create: false,
+                        edit: false,
+                        list: false
+                    },
+                    Manafest_Num: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.ManafestNumber',
+                        inputClass: 'validate[required]',
+                        list: true,
+                        width: '9.23972%'
+
+                    },
+                    SubmissionDate: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.DateOfManifesto',
+                        type: 'date',
+                        inputClass: 'validate[required]',
+                        list: true,
+                        width: '10.1244%'
+                    },
+                    ShipName: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.ShipName',
+                        inputClass: 'validate[required]',
+                        list: true,
+                        width: '6.58576%'
+                    },
+                    ArriveDate: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.ArrivalDate',
+                        type: 'date',
+                        inputClass: 'validate[required]',
+                        list: true,
+                        width: '6.88064%'
+                    },
+                    ArriveTime: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.ArrivalHour',
+                        inputClass: 'validate[required]',
+                        list: true,
+                        width: '6.86359%'
+                    },
+                    NavigationCompany: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.NavigationCompany',
+                        inputClass: 'validate[required]',
+                        list: true,
+                        width: '17.3982%'
+                    },
+                    Origin: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.Initiator',
+                        inputClass: 'validate[required]',
+                        list: true,
+                        width: '9.14142%'
+                    },
+                    ShipmentPort: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.ShipmentPort',
+                        inputClass: 'validate[required]',
+                        list: true,
+                        width: '12.68%'
+                    },
+                    PolicyNumber: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.PolicyNumber',
+                        inputClass: 'validate[required]',
+                        list: true,
+                        width: '12.2056%'
+                    },
+                    ImporterName: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.ImporterName',
+                        inputClass: 'validate[required]',
+                        list: false
+
+                    },
+                    PlantName: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.CategoryName',
+                        inputClass: 'validate[required]',
+                        list: false
+                    },
+                    //Quantity: {
+                    //    title: 'العدد',
+                    //    inputClass: 'validate[required]',
+                    //    list: false
+                    //},
+                    Unit: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.Unit',
+                        inputClass: 'validate[required]',
+                        list: false
+                    },
+                    GrossWeight: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.StandingWeight',
+                        inputClass: 'validate[required]',
+                        list: false
+                    },
+                    Net_Weight: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.NetWeight',
+                        inputClass: 'validate[required]',
+                        list: false
+                    },
+                    EditRecord: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.StatementOfAmendments',
+                        inputClass: 'validate[required]',
+                        list: false
+                    },
+                    DischargeEndDate: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.DischargeEndDate',
+                        inputClass: 'validate[required]',
+                        type: 'date',
+                        list: false
+                    },
+                    ToHagrDate: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.QuarantineProgressDate',
+                        inputClass: 'validate[required]',
+                        type: 'date',
+                        list: false
+                    },
+                    ExaminationDate: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.CheckDate',
+                        inputClass: 'validate[required]',
+                        type: 'date',
+                        list: false
+                    },
+                    CustomsCertificate: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.CustomsCertificateNumber',
+                        inputClass: 'validate[required]',
+                        list: false
+                    },
+                    CompletionApplicationNum: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.CompletionRequestNumber',
+                        inputClass: 'validate[required]',
+                        list: false
+                    },
+                    IsTransit: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.Transit',
+                        inputClass: 'validate[required]',
+                        type: 'checkbox',
+                        values: { 'false': '@PlantQuar.Web.Language.Resource_data1.NotTransit', 'true': ' @PlantQuar.Web.Language.Resource_data1.Transit' },
+                        defaultValue: 'true',
+                        inputClass: 'validate[required]',
+                        width: '6.88064%'
+                    },
+
+
+                },
+                formCreated: function (event, data) {
+
+                    if (data.formType == "create") {
+                        $(".ui-dialog-title").text("@PlantQuar.Web.Language.Resource_data1.Add");
+                    }
+                    else {
+                        $(".ui-dialog-title").text("@PlantQuar.Web.Language.Resource_data1.Edit");
+                    }
+                    $("#Edit-ArriveTime").timepicker({
+                        timeFormat: 'h:00',
+                        interval: 60,
+                        defaultTime: '01:00',
+                        //startTime: '01:00',
+                        dynamic: false,
+                        dropdown: false,
+                        scrollbar: false
+                    });
+                    $("#Edit-Name_Ar, #txt_AR_BTNSearch").attr('autocomplete', 'off');
+
+                    // Arabic + spaces + numeric
+                    $("#Edit-ShipName,#Edit-NavigationCompany,#Edit-Origin,#Edit-ShipmentPort,#Edit-ImporterName,#Edit-PlantName,#Edit-EditRecord,#Edit-Unit").keypress(function (e) {
+
+                        var unicode = e.charCode ? e.charCode : e.keyCode
+                        if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+                            if (unicode == 32)
+                                return true;
+                            else {
+                                if ((unicode < 48 || unicode > 57) && (unicode < 0x0600 || unicode > 0x06FF)) //if not a number or arabic
+                                    return false; //disable key press
+                            }
+                        }
+                    });
+
+                    $("#txt_AR_BTNSearch").keypress(function (event) {
+                        var keycode = event.which;
+                        if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+                            event.preventDefault();
+                        }
+                    });
+                    // numper
+                    $("#Edit-Manafest_Num,#Edit-PolicyNumber,#Edit-Quantity,#Edit-GrossWeight,#Edit-Net_Weight,#Edit-CustomsCertificate,#Edit-CompletionApplicationNum").keypress(function (event) {
+                        var keycode = event.which;
+                        if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+                            event.preventDefault();
+                        }
+                    });
+                },
+                formSubmitting: function (event, data) {
+                    return data.form.validationEngine('validate');
+                },
+                formClosed: function (event, data) {
+                    data.form.validationEngine('hide');
+                    data.form.validationEngine('detach');
+                    $(".ui-dialog-title").text("@PlantQuar.Web.Language.Resource_data1.Delete");
+                },
+                recordAdded: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Insert");
+                },
+                recordUpdated: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Update");
+                }, recordDeleted: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Delete");
+                },
+            });
+            $('#Im_ManafestList').jtable('load');
+
+            $('#LoadRecordsButton').click(function (e) {
+
+                e.preventDefault();
+                $('#Im_ManafestList').jtable('load', {
+
+                    txt_AR_BTNSearch: $('#txt_AR_BTNSearch').val().trim(),
+                    txt_EN_BTNSearch: $('#txt_EN_BTNSearch').val().trim()
+                });
+            });
+
+            $(".jtable-toolbar-item-add-record .jtable-toolbar-item-text").text("@PlantQuar.Web.Language.Resource_data1.Add");
+
+            $("#txt_AR_BTNSearch").keypress(function (e) {
+                var unicode = e.charCode ? e.charCode : e.keyCode
+                if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+                    if (unicode == 32) { }// return data.form.validationEngine('validate');
+                    else {
+                        if (((unicode < 48 || unicode > 57) && unicode != 13) && (unicode < 0x0600 || unicode > 0x06FF)) //if not a number or arabic
+
+                        {
+                            return false; //disable key press
+                        } else {
+                            if (unicode == 13) {
+                                $('#LoadRecordsButton').click();
+                            }
+
+                        }
+
+
+                    }
+                }
+            });
+
+
+
+
+        });
+    </script>
+}
+
+<div id="tadaofheader">
+    <div class="row" style="margin-right: 0px;">
+        <label class="col-md-3">@PlantQuar.Web.Language.Resource_data1.GeneralAdmin</label>
+        @Html.DropDownList("GADDLlst")
+        @*<input type="text" class="form-inline col-md-3" />*@
+        <label class="col-md-2"> @PlantQuar.Web.Language.Resource_data1.Outlet</label>
+        @Html.DropDownList("outLST")
+        @*<input type="text" class="form-inline col-md-3" />*@
+    </div>
+</div>
+<br />
+<div id="Im_ManafestList">
+</div>

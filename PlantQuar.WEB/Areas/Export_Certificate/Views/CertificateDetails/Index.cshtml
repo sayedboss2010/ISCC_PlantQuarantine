@@ -1,0 +1,1158 @@
+﻿@model PlantQuar.DTO.DTO.Export_Certificate.CertificateDTO
+
+
+@using System.Linq;
+
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    var indexx = 0;
+    var x = 0;
+}
+
+
+<div class="row">
+
+    <div class="form-group col-sm-2 bmd-form-group pull-left">
+        <label class="bmd-label-static">رقم الشهادة </label>
+
+    </div>
+    <div class="col-md-4">
+        @Html.TextBoxFor(m => m.data.CertificateNumber, new { @class = "demo-default form-control", @readonly = "true" })
+
+    </div>
+
+    <div class="col-md-6">
+
+        @if (Model.data != null)
+        {
+
+            if (Model.data.ISAccepted == true)
+            {
+                <div class="alert alert-success" role="alert">
+                    <h3>تم قبول الطلب</h3>
+                </div>
+            }
+            if (Model.data.ISAccepted == false)
+            {
+    <div class="alert alert-danger" role="alert">
+        <h4>تم رفض الطلب</h4>
+        <span>@Model.data.RejectReason  </span>
+        <h5>
+        </h5>
+    </div>
+
+            }
+        }
+    </div>
+
+</div>
+
+<br />
+<hr />
+@Html.HiddenFor(m => m.data.CertificateNumber)
+<div class="tab" id="modall_content2" role="tabpanel" style="min-height:80% !important;">
+
+
+    <ul class="nav nav-tabs" role="tablist" style="">
+        <li role="presentation" class="active">
+            <a href="#link1" aria-controls="profile" role="tab" data-toggle="tab">بيانات طلب الفحص </a>
+        </li>
+        <li role="presentation">
+            <a href="#link2" aria-controls="profile" role="tab" data-toggle="tab">بيانات الشهادة الجمركية </a>
+        </li>
+        <li role="presentation">
+            <a href="#link3" aria-controls="profile" role="tab" data-toggle="tab">مسار الرسالة</a>
+        </li>
+        <li role="presentation">
+            <a href="#link4" aria-controls="profile" role="tab" data-toggle="tab">بيانات النباتات</a>
+        </li>
+        <li role="presentation">
+            <a href="#link5" aria-controls="profile" role="tab" data-toggle="tab">بيانات الجهة المستوردة  </a>
+        </li>
+        <li role="presentation">
+            <a href="#link6" aria-controls="profile" role="tab" data-toggle="tab">الشروط الإضافية </a>
+        </li>
+
+
+        <li role="presentation">
+            <a href="#link7" aria-controls="profile" role="tab" data-toggle="tab">المرفقات</a>
+        </li>
+        <li role="presentation">
+            <a href="#link8" aria-controls="messages" role="tab" data-toggle="tab" id="id=" Fees_Details">النفقات</a>
+        </li>
+
+
+    </ul>
+
+
+
+    <div class="tab-content tabs" style="background-color:whitesmoke !important;">
+
+        <div role="tabpanel" class="tab-pane fade in active" id="link1">
+            <div class="form-group" style="padding:10px;">
+                <div class="row">
+                    <div class="form-group col-sm-4 bmd-form-group">
+
+                        <label class="bmd-label-static">رقم طلب الفحص </label>
+                        @Html.TextBoxFor(m => m.data.CheckRequest_Number, new { @class = "demo-default form-control", @readonly = "true" })
+                    </div>
+                    <div class="form-group col-sm-4 bmd-form-group">
+
+                        <label class="bmd-label-static">تاريخ الطلب</label>
+                        @Html.TextBoxFor(m => m.data.Check_Date, new { @class = "demo-default form-control", @readonly = "true" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-4 bmd-form-group">
+
+                        <label class="bmd-label-static">لغة  الشهادة</label>
+                        @if (Model.data.ISEnglish == true)
+                        {
+                            <label class="bmd-label-static"> الشهادة باللغة الانجليزية   </label>
+                        }
+                        else
+                        { <label class="bmd-label-static"> الشهادة باللغة العربية   </label>}
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="link2">
+            <div class="form-group" style="padding:10px;">
+                <div class="row">
+                    <div class="form-group col-sm-4 bmd-form-group">
+
+                        <label class="bmd-label-static">رقم الشهادة الجمركية </label>
+                        @Html.TextBoxFor(m => m.customMessages.Customs_Certificate_Number, new { @class = "demo-default form-control", @readonly = "true" })
+                    </div>
+                    <div class="form-group col-sm-4 bmd-form-group">
+
+                        <label class="bmd-label-static"> تاريخ الشهادة</label>
+                        @Html.TextBoxFor(m => m.customMessages.Certification_Date, new { @class = "demo-default form-control", @readonly = "true" })
+                    </div>
+                    <div class="form-group col-sm-4 bmd-form-group">
+
+                        <label class="bmd-label-static"> تاريخ الشحن</label>
+                        @Html.TextBoxFor(m => m.customMessages.Shipment_Date, new { @class = "demo-default form-control", @readonly = "true" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-4 bmd-form-group">
+                        <label class="bmd-label-static">  رقم المنافيستو</label>
+                        @Html.TextBoxFor(m => m.customMessages.Manifest_Number, new { @class = "demo-default form-control", @readonly = "true" })
+
+                    </div>
+                    <div class="form-group col-sm-4 bmd-form-group">
+                        <label class="bmd-label-static">  ACID</label>
+                        @Html.TextBoxFor(m => m.customMessages.Certificate_Number_Each_Product, new { @class = "demo-default form-control", @readonly = "true" })
+
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="form-group col-sm-4 bmd-form-group">
+                        <label class="bmd-label-static"> التوكيل الملاحي </label>
+                        @Html.TextBoxFor(m => m.customMessages.Shipping_Agency, new { @class = "demo-default form-control", @readonly = "true" })
+
+                    </div>
+                    <div class="form-group col-sm-4 bmd-form-group">
+                        <label class="bmd-label-static">  نوع العملية</label>
+                        @Html.TextBoxFor(m => m.customMessages.OperationType, new { @class = "demo-default form-control", @readonly = "true" })
+
+                    </div>
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+        <div role="tabpanel" class="tab-pane fade" id="link3">
+
+
+            <div class="form-group" style="padding:10px;">
+                <div class="row">
+                    <div class="form-group col-sm-4 bmd-form-group">
+
+                        <label class="bmd-label-static"> ميناء الشحن  </label>
+                        @Html.TextBoxFor(m => m.data.Shipping_PortName, new { @class = "demo-default form-control", @readonly = "true" })
+                    </div>
+
+
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-4 bmd-form-group">
+
+                        <label class="bmd-label-static"> الدولة المستوردة </label>
+                        @Html.TextBoxFor(m => m.data.ImportCountry_Name, new { @class = "demo-default form-control", @readonly = "true" })
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-4 bmd-form-group">
+                        <label class="bmd-label-static">  نوع الميناء </label>
+                        @Html.TextBoxFor(m => m.data.PortTypeImportCountry_Name, new { @class = "demo-default form-control", @readonly = "true" })
+
+                    </div>
+                    <div class="form-group col-sm-4 bmd-form-group">
+                        <label class="bmd-label-static">  ميناء الوصول</label>
+                        @Html.TextBoxFor(m => m.data.PortArriveName, new { @class = "demo-default form-control", @readonly = "true" })
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-4 bmd-form-group">
+
+                        <label class="bmd-label-static"> دولة العبور </label>
+                        @Html.TextBoxFor(m => m.data.Transit_Country, new { @class = "demo-default form-control", @readonly = "true" })
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-4 bmd-form-group">
+                        <label class="bmd-label-static">  نوع الميناء </label>
+                        @Html.TextBoxFor(m => m.data.Port_Type_Transit_Country, new { @class = "demo-default form-control", @readonly = "true" })
+
+                    </div>
+                    <div class="form-group col-sm-4 bmd-form-group">
+                        <label class="bmd-label-static">  ميناء الوصول</label>
+                        @Html.TextBoxFor(m => m.data.Transit_Port, new { @class = "demo-default form-control", @readonly = "true" })
+
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+
+        <div role="tabpanel" class="tab-pane fade" id="link4">
+            <div style="padding: 10px; overflow-x: scroll; ">
+                <div class="row">
+                    <div class="col-md-12">
+                        @if (Model.LotData != null)
+                        {
+                            <table class="table table-bordered" id="lotItemsLst" style="margin:10px;">
+                                <thead>
+                                    <tr class="label-primary">
+                                        <th>رقم اللوط </th>
+                                        <th>اسم النبات</th>
+                                        <th> أسم المنتج</th>
+                                        <th>وزن النباتات الإجمالي</th>
+
+                                        <th>نوع وحدات الشحن </th>
+                                        <th>رقم عنبر الشحن/رقم وحدة الشحن </th>
+                                        <th>رقم السيل الملاحي </th>
+                                        <th> الوزن الاجمالي للوطات</th>
+                                        <th> إجمالي الوزن الصافي للوطات  </th>
+                                        <th> عدد العبوات  </th>
+                                        <th>  الوزن الصافي للعبوات  </th>
+                                        <th>  الوزن القائم للعبوات  </th>
+                                        <th>    نوع العبوة  </th>
+                                        <th>    مادة العبوة   </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        decimal? tottalGrossWeight = 0;// += item.Gross_Weight;
+                                        decimal? tottalNetWeight = 0; //+= item.Net_Weight;
+                                        for (int i = 0; i < Model.LotData.Count(); i++)
+                                        {
+                                            tottalGrossWeight += Model.LotData[i].GrossWeight;
+                                            tottalNetWeight += Model.LotData[i].Net_Weight;
+                                                                        <tr>
+                                                                            <td style="padding: 2px; ">@Model.LotData[i].LotNumber</td>
+                                                                            <td style="padding: 2px; ">@Model.LotData[i].Item_Name_Ar</td>
+                                                                            <td style="padding: 2px; ">@Model.LotData[i].Item_ShortName</td>
+                                                                            <td style="padding: 2px; "> @Math.Round(Convert.ToDouble(Model.LotData[i].GrossWeight_Items), 3).ToString("0.000")</td>
+
+                                                                            <td style="padding: 2px; ">@Model.LotData[i].containers_type</td>
+
+                                                                            <td style="padding: 2px; "> @Model.LotData[i].ShipholdNumber @Model.LotData[i].ContainerNumber</td>
+                                                                            <td style="padding: 2px; ">@Model.LotData[i].NavigationalNumber</td>
+                                                                            <td style="padding: 2px; "> @Math.Round(Convert.ToDouble(Model.LotData[i].GrossWeight_Lots), 3).ToString("0.000")</td>
+                                                                            <td style="padding: 2px; "> @Math.Round(Convert.ToDouble(Model.LotData[i].Net_Weight_Lots), 3).ToString("0.000")</td>
+
+                                                                            <td style="padding: 2px; ">@Model.LotData[i].Package_Count</td>
+                                                                            <td style="padding: 2px; ">@Math.Round(Convert.ToDouble(Model.LotData[i].Package_Net_Weight), 3).ToString("0.000")</td>
+                                                                            <td style="padding: 2px; ">@Math.Round(Convert.ToDouble(Model.LotData[i].Package_Based_Weight), 3).ToString("0.000")</td>
+                                                                            <td style="padding: 2px; ">@Model.LotData[i].Package_Type</td>
+                                                                            <td style="padding: 2px; ">@Model.LotData[i].Package_Material</td>
+                                                                        </tr>
+                                        }
+                                    }
+                                    @*<tr>
+                                            <td style="padding: 2px; " colspan="2">الإجمالي</td>
+                                            <td style="padding: 2px; ">@tottalNetWeight</td>
+                                            <td style="padding: 2px; ">@tottalGrossWeight</td>
+                                        </tr>*@
+                                </tbody>
+                            </table>
+
+
+                        }
+
+
+
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane fade" id="link5">
+            <div style="padding:10px;">
+                <div class="row">
+                    <div class="col-md-12">
+
+
+                        @*/////////////////////////////*@
+
+                        <div class="row">
+                            <div class="form-group col-sm-4 bmd-form-group">
+
+                                <label class="bmd-label-static"> اسم الشركة باللغة العربية   </label>
+                                @Html.TextBoxFor(m => m.data.ImportCompany_Name_AR, new { @class = "demo-default form-control", @readonly = "true" })
+                            </div>
+
+
+
+                            <div class="form-group col-sm-4 bmd-form-group">
+
+                                <label class="bmd-label-static"> اسم الشركة باللغة الأنجليزية    </label>
+                                @Html.TextBoxFor(m => m.data.ImportCompany_Name_EN, new { @class = "demo-default form-control", @readonly = "true" })
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-4 bmd-form-group">
+
+                                <label class="bmd-label-static"> عنوان الشركة باللغة العربية   </label>
+                                @Html.TextBoxFor(m => m.data.ImporeterCompanyAddress_AR, new { @class = "demo-default form-control", @readonly = "true" })
+                            </div>
+
+
+
+                            <div class="form-group col-sm-4 bmd-form-group">
+
+                                <label class="bmd-label-static"> عنوان الشركة باللغة الأنجليزية    </label>
+                                @Html.TextBoxFor(m => m.data.ImporeterCompanyAddress_EN, new { @class = "demo-default form-control", @readonly = "true" })
+                            </div>
+
+                        </div>
+                        @*/////////////////////////////*@
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="link6">
+            <label class="label-info">   بيانات الشهادة</label>
+            <div class="row">
+                <div class="col-md-4">
+                    @if (Model.data.IS_Lot == true)
+                    {
+                        <input type="checkbox" value="4" id="optionItm4" name="foo" checked disabled>
+                        <label>بيان اللوطات  </label>
+                    }
+                    else
+                    { <input type="checkbox" value="4" id="optionItm4" name="foo" disabled>
+                        <label>بيان اللوطات  </label>
+                    }
+
+                </div>
+                <div class="col-md-4">
+                    @if (Model.data.IS_Containers == true)
+                    {
+                        <input type="checkbox" value="5" id="optionItm5" name="foo" checked disabled>
+                        <label>بيان حاويات</label>
+                    }
+                    else
+                    { <input type="checkbox" value="4" id="optionItm4" name="foo" disabled>
+                        <label>بيان حاويات  </label>
+                    }
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    @if (Model.data.IS_Treatment == true)
+                    {
+                        <input type="checkbox" value="7" id="optionItm7" name="foo" checked disabled>
+                        <label> بيان معالجة</label>
+                    }
+                    else
+                    { <input type="checkbox" value="4" id="optionItm4" name="foo" disabled>
+                        <label>بيان حاويات  </label>
+                    }
+                </div>
+                <div class="col-md-4">
+                    @if (Model.data.IS_Additional_Declaretion == true)
+                    {
+                        <input type="checkbox" value="8" id="optionItm8" name="foo" checked disabled>
+                        <label>بيان الشروط الاضافية</label>
+                    }
+                    else
+                    { <input type="checkbox" value="4" id="optionItm4" name="foo" disabled>
+                        <label>بيان حاويات  </label>
+                    }
+                </div>
+
+            </div>
+
+            <label class="label-info">اقرارات اضافية للأدمن الشهادة</label>
+            <table class="table" id="AddationDeclartionِAdminTBL">
+                <thead style="background-color:#4d9e97 !important;">
+                    <tr>
+                        <th>اقرارات اضافية</th>
+                        <th>  اقرارات اضافية بعد التعديل</th>
+
+
+                        @*<th>اقرارات اضافية من خلال الادمن</th>
+                            <th>تمت الاضافه عن طريق الادمن</th>*@
+
+
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.data_CertificatesAddition != null)
+                    {
+                        for (int i = 0; i < Model.data_CertificatesAddition.Count(); i++)
+                        {
+
+                            <tr>
+
+                                <td class="ModelxmlItem_Data@(i)">@Model.data_CertificatesAddition[i].Certificate_AddtionOriginal </td>
+                                <td class="ModelxmlItem_Data@(i)">@Model.data_CertificatesAddition[i].Certificate_AddtionOriginalUpdate  </td>
+                                @*<td class="ModelxmlItem_Data@(i)">@Model.data_CertificatesAddition[i].Certificate_AddtionUpdateAdmin  </td>*@
+
+                                @*@if (@Model.data_CertificatesAddition[i].AdminID == 1)
+                                    {
+                                        <td class="ModelxmlItem_Data@(i)">نعم</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="ModelxmlItem_Data@(i)">لا</td>
+                                    }*@
+
+
+
+
+
+                            </tr>
+                        }
+
+                    }
+
+
+                </tbody>
+            </table>
+            @*<div>
+
+                    <label> إضافة نصوص أضافيه للشهاده</label>
+                    <input type="text" id="certificate_AddtionTxt" class="form-control " />
+
+
+                    <input type="text" id="PlantCertificatesRequestsID" value="@Model.data.CertificateID" hidden />
+                    <input type="button" id="certificate_AddtionBtn" onClick="reply_Insert_AddationDeclartion(this)" value="إضافة " class="form-control " />
+
+                </div>*@
+            <hr />
+            <label class="label-info">اقرارات اضافية للعميل الشهادة</label>
+            <div class="" style="text-align: center; width: 100%; height: inherit; padding:0px 3px">
+
+                @if (Model.dataAddtion != null)
+                {
+                    foreach (var dt in Model.dataAddtion)
+                    {
+                        <div style="text-align: center; padding: 5px; height: 0px; align-items: center; display: flex;">
+                            <p id="ekrarEdafy" class="ekrarEdafy" style="margin: auto;">@dt.Certificate_AddtionText</p>
+
+                        </div> <br />
+
+
+                    }
+                }
+
+
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="link7">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead style="background-color:#4d9e97 !important;">
+                            <tr>
+                                <th>نوع المرفق</th>
+
+
+                                <th>@PlantQuar.WEB.Language.Resource_data1.Date</th>
+
+                                <th>@PlantQuar.WEB.Language.Resource_data1.Attachment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.data_CertificatesFiles != null)
+                            {
+                                for (int i = 0; i < Model.data_CertificatesFiles.Count(); i++)
+                                {
+                                    String All_path = @"\\" + @Model.data_CertificatesFiles.FirstOrDefault().FilePath;
+                                    All_path = All_path.Replace('/', '\\');
+                                    string fileName = Path.GetFileName(All_path);
+                                    <tr>
+
+                                        <td class="ModelxmlItem_Data@(i)">@Model.data_CertificatesFiles.FirstOrDefault().AttachmentTableType  </td>
+
+                                        @*<td class="ModelxmlItem_Data@(i)"> @Model.data_CertificatesFiles.FirstOrDefault().CertifactionDate  </td>*@
+                                        @if (@Model.data_CertificatesFiles.FirstOrDefault().CertifactionDate != null)
+                                        {
+                                            <td class="ModelxmlItem_Data@(i)">@Model.data_CertificatesFiles.FirstOrDefault().CertifactionDate.Value.ToString("dd/MM/yyyy")</td>
+
+                                        }
+                                        else
+                                        {
+                                            <td class="ModelxmlItem_Data@(i)">@Model.data_CertificatesFiles.FirstOrDefault().CertifactionDate</td>
+                                        }
+                                        <td class="ModelxmlItem_Data@(i)">
+
+
+                                            <input type="button" value="تحميل الملف" class="btn btn - info" onclick="btndownload_click(this)" data-assigned-id=@Model.data_CertificatesFiles.FirstOrDefault().FilePath />
+
+
+                                        </td>
+                                        @*<td class="ModelxmlItem_Data@(i)">    <img src="~/Upload/CertificateAttachment/@fileName" style="width: 20cm; height:28cm; " /> </td>*@
+
+
+
+
+
+
+
+
+                                    </tr>
+                                }
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div role="tabpanel" class="tab-pane fade" id="link8">
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="label-info">رســــوم الشهادة</label>
+                    <table class="table">
+                        <thead style="background-color:#4d9e97 !important;">
+                            <tr>
+                                <th>نوع الرسوم</th>
+                                <th> الرسوم بالجنيه المصري</th>
+
+
+                                <th>التاريخ</th>
+                                <th>حالة الدفع</th>
+
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.CertifacteFees != null)
+                            {
+                                for (int i = 0; i < Model.CertifacteFees.Count(); i++)
+                                {
+
+                                    <tr>
+
+                                        <td class="ModelxmlItem_Data@(i)">@Model.CertifacteFees[i].Ex_CertificatesRequestsPaymentsTypeValue </td>
+                                        <td class="ModelxmlItem_Data@(i)">@Model.CertifacteFees[i].CertificatesRequestsPaymentsValue  </td>
+
+                                        @*<td class="ModelxmlItem_Data@(i)"> @Model.data_CertificatesFiles.FirstOrDefault().CertifactionDate  </td>*@
+                                        @if (@Model.data_CertificatesFiles.Count() > 0)
+                                        {
+                                            if (@Model.data_CertificatesFiles.FirstOrDefault().CertifactionDate != null)
+                                            {
+                                                <td class="ModelxmlItem_Data@(i)">@Model.CertifacteFees[i].CertificatesRequestsPaymentsUser_Creation_Date.Value.ToString("dd/MM/yyyy")</td>
+
+                                            }
+                                            else
+                                            {
+                                                <td class="ModelxmlItem_Data@(i)">@Model.CertifacteFees[i].CertificatesRequestsPaymentsUser_Creation_Date</td>
+                                            }
+
+
+                                        }
+                                        @if (@Model.data.IsPaid == true)
+                                        {
+                                            <td class="ModelxmlItem_Data@(i)">
+                                                تم الدفع
+                                            </td>
+
+                                        }
+                                        else
+                                        {
+                                            <td class="ModelxmlItem_Data@(i)">
+                                                لم يتم الدفع
+                                            </td>
+                                        }
+
+
+
+
+
+
+
+
+
+
+                                    </tr>
+                                }
+                                <tr>
+                                    <td class="bold red">الأجمالي</td>
+                                    <td class="bold red">@Model.CertifacteFees.Sum(a => a.CertificatesRequestsPaymentsValue)</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+
+
+                    <br>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+
+    </div>
+</div>
+<br />
+<!--ChooseReason-->
+<div>
+
+    <div id="Modal-refuse" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">@PlantQuar.WEB.Language.Resource_data1.ChooseReasons</h4>
+                </div>
+                <div class="modal-body">
+                  
+                    <label>  أسباب الرفض </label>
+                    <textarea type="text" id="rejreasons_text" ></textarea>
+                </div>
+                <div class="modal-footer">
+                    @if (Model != null)
+                    {
+                        <button type="button" class="btn btn-default notacceptt" data-dismiss="modal"
+                                id="saverejectreason" 
+                                data-id="@ViewBag.certificate_ID">
+                    @PlantQuar.WEB.Language.Resource_data1.Save</button>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal Details -->
+<div id="mymodalemanexamination" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
+                <h4 class="modal-title">@PlantQuar.WEB.Language.Resource_data1.Details </h4>
+            </div>
+            <div class="modal-body" id="modaldetails">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default "
+                        data-dismiss="modal">
+                    @PlantQuar.WEB.Language.Resource_data1.Close
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--End_Modal Details -->
+<!--ChooseReasonmodel-->
+
+
+@if (Model.data != null)
+{
+
+    if (Model.data.ISAccepted == null)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                    <input type="button" id="btnSave" value="قبول" data-id="@ViewBag.certificate_ID"
+                           class="btn ls-light-green-btn btn-round acceptt" style="width:90%;" />
+                </div>
+                <div class="col-md-3">
+                    <input type="button" id="saverejectreason" value="رفض" data-id="@ViewBag.certificate_ID"
+                           class="btn ls-light-green-btn btn-round"
+                           data-toggle="modal" data-target="#Modal-refuse" style="width:90%;" />
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+    }
+    <!--End_ChooseReasonmodel -->
+}
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+            @if (Model.data.ISAccepted == true)
+            {
+
+                <span>تم قبول الطلب</span>
+
+            }
+            @if (Model.data.ISAccepted == false)
+            {
+                <span>تم رفض الطلب</span>
+                <span>@Model.data.RejectReason  </span>
+            }
+        </div>
+    </div>
+</div>
+<script>
+    function btndownload_click(elem) {
+        var path = $(elem).data('assigned-id');
+        window.open('/CertificateDetails/GetReport?path1=' + path + '', "_blank");
+    }
+    $(document).ready(function () {
+
+        var _basedwightlots = $("#basedwightlots").val();
+        $("#grosslotweight").append(_basedwightlots);
+        var _netwightlots = $("#netwightlots").val();
+        $("#netlotweight").append(_netwightlots);
+
+        $("#rejreasons").addClass("chosen-select").prop("multiple", true);
+
+        $('#rejreasons_chosen option').prop('selected', true);
+
+
+        $("#rejreasons option[value=]").remove();
+        $("#rejreasons").chosen({
+            // disable_search_threshold: 10,
+            no_results_text: "@PlantQuar.WEB.Language.Resource_data1.no_results : ",
+            placeholder_text_multiple: "@PlantQuar.WEB.Language.Resource_data1.Select_One_More",
+            //placeholder_text_single: "ÍÏÏ @PlantQuar.WEB.Language.Resource_data1.Governate",
+            width: "95%",
+            rtl: true,
+            search_contains: true,
+        });
+
+    });
+    $("#btnSave").click(function () {
+        $("#txtIsAccepted").val(true);
+    });
+
+    $("#saverejectreason").click(function () {
+        $("#txtIsAccepted").val(false);
+        var list = $("#rejreasons").val();
+        var rejreasons_text = $("#rejreasons_text").val();
+      // console.log(list)
+        var id = $(this).data("id");
+        //var checkReqId = $("#checkReqId").val(); //alert(id)
+        if (list != null) {
+
+            $.post('/Export_CheckRequest/EX_CheckRequestDetails/saveReasons', { listIDs: list, checkReqId: id, rejreasons_text: rejreasons_text }, function (data, succ) {
+
+                $("#submform").submit();
+            });
+        } else {
+            //alert("choose reasons")
+        }
+
+    });
+    // Eslam_Fill PopUp_Details For Item
+     $(".quickview2").click(function () {
+
+
+         var itemName = $(this).data("item");
+         var qualitive = $(this).data("qualitive");
+         var initiator = $(this).data("initiator");
+         var itemsn = $(this).data("itemsn");
+         //var gweight = $(this).data("gweight");
+         //var nweight = $(this).data("nweight");
+
+         var purpose = $(this).data("purpose");
+         var status = $(this).data("status");
+         var subpartname = $(this).data("subpartname");
+         var unitcount = $(this).data("unitcount");
+         var size = $(this).data("size");
+         var ordertext = $(this).data("odrtxt");
+         var fees = $(this).data("fees");
+         var _itemcategoriesname = $(this).data("itemcategoriesname");
+         var _itemcategorycurrentstatus = $(this).data("itemcategorycurrentstatus");
+         var isregister = $(this).data("isregister");
+         var itemcategoriesgroupname = $(this).data("itemcategoriesgroupname");
+         var farmcode = $(this).data("farmcode");
+         var farmname = $(this).data("farmname");
+         var farmagriculturehand = $(this).data("farmagriculturehand");
+         var farmgovernname = $(this).data("farmgovernname");
+         var farmcentername = $(this).data("farmcentername");
+         var farmvillagename = $(this).data("farmvillagename");
+           var itemcategorycurrentstatusText="" ;
+         var isregisterText = "";
+     /*    لو الصنف غير موجود لا نظهر مسجل و تحت الحماية*/
+         //ert(_itemcategoriesname);
+         if (_itemcategoriesname != null) {
+           // alert(_itemcategorycurrentstatus);
+             if (_itemcategorycurrentstatus == "True")
+             {
+
+                 itemcategorycurrentstatusText = 'تحت الحماية';
+
+             }
+            else if (_itemcategorycurrentstatus == "False")
+             {
+
+                 itemcategorycurrentstatusText = 'ليس تحت الحماية';
+
+             }
+
+           //  alert(isregister);
+             if (isregister == "True")
+                 {
+               //  alert(1);
+                 isregisterText = ' مسجل';
+             }
+             else if (isregister == "False")
+                 {
+                // alert(2);
+                 isregisterText = 'غير مسجل';
+             }
+         } else
+         {
+
+             itemcategorycurrentstatusText = "";
+             isregisterText = "";
+         }
+    /*   لو المزرعة موجودة نظهر العنوان من جدول farm data  لو مش موجودة نظهر من checkrequestItem */
+       //  if (farmname == null) { farmgovernname = ""; farmcentername = ""; farmvillagename = ""; }
+         if (farmcode == "") { farmcode = "لا يوجد" };
+         if (farmname == "") { farmname = "لا يوجد" };
+         if (farmgovernname == "") { farmgovernname = "لا يوجد"  };
+         if (farmcentername == "") { farmcentername = "لا يوجد" };
+         if (farmvillagename == "") { farmvillagename = "لا يوجد" };
+         //////
+
+         $("#modaldetails").empty();
+         @*$("#modaldetails").append("<label> @PlantQuar.WEB.Language.Resource_data1.itemName :<span class='modalspan'> " + itemName + "</span></label><br><label> @PlantQuar.WEB.Language.Resource_data1.QualitativeGroup :<span class='modalspan'> " + qualitive + "</span></label><br><label> @PlantQuar.WEB.Language.Resource_data1.InitiatorCountry :<span class='modalspan'> " + initiator + "</span></label><br><label>itemName :<span class='modalspan'> " + itemsn + "</span></label><br><label>TotalWeight :<span class='modalspan'> " + nweight + "</span></label><br><label> Weight :<span class='modalspan'> " + gweight + "</span></label><br><label> @PlantQuar.WEB.Language.Resource_data1.PackageMaterial :<span> " + pmatrial + "</span></label><br><label>PackageCount :<span class='modalspan'> " + packcount + "</span></label><br><label> @PlantQuar.WEB.Language.Resource_data1.PackageWeight :<span class='modalspan'> " + pweight + "</span></label><br><label>PackageType :<span class='modalspan'> " + ptype + "</span></label><br><label> @PlantQuar.WEB.Language.Resource_data1.Purpose :<span class='modalspan'> " + purpose + "</span></label><br><label>Status :<span class='modalspan'> " + status + "</span></label><br><label> @PlantQuar.WEB.Language.Resource_data1.Units_Number :<span class='modalspan'> " + unitcount + "</span></label><br><label>ScientificName :<span class='modalspan'> " + scientificname + "</span></label><br><label>order_text :<span class='modalspan'> " + ordertext + "</span></label><br><label> subpartname :<span class='modalspan'> " + subpartname + "</span></label><br><label> @PlantQuar.WEB.Language.Resource_data1.Fees :<span class='modalspan'> " + fees + "</span></label>")*@
+         $("#modaldetails").append("<table id='popup'> <tbody><tr>   <td>اسم الكائن </td><td>" + itemName + "</td> <td>الاسم المختصر</td><td>"
+             + itemsn + "</td></tr><tr> <td>المنشأ </td><td>مصر</td> <td>الجزء النباتي </td><td>" + subpartname
+             + "</td></tr><tr> <td>غرض التصدير </td><td>" + purpose
+             + "</td> <td>حالة الصنف </td><td>" + status +
+             "</td></tr>"+
+             @*< tr > <td>@PlantQuar.WEB.Language.Resource_data1.Units_Number </td><td>" + unitcount +
+             "</td> <td>@PlantQuar.WEB.Language.Resource_data1.Fees</td><td>" + fees
+             + "</td></tr><tr><td>  حجم الرسالة </td><td>" + size
+             + "[م³]</td> <td>@PlantQuar.WEB.Language.Resource_data1.order_text </td><td>" + ordertext
+             + "</td> </tr>*@
+            " <tr> <td>المجموعة الصنفية </td><td>" + itemcategoriesgroupname
+             + "</td><td>مسجل / غير مسجل</td><td>" + isregisterText
+             + "</td></tr>    <tr><td>الصنف الزراعى / السلالة</td><td>" + _itemcategoriesname
+             + "</td><td>تحت الحماية / ليس تحت الحماية</td><td>" + itemcategorycurrentstatusText
+            /* + "</td></tr>    <tr><td colspan='2'>تعبئة / بدون تعبئة</td><td colspan='2'>" + farmgovernname*/
+             + "</td></tr>"
+             + "</td></tr>    <tr><td>كود المزرعة</td><td>" + farmcode
+             + "</td><td>اسم المزرعة</td><td>" + farmname
+
+             + "</td></tr>    <tr><td colspan='2'>المحافظة</td><td colspan='2'>" + farmgovernname
+             +"</td></tr>"
+
+             + "   <tr><td>المركز</td><td>" + farmcentername
+             + "</td><td>القرية</td><td>" + farmvillagename
+             + "</td></tr>    <tr><td colspan='2'>ناحية المزرعة</td><td colspan='2'>" + farmagriculturehand
+
+             + "</td></tr></tbody> </table>")
+
+     });
+        // Eslam_Fill PopUp_Details For lot
+     $(".quickview1").click(function () {
+
+
+         var netweight = $(this).data("netweight");
+             var grossweight = $(this).data("grossweight");
+         var packagecount = $(this).data("packagecount");
+         if (packagecount == null || packagecount == 0 || packagecount == '') {
+             packagecount = '#####'
+         }
+         var packageweight = $(this).data("packageweight");
+         if (packageweight == null || packageweight == 0 || packageweight == '') {
+             packageweight = '#####'
+         }
+                  var number_wooden_package = $(this).data("number_wooden_package");
+         if (number_wooden_package == null || number_wooden_package == 0 || number_wooden_package == '') {
+             number_wooden_package = '#####'
+         }
+         var ordertext = $(this).data("ordertext");
+         if (ordertext == null || ordertext == 0 || ordertext == '') {
+             ordertext = '#####'
+         }
+         //var navigationalfluidnumber = $(this).data("navigationalfluidnumber");
+         var packagetype = $(this).data("packagetype");
+         if (packagetype == null || packagetype == 0 || packagetype == '') {
+             packagetype = '#####'
+         }
+         var reasonentry = $(this).data("reasonentry");
+         if (reasonentry == null || reasonentry == 0 || reasonentry == '') {
+             reasonentry = '#####'
+         }
+         var size = $(this).data("size");
+         if (size == null || size == 0 || size == '') {
+             size = '#####'
+         }
+         var basedweight = $(this).data("basedweight");
+         var itemcat = $(this).data("itemcat");
+         if (itemcat == null || itemcat == 0 || itemcat == '') {
+             itemcat = '#####'
+         }
+         var itemcatgroup = $(this).data("itemcatgroup");
+         if (itemcatgroup == null || itemcatgroup == 0 || itemcatgroup == '') {
+             itemcatgroup = '#####'
+         }
+         var pckgematerial = $(this).data("pckgematerial");
+         if (pckgematerial == null || pckgematerial == 0 || pckgematerial == '') {
+             pckgematerial = '#####'
+         }
+         var packagebasedweight = $(this).data("packagebasedweight");
+
+         if (packagebasedweight == null || packagebasedweight == 0 || packagebasedweight == '')
+         {
+             packagebasedweight = '#####'
+         }
+         var packagenetweight = $(this).data("packagenetweight");
+
+         if (packagenetweight == null || packagenetweight == 0 || packagenetweight == '')
+         {
+             packagenetweight = '#####'
+         }
+         var unitsnumber = $(this).data("unitsnumber");
+         var subpartname = '';
+         if (unitsnumber == null || unitsnumber == 0 || unitsnumber == '') {
+             unitsnumber = '#####'
+
+         }
+         else {
+                var subpartname = $(this).data("subpartname");
+             if (subpartname == null || subpartname == 0 || subpartname == '') {
+                 subpartname = '#####'
+             }
+         }
+
+         var shipmentpolicynumber = $(this).data("shipmentpolicynumber");
+         if (shipmentpolicynumber == null || shipmentpolicynumber == 0 || shipmentpolicynumber == '') {
+             shipmentpolicynumber = '#####'
+         }
+         var _grower_number = $(this).data("grower_number");
+         if (_grower_number == null || _grower_number == 0 || _grower_number == '') {
+             _grower_number = '#####'
+         }
+         var recorded = $(this).data("recorded");
+         if (recorded == null || recorded == 0 || recorded == '') {
+             recorded = '#####'
+         }
+
+
+
+
+         @**@
+
+         $("#modaldetails").empty();
+         //  $("#modaldetails").append("<table id='popup'><tr><td>@PlantQuar.WEB.Language.Resource_data1.PackageCount</td><td><span class='modalspan'> " + packagecount + "</span></td><td>سبب الدخول   </td><td><span class='modalspan'> " + reasonentry + "</span></td></tr><tr><td> @PlantQuar.WEB.Language.Resource_data1.PackageWeight</td><td><span class='modalspan'> " + packageweight + "</span><span class='red'>كجم</span></td><td>@PlantQuar.WEB.Language.Resource_data1.PackageType</td><td><span class='modalspan'> " + packagetype + "</span></td></tr><tr><td> @PlantQuar.WEB.Language.Resource_data1.PackageMaterial</td><td><span class='modalspan'> " + pckgematerial + "</span></td><td>@PlantQuar.WEB.Language.Resource_data1.PackageWeight</td><td><span class='modalspan'> " + packagebasedweight + "</span></td></tr><tr><td> @PlantQuar.WEB.Language.Resource_data1.Size</td><td><span class='modalspan'> " + size + "</span></td><td>@PlantQuar.WEB.Language.Resource_data1.order_text</td><td><span class='modalspan'> " + ordertext + "</span></td></tr><tr><td> @PlantQuar.WEB.Language.Resource_data1.ItemsCategoryGrp</td><td><span class='modalspan'> " + itemcatgroup + "</span></td><td>الرقم الملاحي</td><td><span class='modalspan'> " + navigationalfluidnumber + "</span></td></tr><tr><td>@PlantQuar.WEB.Language.Resource_data1.PackageNetWeight </td><td>" + packagenetweight + "</td><tr><td>@PlantQuar.WEB.Language.Resource_data1.Units_Number </td><td>" + unitsnumber + "</td><td>رقم بوليصة الشحن</td><td>" + shipmentpolicynumber + "</td></tr></tr></table>");
+         $("#modaldetails").append("<table id='popup'><tr><td>@PlantQuar.WEB.Language.Resource_data1.PackageType</td><td><span class='modalspan'> "
+             + packagetype + "</span></td><td> @PlantQuar.WEB.Language.Resource_data1.PackageMaterial</td><td><span class='modalspan'> "
+             + pckgematerial + "</span></td></tr><tr><td>@PlantQuar.WEB.Language.Resource_data1.PackageCount</td><td><span class='modalspan'> "
+             + packagecount + "</span><span class='red'>عبوة</span></td><td>الوزن القائم للعبوة</td><td><span class='modalspan'> "
+             + packagebasedweight + "</span><span class='red'>كجم</span></td></tr><tr><td> الوزن الصافي للعبوة	</td><td><span class='modalspan'> "
+             + packagenetweight + "</span><span class='red'>كجم</span></td><td>الوزن العبوة الفارغ	</td><td><span class='modalspan'> "
+             + packageweight + "</span><span class='red'>كجم</span></td></tr><tr><td> الوزن الاجمالي للوط 	</td><td><span class='modalspan'> "
+             + grossweight + "</span><span class='red'>كجم</span></td><td>الوزن الصافي للوط 	</td><td><span class='modalspan'> "
+             + netweight + "</span><span class='red'>كجم</span></td></tr><tr><td>  عدد الوحدات </span></td><td>" + unitsnumber
+             + "<span class='red'>" + subpartname + "</span></td><td>  حجم الرسالة </td> <td>"
+             + size + "[م³]</td> </tr><tr><td>@PlantQuar.WEB.Language.Resource_data1.order_text</td><td><span class='modalspan'> "
+             + ordertext
+             //+ "</span></td><td>رقم بوليصة الشحن</td><td><span class='modalspan'>"
+             //+ shipmentpolicynumber + "</span></td></tr><tr><td>سبب الدخول   </td><td><span class='modalspan'> "
+             //+ reasonentry + "</span></td><td>رقم المزارع</td><td><span class='modalspan'> " + _grower_number
+             //+ "</span></td></tr><tr><td>المجموعة الصنفية</td><td><span class='modalspan'> "
+             //+ itemcatgroup + "</span></td><td>مسجل/غير مسجل</td><td><span class='modalspan'> "
+             //+ recorded + "</span></td></tr><tr><td>الصنف الزراعي/السلالة</td><td><span class='modalspan'> "
+             //+ itemcat + "</span></td><td>واحدت التعبئة الخشبية</td><td><span class='modalspan'> "
+             //+ number_wooden_package
+             + "</span></td></tr></table>");
+           //  $("#modaldetails").append("<table><tr><td> @PlantQuar.WEB.Language.Resource_data1.LotNumber</td><td><span class='modalspan'> " + lotnumber + "</span></td><td>@PlantQuar.WEB.Language.Resource_data1.CategoryName</td><td><span class='modalspan'> " + categoryname + "</span></td></tr><tr><td> @PlantQuar.WEB.Language.Resource_data1.LotNumber</td><td><span class='modalspan'> " + lotnumber + "</span></td><td>@PlantQuar.WEB.Language.Resource_data1.CategoryName</td><td><span class='modalspan'> " + categoryname + "</span></td></tr><tr><td> @PlantQuar.WEB.Language.Resource_data1.LotNumber</td><td><span class='modalspan'> " + lotnumber + "</span></td><td>@PlantQuar.WEB.Language.Resource_data1.CategoryName</td><td><span class='modalspan'> " + categoryname + "</span></td></tr><tr><td> @PlantQuar.WEB.Language.Resource_data1.LotNumber</td><td><span class='modalspan'> " + lotnumber + "</span></td><td>@PlantQuar.WEB.Language.Resource_data1.CategoryName</td><td><span class='modalspan'> " + categoryname + "</span></td></tr><tr><td> @PlantQuar.WEB.Language.Resource_data1.LotNumber</td><td><span class='modalspan'> " + lotnumber + "</span></td><td>@PlantQuar.WEB.Language.Resource_data1.CategoryName</td><td><span class='modalspan'> " + categoryname + "</span></td></tr><tr><td> @PlantQuar.WEB.Language.Resource_data1.LotNumber</td><td><span class='modalspan'> " + lotnumber + "</span></td><td>@PlantQuar.WEB.Language.Resource_data1.CategoryName</td><td><span class='modalspan'> " + categoryname + "</span></td></tr></table>");
+
+     });
+                //End Fill PopUp_Details For Item
+
+                // Fill SaveFees
+    $('.savefees').click(function () {
+        var id = $(this).data("id");
+        console.log(id)
+        var fees = $("#i_" + id).val();
+        $.post('/Ex_CheckRequests/Ex_CheckRequestDetails/saveItemFees', { itemId: id, fees: fees }, function (data, succ) {
+            alertify.success('تم نعديل الرسوم ')
+        });
+
+    });
+
+
+    $('.Show_Imge').click(function () {
+
+        var path = $(this).data('id');
+        window.open('/Ex_CheckRequestDetails/GetReport?path1=' + path + '', "_blank");
+        //var id = $(this).data("id");
+        //alert(id)
+        //var fees = $("#i_" + id).val();
+        //$.post('/Ex_CheckRequests/Ex_CheckRequestDetails/saveItemFees', { itemId: id, fees: fees }, function (data, succ) {
+
+        //});
+
+    });
+     // End_Fill SaveFees
+    function printContent2(el2) {
+        var restorepage2 = document.body.innerHTML;
+        //var radioValue = $("input[name='openVisitor']:checked").val();
+        //if (radioValue == 0) {
+        //    $("#yes_radio").hide();
+        //}
+        //else {
+        //    $("#no_radio").hide();
+        //}
+        $(".form-control").css("width", "25%");
+        //$(".form-control").css("display", "inline-block");
+        $(".nav-tabs").css("display", "none");
+        $(".tab-pane").css("border", "2px solid black");
+        $(".tab-pane").css("border-radius", "20px");
+        var txt1 = "<h3 style='text-align:center'> @PlantQuar.WEB.Language.Resource_data1.requestInfos</h3>";
+        $("#ReqDataTab").before(txt1);
+        var txt2 = "<h3 style='text-align:center'>@PlantQuar.WEB.Language.Resource_data1.importedCompanies</h3>";
+        $("#ImportCompaniiesTab").before(txt2);
+        var txt3 = "<h3 style='text-align:center'>  @PlantQuar.WEB.Language.Resource_data1.messageDetails</h3>";
+        $("#DetailsTab").before(txt3);
+        var txt4 = "<h3 style='text-align:center'> @PlantQuar.WEB.Language.Resource_data1.Attachments</h3>";
+        $("#filesTab").before(txt4);
+
+        $(".form-rowr").css("margin-bottom", "7px");
+        $(".form-rowr").css("padding-bottom", "7px");
+        $(".form-box").css("margin-bottom", "7px");
+        $(".form-box").css("padding-bottom", "7px");
+        $(".form-rowr").css("border-bottom", "1px dashed #cbc5ba");
+        $(".demo-default").css("width", "100%");
+        //$(".label-info").css("text-decoration", "underline");
+        $(".label-info").css("border", "1px solid #cbc5ba");
+        $(".label-info").css("padding", "5px");
+        $(".label-info").css("border-radius", "6px 20px");
+        $(".lastdiv").css("border-bottom", "none")
+        $("#ReqDataTab").removeAttr("class");
+        $("#ReqDataTab").addClass("tab-pane fade active in");
+        $("#ImportCompaniiesTab").removeAttr("class");
+        $("#ImportCompaniiesTab").addClass("tab-pane fade active in");
+        $("#DetailsTab").removeAttr("class");
+        $("#DetailsTab").addClass("tab-pane fade active in");
+        $("#filesTab").removeAttr("class");
+        $("#filesTab").addClass("tab-pane fade active in");
+        var printcontent2 = $('#' + el2).html();
+        document.body.innerHTML = printcontent2;
+        window.print();
+        history.go(0);
+        document.body.innerHTML = restorepage2;
+    }
+
+
+
+    function reply_Insert_AddationDeclartion(element) {
+
+        var certificate_AddtionTxt = document.getElementById("certificate_AddtionTxt").value;
+        var PlantCertificatesRequestsID = document.getElementById("PlantCertificatesRequestsID").value;
+
+
+        var today = new Date();
+        var date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
+       //alert(PlantCertificatesRequestsID);
+        $.ajax(
+                 {
+                     url: '@Url.Action("Insert_AddationDeclartionِAdmin", "CertificateDetails", new { area = "Export_Certificate" })',
+                     type: 'Post',
+                data: { PlantCertificatesRequestsID:PlantCertificatesRequestsID,certificate_AddtionTxt: certificate_AddtionTxt },
+                     success: function (data) {
+                         alertify.success("تمت الاضافة بنجاح");
+
+                         $("#AddationDeclartionِAdminTBL tbody").append("<tr>" +
+                             "<td></td><td></td><td>" + certificate_AddtionTxt + "</td>"+ "<td>نعم</td>" + "</tr>");
+                         //}); //each
+                     } //success
+                 });//ajax
+
+
+    }
+
+
+        $(".acceptt").click(function () {
+
+            var certificateId = $(this).data("id");
+
+            $.post('/Export_Certificate/CertificateDetails/acceptCertificate', { ID: certificateId }, function (data, succ) {
+            $("#tr_" + certificateId).text("accepted");
+                $("#tr_" + certificateId).css("color", "blue");
+                location.reload(true);
+        });
+    });
+    $(".notacceptt").click(function () {
+        var certificateId = $(this).data("id");
+        var rejreasons_text = document.getElementById("rejreasons_text").value;
+        //var rejreasons_text = $(this).data("rejreasons_text");
+        $.post('/Export_Certificate/CertificateDetails/NotAcceptCertificate', { ID: certificateId, rejreasons_text: rejreasons_text }, function (data, succ) {
+            $("#trn_" + certificateId).text("not accepted");
+            $("#trn_" + certificateId).css("color", "red");
+            location.reload(true);
+        });
+    });
+</script>

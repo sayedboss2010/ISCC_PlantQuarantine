@@ -1,0 +1,226 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@section Title{
+    <h2 class="ls-top-header"> نتيجة لجنة الفحص  </h2>
+
+}
+<br />
+<style>
+    #jtable-create-form, #jtable-edit-form {
+        width: 279px !important;
+        overflow: hidden !important;
+        height: 208px !important;
+        /*cursor: move;*/
+        /*display: block;
+        width: 450px;
+        overflow: hidden !important;
+        height: 550px;*/
+    }
+
+    .jtable-input-field-container:nth-of-type(1), .jtable-input-field-container:nth-of-type(2),
+    .jtable-input-field-container:nth-of-type(3) {
+        margin-bottom: 2px;
+        display: block;
+        /*float: center;
+             margin-right:45px;*/
+        width: 45% !important;
+    }
+
+    .row {
+        font-size: 11px !important;
+        font: menu !important;
+    }
+
+   
+</style>
+
+@section filter{
+    <div class="row">
+        <label class="col-md-3"> تاريخ الفحص:</label>
+        <input type="text" id="datepicker" class="form-inline col-md-2" name="ExaminationDate" style="margin-right: -80px;"/>
+        <label class="col-md-3" style="margin-right: 152px;">ميعاد الفحص:</label>
+         <input type="time" class="form-inline col-md-2" style="height: 32px;margin-right:-101px;" name="ExaminationTime" />
+    </div>
+
+}
+
+
+
+@section Path{
+    <li>نتيجة لجنة الفحص</li>
+
+}
+@section scripts{
+    <script>
+        $(function () {
+            $("#datepicker").datepicker();
+            $('#Lots').jtable({
+                title: 'اللوطات',
+                paging: true,
+                pageSize: 10,
+                sorting: true,
+                //defaultSorting: 'CourseName ASC',
+                columnResizable: true,
+                columnSelectable: true,
+                saveUserPreferences: true,
+                actions: {
+                    listAction: function (data, jprams) {
+                        return {
+                            "Result": "OK",
+                            "Records": [
+                                { "Lot_Num": ' 123 ', "Product_": 'صنف1', "Examination_Done": 'true' },
+                                { "Lot_Num": '948', "Product_": 'صنف2', "Examination_Done": 'false' },
+                             { "Lot_Num": ' 205 ', "Product_": 'صنف3', "Examination_Done": 'true' }],
+                            "TotalRecordCount":'3'
+                        };
+                    },
+                    createAction: 'CreateLots',
+                    updateAction: 'UpdateLots',
+                    deleteAction: 'DeleteLots'
+                },
+                fields: {
+                    ID: {
+                        key: true,
+                        create: false,
+                        edit: false,
+                        list: false
+                    },
+                    Lot_Num: {
+                        title: 'رقم اللوط',
+                        inputClass: 'validate[required]'
+                    },
+                    Product_: {
+                        title: 'الصنف',
+                        inputClass: 'validate[required]'
+                    },
+                    Examination_Done: {
+                        title: 'تم الفحص',
+                        inputClass: 'validate[required]',
+                        type: 'checkbox',
+                        values: { 'false': 'لم يتم', 'true': 'تم' },
+            defaultValue: 'true',
+                    },
+                },
+                formCreated: function (event, data) {
+
+                    if (data.formType == "create") {
+                        $(".ui-dialog-title").text("@PlantQuar.Web.Language.Resource_data1.Add");
+                    }
+                    else {
+                        $(".ui-dialog-title").text("@PlantQuar.Web.Language.Resource_data1.Edit");
+                    }
+
+
+                    $("#Edit-Lot_Num, #Edit-Product_").attr('autocomplete', 'off');
+                   // $("#Edit-License_Num, #Edit-Country_,#Edit-Release_Date").css('margin-right', '45px');
+                   // $("#Edit-Release_Date").datepicker();
+
+                },
+                formSubmitting: function (event, data) {
+                    return data.form.validationEngine('validate');
+                },
+                formClosed: function (event, data) {
+                    data.form.validationEngine('hide');
+                    data.form.validationEngine('detach');
+                    $(".ui-dialog-title").text("@PlantQuar.Web.Language.Resource_data1.Delete");
+                },
+                recordAdded: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Insert");
+                },
+                recordUpdated: function (event, data) {
+                                        //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Update");
+                },
+        recordDeleted: function (event, data) {
+                                        //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Delete");
+                },
+            });
+            $('#Lots').jtable('load');
+
+
+            $('#LoadRecordsButton').click(function (e) {
+
+                e.preventDefault();
+                $('#Lots').jtable('load', {
+
+                    // txt_AR_BTNSearch: $('#txt_AR_BTNSearch').val(),
+                    // txt_EN_BTNSearch: $('#txt_EN_BTNSearch').val()
+                });
+            });
+        });
+    </script>
+     
+}
+<div id="Lots" style="margin-top:30px;">
+</div>
+<br />
+<div class="row" >
+    <label class="col-md-3">العدد: </label>
+    <input type="Number" class="form-inline col-md-2" autocomplete="off" name="txt_Number" id="txt_Number" style="margin-right: -80px;" />
+   
+    <label class="col-md-3" style="margin-right: 152px;">الوزن: </label>
+    <input type="text" class="form-inline col-md-2" autocomplete="off" name="txt_Weight" id="txt_Weight" style="margin-right:-101px;" />
+</div>
+<br />
+
+<div class="row">
+    <label class="col-md-3">النتيجة: </label>
+    <select class= "col-md-2" style="margin-right: -80px;">
+        <option value="Acceptable">مقبولة</option>
+        <option value="Rejected">مرفوضة</option>
+        <option value="RejectedAndSubjectToProcessing">مرفوضة وتخضع للمعالجة</option>
+        <option value="SubjectToProcessing">تخضع للمعالجة</option>
+        <option value="Rejected2">مرفوضة مستندياً</option>
+
+    </select>
+   
+   
+</div>
+<br />
+<div class="row">
+    <label class="col-md-3">النص: </label>
+    <textarea class="form- col-md-3" style="margin-right:-80px;width:64%;height:81px;" >
+    </textarea>
+</div>
+<label>نوع الإصابة : </label><br />
+
+<div class="row">
+    <label class="col-md-3" style="margin-right: 102px;">المملكة: </label> 
+    <select class="col-md-2" style="margin-right: -101px;">
+        <option value="">مملكة 1 </option>
+        <option value="">مملكة 2 </option>
+        <option value="">مملكة 3</option>
+
+    </select>
+    <label class="col-md-3" style="margin-right: 102px;">الشعب: </label>
+<select class="col-md-2" style="margin-right: -101px;">
+    <option value="">شعبة 1 </option>
+    <option value="">شعبة 2 </option>
+    <option value="">شعبة 3</option>
+
+</select>
+    </div>
+
+<br />
+<div class="row">
+    <label class="col-md-3" style="margin-right: 102px;">الرتب: </label>
+    <select class="col-md-2" style="margin-right: -101px;">
+        <option value="">رتبة 1 </option>
+        <option value="">رتبة 2 </option>
+        <option value="">رتبة 3</option>
+
+    </select>
+    <label class="col-md-3" style="margin-right: 102px;">العائلة: </label>
+<select class="col-md-2" style="margin-right: -101px;">
+    <option value="">عائلة 1 </option>
+    <option value="">عائلة 2 </option>
+    <option value="">عائلة 3</option>
+
+</select>
+</div>
+<input type="button" class="btn btn-primary float-right" id="submitValue" value="حــفـــظ">

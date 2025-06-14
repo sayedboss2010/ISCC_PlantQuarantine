@@ -1,0 +1,193 @@
+﻿
+@{
+    /**/
+
+    ViewBag.Title = "Committee";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    var x = 0;
+
+}
+
+@section Title{
+    <h2 class="ls-top-header">تم النهاية من الطلب</h2>
+}
+@section Path{
+
+    <li class="active" style="right: 43px; position: relative;">Import Committe</li>
+}
+<link href="~/Content/jquery.timepicker.css" rel="stylesheet" />
+<script src="~/scripts/jquery.timepicker.min.js"></script>
+<style>
+    @@media screen and (min-width: 768px) {
+        .modal-dialog {
+            left: 0% !important;
+        }
+    }
+
+    th {
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    td {
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .modal-content {
+        color: #167479;
+    }
+
+    .modal-header {
+        background-color: #167479;
+        color: white;
+    }
+
+    table, table td, table th {
+        border: 1px solid black !important;
+        border-collapse: collapse;
+        word-break: keep-all;
+    }
+
+    .modal-header .close {
+        color: white !important;
+    }
+
+    .modal-header {
+        background-color: #1e7c80;
+        color: white;
+    }
+
+    #saverejectreason {
+        background-color: #1e7c80;
+        border: 2px solid #1e8084;
+        box-shadow: 0 4px #1d9fa5;
+        outline: none;
+        width: 20%;
+        margin: auto;
+        font-size: 22px;
+    }
+
+    .modal-dialog {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 70%;
+    }
+
+    .modal-content {
+        /* position: absolute;
+            top: 50%;*/
+        width: 100%;
+    }
+
+    .form-control {
+        font-size: 13px;
+    }
+
+    th, tr, td {
+        text-align: center;
+    }
+
+    button, html input[type="button"], input[type="reset"], input[type="submit"] {
+        margin-right: 0px;
+    }
+
+    blockquote {
+        margin-bottom: 70px !important;
+    }
+
+    .jtable thead tr {
+        height: 50px;
+    }
+
+    div.jtable-main-container > table.jtable > thead th.jtable-column-header div.jtable-column-header-container {
+        bottom: 12px !important;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, a, td, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+        word-break: keep-all !important;
+    }
+
+    .display-none {
+        display: none
+    }
+
+    .style-but {
+        height: auto !important;
+        color: white;
+        background-color: #1e7c80;
+        border: 2px solid #1e8084;
+        box-shadow: 0 4px #1d9fa5;
+        outline: none;
+        color: white;
+        margin-top: 5px;
+    }
+
+    #btnSave, #btnReject, #btnReject, #PrintResultButton {
+        background-color: #1e7c80 !important;
+        border: 2px solid #1e8084 !important;
+        box-shadow: 0 4px #1d9fa5 !important;
+        outline: none;
+        color: white;
+        margin-bottom: 10px;
+    }
+
+        #btnSave, #btnReject, #btnReject, #PrintResultButton:hover {
+            background-color: #1a8488 !important;
+            border: 1px solid #1a8488 !important;
+        }
+
+    #CommitteeType_ID {
+        height: 3.573rem;
+    }
+
+    div.jtable-main-container > table.jtable > tbody > tr > td {
+        font-size: 20px
+    }
+
+    .table-striped {
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    #ui-datepicker-div {
+        z-index: 24 !important;
+    }
+
+    #Employee_AddEDIT {
+        margin-bottom: 25px;
+    }
+
+    #messagedata, #searchbut {
+        background-color: #1e7c80 !important;
+        border: 2px solid #1e8084 !important;
+        box-shadow: 0 4px #1d9fa5 !important;
+        outline: none;
+        color: white !important;
+        margin-top: 20px;
+        width: 49%;
+    }
+</style>
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+
+        <h3>تم النهاية من الطلب </h3>
+    </div>
+</body>
+</html>

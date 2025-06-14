@@ -1,0 +1,111 @@
+﻿@model PagedList.IPagedList<PlantQuar.DTO.DTO.Admin.A__plant_Error_SaveDTO>
+
+@{
+    ViewBag.Title = "@PlantQuar.Web.Language.Resource_data1.DisplayErorrs";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    var model = Model;
+}
+
+@*eman*@
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.DisplayErorrs</h2>
+}
+@section Path{
+    <li style="position: relative;right: 28px;">@PlantQuar.WEB.Language.Resource_data1.Admin</li>
+    <li class="active" style="right: 43px; position: relative;">@PlantQuar.WEB.Language.Resource_data1.DisplayErorrs</li>
+}
+<style>
+    .demo-blockquote {
+        margin-bottom: 80px;
+    }
+
+    .label-primary {
+        background-color: #369a9e;
+        color: white;
+    }
+</style>
+<div id="checkRequest_lst" class="table-responsive">
+    <table class="table table-bordered" id="tblCheckLst">
+        <thead>
+            <tr class="label-primary">
+                <th>م</th>
+                <th>PageName</th>
+                @*<th>ErrorMessage  </th>*@
+                <th>Date</th>
+                <th>FunctionName</th>
+                <th>User_Ip</th>
+                <th>IsWeb</th>
+                <th>Show Data</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (model != null)
+            {
+                int Row_Id = 0;
+                foreach (var item in model)
+                {
+                    Row_Id++;
+                    <tr id="RowId_@item.Id">
+                        <td>
+                            @Html.Label(Row_Id.ToString())
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.PageName)
+                            @Html.HiddenFor(m => item.ErrorMessage, new { id = "item_ErrorMessage" + item.Id })
+                        </td>
+
+
+                        <td>
+                            @Html.DisplayFor(m => item.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.FunctionName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.User_Ip)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.IsWeb)
+                        </td>
+                        <td>
+                            @*@Html.ActionLink("Show Data", "#", "#", null, new { id = "ShowData", @Name = "ShowData" , onclick= "ShowData();" })*@
+                            <a href="#" id="ShowData" name="ShowData" onclick="ShowData(@item.Id);">Show Data</a>
+                        </td>
+                        <td>
+                            <a href="#" id="Delete" name="Delete" onclick="Delete(@item.Id);">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <br />
+    @if (Model != null)
+    {
+        var PageCount = Model.PageCount;
+        var PageNumber = Model.PageNumber;
+        var PageCount_of = " of " + PageCount;
+    }
+    <script>
+        function ShowData(RowId) {
+            alert($("#item_ErrorMessage" + RowId).val());
+        }
+        function Delete(RowId) {
+            //debugger;
+            $.ajax(
+                {
+                    url: 'Delete?RowId=' + RowId,
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (data) {
+                        //debugger;
+                        var html = '';
+                        $("#RowId_" + RowId).hide();
+                        alert("deleted");
+                    }
+                });
+        }
+
+    </script>
+</div>

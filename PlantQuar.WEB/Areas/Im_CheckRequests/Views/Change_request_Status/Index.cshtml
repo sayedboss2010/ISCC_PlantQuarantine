@@ -1,0 +1,184 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">تعديل حالة الطلب</h2>
+
+
+
+}
+<style>
+
+    .color-white {
+        color: #fff !important;
+    }
+
+    .lbl {
+        border: none;
+        box-shadow: 0px 5px #beb3a0;
+        background: #5c0000 !important;
+        font-weight: 600;
+        color: #fafbd3 !important;
+        border-radius: 16px 55px;
+        padding: 10px 15px;
+    }
+
+    .font-bold {
+        font-weight: bold;
+    }
+</style>
+
+
+
+
+<div class="row mar-bottom-15">
+    <div class="col-md-6 flex-align">
+        <label class="col-md-4" style="margin-top:10px">رقم الطلب</label>
+        <div class="col-md-8">
+            <input type="text" class="form-control" id="CheckNumber" />
+            @*<input type="text" class="form-control" id="CheckNumber_ID" />*@
+        </div>
+    </div>
+
+
+
+    <div class="col-md-2 ">
+        <input type="button" value='عرض' class="form-control color-white" id="show_data" onclick="show_data()" />
+    </div>
+
+
+</div>
+<br />
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <label class="lbl">بيانات الطلب</label>
+    </div>
+</div>
+<br />
+
+<div id="divcheck">
+    <table id="table_List_Im_Check" class="table table-bordered table-striped dataTable">
+        <thead>
+            <tr class="label-primary">
+                <th hidden> id</th>
+                <th class="font-weight-bold">رقم الطلب</th>
+                <th>حالة الطلب</th>
+                @*<th>الدولة</th>
+                <th>الميناء الجديدة</th>*@
+
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-10"></div>
+    <div class="col-md-2 ">
+        <input type="button" value='حفظ' class="form-control color-white" onclick="save_change()" />
+    </div>
+</div>
+<script>
+    var CheckNumber_ID;
+    function show_data()
+    {
+        var CheckNumber = document.getElementById("CheckNumber").value;
+        if (CheckNumber == "") {
+            alert("يجب ادخال رقم الطلب أولا")
+        }
+        // alert(CheckNumber);
+        else {
+        $.ajax({
+
+          url: '@Url.Action("requst_List", "Change_request_Status", new { area = "Im_CheckRequests" })',
+          type: 'Post',
+            data: { CheckNumber: CheckNumber },
+
+           success: function (data) {
+               $("#table_List_Im_Check tbody").empty();
+
+                   $.each(data.Records, function (index, item) {
+                       var table_body;
+                       var is_accept;
+                       CheckNumber_ID = item.ID;
+                       if (item.IsAccepted == true) is_accept = "مقبول"
+                       else if (item.IsAccepted == false) is_accept = "مرفوض"
+                       else if (item.IsAccepted == null) is_accept = "لم يتم العمل عليه"
+                       table_body = "<tr>" + "<td hidden id='CheckNumber_ID' >" + item.ID + "</td>"
+                           + "<td >" + item.CheckRequest_Number
+                           + "</td>" + "<td >" + is_accept + "</td>";
+                       $("#table_List_Im_Check tbody").append(table_body + "</tr>");
+                   });
+
+
+            }
+        });
+        }
+    }
+
+    function save_change()
+    {
+        var CheckNumber = document.getElementById("CheckNumber").value;
+        //var CheckNumber_ID = document.getElementById("CheckNumber_ID").value;
+        alert(CheckNumber_ID)
+        if (CheckNumber == "") {
+            alert("يجب ادخال رقم الطلب أولا")
+        }
+
+        else {
+            //  alert(CheckNumber);
+            $.ajax({
+
+                url: '@Url.Action("update_request_status", "Change_request_Status", new { area = "Im_CheckRequests" })',
+                type: 'Post',
+                data: {
+                    CheckNumber2: CheckNumber,
+                    CheckNumber_ID: CheckNumber_ID
+                },
+
+                success: function (data) {
+                    alert("تم الحفظ بنجاح");
+                    @*$.ajax({
+
+                        url: '@Url.Action("requst_List", "Change_request_Status", new { area = "Im_CheckRequests" })',
+                        type: 'Post',
+                        data: { CheckNumber: CheckNumber },
+
+                        success: function (data) {
+                            $("#table_List_Im_Check tbody").empty();
+
+                            $.each(data.Records, function (index, item) {
+                                var table_body;
+                                var is_accept;
+                                if (item.IsAccepted == true) is_accept = "مقبول"
+                                else if (item.IsAccepted == false) is_accept = "مرفوض"
+                                else if (item.IsAccepted == null) is_accept = "لم يتم العمل عليه"
+                                table_body = "<tr>" + "<td hidden >" + item.ID + "</td>" + "<td >" + item.CheckRequest_Number + "</td>" + "<td >" + is_accept + "</td>";
+                                $("#table_List_Im_Check tbody").append(table_body + "</tr>");
+                            });
+
+
+                        }
+                    });*@
+               
+
+      
+            }
+        });
+        }
+    }
+
+
+
+</script>
+
+
+
+
+

@@ -1,0 +1,273 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">إذن الإستيراد</h2>
+}
+
+<br />
+@section filter{
+    <div class="row">
+        <label class="col-md-2">البحث برقم طلب إذن الإستيراد</label>
+        <input type="text" class="form-inline col-md-3" autocomplete="off" id="ImPermission_Number" />
+        <input type="button" class="btn btn-primary" id="LoadRecordsButton" value="بحـــث">
+    </div>
+}
+
+@section Path{
+    <li> الإستيراد</li>
+    <li class="active">إذن الإستيراد</li>
+}
+<style>
+    .ChildTable .jtable-input-field-container:nth-of-type(1),
+    .ChildTable .jtable-input-field-container:nth-of-type(2),
+    .ChildTable .jtable-input-field-container:nth-of-type(3),
+    .ChildTable .jtable-input-field-container:nth-of-type(4),
+    .ChildTable .jtable-input-field-container:nth-of-type(5) {
+        margin-bottom: 2px;
+        float: right;
+        width: 48% !important;
+    }
+</style>
+
+
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $('#PlantHealthLicense').jtable({
+                title: 'شهادة الصحة النباتية',
+                paging: true,
+                pageSize: 10,
+                sorting: true,
+                defaultSorting: 'ImPermission_Number ASC',
+                columnResizable: true,
+                columnSelectable: true,
+                saveUserPreferences: true,
+                actions: {
+                    //listAction: function (postData, jtParams) {
+                    //    return {
+                    //        "Result": "OK",
+                    //        "Records": [
+                    //            { "ID": '1', "ImportPermissionNum": '9999999', "StorageType": '1', "StorageName": 'مكان1', "StorageCapacity": '101', "StorageAddress": 'عنوان1', "StorageOwnerName": 'على عامر', "StorageOwnerID": '55555', "StorageOwnerTel": '12345', "StorageDistribution": '1', "StorageCounting": '10' },
+                    //            { "ID": '2', "ImportPermissionNum": '7777777', "StorageType": '2', "StorageName": 'مكان2', "StorageCapacity": '109', "StorageAddress": 'عنوان2', "StorageOwnerName": 'سامى نصار', "StorageOwnerID": '66666', "StorageOwnerTel": '6789', "StorageDistribution": '2', "StorageCounting": '20' }],
+                    //        "TotalRecordCount": 2
+                    //    };
+                    //},
+                    listAction: "/ImportLookups/Im_CheckRequest/ListImPermission_Number",
+                    createAction: '/ImportLookups/Im_CheckRequest/CreateIm_CheckRequest',
+                    updateAction: '/ImportLookups/Im_CheckRequest/UpdateIm_CheckRequest',
+                    deleteAction: '/ImportLookups/Im_CheckRequest/DeleteIm_CheckRequest'
+                },
+                fields: {
+                    ID: {
+                        key: true,
+                        create: false,
+                        edit: false,
+                        list: false
+                    },
+                    ImPermission_Number: {
+                        title: 'رقم الإذن',
+                        create: false,
+                        edit: false,
+
+                    },
+                    Importer_Type: {
+                        title: 'نوع المستورد',
+                        create: false,
+                        edit: false,
+
+                    },
+
+                    Importer_Name: {
+                        title: 'إسم المستورد',
+                        create: false,
+                        edit: false,
+
+                    },
+                    Importer_ID: {
+                        title: 'ddddd',
+                        create: false,
+                        edit: false,
+
+                    },
+                    ImPermission_Request: {
+                        title: 'الدولة',
+                        create: false,
+                        edit: false,
+
+                    },
+                    Item_Permission_Number: {
+                        title: 'النبات',
+                        create: false,
+                        edit: false,
+
+                    },
+                    IsAccepted: {
+                        title: 'موافقة',
+                        create: false,
+                        edit: false,
+                    },
+                    Accept_Date: {
+                        title: 'تاريخ الموافقة',
+                        create: false,
+                        edit: false,
+                    },
+                    GrossWeight: {
+                        title: 'الوزن',
+                        create: false,
+                        edit: false,
+
+                    },
+                    Details: {
+                        title: 'تفاصيل',
+                        display: function (data) { return "<input type='button' class='btn btn-success btn-sm'  value='تفاصيل' />" }
+                    },
+
+                    Check_Request: {
+                        title: 'بيانات طلب الفحص',
+                        sorting: false,
+                        edit: false,
+                        create: false,
+                        display: function (ProductData) {
+                            var $img = $('<input type="button"  value="بيانات طلب الفحص "  class="btn btn-success btn-sm"/>');
+                            //Open child table when user clicks the image
+                            $img.click(function () {
+
+                                $('#PlantHealthLicense').jtable('openChildTable',
+                                    $img.closest('tr'), //Parent row
+                                    {
+                                        title: 'بيانات طلب الفحص',
+                                        paging: true,
+                                        pageSize: 10,
+                                        sorting: true,
+                                        //defaultSorting: 'CourseName ASC',
+                                        columnResizable: true,
+                                        columnSelectable: true,
+                                        saveUserPreferences: true,
+                                        actions: {
+                                            listAction: '/ExportRequest/Ex_Products/ListProducts_LotRows?indexProduct=' + ProductData.record.index,
+                                            createAction: '/ExportRequest/Ex_Products/CreateProducts_LotRows?indexProduct=' + ProductData.record.index,
+                                            updateAction: '/ExportRequest/Ex_Products/UpdateProducts_LotRows?indexProduct=' + ProductData.record.index,
+                                            deleteAction: '/ExportRequest/Ex_Products/DeleteProducts_LotRows?indexProduct=' + ProductData.record.index,
+                                        },
+                                        fields: {
+                                            LotIndex: {
+                                                key: true,
+                                                create: false,
+                                                edit: false,
+                                                list: false
+                                            },
+                                            Lot_Number: {
+                                                title: 'نوع الشهادة',
+                                                inputClass: 'validate[required]',
+                                            },
+                                            Package_Type_ID: {
+                                                title: 'رقم الشهادة',
+                                                inputClass: 'validate[required]'
+                                            },
+                                            Package_Material_ID: {
+                                                title: 'الدولة',
+                                                inputClass: 'validate[required]'
+                                            },
+                                            Package_Count: {
+                                                title: 'تاريخ الأصدار',
+                                                inputClass: 'validate[required]'
+                                            },
+                                            Package_Weight: {
+                                                title: 'وزن العبوة',
+                                            },
+                                        },
+                                        formCreated: function (event, data) {
+                                            $(".jtable-dialog-form").height(220).width(400);
+                                            $('#jtable-create-form ,#jtable-edit-form').addClass('ChildTable');
+
+                                            if (data.formType == "create") {
+                                                $(".ui-dialog-title").text("إضافة بيانات طلب الفحص");
+                                            }
+                                            else {
+                                                $(".ui-dialog-title").text("تعديل بيانات طلب الفحص");
+                                            }
+
+                                        },
+                                        formSubmitting: function (event, data) {
+                                            return data.form.validationEngine('validate');
+                                        },
+                                        formClosed: function (event, data) {
+                                            data.form.validationEngine('hide');
+                                            data.form.validationEngine('detach');
+                                            $(".ui-dialog-title").text("حذف طلب الفحص");
+                                        },
+                                        recordAdded: function (event, data) {
+                                            alertify.success("تمت إضافة طلب الفحص.");
+                                        },
+                                    },
+                                    function (data) { //opened handler
+                                        data.childTable.jtable('load');
+                                    }
+                                );
+                            });
+                            return $img;
+                        }
+                    },
+
+
+
+                },
+                formCreated: function (event, data) {
+
+                    if (data.formType == "create") {
+                        $(".ui-dialog-title").text("@PlantQuar.Web.Language.Resource_data1.Add");
+                    }
+                    else {
+                        $(".ui-dialog-title").text("@PlantQuar.Web.Language.Resource_data1.Edit");
+                    }
+
+
+                    $("#Edit-License_Num, #Edit-Country_, #Edit-Release_Date").attr('autocomplete', 'off');
+                    //$("#Edit-License_Num, #Edit-Country_,#Edit-Release_Date").css('margin-right', '45px');
+                    $("#Edit-Release_Date").datepicker();
+
+                },
+                formSubmitting: function (event, data) {
+                    return data.form.validationEngine('validate');
+                },
+                formClosed: function (event, data) {
+                    data.form.validationEngine('hide');
+                    data.form.validationEngine('detach');
+                    $(".ui-dialog-title").text("@PlantQuar.Web.Language.Resource_data1.Delete");
+                },
+                recordAdded: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Insert");
+                },
+                recordUpdated: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Update");
+                },
+                recordDeleted: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Delete");
+                },
+            });
+            $('#PlantHealthLicense').jtable('load');
+
+
+            $('#LoadRecordsButton').click(function (e) {
+                $('#PlantHealthLicense').jtable('load', {
+                    ImPermission_Number: $('#ImPermission_Number').val(),
+                });
+            });
+
+            $(".jtable-toolbar-item-add-record .jtable-toolbar-item-text").text("إضافة شهادة");
+
+            $('.addfiles').on('click', function () { $('#fileupload').click(); return false; });
+        });
+    </script>
+}
+<br />
+<div id="PlantHealthLicense"></div>
+<br />

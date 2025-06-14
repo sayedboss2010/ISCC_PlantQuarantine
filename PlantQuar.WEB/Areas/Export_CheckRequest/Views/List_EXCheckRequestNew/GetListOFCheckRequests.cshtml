@@ -1,0 +1,174 @@
+﻿
+@model List<PlantQuar.DTO.DTO.Export_CheckRequest.EXCheckRequestListDTO>
+@{
+    ViewBag.Title = "GetListOFCheckRequests";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<asp:Label runat="server" Text="zcvzxcv"></asp:Label>
+
+<br />
+@{
+    ViewBag.Title = "طلبات فحص الصادر";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    var model = Model;
+}
+
+
+<link href="~/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
+
+<style>
+    .bootstrap-select .dropdown-menu.inner {
+        margin-right: 0px !important;
+    }
+</style>
+
+
+
+
+
+
+@section Title{
+    <h2 class="ls-top-header">طلبات الفحص الصادر</h2>
+}
+
+@section Path{
+    <li style="position: relative;right: 28px;">فحص</li>
+    <li class="active" style="right: 29px; position: relative;">Ex Check Request List</li>
+}
+
+
+<br />
+
+@if (Model != null)
+{
+    <div id="checkRequest_lst4" class="table-responsive">
+        <table class="table table-bordered col-md-12" id="tblCheckLst">
+            <thead>
+                <tr class="label-primary">
+                    <th>م</th>
+                    <th hidden>منفذ فحص</th>
+                    <th>اسم  فحص</th>
+                    <th hidden>محطة فحص</th>
+                    <th>اسم الجشني</th>
+                    <th hidden>منفذ جشني</th>
+
+                    <th hidden>محطة جشني</th>
+                    <th>رقم طلب الفحص</th>
+                    <th>بيانات الطلب</th>
+                    @*<th>Importer Name</th>
+                        <th>Export Country</th>*@
+                    @*<th>Creation Date</th>*@
+
+                    <th>تشكيل اللجنه</th>
+                    <th>عرض النتائج</th>
+                    <th>طباعة الباركود</th>
+                    <th>بيان الفحص</th>
+                    @*<th>@PlantQuar.WEB.Language.Resource_data1.Print </th>*@
+                </tr>
+            </thead>
+            <tbody>
+                @if (model != null)
+                {
+
+                    var i = 1;
+                    foreach (var item in model.OrderBy(x => x.Ex_CheckRequest_ID))
+                    {
+                        //if (item.ImCheckRequest_Number == "73620231314185493")
+                        //{
+                        <tr>
+                            <td>@i</td>
+                            <td hidden>@item.Outlet_Examination_ID</td>
+                            <td hidden>@item.Station_Examination_ID</td>
+                            <td hidden>@item.Outlet_Genshi_ID</td>
+                            <td hidden>@item.Station_Genshi_ID</td>
+                            <td>
+                                @if (item.Outlet_Examination_Name != null)
+                                {
+                                    <span>منفذ :@item.Outlet_Examination_Name</span>
+                                }
+                                else if (item.Station_Examination_Name != null)
+                                {
+                                    <span>محطة :@item.Station_Examination_Name</span>
+                                }
+                            </td>
+                            <td>
+                                @if (item.Outlet_Genshi_Name != null)
+                                {
+                                    <span>منفذ :@item.Outlet_Genshi_Name</span>
+                                }
+                                else if (item.Station_Genshi_Name != null)
+                                {
+                                    <span>محطة :@item.Station_Genshi_Name</span>
+                                }
+
+                            </td>
+
+                            <td> <a href='/Export_CheckRequest/EX_CheckRequestDetails/Index?ImCheckRequest_Number=@item.ImCheckRequest_Number&Station_Examination_ID=@item.Station_Examination_ID&Outlet_Examination_ID=@item.Outlet_Examination_ID'>@item.ImCheckRequest_Number</a></td>
+                            <td style="width:150px;">
+                                <span>نوع الجهة:   @item.ImporterTypeName</span><br />
+                                <span>اسم الجهة :   @item.ImporterName</span><br />
+                                <span>الدولة  :   @item.ExportCountryName</span><br />
+                                <span>التاريخ :   @item.Creation_Date.ToString("dd/MM/yyyy")</span>
+                            </td>
+
+
+
+
+                            @if (item.IsAccepted == true && @item.IsPaid == null)
+                            {
+                                <td>تمت الموافقة على الطلب ولم يتم الدفع</td>
+                            }
+                            @if (item.IsAccepted == false)
+                            {
+                                <td>تم رفض الطلب</td>
+                            }
+                            else if (@item.IsPaid == true && @item.Closed_Request == 0)
+                            {
+                                <td>
+                                    <span>تم الدفع </span><br />
+                                    <a href='/Committees/Ex_Committee/Index?requestId=@item.Ex_CheckRequest_ID&Outlet_Examination_ID=@item.Outlet_Examination_ID&Station_Examination_ID=@item.Station_Examination_ID&Outlet_Genshi_ID=@item.Outlet_Genshi_ID&Station_Genshi_ID=@item.Station_Genshi_ID'>تشكيل لجنه </a>
+                                </td>
+
+                            }
+                            else if (item.Final_Result_ID == 1)
+                            {
+                                <td>
+                                    <span>تم الدفع </span><br />
+                                    <a href='/Committees/Ex_Committee/Index?requestId=@item.Ex_CheckRequest_ID&Outlet_Examination_ID=@item.Outlet_Examination_ID&Station_Examination_ID=@item.Station_Examination_ID&Outlet_Genshi_ID=@item.Outlet_Genshi_ID&Station_Genshi_ID=@item.Station_Genshi_ID'>تشكيل لجنة جشني </a>
+                                </td>
+                            }
+                            else if (item.IsPaid == false)
+                            {
+                                <td>
+                                    <span>لم يتم الدفع </span><br />
+                                </td>
+                            }
+
+                            else
+                            {
+                                <td style='color: red;font-weight: 700;'>لم يتم اتخاذ اجراء</td>
+                            }
+
+                            <td><a href='/Export_CheckRequest_New/EX_Committee_Final_Result/Index?requestId=@item.Ex_CheckRequest_ID&Outlet_ID=@item.Outlet_ID'>عرض النتائج</a></td>
+                            <td>
+                                @Html.ActionLink("طباعة الباركود ", "Print_Barcode", "EX_Committee_Final_Result", new { area = "Export_CheckRequest_New", Ex_CheckRequest_ID = item.Ex_CheckRequest_ID }, null)
+                            </td>
+
+                            <td><a href='/Export_CheckRequest/EX_CheckRequestCertificate/Index?ExCheckRequest_Number=@item.ImCheckRequest_Number'>بيان طلب الفحص</a></td>
+                        </tr>
+
+                        i++;
+                    }
+                }
+            </tbody>
+        </table>
+
+    </div>
+}
+    <script src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#tblCheckLst').DataTable();
+        });
+    </script>

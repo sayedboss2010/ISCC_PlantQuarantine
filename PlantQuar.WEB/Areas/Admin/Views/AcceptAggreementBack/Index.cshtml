@@ -1,0 +1,180 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<style>
+    .bootstrap-select .dropdown-menu.inner {
+        margin-right: 0px !important;
+    }
+</style>
+<link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
+
+
+@section Title
+        {
+    <h2 class="ls-top-header">إرجاع الموافقة على الطلب</h2>
+
+}
+
+
+
+<div class="row">
+    <div class="col-md-5">
+        <label class="col-md-4">  نوع الطلب </label>
+
+        <select "col-md-4 form-control" data-val="true" data-val-number="The field Center_Id must be a number." data-val-required="The Center_Id field is required." id="request_type" name="request_type" autocomplete="off">
+            <option value="0">----------</option>
+            <option value="80">صادر</option>
+            <option value="81">وارد</option>
+            <option value="79">محطات</option>
+            <option value="31">إذن إستيراد</option>
+            @* <option value="78">مزارع</option>*@
+        </select>
+    </div>
+
+</div>
+<br />
+<div class="row">
+    <div class="col-md-5">
+        <label class="col-md-4">رقم الطلب</label>
+        <input type="text" id="request_number" class="col-md-8 form-control" onchange="myChangeFunction()" />
+    </div>
+
+</div>
+<br />
+<br />
+<div class="row">
+    <div class="col-md-4"><br /></div>
+
+    <div class="col-md-4">
+        <input required type="button" class=" btn btn-primary" id="LoadRecordsButton" value="تغـــــــــيير" style="width: 100%;float: left;right: 0;">
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+
+<hr />
+<br/>
+<br/>
+<div class="row">
+    <div class="col-md-12" id="WeightLotStatusDIV">
+
+        <div id="TableEmpChangeDIV">
+
+            <h4 id="divTitle">موقف تغيير الموافقه في الطلب  </h4>
+            <br />
+            <table id="TableEmpChangeTbl" class="table table-bordered table-striped dataTable" role="grid" style="padding:5px; width:100%">
+
+                <thead>
+                    <tr>
+                        <th>رقم الموظف</th>
+                        <th>اسم الموظف</th>
+                        <th>الموقف </th>
+                        <th>التاريخ</th>
+                        <th>الوقت</th>
+                    </tr>
+                </thead>
+                <tbody id="myTable3">
+                </tbody>
+            </table>
+
+
+
+        </div>
+    </div>
+</div>
+<script>
+    function myChangeFunction() {
+        //alert("The input value has changed. The new value is: ");
+
+        var requestNumber = document.getElementById("request_number").value;
+        var requesttype = document.getElementById("request_type").value;
+        
+        $.ajax({
+            url: '@Url.Action("GetEmployeeGeshniChange", "AcceptAggreementBack")',
+            type: "POST",
+            data: { requestNumber: requestNumber, requesttype: requesttype },
+            success: function (data) {
+                if (data.Result != "Empty") {
+                    for (var i = 0; i < data.Options.length; i++) {
+            var item = data.Options[i];
+           // alert(item);
+            var User_Creation_Date = new Date(item.User_Creation_Date2.match(/\d+/)[0] * 1);
+            //alert(User_Creation_Date)
+            var User_Creation_Date3 = User_Creation_Date.getFullYear() + "/" + (User_Creation_Date.getMonth() + 1) + "/" + User_Creation_Date.getDate();
+            var _time = User_Creation_Date.getHours() + ":" + User_Creation_Date.getMinutes();
+            $("#TableEmpChangeTbl tbody").append("<tr>" +
+
+                "<td>  " + item.Emp_ID2 + "  </td>"
+              +  "<td>  " + item.EmpName2 + "  </td>"
+                + "<td>" + item.Notes2 + "</td>" +
+                "<td>  " + User_Creation_Date3 + "  </td>"
+               + "<td>  " + _time + "  </td>"
+            //.Value.ToString("dd/MM/yyyy")
+               // item.User_Creation_Date2.Date.ToString("yyyy-MM-dd")
+
+                + "</tr>");
+
+        }
+    }
+
+
+
+}
+
+});
+    }
+
+
+
+
+
+
+
+          $('#LoadRecordsButton').click(function (e) {
+
+              var request_number = document.getElementById("request_number").value;
+              var request_type = document.getElementById("request_type").value;
+          //  alert(request_type);
+          if (request_number > 0) {
+
+                $.ajax({
+          url: '@Url.Action("GetRequestAggreement", "AcceptAggreementBack")',
+          type: "POST",
+
+
+                    data: {
+                        RequestNumber: request_number,
+                        Request_type: request_type,
+                    },
+
+
+
+                    success: function (data) {
+                        console.log(data.Result);
+                        if (data.Result != "Empty") {
+
+                           alertify.success("تم تعديل الموافقة للطلب"); //console.log(data);
+                        }
+                        else
+                        {
+                            alertify.error("لا يمكن تعديل موافقه الطلب "); //console.log(data);
+                        }
+
+
+
+      },
+          error: function (xhr, status, error) {
+
+      }
+});
+              }
+              else {
+                  alertify.error("يحب ادخال رقم الطلب ");
+              }
+
+
+      });
+</script>

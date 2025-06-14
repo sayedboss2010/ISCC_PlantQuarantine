@@ -1,0 +1,325 @@
+﻿
+@model PagedList.IPagedList<PlantQuar.DTO.DTO.Employee.Employee_TrackDTO>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+
+}
+
+@if (ViewBag.page == 3)
+{@section Title{
+        <h2 class="ls-top-header"> حذف اللجان</h2>
+}
+
+}
+else
+{
+@section Title
+        {
+    <h2 class="ls-top-header">مأموريات الموظفين</h2>
+
+}
+}
+
+<label class="col-md-4" hidden id="page_No">@ViewBag.page</label>
+<style>
+    .bootstrap-select .dropdown-menu.inner {
+        margin-right: 0px !important;
+    }
+</style>
+<link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
+
+<script src="~/scripts/jquery.dataTables.min.js"></script>
+<link href="~/assets/css/jquery.dataTables.min.css" rel="stylesheet" />
+<style>
+    td, th {
+        padding: 5px;
+        border: 1px solid;
+        text-align: center !important;
+        font-size: 16px
+    }
+</style>
+@*<table>
+        <tr>
+            <td>
+                <label class="col-md-4">نوع المنفذ</label>
+                <select id="OperationTypeDropDown" name="OperationTypeDropDown" class="form-control col-md-8">
+                    <option value="0">أختر</option>
+                    <option value="96">الوارد</option>
+                </select>
+            </td>
+            <td>
+                <label class="col-md-4">اسم المنفذ</label>
+                @Html.DropDownList("CustomerDropDown", new SelectList(ViewBag.ddd, "Value", "DisplayText"), new { @class = "form-control col-md-8" })
+
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label class="col-md-4 control-label" for="CommitteeDropDown" class="control-label">نوع اللجنة</label>
+                <select class="col-md-8 form-control" id="CommitteeDropDown" class="form-control"></select>
+
+            </td>
+            <td>
+                <label class="col-md-4 control-label" for="EmployeeName">اسم الموظف</label>
+                <select class="col-md-8 form-control" id="EmployeeLst"></select>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="col-md-6">
+                    <label class="col-md-4">من</label>
+                    <input type="date" id="Date_From" class="form-control col-md-8" name="date" value="@ViewBag.DateFrom.Date.ToString("yyyy-MM-dd")" placeholder="DD/MM/YYY" type="date" "        />
+                </div>
+
+            </td>
+            <td>
+                <div class="col-md-6">
+                    <label class="col-md-4">الى</label>
+                    <input type="date" id="Date_To" class="col-md-8 form-control" placeholder="DD/MM/YYY" value="@ViewBag.DateTo.Date.ToString("yyyy-MM-dd")" />
+                </div>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="col-md-6">
+                    <label class="col-md-4">اسم الشركة</label>
+                    @Html.DropDownList("CompanyDropDown", new SelectList(ViewBag.lst_Company_Name, "Value", "DisplayText"), new { @class = "form-control col-md-8" })
+
+                </div>
+
+            </td>
+            @ViewBag.page
+            @if (ViewBag.page == 2)
+            {
+                <td>
+                    <div class="col-md-6">
+                        <label class="col-md-4">رقم الطلب</label>
+                        <input type="text" id="request_number" class="col-md-8 form-control" />
+                    </div>
+                </td>
+            }
+
+        </tr>
+
+    </table>*@
+
+
+
+
+
+<div class="row">
+    <div class="col-md-6">
+        <label class="col-md-4">نوع المنفذ</label>
+        <select id="OperationTypeDropDown" name="OperationTypeDropDown" class="form-control col-md-8">
+            <option value="0">أختر</option>
+            <option value="96">الوارد</option>
+            <option value="93">الصادر</option>
+        </select>
+    </div>
+    <div class="col-md-6">
+        <label class="col-md-4">اسم المنفذ</label>
+        @Html.DropDownList("CustomerDropDown", new SelectList(ViewBag.ddd, "Value", "DisplayText"), new { @class = "form-control col-md-8" })
+
+    </div>
+
+
+</div>
+<br />
+<div class="row">
+    <div class="col-md-6">
+        <label class="col-md-4 control-label" for="CommitteeDropDown" class="control-label">نوع اللجنة</label>
+        <select class="col-md-8 form-control" id="CommitteeDropDown" class="form-control"></select>
+    </div>
+    <div class="col-md-6">
+
+        <label class="col-md-4 control-label" for="EmployeeName">اسم الموظف</label>
+        <select class="col-md-8 form-control EmployeeLst" id="EmployeeLst"></select>
+    </div>
+</div>
+
+
+<br />
+
+<div class="row">
+    <div class="col-md-6">
+        <label class="col-md-4">من</label>
+        <input type="date" id="Date_From" class="form-control col-md-8" name="date" value="@ViewBag.DateFrom.Date.ToString("yyyy-MM-dd")" placeholder="DD/MM/YYY" type="date" "              />
+    </div>
+    <div class="col-md-6">
+        <label class="col-md-4">الى</label>
+        <input type="date" id="Date_To" class="col-md-8 form-control" placeholder="DD/MM/YYY" value="@ViewBag.DateTo.Date.ToString("yyyy-MM-dd")" />
+    </div>
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-6">
+        <label class="col-md-4">اسم الشركة</label>
+        @Html.DropDownList("CompanyDropDown", new SelectList(ViewBag.lst_Company_Name, "Value", "DisplayText"), new { @class = "form-control col-md-8",@id= "CompanyDropDown" })
+
+    </div>
+</div>
+<br />
+
+@*<div class="col-md-6">
+        <label class="col-md-4">نوع اللجنة</label>
+        @Html.DropDownList("CommitteeDropDown", new SelectList(ViewBag.lst_Committee, "Value", "DisplayText"), new { @class = "form-control col-md-8" })
+
+    </div>*@
+
+
+
+<div class="col-md-6">
+    <label class="col-md-4">رقم الطلب</label>
+    <input type="text" id="request_number" class="col-md-8 form-control" />
+</div>
+
+
+
+
+
+
+<br />
+
+<div class="row">
+    <div class="col-md-10"></div>
+
+    <div class="col-md-2">
+        <input required type="button" class=" btn btn-primary" id="LoadRecordsButton" value="@PlantQuar.WEB.Language.Resource_data1.Search" style="width: 100%;float: left;right: 0;">
+    </div>
+</div>
+
+
+<br />
+<div id="Div_Table"></div>
+@*@Html.Partial("~/Areas/Employee/Views/Employee_Track/UsersOutlet.cshtml", new ViewDataDictionary { { "id", "noIsKnown" } })*@
+
+
+@section scripts{
+    <script src="~/assets/js/bootstrap-select1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#EmployeeLst").selectpicker({
+                liveSearch: true
+            });
+            $("#CompanyDropDown").selectpicker({
+                liveSearch: true
+            });
+            
+            App.init();
+            $('#CompanyDropDown').selectpicker('refresh');
+        });
+        $('#LoadRecordsButton').click(function (e) {
+            //string x;
+            //if (item.ISAdmin == 1) { x = "أدمن" } else { x ="مساعد" }
+            $("#Farm_Constrain_TextTable tbody").empty();
+
+            OperationTypeDropDown
+
+            var OperationTypeDropDown = document.getElementById("OperationTypeDropDown").value;
+            var Outlet_ID = document.getElementById("CustomerDropDown").value;
+            var Operation_Type = document.getElementById("OperationTypeDropDown").value;
+            var Emp_ID = document.getElementById("EmployeeLst").value;
+            var Company_ID = document.getElementById("CompanyDropDown").value;
+            var Committee_TypeId = document.getElementById("CommitteeDropDown").value;
+            var _page_No = @ViewBag.page;
+            var request_number = document.getElementById("request_number").value;
+
+            var Check_Page = true;
+            if ((_page_No == 2 || _page_No == 3) && request_number == "") {
+                Check_Page = false;
+            }
+
+
+            if (Operation_Type == "") { Operation_Type = 0 }
+            if (Emp_ID == "") { Emp_ID = 0 }
+            if (Company_ID == "") { Company_ID = 0 }
+            if (Committee_TypeId == "") { Committee_TypeId = 0 }
+
+            var Date_From = document.getElementById("Date_From").value;
+            var date_To = document.getElementById("Date_To").value;
+
+            if (OperationTypeDropDown > 0) {
+                if (Outlet_ID > 0) {
+                    if (Check_Page == true) {
+                        window.open('/Employee/UsersOutlet/Index?outletId=' + Outlet_ID + '&Operation_Type=' + Operation_Type
+                            + '&Start_Date=' + Date_From + '&End_Date=' + date_To + '' + '&Emp_ID=' + Emp_ID
+                            + '' + '&Company_ID=' + Company_ID + '' + '&Committee_TypeId=' + Committee_TypeId + '&PageNo=' + _page_No + '&request_number=' + request_number + '', "_target");
+                    }
+                    else {
+                        alertify.error("يجب ادخال رقم الطلب");
+                    }
+                }
+                else {
+                    alertify.error("يحب اخيار اسم منفذ على الاقل");
+                }
+
+            }
+            else {
+                alertify.error("يجب اختيار نوع المنفذ");
+            }
+        });
+                  function printtab(mm) {
+                                          var restorepage2 = document.body.innerHTML;
+                                          var printcontent2 = $('#' + mm).html();
+                                          document.body.innerHTML = printcontent2;
+                                          var css = `table{border-collapse: collapse;}#Farm_Constrain_TextTable thead tr th{border: 1px solid black!important;padding: 5px;} #Farm_Constrain_TextTable tbody tr td{border: 1px solid black!important;padding: 5px;}@@page{margin:.5cm .5cm .5cm .5cm!important;}.col-md-4 {width: 33.33333333%;}.col-md-8 {width: 66.66666667%;}.col-md-6 {width: 50%;}.col-md-7 {width: 58.33333333%;}.col-md-5 {width: 41.66666667%;}.col-md-3 {width: 25%;}`,
+                    head = document.head || document.getElementsByTagName('head')[0],
+                    style = document.createElement('style');
+                                      style.type = 'text/css';
+                                      style.media = 'print';
+
+                                      if (style.styleSheet) {
+                                          style.styleSheet.cssText = css;
+                                      }
+                                      else {
+                                          style.appendChild(document.createTextNode(css));
+                                      }
+                                      head.appendChild(style);
+                                      window.print();
+                                      history.go(0);
+                                      document.body.innerHTML = restorepage2;
+        }
+        $('#CustomerDropDown').on("change", function () {
+            var Outlet_ID = document.getElementById("CustomerDropDown").value;
+        $.ajax(
+            {
+                url: '@Url.Action("EmployeeList_ByOutlet", "Employee_Track", new { area = "Employee" })',
+                data: {
+                    Outlet_ID: Outlet_ID
+                },
+                success: function (data) {
+                    $('#EmployeeLst').empty();
+                    $.each(data.Options, function (i, index) {
+                        $('#EmployeeLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                    }); //each
+                    $('#EmployeeLst').selectpicker('refresh');
+                } //success
+            });//ajax
+        });
+
+
+
+        $('#OperationTypeDropDown').on("change", function () {
+            var Operation_Id = document.getElementById("OperationTypeDropDown").value;
+        $.ajax(
+            {
+                url: '@Url.Action("CommitteeTypeList_ByOperation", "Employee_Track", new { area = "Employee" })',
+                data: {
+                    Operation_Id: Operation_Id
+                },
+                success: function (data) {
+                    $('#CommitteeDropDown').empty();
+                    $.each(data.Options, function (i, index) {
+                        $('#CommitteeDropDown').append($('<option />').val(index.Value).text(index.DisplayText));
+                    }); //each
+                } //success
+            });//ajax
+    });
+    </script>
+
+}

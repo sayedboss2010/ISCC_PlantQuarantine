@@ -1,0 +1,234 @@
+﻿@model PlantQuar.DTO.DTO.Custome_ExCheckRequest
+
+<h3>الجهة المصدرة</h3>
+<div id="div_Exporter" class="form-box">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <label class="control-label">نوع الجهة المصدرة</label>
+                @Html.DropDownListFor(m => m.exporterTypeId, ViewBag.exporterType_List as SelectList, new { @class = "form-control", @id = "exporterType_List", @Name = "exporterType_List" })
+            </div>
+        </div>
+    </div>
+    <br />
+    <div id="div_ExportCompany">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <label class="control-label">الشركة المصدرة</label>
+                    @Html.DropDownListFor(m => m.exportCompanyId, ViewBag.company_List as SelectList, new { @class = "form-control input-sm", @id = "company_List", @Name = "company_List" })
+                </div>
+                <div class="col-md-8">
+                    <label class="control-label">عنوان الشركة</label>
+                    @Html.TextBox("lblCompanyAddress", "", new { @class = "form-control input-sm", @readonly = "true", @id = "lblCompanyAddress" })
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <label class="control-label">صاحب الرسالة</label>
+                    @Html.TextBoxFor(m => m.ownerName_company, new { @class = "form-control input-sm", @id = "txtOwner_Company", @Name = "txtOwner_Company" })
+                </div>
+                <div class="col-md-8">
+                    <label class="control-label">عنوان صاحب الرسالة</label>
+                    @Html.TextBoxFor(m => m.ownerAddress_company, new { @class = "form-control input-sm", @id = "txtOwnerAddress_Company", @Name = "txtOwnerAddress_Company" })
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <label class="control-label">مندوب صاحب الرسالة</label>
+                    @Html.TextBoxFor(m => m.delegateName_company, new { @class = "form-control input-sm", @id = "txtOwnerdelegate_Company", @Name = "txtOwnerdelegate_Company" })
+                </div>
+                <div class="col-md-8">
+                    <label class="control-label">عنوان مندوب صاحب الرسالة</label>
+                    @Html.TextBoxFor(m => m.delegateAddress_company, new { @class = "form-control input-sm", @id = "txtOwnerdelegateAddress_Company", @Name = "txtOwnerdelegateAddress_Company" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="div_publicOrg" hidden>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <label class="control-label">الهيئة العامة</label>
+                    @Html.DropDownListFor(m => m.exportPublicOrgId, ViewBag.publicOrg_List as SelectList, new { @class = "form-control", @id = "publicOrg_List", @Name = "publicOrg_List" })
+                </div>
+                <div class="col-md-8">
+                    <label class="control-label">عنوان الهيئة</label>
+                    @Html.TextBox("lblPublic_OrgAddress", "", new { @class = "form-control input-sm", @readonly = "true", @id = "lblPublic_OrgAddress" })
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <label class="control-label">صاحب الرسالة</label>
+                    @Html.TextBoxFor(m => m.ownerName_publicOrg, new { @class = "form-control input-sm", @id = "txtOwner_PublicOrg", @Name = "txtOwner_PublicOrg" })
+                </div>
+                <div class="col-md-8">
+                    <label class="control-label">عنوان صاحب الرسالة</label>
+                    @Html.TextBoxFor(m => m.ownerAddress_publicOrg, new { @class = "form-control input-sm", @id = "txtOwnerAddress_PublicOrg", @Name = "txtOwnerAddress_PublicOrg" })
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <label class="control-label">مندوب صاحب الرسالة</label>
+                    @Html.TextBoxFor(m => m.delegateName_publicOrg, new { @class = "form-control input-sm", @id = "txtOwnerdelegate_PublicOrg", @Name = "txtOwnerdelegate_PublicOrg" })
+                </div>
+                <div class="col-md-8">
+                    <label class="control-label">عنوان مندوب صاحب الرسالة</label>
+                    @Html.TextBoxFor(m => m.delegateAddress_publicOrg, new { @class = "form-control input-sm", @id = "txtOwnerdelegateAddress_PublicOrg", @Name = "txtOwnerdelegateAddress_PublicOrg" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="div_Person" hidden>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <label class="control-label">اسم الشخص المصدر</label>
+                    @Html.TextBoxFor(m => m.personName, new { @class = "form-control input-sm", @id = "txtPersonName", @Name = "txtPersonName" })
+                </div>
+                <div class="col-md-8">
+                    <label class="control-label">العنوان</label>
+                    @Html.TextBoxFor(m => m.personAddress, new { @class = "form-control input-sm", @id = "txtPersonAddress", @Name = "txtPersonAddress" })
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <label class="control-label">الجنسية</label>
+                    @Html.DropDownListFor(m => m.personNationality, ViewBag.country_List as SelectList, new { @class = "form-control", @id = "lst_PersonNationality", @Name = "lst_PersonNationality" })
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label">نوع الهوية</label>
+                    @Html.DropDownListFor(m => m.personIdType, ViewBag.personIdType_List as SelectList, new { @class = "form-control", @id = "personIdType_List", @Name = "personIdType_List" })
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label">رقم الهوية</label>
+                    @Html.TextBoxFor(m => m.personIDNum, new { @class = "form-control input-sm", @type = "number", @id = "txtPersonIdNumber", @Name = "txtPersonIdNumber" })
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <label class="control-label">الوظيفة</label>
+                    @Html.TextBoxFor(m => m.personJob, new { @class = "form-control input-sm", @id = "txtJob", @Name = "txtJob" })
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label">رقم التليفون</label>
+                    @Html.TextBoxFor(m => m.personPhone, new { @class = "form-control input-sm", @type = "number", @id = "txtPhoneNumber", @Name = "txtPhoneNumber" })
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label">البريد الإلكتروني</label>
+                    @Html.TextBoxFor(m => m.personMail, new { @class = "form-control input-sm", @id = "txtEmailAddress", @Name = "txtEmailAddress" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    //****************************//
+    $("#exporterType_List").change(function () {
+        var selectedValue = $("#exporterType_List").val();
+        if (selectedValue == 6) {//company
+            $("#div_publicOrg").hide();
+            $("#div_Person").hide();
+            $("#div_ExportCompany").show();
+
+            //add validations
+            $("#company_List").prop('required', true);
+            $("#txtOwner_Company").prop('required', true);
+            $("#txtOwnerAddress_Company").prop('required', true);
+            $("#txtOwnerdelegate_Company").prop('required', true);
+            $("#txtOwnerdelegateAddress_Company").prop('required', true);
+
+            //remove validation
+            $("#publicOrg_List").prop('required', false);
+            $("#txtOwner_PublicOrg").prop('required', false);
+            $("#txtOwnerAddress_PublicOrg").prop('required', false);
+            $("#txtOwnerdelegate_PublicOrg").prop('required', false);
+            $("#txtOwnerdelegateAddress_PublicOrg").prop('required', false);
+
+            $("#txtPersonName").prop('required', false);
+            $("#txtPersonAddress").prop('required', false);
+            $("#lst_PersonNationality").prop('required', false);
+            $("#personIdType_List").prop('required', false);
+            $("#txtPersonIdNumber").prop('required', false);
+            $("#txtJob").prop('required', false);
+            $("#txtPhoneNumber").prop('required', false);
+            $("#txtEmailAddress").prop('required', false);
+
+        } else if (selectedValue == 7) {//public org
+            $("#div_ExportCompany").hide();
+            $("#div_Person").hide();
+            $("#div_publicOrg").show();
+
+            //add validations
+            $("#publicOrg_List").prop('required', true);
+            $("#txtOwner_PublicOrg").prop('required', true);
+            $("#txtOwnerAddress_PublicOrg").prop('required', true);
+            $("#txtOwnerdelegate_PublicOrg").prop('required', true);
+            $("#txtOwnerdelegateAddress_PublicOrg").prop('required', true);
+
+            //remove validation
+            $("#company_List").prop('required', false);
+            $("#txtOwner_Company").prop('required', false);
+            $("#txtOwnerAddress_Company").prop('required', false);
+            $("#txtOwnerdelegate_Company").prop('required', false);
+            $("#txtOwnerdelegateAddress_Company").prop('required', false);
+
+            $("#txtPersonName").prop('required', false);
+            $("#txtPersonAddress").prop('required', false);
+            $("#lst_PersonNationality").prop('required', false);
+            $("#personIdType_List").prop('required', false);
+            $("#txtPersonIdNumber").prop('required', false);
+            $("#txtJob").prop('required', false);
+            $("#txtPhoneNumber").prop('required', false);
+            $("#txtEmailAddress").prop('required', false);
+
+        } else if (selectedValue == 8) {//person
+            $("#div_ExportCompany").hide();
+            $("#div_publicOrg").hide();
+            $("#div_Person").show();
+
+            //add validations
+            $("#txtPersonName").prop('required', true);
+            $("#txtPersonAddress").prop('required', true);
+            $("#lst_PersonNationality").prop('required', true);
+            $("#personIdType_List").prop('required', true);
+            $("#txtPersonIdNumber").prop('required', true);
+            $("#txtJob").prop('required', true);
+            $("#txtPhoneNumber").prop('required', true);
+            $("#txtEmailAddress").prop('required', true);
+
+            //remove validation
+            $("#company_List").prop('required', false);
+            $("#txtOwner_Company").prop('required', false);
+            $("#txtOwnerAddress_Company").prop('required', false);
+            $("#txtOwnerdelegate_Company").prop('required', false);
+            $("#txtOwnerdelegateAddress_Company").prop('required', false);
+
+            $("#publicOrg_List").prop('required', false);
+            $("#txtOwner_PublicOrg").prop('required', false);
+            $("#txtOwnerAddress_PublicOrg").prop('required', false);
+            $("#txtOwnerdelegate_PublicOrg").prop('required', false);
+            $("#txtOwnerdelegateAddress_PublicOrg").prop('required', false);
+        }
+    });//change
+        //****************************//
+</script>

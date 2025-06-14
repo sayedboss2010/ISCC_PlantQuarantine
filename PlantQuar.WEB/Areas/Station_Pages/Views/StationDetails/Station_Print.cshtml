@@ -1,0 +1,1070 @@
+﻿@model List<PlantQuar.DTO.DTO.Station_Pages.Station_Get_EN_Print_DTO>
+@{
+    ViewBag.Title = "Stration_Print";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<style>
+
+    #PrintResultButton, #PrintResultButton2 {
+        background-color: #1e7c80 !important;
+        border: 2px solid #1e8084 !important;
+        box-shadow: 0 4px #1d9fa5 !important;
+        outline: none;
+        color: white;
+        margin-bottom: 10px;
+        width: 50%;
+    }
+
+    .lab-1 {
+        margin-top: 30px;
+        margin-right: 8px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .lab-2 {
+        margin-top: 45px;
+        margin-right: 8px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    img.img1 {
+        margin-top: 19px;
+    }
+</style>
+<script src="~/scripts/jquery.qrcode.js"></script>
+<script src="~/scripts/qrcode.js"></script>
+
+
+<div id="tblCheckLst">
+    <div style="width:21cm;height:29.7cm;background:gray;margin:auto;padding-top:.6cm">
+        <div id="border" style="font-size:12px;width:20cm;background:white;margin:auto;border:1px solid #000;font-family: 'Arial regular'!important;font-size:10pt;">
+            <div id="header" style="height:4.5cm;">
+                <div class="" style="margin:auto;height:inherit;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <div class="col-md-4" style="display:inline-block;float:right;padding: 3px;height: inherit;">
+                            <img class="img1" style="" src="~/assets/images/capq/logo-capq-114.png" />
+                        </div>
+                        <div class="col-md-8 " style="display:inline-block;height: inherit;">
+                            <p class="lab-2" style="font-weight:bold">
+                                جمهورية مصر العربية<br />
+                                وزارة الزراعة واستصلاح الأراضي<br />
+                                الإدارة المركزية للحجر الزراعي
+
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <div class="col-md-7" style="text-align: left;display:inline-block; float: right; height: inherit;"><label style="margin-top: 10px;font-size: 20px;">اعتماد محطة</label><label>
+                                       @Model.FirstOrDefault().StationCode
+                                       </label></div>
+                        <div class="col-md-5 " style="display:inline-block;height:inherit;">
+                            @*<label style="width: 100px; height: 100px; margin-bottom: 0px; float: left; " class="qrcodeimport"></label>*@
+                            <div class="col-md-6 col-sm-6" style="display:inline-block;height:inherit;padding: 35px 10px;">
+                            <label style="width: 100px; height: 100px; margin-bottom: 0px; float: left; " class="qrcodeimport"></label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="content" style="height:19.2cm;">
+                @{
+
+                    var dis_Station_Accreditation_Data = Model.GroupBy(d =>
+                        new
+                        {
+                            StationId = d.StationId,
+                            StationCode = d.StationCode,
+                            requestId = d.requestId,
+                            Accreditation_Type_ID = d.Accreditation_Type_ID,
+                            Station_Accreditation_Data_Name_AR = d.Station_Accreditation_Data_Name_AR,
+                            Station_Accreditation_Data_Name_EN = d.Station_Accreditation_Data_Name_EN,
+                            StationActivityType_Name_AR = d.StationActivityType_Name_AR,
+                            StationActivityType_Name_EN = d.StationActivityType_Name_En,
+                            Station_Request_Type_Name = d.Station_Request_Type_Name,
+                            Start_Date = d.Start_Date,
+                            End_Date = d.End_Date,
+                            IsAccepted_Request = d.IsAccepted_Request,
+                            IsActive_Request = d.IsActive_Request,
+                            Is_Final_requst = d.Is_Final_requst,
+                            Station_Accreditation_Data_ID = d.Station_Accreditation_Data_ID,
+
+
+                        }).Select(a => new
+                        {
+
+                            StationId = a.Key.StationId,
+                            StationCode = a.Key.StationCode,
+                            requestId = a.Key.requestId,
+                            Accreditation_Type_ID = a.Key.Accreditation_Type_ID,
+                            Station_Accreditation_Data_Name_AR = a.Key.Station_Accreditation_Data_Name_AR,
+                            Station_Accreditation_Data_Name_EN = a.Key.Station_Accreditation_Data_Name_EN,
+                            StationActivityType_Name_AR = a.Key.StationActivityType_Name_AR,
+                            StationActivityType_Name_EN = a.Key.StationActivityType_Name_EN,
+                            Station_Request_Type_Name = a.Key.Station_Request_Type_Name,
+                            Start_Date = a.Key.Start_Date,
+                            End_Date = a.Key.End_Date,
+                            IsAccepted_Request = a.Key.IsAccepted_Request,
+                            IsActive_Request = a.Key.IsActive_Request,
+                            Is_Final_requst = a.Key.Is_Final_requst,
+                            Station_Accreditation_Data_ID = a.Key.Station_Accreditation_Data_ID,
+
+                        });
+                    var _Station_Accreditation_Data_ID = dis_Station_Accreditation_Data.Select(a => a.Station_Accreditation_Data_ID).FirstOrDefault();
+                    var _StationCode = dis_Station_Accreditation_Data.Select(a => a.StationCode).FirstOrDefault();
+
+                    <input type="hidden" id="hdnSession" value="@_Station_Accreditation_Data_ID _@_StationCode" />
+
+                }
+
+
+
+
+
+
+                <div class="" style="text-align:center; margin:auto;height:1.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 100%; height: inherit; padding: 3px">
+                        <span>
+                            تعتمد المحطة طبقا لجميع القواعد التى قررها قانون الزراعة رقم 53 لسنة 1966
+                            والقرار الوزارى رقم 562 لسنة 2019
+                            ومعايير الصحة النباتية وبالإشتراطات التالية لصالح :
+                        </span>
+                    </div>
+
+
+                </div>
+
+
+
+
+                <div class="" style="margin: auto; height: 1.6cm; border-bottom: 1px solid #000; display: flex;">
+                    <div class="" style=" width: 100%; height: inherit;padding: 3px">
+                        <label style="  ">اسم المالك :</label>
+                        @if (@Model.FirstOrDefault().ImporterName_AR != null)
+                        {
+                            @Model.FirstOrDefault().ImporterName_AR
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+
+                    </div>
+                </div>
+
+
+
+                <div class="" style="margin: auto; height: 1.6cm; border-bottom: 1px solid #000; display: flex;">
+                    <div class="" style=" width: 100%; height: inherit;padding: 3px">
+                        <label style="  ">عنوان المالك :</label>
+                        @if (@Model.FirstOrDefault().Importer_Adrres_AR != null)
+                        {
+                            @Model.FirstOrDefault().Importer_Adrres_AR
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+
+                    </div>
+                </div>
+
+
+
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">سجل تجاري:</label>
+
+                        @if (@Model.FirstOrDefault().Importer_CommertialRecord != null)
+                        {
+                            @Model.FirstOrDefault().Importer_CommertialRecord
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">الرقم الضريبي:</label>
+                        @if (@Model.FirstOrDefault().Importer_TaxesRecord != null)
+                        {
+                            @Model.FirstOrDefault().Importer_TaxesRecord
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+
+                    </div>
+                </div>
+
+
+
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">تليفون:</label>
+                        @if (@Model.FirstOrDefault().Importer_Phone != null)
+                        {
+                            @Model.FirstOrDefault().Importer_Phone
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+
+
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">بريد الكتروني:</label>
+                        @if (@Model.FirstOrDefault().Importer_Email != null)
+                        {
+                            @Model.FirstOrDefault().Importer_Email
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+
+                    </div>
+                </div>
+
+
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 100%; height: inherit;padding: 3px">
+                        <label style="  ">اسم المحطة :</label>
+                        @if (@Model.FirstOrDefault().StationName_AR != null)
+                        {
+                            @Model.FirstOrDefault().StationName_AR
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+
+                    </div>
+                </div>
+
+
+
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%;height: inherit;padding: 3px">
+                        <label style="  ">سجل تجاري:</label>
+                        @if (@Model.FirstOrDefault().CommertialRecord != null)
+                        {
+                            @Model.FirstOrDefault().CommertialRecord
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">الرقم الضريبي :</label>
+                        @if (@Model.FirstOrDefault().TaxesRecord != null)
+                        {
+                            @Model.FirstOrDefault().TaxesRecord
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+
+                    </div>
+                </div>
+
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 100%; height: inherit;padding: 3px">
+                        <label style="  ">عنوان المحطة :</label>
+                        @if (@Model.FirstOrDefault().Address_Ar != null)
+                        {
+                            @Model.FirstOrDefault().Address_Ar
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+
+                    </div>
+                </div>
+
+
+                <div class="" style="margin: auto; height: 1.6cm; border-bottom: 1px solid #000; display: flex;">
+                    <div class="" style=" width: 100%; height: inherit;padding: 3px">
+                        <label style="  ">GPS :</label>
+
+                        @if (@Model.FirstOrDefault().GPS != null)
+                        {
+                            @Model.FirstOrDefault().GPS
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+
+
+                    </div>
+                    <div class="" style=" width: 100%; height: inherit;padding: 3px">
+                        <label style="  ">محافظة </label>
+                        @if (@Model.FirstOrDefault().governorateName_AR != null)
+                        {
+                            @Model.FirstOrDefault().governorateName_AR
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+
+                    </div>
+                    <div class="" style=" width: 100%; height: inherit;padding: 3px">
+                        <label style="  ">مركز </label>
+                        @if (@Model.FirstOrDefault().centerName_AR != null)
+                        {
+                            @Model.FirstOrDefault().centerName_AR
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+
+                    </div>
+                    <div class="" style=" width: 100%; height: inherit;padding: 3px">
+                        <label style="  ">قرية </label>
+                        @if (@Model.FirstOrDefault().villageName_AR != null)
+                        {
+                            @Model.FirstOrDefault().villageName_AR
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+
+                    </div>
+
+                </div>
+              
+
+
+
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+
+                        <label style="  ">الترخيص الصناعي  :</label>
+                        @if (@Model.FirstOrDefault().Industrial_License_Num != null)
+                        {
+                            @Model.FirstOrDefault().Industrial_License_Num
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">المدير المسؤل:</label>
+                        @if (@Model.FirstOrDefault().Station_Managing_Director_Ar_Name != null)
+                        {
+                            @Model.FirstOrDefault().Station_Managing_Director_Ar_Name
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+                    </div>
+                </div>
+
+
+
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+
+                        <label style="  ">نوع النشاط    :</label>
+                        @if (@Model.FirstOrDefault().StationActivityType_Name_AR != null)
+                        {
+                            @Model.FirstOrDefault().StationActivityType_Name_AR
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">الاعتماد :</label>
+                        @if (@Model.FirstOrDefault().Station_Accreditation_Data_Name_AR != null)
+                        {
+                            @Model.FirstOrDefault().Station_Accreditation_Data_Name_AR
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+                    </div>
+                </div>
+                <div class="" style="text-align:center; margin:auto;height:6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 100%; height: inherit; padding: 3px">
+                        <span style=" word-wrap: break-word;">
+                            <br />
+                            <br />
+                            @Model.FirstOrDefault().DescriptionMore_AR
+                            <br />
+                            <br />
+                        </span>
+                    </div>
+                </div>
+                <div class="" style="text-align:center; margin:auto;height:2.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 100%; height: inherit; padding: 3px">
+                        @{
+                            string date_End = "";
+                            string date_Start = "";
+                            if (Model.FirstOrDefault().End_Date != null)
+                            {
+                                date_End = @Model.FirstOrDefault().End_Date.Value.ToString("dd/MM/yyyy");
+                            }
+                            if (Model.FirstOrDefault().Start_Date != null)
+                            {
+                                date_Start = @Model.FirstOrDefault().Start_Date.Value.ToString("dd/MM/yyyy");
+                            }
+                        }
+                        <span>
+
+
+                            تم اصدار هذا الإعتماد في @date_Start وتسري صلاحية هذا الإعتماد حتى @date_End
+                            <br />
+                            يعد هذا الإعتماد بمثابة اقرار صاحب الشأن الإلتزام بقواعد المنظمة للحجر الزراعي
+                            والالتزام بكافة تعليمات الحجر الزراعي المصري
+                            <br />
+                            يجوز للحجرالزراعي المصري وقف هذا الإعتماد فى حالات المخالفة أو انتهاء الأعمال التى أصدر من أجلها
+
+                        </span>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+
+
+
+            <div id="footer3" style="height: 3cm; border-bottom: 1px solid #000;">
+                <div class="" style="margin:auto;height:inherit;display:flex;">
+                    <div class="" style="width: 33.33333333%; height: inherit;padding: 3px;">
+                        <label style="  ">مكان الإصدار:</label>
+                        @{
+                            try
+                            {
+                                var Outlet_Name = Session["Outlet_Name"].ToString();
+
+                                <span>@Outlet_Name</span>
+
+                            }
+                            catch (Exception ex)
+                            {
+
+
+                            }
+
+                        }
+                        <label style="  "></label>
+                        <span></span>
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                        @{
+                            try
+                            {
+                                var FullName = Session["FullName"].ToString();
+
+                                <label style="  ">اسم المسئول المفوض:</label>
+                                <span>@FullName</span>
+                                <br />
+
+                            }
+                            catch (Exception ex)
+                            {
+
+
+                            }
+
+                        }
+
+
+
+                        <label style="  ">التوقيع:</label>
+                        <span>..............................</span>
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                        <label style="  ">تاريخ الإصدار:</label>
+                        <span>@DateTime.Now.ToString().Split(' ')[0]</span>
+                        <div style="margin: 9px 3px; width: 92px; height: 92px; background-color: white; border: 1px solid black; border-radius: 50%; float: left;">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-width" style="font-family: 'Arial regular' !important; font-size: 10pt; width: 20cm; background-color: white; margin: auto; height: 2cm; display: flex; text-align: center">
+                    <div class="" style=" width: 100%; height: inherit; padding: 3px">
+                        <span>
+                            لا تتحمل الإدارة المركزية للحجر الزراعي أو أي من موظفيها أو ممثليها أي مسئولية مالية قد تنجم عن هذه الشهادة
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-5">
+    </div>
+    <div class="col-md-3">
+        <button id="PrintResultButton" class="btn" value='Print' onclick='printar("tblCheckLst")'> اطبع </button>
+
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+
+<br />
+
+<div id="tblCheckLst2">
+    <div style="width:21cm;height:29.7cm;background:gray;margin:auto;padding-top:.6cm">
+        <div id="border" style="direction:ltr;text-align:left;font-size:12px;width:20cm;background:white;margin:auto;border:1px solid #000;font-family: 'times-new-roman'!important;font-size:10pt">
+            <div id="header" style="height:4.5cm;">
+                <div class="" style="margin:auto;height:inherit;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <div class="col-md-4" style="display:inline-block;float:left;padding: 3px;height: inherit;">
+                            <img class="img1" style="" src="~/assets/images/capq/logo-capq-114.png" />
+                        </div>
+                        <div class="col-md-8 " style="display:inline-block;height: inherit;">
+                            <p class="lab-1" style="font-weight:bold">
+                                Arab Republic of Egypt<br />
+                                Ministry of Agriculture and <br />
+                                Land Reclamation <br />
+                                Central Administration <br />
+                                of Plant Quarantine <br />
+
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <div class="col-md-7" style="display:inline-block;float:left;height: inherit;text-align:right;"><label style="margin-top: 10px;font-size: 20px;">Station Accreditation</label>
+                                                                                                                        <label> @Model.FirstOrDefault().StationCode</label></div>
+                        <div class="col-md-5" style="display:inline-block;height:inherit;">
+                            <label style="width: 100px; height: 100px; margin-bottom: 0px; float: left; " class="qrcodeimport"></label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div id="content" style="height:19.2cm;">
+
+
+                <div class="" style="text-align:center; margin:auto;height:1.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 100%; height: inherit; padding: 3px">
+                        <span>
+                            This station is accredited according to the regulations assigned by the agriculture Law No. 53 of 1966 and Ministerial decree No. 562 of 2019 and the phytosanitary Measurements and the following requirements for:
+                        </span>
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="" style="margin: auto; height: 1.6cm; border-bottom: 1px solid #000; display: flex;">
+                    <div class="" style=" width: 100%; height: inherit;padding: 3px">
+                        <label style="  ">Owner Name :</label>
+                        @if (@Model.FirstOrDefault().ImporterName_EN != null)
+                        {
+                            @Model.FirstOrDefault().ImporterName_EN
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+
+                    </div>
+                </div>
+
+
+
+                <div class="" style="margin: auto; height: 1.6cm; border-bottom: 1px solid #000; display: flex;">
+                    <div class="" style=" width: 100%; height: inherit;padding: 3px">
+                        <label style="  ">Owner Address :</label>
+                        @if (@Model.FirstOrDefault().Importer_Adrres_EN != null)
+                        {
+                            @Model.FirstOrDefault().Importer_Adrres_EN
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+
+                    </div>
+                </div>
+
+
+
+
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  "> Commercial record:</label>
+                        @if (@Model.FirstOrDefault().Importer_CommertialRecord != null)
+                        {
+                            @Model.FirstOrDefault().Importer_CommertialRecord
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">Tax Number:</label>
+                        @if (@Model.FirstOrDefault().Importer_TaxesRecord != null)
+                        {
+                            @Model.FirstOrDefault().Importer_TaxesRecord
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+
+
+                    </div>
+                </div>
+                <div class="" style="margin: auto; height: .6cm; border-bottom: 1px solid #000; display: flex;">
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">Telephone:</label>
+                        @if (@Model.FirstOrDefault().Importer_Phone != null)
+                        {
+                            @Model.FirstOrDefault().Importer_Phone
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  "> Email:</label>
+                        @if (@Model.FirstOrDefault().Importer_Email != null)
+                        {
+                            @Model.FirstOrDefault().Importer_Email
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+                    </div>
+                </div>
+
+
+
+
+                <div class="" style="margin: auto; height: .6cm; border-bottom: 1px solid #000; display: flex;">
+                    <div class="" style=" width: 100%; height: inherit;padding: 3px">
+                        <label style="  ">Packing station Name :</label>
+                        @if (@Model.FirstOrDefault().StationName_En != null)
+                        {
+                            @Model.FirstOrDefault().StationName_En
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%;height: inherit;padding: 3px">
+                        <label style="  ">Commercial record:</label>
+                        @if (@Model.FirstOrDefault().CommertialRecord != null)
+                        {
+                            @Model.FirstOrDefault().StationName_En
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  "> Tax No:</label>
+                        @if (@Model.FirstOrDefault().TaxesRecord != null)
+                        {
+                            @Model.FirstOrDefault().TaxesRecord
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+
+                    </div>
+                </div>
+
+
+
+
+                <div class="" style="margin: auto; height: .6cm; border-bottom: 1px solid #000; display: flex;">
+                    <div class="" style=" width: 100%; height: inherit;padding: 3px">
+                        <label style="  ">Packing station address :</label>
+                        @if (@Model.FirstOrDefault().Address_En != null)
+                        {
+                            @Model.FirstOrDefault().Address_En
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+
+                    </div>
+                </div>
+
+                <div class="" style="margin: auto; height: 1.6cm; border-bottom: 1px solid #000; display: flex;">
+                    <div class="" style=" width: 100%; height: inherit;padding: 3px">
+                        <label style="  ">GPS :</label>
+                        @if (@Model.FirstOrDefault().GPS != null)
+                        {
+                            @Model.FirstOrDefault().GPS
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+
+                    </div>
+                  
+                        <div class="" style=" width: 100%; height: inherit;padding: 3px">
+                            <label style="  ">governorate </label>
+                            @if (@Model.FirstOrDefault().governorateName_EN != null)
+                            {
+                                @Model.FirstOrDefault().governorateName_EN
+                            }
+                            else
+                            {
+                                <span>-----</span>
+                            }
+
+                        </div>
+                        <div class="" style=" width: 100%; height: inherit;padding: 3px">
+                            <label style="  ">center </label>
+                            @if (@Model.FirstOrDefault().centerName_EN != null)
+                            {
+                                @Model.FirstOrDefault().centerName_EN
+                            }
+                            else
+                            {
+                                <span>-----</span>
+                            }
+
+                        </div>
+                        <div class="" style=" width: 100%; height: inherit;padding: 3px">
+                            <label style="  ">village </label>
+                            @if (@Model.FirstOrDefault().villageName_EN != null)
+                            {
+                                @Model.FirstOrDefault().villageName_EN
+                            }
+                            else
+                            {
+                                <span>-----</span>
+                            }
+
+                        </div>
+
+                    
+                </div>
+
+
+               
+
+
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%;height: inherit;padding: 3px">
+                        <label style="  ">Industrial license:</label>
+                        @if (@Model.FirstOrDefault().Industrial_License_Num != null)
+                        {
+                            @Model.FirstOrDefault().Industrial_License_Num
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  "> Managing Director:</label>
+                        @if (@Model.FirstOrDefault().Station_Managing_Director_En_Name != null)
+                        {
+                            @Model.FirstOrDefault().Station_Managing_Director_En_Name
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+
+                    </div>
+                </div>
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%;height: inherit;padding: 3px">
+                        <label style="  "> Activity type:</label>
+                        @if (@Model.FirstOrDefault().StationActivityType_Name_En != null)
+                        {
+                            @Model.FirstOrDefault().StationActivityType_Name_En
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">  Accreditation:</label>
+                        @if (@Model.FirstOrDefault().Station_Accreditation_Data_Name_EN != null)
+                        {
+                            @Model.FirstOrDefault().Station_Accreditation_Data_Name_EN
+                        }
+                        else
+                        {
+                            <span>-----</span>
+                        }
+
+                    </div>
+                </div>
+                <div class="" style="text-align:center; margin:auto;height:6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 100%; height: inherit; padding: 3px">
+                        <span style=" word-wrap: break-word;">
+                            <br />
+                            <br />
+                            @Model.FirstOrDefault().DescriptionMore_EN
+                            <br />
+                            <br />
+                        </span>
+                    </div>
+                </div>
+                <div class="" style="text-align:center; margin:auto;height:2.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 100%; height: inherit; padding: 3px">
+                        @*@{
+                    string date_End = @Model.FirstOrDefault().End_Date.Value.ToString("dd/MM/yyyy");
+                    string date_Start = @Model.FirstOrDefault().Start_Date.Value.ToString("dd/MM/yyyy");
+                }*@
+                        <span>
+                            This accreditation issued on @date_Start and it is valid until @date_End
+                            This accreditation is considered as a declaration from the concerned person to be committed the plant quarantine regulations and commitment for all the plant quarantine instructions.
+                            The Egyptian Plant Quarantine may stop this permit in cases of violation or the end of the works for which it was issued.
+
+                        </span>
+                    </div>
+
+
+                </div>
+
+            </div>
+            <div id="footer3" style="height: 3cm; border-bottom: 1px solid #000;">
+                <div class="" style="margin:auto;height:inherit;display:flex;">
+                    <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                        <label style="  ">place of issue:</label>
+                        @{
+                            try
+                            {
+                                var Outlet_Name_En = Session["Outlet_Name_En"].ToString();
+
+                                <span>@Outlet_Name_En</span>
+
+                            }
+                            catch (Exception ex)
+                            {
+
+
+                            }
+
+                        }
+                        <span></span>
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                        <label style="  ">Name of authorized official:</label>
+                        @{
+                            try
+                            {
+                                //var FullName = Session["FullName_En"].ToString();
+
+
+                                if (Session["FullName_En"] != null)
+                                {
+                                    var FullName_En = Session["FullName_En"].ToString();
+
+                                    <span>@FullName_En</span>
+
+                                }
+                                else
+                                {
+                                    <span>---------------</span>
+                                }
+
+
+
+                            }
+                            catch (Exception ex)
+                            {
+
+
+                            }
+
+                        }
+                        <br />
+                        <label style="  ">signature:</label>
+                        <span>..............................</span>
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                        <label style="  ">Date of issue:</label>
+                        <span>@DateTime.Now.ToString().Split(' ')[0]</span>
+                        <div style="margin: 9px 3px; width: 92px; height: 92px; background-color: white; border: 1px solid black; border-radius: 50%; float: left;">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="" style="font-family: 'times-new-roman' !important; font-size: 9pt; width: 20cm; background-color: white; margin: auto; height: 2cm; display: flex; text-align: center">
+                    <div class="" style=" width: 100%; height: inherit; padding: 3px">
+                        <span>
+                            No financial liability with respect to this certificate shall attach to the Central Administration of Plant Quarantine or to any of its officers or representatives
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-5">
+    </div>
+    <div class="col-md-3">
+        <button id="PrintResultButton" class="btn" value='Print' onclick='printen("tblCheckLst2")'>Print</button>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+
+<script>
+
+    /*noura*/
+
+    var _Station_Accreditation_Data_ID = $("#hdnSession").val();
+   jQuery('.qrcodeimport').qrcode(_Station_Accreditation_Data_ID);
+
+    function printar(k) {
+
+        @*var id = '@Model.Im_PermissionRequest_ID';
+          if ('@Model.CanPrint' =='True'||'@Model.CanPrint' =='False') {
+              $.post('/Im_Permissions/Im_PermissionRequestPrint/PrintArabic',
+                  { Im_PermissionRequest_ID: id}, function (data, succ) {
+                      ExportToPdf();
+                    $("#tableArabic").hide();
+                    $(".btnar").hide();
+
+                    //Window.location = '/Im_Permissions/ListIm_Permission/Index';
+              });
+          }*@
+                var restorepage2 = document.body.innerHTML;
+                var printcontent2 = $('#' + k).html();
+        document.body.innerHTML = printcontent2;
+           jQuery('.qrcodeimport').qrcode(_Station_Accreditation_Data_ID);
+        var css = `@@page{margin: .6cm .5cm .5cm .5cm!important;}.verticalLine{width:1px !important;margin: 0!important;background: #000!important;}.lab-2 {margin-top: 45px;margin-right: 8px;text-align: center;font-size: 16px}img.img1 {margin-top: 19px !important;vertical-align: middle !important;}.col-md-4 {width: 33.33333333%;}.col-md-8 {width: 66.66666667%;}.col-md-6 {width: 50%;}.col-md-7 {width: 58.33333333%;}.col-md-5 {width: 41.66666667%;} canvas{display: inline-block !important;vertical-align: baseline!important;top: 10px;position: absolute;} `,
+
+                    //var css = `.display-none {visibility: hidden!important;} .footer {position:fixed!important;}@@page{margin:10px 15px 10px 15px!important;}td{padding: 5px!important;} #tableArabic{height: 1120px !important;}`,
+                    head = document.head || document.getElementsByTagName('head')[0],
+                    style = document.createElement('style');
+                style.type = 'text/css';
+                style.media = 'print';
+
+                if (style.styleSheet) {
+                    style.styleSheet.cssText = css;
+                }
+                else {
+                    style.appendChild(document.createTextNode(css));
+                }
+                head.appendChild(style);
+                window.print();
+                //history.go(0);
+           window.location.reload();
+        document.body.innerHTML = restorepage2;
+
+
+
+            }
+    function printen(m) {
+        @*var id = '@Model.Im_PermissionRequest_ID';
+
+
+
+        if ('@Model.CanPrint' == 'True' || '@Model.CanPrint' == 'False') {
+
+            $.post('/Im_Permissions/Im_PermissionRequestPrint/PrintEnglish', { Im_PermissionRequest_ID: id }, function (data, succ) {
+                ExportToPdfEn();
+                $("#tableEnglish").hide();
+                $(".btnen").hide();
+
+            });
+
+        }*@
+              var restorepage2 = document.body.innerHTML;
+                var printcontent2 = $('#' + m).html();
+        document.body.innerHTML = printcontent2;
+         jQuery('.qrcodeimport').qrcode(_Station_Accreditation_Data_ID);
+        var css = `@@page{margin: .6cm .5cm .5cm .5cm!important;}.verticalLine{width:1px !important;margin: 0!important;background: #000!important;}.lab-1 {margin-top: 30px;margin-left: 8px;text-align: center;font-size: 16px}img.img1 {margin-top: 19px !important;vertical-align: middle !important;}.col-md-4 {width: 33.33333333%;}.col-md-8 {width: 66.66666667%;}.col-md-6 {width: 50%;}.col-md-7 {width: 58.33333333%;}.col-md-5 {width: 41.66666667%;}canvas{display: inline-block !important;vertical-align: baseline!important;top: 10px;position: absolute;}`,
+                    head = document.head || document.getElementsByTagName('head')[0],
+                    style = document.createElement('style');
+
+
+                style.type = 'text/css';
+                style.media = 'print';
+
+                if (style.styleSheet) {
+                    style.styleSheet.cssText = css;
+                }
+                else {
+                    style.appendChild(document.createTextNode(css));
+                }
+                head.appendChild(style);
+                window.print();
+                //history.go(0);
+           window.location.reload();
+        document.body.innerHTML = restorepage2;
+        @*console.log('@Model.IS_Print_Ar')*@
+  @*if ('@Model.IS_Print_Ar' =='True') {
+      window.location = '/Im_Permissions/ListIm_Permission_Filter/Index';
+        }*@
+    }
+
+   /* end noura*/
+</script>
+

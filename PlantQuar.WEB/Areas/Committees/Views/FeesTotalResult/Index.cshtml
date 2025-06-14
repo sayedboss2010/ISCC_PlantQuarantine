@@ -1,0 +1,617 @@
+﻿
+
+@model PlantQuar.DTO.DTO.Import.IM_Committee.Fees_ALL
+
+
+@*@model List<PlantQuar.DTO.DTO.Import.Permissions.ImRequestDetailsDTO>*@
+@{
+    /**/
+
+    ViewBag.Title = "Committee";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    var x = 0;
+
+}
+
+@section Title{
+    <h2 class="ls-top-header">اجمالي الرسوم</h2>
+}
+@section Path{
+
+    <li class="active" style="right: 43px; position: relative;">Import Committe</li>
+}
+<link href="~/Content/jquery.timepicker.css" rel="stylesheet" />
+<script src="~/scripts/jquery.timepicker.min.js"></script>
+<style>
+    @@media screen and (min-width: 768px) {
+        .modal-dialog {
+            left: 0% !important;
+        }
+    }
+
+    th {
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    td {
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .modal-content {
+        color: #167479;
+    }
+
+    .modal-header {
+        background-color: #167479;
+        color: white;
+    }
+
+    table, table td, table th {
+        border: 1px solid black !important;
+        border-collapse: collapse;
+        word-break: keep-all;
+    }
+
+    .modal-header .close {
+        color: white !important;
+    }
+
+    .modal-header {
+        background-color: #1e7c80;
+        color: white;
+    }
+
+    #saverejectreason {
+        background-color: #1e7c80;
+        border: 2px solid #1e8084;
+        box-shadow: 0 4px #1d9fa5;
+        outline: none;
+        width: 20%;
+        margin: auto;
+        font-size: 22px;
+    }
+
+    .modal-dialog {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 70%;
+    }
+
+    .modal-content {
+        /* position: absolute;
+            top: 50%;*/
+        width: 100%;
+    }
+
+    .form-control {
+        font-size: 13px;
+    }
+
+    th, tr, td {
+        text-align: center;
+    }
+
+    button, html input[type="button"], input[type="reset"], input[type="submit"] {
+        margin-right: 0px;
+    }
+
+    blockquote {
+        margin-bottom: 70px !important;
+    }
+
+    .jtable thead tr {
+        height: 50px;
+    }
+
+    div.jtable-main-container > table.jtable > thead th.jtable-column-header div.jtable-column-header-container {
+        bottom: 12px !important;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, a, td, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+        word-break: keep-all !important;
+    }
+
+    .display-none {
+        display: none
+    }
+
+    .style-but {
+        height: auto !important;
+        color: white;
+        background-color: #1e7c80;
+        border: 2px solid #1e8084;
+        box-shadow: 0 4px #1d9fa5;
+        outline: none;
+        color: white;
+        margin-top: 5px;
+    }
+
+    #btnSave, #btnReject, #btnReject, #PrintResultButton {
+        background-color: #1e7c80 !important;
+        border: 2px solid #1e8084 !important;
+        box-shadow: 0 4px #1d9fa5 !important;
+        outline: none;
+        color: white;
+        margin-bottom: 10px;
+    }
+
+        #btnSave, #btnReject, #btnReject, #PrintResultButton:hover {
+            background-color: #1a8488 !important;
+            border: 1px solid #1a8488 !important;
+        }
+
+    #CommitteeType_ID {
+        height: 3.573rem;
+    }
+
+    div.jtable-main-container > table.jtable > tbody > tr > td {
+        font-size: 20px
+    }
+
+    .table-striped {
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    #ui-datepicker-div {
+        z-index: 24 !important;
+    }
+
+    #Employee_AddEDIT {
+        margin-bottom: 25px;
+    }
+
+    #messagedata, #searchbut {
+        background-color: #1e7c80 !important;
+        border: 2px solid #1e8084 !important;
+        box-shadow: 0 4px #1d9fa5 !important;
+        outline: none;
+        color: white !important;
+        margin-top: 20px;
+        width: 49%;
+    }
+</style>
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+
+        <h3> اجمالي الرسوم </h3>
+        <label class="label-info">رســــوم ثــابتة</label>
+        <br>
+        <table class="table table-bordered" id="tblCheck_FixedFeesLst" style="margin:10px;">
+            <thead>
+                <tr class="label-primary">
+                    <th style="text-align:center;">الرســم</th>
+                    <th style="text-align:center;">القيمـة</th>
+                    <th style="text-align:center;">الدفع</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        رسوم طلب فحص
+                    </td>
+                    <td>
+                        10.00
+                    </td>
+
+                    <td>
+
+                        @if (@Model.Is_Paid_Check != null)
+                        {
+                            @Model.Is_Paid_Check
+                        }
+                        else
+                        {
+                            <span>لم يتم الدفع</span>
+                        }
+                    </td>
+
+
+                </tr>
+            </tbody>
+        </table>
+        <label class="label-info">رســــوم المنتجات</label>
+        <br>
+        <table class="table table-bordered" id="tblCheck_FixedFeesLst" style="margin:10px;">
+            <thead>
+                <tr class="label-primary">
+                    <th style="text-align:center;">أسم المنتج</th>
+                    <th style="text-align:center;">المسمي المختصر</th>
+                    <th style="text-align:center;">الوزن   الأجمالى للوطات ( الطن )</th>
+                    <th style="text-align:center;">القيمـة</th>
+                    <th style="text-align:center;">الدفع</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Fees_Item_ALL != null)
+                {
+                    if (Model.Fees_Item_ALL.Count() > 0)
+                    {
+                        for (int i = 0; i < Model.Fees_Item_ALL.Count; i++)
+                        {
+
+
+                            <tr>
+                                <td>
+                                    @Model.Fees_Item_ALL[i].ItemName
+                                </td>
+                                <td>
+                                    @Model.Fees_Item_ALL[i].ItemShortName
+                                </td>
+                                <td>
+                                    @Model.Fees_Item_ALL[i].GrossWeight
+                                </td>
+                                <td>
+                                    @Model.Fees_Item_ALL[i].Fees
+                                </td>
+                                <td>
+                                    @if (Model.Fees_Item_ALL[i].Is_Paid_Items != null)
+                                    {
+                                        @Model.Fees_Item_ALL[i].Is_Paid_Items
+                                    }
+                                    else
+                                    {
+                                        <span>لم يتم الدفع</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td colspan="3" style="text-align:center;">الاجمالى</td>
+                    <td>@Model.Fees_Item_ALL.Sum(a => a.Fees).Value</td>
+                    <td>
+                        @if (Model.Fees_Item_ALL.Where(a => a.Is_Paid_Items != "لم يتم الدفع").Any() == true)
+                        {
+                            <span>لم يتم الدفع</span>
+
+                        }
+                        else
+                        {
+                            <span>تم الدفع</span>
+                        }
+
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <label class="label-info">رســــوم النوبتجية</label>
+        <br>
+        <table border="1" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="text-align:center;">اسم النوبتجية</th>
+                    <th style="text-align:center;">العدد</th>
+                    <th style="text-align:center;">القمية </th>
+                    <th style="text-align:center;">الاجمالى</th>
+                    <th style="text-align:center;">الدفع</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < @Model.List_Shift.Count(); i++)
+                {
+                    <tr>
+                        <td>
+                            @Model.List_Shift[i].Shift_Name
+                        </td>
+                        <td>
+                            @Model.List_Shift[i].Shift_Count
+                        </td>
+                        <td>
+                            @Model.List_Shift[i].Shift_Amount
+                        </td>
+                        <td>
+                            @Model.List_Shift[i].Shift_Sum_All
+                        </td>
+                        <td>
+
+                            @if (Model.List_Shift != null)
+                            {
+                                if (Model.List_Shift[i].Is_Paid_Shift != null)
+                                {
+                                    @Model.List_Shift[i].Is_Paid_Shift
+                                }
+                                else
+                                {
+                                    <span>لم يتم الدفع</span>
+                                }
+                            }
+
+                        </td>
+
+                    </tr>
+                }
+
+
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td style="text-align:center;">الاجمالى</td>
+                    <td>
+                        @Model.List_Shift.Sum(a => a.Shift_Count)
+                    </td>
+                    <td>
+                        @Model.List_Shift.Sum(a => a.Shift_Amount)
+                    </td>
+                    <td>
+                        @Model.List_Shift.Sum(a => a.Shift_Sum_All)
+                    </td>
+
+                    <td>
+
+
+
+                        @if (Model.List_Shift.Where(a => a.Is_Paid_Shift != "لم يتم الدفع").Any() == true)
+                        {
+                            <span>لم يتم الدفع</span>
+
+                        }
+                        else
+                        {
+                            <span>تم الدفع</span>
+                        }
+                    </td>
+
+
+                </tr>
+            </tfoot>
+        </table>
+
+
+
+        <label class="label-info">رسوم السحب</label>
+        <br>
+        <table border="1" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="text-align:center;">اسم المعمل</th>
+                    <th style="text-align:center;">اسم التحليل</th>
+                    <th style="text-align:center;">نوع الفحص</th>
+
+                    <th style="text-align:center;">العدد </th>
+                    <th style="text-align:center;">القيمة</th>
+                    <th style="text-align:center;">الاجمالى</th>
+                    <th style="text-align:center;">الدفع</th>
+
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < @Model.List_Sample.Count(); i++)
+                {
+                    <tr>
+                        <td>
+                            @Model.List_Sample[i].Laboratory_Name
+                        </td>
+                        <td>
+                            @Model.List_Sample[i].Sample_Name
+                        </td>
+                        <td>
+                            @if (Model.List_Sample[i].Is_Total == "كلي")
+                            {
+                                @Model.List_Sample[i].Is_Total
+                            }
+                            else
+                            {
+                            <span>جزئي</span>
+                            }
+
+                        </td>
+
+                        <td>
+                            @Model.List_Sample[i].Sample_Count
+                        </td>
+                        <td>
+                            @Model.List_Sample[i].Sample_Amount
+                        </td>
+                        <td>
+                           @(@Model.List_Sample[i].Sample_Count*@Model.List_Sample[i].Sample_Amount)                          
+                        </td>
+                        <td>
+                            @if (Model.List_Sample[i].Is_Paid_Sample != null)
+                            {
+                                @Model.List_Sample[i].Is_Paid_Sample
+                            }
+                            else
+                            {
+                                <span>لم يتم الدفع</span>
+                            }
+                        </td>
+
+
+
+                    </tr>
+
+                }
+
+
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" style="text-align:center;">الاجمالى</td>
+                    <td>
+                        @Model.List_Sample.Sum(a => a.Sample_Count)
+
+
+                    </td>
+                    <td>
+                        @Model.List_Sample.Sum(a => a.Sample_Amount)
+                    </td>
+
+                    <td>
+                        @(@Model.List_Sample.Sum(a => a.Sample_Count)*@Model.List_Sample.Sum(a => a.Sample_Amount))
+
+                    </td>
+                    @*<td>
+
+                        @if (Model.List_Sample.Where(a => a.Is_Paid_Sample != "لم يتم الدفع").Any() == true)
+                        {
+                            <span>لم يتم الدفع</span>
+
+                        }
+                        else
+                        {
+                            <span>تم الدفع</span>
+                        }
+
+                    </td>*@
+
+                    <td>
+
+
+
+                        @if (Model.List_Sample.Where(a => a.Is_Paid_Sample != "لم يتم الدفع").Any() == true)
+                        {
+                            <span>لم يتم الدفع</span>
+
+                        }
+                        else
+                        {
+                            <span>تم الدفع</span>
+                        }
+                    </td>
+
+
+
+
+                </tr>
+
+               
+            </tfoot>
+        </table>
+
+        <label class="label-info">رسوم المعالجة</label>
+        <br>
+        <table border="1" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="text-align:center;"> نوع المعالجة</th>
+                    <th style="text-align:center;">طريقة ا لمعالجة</th>
+                    <th style="text-align:center;">مادة المعالجة</th>
+                    <th style="text-align:center;">القيمة</th>
+                    <th style="text-align:center;">الاجمالى</th>
+                    <th style="text-align:center;">الدفع</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < @Model.List_Treatment.Count(); i++)
+                {
+                    <tr>
+                        <td>
+                            @Model.List_Treatment[i].TreatmentType_Name
+                        </td>
+                        <td>
+                            @Model.List_Treatment[i].TreatmentMethod_Name
+                        </td>
+                        <td>
+                            @Model.List_Treatment[i].TreatmentMat_Name
+                        </td>
+                        <td>
+                            @Model.List_Treatment[i].Amount
+                        </td>
+                        <td>
+                            @Model.List_Treatment[i].Amount
+                        </td>
+                        <td>
+
+                            @if (Model.List_Treatment[i].Is_Paid_Treatment != null)
+                            {
+                                @Model.List_Treatment[i].Is_Paid_Treatment
+                            }
+                            else
+                            {
+                                <span>لم يتم الدفع</span>
+                            }
+                        </td>
+
+
+
+                    </tr>
+
+                }
+
+
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" style="text-align:center;">الاجمالى</td>
+                    <td>
+                        @Model.List_Treatment.Sum(a => a.Amount)
+                    </td>
+                    <td>
+                        @Model.List_Treatment.Sum(a => a.Amount)
+                    </td>
+
+                    <td>
+
+                        @if (Model.List_Treatment.Where(a => a.Is_Paid_Treatment != "لم يتم الدفع").Any() == true)
+                        {
+                            <span>لم يتم الدفع</span>
+
+                        }
+                        else
+                        {
+                            <span>تم الدفع</span>
+                        }
+                    </td>
+
+
+
+
+                </tr>
+            </tfoot>
+        </table>
+
+
+
+
+
+
+        <fieldset>
+            <section>
+                <div class="row">
+                    <div class="label-warning" id="lbltotalAmount" style="font-size:16px;font-weight:bold">
+                        <div>السعر الأجمالى للطلب الفحص الوراد  (بالجنية المصرى)   : @(10+Model.Fees_Item_ALL.Sum(a=>a.Fees).Value+@Model.List_Sample.Sum(a => a.Sample_Sum_All)+@Model.List_Shift.Sum(a => a.Shift_Sum_All) + @Model.List_Treatment.Sum(a => a.Treatment_Amount))  </div>
+
+
+                    </div>
+                </div>
+            </section>
+        </fieldset>
+
+
+        <br>
+    </div>
+
+</body>
+</html>
+
+

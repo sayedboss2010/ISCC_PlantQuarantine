@@ -1,0 +1,492 @@
+﻿
+
+@model List<PlantQuar.DTO.DTO.Import.Committee.Im_Check_ComitteDTO>
+@{
+    ViewBag.Title = "Check_Comitte List";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+
+}
+<style>
+    .modal-header {
+    background-color: #167479;
+    color: white;
+}
+    .btn-default {
+    color: #f7f4f4;
+    background-color: #167479;
+    border-color: #1b6569;
+}
+td, th{
+    border: 1px solid black !important;
+    padding: 5px;
+}
+</style>
+<div class="tab" id="modall_content2" role="tabpanel" style="min-height:80% !important;">
+
+    <ul class="nav nav-tabs" role="tablist" style="">
+        <li role="presentation" class="active">
+            <a href="#link1" aria-controls="profile" role="tab" data-toggle="tab"> طلب الفحص</a>
+        </li>
+        <li role="presentation">
+            <a href="#link2" aria-controls="profile" role="tab" data-toggle="tab"> لجنة صرف</a>
+        </li>
+        <li role="presentation">
+            <a href="#link3" aria-controls="profile" role="tab" data-toggle="tab">لجنة استلام</a>
+        </li>
+        <li role="presentation">
+            <a href="#link4" aria-controls="profile" role="tab" data-toggle="tab">لجنة اعدام </a>
+        </li>
+        @*<li role="presentation">
+                <a href="#link5" aria-controls="messages" role="tab" data-toggle="tab">معاينه مكان</a>
+            </li>*@
+
+    </ul>
+
+    <div class="tab-content tabs" style="background-color: whitesmoke !important;">
+        <div role="tabpanel" class="tab-pane fade in active" id="link1">
+            <div class="form-group" style="min-height:400px;padding:10px;">
+                <div class="row">
+                    <div class="col-md-12" style="overflow-x: scroll ">
+                        <table class="table " >
+                            <thead style="background-color:#4d9e97 !important;">
+                                <tr>
+                                    <th>@PlantQuar.WEB.Language.Resource_data1.ArabicName</th>
+                                    <th>@PlantQuar.WEB.Language.Resource_data1.ShortName </th>
+                                    <th>رقم الموظف</th>
+                                    <th>رقم فحص الطلب</th>
+                                    <th>تاريخ خروج اللجنة</th>
+                                    <th>بداية ساعة الفحص</th>
+                                    <th>انتهاء ساعة الفحص</th>
+                                    <th>مسموح</th>
+                                    <th>انتهاء </th>
+                                    <th>قبول</th>
+                                    <th>التاريخ</th>
+                                    <th>الوزن</th>
+                                    <th>العدد</th>
+                                    <th>النتيجة النهائية</th>
+                                    <th>ملاحظات</th>
+                                    <th>نتيجة</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    // foreach ( var i in Model.)
+                                    // foreach (var i from Model)
+
+                                    foreach (var item in Model)
+                                    {
+                                        @Html.HiddenFor(m => item.ImCheckRequest_ID)
+                                <tr>
+                                    <td class="ModelxmlItem_Data">@item.Item_Name_Ar</td>
+                                    <td class="ModelxmlItem_Data">@item.ShortName_Ar</td>
+                                    <td class="ModelxmlItem_Data">@item.EmployeeId</td>
+
+                                    <td class="ModelxmlItem_Data">@item.ImCheckRequest_ID</td>
+                                    <td class="ModelxmlItem_Data">@item.Delegation_Date</td>
+                                    <td class="ModelxmlItem_Data">@item.StartTime</td>
+                                    <td class="ModelxmlItem_Data">@item.EndTime</td>
+                                    <td class="ModelxmlItem_Data">@item.IsApproved</td>
+                                    <td class="ModelxmlItem_Data">@item.IsFinishedAll</td>
+                                    <td class="ModelxmlItem_Data">@item.Status</td>
+                                    <td class="ModelxmlItem_Data">@item.Date</td>
+                                    <td class="ModelxmlItem_Data">@item.Weight</td>
+                                    <td class="ModelxmlItem_Data">@item.QuantitySize</td>
+                                    <td class="ModelxmlItem_Data">@item.IsAdminFinalResult</td>
+                                    <td class="ModelxmlItem_Data">@item.Notes</td>
+                                    <td>
+                                        <button class="btn btn-default btn- info btn- lg quickview" data-toggle='modal' data-target='#mymodalemanexamination'>تفاصيل </button>
+                                    </td>
+                                    @*<td class="ModelxmlItem_Data">@Model.CustomsMessages[i].Customs_Certificate_Number</td>
+        <td class="ModelxmlItem_Data">@Model.CustomsMessages[i].Certification_Date</td>
+        <td class="ModelxmlItem_Data">@Model.CustomsMessages[i].Shipment_Date</td>
+        <td class="ModelxmlItem_Data">@Model.CustomsMessages[i].Arrival_Date</td>
+        <td class="ModelxmlItem_Data">@Model.CustomsMessages[i].Certificate_Number_Each_Product</td>
+        <td class="ModelxmlItem_Data">@Model.CustomsMessages[i].Manifest_Number</td>
+        <td class="ModelxmlItem_Data">@Model.CustomsMessages[i].Shipping_Agency_Name</td>*@
+                                    @*
+        <td class="ModelxmlItem_Data">@Model.ImportCompany_xml.Ex_Request_ImportCompany[i].Reciever_Name</td>*@
+
+
+                                    <div id="mymodalemanexamination" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">@PlantQuar.WEB.Language.Resource_data1.Details</h4>
+                                                </div>
+                                                <div class="modal-body" id="modaldetails">
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default " data-dismiss="modal">@PlantQuar.WEB.Language.Resource_data1.Close</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+     
+
+
+        <div role="tabpanel" class="tab-pane fade" id="link2">
+            <div class="form-group" style="min-height:400px;padding:10px;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table " style="overflow-x: scroll ">
+                            <thead style="background-color:#4d9e97 !important;">
+                                <tr>
+
+                                    <th>  رقم لجنة صرف</th>
+                                    <th>رقم فحص الطلب</th>
+
+                                    <th>  تاريخ لجنةالصرف </th>
+                                    <th>وقت لجنةالصرف </th>
+                                    <th>IsApproved </th>
+                                    <th>Status</th>
+                                    <th>Lock_Lead</th>
+                                    <th>ملاحظات</th>
+                                    <th>اسم السائق </th>
+                                    <th>الوزن</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (var item in Model)
+                                    {
+                                        foreach (var dissmiss in item.Im_DismissCommittee)
+                                        {
+                                            <tr>
+                                                @*<td class="ModelxmlItem_Data">@Model.CustomsMessages[i].Customs_Certificate_Number</td>*@
+                                                <td class="ModelxmlItem_Data">@dissmiss.ID</td>
+                                                <td class="ModelxmlItem_Data">@dissmiss.Im_RequestCommittee_Id</td>
+                                                <td class="ModelxmlItem_Data">@dissmiss.Dismiss_Date </td>
+                                                <td class="ModelxmlItem_Data">@dissmiss.DismissTime </td>
+                                                <td class="ModelxmlItem_Data">@dissmiss.IsApproved </td>
+                                                <td class="ModelxmlItem_Data">@dissmiss.Status </td>
+                                                <td class="ModelxmlItem_Data">@dissmiss.Lock_Lead  </td>
+                                                <td class="ModelxmlItem_Data">@dissmiss.Notes </td>
+                                                <td class="ModelxmlItem_Data">@dissmiss.Driver_Name </td>
+                                                <td class="ModelxmlItem_Data">@dissmiss.GrossWeight </td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div role="tabpanel" class="tab-pane fade" id="link3">
+            <div class="form-group" style="min-height:400px;padding:10px;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table " style="overflow-x: scroll ">
+                            <thead style="background-color:#4d9e97 !important;">
+                                <tr>
+
+                                    <th> تاريخ اللجنة</th>
+                                    <th>بداية اللجنة</th>
+                                    <th>نهاية اللجنة</th>
+
+                                    <th>الحالة</th>
+                                    <th>التاريخ</th>
+                                    <th>الوقت</th>
+
+                                    <th>تاريخ الاستلام</th>
+                                    <th>وقت الاستلام</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (var item in Model)
+                                    {
+                                        foreach (var recieve in item.Im_ReceiveCommittee)
+                                        {
+                                            <tr>
+                                                @*<td class="ModelxmlItem_Data">@Model.CustomsMessages[i].Customs_Certificate_Number</td>*@
+
+                                                <td class="ModelxmlItem_Data">@recieve.Delegation_Date </td>
+                                                <td class="ModelxmlItem_Data">@recieve.StartTime </td>
+                                                <td class="ModelxmlItem_Data">@recieve.EndTime </td>
+
+                                                <td class="ModelxmlItem_Data">@recieve.Status </td>
+                                                <td class="ModelxmlItem_Data">@recieve.Dismiss_Date  </td>
+                                                <td class="ModelxmlItem_Data">@recieve.DismissTime</td>
+
+                                                <td class="ModelxmlItem_Data">@recieve.Receive_Date  </td>
+                                                <td class="ModelxmlItem_Data">@recieve.ReceiveTime</td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div role="tabpanel" class="tab-pane fade" id="link4">
+            <div class="form-group" style="min-height:400px;padding:10px;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table " style="overflow-x: scroll ">
+                            <thead style="background-color:#4d9e97 !important;">
+                                <tr>
+                                    <th>مكان الاعدام</th>
+                                    <th>طريقة الاعدام</th>
+                                    <th> تاريخ اللجنة</th>
+                                    <th>بداية ساعة الفحص</th>
+                                    <th>انتهاء ساعة الفحص</th>
+
+
+                                    <th>مسموح</th>
+                                    <th>انتهاء </th>
+                                    <th>قبول</th>
+
+                                    <th>الحالة</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (var item in Model)
+                                    {
+                                        foreach (var excution in item.ImExecutionComm)
+                                        {
+                                            <tr>
+                                                @*<td class="ModelxmlItem_Data">@Model.CustomsMessages[i].Customs_Certificate_Number</td>*@
+                                                <td class="ModelxmlItem_Data">@excution.Execution_Place</td>
+                                                <td class="ModelxmlItem_Data">@excution.Execution_Method</td>
+                                                <td class="ModelxmlItem_Data">@excution.Delegation_Date </td>
+                                                <td class="ModelxmlItem_Data">@excution.StartTime </td>
+                                                <td class="ModelxmlItem_Data">@excution.EndTime </td>
+                                                <td class="ModelxmlItem_Data">@excution.IsApproved </td>
+                                                <td class="ModelxmlItem_Data">@excution.IsFinishedAll </td>
+                                                <td class="ModelxmlItem_Data">@excution.IsAccepted </td>
+                                                <td class="ModelxmlItem_Data">@excution.Status  </td>
+
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-10"></div>
+                    <div class="col-md-2">
+                        <input type="submit" class="btn btn-primary" style="width:100%" value="قبول نهائي للجنة" autocomplete="off">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div role="tabpanel" class="tab-pane fade" id="link5">
+            <div class="form-group" style="min-height:400px;padding:10px;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table " style="overflow-x: scroll ">
+                            <thead style="background-color:#4d9e97 !important;">
+                                <tr>
+
+
+                                    <th>Im_CheckRequest_ID</th>
+                                    <th>Ar_Desc</th>
+                                    <th> En_Desc</th>
+                                    <th>CustodyPlaceType</th>
+                                    <th>Storage_capacity</th>
+                                    <th>Center_Name</th>
+                                    <th>Address</th>
+                                    <th>Owner_Name</th>
+                                    <th>NationalID</th>
+                                    <th>Phone</th>
+                                    <th>PreviewQuantityDuration</th>
+                                    <th>DateStored</th>
+                                    <th>Quantity</th>
+                                    <th>IsApproved</th>
+                                    <th>Status</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (var item in Model)
+                                    {
+                                        foreach (var place in item.CustodyPlace)
+                                        {
+                                            <tr>
+                                                @*<td class="ModelxmlItem_Data">@Model.CustomsMessages[i].Customs_Certificate_Number</td>*@
+                                                <td class="ModelxmlItem_Data">@place.Im_CheckRequest_ID</td>
+                                                <td class="ModelxmlItem_Data">@place.Ar_Desc</td>
+                                                <td class="ModelxmlItem_Data">@place.En_Desc </td>
+                                                <td class="ModelxmlItem_Data">@place.CustodyPlaceType </td>
+                                                <td class="ModelxmlItem_Data">@place.Storage_capacity </td>
+                                                <td class="ModelxmlItem_Data">@place.Center_Name </td>
+                                                <td class="ModelxmlItem_Data">@place.Address </td>
+
+                                                <td class="ModelxmlItem_Data">@place.Owner_Name  </td>
+                                                <td class="ModelxmlItem_Data">@place.NationalID </td>
+                                                <td class="ModelxmlItem_Data">@place.Phone </td>
+                                                <td class="ModelxmlItem_Data">@place.PreviewQuantityDuration </td>
+                                                <td class="ModelxmlItem_Data">@place.DateStored </td>
+                                                <td class="ModelxmlItem_Data">@place.Quantity </td>
+                                                <td class="ModelxmlItem_Data">@place.IsApproved  </td>
+                                                <td class="ModelxmlItem_Data">@place.Status </td>
+
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-10"></div>
+                <div class="col-md-2">
+                    <input type="submit" class="btn btn-primary" style="width:100%" value="قبول نهائي للجنة" autocomplete="off">
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+@* *****************************  SAVE  ************************* *@
+<script>
+    $(document).ready(function () {
+        $("#rejreasons").addClass("chosen-select").prop("multiple", true);
+
+        $('#rejreasons_chosen option').prop('selected', true);
+
+
+        $("#rejreasons option[value=]").remove();
+        $("#rejreasons").chosen({
+            // disable_search_threshold: 10,
+            no_results_text: "@PlantQuar.WEB.Language.Resource_data1.no_results : ",
+            placeholder_text_multiple: "@PlantQuar.WEB.Language.Resource_data1.Select_One_More",
+            //placeholder_text_single: "ÍÏÏ @PlantQuar.WEB.Language.Resource_data1.Governate",
+            width: "95%",
+            rtl: true,
+            search_contains: true,
+        });
+
+    });
+    $("#btnSave").click(function () {
+        $("#txtIsAccepted").val(true);
+    });
+
+    //$("#btnReject").click(function () {
+    //    $("#txtIsAccepted").val(false);
+    //    $("#submform").submit();
+    //});
+    $("#saverejectreason").click(function () {
+        $("#txtIsAccepted").val(false);
+        var list = $("#rejreasons").val();
+       console.log(list)
+        var checkReqId = $("#checkReqId").val();
+        if (list != null) {
+            $.post('/Im_CheckRequests/Im_CheckRequestDetails/saveReasons', { listIDs: list, checkReqId: checkReqId }, function (data, succ) {
+
+                $("#submform").submit();
+            });
+        } else {
+            alert("choose reasons")
+        }
+
+    });
+
+
+
+    $(".quickview").click(function () {   
+
+
+        var m = '@Model'
+
+
+        if (@Model.Count() > 0) {
+            var temp = '@Model[1].Item_Name_Ar';
+            console.log('@Model[1].Item_Name_Ar');
+        };                  
+                                 
+
+                    var sdate = $(this).data("sdate");
+        $("#modaldetails").empty();
+        $("#modaldetails").append("<label>@PlantQuar.WEB.Language.Resource_data1.Startdate : <span class='modalspan'>" + temp + "</span></label>")
+                });
+    function printContent2(el2) {
+        var restorepage2 = document.body.innerHTML;
+        //var radioValue = $("input[name='openVisitor']:checked").val();
+        //if (radioValue == 0) {
+        //    $("#yes_radio").hide();
+        //}
+        //else {
+        //    $("#no_radio").hide();
+        //}
+        $(".form-control").css("width", "25%");
+        //$(".form-control").css("display", "inline-block");
+        $(".nav-tabs").css("display", "none");
+        $(".tab-pane").css("border", "2px solid black");
+        $(".tab-pane").css("border-radius", "20px");
+        var txt1 = "<h3 style='text-align:center'> @PlantQuar.WEB.Language.Resource_data1.requestInfos</h3>";
+        $("#ReqDataTab").before(txt1);
+        var txt2 = "<h3 style='text-align:center'>@PlantQuar.WEB.Language.Resource_data1.importedCompanies</h3>";
+        $("#ImportCompaniiesTab").before(txt2);
+        var txt3 = "<h3 style='text-align:center'>  @PlantQuar.WEB.Language.Resource_data1.messageDetails</h3>";
+        $("#DetailsTab").before(txt3);
+        var txt4 = "<h3 style='text-align:center'> @PlantQuar.WEB.Language.Resource_data1.Attachments</h3>";
+        $("#filesTab").before(txt4);
+
+        $(".form-rowr").css("margin-bottom", "7px");
+        $(".form-rowr").css("padding-bottom", "7px");
+        $(".form-box").css("margin-bottom", "7px");
+        $(".form-box").css("padding-bottom", "7px");
+        $(".form-rowr").css("border-bottom", "1px dashed #cbc5ba");
+        $(".demo-default").css("width", "100%");
+        //$(".label-info").css("text-decoration", "underline");
+        $(".label-info").css("border", "1px solid #cbc5ba");
+        $(".label-info").css("padding", "5px");
+        $(".label-info").css("border-radius", "6px 20px");
+        $(".lastdiv").css("border-bottom", "none")
+        $("#ReqDataTab").removeAttr("class");
+        $("#ReqDataTab").addClass("tab-pane fade active in");
+        $("#ImportCompaniiesTab").removeAttr("class");
+        $("#ImportCompaniiesTab").addClass("tab-pane fade active in");
+        $("#DetailsTab").removeAttr("class");
+        $("#DetailsTab").addClass("tab-pane fade active in");
+        $("#filesTab").removeAttr("class");
+        $("#filesTab").addClass("tab-pane fade active in");
+        var printcontent2 = $('#' + el2).html();
+        document.body.innerHTML = printcontent2;
+        window.print();
+        history.go(0);
+        document.body.innerHTML = restorepage2;
+    }
+</script>

@@ -1,0 +1,1556 @@
+﻿@model PlantQuar.DTO.DTO.Farm.Print.Farm_Data_Print_DTO
+@{
+    ViewBag.Title = "@PlantQuar.WEB.Language.Resource_data1.re";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    var model = Model;
+    var totalarea = 0.0;
+    var categoriesNo = Model.plantList.Count();
+    var countriesNo = Model.countryLst.Count();
+    int countriesDiv = 1;
+    if (countriesNo > 25)
+    {
+        decimal x = countriesNo / 25;
+        countriesDiv = (int)Math.Ceiling(x);
+
+    }
+    int categoriesDiv = 1;
+    if (categoriesNo > 25)
+    {
+        decimal x = categoriesNo / 25;
+        categoriesDiv = (int)Math.Ceiling(x);
+
+    }
+    var totCount = categoriesNo + countriesNo;
+}
+<link href="~/assets/css/print.min.css" rel="stylesheet" />
+<script src="~/assets/js/print.min.js"></script>
+<script src="~/scripts/jquery.qrcode.js"></script>
+<script src="~/scripts/qrcode.js"></script>
+<style>
+    #PrintResultButton, #PrintResultButton2 {
+        background-color: #1e7c80 !important;
+        border: 2px solid #1e8084 !important;
+        box-shadow: 0 4px #1d9fa5 !important;
+        outline: none;
+        color: white;
+        margin-bottom: 10px;
+        width: 50%;
+    }
+
+    .lab-1 {
+        margin-top: 30px;
+        margin-right: 8px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .lab-2 {
+        margin-top: 45px;
+        margin-right: 8px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    img.img1 {
+        margin-top: 19px;
+    }
+
+    .demo-blockquote {
+        margin-bottom: 70px !important;
+    }
+</style>
+
+@if (totCount <= 25)
+{
+<div id="tblCheckLst">
+    <div  style="width:21cm;height:29.7cm;background:gray;margin:auto;padding-top:.6cm">
+        <div id="border" style="font-size:12px;width:20cm;background:white;margin:auto;border:1px solid #000;font-family: 'Arial regular'!important;font-size:10pt;">
+            <div id="header" style="height:4.5cm;">
+                <div class="" style="margin:auto;height:inherit;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <div class="col-md-4" style="display:inline-block;float:right;padding: 3px;height: inherit;">
+                            <img class="img1" style="" src="~/assets/images/capq/logo-capq-114.png" />
+                        </div>
+                        <div class="col-md-8 " style="display:inline-block;height: inherit;">
+                            <p class="lab-2" style="font-weight:bold">
+                                جمهورية مصر العربية<br />
+                                وزارة الزراعة واستصلاح الأراضي<br />
+                                الإدارة المركزية للحجر الزراعي
+
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <div class="col-md-7" style="text-align: left;display:inline-block; float: right; height: inherit;"><label style="margin-top: 10px;font-size: 20px;">اعتماد مزرعة</label></div>
+                        <div class="col-md-5" style="display:inline-block;height:inherit;"><label style="font-size: 70px; float: left; font-family: AlphanumericqrSpace-O5z8 !important">3</label></div>
+                    </div>
+                </div>
+            </div>
+            <div id="content" style="height:20cm;">
+                <div class="" style="margin:auto;height:1.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%; height: inherit; padding: 3px">
+                        <label style="  ">اسم المالك:</label>
+                        <span>@Html.DisplayFor(m => Model.CompanyName_Ar)</span>
+
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class=" " style=" width: 50%; height: inherit; padding: 3px">
+                        <label style="  ">عنوان المالك:</label>
+                        <span>@Html.DisplayFor(m => Model.CompanyAddress_Ar)</span>
+
+                    </div>
+                </div>
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">رقم الهاتف:</label>
+                        <span>@Html.DisplayFor(m => Model.Company_Mobile)</span>
+
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">البريد الإلكتروني:</label>
+                        <span>@Html.DisplayFor(m => Model.Company_Email)</span>
+
+                    </div>
+                </div>
+                <div class="" style="margin:auto;height:1.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">اسم المزرعة:</label>
+                        <span>@Html.DisplayFor(m => Model.Farm_Name_AR)</span>
+
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">عنوان المزرعة:</label>
+                        <span>@Html.DisplayFor(m => Model.Farm_Address_Ar)</span>
+                    </div>
+                </div>
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%;height: inherit;padding: 3px">
+                        <label style="  ">النبات:</label>
+                        <span>@Html.DisplayFor(m => Model.Item_Name_AR)</span>
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">كود المزرعة:</label>
+                        <span>@Html.DisplayFor(m => Model.Farm_Data_FarmCode_14)</span>
+
+                    </div>
+                </div>
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        @foreach (var item in Model.plantList)
+                        {
+                            totalarea += (double)item.Area_Acres;
+                        }
+                        <label style="  ">مساحة المزرعة الكلية:</label>
+                        <span>@totalarea</span>
+
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">الموقع:</label>
+                        <span>@Html.DisplayFor(m => Model.GPSRead)</span>
+                    </div>
+                </div>
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style="text-align: center; width: 100%; height: inherit; padding: 3px">
+                        <label>قائمة الأصناف</label>
+                    </div>
+
+
+                </div>
+                <div class="" style="margin:auto;height:.6cm;display:flex;">
+                    <div class="" style="width: 100%; height: inherit; padding: 3px">
+                        <div style="width: 15%;display:inline-block;">
+                            <label style=" ">اسم الصنف</label>
+                        </div>
+                        <div style="width: 16.6%;display:inline-block;">
+
+                            <label style=" "> تاريخ البداية</label>
+                        </div>
+                        <div style="width: 16.6%;display:inline-block;">
+
+                            <label style=" ">تاريخ النهاية</label>
+                        </div>
+                        <div style="width: 16.6%;display:inline-block;">
+                            <label style=" ">المساحة</label>
+                        </div>
+                        <div style="width: 16.6%;display:inline-block;">
+                            <label style=" ">الإنتاجية</label>
+                        </div>
+                        @*<div style="width: 16%;display:inline-block;">
+                            <label style=" ">إجمالي الانتاجية بالطن الخاصة بالحجر	</label>
+                        </div>*@
+                    </div>
+                </div>
+                <div class="" style="margin:auto;height:5.5cm;display:flex;border-bottom:1px solid #000;">
+                    <div class="" style="width: 100%; height: inherit; padding: 3px">
+                        @if (model != null)
+                        {
+                            foreach (var item in Model.plantList)
+                            {
+                                <div class="" style="padding:0px">
+                                    <div style="width: 15%;display:inline-block;">@item.categoryName_Ar</div>
+                                    <div style="width: 16.6%;display:inline-block;">@item.StartDate.ToString().Split(' ')[0]</div>
+                                    <div style="width: 16.6%;display:inline-block;">@item.EndDate.ToString().Split(' ')[0]</div>
+                                    <div style="width: 16.6%;display:inline-block;">@item.Area_Acres</div>
+                                    <div style="width: 16.6%;display:inline-block;">@item.Quantity_Ton</div>
+                                    @*<div style="width: 16%;display:inline-block;">@item.Quantity_Ton</div>*@
+                                </div>
+
+                            }
+                        }
+
+                    </div>
+                </div>
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style="text-align: center; width: 100%; height: inherit; padding: 3px">
+                        <label>دول الاعتماد </label>
+                    </div>
+                </div>
+                <div class="" style="margin:auto;height:.6cm;display:flex;">
+                    <div class="" style="width: 100%; height: inherit; padding: 3px">
+                        <div style="width: 32.9%;display:inline-block;">
+                            <label>رقم الطلب</label>
+                        </div>
+                        <div style="width: 32.9%;display:inline-block;">
+                            <label>الدولة</label>
+                        </div>
+                        @*<div style="width: 33%;display:inline-block;">
+                            <label>تاريخ البداية</label>
+                        </div>
+                        <div style="width: 30%;display:inline-block;">
+                            <label>تاريخ النهاية</label>
+                        </div>*@
+
+
+                    </div>
+                </div>
+                <div class="" style="margin:auto;height:5.5cm;display:flex;border-bottom:1px solid #000;">
+                    <div class="" style="width: 100%; height: inherit; padding: 3px">
+                        @if (model != null)
+                        {
+                            foreach (var item in Model.requestLst)
+                            {
+                                <div class="" style="padding:0px">
+                                    <div style="width: 32.9%;display:inline-block;">@item.ID</div>
+                                    <div style="width: 32.9%;display:inline-block;">@item.Print_Text</div>
+                                    @*<div style="width: 33%;display:inline-block;">@item.Start_Date_Request.ToString().Split(' ')[0]</div>
+                                    <div style="width: 32%;display:inline-block;">@item.End_Date_Request.ToString().Split(' ')[0]</div>*@
+
+                                </div>
+
+                            }
+                        }
+
+                    </div>
+                </div>
+                @*<div class="" style="margin:auto;height:5.5cm;display:flex;border-bottom:1px solid #000;">
+            <div class="" style="width: 100%; height: inherit; padding: 3px">
+                @if (model != null)
+                {
+                    foreach (var item in Model.countryLst)
+                    {
+                        <div class="" style="padding:0px">
+                            <div style="width: 32.9%;display:inline-block;">@item.country_Name_Ar</div>
+                            <div style="width: 33%;display:inline-block;">@item.Start_Date.ToString().Split(' ')[0]</div>
+                            <div style="width: 32%;display:inline-block;">@item.End_Date.ToString().Split(' ')[0]</div>
+
+                        </div>
+
+                    }
+                }
+
+            </div>
+        </div>*@
+                <div class="" style="text-align:center; margin:auto;height:1.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 100%; height: inherit; padding: 3px">
+                        <span>
+                            يتم السماح بتصدير الكميات المبينة اعلاه من محصول هذه المزرعة خلال فترة الاعتماد وذلك تطبيقاً لاشتراطات دول
+                            الاعتماد مع الاحتفاظ بأحقية الحجر الزراعي في إيقاف التصدير من هذه المزرعة في حالة الإخلال بأي من الشروط
+                            المنظمة للاعتماد وحسب تقدير الحجر الزراعي.
+                        </span>
+                    </div>
+
+
+                </div>
+
+            </div>
+            <div id="footer3" style="height:3cm;">
+                <div class="" style="margin:auto;height:inherit;display:flex;">
+                    <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                        <label style="  ">مكان الإصدار:@Model.outletName</label>
+                        <span></span>
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                        <label style="  ">اسم المسئول المفوض:</label>
+                        <span>@ViewBag.FullName</span>
+                        <br />
+                        <label style="  ">التوقيع:</label>
+                        <span>..............................</span>
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                        <label style="  ">تاريخ الإصدار:</label>
+                        <span>(@DateTime.Now.ToString().Split(' ')[0])</span>
+                        <div style="margin: -9px 3px; width: 92px; height: 92px; background-color: white; border: 1px solid black; border-radius: 50%; float: left;">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="" style="font-family: 'Arial regular' !important; font-size: 10pt; width: 20cm; background-color: white; margin: auto; height: 1cm; display: flex; text-align: center">
+            <div class="" style=" width: 100%; height: inherit; padding: 3px">
+                <span>
+                    لا تتحمل الإدارة المركزية للحجر الزراعي أو أي من موظفيها أو ممثليها أي مسؤولية مالية قد تنجم عن هذه الشهادة
+                </span>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+}
+else
+{
+   
+    <div id="totalar" style="width:21cm;height:auto;margin:auto;">
+        @for (var i = 1; i <= categoriesDiv; i++)
+        {
+            <div id="tblCheckLst3-@i" style="width:21cm;height:29.7cm;background:gray;margin:auto;padding-top:.6cm">
+                <div id="border" style="font-size:12px;width:20cm;background:white;margin:auto;border:1px solid #000;font-family: 'Arial regular'!important;font-size:10pt;">
+                    <div id="header" style="height:4.5cm;">
+                        <div class="" style="margin:auto;height:inherit;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                                <div class="col-md-4" style="display:inline-block;float:right;padding: 3px;height: inherit;">
+                                    <img class="img1" style="" src="~/assets/images/capq/logo-capq-114.png" />
+                                </div>
+                                <div class="col-md-8 " style="display:inline-block;height: inherit;">
+                                    <p class="lab-2" style="font-weight:bold">
+                                        جمهورية مصر العربية<br />
+                                        وزارة الزراعة واستصلاح الأراضي<br />
+                                        الإدارة المركزية للحجر الزراعي
+
+                                    </p>
+
+                                </div>
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                                <div class="col-md-7" style="text-align: left;display:inline-block; float: right; height: inherit;"><label style="margin-top: 10px;font-size: 20px;">اعتماد مزرعة</label></div>
+                                <div class="col-md-5" style="display:inline-block;height:inherit;"><label style="font-size: 70px; float: left; font-family: AlphanumericqrSpace-O5z8 !important">3</label></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="content" style="height:20cm;">
+                        <div class="" style="margin:auto;height:1.6cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 50%; height: inherit; padding: 3px">
+                                <label style="  ">اسم المالك:</label>
+                                <span>@Html.DisplayFor(m => Model.CompanyName_Ar)</span>
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 50%; height: inherit; padding: 3px">
+                                <label style="  ">عنوان المالك:</label>
+                                <span>@Html.DisplayFor(m => Model.CompanyAddress_Ar)</span>
+
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="  ">رقم الهاتف:</label>
+                                <span>@Html.DisplayFor(m => Model.Company_Mobile)</span>
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="  ">البريد الإلكتروني:</label>
+                                <span>@Html.DisplayFor(m => Model.Company_Email)</span>
+
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:1.6cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="  ">اسم المزرعة:</label>
+                                <span>@Html.DisplayFor(m => Model.Farm_Name_AR)</span>
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="  ">عنوان المزرعة:</label>
+                                <span>@Html.DisplayFor(m => Model.Farm_Address_Ar)</span>
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 50%;height: inherit;padding: 3px">
+                                <label style="  ">النبات:</label>
+                                <span>@Html.DisplayFor(m => Model.Item_Name_AR)</span>
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="  ">كود المزرعة:</label>
+                                <span>@Html.DisplayFor(m => Model.Farm_Data_FarmCode_14)</span>
+
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                                @foreach (var item in Model.plantList)
+                                {
+                                    totalarea += (double)item.Area_Acres;
+                                }
+                                <label style="  ">مساحة المزرعة الكلية:</label>
+                                <span>@totalarea</span>
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="  ">الموقع:</label>
+                                <span>@Html.DisplayFor(m => Model.GPSRead)</span>
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style="text-align: center; width: 100%; height: inherit; padding: 3px">
+                                <label>قائمة الأصناف</label>
+                            </div>
+
+
+                        </div>
+                        <div class="" style="margin:auto;height:.6cm;display:flex;">
+                            <div class="" style="width: 100%; height: inherit; padding: 3px">
+                                <div style="width: 31%;display:inline-block;">
+                                    <label style=" ">اسم الصنف</label>
+                                </div>
+                                <div style="width: 16.6%;display:inline-block;">
+
+                                    <label style=" "> تاريخ البداية</label>
+                                </div>
+                                <div style="width: 16.6%;display:inline-block;">
+
+                                    <label style=" ">تاريخ النهاية</label>
+                                </div>
+                                <div style="width: 16.6%;display:inline-block;">
+                                    <label style=" ">المساحة</label>
+                                </div>
+                                <div style="width: 16.6%;display:inline-block;">
+                                    <label style=" ">الإنتاجية</label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:13.8cm;display:flex;border-bottom:1px solid #000;">
+                            <div class="" style="width: 100%; height: inherit; padding: 3px">
+                                @if (model != null)
+                                {
+
+                                    if (25 * i > Model.plantList.Count)
+                                    {
+                                        foreach (var item in Model.plantList.Skip((i - 1) * 25))
+                                        {
+                                            <div class="" style="padding:0px">
+                                                <div style="width: 31%;display:inline-block;">@item.categoryName_Ar</div>
+                                                <div style="width: 16.6%;display:inline-block;">@item.StartDate.ToString().Split(' ')[0]</div>
+                                                <div style="width: 16.6%;display:inline-block;">@item.EndDate.ToString().Split(' ')[0]</div>
+                                                <div style="width: 16.6%;display:inline-block;">@item.Area_Acres</div>
+                                                <div style="width: 16.6%;display:inline-block;">@item.Quantity_Ton</div>
+                                            </div>
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        foreach (var item in Model.plantList.Skip((i - 1) * 25).Take(25))
+                                        {
+                                            <div class="" style="padding:0px">
+                                                <div style="width: 31%;display:inline-block;">@item.categoryName_Ar</div>
+                                                <div style="width: 16.6%;display:inline-block;">@item.StartDate.ToString().Split(' ')[0]</div>
+                                                <div style="width: 16.6%;display:inline-block;">@item.EndDate.ToString().Split(' ')[0]</div>
+                                                <div style="width: 16.6%;display:inline-block;">@item.Area_Acres</div>
+                                                <div style="width: 16.6%;display:inline-block;">@item.Quantity_Ton</div>
+                                            </div>
+
+                                        }
+                                    }
+
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                    <div id="footer3" style="height:3cm;">
+                        <div class="" style="margin:auto;height:inherit;display:flex;">
+                            <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                                <label style="  ">مكان الإصدار:@Model.outletName</label>
+                                <span></span>
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                                <label style="  ">اسم المسئول المفوض:</label>
+                                <span>@ViewBag.FullName</span>
+                                <br />
+                                <label style="  ">التوقيع:</label>
+                                <span>..............................</span>
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                                <label style="  ">تاريخ الإصدار:</label>
+                                <span>(@DateTime.Now.ToString().Split(' ')[0])</span>
+                                <div style=" margin: -9px 3px;width: 92px;height: 92px;background-color: white;border: 1px solid black;border-radius: 50%;float: left;">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="" style="font-family: 'Arial regular' !important; font-size: 10pt; width: 20cm; background-color: white; margin: auto; height: 1cm; display: flex; text-align: center">
+                    <div class="" style=" width: 100%; height: inherit; padding: 3px">
+                        <span>
+                            لا تتحمل الإدارة المركزية للحجر الزراعي أو أي من موظفيها أو ممثليها أي مسؤولية مالية قد تنجم عن هذه الشهادة
+                        </span>
+                    </div>
+
+
+                </div>
+            </div>
+        }
+
+        
+        @for (var i = 1; i <= countriesDiv; i++)
+        {
+            <div id="tblCheckLst4-@i" style="width:21cm;height:29.7cm;background:gray;margin:auto;padding-top:.6cm">
+                <div id="border" style="font-size:12px;width:20cm;background:white;margin:auto;border:1px solid #000;font-family: 'Arial regular'!important;font-size:10pt;">
+                    <div id="header" style="height:4.5cm;">
+                        <div class="" style="margin:auto;height:inherit;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                                <div class="col-md-4" style="display:inline-block;float:right;padding: 3px;height: inherit;">
+                                    <img class="img1" style="" src="~/assets/images/capq/logo-capq-114.png" />
+                                </div>
+                                <div class="col-md-8 " style="display:inline-block;height: inherit;">
+                                    <p class="lab-2" style="font-weight:bold">
+                                        جمهورية مصر العربية<br />
+                                        وزارة الزراعة واستصلاح الأراضي<br />
+                                        الإدارة المركزية للحجر الزراعي
+
+                                    </p>
+
+                                </div>
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                                <div class="col-md-7" style="text-align: left;display:inline-block; float: right; height: inherit;"><label style="margin-top: 10px;font-size: 20px;">اعتماد مزرعة</label></div>
+                                <div class="col-md-5" style="display:inline-block;height:inherit;"><label style="font-size: 70px; float: left; font-family: AlphanumericqrSpace-O5z8 !important">3</label></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="content" style="height:20cm;">
+                        <div class="" style="margin:auto;height:1.6cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 50%; height: inherit; padding: 3px">
+                                <label style="  ">اسم المالك:</label>
+                                <span>@Html.DisplayFor(m => Model.CompanyName_Ar)</span>
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 50%; height: inherit; padding: 3px">
+                                <label style="  ">عنوان المالك:</label>
+                                <span>@Html.DisplayFor(m => Model.CompanyAddress_Ar)</span>
+
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="  ">رقم الهاتف:</label>
+                                <span>@Html.DisplayFor(m => Model.Company_Mobile)</span>
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="  ">البريد الإلكتروني:</label>
+                                <span>@Html.DisplayFor(m => Model.Company_Email)</span>
+
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:1.6cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="  ">اسم المزرعة:</label>
+                                <span>@Html.DisplayFor(m => Model.Farm_Name_AR)</span>
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="  ">عنوان المزرعة:</label>
+                                <span>@Html.DisplayFor(m => Model.Farm_Address_Ar)</span>
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 50%;height: inherit;padding: 3px">
+                                <label style="  ">النبات:</label>
+                                <span>@Html.DisplayFor(m => Model.Item_Name_AR)</span>
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="  ">كود المزرعة:</label>
+                                <span>@Html.DisplayFor(m => Model.Farm_Data_FarmCode_14)</span>
+
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                                @foreach (var item in Model.plantList)
+                                {
+                                    totalarea += (double)item.Area_Acres;
+                                }
+                                <label style="  ">مساحة المزرعة الكلية:</label>
+                                <span>@totalarea</span>
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="  ">الموقع:</label>
+                                <span>@Html.DisplayFor(m => Model.GPSRead)</span>
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style="text-align: center; width: 100%; height: inherit; padding: 3px">
+                                <label>دول الاعتماد </label>
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:.6cm;display:flex;">
+                            <div class="" style="width: 100%; height: inherit; padding: 3px">
+                                <div style="width: 32.9%;display:inline-block;">
+                                    <label>رقم الطلب</label>
+                                </div> 
+                                <div style="width: 32.9%;display:inline-block;">
+                                    <label> نص الطباعه  </label>
+                                </div>
+                             
+
+
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:13.8cm;display:flex;border-bottom:1px solid #000;">
+                            <div class="" style="width: 100%; height: inherit; padding: 3px">
+
+
+                                @if (model != null)
+                                {
+                                    if (25 * i > Model.requestLst.Count)
+                                    {
+
+                                        foreach (var item in Model.requestLst.Skip((i - 1) * 25).Take(25))
+                                        {
+                                            <div class="" style="padding:0px">
+                                                <div style="width: 32.9%;display:inline-block;">@item.ID</div>
+                                                <div style="width: 32.9%;display:inline-block;">@item.Print_Text</div>
+
+                                            </div>
+
+                                        }
+                                    }
+                                    else
+                                    {
+
+                                        foreach (var item in Model.requestLst.Skip((i - 1) * 25).Take(25))
+                                        {
+                                            <div class="" style="padding:0px">
+                                                <div style="width: 32.9%;display:inline-block;">@item.ID</div>
+                                                <div style="width: 32.9%;display:inline-block;">@item.Print_Text</div>
+
+                                            </div>
+                                        }
+                                    }
+
+                                }
+                                @*@if (model != null)
+        {
+            if (25 * i > Model.countryLst.Count)
+            {
+
+                foreach (var item in Model.countryLst.Skip((i - 1) * 25).Take(25))
+                {
+                    <div class="" style="padding:0px">
+                        <div style="width: 32.9%;display:inline-block;">@item.country_Name_Ar</div>
+                        <div style="width: 33%;display:inline-block;">@item.Start_Date.ToString().Split(' ')[0]</div>
+                        <div style="width: 32%;display:inline-block;">@item.End_Date.ToString().Split(' ')[0]</div>
+
+                    </div>
+
+                }
+            }
+            else
+            {
+
+                foreach (var item in Model.countryLst.Skip((i - 1) * 25).Take(25))
+                {
+                    <div class="" style="padding:0px">
+                        <div style="width: 32.9%;display:inline-block;">@item.country_Name_Ar</div>
+                        <div style="width: 33%;display:inline-block;">@item.Start_Date.ToString().Split(' ')[0]</div>
+                        <div style="width: 32%;display:inline-block;">@item.End_Date.ToString().Split(' ')[0]</div>
+
+                    </div>
+
+                }
+            }
+
+        }*@
+
+                            </div>
+                        </div>
+                    </div>
+                    <div id="footer3" style="height:3cm;">
+                        <div class="" style="margin:auto;height:inherit;display:flex;">
+                            <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                                <label style="  ">مكان الإصدار:@Model.outletName</label>
+                                <span></span>
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                                <label style="  ">اسم المسئول المفوض:</label>
+                                <span>@ViewBag.FullName</span>
+                                <br />
+                                <label style="  ">التوقيع:</label>
+                                <span>..............................</span>
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                                <label style="  ">تاريخ الإصدار:</label>
+                                <span>(@DateTime.Now.ToString().Split(' ')[0])</span>
+                                <div style="margin: -9px 3px; width: 92px; height: 92px; background-color: white; border: 1px solid black; border-radius: 50%; float: left;">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="" style="font-family: 'Arial regular' !important; font-size: 10pt; width: 20cm; background-color: white; margin: auto; height:1cm; display: flex; text-align: center">
+                    <div class="" style=" width: 100%; height: inherit; padding: 3px">
+                        <span>
+                            لا تتحمل الإدارة المركزية للحجر الزراعي أو أي من موظفيها أو ممثليها أي مسؤولية مالية قد تنجم عن هذه الشهادة
+                        </span>
+                    </div>
+
+
+                </div>
+            </div>
+        }
+    </div>
+
+}
+
+<br />
+<div class="row">
+    <div class="col-md-5">
+    </div>
+    @if (totCount > 25)
+    {
+        <div class="col-md-3">
+            <button id="PrintResultButton" class="btn" value='Print' onclick='printar("totalar")'> اطبع </button>
+        </div>
+    }
+    else
+    {
+        <div class="col-md-3">
+            <button id="PrintResultButton" class="btn" value='Print' onclick='printar("tblCheckLst")'> اطبع </button>
+        </div>
+    }
+
+    <div class="col-md-4"></div>
+</div>
+
+@if (totCount <= 25)
+{
+
+<div id="tblCheckLst2">
+    <div  style="width:21cm;height:29.7cm;background:gray;margin:auto;padding-top:.6cm">
+        <div id="border" style="direction:ltr;text-align:left;font-size:12px;width:20cm;background:white;margin:auto;border:1px solid #000;font-family: 'times-new-roman'!important;font-size:10pt">
+            <div id="header" style="height:4.5cm;">
+                <div class="" style="margin:auto;height:inherit;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <div class="col-md-4" style="display:inline-block;float:left;padding: 3px;height: inherit;">
+                            <img class="img1" style="" src="~/assets/images/capq/logo-capq-114.png" />
+                        </div>
+                        <div class="col-md-8 " style="display:inline-block;height: inherit;">
+                            <p class="lab-1" style="font-weight:bold">
+                                Arab Republic of Egypt<br />
+                                Ministry of Agriculture and <br />
+                                Land Reclamation <br />
+                                Central Administration <br />
+                                of Plant Quarantine <br />
+
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <div class="col-md-7" style="display:inline-block;float:left;height: inherit;text-align:right;"><label style="margin-top: 10px;font-size: 20px;">Farm Accreditation</label></div>
+                        <div class="col-md-5" style="display:inline-block;height:inherit;"><label style="font-size: 70px; float: right; font-family: AlphanumericqrSpace-O5z8 !important">3</label></div>
+
+                    </div>
+                </div>
+            </div>
+            <div id="content" style="height:20cm;">
+                <div class="" style="margin:auto;height:1.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%; height: inherit; padding: 3px">
+                        <label style="  ">Owner Name:</label>
+                        <span>@Html.DisplayFor(m => Model.CompanyName_En)</span>
+
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class=" " style=" width: 50%; height: inherit; padding: 3px">
+                        <label style="  ">Owner Address:</label>
+                        <span>@Html.DisplayFor(m => Model.CompanyAddress_En)</span>
+
+                    </div>
+                </div>
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">Phone Number:</label>
+                        <span>@Html.DisplayFor(m => Model.Company_Mobile)</span>
+
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">Email:</label>
+                        <span>@Html.DisplayFor(m => Model.Company_Email)</span>
+
+                    </div>
+                </div>
+                <div class="" style="margin:auto;height:1.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">Farm Name:</label>
+                        <span>@Html.DisplayFor(m => Model.Farm_Name_EN)</span>
+
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">Farm Address:</label>
+                        <span>@Html.DisplayFor(m => Model.Farm_Address_En)</span>
+                    </div>
+                </div>
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%;height: inherit;padding: 3px">
+                        <label style="  ">Plant:</label>
+                        <span>@Html.DisplayFor(m => Model.Item_Name_EN)</span>
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">Farm Code:</label>
+                        <span>@Html.DisplayFor(m => Model.Farm_Data_FarmCode_14)</span>
+
+                    </div>
+                </div>
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        @foreach (var item in Model.plantList)
+                        {
+                            totalarea += (double)item.Area_Acres;
+                        }
+                        <label style="  ">Total farm area:</label>
+                        <span>@totalarea</span>
+
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">GPS:</label>
+                        <span>@Html.DisplayFor(m => Model.GPSRead)</span>
+                    </div>
+                </div>
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style="text-align: center; width: 100%; height: inherit; padding: 3px">
+                        <label>List items</label>
+                    </div>
+
+
+                </div>
+                <div class="" style="margin:auto;height:.6cm;display:flex;">
+                    <div class="" style="width: 100%; height: inherit; padding: 3px">
+                        <div style="width: 31%;display:inline-block;">
+                            <label style=" ">Variety Name</label>
+                        </div>
+                        <div style="width: 16.6%;display:inline-block;">
+
+                            <label style=" ">Start Date</label>
+                        </div>
+                        <div style="width: 16.6%;display:inline-block;">
+
+                            <label style=" ">End Date</label>
+                        </div>
+                        <div style="width: 16.6%;display:inline-block;">
+                            <label style=" ">Area Acres</label>
+                        </div>
+                        <div style="width: 16.6%;display:inline-block;">
+                            <label style=" ">Quantity Ton</label>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="" style="margin:auto;height:5.5cm;display:flex;border-bottom:1px solid #000;">
+                    <div class="" style="width: 100%; height: inherit; padding: 3px">
+                        @if (model != null)
+                        {
+                            foreach (var item in Model.plantList)
+                            {
+                                <div class="" style="padding:0px">
+                                    <div style="width: 31%;display:inline-block;">@item.categoryName_En</div>
+                                    <div style="width: 16.6%;display:inline-block;">@item.StartDate.ToString().Split(' ')[0]</div>
+                                    <div style="width: 16.6%;display:inline-block;">@item.EndDate.ToString().Split(' ')[0]</div>
+                                    <div style="width: 16.6%;display:inline-block;">@item.Area_Acres</div>
+                                    <div style="width: 16.6%;display:inline-block;">@item.Quantity_Ton</div>
+                                </div>
+
+                            }
+                        }
+
+                    </div>
+                </div>
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style="text-align: center; width: 100%; height: inherit; padding: 3px">
+                        <label>Accrediting countries</label>
+                    </div>
+                </div>
+                <div class="" style="margin:auto;height:.6cm;display:flex;">
+                    @*<div class="" style="width: 100%; height: inherit; padding: 3px">
+            <div style="width: 32.9%;display:inline-block;">
+                <label>Country</label>
+            </div>
+            <div style="width: 33%;display:inline-block;">
+                <label>Start Date</label>
+            </div>
+            <div style="width: 30%;display:inline-block;">
+                <label>End Date</label>
+            </div>
+
+
+        </div>*@
+                    <div class="" style="width: 100%; height: inherit; padding: 3px">
+                        <div style="width: 32.9%;display:inline-block;">
+                            <label>request ID</label>
+                        </div>
+                        <div style="width: 33%;display:inline-block;">
+                            <label>Print Text</label>
+                        </div>
+                        
+
+                    </div>
+                </div>
+                <div class="" style="margin:auto;height:5.5cm;display:flex;border-bottom:1px solid #000;">
+                    <div class="" style="width: 100%; height: inherit; padding: 3px">
+
+                        @if (model != null)
+                        {
+                            foreach (var item in Model.requestLst)
+                            {
+                                <div class="" style="padding:0px">
+                                    <div style="width: 32.9%;display:inline-block;">@item.ID</div>
+                                    <div style="width: 33%;display:inline-block;">@item.Print_Text</div>
+ 
+                                </div>
+
+                            }
+                        }
+                        @*@if (model != null)
+        {
+            foreach (var item in Model.countryLst)
+            {
+                <div class="" style="padding:0px">
+                    <div style="width: 32.9%;display:inline-block;">@item.country_Name_En</div>
+                    <div style="width: 33%;display:inline-block;">@item.Start_Date.ToString().Split(' ')[0]</div>
+                    <div style="width: 32%;display:inline-block;">@item.End_Date.ToString().Split(' ')[0]</div>
+
+                </div>
+
+            }
+        }*@
+
+                    </div>
+                </div>
+
+                <div class="" style="text-align:center; margin:auto;height:1.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 100%; height: inherit; padding: 3px">
+                        <span>
+                            it is allowed to export the mentioned above from the mentioned farm crop and that is according
+                            to the requirements of country . the Egyption Plant Quarantine has the Authority to band the exportation
+                            of this farm in case of any violation of the conditions of registration and approving committee quarantine
+                            control system of exporting and according to the plant quaratine evaluation .
+                        </span>
+                    </div>
+
+
+                </div>
+
+            </div>
+            <div id="footer3" style="height:3cm;">
+                <div class="" style="margin:auto;height:inherit;display:flex;">
+                    <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                        <label style="  ">place of issue:@Model.outletName</label>
+                        <span></span>
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                        <label style="  ">Name of authorized official:</label>
+                        <span>@ViewBag.FullName</span>
+                        <br />
+                        <label style="  ">signature:</label>
+                        <span>..............................</span>
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                        <label style="  ">Date of issue:</label>
+                        <span>(@DateTime.Now.ToString().Split(' ')[0])</span>
+                        <div style="margin: -9px 3px; width: 92px; height: 92px; background-color: white; border: 1px solid black; border-radius: 50%; float: left;">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="" style="font-family: 'times-new-roman' !important; font-size: 9pt; width: 20cm; background-color: white; margin: auto; height: 1cm; display: flex; text-align: center">
+            <div class="" style=" width: 100%; height: inherit; padding: 3px">
+                <span>
+                    No financial liability with respect to this certificate shall attach to the Central Administration of Plant Quarantine or to any of its officers or representatives
+                </span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+}
+else
+{
+    <div id="totalen" style="width:21cm;height:auto; margin:auto;">
+        @for (var i = 1; i <= categoriesDiv; i++)
+        {
+            <div id="tblCheckLst5-@i" style="width:21cm;height:29.7cm;background:gray;margin:auto;padding-top:.6cm">
+                <div id="border" style="direction: ltr; text-align: left; font-size: 12px; width: 20cm; background: white; margin: auto; border: 1px solid #000; font-family: 'times-new-roman' !important; font-size: 10pt;">
+                    <div id="header" style="height:4.5cm;">
+                        <div class="" style="margin:auto;height:inherit;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                                <div class="col-md-4" style="display:inline-block;float:left;padding: 3px;height: inherit;">
+                                    <img class="img1" style="" src="~/assets/images/capq/logo-capq-114.png" />
+                                </div>
+                                <div class="col-md-8 " style="display:inline-block;height: inherit;">
+                                    <p class="lab-1" style="font-weight:bold">
+                                        Arab Republic of Egypt<br />
+                                        Ministry of Agriculture and <br />
+                                        Land Reclamation <br />
+                                        Central Administration <br />
+                                        of Plant Quarantine <br />
+
+                                    </p>
+
+                                </div>
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                                <div class="col-md-7" style="display:inline-block;float:left;height: inherit;text-align:right;"><label style="margin-top: 10px;font-size: 20px;">Farm Accreditation</label></div>
+                                <div class="col-md-5" style="display:inline-block;height:inherit;"><label style="font-size: 70px; float: right; font-family: AlphanumericqrSpace-O5z8 !important">3</label></div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div id="content" style="height:20cm;">
+                        <div class="" style="margin:auto;height:1.6cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 50%; height: inherit; padding: 3px">
+                                <label style="  ">Owner Name:</label>
+                                <span>@Html.DisplayFor(m => Model.CompanyName_En)</span>
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 50%; height: inherit; padding: 3px">
+                                <label style="  ">Owner Address:</label>
+                                <span>@Html.DisplayFor(m => Model.CompanyAddress_En)</span>
+
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="  ">Phone Number:</label>
+                                <span>@Html.DisplayFor(m => Model.Company_Mobile)</span>
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="  ">Email:</label>
+                                <span>@Html.DisplayFor(m => Model.Company_Email)</span>
+
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:1.6cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="  ">Farm Name:</label>
+                                <span>@Html.DisplayFor(m => Model.Farm_Name_EN)</span>
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="  ">Farm Address:</label>
+                                <span>@Html.DisplayFor(m => Model.Farm_Address_En)</span>
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 50%;height: inherit;padding: 3px">
+                                <label style="  ">Plant:</label>
+                                <span>@Html.DisplayFor(m => Model.Item_Name_EN)</span>
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="  ">Farm Code:</label>
+                                <span>@Html.DisplayFor(m => Model.Farm_Data_FarmCode_14)</span>
+
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                                @foreach (var item in Model.plantList)
+                                {
+                                    totalarea += (double)item.Area_Acres;
+                                }
+                                <label style="  ">Total farm area:</label>
+                                <span>@totalarea</span>
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="  ">GPS:</label>
+                                <span>@Html.DisplayFor(m => Model.GPSRead)</span>
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style="text-align: center; width: 100%; height: inherit; padding: 3px">
+                                <label>List items</label>
+                            </div>
+
+
+                        </div>
+                        <div class="" style="margin:auto;height:.6cm;display:flex;">
+                            <div class="" style="width: 100%; height: inherit; padding: 3px">
+                                <div style="width: 31%;display:inline-block;">
+                                    <label style=" ">Variety Name</label>
+                                </div>
+                                <div style="width: 16.6%;display:inline-block;">
+
+                                    <label style=" ">Start Date</label>
+                                </div>
+                                <div style="width: 16.6%;display:inline-block;">
+
+                                    <label style=" ">End Date</label>
+                                </div>
+                                <div style="width: 16.6%;display:inline-block;">
+                                    <label style=" ">Area Acres</label>
+                                </div>
+                                <div style="width: 16.6%;display:inline-block;">
+                                    <label style=" ">Quantity Ton</label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:13.8cm;display:flex;border-bottom:1px solid #000;">
+                            <div class="" style="width: 100%; height: inherit; padding: 3px">
+                                @if (model != null)
+                                {
+                                    if (25 * i > Model.plantList.Count)
+                                    {
+                                        foreach (var item in Model.plantList.Skip((i - 1) * 25))
+                                        {
+                                            <div class="" style="padding:0px">
+                                                <div style="width: 31%;display:inline-block;">@item.categoryName_Ar</div>
+                                                <div style="width: 16.6%;display:inline-block;">@item.StartDate.ToString().Split(' ')[0]</div>
+                                                <div style="width: 16.6%;display:inline-block;">@item.EndDate.ToString().Split(' ')[0]</div>
+                                                <div style="width: 16.6%;display:inline-block;">@item.Area_Acres</div>
+                                                <div style="width: 16.6%;display:inline-block;">@item.Quantity_Ton</div>
+                                            </div>
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        foreach (var item in Model.plantList.Skip((i - 1) * 25).Take(25))
+                                        {
+                                            <div class="" style="padding:0px">
+                                                <div style="width: 31%;display:inline-block;">@item.categoryName_Ar</div>
+                                                <div style="width: 16.6%;display:inline-block;">@item.StartDate.ToString().Split(' ')[0]</div>
+                                                <div style="width: 16.6%;display:inline-block;">@item.EndDate.ToString().Split(' ')[0]</div>
+                                                <div style="width: 16.6%;display:inline-block;">@item.Area_Acres</div>
+                                                <div style="width: 16.6%;display:inline-block;">@item.Quantity_Ton</div>
+                                            </div>
+
+                                        }
+                                    }
+
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                    <div id="footer3" style="height:3cm;">
+                        <div class="" style="margin:auto;height:inherit;display:flex;">
+                            <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                                <label style="  ">place of issue:@Model.outletName</label>
+                                <span></span>
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                                <label style="  ">Name of authorized official:</label>
+                                <span>@ViewBag.FullName</span>
+                                <br />
+                                <label style="  ">signature:</label>
+                                <span>..............................</span>
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                                <label style="  ">Date of issue:</label>
+                                <span>(@DateTime.Now.ToString().Split(' ')[0])</span>
+                                <div style="margin: -9px 3px; width: 92px; height: 92px; background-color: white; border: 1px solid black; border-radius: 50%; float: right;">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="" style="font-family: 'times-new-roman' !important; font-size: 9pt; width: 20cm; background-color: white; margin: auto; height: 1cm; display: flex; text-align: center">
+                    <div class="" style=" width: 100%; height: inherit; padding: 3px">
+                        <span>
+                            No financial liability with respect to this certificate shall attach to the Central Administration of Plant Quarantine or to any of its officers or representatives
+                        </span>
+                    </div>
+                </div>
+            </div>
+        }
+
+       
+        @for (var i = 1; i <= countriesDiv; i++)
+        {
+            <div id="tblCheckLst6-@i" style="width:21cm;height:29.7cm;background:gray;margin:auto;padding-top:.6cm">
+                <div id="border" style="direction: ltr; text-align: left; font-size: 12px; width: 20cm; background: white; margin: auto; border: 1px solid #000; font-family: 'times-new-roman' !important; font-size: 10pt;">
+                    <div id="header" style="height:4.5cm;">
+                        <div class="" style="margin:auto;height:inherit;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                                <div class="col-md-4" style="display:inline-block;float:left;padding: 3px;height: inherit;">
+                                    <img class="img1" style="" src="~/assets/images/capq/logo-capq-114.png" />
+                                </div>
+                                <div class="col-md-8 " style="display:inline-block;height: inherit;">
+                                    <p class="lab-1" style="font-weight:bold">
+                                        Arab Republic of Egypt<br />
+                                        Ministry of Agriculture and <br />
+                                        Land Reclamation <br />
+                                        Central Administration <br />
+                                        of Plant Quarantine <br />
+                                    </p>
+
+                                </div>
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                                <div class="col-md-7" style="display:inline-block;float:left;height: inherit;text-align:right;"><label style="margin-top: 10px;font-size: 20px;">Farm Accreditation</label></div>
+                                <div class="col-md-5" style="display:inline-block;height:inherit;"><label style="font-size: 70px; float: right; font-family: AlphanumericqrSpace-O5z8 !important">3</label></div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div id="content" style="height:20cm;">
+                        <div class="" style="margin:auto;height:1.6cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 50%; height: inherit; padding: 3px">
+                                <label style="  ">Owner Name:</label>
+                                <span>@Html.DisplayFor(m => Model.CompanyName_En)</span>
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 50%; height: inherit; padding: 3px">
+                                <label style="  ">Owner Address:</label>
+                                <span>@Html.DisplayFor(m => Model.CompanyAddress_En)</span>
+
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="  ">Phone Number:</label>
+                                <span>@Html.DisplayFor(m => Model.Company_Mobile)</span>
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="  ">Email:</label>
+                                <span>@Html.DisplayFor(m => Model.Company_Email)</span>
+
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:1.6cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="  ">Farm Name:</label>
+                                <span>@Html.DisplayFor(m => Model.Farm_Name_EN)</span>
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="  ">Farm Address:</label>
+                                <span>@Html.DisplayFor(m => Model.Farm_Address_En)</span>
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 50%;height: inherit;padding: 3px">
+                                <label style="  ">Plant:</label>
+                                <span>@Html.DisplayFor(m => Model.Item_Name_EN)</span>
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="  ">Farm Code:</label>
+                                <span>@Html.DisplayFor(m => Model.Farm_Data_FarmCode_14)</span>
+
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                                @foreach (var item in Model.plantList)
+                                {
+                                    totalarea += (double)item.Area_Acres;
+                                }
+                                <label style="  ">Total farm area:</label>
+                                <span>@totalarea</span>
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="  ">GPS:</label>
+                                <span>@Html.DisplayFor(m => Model.GPSRead)</span>
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style="text-align: center; width: 100%; height: inherit; padding: 3px">
+                                <label>Accrediting countries</label>
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:.6cm;display:flex;">
+                            <div class="" style="width: 100%; height: inherit; padding: 3px">
+                                @*<div style="width: 32.9%;display:inline-block;">
+            <label>Country</label>
+        </div>
+        <div style="width: 33%;display:inline-block;">
+            <label>Start Date</label>
+        </div>
+        <div style="width: 30%;display:inline-block;">
+            <label>End Date</label>
+        </div>*@
+                                <div style="width: 32.9%;display:inline-block;">
+                                    <label>RequestID</label>
+                                </div>
+                                <div style="width: 33%;display:inline-block;">
+                                    <label>Print Text</label>
+                                </div>
+                    
+
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:13.8cm;display:flex;border-bottom:1px solid #000;">
+
+                            <div class="" style="width: 100%; height: inherit; padding: 3px">
+                                @if (model != null)
+                                {
+                                    if (25 * i > Model.requestLst.Count)
+                                    {
+
+                                        foreach (var item in Model.requestLst.Skip((i - 1) * 25).Take(25))
+                                        {
+                                            <div class="" style="padding:0px">
+                                                <div style="width: 32.9%;display:inline-block;">@item.ID</div>
+                                                <div style="width: 32.9%;display:inline-block;">@item.Print_Text</div>
+
+                                            </div>
+
+                                        }
+                                    }
+                                    else
+                                    {
+
+                                        foreach (var item in Model.requestLst.Skip((i - 1) * 25).Take(25))
+                                        {
+                                            <div class="" style="padding:0px">
+                                                <div style="width: 32.9%;display:inline-block;">@item.ID</div>
+                                                <div style="width: 32.9%;display:inline-block;">@item.Print_Text</div>
+
+                                            </div>
+
+                                        }
+                                    }
+                                }
+
+                            </div>
+
+                            @*<div class="" style="width: 100%; height: inherit; padding: 3px">
+            @if (model != null)
+            {
+                if (25 * i > Model.countryLst.Count)
+                {
+
+                    foreach (var item in Model.countryLst.Skip((i - 1) * 25).Take(25))
+                    {
+                        <div class="" style="padding:0px">
+                            <div style="width: 32.9%;display:inline-block;">@item.country_Name_En</div>
+                            <div style="width: 33%;display:inline-block;">@item.Start_Date.ToString().Split(' ')[0]</div>
+                            <div style="width: 32%;display:inline-block;">@item.End_Date.ToString().Split(' ')[0]</div>
+
+                        </div>
+
+                    }
+                }
+                else
+                {
+
+                    foreach (var item in Model.countryLst.Skip((i - 1) * 25).Take(25))
+                    {
+                        <div class="" style="padding:0px">
+                            <div style="width: 32.9%;display:inline-block;">@item.country_Name_En</div>
+                            <div style="width: 33%;display:inline-block;">@item.Start_Date.ToString().Split(' ')[0]</div>
+                            <div style="width: 32%;display:inline-block;">@item.End_Date.ToString().Split(' ')[0]</div>
+
+                        </div>
+
+                    }
+                }
+            }
+
+        </div>*@
+                        </div>
+                    </div>
+                    <div id="footer3" style="height:3cm;">
+                        <div class="" style="margin:auto;height:inherit;display:flex;">
+                            <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                                <label style="  ">place of issue:@Model.outletName</label>
+                                <span></span>
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                                <label style="  ">Name of authorized official:</label>
+                                <span>@ViewBag.FullName</span>
+                                <br />
+                                <label style="  ">signature:</label>
+                                <span>..............................</span>
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                                <label style="  ">Date of issue:</label>
+                                <span>(@DateTime.Now.ToString().Split(' ')[0])</span>
+                                <div style="margin: -9px 3px;width: 92px;height: 92px;background-color: white;border: 1px solid black;border-radius: 50%;float: right;">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="" style="font-family: 'times-new-roman' !important; font-size: 9pt; width: 20cm; background-color: white; margin: auto; height: 1cm; display: flex; text-align: center">
+                    <div class="" style=" width: 100%; height: inherit; padding: 3px">
+                        <span>
+                            No financial liability with respect to this certificate shall attach to the Central Administration of Plant Quarantine or to any of its officers or representatives
+                        </span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<br />
+
+<br />
+<div class="row">
+    <div class="col-md-5">
+    </div>
+    @if (totCount > 25)
+    {
+        <div class="col-md-3">
+            <button id="PrintResultButton2" class="btn" value='Print' onclick='printen("totalen")'> print</button>
+        </div>
+    }
+    else
+    {
+        <div class="col-md-3">
+            <button id="PrintResultButton2" class="btn" value='Print' onclick='printen("tblCheckLst2")'> print</button>
+        </div>
+    }
+
+    <div class="col-md-4"></div>
+</div>
+<br />
+<script>
+  //  jQuery('.qrcodeimport').qrcode("r");
+    if (@totCount > 25) {
+        $("#tblCheckLst").hide();
+        $("#tblCheckLst2").hide();
+        $("#totalar").show();
+        $("#totalen").show();
+        //$("#tblCheckLst5").show();
+        //$("#tblCheckLst6").show();
+    } else {
+        $("#tblCheckLst").show();
+        $("#tblCheckLst2").show();
+        $("#totalar").hide();
+        $("#totalen").hide();
+        //$("#tblCheckLst5").hide();
+        //$("#tblCheckLst6").hide();
+    }
+    function printar(k) {
+        var restorepage2 = document.body.innerHTML;
+        var printcontent2 = $('#' + k).children();
+        var printData = '';
+        for (var i=0; i < printcontent2.length; i++)
+        {
+            printData += printcontent2[i].innerHTML;
+        }
+        document.body.innerHTML = printData;
+       // jQuery('.qrcodeimport').qrcode("r");
+        var css = `@@page{margin:.6cm .5cm .55cm .5cm!important;}.verticalLine{width:1px !important;margin: 0!important;background: #000!important;}.lab-2 {margin-top: 45px;margin-right: 8px;text-align: center;font-size: 16px}img.img1 {visibility: hidden}.col-md-4 {width: 33.33333333%;}.col-md-8 {width: 66.66666667%;}.col-md-6 {width: 50%;}.col-md-7 {width: 58.33333333%;}.col-md-5 {width: 41.66666667%;}`,
+            head = document.head || document.getElementsByTagName('head')[0],
+            style = document.createElement('style');
+        style.type = 'text/css';
+        style.media = 'print';
+
+        if (style.styleSheet) {
+            style.styleSheet.cssText = css;
+        }
+        else {
+            style.appendChild(document.createTextNode(css));
+        }
+        head.appendChild(style);
+        window.print();
+        history.go(0);
+        window.location.reload();
+        document.body.innerHTML = restorepage2;
+    }
+    function printen(mm) {
+        var restorepage2 = document.body.innerHTML;
+        var printcontent2 = $('#' + mm).children();
+
+         var printData = '';
+        for (var i=0; i < printcontent2.length; i++)
+        {
+            printData += printcontent2[i].innerHTML;
+        }
+         document.body.innerHTML = printData;
+    //    jQuery('.qrcodeimport').qrcode("r");
+        var css = `@@page{margin:.6cm .5cm .55cm .5cm!important;}.verticalLine{width:1px !important;margin: 0!important;background: #000!important;}.lab-1 {margin-top: 30px;margin-left: 8px;text-align: center;font-size: 16px}img.img1 {visibility: hidden}.col-md-4 {width: 33.33333333%;}.col-md-8 {width: 66.66666667%;}.col-md-6 {width: 50%;}.col-md-7 {width: 58.33333333%;}.col-md-5 {width: 41.66666667%;}`,
+            head = document.head || document.getElementsByTagName('head')[0],
+            style = document.createElement('style');
+        style.type = 'text/css';
+        style.media = 'print';
+
+        if (style.styleSheet) {
+            style.styleSheet.cssText = css;
+        }
+        else {
+            style.appendChild(document.createTextNode(css));
+        }
+        head.appendChild(style);
+        window.print();
+        history.go(0);
+        window.location.reload();
+        document.body.innerHTML = restorepage2;
+    }
+</script>

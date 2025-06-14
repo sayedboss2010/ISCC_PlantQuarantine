@@ -1,0 +1,148 @@
+﻿
+@model PlantQuar.DTO.DTO.ExportRequest.CheckRequestStoppingDTO
+
+@{
+    ViewBag.Title = @PlantQuar.WEB.Language.Resource_data1.stopCheckRequest;
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<link href="~/assets/css/print.min.css" rel="stylesheet" />
+<script src="~/assets/js/print.min.js"></script>
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.stopCheckRequest</h2>
+}
+
+@section Path{
+    <li style="position: relative;right: 28px;">@PlantQuar.WEB.Language.Resource_data1.stopCheckRequest</li>
+}
+
+<style>
+    .chosen-container-multi .chosen-choices {
+        border-radius: 20px;
+        height: 34px;
+    }
+
+   
+    input[type="radio"] {
+        height: 71%;
+    }
+
+    #get {
+        right: 20px;
+        background-color: #1e7c80;
+        border: 2px solid #1e8084;
+        box-shadow: 0 4px #1d9fa5;
+        outline: none;
+        padding: 4px 10px;
+        width: 35%;
+        font-size: 2.2rem;
+    }
+
+        #get:hover {
+            background-color: #1a8488;
+            border: 1px solid #1a8488;
+        }
+
+    #savereas {
+        width: 50%;
+    }
+
+  
+</style>
+
+
+<div class="row">
+    <div class="col-md-4 col-sm-12">
+        <label>@PlantQuar.WEB.Language.Resource_data1.enterCheckNumber</label>
+    </div>
+    <div class="col-md-4 col-sm-12">
+
+        <input type="text" class="form-control" autocomplete="off" id="requestnumber" />&nbsp;
+    </div>
+    <div class="col-md-4 col-sm-12"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 col-sm-12">
+            <label class="modal-title">@PlantQuar.WEB.Language.Resource_data1.ChooseReasons</label>
+        </div>
+        <div class="col-md-5 col-sm-12">
+            @foreach (var c in ViewBag.ListReasons)
+            {
+                <input type="checkbox" name="Reasons_ID" value="@c.Value" />
+                <label class="modal-title">@c.DisplayText</label>
+
+                <br />
+                @*<option value="@c.Value">@c.DisplayText</option>*@
+            }
+            @*<select id="rejreasons" class="form-inline " multiple>
+                    @foreach (var c in ViewBag.ListReasons)
+                    {
+                        <option value="@c.Value">@c.DisplayText</option>
+                    }
+                </select>*@
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class=" col-md-4"></div> 
+        <div class=" col-md-4">
+            <input type="button" id="savereas " class="btn btn-primary" value='@PlantQuar.WEB.Language.Resource_data1.Save' style="background-color: #1e7c80;border: 2px solid #1e8084;box-shadow: 0 4px #1d9fa5;width: 100px;height: auto;float: right;">
+
+        </div>
+            <div class=" col-md-4">
+            </div>
+
+        </div>
+
+
+        <script>
+     //$("#savereas").click(function () {
+     //       $("#rrr").text('');
+     //   });
+        $("#savereas").click(function () {
+
+            var checkboxes = document.querySelectorAll('input[name=Reasons_ID]:checked');
+
+            var checkReqnumber = $("#requestnumber").val();
+            if (checkReqnumber != null && checkReqnumber != "") {
+                if (checkboxes.length) {
+                   // alert(checkboxes.length);
+                    var listID=[] ;
+                    for (var m = 0; m < checkboxes.length; m++)   //to full CheckedItemsList
+                    {
+                        var list = checkboxes[m].value;
+
+                        listID.push([list,]);
+                    }
+
+                    $.post('/ExportRequest/CheckRequestStopping/saveReasons', { listIDs: listID, checkReqNum: checkReqnumber }, function (data, succ) {
+                        alertify.success(data);
+
+                    });
+                }
+                else {
+                    alertify.error('@PlantQuar.WEB.Language.Resource_data1.ChooseReasons');
+                }
+
+            } else {
+                alertify.error('@PlantQuar.WEB.Language.Resource_data1.enterCheckNumber');
+            }
+        });
+    @*$(document).ready(function () {
+        $("#rejreasons").addClass("chosen-select").prop("multiple", true);
+        $('#rejreasons_chosen option').prop('selected', true);
+        $("#rejreasons option[value=]").remove();
+        $("#rejreasons").chosen({
+            // disable_search_threshold: 10,
+            no_results_text: "@PlantQuar.WEB.Language.Resource_data1.no_results : ",
+            placeholder_text_multiple: "@PlantQuar.WEB.Language.Resource_data1.Select_One_More",
+            //placeholder_text_single: "حدد@PlantQuar.WEB.Language.Resource_data1.Governate",
+            width: "95%",
+            rtl: true,
+            search_contains: true,
+        });
+
+    });*@
+        </script>
+

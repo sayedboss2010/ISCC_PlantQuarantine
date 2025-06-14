@@ -1,0 +1,784 @@
+﻿@*@using PlantQuar.DTO.DTO.Station_Pages.Committee_Station_DTO*@
+
+@{
+
+    ViewBag.Title = "Committee";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    var Dissablle = "";
+  
+
+    //var reqCommiteeType11 = (List<Farm_Requst_ListDTO>)ViewBag.reqCommiteeType;
+
+}
+@section Title{
+    <h2 class="ls-top-header">لجنة محطة</h2>
+}
+@section Path{
+    <li style="position: relative;right: 28px;">محطة</li>
+    <li class="active" style="right: 43px; position: relative;">@PlantQuar.WEB.Language.Resource_data1.FarmCommittee</li>
+}
+<link href="~/Content/jquery.timepicker.css" rel="stylesheet" />
+<script src="~/scripts/jquery.timepicker.min.js"></script>
+
+@using (Html.BeginForm("CreateCommittee", "Committee", FormMethod.Post))
+{
+
+    <div class="form-box" id="lagnaDiv">
+        <div class="tab" role="tabpanel" style="min-height:80% !important;">
+            <ul class="row nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#ItemsTab" aria-controls="profile" role="tab" id="itemTab_il" data-toggle="tab">معلومات</a>
+                </li>
+                <li role="presentation">
+                    <a href="#empploy" aria-controls="profile" role="tab" id="empploy_il" class="hidden" data-toggle="tab">اسم الموظف</a>
+                </li>
+             
+                <li role="presentation">
+                    <a href="#QualGrpTab" aria-controls="profile" role="tab" id="qualGrp_il" class="hidden" data-toggle="tab">مواعيد النبواتجية</a>
+                </li>
+              
+                <li role="presentation">
+                    <a href="#Station_Fees_Type" aria-controls="profile" role="tab" id="anlysis_il" class="hidden" data-toggle="tab">وردية المهندسسين</a>
+                </li>
+            </ul>
+            <div class="tab-content tabs" style="background-color:whitesmoke  !important;">
+                <div role="tabpanel" class="tab-pane fade in active" id="ItemsTab" style="height:220px;">
+                    <input hidden type="text" value="@ViewBag.Station_Requst_ID" id="Lbl_Station_Requst_ID" />
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="">
+                                <label>@PlantQuar.WEB.Language.Resource_data1.CommitteeType </label>
+                                <select id="CommitteeType_ID" class="form-control" disabled>
+                                    <option value="4">لجنة اعتماد محطة</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="">
+                                @{
+                                    if (ViewBag.type == 1)
+                                    {
+                                        <label>@PlantQuar.WEB.Language.Resource_data1.ExportRequestNumber</label>
+                                    }
+                                    else if (ViewBag.type == 2)
+                                    {
+                                        <label>@PlantQuar.WEB.Language.Resource_data1.FarmNumber</label>
+                                    }
+                                    else
+                                    {
+                                        <label>@PlantQuar.WEB.Language.Resource_data1.stationCode</label>
+                                    }
+                                }
+
+                                <input type="text" name="CheckRequest_Number" id="CheckRequest_Number" value="@ViewBag.data" class="form-control" readonly />
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+
+                            @{
+                                if (ViewBag.type == 1)
+                                {
+                                    <label> @PlantQuar.WEB.Language.Resource_data1.Date_of_registration_request  </label>
+                                    <input type="text" name="Check_Date" id="Check_Date" class="form-control" readonly value="@ViewBag.creationDate" />
+                                }
+                                else if (ViewBag.type == 2)
+                                {
+                                    <label> @PlantQuar.WEB.Language.Resource_data1.FarmAccreditatRequestRegistrationDate  </label>
+                                    <input type="text" name="Check_Date" id="Check_Date" class="form-control" readonly value="@ViewBag.creationDate" />
+                                }
+                                else
+                                {
+                                    <label> @PlantQuar.WEB.Language.Resource_data1.StationAccreditatRequestRegistrationDate  </label>
+                                    <input type="text" name="Check_Date" id="Check_Date" class="form-control" readonly value="@ViewBag.creationDate" />
+                                }
+                            }
+
+
+                        </div>
+                        <div class="col-md-4">
+
+                            <label> @PlantQuar.WEB.Language.Resource_data1.Date_of_committee</label>
+                            <input type="text" name="Delegation_Date" id="Delegation_Date" class="form-control" required />
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label> @PlantQuar.WEB.Language.Resource_data1.Time_of_ActionFrom</label>
+                            <input type="time" name="StartTime" id="StartTime" class="form-control" />
+                        </div>
+                        <div class="col-md-4">
+
+                            <label>  @PlantQuar.WEB.Language.Resource_data1.To</label>
+                            <input type="time" name="EndTime" id="EndTime" class="form-control" />
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <input type="button" class="btn btn-primary btnNext float-left" id="Next1" value="التالى">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane fade " id="empploy" style="height:auto;">
+                    <span>@ViewBag.Accreditation_Type_ID</span> 
+                    @if (@ViewBag.Accreditation_Type_ID == 80)
+                    {
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="col-md-4">نوع المنفذ</label>
+                                <select id="OperationTypeDropDown" name="OperationTypeDropDown" class="form-control col-md-8">
+                                    <option value="0">أختر</option>
+                                    <option value="96">الوارد</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="col-md-4">اسم المنفذ</label>
+                                @if (ViewBag.Outlet != null)
+                                {
+                                    @Html.DropDownList("CustomerDropDown", new SelectList(ViewBag.Outlet, "Value", "DisplayText"), new { @class = "form-control col-md-8" })
+                                }
+                            </div>
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label> @PlantQuar.WEB.Language.Resource_data1.EmpolyeeName</label>
+                            <input type="text" id="Employee_name" placeholder="enter emp name" class="form-control" />
+                        </div>
+                        <div class="col-md-4">
+                            <label>  @PlantQuar.WEB.Language.Resource_data1.EmpolyeeNumber</label>
+                            <input type="text" name="Employee_No" id="Employee_No" class="form-control" />
+                        </div>
+                        <div class="col-md-4" style="text-align:center">
+                            <input type="button" id="search" onclick="MyFunction()" value="بحث بالموظف" />
+                            <input type="hidden" id="CheckRequest_Id" value="@ViewBag.requestId" />
+                            <input type="hidden" id="shiftId" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <table id="Farm_Constrain_TextTable" class="table table-bordered table-striped dataTable" role="grid" style="padding:5px; width:100%">
+                            <thead>
+                                <tr>
+                                    <th>@PlantQuar.WEB.Language.Resource_data1.EmpolyeeNumber </th>
+                                    <th>اسم الموظف </th>
+                                    <th>محافظة الموظف </th>
+                                    <th>منفذ الموظف </th>
+                                    <th hidden>ادمن</th>
+                                    <th>تسجيل</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <table id="myTable" border="1" name="gh" class="table table-bordered table-striped dataTable">
+                            <thead>
+                                <tr>
+                                    <th>اسم المهندس </th>
+                                    <th>كود المهندس </th>
+                                    <th>ادمن</th>
+                                    <th>حذف</th>
+                                </tr>
+                            </thead>
+                            <tbody id="myTable2">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <input type="button" class="btn btn-primary btnNext float-left " id="Next_empploy" value="التالى">
+                        </div>
+                    </div>
+                </div>
+
+          
+
+                <div role="tabpanel" class="tab-pane fade" id="QualGrpTab" style="height:auto;">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label> مواعيد النبواتجية</label>
+                            <select id="ShiftTiming_select" name="Analysiss_name" class="form-control AnalysisLst"></select>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label>المبلغ </label>
+                            <input type="text" name="Txt_money" id="Txt_money" class="form-control" readonly />
+                            @*<input type="text" id="Txt_money" name="name" />*@
+                        </div>
+
+                        <div class="col-md-2">
+                            <label>
+                                عدد الأيام
+                            </label>
+                            <input type="number" id="Txt_Count" name="name" />
+                        </div>
+
+                        <div class="col-md-4">
+                            <input id="" class="style-but" name="" type="button" onClick="reply_ShiftTiming(this)" value="اضافة">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table id="ShiftTiming_Table" border="1" name="ShiftTiming" class="table table-bordered table-striped dataTable">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>مواعيد النبواتجية</th>
+                                    <th>الحساب</th>
+                                    <th>عدد الأيام </th>
+                                    <th>الاجمالى</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ShiftTiming_tbody">
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <div class="row">
+                        <div id="ShiftsAddEdit" style="width:100%">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <input type="button" class="btn btn-primary btnNext float-left " id="shift" value="التالى">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane fade" id="Station_Fees_Type" style="height:auto;">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>اسم الوردية</label>
+                            <select id="Station_Fees_Type_select" name="Analysiss_name" class="form-control AnalysisLst"></select>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label>المبلغ </label>
+                            <input type="text" name="Txt_money_Station_Fees_Type" id="Txt_money_Station_Fees_Type" class="form-control" readonly />
+                            @*<input type="text" id="Txt_money_Station_Fees_Type" name="name" />*@
+                        </div>
+                      
+                        <div class="col-md-4">
+                            <input id="" class="style-but" name="" type="button" onClick="reply_Station_Fees_Type(this)" value="اضافة">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table id="Station_Fees_Type_Table" border="1" name="ShiftTiming" class="table table-bordered table-striped dataTable">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>وردية المهندس</th>
+                                    <th>الحساب</th>
+                                    <th hidden>عدد المهندسين </th>
+                                    <th>الاجمالى</th>
+                                </tr>
+                            </thead>
+                            <tbody id="Station_Fees_Type_tbody">
+                            </tbody>
+                        </table>
+                    </div>        
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <input type="button" class="btn btn-primary" id="submitValue" value="التالي">
+                        </div>
+                    </div>
+                </div>             
+            </div>
+        </div>
+    </div>
+   
+
+
+    @section scripts{
+
+        <script type="text/javascript">
+
+            $("#Delegation_Date").datepicker(
+                {
+                    dateFormat: 'yy-mm-dd',
+                    changeYear: true,
+                    changeMonth: false,
+                    minDate: 0,
+                    yearRange: "-100:+20",
+                }
+            );
+            var _ShiftTiming_List = [];
+
+            var _Emplo_List = [];
+
+            var _Station_Fees_List = [];
+
+            function MyFunction() {
+
+                // $(search).prop('disabled', true); // Unchecks it
+                $("#Farm_Constrain_TextTable tbody").empty();
+                var EmplyeeName = document.getElementById("Employee_name").value;
+                var Emplyee_No = $('#Employee_No').val();
+               //نريد التأكد من نوع المنفذ اذا كان صادر ام وارد
+            //لو صادر نجيب كل المنافذ
+            // لو وارد يكون الاختيار حسب المنفذ الخاص بتشكيل اللجنة
+
+                const urlSearchParams = new URLSearchParams(window.location.search);
+                const params = Object.fromEntries(urlSearchParams.entries());
+                var Accreditation_Type_ID = params.Accreditation_Type_ID;
+           
+                var OutLet_ID = 0;
+                if (Accreditation_Type_ID == 80)//لو صادر
+                 OutLet_ID = $('#CustomerDropDown').val();
+                var EmplyeeNo;
+                // //alert(Emplyee_No)
+                if (Emplyee_No === "") {
+                    EmplyeeNo = 0;
+                }
+                else {
+                    EmplyeeNo = parseInt($('#Employee_No').val());
+                }
+                $.ajax({
+                    url: '@Url.Action("GetPR_User_Id", "Committee_Station")',
+                    type: "POST",
+                    data: { FullName: EmplyeeName, EmplyeeNo: EmplyeeNo, OutLet_ID: OutLet_ID },
+                    success: function (data) {
+                        for (var i = 0; i < data.length; i++) {
+                            var item = data[i];
+                            carName = 1;
+                            $("#Farm_Constrain_TextTable tbody").append("<tr>" +
+                                "<td>  " + item.Value + "  </td>"
+                                + "<td>" + item.DisplayText + "</td>" +
+                                "<td>  " + item.Adress + "  </td>"
+                                + "<td>" + item.JobTitleName + "</td>"
+                                + '<td><input type="checkbox" id="chckBox_' + data[i].Value + '" class="chckClass_' + i + '" value="' + data[i].Value + '" Name="' + data[i].DisplayText + '"  onchange="Emplyee_List(this)" " /></td>'
+                                + "</tr>");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                    }
+                });
+                let checkboxes = $("input[type='checkbox']");
+                selectedCboxes = Array.prototype.slice.call(checkboxes).filter(ch => ch.checked == true);
+                //console.log(checkboxes);
+            }
+
+
+            $(document).ready(function () {
+
+                const urlSearchParams = new URLSearchParams(window.location.search);
+                const params = Object.fromEntries(urlSearchParams.entries());
+                var reqId = params.reqId;
+                //var id = $('#reqId').val();
+
+                //ShiftTiming
+
+                $.ajax(
+                    {
+                        url: '@Url.Action("getShiftTiming_Lst", "Committee", new { area = "Committees" })',
+                        type: 'Post',
+                        success: function (data) {
+                            $('#ShiftTiming_select').empty();
+                            $.each(data.Options, function (i, index) {
+                                $('#ShiftTiming_select').append($('<option />').val(index.Value).text(index.DisplayText));
+                            }); //each
+                        } //success
+                    });//ajax
+
+                //Station_Fees_Type_select
+
+                $.ajax(
+                    {
+                        url: '@Url.Action("get_Station_Fees_Type_Lst", "Station_Fees_Type", new { area = "Station_Pages" })',
+                        type: 'Post',
+                        data: { Fees_Type: 137 },
+                        success: function (data) {
+                            $('#Station_Fees_Type_select').empty();
+                            $.each(data.Options, function (i, index) {
+                                $('#Station_Fees_Type_select').append($('<option />').val(index.Value).text(index.DisplayText));
+                            }); //each
+                        } //success
+                    });//ajax
+            });
+
+            //ShiftTiming
+
+            $("#ShiftTiming_select").change(function () {
+                $.ajax(
+                    {
+                        url: '@Url.Action("getShiftTiming_Mony", "Committee", new { area = "Committees" })',
+                        type: 'Post',
+                        data: { shiftId: $(this).val() },
+                        success: function (data) {
+                            if (data.Options != null) {
+                                $("#Txt_money").val(data.Options);
+                            }
+                        } //success
+                    });//ajax
+            });
+
+            function reply_ShiftTiming(element) {
+
+                $(".toggle-div7-" + element.id + "").toggle('fast', "linear");
+                var ShiftTiming_select_GetName = $("#ShiftTiming_select  option:selected").text();
+                var ShiftTiming_select_GetID = $("#ShiftTiming_select  option:selected").val();
+
+
+                var Txt_money_Get = $("#Txt_money").val();
+                var Txt_Count_Get = $("#Txt_Count").val();
+
+                var ShiftTiming_List = document.getElementById("ShiftTiming_tbody").rows;
+                var id = 0;
+                if (ShiftTiming_select_GetID > 0) {
+                    if (Txt_Count_Get > 0) {
+                        for (var i = 0, ceiling = ShiftTiming_List.length; i < ceiling; i++) {
+                            cells = ShiftTiming_List[i].getElementsByTagName('td');
+                            var id_cells = cells[0].innerHTML;
+                            if (ShiftTiming_select_GetID == id_cells) {
+                                id = 1;
+                            }
+                        }
+                        if (id == 0) {
+                            var table = document.getElementById("ShiftTiming_tbody");
+                            var rowCount = table.rows.length;
+                            var row = table.insertRow(rowCount);
+                            row.id = '' + ShiftTiming_select_GetID;
+                            row.insertCell(0).innerHTML = ShiftTiming_select_GetID;
+                            row.insertCell(1).innerHTML = ShiftTiming_select_GetName;
+                            row.insertCell(2).innerHTML = Txt_money_Get;
+                            row.insertCell(3).innerHTML = Txt_Count_Get;
+                            row.insertCell(4).innerHTML = Txt_money_Get * Txt_Count_Get;//2
+                            row.insertCell(5).innerHTML = '<td><a href="#" onclick="DeleteRow_ShiftTiming(this)" name="' + ShiftTiming_select_GetID + '">حذف</a></td>';;
+                            //Farm_Committee_ShiftDTO
+                            _ShiftTiming_List.push({
+                                ShiftTiming_ID: ShiftTiming_select_GetID,
+                                Count: Txt_Count_Get,
+                                Amount: Txt_money_Get
+                            });
+                            console.log(_ShiftTiming_List);
+                            alertify.success("تمت الاضافه ");
+                        }
+                        else {
+                            alertify.error("موجود مسبقا");
+                        }
+                    }
+                    else {
+                        alertify.error("يجب كتابة عدد الايام");
+                    }
+                }
+                else {
+                    alertify.error("يجب اختيار نوبتجية");
+                }
+            }
+
+
+            function DeleteRow_ShiftTiming(element) {
+                var table = document.getElementById("ShiftTiming_tbody");
+                           
+                var c = '#' + element.name + '';
+                $(c).remove();
+                _ShiftTiming_List = removeObjectWithId(_ShiftTiming_List, element.name);
+               
+             
+                /* _ShiftTiming_List.remove*/
+            }
+
+            function removeObjectWithId(arr, id) {
+                // Making a copy with the Array from() method
+                const arrCopy = Array.from(arr);
+
+                const objWithIdIndex = arrCopy.findIndex((obj) => obj.id === id);
+                arrCopy.splice(objWithIdIndex, 1);
+                return arrCopy;
+            }
+
+            // Station_Fees_Type
+
+            $("#Station_Fees_Type_select").change(function () {
+                $.ajax(
+                    {
+
+                        url: '@Url.Action("get_Station_Fees_Type_Mony", "Station_Fees_Type", new { area = "Station_Pages" })',
+                        type: 'Post',
+                        data: { Station_Fees_Type_ID: $(this).val() },
+                        success: function (data) {
+                            if (data.Options != null) {
+                                $("#Txt_money_Station_Fees_Type").val(data.Options);
+                            }
+                        } //success
+                    });//ajax
+            });
+
+            function reply_Station_Fees_Type(element) {
+
+                $(".toggle-div7-" + element.id + "").toggle('fast', "linear");
+                var Station_Fees_select_GetName = $("#Station_Fees_Type_select  option:selected").text();
+                var Station_Fees_select_GetID = $("#Station_Fees_Type_select  option:selected").val();
+
+                var Txt_money_Get = $("#Txt_money_Station_Fees_Type").val();
+                var Txt_Count_Get = $("#Txt_money_Station_Fees_Type").val();
+                var _Lbl_Station_Requst_ID = $("#Lbl_Station_Requst_ID").val();
+                var Station_Fees_List = document.getElementById("Station_Fees_Type_tbody").rows;
+                var id = 0;
+                if (Station_Fees_select_GetID > 0) {
+                    if (Txt_Count_Get > 0) {
+                        for (var i = 0, ceiling = Station_Fees_List.length; i < ceiling; i++) {
+                            cells = Station_Fees_List[i].getElementsByTagName('td');
+                            var id_cells = cells[0].innerHTML;
+                            if (Station_Fees_select_GetID == id_cells) {
+                                id = 1;
+                            }
+                        }
+                        /*var Count_Employee = 0;*/
+
+                        var Employee_List = document.getElementById("myTable2").rows;
+                        //for (var i = 0, ceiling = Employee_List.length; i < ceiling; i++) {
+
+                        Count_Employee = Employee_List.length;
+                        //}
+
+                        if (id == 0) {
+                            var table = document.getElementById("Station_Fees_Type_tbody");
+                            var rowCount = table.rows.length;
+                            var row = table.insertRow(rowCount);
+                            row.id = '' + Station_Fees_select_GetID;
+                            row.insertCell(0).innerHTML = Station_Fees_select_GetID;
+                            row.insertCell(1).innerHTML = Station_Fees_select_GetName;
+                            row.insertCell(2).innerHTML = Txt_money_Get;
+                            row.insertCell(3).innerHTML = Count_Employee;
+                            row.insertCell(4).innerHTML = Txt_money_Get * Count_Employee;//2
+                            row.insertCell(5).innerHTML = '<td><a href="#" onclick="DeleteRow_Station_Fees_Type(this)" name="' + Station_Fees_select_GetID + '">حذف</a></td>';;
+                            //Farm_Committee_ShiftDTO
+                            _Station_Fees_List.push({
+                                Station_Accreditation_Request_ID: _Lbl_Station_Requst_ID,
+                                Station_Fees_Type_ID: Station_Fees_select_GetID,
+                                Num_Eng: Count_Employee,
+                                Value: Txt_money_Get,
+                                Station_Table_Type:4//وردية
+                            });
+
+                            alertify.success("تمت الاضافه ");
+                        }
+                        else {
+                            alertify.error("موجود مسبقا");
+                        }
+                    }
+                    else {
+                        alertify.error("يجب كتابة عدد الايام");
+                    }
+                }
+                else {
+                    alertify.error("يجب اختيار نوبتجية");
+                }
+            }
+
+
+            function DeleteRow_Station_Fees_Type(element) {
+                var table = document.getElementById("Station_Fees_Type_tbody");
+                var c = '#' + element.name + '';
+                $(c).remove();
+                _Station_Fees_List = removeObjectWithId(_Station_Fees_List, element.name);
+                /* _ShiftTiming_List.remove*/
+            }
+
+
+            function DeleteRow(element) {
+              /*  alert(element.name);*/
+                //console.log(element);
+                var table = document.getElementById("myTable");
+
+                var c = '#id' + element.name + '';
+                $(c).remove();
+              
+            }
+
+            //Emplyee_List
+
+            function Emplyee_List(element) {
+                // alert(element.value);
+                if (element.checked) {
+                   //debugger;
+                    var table = document.getElementById("myTable2");
+
+                    var rowCount = table.rows.length;
+                    var row = table.insertRow(rowCount);
+                    row.id = 'id' + element.value;
+                    row.insertCell(0).innerHTML = element.name;
+                    row.insertCell(1).innerHTML = element.value;
+                    row.insertCell(2).innerHTML =
+                        '<td><input type="radio" id="chckBox_' + element.value + '" class="change-selector" value="' + element.value + '" name="hello"   )"/></td>';
+                    row.insertCell(3).innerHTML =
+                        '<td><a href="#" onclick="DeleteRow(this)" name="' + element.value + '">Delete</a></td>';
+                }
+                else {
+                    var c = '#id' + element.value + '';
+                    $(c).remove();
+
+                }
+
+
+            }
+
+            function save_List_Employee() {
+                var selectedOption = $("input:radio[name=hello]:checked").val()
+                // alert("Your are a - " + selectedOption);
+                if (typeof selectedOption !== "undefined") {
+
+                    var rows = document.getElementById("myTable2").rows;
+                    for (var i = 0, ceiling = rows.length; i < ceiling; i++) {
+
+                        cells = rows[i].getElementsByTagName('td');
+                        Employee_name = cells[0].innerHTML;
+                        Employee_Id = cells[1].innerHTML;
+                        var id = parseInt(Employee_Id);
+                        if (id == selectedOption) {
+                            ISAdmin = true;
+                            //alert('d');
+                            //console.log(selectedOption + ',,,,' + Employee_Id);
+                        }
+                        else {
+                            ISAdmin = false;
+                        }
+                        //ISAdmin
+                        //Employee_no
+                        _Emplo_List.push({ Employee_name: Employee_name, Employee_Id: Employee_Id, ISAdmin: ISAdmin });
+                    }
+                    return _Emplo_List;
+                }
+                else {
+                    return null;
+                }
+            }
+
+
+            $("#Delegation_Date").datepicker(
+                {
+                    dateFormat: 'yy-mm-dd',
+                    changeYear: true,
+                }
+            );
+
+
+/// ////////////////////////////////////////////Save
+
+            $('#submitValue').click(function (e) {
+                var employees = save_List_Employee();
+
+                var _Lbl_Station_Requst_ID = $("#Lbl_Station_Requst_ID").val();
+
+                if (employees == null) {
+                    alertify.error("يجب اختيار  ادمن ");
+                    return false;
+                }
+                $('#Employee_List  tbody').empty();
+
+                Delegation_Date = $("#Delegation_Date").val();
+                StartTime = $("#StartTime").val();
+                EndTime = $("#EndTime").val();
+
+                if (Delegation_Date == ""
+                    || StartTime == "" || EndTime == "" || _Lbl_Station_Requst_ID=="") {
+                    alertify.error("يجب استكمال البيانات ");
+                    return false;
+                }
+                 //save committe
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/Committee_Station/Save_Committe",
+                                    dataType: "json",
+                                    data: JSON.stringify(
+                                        {
+                                            Station_Requst_ID: _Lbl_Station_Requst_ID,
+                                            Check_Date: $("#Check_Date").val(),
+                                            Delegation_Date: Delegation_Date,
+                                            StartTime: StartTime,
+                                            EndTime: EndTime,
+                                            emp_Dto: _Emplo_List,
+                                            ShiftTiming_List: _ShiftTiming_List,
+                                            Station_Fees_List: _Station_Fees_List,
+                                        }),
+                                    contentType: "application/json; charset=utf-8",
+                                    success: function (data) {
+                                        if (data == "تم تشكيل لجنة") {
+                                            alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+                                            location.href = "/Station_Pages/StationAccrediationList/Index"
+                                        }
+                                        else if (data == "لا يمكن عمل تشكيل لعدم وجود متطلبات") {
+                                            alertify.error("لا يمكن عمل تشكيل لعدم وجود متطلبات");
+                                        }
+                                        else  {
+                                            alertify.error("لم يتم تشكيل لجنة ");
+                                        }
+                                        //else {
+                                        //    $("#Check_Date").val(null);
+                                        //    $("#Delegation_Date").val(null);
+                                        //    $("#StartTime").val(null);
+                                        //    $("#EndTime").val(null);
+
+                                        //    $("#CheckRequest_Id").val(0);
+                                        //}
+                                    }
+                                });
+            });
+
+            $('#Next1').click(function (e) {
+
+                var CommitteeType_ID = $("#CommitteeType_ID").val();
+                Delegation_Date = $("#Delegation_Date").val();
+                StartTime = $("#StartTime").val();
+                EndTime = $("#EndTime").val();
+
+                if (CommitteeType_ID == 0 || Delegation_Date == ""
+                    || StartTime == "" || EndTime == "") {
+                    alertify.error(" يجب أختيار لجنة واستكمال البيانات ");
+                }
+                else {
+                    if (StartTime > EndTime) {
+                        alertify.error(" يجب ان يكون توقيت النهاية اكبر من توقيت البداية ");
+                    }
+                    else {
+                        $('.nav-tabs > .active').next('li').find('a').trigger('click');
+                    }
+                }
+            });
+
+            //// Next_empploy
+        $('#Next_empploy').click(function (e) {
+            var selectedOption = $("input:radio[name=hello]:checked").val()
+            //alert("Your are a - " + selectedOption);
+            if (typeof selectedOption !== "undefined") {
+                $('.nav-tabs > .active').next('li').find('a').trigger('click');
+            }
+            else {
+                alertify.error("يجب اختيار موظفين")
+            }
+        });
+
+        $('#shift').click(function (e) {
+
+                $(".jtable-toolbar-item-add-record .jtable-toolbar-item-text").text("@PlantQuar.WEB.Language.Resource_data1.Add");
+            $('.nav-tabs > .active').next('li').find('a').trigger('click');
+        });
+        </script>
+    }
+}

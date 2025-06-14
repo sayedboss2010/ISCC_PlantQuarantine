@@ -1,0 +1,715 @@
+﻿@using PlantQuar.DTO.DTO.ExportRequest
+
+@{
+    requestCommitteeResultDTO committeeResultNew = (requestCommitteeResultDTO)ViewBag.committeeResult;
+    var DetailsId = 0;
+    var CommitteeHasResult = 0;
+}
+
+<link href="~/assets/css/print.min.css" rel="stylesheet" />
+<script src="~/assets/js/print.min.js"></script>
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.Consignmentresults</h2>
+}
+
+@section Path{
+    <li style="position: relative;right: 28px;">@PlantQuar.WEB.Language.Resource_data1.Consignmentresults</li>
+
+}
+
+
+<style>
+    .jtable-child-row {
+        display: table-row !important;
+    }
+
+    .form-rowr {
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px dashed #cbc5ba;
+    }
+
+    .control-label {
+        font-size: 14px;
+    }
+
+    .form-control {
+        font-size: 13px;
+    }
+
+    .label-info {
+        font-size: 16px;
+        text-align: center;
+        padding: 6px;
+        border-radius: 6px 20px;
+    }
+
+    th, tr, td {
+        text-align: center;
+    }
+
+    button, html input[type="button"], input[type="reset"], input[type="submit"] {
+        margin-right: 0px;
+    }
+
+
+    #btnSave, #btnReject, #btnReject, #PrintResultButton, #closedetails {
+        background-color: #1e7c80 !important;
+        border: 2px solid #1e8084 !important;
+        box-shadow: 0 4px #1d9fa5 !important;
+        outline: none;
+        color: white;
+        margin-bottom: 10px;
+    }
+
+        #btnSave, #btnReject, #btnReject, #PrintResultButton:hover, #closedetails:hover {
+            background-color: #1a8488 !important;
+            border: 1px solid #1a8488 !important;
+        }
+
+    blockquote {
+        margin-bottom: 70px !important;
+    }
+
+    .labelprint {
+        font-size: 14px !important;
+    }
+
+    .headings {
+        width: 30%;
+        margin: auto;
+    }
+
+    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+        padding: 3px !important;
+    }
+
+    .pp {
+        font-size: 13.5px;
+        font-weight: bold;
+        line-height: 1.25;
+        color: #368e86;
+    }
+
+    .listemployee {
+        list-style: none;
+        padding: 0px;
+    }
+
+    .tab-pane {
+        padding: 10px !important;
+    }
+
+    .modal-header .close {
+        background-image: url(../../../scripts/jtable/themes/metro/close.png) !important;
+        width: 17px;
+        margin: 0px 0 0 0;
+        padding: 1px;
+        height: 17px;
+        opacity: .75;
+    }
+
+    .modal-content {
+        padding: 5px;
+    }
+
+    .modal-header {
+        background-color: #3b818e !important;
+        color: white;
+        font-weight: bold;
+    }
+
+    #saveresultt {
+        width: 60px;
+        font-size: 15px;
+        text-align: center;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        background-color: #5c8d96;
+        color: white;
+    }
+
+    #rrr {
+        font-size: 30px;
+        color: #368e86;
+    }
+
+    .addres, #detailsbutton, .addresG {
+        color: white;
+        border-radius: 8px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .modal-dialog {
+        left: 0px !important;
+        margin-right: auto !important;
+        margin-left: auto !important;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $(".listemployee li:last-child").css(
+            "margin-bottom", "0px");
+    });
+</script>
+<div class="tab" id="modall_content2" role="tabpanel" style="min-height:80% !important;">
+
+    <ul class="nav nav-tabs" role="tablist" style="padding-left:33px !important;">
+        <li role="presentation" class="active">
+            <a href="#check" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.check</a>
+        </li>
+        <li role="presentation">
+            <a href="#sa7b" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.SampleData</a>
+        </li>
+        <li role="presentation">
+            <a href="#Treatment" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Treatment</a>
+        </li>
+        <li role="presentation">
+            <a href="#Geshny" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Geshney</a>
+        </li>
+    </ul>
+    <div class="tab-content tabs" style="background-color:whitesmoke !important;">
+        <div role="tabpanel" class="tab-pane fade in active" id="check">
+            <table class="table table-bordered">
+                <thead style="background-color:#4d9e97 !important;">
+                    <tr>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Plant</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.CommitteeType</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.LotNumber</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.CommitteeResult</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Weight</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.QuantitySize</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.InfectionName</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Result_injury_Name</th>
+                        <th>delegation date</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.StartTime</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.enddate</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.CommitteeMembers</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.othersOpinoin</th>
+                        <th></th>
+                        @*<th>اسم المستلم</th>*@
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (committeeResultNew.check != null)
+                    {
+                        for (int i = 0; i < committeeResultNew.check.Count(); i++)
+                        {
+                            if (committeeResultNew.check[i].committeeTypeId == 1)
+                            {
+                                <tr class="lotrow" data-id="@committeeResultNew.check[i].rowId">
+                                    <td>@committeeResultNew.check[i].itemName</td>
+                                    <td>@committeeResultNew.check[i].committeeName</td>
+                                    @if (committeeResultNew.check[i].lotNumber == "")
+                                    {
+                                        <td>فحص كلي</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@committeeResultNew.check[i].lotNumber</td>
+                                    }
+
+                                    <td class="lotrowres_@committeeResultNew.check[i].rowId" data-resval="@committeeResultNew.check[i].resultbitAdmin">@committeeResultNew.check[i].committeeResultName</td>
+                                    <td>@committeeResultNew.check[i].Weight</td>
+                                    <td>@committeeResultNew.check[i].QuantitySize</td>
+                                    <td>@committeeResultNew.check[i].Infection_Name</td>
+                                    <td>@committeeResultNew.check[i].Result_injury_Name</td>
+                                    <td>@committeeResultNew.check[i].committeeDelegationDate</td>
+                                    <td>@committeeResultNew.check[i].startTime</td>
+                                    <td>@committeeResultNew.check[i].endtime</td>
+                                    <td>
+                                        @if (committeeResultNew.check[i].allempXml_xml != null)
+                                        {
+                                            <ul class="listemployee">
+                                                @{
+
+                                                }
+                                                @if (committeeResultNew.check[i].allempXml_xml.fn_CommitteEmployee_GetData != null)
+                                                {
+
+                                                    for (int x = 0; x < committeeResultNew.check[i].allempXml_xml.fn_CommitteEmployee_GetData.Count(); x++)
+                                                    {
+                                                        <li style="margin-bottom: 6px;"> @committeeResultNew.check[i].allempXml_xml.fn_CommitteEmployee_GetData[x].FullName</li>
+                                                        @*<li style="margin-bottom: 6px;"><p class="pp"> الملاحظات:</p>@committeeResultNew.check[i].empXml_xml.fn_Get_Employee_Committee_Result[x].notes</li>*@
+
+
+                                                    }
+                                                }
+
+                                            </ul>
+                                        }
+                                    </td>
+
+                                    <td>
+                                        @if (committeeResultNew.check[i].empXml_xml != null)
+                                        {
+                                            <ul class="listemployee">
+                                                @if (committeeResultNew.check[i].empXml_xml.fn_Get_Employee_Committee_Result != null)
+                                                {
+                                                    for (int x = 0; x < committeeResultNew.check[i].empXml_xml.fn_Get_Employee_Committee_Result.Count(); x++)
+                                                    {
+                                                        <li style="margin-bottom: 6px;">@committeeResultNew.check[i].empXml_xml.fn_Get_Employee_Committee_Result[x].Employee_name</li>
+                                                        <li>@committeeResultNew.check[i].empXml_xml.fn_Get_Employee_Committee_Result[x].notes</li>
+                                                        <li class="lotrowres_@committeeResultNew.check[i].rowId" data-resval="@committeeResultNew.check[i].empXml_xml.fn_Get_Employee_Committee_Result[x].resultbit">@committeeResultNew.check[i].empXml_xml.fn_Get_Employee_Committee_Result[x].result</li>
+                                                    }
+
+                                                }
+                                            </ul>
+                                        }
+                                    </td>
+                                    <td id="addbutt_@committeeResultNew.check[i].rowId"></td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="sa7b">
+            <table class="table table-bordered">
+                <thead style="background-color:#4d9e97 !important;">
+                    <tr>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Plant</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.CommitteeType</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.LotNumber</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.CommitteeResult</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.SampleBarCode</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Notes</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.WithDrawPlace</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.SampleSize</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.SampleRatio</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.AnalysisType</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.AnalysisLab</th>
+                        @*<th>اسم المستلم</th>*@
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (committeeResultNew.withdrowSample != null)
+                    {
+                        for (int i = 0; i < committeeResultNew.withdrowSample.Count(); i++)
+                        {
+                            <tr>
+                                <td>@committeeResultNew.withdrowSample[i].itemName</td>
+                                <td>@committeeResultNew.withdrowSample[i].committeeName</td>
+                                @if (committeeResultNew.withdrowSample[i].lotNumber == "")
+                                {
+                                    <td>فحص كلي</td>
+                                }
+                                else
+                                {
+                                    <td>@committeeResultNew.withdrowSample[i].lotNumber</td>
+                                }
+
+                                <td>@committeeResultNew.withdrowSample[i].committeeResultName</td>
+                                <td>@committeeResultNew.withdrowSample[i].SampleBarCode</td>
+                                <td>@committeeResultNew.withdrowSample[i].notes</td>
+                                <td>@committeeResultNew.withdrowSample[i].WithDrawPlace</td>
+                                <td>@committeeResultNew.withdrowSample[i].SampleSize</td>
+                                <td>@committeeResultNew.withdrowSample[i].SampleRatio</td>
+                                <td>@committeeResultNew.withdrowSample[i].AnalysisType_Name</td>
+                                <td>@committeeResultNew.withdrowSample[i].AnalysisLab_Name</td>
+
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="Treatment">
+            <table class="table table-bordered" style="font-size: 13px;">
+                <thead style="background-color:#4d9e97 !important;">
+                    <tr>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.Plant</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.CommitteeType</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.LotNumber</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.CommitteeResult</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.TreatmentType</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.Company</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.TreatmentMaterial</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.TreatmentMethod</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.Temperature</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.Exposure_Day</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.Exposure_Hour</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.Exposure_Minute</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.TheDose</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.Size</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.TreatmentMatAmount</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (committeeResultNew.Treatment != null)
+                    {
+                        for (int i = 0; i < committeeResultNew.Treatment.Count(); i++)
+                        {
+
+                            <tr>
+                                <td>@committeeResultNew.Treatment[i].itemName</td>
+                                <td>@committeeResultNew.Treatment[i].committeeName</td>
+                                @if (committeeResultNew.Treatment[i].lotNumber == "")
+                                {
+                                    <td>فحص كلي</td>
+                                }
+                                else
+                                {
+                                    <td>@committeeResultNew.Treatment[i].lotNumber</td>
+                                }
+
+                                <td>@committeeResultNew.Treatment[i].committeeResultName</td>
+                                <td>@committeeResultNew.Treatment[i].TreatmentType_Name</td>
+                                <td>@committeeResultNew.Treatment[i].Company_Name</td>
+                                <td>@committeeResultNew.Treatment[i].TreatmentMaterial_Name</td>
+                                <td>@committeeResultNew.Treatment[i].TreatmentMethods_Name</td>
+                                <td>@committeeResultNew.Treatment[i].Temperature</td>
+                                <td>@committeeResultNew.Treatment[i].Exposure_Day</td>
+                                <td>@committeeResultNew.Treatment[i].Exposure_Hour</td>
+                                <td>@committeeResultNew.Treatment[i].Exposure_Minute</td>
+                                <td>@committeeResultNew.Treatment[i].TheDose</td>
+                                <td>@committeeResultNew.Treatment[i].Size</td>
+                                <td>@committeeResultNew.Treatment[i].TreatmentMat_Amount</td>
+                                <td>@committeeResultNew.Treatment[i].notes</td>
+                            </tr>
+
+
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="Geshny">
+            <table class="table table-bordered">
+                <thead style="background-color:#4d9e97 !important;">
+                    <tr>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Plant</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.CommitteeType</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.LotNumber</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.CommitteeResult</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Weight</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.QuantitySize</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.InfectionName</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Result_injury_Name</th>
+                        <th>delegation date</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.StartTime</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.enddate</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.allemployees</th>
+                        <th></th>
+                        <th></th>
+                        @*<th>اسم المستلم</th>*@
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (committeeResultNew.check != null)
+                    {
+                        for (int i = 0; i < committeeResultNew.check.Count(); i++)
+                        {
+                            if (committeeResultNew.check[i].committeeTypeId == 2)
+                            {
+                                <tr class="lotrowG" data-id="@committeeResultNew.check[i].rowId">
+                                    <td>@committeeResultNew.check[i].itemName</td>
+                                    <td>@committeeResultNew.check[i].committeeName</td>
+                                    @if (committeeResultNew.check[i].lotNumber == "")
+                                    {
+                                        <td>فحص كلي</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@committeeResultNew.check[i].lotNumber</td>
+                                    }
+
+                                    <td class="lotrowresG_@committeeResultNew.check[i].rowId" data-resval="@committeeResultNew.check[i].resultbitAdmin">@committeeResultNew.check[i].committeeResultName</td>
+                                    <td>@committeeResultNew.check[i].Weight</td>
+                                    <td>@committeeResultNew.check[i].QuantitySize</td>
+                                    <td>@committeeResultNew.check[i].Infection_Name</td>
+                                    <td>@committeeResultNew.check[i].Result_injury_Name</td>
+                                    <td>@committeeResultNew.check[i].committeeDelegationDate</td>
+                                    <td>@committeeResultNew.check[i].startTime</td>
+                                    <td>@committeeResultNew.check[i].endtime</td>
+                                    <td>
+                                        @if (committeeResultNew.check[i].allempXml_xml != null)
+                                        {
+                                            <ul class="listemployee">
+                                                @if (committeeResultNew.check[i].allempXml_xml.fn_CommitteEmployee_GetData != null)
+                                                {
+
+                                                    for (int x = 0; x < committeeResultNew.check[i].allempXml_xml.fn_CommitteEmployee_GetData.Count(); x++)
+                                                    {
+                                                        <li style="margin-bottom: 6px;"> @committeeResultNew.check[i].allempXml_xml.fn_CommitteEmployee_GetData[x].FullName</li>
+                                                        @*<li style="margin-bottom: 6px;"><p class="pp"> الملاحظات:</p>@committeeResultNew.check[i].empXml_xml.fn_Get_Employee_Committee_Result[x].notes</li>*@
+
+
+                                                    }
+                                                }
+
+                                            </ul>
+                                        }
+                                    </td>
+
+                                    <td>
+                                        @if (committeeResultNew.check[i].empXml_xml != null)
+                                        {
+                                            <ul class="listemployee">
+                                                @if (committeeResultNew.check[i].empXml_xml.fn_Get_Employee_Committee_Result != null)
+                                                {
+                                                    for (int x = 0; x < committeeResultNew.check[i].empXml_xml.fn_Get_Employee_Committee_Result.Count(); x++)
+                                                    {
+                                                        <li style="margin-bottom: 6px;">@committeeResultNew.check[i].empXml_xml.fn_Get_Employee_Committee_Result[x].Employee_name</li>
+                                                        <li>@committeeResultNew.check[i].empXml_xml.fn_Get_Employee_Committee_Result[x].notes</li>
+                                                        <li class="lotrowresG_@committeeResultNew.check[i].rowId" data-resval="@committeeResultNew.check[i].empXml_xml.fn_Get_Employee_Committee_Result[x].resultbit">@committeeResultNew.check[i].empXml_xml.fn_Get_Employee_Committee_Result[x].result</li>
+                                                    }
+
+                                                }
+                                            </ul>
+                                        }
+                                    </td>
+                                    <td id="addbuttG_@committeeResultNew.check[i].rowId"></td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div id="myModal2" class="modal fade" role="dialog" style="">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"></button>
+                <h4 class="modal-title">Add Your result</h4>
+            </div>
+            <div class="modal-body" style="margin-left:-300px;">
+                <input type="hidden" id="commresId" />
+                <div class="row">
+                    <label class="col-lg-2 col-md-3 col-sm-12">@PlantQuar.WEB.Language.Resource_data1.Result</label>
+                    <div class="col-lg-2 col-md-2 col-sm-6">
+                        <input type="radio" name="result_" class="resultadm col-lg-2 col-md-2 col-sm-2" value="true">
+                        <label class="col-lg-2 col-md-3 col-sm-10">@PlantQuar.WEB.Language.Resource_data1.Accept</label>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-6">
+                        <input type="radio" name="result_" class="resultadm col-lg-2 col-md-2 col-sm-2" value="false">
+                        <label class="col-lg-2 col-md-3 col-sm-10">@PlantQuar.WEB.Language.Resource_data1.Reject</label>
+                    </div>
+
+
+                </div>
+                <br />
+                <div class="row">
+
+                    <label class="col-lg-2 col-md-3 col-sm-12">
+                        @PlantQuar.WEB.Language.Resource_data1.Notes
+                        @PlantQuar.WEB.Language.Resource_data1.Arabic
+                    </label>
+                    <textarea id="noteAr" class="col-lg-4 col-md-4 col-sm-12"></textarea>
+                </div>
+                <br />
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="saveresultt">save</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@*show notes details*@
+
+<div id="myModal1" class="modal fade" role="dialog" style="margin-left:-200px;">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"></button>
+                <h4 class="modal-title" style="margin: auto;">تفاصيل الملاحظات</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <table class="table table-bordered" style="width:100%;">
+                        <thead>
+                            <tr style="background-color: #4d9e97 !important; color:white;">
+                                <th>@PlantQuar.WEB.Language.Resource_data1.EmpolyeeName</th>
+                                <th>@PlantQuar.WEB.Language.Resource_data1.Notes</th>
+                                <th>@PlantQuar.WEB.Language.Resource_data1.Result</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ if (committeeResultNew.check.Count() > 0)
+                                {
+                                    if (committeeResultNew.check[DetailsId].committeeTypeId == 1)
+
+                                    {
+                                        if (committeeResultNew.check[DetailsId].empXml_xml != null)
+                                        {
+                                            if (committeeResultNew.check[DetailsId].empXml_xml.fn_Get_Employee_Committee_Result != null)
+                                            {
+                                                for (int x = 0; x < committeeResultNew.check[DetailsId].empXml_xml.fn_Get_Employee_Committee_Result.Count(); x++)
+                                                {
+                                                    <tr>
+                                                        <td> @committeeResultNew.check[DetailsId].empXml_xml.fn_Get_Employee_Committee_Result[x].Employee_name</td>
+                                                        <td>@committeeResultNew.check[DetailsId].empXml_xml.fn_Get_Employee_Committee_Result[x].notes</td>
+                                                        @if (@committeeResultNew.check[DetailsId].empXml_xml.fn_Get_Employee_Committee_Result[x].result == "مرفوض")
+                                                        {
+                                                            <td style="font-weight:bold;margin-bottom:10px;padding-bottom:5px;color:red;" class="lotrowres_@committeeResultNew.check[DetailsId].rowId" data-resval="@committeeResultNew.check[DetailsId].empXml_xml.fn_Get_Employee_Committee_Result[x].resultbit">@committeeResultNew.check[DetailsId].empXml_xml.fn_Get_Employee_Committee_Result[x].result</td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td style="font-weight:bold;margin-bottom:10px;color:forestgreen;" class="lotrowres_@committeeResultNew.check[DetailsId].rowId" data-resval="@committeeResultNew.check[DetailsId].empXml_xml.fn_Get_Employee_Committee_Result[x].resultbit">@committeeResultNew.check[DetailsId].empXml_xml.fn_Get_Employee_Committee_Result[x].result</td>
+                                                        }
+                                                    </tr>
+                                                }
+
+                                            }
+                                        }
+                                    }
+
+                                }
+
+                            }
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+                <br />
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="closedetails" style="width: 19%;"> @PlantQuar.WEB.Language.Resource_data1.Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<br />
+
+<script>
+
+    $(document).ready(function () {
+        $(".lotrow").each(function () {
+            var rowId = $(this).data("id");
+            var totNum = 0;
+            var numTrue = 0;
+            var numfalse = 0;
+            $(".lotrowres_" + rowId).each(function () {
+                totNum = totNum + 1;
+                var val = $(this).data("resval");
+                console.log(val)
+                if (val == "True") {
+                    numTrue = numTrue + 1;
+                } else {
+                    numfalse = numfalse + 1;
+                }
+            });
+          
+            $("#commresId").val(rowId);
+           // if (@CommitteeHasResult==1) {
+                $("#addbutt_" + rowId).append('<input type="button" data-toggle="modal" class="addres" id="sayed_Test" data-rowid="' + rowId + '">@PlantQuar.WEB.Language.Resource_data1.AddResult</button>');
+            //}
+            @*if (totNum != numTrue && totNum != numfalse) {
+                if (totNum != 1) {
+                    $("#addbutt_" + rowId).append('<button data-toggle="modal" class="addres" data-rowid="' + rowId + '">@PlantQuar.WEB.Language.Resource_data1.AddResult</button>');
+
+                }
+            }*@
+        });
+        $(".lotrowG").each(function () {
+            var rowId = $(this).data("id");
+            var totNum = 0;
+            var numTrue = 0;
+            var numfalse = 0;
+            $(".lotrowresG_" + rowId).each(function () {
+                totNum = totNum + 1;
+                var val = $(this).data("resval");
+                console.log(val)
+                if (val == "True") {
+                    numTrue = numTrue + 1;
+                } else {
+                    numfalse = numfalse + 1;
+                }
+            });
+            console.log(totNum)
+            console.log(numTrue)
+            console.log(numfalse)
+            //9-6-2020 eman check for admin conformation also in stored fn_check_CanalterGashny
+            $("#addbuttG_" + rowId).append('<button data-toggle="modal" class="addresG" data-rowid="' + rowId + '">@PlantQuar.WEB.Language.Resource_data1.AddResult</button>');
+
+            @*if (totNum != numTrue && totNum != numfalse) {
+                if (totNum != 1) {
+                    $("#addbuttG_" + rowId).append('<button data-toggle="modal" class="addresG" data-rowid="' + rowId + '">@PlantQuar.WEB.Language.Resource_data1.AddResult</button>');
+
+                }
+            }*@
+        });
+        $(".addres").click(function () {
+            var id = $(this).data("rowid");
+            $("#commresId").val(id);
+
+            $('#myModal2').modal('show');
+
+        });
+
+
+        $("#closedetails").click(function () {
+
+
+            $('#myModal1').modal('hide');
+
+        });
+        $(".addresG").click(function () {
+            var id = $(this).data("rowid");
+            $("#commresId").val(id);
+            $('#myModal2').modal('show');
+        });
+
+        
+       
+
+        $("#saveresultt").click(function () {
+         
+            $("#rrr").text('');
+            var result = "";
+            $(".resultadm").each(function () {
+                if ($(this).is(":checked")) {
+                    result = $(this).val();
+                }
+            });
+
+            var noteAr = $("#noteAr").val();
+            var committeeResultId =  $("#commresId").val();
+            alert(committeeResultId);
+            if (result != 0) {
+                
+                $.post('/ExportRequest/exportRequestCommitteeResult/saveAdminResult', { result: result, noteAr: noteAr ,committeeResultId:committeeResultId}, function (data, succ) {
+                   
+                    $("#rrr").text(data);
+
+                });
+
+            }
+            else {
+                alert(4);
+                $("#rrr").text('complete data');
+            }
+        });
+    });
+
+    function DisplayDetails(i) {
+        debugger;
+        DetailsId = i;
+        $('#myModal1').modal('show');
+
+    }
+
+</script>

@@ -1,0 +1,242 @@
+﻿
+
+@model List<PlantQuar.DTO.DTO.Employee.Employee_TrackDTO>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+
+}
+@section Title{
+    <h2 class="ls-top-header">مأموريات الموظفين</h2>
+}
+<style>
+    td, th {
+        padding: 0;
+        text-align: center;
+    }
+</style>
+
+<table id="Farm_Constrain_TextTable">
+    <thead>
+        <tr>
+
+            <th colspan="2" style="visibility:hidden; border:none"></th>
+
+
+            <th style=" border: 1px solid; " colspan="2">اللجان</th>
+            @if (@ViewBag.page == 1)
+            {
+                <th colspan="2" style=" border: 1px solid; ">موظف</th>
+            }
+            else if (@ViewBag.page == 2 || @ViewBag.page == 3)
+            {
+                <th colspan="3" style=" border: 1px solid; ">موظف</th>
+            }
+
+            <th colspan="3" style="visibility:hidden; border:none"></th>
+
+        </tr>
+
+        <tr>
+            <th style="border-left: 1px solid; width: 151px;">اسم الشركة</th>
+            <th style="border-left:1px solid ;width:165px ;">رقم الطلب</th>
+            @*<th width="150px">رقم اللجنه</th>*@
+            <th style="border-left: 1px solid; width: 141px;">اسم اللجنه</th>
+            <th style="border-left: 1px solid; width: 100px;">@PlantQuar.WEB.Language.Resource_data1.Date</th>
+            @*<th width="150px">رقم الموظف</th>*@
+            <th style="border-left: 1px solid; width: 303px;">@PlantQuar.WEB.Language.Resource_data1.EmpolyeeName</th>
+            @if (@ViewBag.page == 1)
+            {
+                <th style="border-left: 1px solid; width: 190px;">الوظيفة</th>
+            }
+            else if (@ViewBag.page == 2)
+            {
+                <th style="border-left: 1px solid; width: 120px;">الوظيفة</th>
+                <th style="border-left: 1px solid; width: 50px;">حذف مساعد</th>
+            }
+            else if (@ViewBag.page == 3)
+            {
+                <th style="border-left: 1px solid; width: 120px;">الوظيفة</th>
+                <th style="border-left: 1px solid; width: 50px;">حذف لجنة</th>
+            }
+
+            @*<th width="150px">للمساعد</th>*@
+            @*<th  style="border-left: 1px solid; width: 52px;">حذف لجنة</th>*@
+        </tr>
+    </thead>
+</table>
+
+
+<div class="tbl-report" id="listFarm_Constrain_Text" style="height: 800px;overflow-y: scroll;">
+    <table width="100%" id="Farm_Constrain_TextTable">
+        <thead>
+
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                var Group_Company = Model.GroupBy(d =>
+           new
+           {
+               Name_Ar_Company = d.Name_Ar_Company,
+
+
+           }).Select(a => new
+           {
+               Name_Ar_Company = a.Key.Name_Ar_Company,
+
+
+           });
+                foreach (var item in Group_Company)
+                {
+                    <tr>
+
+                        <td width="150px" style="border-right: 1px solid;border-bottom: 1px solid;">@item.Name_Ar_Company </td>
+                        @{
+                            var Group_CheckRequest_Number = Model.Where(a => a.Name_Ar_Company == item.Name_Ar_Company).GroupBy(d =>
+            new
+            {
+                CheckRequest_Number = d.CheckRequest_Number,
+            }).Select(a => new
+            {
+                CheckRequest_Number = a.Key.CheckRequest_Number,
+            });
+                        }
+
+                        <td>
+                            @foreach (var item_CheckRequest_Number in Group_CheckRequest_Number)
+                            {
+                                <table width="100%" id="Farm_Constrain_TextTable" style="border: 1px solid;">
+                                    <tbody>
+                                        <tr>
+                                            <td width="165px" style="border-left: 1px solid;">@item_CheckRequest_Number.CheckRequest_Number</td>
+                                            <td>
+                                                @{
+                                                    var Group_Committee = Model.Where(a => a.CheckRequest_Number == item_CheckRequest_Number.CheckRequest_Number).GroupBy(d =>
+                                                        new
+                                                        {
+                                                            Committee_ID = d.Committee_ID,
+                                                            Delegation_Date = d.Delegation_Date,
+                                                            Name_Committee = d.Name_Committee,
+                                                        }).Select(a => new
+                                                        {
+                                                            Committee_ID = a.Key.Committee_ID,
+                                                            Delegation_Date = a.Key.Delegation_Date,
+                                                            Name_Committee = a.Key.Name_Committee,
+                                                        });
+                                                }
+
+                                                @foreach (var item_Committee in Group_Committee)
+                                                {
+                                                    <table width="100%" id="Farm_Constrain_TextTable">
+                                                        <tbody>
+                                                            <tr>
+                                                                @*<td width="150px" >@item_Committee.Committee_ID</td>*@
+                                                                <td width="140px" style="border-left: 1px solid;border-bottom: 1px solid;"> @item_Committee.Name_Committee</td>
+                                                                <td width="100px" style="border-left: 1px solid;border-bottom: 1px solid;">@item_Committee.Delegation_Date</td>
+
+                                                                <td style="border-left: 1px solid;border-bottom: 1px solid;">
+                                                                    @{
+                                                                        var Group_Employee = Model.Where(a => a.Committee_ID == item_Committee.Committee_ID).GroupBy(d =>
+                                                                            new
+                                                                            {
+                                                                                Employee_Id = d.Id_User,
+                                                                                ISAdmin = d.ISAdmin,
+                                                                                FullName = d.FullName,
+                                                                            }).Select(a => new
+                                                                            {
+                                                                                Employee_Id = a.Key.Employee_Id,
+                                                                                ISAdmin = a.Key.ISAdmin,
+                                                                                FullName = a.Key.FullName,
+                                                                            });
+                                                                    }
+
+                                                                    @foreach (var item_Employee in Group_Employee)
+                                                                    {
+                                                                        <table width="100%" id="Farm_Constrain_TextTable">
+                                                                            <tbody>
+                                                                                <tr>
+
+                                                                                    <td width="250px" style="border-left: 1px solid;border-bottom: 1px solid;">@item_Employee.FullName</td>
+                                                                                    <td width="100px" style="border-left: 1px solid;border-bottom: 1px solid;">@item_Employee.ISAdmin</td>
+                                                                                    @if (@ViewBag.page == 2)
+                                                                                    {
+                                                                                        <td width="50px" style="border-bottom: 1px solid;">
+                                                                                            <input type="button" data-assigned-id="@item_Committee.Committee_ID @item_Employee.Employee_Id @item_Employee.ISAdmin" onclick="Delete_confirm(this)" class="btn btn-primary" value="حذف " style="width:auto;height:auto;">
+                                                                                        </td>
+                                                                                    }
+                                                                                    else if (@ViewBag.page == 3)
+                                                                              {
+                                                                                <td width="50px" style="border-bottom: 1px solid;">
+                                                                                    <input type="button" data-assigned-id="@item_Committee.Committee_ID @item_Employee.Employee_Id @item_Employee.ISAdmin" onclick="Delete_confirm(this)" class="btn btn-primary" value="  حذف" style="width:auto;height:auto;">
+                                                                                </td>
+                                                                            }
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    }
+                                                                </td>
+
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                }
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+
+
+
+        </tbody>
+    </table>
+
+</div>
+
+<script>
+    function Delete_confirm(element) {
+
+
+        //const urlSearchParams = new URLSearchParams(window.location.search);
+    //const params = Object.fromEntries(urlSearchParams.entries());
+    //var CheckRequest = params.CheckRequest;
+
+        var Id = $(element).data('assigned-id');
+
+     
+        var Committee_ID = Id.split(" ")[0].trim();
+        var Employee_Id = Id.split(" ")[1].trim();
+        var _AddminOrConfirm = Id.split(" ")[2].trim();
+        var _Addmin_Confirm = true;
+        if (_AddminOrConfirm == "مساعد") {
+            _Addmin_Confirm = false;
+        }
+/*        alert(_Addmin_Confirm );*/
+     //   alert("Employee_Id" + Employee_Id);
+
+
+          $.ajax(
+          {
+              url: '@Url.Action("DeleteEmployeeConfirm", "UsersOutlet", new { area = "Employee" })',
+              type: 'Post',
+                  data: { Committee_ID: Committee_ID, Employee_Id: Employee_Id, Addmin_Confirm: _Addmin_Confirm },
+              success: function (data) {
+
+                  window.location.reload(true);
+                  alertify.success("تمت الحذف بنجاح");
+
+              } //success
+          });//ajax
+
+
+    }
+
+</script>
+
+

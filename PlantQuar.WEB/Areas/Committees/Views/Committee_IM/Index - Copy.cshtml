@@ -1,0 +1,2212 @@
+﻿@model PlantQuar.DTO.DTO.Import.Permissions.ImRequestDetails_NewDTO
+
+@{
+    /**/
+
+    ViewBag.Title = "Committee";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    var x = 0;
+
+}
+
+
+@section Title{
+    <h2 class="ls-top-header">لجنة وارد</h2>
+}
+@section Path{
+
+    <li class="active" style="right: 43px; position: relative;">Import Committe</li>
+}
+<link href="~/Content/jquery.timepicker.css" rel="stylesheet" />
+<script src="~/scripts/jquery.timepicker.min.js"></script>
+<style>
+    @@media screen and (min-width: 768px) {
+        .modal-dialog {
+            left: 0% !important;
+        }
+    }
+
+    th {
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    td {
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .modal-content {
+        color: #167479;
+    }
+
+    .modal-header {
+        background-color: #167479;
+        color: white;
+    }
+
+    table, table td, table th {
+        border: 1px solid black !important;
+        border-collapse: collapse;
+        word-break: keep-all;
+    }
+
+    .modal-header .close {
+        color: white !important;
+    }
+
+    .modal-header {
+        background-color: #1e7c80;
+        color: white;
+    }
+
+    #saverejectreason {
+        background-color: #1e7c80;
+        border: 2px solid #1e8084;
+        box-shadow: 0 4px #1d9fa5;
+        outline: none;
+        width: 20%;
+        margin: auto;
+        font-size: 22px;
+    }
+
+    .modal-dialog {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 70%;
+    }
+
+    .modal-content {
+        /* position: absolute;
+            top: 50%;*/
+        width: 100%;
+    }
+
+    .form-control {
+        font-size: 13px;
+    }
+
+    th, tr, td {
+        text-align: center;
+    }
+
+    button, html input[type="button"], input[type="reset"], input[type="submit"] {
+        margin-right: 0px;
+    }
+
+    blockquote {
+        margin-bottom: 70px !important;
+        padding: 50px 25px !important;
+    }
+
+    .jtable thead tr {
+        height: 50px;
+    }
+
+    div.jtable-main-container > table.jtable > thead th.jtable-column-header div.jtable-column-header-container {
+        bottom: 12px !important;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, a, td, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+        word-break: keep-all !important;
+    }
+    /*    .checkboxdisabledCH {
+        display: none !important;
+
+    }
+    .checkboxenableCH {
+        display: inline !important;
+        overflow:hidden;
+    }
+    .Lbl_disabledL {
+        display: none !important;
+    }
+
+    .Lbl_enableL {
+        display: inline-block !important;
+    }*/
+
+    .display-none {
+        display: none
+    }
+
+    .style-but {
+        height: auto !important;
+        color: white;
+        background-color: #1e7c80;
+        border: 2px solid #1e8084;
+        box-shadow: 0 4px #1d9fa5;
+        outline: none;
+        color: white;
+        margin-top: 5px;
+    }
+
+    #btnSave, #btnReject, #btnReject, #PrintResultButton {
+        background-color: #1e7c80 !important;
+        border: 2px solid #1e8084 !important;
+        box-shadow: 0 4px #1d9fa5 !important;
+        outline: none;
+        color: white;
+        margin-bottom: 10px;
+    }
+
+        #btnSave, #btnReject, #btnReject, #PrintResultButton:hover {
+            background-color: #1a8488 !important;
+            border: 1px solid #1a8488 !important;
+        }
+
+    #CommitteeType_ID {
+        height: 3.573rem;
+    }
+
+    div.jtable-main-container > table.jtable > tbody > tr > td {
+        font-size: 20px
+    }
+
+    .table-striped {
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    #ui-datepicker-div {
+        z-index: 24 !important;
+    }
+
+    #Employee_AddEDIT {
+        margin-bottom: 25px;
+    }
+
+    #submitValue, #search, .btnNext, #messagedata {
+        background-color: #1e7c80 !important;
+        border: 2px solid #1e8084 !important;
+        box-shadow: 0 4px #1d9fa5 !important;
+        outline: none;
+        color: white !important;
+        margin-top: 20px;
+        width: 49%;
+    }
+</style>
+
+<div class="row">
+
+    <div class="col-md-12">
+        <label>منفذ: </label>
+        <label>@Model.OutLet_Name </label>
+    </div>
+
+</div>
+<br />
+<div class="form-box" id="lagnaDiv">
+
+    <div class="tab" role="tabpanel" style="min-height:80% !important;">
+        <ul class="row nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#ItemsTab" aria-controls="profile" role="tab" id="itemTab_il" data-toggle="tab">معلومات اللجنة</a>
+            </li>
+            <li role="presentation" class="hidden">
+                <a href="#empploy" aria-controls="profile" role="tab" id="empploy_il" data-toggle="tab" class="hidden">اسم الموظف</a>
+            </li>
+            <li role="presentation" class="hidden">
+                <a href="#link3" aria-controls="profile" role="tab" data-toggle="tab" id="QualGrpTab" class="hidden">مواعيد النبواتجية</a>
+            </li>
+
+            <li role="presentation">
+                <a href="#link4" aria-controls="profile" role="tab" data-toggle="tab" > بيانات الرسالة</a>
+            </li>
+
+        </ul>
+        <div class="tab-content tabs" style="background-color:whitesmoke  !important;">
+            <div role="tabpanel" class="tab-pane fade in active" id="ItemsTab">
+
+                <div class="row">
+                    <div class="col-md-4">
+
+                        <div class="">
+                            <label>@PlantQuar.WEB.Language.Resource_data1.CommitteeType </label>
+                            <select id="CommitteeType_ID" class="form-control">
+                                <option value="0">---أختـــر---</option>
+                                <option value="11">لجنه فحص </option>
+                                <option value="13">لجنه سحب</option>
+                                <option value="14">لجنة معالجة</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="">
+                            <label>@PlantQuar.WEB.Language.Resource_data1.ExportRequestNumber</label>
+                            <input type="text" name="CheckRequest_Number" id="CheckRequest_Number" value="@ViewBag.requestNumber" class="form-control" readonly />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="hidden" name="OutLet_ID" id="OutLet_ID" class="form-control" readonly value="@ViewBag.OutLet_ID" />
+                        <label> @PlantQuar.WEB.Language.Resource_data1.Date_of_registration_request  </label>
+                        <input type="text" name="Check_Date" id="Check_Date" class="form-control" readonly value="@ViewBag.creationDate" />
+
+                    </div>
+                    <div class="col-md-4">
+
+                        <label> @PlantQuar.WEB.Language.Resource_data1.Date_of_committee</label>
+                        <input type="text" name="Delegation_Date" id="Delegation_Date" class="form-control" required />
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label> @PlantQuar.WEB.Language.Resource_data1.Time_of_ActionFrom</label>
+                        <input type="time" name="StartTime" id="StartTime" class="form-control" />
+                    </div>
+                    <div class="col-md-4">
+
+                        <label>  @PlantQuar.WEB.Language.Resource_data1.To</label>
+                        <input type="time" name="EndTime" id="EndTime" class="form-control" />
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <input type="button" class="btn btn-primary btnNext float-left" id="Next1" value="التالى">
+
+                    </div>
+                </div>
+                @*<a href="#empploy" class="buut" aria-controls="profile" role="tab" id="empploy_il" data-toggle="tab">التالي</a>*@
+
+
+            </div>
+
+            <div role="tabpanel" class="tab-pane fade " id="empploy" style="height:auto;">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <label> @PlantQuar.WEB.Language.Resource_data1.EmpolyeeName</label>
+                        <input type="text" id="Employee_name" placeholder="enter emp name" class="form-control" />
+                    </div>
+                    <div class="col-md-4">
+                        <label>  @PlantQuar.WEB.Language.Resource_data1.EmpolyeeNumber</label>
+                        <input type="text" name="Employee_No" id="Employee_No" class="form-control" />
+                    </div>
+                    <div class="col-md-4" style="text-align:center">
+                        <input type="button" id="search" onclick="MyFunction()" value="بحث بالموظف" />
+
+
+                        <input type="hidden" id="CheckRequest_Id" value="@ViewBag.requestId" />
+
+
+                        <input type="hidden" id="shiftId" />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <table id="Farm_Constrain_TextTable" class="table table-bordered table-striped dataTable" role="grid" style="padding:5px; width:100%">
+                        <thead>
+                            <tr>
+                                <th>@PlantQuar.WEB.Language.Resource_data1.EmpolyeeNumber </th>
+                                <th>اسم الموظف </th>
+                                <th>محافظة الموظف </th>
+                                <th>منفذ الموظف </th>
+                                <th hidden>ادمن</th>
+                                <th>تسجيل</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <table id="myTable" border="1" name="gh" class="table table-bordered table-striped dataTable">
+                        <thead>
+                            <tr>
+                                <th>اسم المهندس </th>
+                                <th>كود المهندس </th>
+                                <th>ادمن</th>
+                                <th>حذف</th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="myTable2">
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <input type="button" class="btn btn-primary btnNext float-left " id="Next_empploy" value="التالى">
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div role="tabpanel" class="tab-pane fade" id="link3" style="height:auto;">
+
+                <div class="row">
+
+                    <div id="ShiftsAddEdit" style="width:100%">
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <input type="button" class="btn btn-primary btnNext float-left " id="shift" value="التالى">
+
+                    </div>
+                </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane fade" id="link4">
+                <div id="MessageData" style="padding:10px;">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            @if (Model.itemsWithConstrains != null)
+                            {
+                                for (int i = 0; i < Model.itemsWithConstrains.Count(); i++)
+                                {
+                                    <table class="table " style="border: 5px solid #1f6c6f !important;">
+                                        <tbody>
+                                            <tr style=" background-color: rgb(77 ,158 ,151); color: #fff; font-weight: bold; font-size: 16px;" class="toggle-div-@i">
+                                                <td colspan="13" style="font-size:inherit">النبات</td>
+                                            </tr>
+                                            <tr class="toggle-div-@i">
+
+                                                <th style="background-color: rgb(77, 158, 151) !important;">أسم النبات</th>
+                                                <th style="background-color: rgb(77, 158, 151) !important;">النوع(مجموعة نوعية/نبات)</th>
+                                                <th style="background-color: rgb(77, 158, 151) !important;">الاسم المختصر</th>
+                                                <th style="background-color: rgb(77, 158, 151) !important;" colspan="2">دولة المنشأ</th>
+                                                <th style="background-color: rgb(77, 158, 151) !important;" colspan="2">الوزن الإجمالي</th>
+                                                <th style="background-color: rgb(77, 158, 151) !important;">الوزن الصافي</th>
+                                                <th style="background-color: rgb(77, 158, 151) !important; " colspan="2">اختار</th>
+                                                <th style="background-color: rgb(77, 158, 151) !important;">النبات</th>
+                                                <th style="background-color: rgb(77, 158, 151) !important;">المعامل</th>
+                                                <th style="background-color: rgb(77, 158, 151) !important;">المعالجات</th>
+
+                                            </tr>
+                                            <tr class="toggle-div-@i">
+
+                                                <td>@Model.itemsWithConstrains[i].ItemName_Ar</td>
+                                                <td>@Model.itemsWithConstrains[i].qualitiveGroupName</td>
+                                                @*<td> @Model.itemsWithConstrains[i].qualitiveGroupName</td>*@
+                                                <td>@Model.itemsWithConstrains[i].ItemShortNameAr</td>
+                                                <td colspan="2">@Model.itemsWithConstrains[i].InitiatorCountry</td>
+                                                <td colspan="2">@Model.itemsWithConstrains[i].GrossWeight</td>
+                                                <td>@Model.itemsWithConstrains[i].Net_Weight</td>
+                                                @*<td colspan="2">@Model.itemsWithConstrains[i].InitiatorCountry</td>
+                                    <td colspan="2">@Model.itemsWithConstrains[i].GrossWeight</td>
+                                    <td>@Model.itemsWithConstrains[i].Net_Weight</td>*@
+                                                <td colspan="2">
+
+                                                    <input type="radio" id="@i@Model.itemsWithConstrains[i].Item_ShortName_ID" class="myRadios" name="fav_language_@Model.itemsWithConstrains[i].Item_ShortName_ID" value="@Model.itemsWithConstrains[i].Item_ShortName_ID#1#Totally">
+                                                    <label for="@i@Model.itemsWithConstrains[i].Item_ID">كلي</label><br>
+                                                    <input type="radio" id="@i@Model.itemsWithConstrains[i].Item_ShortName_ID" class="myRadios" name="fav_language_@Model.itemsWithConstrains[i].Item_ShortName_ID" value="@Model.itemsWithConstrains[i].Item_ShortName_ID#0#Partial">
+                                                    <label for="@i@Model.itemsWithConstrains[i].Item_ShortName_ID">جزئى</label><br>
+                                                </td>
+                                                <td>
+                                                    <input id="Lot_@i" class="style-but" type="button" onClick="reply_click2(this)" value="بيانات اللوط">
+                                                    @*<input id="but @i" type="button">*@
+                                                </td>
+                                                <td>
+                                                    <input id="Analysis_@i" class="style-but Analysis" type="button" onClick="reply_click3(this)" value="بيانات المعامل">
+
+                                                </td>
+                                                <td>
+                                                    @*@if (Model.itemsWithConstrains[i].list_EX_TreatmentData.Count() > 0)
+                                        {*@
+                                                    <input id="Treatment_@i" class="style-but Treatment" type="button" onClick="Treatment_click(this)" value=" المعالجة المطلوبة">
+                                                    @*}
+                                        else
+                                        {
+                                            <label>لاتوجد معالجات للدولة والنبات</label>
+                                        }*@
+                                                </td>
+
+                                            </tr>
+                                            <tr id="tr_Analysis_H" class="display-none   toggle-div3-Analysis_@i">
+                                                <td>التحاليل</td>
+                                                <td colspan="5">
+
+                                                    <label>@PlantQuar.WEB.Language.Resource_data1.AnalysisType </label>
+
+                                                    <select id="Analysisstr_@Model.itemsWithConstrains[i].Item_ShortName_ID" name="Analysiss_name" class="form-control AnalysisLst"></select>
+
+                                                </td>
+
+                                                <td colspan="5">
+                                                    <label>@PlantQuar.WEB.Language.Resource_data1.AnalysisLab </label>
+                                                    <select id="AnalysisLabLstr_@Model.itemsWithConstrains[i].Item_ShortName_ID" class="form-control AnalysisLabLst"></select>
+                                                </td>
+                                                <td colspan="2">
+                                                    <input id="@i@i@i@i" class="style-but" name="@Model.itemsWithConstrains[i].Item_ShortName_ID" type="button" onClick="reply_click7(this)" value="@PlantQuar.WEB.Language.Resource_data1.Add">
+                                                </td>
+                                            </tr>
+                                            <tr id="tr_Analysis_D" class="display-none   toggle-div3-Analysis_@i">
+                                                <td colspan="13">
+                                                    <table id="myAnlysesTable" border="1" name="myAnlysesTable" class="table table-bordered table-striped dataTable">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>التحاليل</th>
+                                                                <th>ID</th>
+                                                                <th>المعمل </th>
+                                                                <th>ID</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="myAnlysesTable_Data_@Model.itemsWithConstrains[i].Item_ShortName_ID"></tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+
+
+                                            @*المعالجة*@
+
+
+                                            <tr id="Tr_Treatment_H" class="display-none toggle-div3-Treatment_@i">
+                                               
+                                                <td>المعالجات</td>
+                                                <td colspan="3">
+
+                                                    <label>@PlantQuar.WEB.Language.Resource_data1.TreatmentMainType</label>
+
+                                                    <select id="TreatmentMainType_@Model.itemsWithConstrains[i].Item_ShortName_ID" name="TreatmentMain_name" class="form-control TreatmentMain_Lst"></select>
+
+                                                </td>
+                                                <td colspan="3">
+                                                    <label>@PlantQuar.WEB.Language.Resource_data1.TreatmentType </label>
+
+                                                    <select id="TreatmentType_@Model.itemsWithConstrains[i].Item_ShortName_ID" name="TreatmentType_name" class="form-control TreatmentType_Lst"></select>
+                                                </td>
+                                                <td colspan="3">
+                                                    <label>@PlantQuar.WEB.Language.Resource_data1.TreatmentMethod </label>
+
+                                                    <select id="TreatmentMethod_@Model.itemsWithConstrains[i].Item_ShortName_ID" name="TreatmentMethod_name" class="form-control TreatmentMethod_lst"></select>
+                                                </td>
+
+
+                                                <td colspan="2">
+                                                   نص المعالجة للأندريد
+                                                    <br />
+                                                    <textarea id="Txt_Procedures_@Model.itemsWithConstrains[i].Item_ShortName_ID"></textarea>
+                                                </td>
+                                                <td>
+                                                    <input id="@i@i@i@i" class="style-but" name="@Model.itemsWithConstrains[i].Item_ShortName_ID" type="button" onClick="reply_Treatment(this)" value="@PlantQuar.WEB.Language.Resource_data1.Add">
+                                                </td>
+                                
+                                </tr>
+                                <tr id="Tr_Treatment_D" class="display-none toggle-div3-Treatment_@i">
+                                   
+                                    <td colspan="13">
+                                        <table id="my_Treatment_Table" border="1" name="my_Treatment_Table" class="table table-bordered table-striped dataTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>نوع المعالجة الرئيسى</th>
+                                                    <th>ID</th>
+                                                    <th>نوع المعالجة</th>
+                                                    <th>ID</th>
+                                                    <th>طريقة المعالجة</th>
+                                                    <th>ID</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="my_Treatment_tbody_Data_@Model.itemsWithConstrains[i].Item_ShortName_ID"></tbody>
+                                        </table>
+                                    </td>
+                          
+                            </tr>
+
+                            <tr style="background-color: rgb(145, 214 ,208);color: rgb(255, 255, 255); font-weight: bold; font-size: 16px;" class="display-none   toggle-div2-Lot_@i">
+                                <td colspan="13" style="font-size:inherit">@PlantQuar.WEB.Language.Resource_data1.LotData</td>
+                            </tr>
+
+                            <table id="TabItem_@Model.itemsWithConstrains[i].Item_ShortName_ID" class="chooseLotN">
+                                <thead>
+                                    <tr class="display-none  toggle-div2-Lot_@i">
+
+                                        <th style=" background-color:rgb(145, 214, 208)!important">رقم اللوط</th>
+                                        <th style=" background-color:rgb(145, 214, 208)!important">أسم الصنف</th>
+                                        <th style=" background-color:rgb(145, 214, 208)!important">وزن إجمالي</th>
+                                        <th style=" background-color:rgb(145, 214, 208)!important">وزن صافي</th>
+                                        <th style=" background-color:rgb(145, 214, 208)!important">عدد العبوات</th>
+                                        <th style=" background-color:rgb(145, 214, 208)!important">وزن العبوات</th>
+
+                                        <th colspan="2" style=" background-color: rgb(145, 214, 208)!important">واحدت التعبئة الخشبية</th>
+                                        <th hidden style="background-color: rgb(145, 214, 208)!important;">اختار</th>
+                                        <th style="background-color: rgb(145, 214, 208)!important">اختيار اللوط</th>
+                                        <th style="background-color: rgb(145, 214, 208)!important">الاجراءات</th>
+                                        <th hidden style="background-color: rgb(145, 214, 208)!important">اجراءات فحص وسحب</th>
+                                        <th style="background-color: rgb(145, 214, 208)!important"> رقم الحاوية</th>
+                                        <th style="background-color: rgb(145, 214, 208)!important"> التفاصيل</th>
+                                        <th style="background-color: rgb(145, 214, 208)!important"> المعامل السابقة</th>
+                                        <th style="background-color: rgb(145, 214, 208)!important"> المعالجات السابقة</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="_chooseLotN">
+                                    @for (int m = 0; m < Model.itemsWithConstrains[i].ItemCategories_lots.Count(); m++)
+                                    {
+                                    <tr class="display-none  toggle-div2-Lot_@i">
+                                        <td>@Model.itemsWithConstrains[i].ItemCategories_lots[m].Lot_Number</td>
+                                        <td>@Model.itemsWithConstrains[i].ItemCategories_lots[m].categoryName</td>
+                                        <td>@Model.itemsWithConstrains[i].ItemCategories_lots[m].GrossWeight</td>
+                                        <td>@Model.itemsWithConstrains[i].ItemCategories_lots[m].Net_Weight</td>
+                                        <td>@Model.itemsWithConstrains[i].ItemCategories_lots[m].Package_Count</td>
+                                        <td>@Model.itemsWithConstrains[i].ItemCategories_lots[m].Package_Weight</td>
+                                        <td colspan="2">@Model.itemsWithConstrains[i].ItemCategories_lots[m].Number_Wooden_Package</td>
+                                        <td hidden>
+                                            <label class="Lbl_disabledL"
+                                                   id="Lbl_CH_@Model.itemsWithConstrains[i].ItemCategories_lots[m].ID_Lot">
+                                                @Model.itemsWithConstrains[i].ItemCategories_lots[m].ID_Lot
+                                            </label>
+                                        </td>
+                                        <td class="IDCell">
+                                            <input type="hidden" id="checklotId" value="@Model.itemsWithConstrains[i].ItemCategories_lots[m].Check_Lot_Old_ID" />
+                                            @*@if (@Model.itemsWithConstrains[i].ItemCategories_lots[m].Check_Lot_Old_ID == 0)
+            {*@
+
+                                            <input type="checkbox" name="fav"
+                                                   id="Chb_@Model.itemsWithConstrains[i].ItemCategories_lots[m].ID_Lot"
+                                                   class="checkboxdisabledCH"
+                                                   value="@Model.itemsWithConstrains[i].ItemCategories_lots[m].ID_Lot
+                                                       *@Model.itemsWithConstrains[i].ItemCategories_lots[m].ID_IM_Item*@Model.itemsWithConstrains[i].Item_ShortName_ID ">
+
+
+
+                                            @*@if (@Model.itemsWithConstrains[i].ItemCategories_lots[m].ID_Lot > 0)
+            {
+
+                if (@Model.itemsWithConstrains[i].ItemCategories_lots[m].CommitteeResultType_ID > 0)
+                {
+                    <label id="Lbl_@Model.itemsWithConstrains[i].ItemCategories_lots[m].ID_Lot"
+                           class="LbldisabledCH">
+                        تم عمل الاندرويد
+                    </label>
+                }
+                else
+                {
+                    <label id="Lbl_@Model.itemsWithConstrains[i].ItemCategories_lots[m].ID_Lot"
+                           class="LbldisabledCH">
+                        تم التشكيل ولم يتم  نزول الاندرويد
+                    </label>
+
+
+                }
+            }
+            else
+            { <label id="Lbl_@Model.itemsWithConstrains[i].ItemCategories_lots[m].ID_Lot"
+                     class="LbldisabledCH">
+                    تم عمل الاندرويد
+                </label>
+            }*@
+
+
+                                            @*<label id="Lbl_@Model.itemsWithConstrains[i].ItemCategories_lots[m].ID_Lot"
+                   class="LbldisabledCH">
+                @Model.itemsWithConstrains[i].ItemCategories_lots[m].Check_Lot_Old_Name
+            </label>*@
+
+
+                                        </td>
+                                        <td class="IDCell2">
+                                            @if (Model.itemsWithConstrains[i].ItemCategories_lots[m].list_Lot_Result_Status != null)
+                                            {
+                                                if (Model.itemsWithConstrains[i].ItemCategories_lots[m].list_Lot_Result_Status.Count > 0)
+                                                {
+
+                                                    <table id="myTableLotResultStatus_@Model.itemsWithConstrains[i].ItemCategories_lots[m].ID_Lot">
+                                                        <thead>
+                                                            <tr>
+                                                                <td>الاجراء</td>
+                                                                <td hidden>رقم اللوط</td>
+                                                                <td hidden>أسم اللجنة</td>
+                                                                <td >الملاحظات</td>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="myTable_Lot_Result_Statustt">
+                                                            @foreach (var item in @Model.itemsWithConstrains[i].ItemCategories_lots[m].list_Lot_Result_Status)
+                                                            {
+                                                                <tr>
+                                                                    <td>
+                                                                        @item.Status_Name
+                                                                    </td>
+                                                                    <td hidden>
+                                                                        @item.LotData_ID
+                                                                    </td>
+                                                                    <td hidden>
+                                                                        @item.commite_No
+                                                                    </td>
+                                                                    <td>
+                                                                        @item.Nots_Result_Status
+                                                                    </td>
+
+                                                                </tr>
+                                                                // @Model.itemsWithConstrains[i].ItemCategories_lots[m].list_Committee_Sample_Lot.Select(a => a.LotData_ID).ToList()
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                }
+                                                else
+                                                {<label>لا توجد اجراءات</label> }
+                                            }
+                                            else
+                                            { <label>لا توجد اجراءات</label>}
+
+                                        </td>
+                                        <td id="LblIm_CommitteeResult" hidden class="IDCell3">
+                                            @if (Model.itemsWithConstrains[i].ItemCategories_lots[m].Lot_Result_Status == null)
+                                            {
+                                                if (Model.itemsWithConstrains[i].ItemCategories_lots[m].ID_Lot > 0)
+                                                {
+                                                    if (Model.itemsWithConstrains[i].ItemCategories_lots[m].CommitteeResultType_ID > 0)
+                                                    {
+                                                        if (Model.itemsWithConstrains[i].ItemCategories_lots[m].CommitteeResultType_ID != 7)
+                                                        {
+                                                            <span>1</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span> 0</span>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        DateTime dateNow = DateTime.Now.Date;
+                                                        if (Model.itemsWithConstrains[i].ItemCategories_lots[m].Delegation_Date >= dateNow)
+                                                        {
+                                                            <span>1</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>0</span>
+                                                        }
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <span>0</span>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <span>1</span>
+                                            }
+                                        </td>
+
+                                        @*<td><span>@Model.itemsWithConstrains[i].ItemCategories_lots[m].Lot_Result_Status</span></td>*@
+                                        @*<td>
+            <input id="@i@m@i@m@m" class="style-but" type="button" onClick="reply_click6(this)" value="النتائج السابقة">
+
+        </td>*@
+
+                                        <td>
+                                            <button type='button' class='quickview3' style="height: auto;color: white;background-color: #1e7c80;border: 2px solid #1e8084;box-shadow: 0 4px #1d9fa5; outline: none; color: white;margin-top: 5px;" data-toggle='modal'
+                                                    data-target='#mymodalemanexamination'
+                                                    data-containernumber="@Model.itemsWithConstrains[i].ItemCategories_lots[m].ContainerNumber"
+                                                    data-contid="@Model.itemsWithConstrains[i].ItemCategories_lots[m].containerName"
+                                                    data-containerstypeid="@Model.itemsWithConstrains[i].ItemCategories_lots[m].containerType"
+                                                    data-shipholdnumber="@Model.itemsWithConstrains[i].ItemCategories_lots[m].ShipholdNumber"
+                                                    data-navigationalnumber="@Model.itemsWithConstrains[i].ItemCategories_lots[m].NavigationalNumber"
+                                                    data-totalweight="@Model.itemsWithConstrains[i].ItemCategories_lots[m].Total_Weight">
+                                                تفاصيل الحاوية
+                                            </button>
+
+
+                                        </td>
+                                        <td>
+                                            @*<button type='button' class='quickview2' style="height: auto;color: white;background-color: #1e7c80;border: 2px solid #1e8084;box-shadow: 0 4px #1d9fa5; outline: none; color: white;margin-top: 5px;" data-toggle='modal'
+                    data-target='#mymodalemanexamination'
+                    data-outname="@Model.OutLet_Name"
+                    data-containernumber="@Model.itemsWithConstrains[i].ItemCategories_lots[m].ContainerNumber"
+                    data-qualitive="@Model.itemsWithConstrains[i].qualitiveGroupName"
+                    data-initiator="@Model.itemsWithConstrains[i].InitiatorCountry"
+                    data-itemsn="@Model.itemsWithConstrains[i].ItemShortNameAr"
+                    data-gweight="@Model.itemsWithConstrains[i].ItemCategories_lots[m].GrossWeight"
+                    data-nweight="@Model.itemsWithConstrains[i].ItemCategories_lots[m].Net_Weight"
+                    data-pmatrial="@Model.itemsWithConstrains[i].ItemCategories_lots[m].packageMaterial"
+                    data-ptype="@Model.itemsWithConstrains[i].ItemCategories_lots[m].packageType"
+                    data-packcount="@Model.itemsWithConstrains[i].ItemCategories_lots[m].Package_Count"
+                    data-pweight="@Model.itemsWithConstrains[i].ItemCategories_lots[m].Package_Weight"
+                    data-baseweight="@Model.itemsWithConstrains[i].ItemCategories_lots[m].Based_Weight"
+                    data-oldlot="@Model.itemsWithConstrains[i].ItemCategories_lots[m].Check_Lot_Old_Name"
+                    data-catname="@Model.itemsWithConstrains[i].ItemCategories_lots[m].categoryName"
+                    data-unitcount="@Model.itemsWithConstrains[i].ItemCategories_lots[m].Units_Number"
+                    data-ordertext="@Model.itemsWithConstrains[i].ItemCategories_lots[m].Order_Text">
+                @PlantQuar.WEB.Language.Resource_data1.Details
+            </button>*@
+                                            <button type='button' class='quickview1' style="height: auto;color: white;background-color: #1e7c80;border: 2px solid #1e8084;box-shadow: 0 4px #1d9fa5; outline: none; color: white;margin-top: 5px;" data-toggle='modal' data-target='#mymodalemanexamination'
+                                                    data-grossweight="@Model.itemsWithConstrains[i].ItemCategories_lots[m].GrossWeight"
+                                                    data-netweight="@Model.itemsWithConstrains[i].ItemCategories_lots[m].Net_Weight"
+                                                    data-packagecount="@Model.itemsWithConstrains[i].ItemCategories_lots[m].Package_Count"
+                                                    data-packageweight="@Model.itemsWithConstrains[i].ItemCategories_lots[m].Package_Weight"
+                                                    data-ordertext="@Model.itemsWithConstrains[i].ItemCategories_lots[m].Order_TextLot"
+                                                    data-recorded="@Model.itemsWithConstrains[i].ItemCategories_lots[m].RecordedOrNot"
+                                                    data-packagetype="@Model.itemsWithConstrains[i].ItemCategories_lots[m].packageType"
+                                                    data-reasonentry="@Model.itemsWithConstrains[i].ItemCategories_lots[m].Reason_Entry"
+                                                    data-size="@Model.itemsWithConstrains[i].ItemCategories_lots[m].Size"
+                                                    data-basedweight="@Model.itemsWithConstrains[i].ItemCategories_lots[m].Based_Weight"
+                                                    data-pckgematerial="@Model.itemsWithConstrains[i].ItemCategories_lots[m].packageMaterialName"
+                                                    data-packagebasedweight="@Model.itemsWithConstrains[i].ItemCategories_lots[m].Package_Based_Weight"
+                                                    data-packagenetweight="@Model.itemsWithConstrains[i].ItemCategories_lots[m].Package_Net_Weight"
+                                                    data-unitsnumber="@Model.itemsWithConstrains[i].ItemCategories_lots[m].Units_Number"
+                                                    @*data-subpartname="@Model.checkRequestShipping[i].Items_checkReq[y].subPartName"*@
+                                                    data-itemcat="@Model.itemsWithConstrains[i].ItemCategories_lots[m].categoryName"
+                                                    data-itemcatgroup="@Model.itemsWithConstrains[i].ItemCategories_lots[m].ItemCategoryGroup"
+                                                    data-grower_number="@Model.itemsWithConstrains[i].ItemCategories_lots[m].Grower_Number"
+                                                    data-number_wooden_package="@Model.itemsWithConstrains[i].ItemCategories_lots[m].Number_Wooden_Package"
+                                                    data-shipmentpolicynumber="@Model.itemsWithConstrains[i].ItemCategories_lots[m].Waybill">
+                                                @PlantQuar.WEB.Language.Resource_data1.Details
+                                            </button>
+                                        </td>
+
+                                        <td>
+                                            @if (Model.itemsWithConstrains[i].ItemCategories_lots[m].list_Committee_Sample_Lot != null)
+                                            {
+                                                if (Model.itemsWithConstrains[i].ItemCategories_lots[m].list_Committee_Sample_Lot.Count > 0)
+                                                {
+
+                                                    <table>
+                                                        <thead>
+                                                            <tr>
+                                                                <td hidden="hidden">رقم اللوط</td>
+                                                                <td hidden="hidden">رقم التحليل</td>
+                                                                <td>أسم التحليل</td>
+                                                                <td>أسم المعمل</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var item in @Model.itemsWithConstrains[i].ItemCategories_lots[m].list_Committee_Sample_Lot)
+                                                            {
+                                                                <tr>
+                                                                    <td hidden="hidden">
+                                                                        @item.LotData_ID
+                                                                    </td>
+                                                                    <td hidden="hidden">
+                                                                        @item.AnalysisLabType_ID
+                                                                    </td>
+                                                                    <td>
+                                                                        @item.Analysis_Name
+                                                                    </td>
+                                                                    <td>
+                                                                        @item.Lab_Name
+                                                                    </td>
+                                                                </tr>
+                                                                // @Model.itemsWithConstrains[i].ItemCategories_lots[m].list_Committee_Sample_Lot.Select(a => a.LotData_ID).ToList()
+                                                            }
+                                                        </tbody>
+                                                    </table>
+
+                                                    @*<button type='button' class='quickview4' style="height: auto;color: white;background-color: #1e7c80;border: 2px solid #1e8084;box-shadow: 0 4px #1d9fa5; outline: none; color: white;margin-top: 5px;" data-toggle='modal'
+                            data-target='#mymodalemanexamination'
+                            data-lotid="@Model.itemsWithConstrains[i].ItemCategories_lots[m].list_Committee_Sample_Lot.Select(a=>a.LotData_ID).ToList()"
+                            data-analylab="@Model.itemsWithConstrains[i].ItemCategories_lots[m].list_Committee_Sample_Lot.Select(a=>a.AnalysisLabType_ID).ToList()"
+                            data-analyname="@Model.itemsWithConstrains[i].ItemCategories_lots[m].list_Committee_Sample_Lot.Select(a=>a.Analysis_Name).ToList()"
+                            data-labname="@Model.itemsWithConstrains[i].ItemCategories_lots[m].list_Committee_Sample_Lot.Select(a=>a.Lab_Name).ToList()">
+
+                        عرض المعامل
+                    </button>*@
+
+                                                }
+                                                else
+                                                {
+                                                    <span>
+                                                        لا توجد معامل سابقة
+                                                    </span>
+                                                }
+                                            }
+
+
+                                        </td>
+
+
+                                        <td>
+                                            @if (Model.itemsWithConstrains[i].ItemCategories_lots[m].list_Committee_Treatment_Lot != null)
+                                            {
+                                                if (Model.itemsWithConstrains[i].ItemCategories_lots[m].list_Committee_Treatment_Lot.Count > 0)
+                                                {
+
+                                                    <table>
+                                                        <thead>
+                                                            <tr>
+                                                                <td>نوع المعالجة</td>
+                                                                <td>طريقة المعالجة</td>
+                                                                <td>مادة المعالجة</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var item in @Model.itemsWithConstrains[i].ItemCategories_lots[m].list_Committee_Treatment_Lot)
+                                                            {
+                                                                <tr>
+                                                                    <td>
+                                                                        @item.TreatmentType_Name
+                                                                    </td>
+                                                                    <td>
+                                                                        @item.TreatmentMethod_Name
+                                                                    </td>
+                                                                    <td>
+                                                                        @item.TreatmentMat_Name
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+
+                                                    @*<button type='button' class='quickview4' style="height: auto;color: white;background-color: #1e7c80;border: 2px solid #1e8084;box-shadow: 0 4px #1d9fa5; outline: none; color: white;margin-top: 5px;" data-toggle='modal'
+                            data-target='#mymodalemanexamination'
+                            data-lotid="@Model.itemsWithConstrains[i].ItemCategories_lots[m].list_Committee_Sample_Lot.Select(a=>a.LotData_ID).ToList()"
+                            data-analylab="@Model.itemsWithConstrains[i].ItemCategories_lots[m].list_Committee_Sample_Lot.Select(a=>a.AnalysisLabType_ID).ToList()"
+                            data-analyname="@Model.itemsWithConstrains[i].ItemCategories_lots[m].list_Committee_Sample_Lot.Select(a=>a.Analysis_Name).ToList()"
+                            data-labname="@Model.itemsWithConstrains[i].ItemCategories_lots[m].list_Committee_Sample_Lot.Select(a=>a.Lab_Name).ToList()">
+
+                        عرض المعامل
+                    </button>*@
+
+                                                }
+                                                else
+                                                {
+                                                    <span>
+                                                        لا توجد معامل سابقة
+                                                    </span>
+                                                }
+                                            }
+
+
+                                        </td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            </tbody>
+                            </table>
+                            <br />
+                            <hr style="border-top: 1px solid #848484;" />
+                            <br />
+                        }
+                    }
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4" style="text-align:center">
+                        <input type="button" class=" btn btn-primary btnNext float-left" id="messagedata" value="@PlantQuar.WEB.Language.Resource_data1.Save">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Details -->
+<div id="mymodalemanexamination" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
+                <h4 class="modal-title">@PlantQuar.WEB.Language.Resource_data1.Details </h4>
+            </div>
+            <div class="modal-body" id="modaldetails">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default " data-dismiss="modal">@PlantQuar.WEB.Language.Resource_data1.Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--End_Modal Details -->
+@section scripts{
+
+
+    <script>
+
+            var list = [];
+
+
+        function MyFunction() {
+            $(search).prop('disabled', true); // Unchecks it
+
+            $("#Farm_Constrain_TextTable tbody").empty();
+            var EmplyeeName = document.getElementById("Employee_name").value;
+            var Emplyee_No = $('#Employee_No').val();
+            var OutLet_ID = $('#OutLet_ID').val();
+            var EmplyeeNo;
+           // //alert(Emplyee_No)
+            if (Emplyee_No === "") {
+                 EmplyeeNo = 0;
+
+            }
+            else {
+                 EmplyeeNo = parseInt($('#Employee_No').val());
+
+            }
+
+              $.ajax({
+                        url: '@Url.Action("GetPR_User_Id", "Committee_Im")',
+                        type: "POST",
+
+
+                  data: { FullName: EmplyeeName, EmplyeeNo: EmplyeeNo,OutLet_ID:OutLet_ID},
+
+
+
+                  success: function (data) {
+
+
+
+                            for (var i = 0; i < data.length; i++) {
+                                var item = data[i];
+                                carName = 1;
+                                $("#Farm_Constrain_TextTable tbody").append("<tr>" +
+
+                                    "<td>  " + item.Value + "  </td>"
+                                    +"<td>" + item.DisplayText + "</td>" +
+                                    "<td>  " + item.Adress + "  </td>"
+                                    + "<td>" + item.JobTitleName + "</td>"
+                                    + '<td><input type="checkbox" id="chckBox_' + data[i].Value+'" class="chckClass_' + i + '" value="' + data[i].Value + '" Name="' + data[i].DisplayText + '"  onchange="helloo(this)" " /></td>'
+
+                                    + "</tr>");
+                            }
+                    },
+                        error: function (xhr, status, error) {
+                   }
+              });
+            let checkboxes = $("input[type='checkbox']");
+            selectedCboxes = Array.prototype.slice.call(checkboxes).filter(ch => ch.checked == true);
+            //console.log(checkboxes);
+        }
+
+            function DeleteRow(element) {
+                ////alert(element.name);
+                //console.log(element);
+                var table = document.getElementById("myTable");
+
+                var c = '#id' + element.name + '';
+                $(c).remove();
+                //remove the checked employee chckBox_729
+                var ch = '#chckBox_' + element.name + '';
+                $(ch).prop('checked', false); // Unchecks it
+            }
+        function helloo(element) {
+            // //alert(element.value);
+
+
+            if (element.checked) {
+                //document.getElementById("myTable").insertRow(-1).innerHTML = '<td id=' + element.value + '>' + element.name
+                //    + '</td><td>' + element.value + '</td>';
+
+
+
+                //debugger;
+                var table = document.getElementById("myTable2");
+
+                var rowCount = table.rows.length;
+                var row = table.insertRow(rowCount);
+                row.id = 'id' + element.value;
+                row.insertCell(0).innerHTML = element.name;
+                row.insertCell(1).innerHTML = element.value;
+                row.insertCell(2).innerHTML =
+                    '<td><input type="radio" id="chckBox_' + element.value+'" class="change-selector" value="' + element.value + '" name="hello"   )"/></td>';
+                row.insertCell(3).innerHTML =
+                    '<td><a href="#" onclick="DeleteRow(this)" name="' + element.value + '">Delete</a></td>';
+            }
+            else {
+                var c = '#id' + element.value + '';
+                $(c).remove();
+
+            }
+
+
+        }
+
+
+    function saveList() {
+       list = [];
+                var selectedOption = $("input:radio[name=hello]:checked").val()
+                // //alert("Your are a - " + selectedOption);
+                if (typeof selectedOption !== "undefined") {
+
+                    var rows = document.getElementById("myTable2").rows;
+                    for (var i = 0, ceiling = rows.length; i < ceiling; i++) {
+                        cells = rows[i].getElementsByTagName('td');
+                        Employee_name = cells[0].innerHTML;
+                        Employee_Id = cells[1].innerHTML;
+
+
+                        var id = parseInt(Employee_Id);
+                        if (id == selectedOption) {
+                            ISAdmin = true;
+                            ////alert('d');
+                            //console.log(selectedOption + ',,,,' + Employee_Id);
+                        }
+                        else {
+                            ISAdmin = false;
+                        }
+
+                        list.push({ Employee_name: Employee_name, Employee_Id: Employee_Id, ISAdmin: ISAdmin });
+
+                    }
+                    return list;
+                }
+                else {
+                    return null;
+                }
+
+                ////sayed
+                //      var selectedOption = $("input:checkbox[name=Checkbox1]:checked").val()
+                //// //alert("Your are a - " + selectedOption);
+                //if (typeof selectedOption !== "undefined") {
+
+                //    var rows = document.getElementById("myTable2").rows;
+                //    for (var i = 0, ceiling = rows.length; i < ceiling; i++) {
+                //        cells = rows[i].getElementsByTagName('td');
+                //        Employee_name = cells[0].innerHTML;
+                //        Employee_Id = cells[1].innerHTML;
+
+
+                //        var id = parseInt(Employee_Id);
+                //        if (id == selectedOption) {
+                //            ISAdmin = true;
+                //            ////alert('d');
+                //            //console.log(selectedOption + ',,,,' + Employee_Id);
+                //        }
+                //        else {
+                //            ISAdmin = false;
+                //        }
+                //        list.push({ Employee_name: Employee_name, Employee_Id: Employee_Id, ISAdmin: ISAdmin });
+                //    }
+                //    return list;
+                //}
+                //else {
+                //    return null;
+                //}
+                ////end sayed
+
+            }
+    </script>
+
+    <script type="text/javascript">
+                $(document).ready(function () {
+                    $("#CommitteeType_ID").attr("class", "form-control");
+                 //GetCheckRequest_Number_Data();
+                })
+        $(function () {
+
+
+        $(".jtable-toolbar-item-add-record .jtable-toolbar-item-text").text("@PlantQuar.WEB.Language.Resource_data1.Add");
+
+        //Date&Time Form
+        $("#Delegation_Date").datepicker(
+            {
+                    dateFormat: 'yy-mm-dd',
+                changeYear: true,
+                changeMonth: false,
+                minDate: 0,
+                yearRange: "-100:+20",
+
+
+            }
+        );
+
+                });
+
+        String.prototype.compose = (function () {
+            var re = /\{{(.+?)\}}/g;
+            return function (o) {
+                return this.replace(re, function (_, k) {
+                    return typeof o[k] != 'undefined' ? o[k] : '';
+                });
+            }
+                }());
+
+                $("#CommitteeType_ID").change(function () {
+                    //GetCheckRequest_Number_Data(true);
+                    var ncc = $("#CommitteeType_ID").val();
+                   
+                    if (ncc == 14) {
+                        $(".checkboxdisabledCH").attr("style", "display: none !important");
+
+
+
+                        $('.Analysis').attr("style", "display: none !important");
+                        $("#tr_Analysis_H").attr("style", "display: none !important");
+                        $("#tr_Analysis_D").attr("style", "display: none !important");
+
+
+                        $(".Treatment").attr("style", "display: block !important");
+                        $("#Tr_Treatment_H").attr("style", "display: none !important");
+                        $("#Tr_Treatment_D").attr("style", "display: none !important");
+
+                     
+
+                        const Alltabl = document.querySelectorAll("table");
+                        /* alert(Alltabl.length);*/
+                        for (var i = 0; i < Alltabl.length; i++) {
+                            var tablename = Alltabl[i].id.split('_')[0];
+                            //alert(Alltabl[i].id);
+                            if (tablename.trim() == "myTableLotResultStatus") {
+                                // alert(tablename);
+
+                                var table = document.getElementById(Alltabl[i].id);
+                                // alert(table.rows.length);
+                                for (var j = 0; j < table.rows.length; j++) {
+                                    var Lot_ID = table.rows[j].cells[1].textContent.trim();
+                                    var Commitee_ID = table.rows[j].cells[2].textContent.trim();
+                                    //alert(Commitee_ID);
+                                    //cells = rows[i].getElementsByTagName('td');
+
+                                    //Lot_ID = cells[1].innerHTML;
+                                    //Commitee_ID = cells[2].innerHTML;
+
+                                    if (Commitee_ID == 14) {
+
+                                        $('#Chb_' + Lot_ID.trim()).attr("style", "display: block !important");
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    //////        //var rows = document.getElementById("myTable_Lot_Result_Status").rows;
+                    //////        //for (var i = 0, ceiling2 = rows.length; i < ceiling2; i++) {
+                    //////        //    cells = rows[i].getElementsByTagName('td');
+
+                    //////        //    Lot_ID = cells[1].innerHTML;
+                    //////        //    Commitee_ID = cells[2].innerHTML;
+
+                    //////        //    if (Commitee_ID == 14) {
+                    //////        //        Chek_Status = true;
+                    //////        //        $('#Chb_' + Lot_ID.trim()).attr("style", "display: block !important");
+                    //////        //    }
+                    ////        //}
+                    ////    }
+                    //}
+                    else if (ncc == 11) {
+               
+                        $('.Analysis').attr("style", "display: block !important");
+                        $("#tr_Analysis_H").attr("style", "display: none !important");
+                        $("#tr_Analysis_D").attr("style", "display: none !important");
+
+
+                        $(".Treatment").attr("style", "display: none !important");
+                        $("#Tr_Treatment_H").attr("style", "display: none !important");
+                        $("#Tr_Treatment_D").attr("style", "display: none !important");
+
+
+                        const Alltabl = document.querySelectorAll("table");
+                        for (var i = 0; i < Alltabl.length; i++) {
+                            var tablename = Alltabl[i].id.split('_')[0];
+
+                            // الحالة الاولي لفتح الفحص اول مره يشتغل
+                            // او التاريخ انتهي
+                            // او تعز الفحص
+                            if (tablename == "TabItem") {
+                                var table = document.getElementById(Alltabl[i].id);
+                                for (var j = 0; j < table.rows.length; j++) {                                 
+                                        var id = table.rows[j].cells[7].textContent.trim();
+                                    if (table.rows[j].cells[10].textContent.trim() == 1 ) {
+                                        var id = table.rows[j].cells[7].textContent.trim();
+                                        $('#Chb_' + id).attr("style", "display: none !important");
+                                        //$('#Lbl_' + id).attr("style", "display: block !important");
+                                    }
+                                    else if (table.rows[j].cells[10].textContent.trim() == 0 ) {
+                                        var id = table.rows[j].cells[7].textContent.trim();
+                                        $('#Chb_' + id).attr("style", "display:block !important");
+                                       // $('#Lbl_' + id).attr("style", "display: none !important");                                        
+                                    }
+                                }
+                            }
+
+                            // حالة اذا كان اللوط واخد اعادة فحص
+                            if (tablename.trim() == "myTableLotResultStatus") {
+                                var table = document.getElementById(Alltabl[i].id);
+                                for (var j = 0; j < table.rows.length; j++) {
+                                    var Lot_ID = table.rows[j].cells[1].textContent.trim();
+                                    var Commitee_ID = table.rows[j].cells[2].textContent.trim();
+                                    if (Commitee_ID == 11) {
+                                        $('#Chb_' + Lot_ID.trim()).attr("style", "display: block !important");
+                                    }
+                                }
+                            }
+
+
+                        }
+                    }
+
+                    else if (ncc == 13) {
+
+                        $('.Analysis').attr("style", "display: block !important");
+                        $("#tr_Analysis_H").attr("style", "display: none !important");
+                        $("#tr_Analysis_D").attr("style", "display: none !important");
+
+
+                        $(".Treatment").attr("style", "display: none !important");
+                        $("#Tr_Treatment_H").attr("style", "display: none !important");
+                        $("#Tr_Treatment_D").attr("style", "display: none !important");
+
+                                 
+                        $(".checkboxdisabledCH").attr("style", "display: block !important");
+                                                      
+                    }
+
+
+
+
+
+                    //$(".checkboxdisabledT").attr("hidden", true);
+                   // var boxes = document.getElementsByClassName(".checkboxdisabledCH");
+                    //if (ncc == 13) {
+                    //    $(".checkboxdisabledCH").attr("style", "display: block !important");
+                    //    $(".LbldisabledCH").attr("style", "display: none");
+                    //    //boxes.style['display:block !important '];
+                    //}
+                    //else if (ncc == 11) {
+                    //    const Alltabl = document.querySelectorAll("table");
+                    //    //  alert("table length" + Alltabl.length);
+                    //    for (var i = 0; i < Alltabl.length; i++) {
+                    //        var tablename = Alltabl[i].id.split('_')[0];
+
+                    //        if (tablename == "TabItem") {
+                    //            var table = document.getElementById(Alltabl[i].id);
+                    //            for (var j = 0; j < table.rows.length; j++) {
+                    //                if (table.rows[j].cells[9].textContent.trim() == 1 ||table.rows[j].cells[9].textContent.trim()==3) {
+
+                    //                    var id = table.rows[j].cells[7].textContent.trim();
+                    //                    $('#Chb_' + id).attr("style", "display: none !important");
+                    //                    $('#Lbl_' + id).attr("style", "display: block !important");
+
+                    //                }
+                    //                else if (table.rows[j].cells[9].textContent.trim() == 0 ) {
+
+                    //                    var id = table.rows[j].cells[7].textContent.trim();
+                    //                    $('#Chb_' + id).attr("style", "display:block !important");
+                    //                    $('#Lbl_' + id).attr("style", "display: none !important");
+
+                    //                }
+
+                    //            }
+                    //        }
+                    //    }
+                    //}
+
+                    //  if (ncc == 14) {
+                    //    const Alltabl = document.querySelectorAll("table");
+                    //    //  alert("table length" + Alltabl.length);
+                    //    for (var i = 0; i < Alltabl.length; i++) {
+                    //        var tablename = Alltabl[i].id.split('_')[0];
+
+                    //        if (tablename == "TabItem") {
+                    //            var table = document.getElementById(Alltabl[i].id);
+                    //            for (var j = 0; j < table.rows.length; j++) {
+                    //                if (table.rows[j].cells[9].textContent.trim()!=3) {
+
+                    //                    var id = table.rows[j].cells[7].textContent.trim();
+                    //                    $('#Chb_' + id).attr("style", "display: none !important");
+                    //                    $('#Lbl_' + id).attr("style", "display: block !important");
+
+                    //                }
+                    //                else  {
+
+                    //                    var id = table.rows[j].cells[7].textContent.trim();
+                    //                    $('#Chb_' + id).attr("style", "display:block !important");
+                    //                    $('#Lbl_' + id).attr("style", "display: none !important");
+
+                    //                }
+
+                    //            }
+                    //        }
+                    //    }
+                    //}
+                });
+
+        function changeElement(id) {
+           // alert(id);
+            var el = document.getElementById(id);
+            //alert(el);
+            el.style.display = "none !important";
+            el.style.fontSize = "15px";
+            el.style.backgroundColor = "#FFFFFF";
+        }
+
+
+        //CheckRequest_Number save Committee
+        function GetCheckRequest_Number_Data(isChange=false) {
+
+
+            CommitteeType_ID = $("#CommitteeType_ID").val()
+                if ( CommitteeType_ID == "")
+            {
+                    alertify.error("يجب اختيار نوع اللجنة");
+                return false;
+            }
+            $.ajax(
+                {
+                    url: "/Committee/SaveCommittee",
+                    type: "POST",
+                    data: {
+                        CheckRequest_Number: $("#CheckRequest_Number").val(),
+                        CommitteeType_ID: CommitteeType_ID
+                    },
+                    success: function (res) {
+
+                        //reset data
+                        //   $("#CommitteeType_ID").val(null);
+                        $("#Check_Date").val(null);
+                        $("#Delegation_Date").val(null);
+                        $("#StartTime").val(null);
+                        $("#EndTime").val(null);
+                        $("#Employee_AddEDIT").hide();
+                        $("#CheckRequest_Id").val(0);
+                        if (res.Result == 1) {
+                            //set data found
+                            var Request_committe = res.Request_committe;
+
+                            if (Request_committe.Check_Date != null) {
+                                $("#Check_Date").val($.datepicker.formatDate('yy-mm-dd', (new Date(parseInt(Request_committe.Check_Date.substr(6))))));
+                            } if (Request_committe.Delegation_Date != null) {
+                                $("#Delegation_Date").val($.datepicker.formatDate('yy-mm-dd', (new Date(parseInt(Request_committe.Delegation_Date.substr(6))))));
+                            }$("#StartTime").val(Request_committe.StartTime);
+                            $("#EndTime").val(Request_committe.EndTime);
+                            $("#Employee_AddEDIT").show();
+                            $("#submitValue").removeAttr("disabled");
+                            //get check_request id
+                            $("#CheckRequest_Id").val(Request_committe.CheckRequest_Id);
+                            //var Committe_Id = Request_committe.Committe_Id ;
+                            //$("#Committe_Id").val(Request_committe.Committe_Id);
+                        if (Committe_Id == -1)
+                            {
+                            //no committe is found
+                            }
+                        else if (Committe_Id >0) {
+                                    //there is a committe for the current request
+                            //edit data and display employee data
+                            var Employee_list = Request_committe.Employee_list;
+                            //Value    Employee_name    Employee_Id
+
+                            var tbody = $('#Employee_AddEDIT').children('tbody');
+                            var table = tbody.length ? tbody : $('#Employee_AddEDIT').children('tbody');
+                            //19-3-2020 fz clear table body
+                                $('#Employee_List  tbody').empty();
+                            $.each(Employee_list, function (index, r) {
+                            //     var row = '<tr class="jtable-data-row jtable-row-even jtable-row-selected"><td class="jtable-selecting-column"><input type="checkbox" checked></td><td>' + r.Employee_name + '</td><td>' + r.Employee_Id + '</td></tr>';
+                                var row = ' <tr class="jtable-data-row-selected"><td class="jtable-selecting-column"><input type="checkbox" checked></td><td>' + r.Employee_Id + '</td><td>' + r.Employee_name + '</td><td>' + r.Employee_Id + '</td></tr>';
+                                $("#Employee_AddEDIT tbody").append(row);
+                            });
+                                }
+                        }
+                        else {
+
+                            $("#submitValue").attr("disabled", true);
+                            alertify.error("خطأ فى رقم طلب الفحص");
+                        }
+                    }
+                });
+        }
+        //btn_Search
+                var arrayRecords = new Array();
+                var Admin_List = [];
+                var admin_index = 0;
+                var is_Admin = 0;
+
+
+         ///////////////////////////////////////////////Next 1
+
+        $('#Next1').click(function (e) {
+
+            var CommitteeType_ID = $("#CommitteeType_ID").val();
+            Delegation_Date = $("#Delegation_Date").val();
+            StartTime = $("#StartTime").val();
+            EndTime = $("#EndTime").val();
+
+            if (CommitteeType_ID == 0 ||Delegation_Date == ""
+                || StartTime == "" || EndTime == "") {
+                alertify.error(" يجب أختيار لجنة واستكمال البيانات ");
+            }
+            else {
+                if (StartTime > EndTime) {
+                    alertify.error(" يجب ان يكون توقيت النهاية اكبر من توقيت البداية ");
+                }
+                else {
+                    $('.nav-tabs > .active').next('li').find('a').trigger('click');
+                }
+            }
+        });
+
+
+        //// Next_empploy
+        $('#Next_empploy').click(function (e) {
+
+            var selectedOption = $("input:radio[name=hello]:checked").val()
+            //alert("Your are a - " + selectedOption);
+            if (typeof selectedOption !== "undefined") {
+                $('#ShiftsAddEdit').jtable({
+                    title: '@PlantQuar.WEB.Language.Resource_data1.shiftTiming',
+                    paging: true,
+                    pageSize: 10,
+                    sorting: true,
+                    columnResizable: true,
+                    columnSelectable: true,
+                    saveUserPreferences: true,
+                    actions: {
+                        listAction: 'listshiftTiming',
+                        createAction: 'CreateshiftTiming',
+
+                    },
+                    fields: {
+                        Index: {
+                            key: true,
+                            create: false,
+                            edit: false,
+                            list: false
+                        },
+
+                        ShiftTiming_ID: {
+                            title: '@PlantQuar.WEB.Language.Resource_data1.shiftTiming',
+                            inputClass: 'validate[required]',
+                            options: function (data) {
+                                return '../../Committees/Committee/getShiftTiming_Lst';
+                            },
+                        },
+                        money: {
+                            title: 'money',
+
+                            type: 'text',
+                             inputClass: 'validate[required]',
+                        },
+                        Count: {
+                            title: '@PlantQuar.WEB.Language.Resource_data1.DaysNumber',
+
+                            type: 'text',
+                             inputClass: 'validate[required]',
+                        },
+
+
+                    },
+                    formCreated: function (event, data) {
+
+
+
+                        $("#Edit-ShiftTiming_ID").change(function () {
+                            $.ajax(
+                                {
+                                    url: '@Url.Action("getShiftTiming_Mony", "Committee", new { area = "Committees" })',
+                                    type: 'Post',
+                                    //shiftId
+                                    data: { shiftId: $(this).val() },
+                                    success: function (data) {
+                                        if (data.Options != null) {
+                                            $("#Edit-money").val(data.Options);
+                                        }
+
+                                    } //success
+                                });//ajax
+                        });
+                        //   $('.jtable-input-field-container:nth-of-type(1)').hide();
+                        $('#Edit-money').attr('readonly', 'readonly');
+                        $('#Edit-Count').attr('type', 'number');
+                        //$('#Count').val('1');
+
+                        if (data.formType == "create") {
+                            $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Add");
+                        }
+                        else {
+                            $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Edit");
+                        }
+                    },
+                    formSubmitting: function (event, data) {
+                        //if ($("#Committe_Id").val() == 0) {
+                        //    return false;
+                        //    //alert("save first")
+                        // }
+                        return data.form.validationEngine('validate');
+                    },
+
+                    formClosed: function (event, data) {
+                        data.form.validationEngine('hide');
+                        data.form.validationEngine('detach');
+                        $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Delete");
+                    },
+                    recordAdded: function (event, data) {
+                        //Mah+Ag 17-4-2019 change display message
+                        alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+                    },
+                    recordUpdated: function (event, data) {
+                        //Mah+Ag 17-4-2019 change display message
+                        alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Update");
+                    },
+                    recordDeleted: function (event, data) {
+                        //Mah+Ag 17-4-2019 change display message
+                        alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Delete");
+                    },
+                });
+
+                $('.nav-tabs > .active').next('li').find('a').trigger('click');
+            }
+            else {
+                alertify.error("يجب اختيار موظفين")
+            }
+
+
+
+        });
+
+        $('#shift').click(function (e) {
+
+                $(".jtable-toolbar-item-add-record .jtable-toolbar-item-text").text("@PlantQuar.WEB.Language.Resource_data1.Add");
+            $('.nav-tabs > .active').next('li').find('a').trigger('click');
+        });
+
+        /// ////////////////////////////////////////////Save Lots
+    var CheckedAnalysisList = [];
+    var Checked_TreatmentMethod_List = [];
+
+        $('#messagedata').click(function (e) {
+            var rad_cls = document.querySelectorAll('input[class=myRadios]:checked');
+            // alert(rad_cls.length);
+            //var rad_cls = document.querySelectorAll('input[name=fav_language]:checked');       //to get checked checkboxes
+            if (rad_cls.length > 0) {
+                //alert(rad_cls.length+"gfffffff");
+                var checkboxes = document.querySelectorAll('input[name=fav]:checked');
+
+                if (checkboxes.length) {
+                    if (rad_cls.length > 0) {
+                        //حفظ اللجنة
+                        var CommitteeType_ID = $("#CommitteeType_ID").val();
+
+                        if (CommitteeType_ID == 0) {
+                            alertify.error("يجب أختيار لجنة ");
+                        }
+                        Delegation_Date = $("#Delegation_Date").val();
+                        StartTime = $("#StartTime").val();
+                        EndTime = $("#EndTime").val();
+
+
+                        if (Delegation_Date == ""
+                            || StartTime == "" || EndTime == "") {
+                            alertify.error("يجب استكمال البيانات ");
+                            return false;
+                        }
+                        if (StartTime > EndTime) {
+
+                            alertify.error(" يجب ان يكون توقيت النهاية اكبر من توقيت البداية ");
+                            return false;
+                        }
+
+                        //نهاية حفظ اللجنة
+                        // الموظفين
+                        //$('#Employee_List  tbody').empty();
+                        var employees = saveList();
+                        //alert(employees);
+                        if (employees == null) {
+                            alertify.error("يجب اختيار  ادمن ");
+                            return false;
+                        }
+
+                        var Contnue = true;
+                        var Contnue_TreatmentMethod = true;
+                        /* $('#Employee_List  tbody').empty();*/
+                        //نهاية حفظ الموظفين
+
+                        // حفظ المأموريات
+
+                        //نهاية حفظ المأموريات
+
+                        //بيانات الرسالة
+                        if (CommitteeType_ID == 13) {
+                            if (CheckedAnalysisList.length == 0) {
+                                Contnue = false;
+                            }
+
+                        }
+
+                        if (CommitteeType_ID == 14) {
+                            if (Checked_TreatmentMethod_List.length == 0) {
+                                Contnue_TreatmentMethod = false;
+                            }
+
+                        }
+
+                        var CheckedItemsList = [];
+
+
+                        for (var i = 0; i < rad_cls.length; i++)   //to full CheckedItemsList
+                        {
+                            //var c = rad_cls[i].value; // Item_ID#Total OR Part
+                            var TotalORPart = rad_cls[i].value.split('#')[1];
+                            //alert(rad_cls[i].value);
+                            //alert(TotalORPart);
+                            var Item_ShortName_ID_Radio = rad_cls[i].value.split('#')[0];
+
+                            //to get checked checkboxes
+                           /* alert(Item_ShortName_ID_Radio);*/
+                            
+                            for (var m = 0; m < checkboxes.length; m++)   //to full CheckedItemsList
+                            {
+                                var LotData_ID_Check = checkboxes[m].value.split('*')[0].trim();
+
+                                var Im_Request_Item_Id_Check = checkboxes[m].value.split('*')[1].trim();
+
+                                var Item_ShortName_ID_Check = checkboxes[m].value.split('*')[2].trim();
+                              
+                                if (Item_ShortName_ID_Radio == Item_ShortName_ID_Check) {
+                                
+                                
+                                    if (TotalORPart == 0) {//جزئى
+                                        TotalORPart = false;
+                                    }
+                                    else if (TotalORPart == 1) {// كلى
+                                        TotalORPart = true;
+                                    }
+                                 
+                                    CheckedItemsList.push({
+
+                                        Im_Request_Item_Id: Im_Request_Item_Id_Check,
+                                        LotData_ID: LotData_ID_Check,
+                                        IS_Total: TotalORPart,
+                                        Item_ShortName_ID: Item_ShortName_ID_Check
+                                    });
+
+                                }
+                            }
+                        }
+                        console.log(Checked_TreatmentMethod_List);
+                        if (Contnue == true) {
+                            if (Contnue_TreatmentMethod == true) {
+                                /*$("#messagedata").attr("style", "display: none !important");*/
+
+                                //save committe
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/Committee_Im/Save_Committe",
+                                    dataType: "json",
+                                    //data: dataToSend,
+                                    data: JSON.stringify(
+                                        {
+                                            //dataToSend: employees,
+                                            //isAdmins: Admin_List,
+
+                                            CheckRequest_Id: $("#CheckRequest_Id").val(),
+
+                                            CommitteeType_ID: CommitteeType_ID,
+                                            Check_Date: $("#Check_Date").val(),
+                                            Delegation_Date: $("#Delegation_Date").val(),
+                                            StartTime: $("#StartTime").val(),
+                                            EndTime: $("#EndTime").val(),
+
+                                            // employees
+                                            emp_Dto: employees,
+                                            CheckedItemsList: CheckedItemsList,
+                                            CheckedAnalysisList: CheckedAnalysisList,
+                                            Checked_TreatmentMethod: Checked_TreatmentMethod_List
+                                            //CheckedAnalysisList:@Model.itemsWithConstrains..ItemCategories_lots.list_Committee_Sample_Lot
+
+                                        }),
+
+                                    contentType: "application/json; charset=utf-8",
+                                    success: function (data) {
+
+                                        if (data == "Exist") {
+                                            //alert("Committee Inserted before");
+
+                                            //  $('.nav-tabs > .active').next('li').find('a').trigger('click');
+                                            alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+                                            location.href = "/Im_CheckRequests/List_ImCheckRequest/Index"
+                                        }
+                                        else if (data == "error") {
+                                            alertify.error("لم يتم تشكيل لجنة لعدم وجود معامل متاحة");
+                                        }
+
+                                        else {
+
+
+                                            $("#Check_Date").val(null);
+                                            $("#Delegation_Date").val(null);
+                                            $("#StartTime").val(null);
+                                            $("#EndTime").val(null);
+
+                                            $("#CheckRequest_Id").val(0);
+
+                                            //  $("#CheckRequest_Id").val(0);
+                                            //$("#Committe_Id").val(data),
+
+                                        }
+                                    }
+                                });
+                            }
+                            else {
+                                alertify.error("يجب اكمال بيانات المعالجة");
+                            }
+                        }
+                        else {
+                            alertify.error("يجب ادخال معامل");
+                        }
+                    }
+                    else {
+                        alertify.error("يجب اختيار لوطات لما تم اختياره");
+                    }
+                }
+                else {
+                    alertify.error("يجب اختيار لوطات ");
+                }
+            }
+            else {
+                alertify.error("يجب اختيار  كلى او جزئي");
+            }
+
+        });
+
+
+
+    </script>
+    <script>
+        function reply_click(element) {
+
+            $(".toggle-div-" + element.id + "").toggle('fast', "linear");
+
+        }
+        function reply_click2(element) {
+
+            $(".toggle-div2-" + element.id + "").toggle('fast', "linear");
+
+        }
+        function reply_click3(element) {
+
+            $(".toggle-div3-" + element.id + "").toggle('fast', "linear");
+         //   //alert(10);
+            // التحليل
+                   $.ajax(
+                {
+                    url: '@Url.Action("AnalysisType_AddEDIT", "AnalysisType", new { area = "DE_Analysis" })',
+                           type: 'Post',
+
+                    success: function (data) {
+                        $('.AnalysisLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('.AnalysisLst').append($('<option />').val(index.Value).text(index.DisplayText));
+
+                        }); //each
+                    } //success
+                       });//ajax
+
+
+    }
+
+    // المعالجة
+        function Treatment_click(element) {
+
+            $(".toggle-div3-" + element.id + "").toggle('fast', "linear");
+               $.ajax(
+                {
+                    url: '@Url.Action("TreatmentMain_List", "TreartmentMethod", new { area = "DE_Treatments" })',
+                           type: 'Post',
+
+                    success: function (data) {
+                        $('.TreatmentMain_Lst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('.TreatmentMain_Lst').append($('<option />').val(index.Value).text(index.DisplayText));
+
+                        }); //each
+                    } //success
+                       });//ajax
+    }
+
+
+     $('.TreatmentMain_Lst').on("change", function () {
+         var id = $(this).attr('id');
+          console.log(id);
+            $.ajax(
+                {
+                    url: '@Url.Action("TreatmentTypeByTreatmentMain_Id", "TreatmentType", new { area = "DE_Treatments" })',
+                    type: 'Post',
+                    data: { TreatmentMain_Id: $('#'+id).val() },
+                    success: function (data) {
+                        $('.TreatmentType_Lst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('.TreatmentType_Lst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+     });
+
+
+      $('.TreatmentType_Lst').on("change", function () {
+          var id = $(this).attr('id');
+          console.log(id);
+            $.ajax(
+                {
+                    url: '@Url.Action("GetTreatmentMethodByTypeId", "TreartmentMethod", new { area = "DE_Treatments" })',
+                    type: 'Post',
+                    data: { TreatmentType_ID: $('#'+id).val() },
+                    success: function (data) {
+                        $('.TreatmentMethod_lst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('.TreatmentMethod_lst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+              });
+
+    function reply_Treatment(element) {
+
+        $(".toggle-div3-Treatment_" + element.id + "").toggle('fast', "linear");
+        var Item_ID = element.name;
+
+        var TreatmentMainType_GetName = $("#TreatmentMainType_" + Item_ID + " option:selected").text();// $('#Analysiss_name').innerHTML.text;
+        var TreatmentMainType_GetID = $("#TreatmentMainType_" + Item_ID + " option:selected").val();
+
+
+        var TreatmentType_GetName = $("#TreatmentType_" + Item_ID + " option:selected").text();
+        var TreatmentType_GetID = $("#TreatmentType_" + Item_ID + " option:selected").val();
+
+        var Txt_Procedures_GetName = $("#Txt_Procedures_" + Item_ID).val();
+
+
+
+        var TreatmentMethod_GetName = $("#TreatmentMethod_" + Item_ID + " option:selected").text();
+        var TreatmentMethod_GetID = $("#TreatmentMethod_" + Item_ID + " option:selected").val();
+
+        var rows = document.getElementById("my_Treatment_tbody_Data_" + Item_ID + "").rows;
+
+        var id = 0;
+        if (TreatmentMainType_GetID > 0) {
+            if (TreatmentType_GetID > 0) {
+                if (TreatmentMethod_GetID > 0) {
+                    for (var i = 0, ceiling = rows.length; i < ceiling; i++) {
+                        // alert(rows.length);
+                        cells = rows[i].getElementsByTagName('td');
+                        var id_cells = cells[5].innerHTML;
+
+                        if (TreatmentMethod_GetID == id_cells) {
+                            id = 1;
+                        }
+                    }
+
+                    if (id == 0) {
+                        var table = document.getElementById("my_Treatment_tbody_Data_" + Item_ID + "");
+                        if (TreatmentMethod_GetID != 0) {
+
+                            var rowCount = table.rows.length;
+                            var row = table.insertRow(rowCount);
+
+
+                            row.id = 'TreatmentMethod_GetID' + element.value;
+                            row.insertCell(0).innerHTML = TreatmentMainType_GetName;
+                            row.insertCell(1).innerHTML = TreatmentMainType_GetID;
+
+                            row.insertCell(2).innerHTML = TreatmentType_GetName;
+                            row.insertCell(3).innerHTML = TreatmentType_GetID;//2
+
+                             row.insertCell(4).innerHTML = TreatmentMethod_GetName;
+                            row.insertCell(5).innerHTML = TreatmentMethod_GetID;//2
+
+                            row.insertCell(6).innerHTML = Txt_Procedures_GetName;//2
+
+                            Checked_TreatmentMethod_List.push({
+                                Im_Request_Item_Id: Item_ID,
+                                TreatmentType_ID:TreatmentType_GetID,
+                                TreatmentMethod_ID: TreatmentMethod_GetID,
+                                Procedures: Txt_Procedures_GetName
+                            });
+                            alertify.success("تمت الاضافه ");
+
+                        } else {
+                            alertify.error("اختار طريقة معالجة");
+                        }
+                    }
+
+                    else {
+                        alertify.error("طريقة المعالجة موجود مسبقا");
+                    }
+                }
+
+                else {
+                    alertify.error("يجب اختيار طريقة المعالجة");
+                }
+            }
+            else {
+                alertify.error("يجب اختيار نوع المعالجة");
+            }
+        }
+        else {
+            alertify.error("يجب اختيار المعالجة الاساسية");
+        }
+    }
+
+        // المعالجة انتهاء
+
+        function reply_click4(element) {
+
+            $(".toggle-div4-" + element.id + "").toggle('fast', "linear");
+
+        }
+        function reply_click5(element) {
+            $(".toggle-div5-" + element.id + "").toggle('fast', "linear");
+
+        }
+        function reply_click6(element) {
+
+            $(".toggle-div6-" + element.id + "").toggle('fast', "linear");
+
+    }
+
+
+        $('.AnalysisLst').on("change", function () {
+            var id = $(this).attr('id');
+            $.ajax(
+                {
+                    url: '@Url.Action("AnalysisLab_List", "AnalysisType", new { area = "DE_Analysis" })',
+                    type: 'Post',
+                    data: { AnalysisTypeId: $('#'+id).val() },
+                    success: function (data) {
+                        $('.AnalysisLabLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('.AnalysisLabLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+              });
+
+        function reply_click7(element) {
+
+            $(".toggle-div7-" + element.id + "").toggle('fast', "linear");
+            var Item_ID = element.name;
+
+            var Analysisstr_GetName = $("#Analysisstr_" + Item_ID + " option:selected").text();// $('#Analysiss_name').innerHTML.text;
+            var Analysisstr_GetID = $("#Analysisstr_" + Item_ID + " option:selected").val();
+
+
+            var Analysis_Lab_GetName = $("#AnalysisLabLstr_" + Item_ID + " option:selected").text();
+            var Analysis_Lab_GetID = $("#AnalysisLabLstr_" + Item_ID + " option:selected").val();
+
+            var rows = document.getElementById("myAnlysesTable_Data_" + Item_ID + "").rows;
+
+            var id = 0;
+            if (Analysisstr_GetID > 0) {
+                if (Analysis_Lab_GetID > 0) {
+                    for (var i = 0, ceiling = rows.length; i < ceiling; i++) {
+                        // alert(rows.length);
+                        cells = rows[i].getElementsByTagName('td');
+                        var id_cells = cells[3].innerHTML;
+                        if (Analysis_Lab_GetID == id_cells) {
+                            id = 1;
+                        }
+
+                    }
+                    if (id == 0) {
+                        var table = document.getElementById("myAnlysesTable_Data_" + Item_ID + "");
+                        if (Analysisstr_GetID != 0) {
+
+                            var rowCount = table.rows.length;
+                            var row = table.insertRow(rowCount);
+
+
+                            row.id = 'Analysisstr_GetID' + element.value;
+                            row.insertCell(0).innerHTML = Analysisstr_GetName;
+                            row.insertCell(1).innerHTML = Analysisstr_GetID;
+
+                            row.insertCell(2).innerHTML = Analysis_Lab_GetName;
+                            row.insertCell(3).innerHTML = Analysis_Lab_GetID;//2
+
+                            CheckedAnalysisList.push({
+                                AnalysisLabType_ID: Analysis_Lab_GetID
+                                , Im_Request_Item_Id: Item_ID
+                            });
+                            alertify.success("تمت الاضافه ");
+
+                        } else {
+                            alertify.error("اختار التحاليل");
+                        }
+                    }
+                    else {
+                        alertify.error("التحليل موجود مسبقا");
+                    }
+                }
+                 else {
+                    alertify.error("يجب اختيار معمل");
+                }
+            }
+             else {
+                    alertify.error("يجب اختيار تحليل");
+                }
+        }
+    </script>
+}
+<script>
+ $(".quickview1").click(function () {
+
+
+         var netweight = $(this).data("netweight");
+             var grossweight = $(this).data("grossweight");
+         var packagecount = $(this).data("packagecount");
+         if (packagecount == null || packagecount == 0 || packagecount == '') {
+             packagecount = '#####'
+         }
+         var packageweight = $(this).data("packageweight");
+         if (packageweight == null || packageweight == 0 || packageweight == '') {
+             packageweight = '#####'
+         }
+                  var number_wooden_package = $(this).data("number_wooden_package");
+         if (number_wooden_package == null || number_wooden_package == 0 || number_wooden_package == '') {
+             number_wooden_package = '#####'
+         }
+         var ordertext = $(this).data("ordertext");
+         if (ordertext == null || ordertext == 0 || ordertext == '') {
+             ordertext = '#####'
+         }
+         //var navigationalfluidnumber = $(this).data("navigationalfluidnumber");
+         var packagetype = $(this).data("packagetype");
+         if (packagetype == null || packagetype == 0 || packagetype == '') {
+             packagetype = '#####'
+         }
+         var reasonentry = $(this).data("reasonentry");
+         if (reasonentry == null || reasonentry == 0 || reasonentry == '') {
+             reasonentry = '#####'
+         }
+         var size = $(this).data("size");
+         if (size == null || size == 0 || size == '') {
+             size = '#####'
+         }
+         var basedweight = $(this).data("basedweight");
+         var itemcat = $(this).data("itemcat");
+         if (itemcat == null || itemcat == 0 || itemcat == '') {
+             itemcat = '#####'
+         }
+         var itemcatgroup = $(this).data("itemcatgroup");
+         if (itemcatgroup == null || itemcatgroup == 0 || itemcatgroup == '') {
+             itemcatgroup = '#####'
+         }
+         var pckgematerial = $(this).data("pckgematerial");
+         if (pckgematerial == null || pckgematerial == 0 || pckgematerial == '') {
+             pckgematerial = '#####'
+         }
+         var packagebasedweight = $(this).data("packagebasedweight");
+
+         if (packagebasedweight == null || packagebasedweight == 0 || packagebasedweight == '')
+         {
+             packagebasedweight = '#####'
+         }
+         var packagenetweight = $(this).data("packagenetweight");
+
+         if (packagenetweight == null || packagenetweight == 0 || packagenetweight == '')
+         {
+             packagenetweight = '#####'
+         }
+         var unitsnumber = $(this).data("unitsnumber");
+         var subpartname = '';
+         if (unitsnumber == null || unitsnumber == 0 || unitsnumber == '') {
+             unitsnumber = '#####'
+
+         }
+         else {
+                var subpartname = $(this).data("subpartname");
+             if (subpartname == null || subpartname == 0 || subpartname == '') {
+                 subpartname = '#####'
+             }
+         }
+
+         var shipmentpolicynumber = $(this).data("shipmentpolicynumber");
+         if (shipmentpolicynumber == null || shipmentpolicynumber == 0 || shipmentpolicynumber == '') {
+             shipmentpolicynumber = '#####'
+         }
+         var _grower_number = $(this).data("grower_number");
+         if (_grower_number == null || _grower_number == 0 || _grower_number == '') {
+             _grower_number = '#####'
+         }
+         var recorded = $(this).data("recorded");
+         if (recorded == null || recorded == 0 || recorded == '') {
+             recorded = '#####'
+         }
+
+
+
+
+         @**@
+
+         $("#modaldetails").empty();
+         //  $("#modaldetails").append("<table id='popup'><tr><td>@PlantQuar.WEB.Language.Resource_data1.PackageCount</td><td><span class='modalspan'> " + packagecount + "</span></td><td>سبب الدخول   </td><td><span class='modalspan'> " + reasonentry + "</span></td></tr><tr><td> @PlantQuar.WEB.Language.Resource_data1.PackageWeight</td><td><span class='modalspan'> " + packageweight + "</span><span class='red'>كجم</span></td><td>@PlantQuar.WEB.Language.Resource_data1.PackageType</td><td><span class='modalspan'> " + packagetype + "</span></td></tr><tr><td> @PlantQuar.WEB.Language.Resource_data1.PackageMaterial</td><td><span class='modalspan'> " + pckgematerial + "</span></td><td>@PlantQuar.WEB.Language.Resource_data1.PackageWeight</td><td><span class='modalspan'> " + packagebasedweight + "</span></td></tr><tr><td> @PlantQuar.WEB.Language.Resource_data1.Size</td><td><span class='modalspan'> " + size + "</span></td><td>@PlantQuar.WEB.Language.Resource_data1.order_text</td><td><span class='modalspan'> " + ordertext + "</span></td></tr><tr><td> @PlantQuar.WEB.Language.Resource_data1.ItemsCategoryGrp</td><td><span class='modalspan'> " + itemcatgroup + "</span></td><td>الرقم الملاحي</td><td><span class='modalspan'> " + navigationalfluidnumber + "</span></td></tr><tr><td>@PlantQuar.WEB.Language.Resource_data1.PackageNetWeight </td><td>" + packagenetweight + "</td><tr><td>@PlantQuar.WEB.Language.Resource_data1.Units_Number </td><td>" + unitsnumber + "</td><td>رقم بوليصة الشحن</td><td>" + shipmentpolicynumber + "</td></tr></tr></table>");
+         $("#modaldetails").append("<table id='popup'><tr><td>@PlantQuar.WEB.Language.Resource_data1.PackageType</td><td><span class='modalspan'> " + packagetype + "</span></td><td> @PlantQuar.WEB.Language.Resource_data1.PackageMaterial</td><td><span class='modalspan'> " + pckgematerial + "</span></td></tr><tr><td>@PlantQuar.WEB.Language.Resource_data1.PackageCount</td><td><span class='modalspan'> " + packagecount + "</span><span class='red'>عبوة</span></td><td>الوزن القائم للعبوة</td><td><span class='modalspan'> " + packagebasedweight + "</span><span class='red'>كجم</span></td></tr><tr><td> الوزن الصافي للعبوة	</td><td><span class='modalspan'> " + packageweight + "</span><span class='red'>كجم</span></td><td>الوزن العبوة الفارغ	</td><td><span class='modalspan'> " + packagenetweight + "</span><span class='red'>كجم</span></td></tr><tr><td> الوزن الاجمالي للوط 	</td><td><span class='modalspan'> " + grossweight + "</span><span class='red'>كجم</span></td><td>الوزن الصافي للوط 	</td><td><span class='modalspan'> " + netweight + "</span><span class='red'>كجم</span></td></tr><tr><td>  عدد الوحدات </span></td><td>" + unitsnumber + "<span class='red'>"+subpartname+"</span></td><td>  حجم الرسالة </td> <td>" + size + "[م³]</td> </tr><tr><td>@PlantQuar.WEB.Language.Resource_data1.order_text</td><td><span class='modalspan'> " + ordertext + "</span></td><td>رقم بوليصة الشحن</td><td><span class='modalspan'>" + shipmentpolicynumber + "</span></td></tr><tr><td>سبب الدخول   </td><td><span class='modalspan'> " + reasonentry + "</span></td><td>رقم المزارع</td><td><span class='modalspan'> " + _grower_number + "</span></td></tr><tr><td>المجموعة الصنفية</td><td><span class='modalspan'> " + itemcatgroup + "</span></td><td>مسجل/غير مسجل</td><td><span class='modalspan'> " + recorded + "</span></td></tr><tr><td>الصنف الزراعي/السلالة</td><td><span class='modalspan'> " + itemcat + "</span></td><td>واحدت التعبئة الخشبية</td><td><span class='modalspan'> " + number_wooden_package + "</span></td></tr></table>");
+           //  $("#modaldetails").append("<table><tr><td> @PlantQuar.WEB.Language.Resource_data1.LotNumber</td><td><span class='modalspan'> " + lotnumber + "</span></td><td>@PlantQuar.WEB.Language.Resource_data1.CategoryName</td><td><span class='modalspan'> " + categoryname + "</span></td></tr><tr><td> @PlantQuar.WEB.Language.Resource_data1.LotNumber</td><td><span class='modalspan'> " + lotnumber + "</span></td><td>@PlantQuar.WEB.Language.Resource_data1.CategoryName</td><td><span class='modalspan'> " + categoryname + "</span></td></tr><tr><td> @PlantQuar.WEB.Language.Resource_data1.LotNumber</td><td><span class='modalspan'> " + lotnumber + "</span></td><td>@PlantQuar.WEB.Language.Resource_data1.CategoryName</td><td><span class='modalspan'> " + categoryname + "</span></td></tr><tr><td> @PlantQuar.WEB.Language.Resource_data1.LotNumber</td><td><span class='modalspan'> " + lotnumber + "</span></td><td>@PlantQuar.WEB.Language.Resource_data1.CategoryName</td><td><span class='modalspan'> " + categoryname + "</span></td></tr><tr><td> @PlantQuar.WEB.Language.Resource_data1.LotNumber</td><td><span class='modalspan'> " + lotnumber + "</span></td><td>@PlantQuar.WEB.Language.Resource_data1.CategoryName</td><td><span class='modalspan'> " + categoryname + "</span></td></tr><tr><td> @PlantQuar.WEB.Language.Resource_data1.LotNumber</td><td><span class='modalspan'> " + lotnumber + "</span></td><td>@PlantQuar.WEB.Language.Resource_data1.CategoryName</td><td><span class='modalspan'> " + categoryname + "</span></td></tr></table>");
+
+     });
+
+    $(".quickview3").click(function () {
+
+
+        var _ContainerNumber = $(this).data("containernumber");
+        var contid = $(this).data("contid");
+        var containers_type_ID = $(this).data("containerstypeid");
+        var shipholdnumber = $(this).data("shipholdnumber");
+        var NavigationalNumber = $(this).data("navigationalnumber");
+        var Total_Weight = $(this).data("totalweight");
+
+
+        $("#modaldetails").empty();
+        $("#modaldetails").append("<table id='popup'><tbody><tr><td>وحدة الشحن</td><td> " + contid
+            + "</td><td>رقم وحدة الشحن</td><td> " + _ContainerNumber
+            + " </td> </tr><tr> <td>السيل الملاحي</td><td>" + NavigationalNumber
+            + "</td> <td>رقم العنبر</td><td>" + shipholdnumber
+            + "</td> </tr><tr><tr> <td>طريقة التعبئة</td><td>" + containers_type_ID
+            + "</td><td>وزن وحدة الشحن</td><td>" + Total_Weight + "</span><span class='red'>كجم</span>"
+            + "</td> </tr><tr> </tbody> </table>")
+    });
+
+
+    //$(".quickview_Lot_Result_Status").click(function () {
+        
+        
+    //    var _Status_Name = $(this).data("statusname");
+    //    var _LotData_ID = $(this).data("lotdataid");
+    //    var _commite_No = $(this).data("commiteno");
+
+
+
+    //    $("#modaldetails").empty();
+    //    $("#modaldetails").append("<table id='popup'><tbody><tr><td>الاجراء</td><td> " + _Status_Name
+    //        + "</td><td>رقم اللوط</td><td> " + _LotData_ID
+    //        + " </td> </tr><tr> <td>رقم اللجنة</td><td>" + _commite_No
+    //        + "</td> <tr> </tbody> </table>")
+    //});
+
+    //$(".quickview4").click(function () {
+
+
+    //    var _lotid = $(this).data("lotid");
+    //    alert(_lotid);
+    //    var _analysisLabtype = $(this).data("analylab");
+    //    var _analysisName = $(this).data("analyname");
+    //    var _labname = $(this).data("labname");
+
+
+
+    //    $("#modaldetails").empty();
+    //    $("#modaldetails").append("<table id='popup'><tbody><tr><td>الرقم</td><td> " + _lotid
+    //        + " </td><td>أسم التحليل</td><td> " + _analysisName
+    //        + " </td> </tr><tr> <td>أسم المعمل</td><td>" + _labname
+    //        + "</td> </tr> </tbody> </table>")
+    //});
+
+</script>
+
+

@@ -1,0 +1,1558 @@
+﻿@*@model PlantQuar.DTO.DTO.Farm.FarmData.FarmsDataDTO*@
+@model PlantQuar.DTO.DTO.Station_Pages.Station_Accreditation_Data_Entry_DTO
+
+@{
+    ViewBag.Title = "قوائم إعتماد محطة";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">قوائم إعتماد محطة</h2>
+}
+
+@section Path{
+    <li>@PlantQuar.WEB.Language.Resource_data1.Farm </li>
+    <li class="active">@PlantQuar.WEB.Language.Resource_data1.FarmData</li>
+}
+
+
+
+<div class="row" style="display:none">
+    <div class="col-lg-4 col-md-5 ta1">
+        <label for="NamedName" class="control-label">اسم المسمى</label>
+        <input class="form-control" />
+        @*@Html.DropDownListFor(m => m.Govern_ID, new SelectList(ViewBag.ActivityType, "Value", "DisplayText"), new { @class = "form-control", @id = "govLst" })*@
+    </div>
+    <div class="col-lg-4 col-md-5 ta1">
+        <label for="GoveName2" class="control-label">@PlantQuar.WEB.Language.Resource_data1.ActivityType</label>
+        <input class="form-control" />
+        @*@Html.DropDownListFor(m => m.Govern_ID, new SelectList(ViewBag.ActivityType, "ID", "Ar_Name"), new { @class = "form-control", @id = "govLst" })*@
+    </div>
+    <div class="col-lg-4 col-md-5 ta1">
+        <label for="GoveName" class="control-label">نوع الإعتماد</label>
+        <input class="form-control" />
+        @*@Html.DropDownListFor(m => m.Govern_ID, new SelectList(ViewBag.ActivityType, "Value", "DisplayText"), new { @class = "form-control", @id = "govLst" })*@
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-10"></div>
+            <div class="col-md-2">
+                <input type="submit" class="btn btn-primary LoadRecordsButton" style="width:100%"
+                       value="@PlantQuar.WEB.Language.Resource_data1.Search" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@*@using (Html.BeginForm("SaveFarm", "FarmData", FormMethod.Post, new { area = "FA_Farm", id = "farmForm" }))
+    {*@
+<div>
+    <div class="tab" role="tabpanel" style="min-height:80% !important;">
+        <ul class="row nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#ActivityTab" aria-controls="profile" role="tab" data-toggle="tab">بيانات مسمى النشاط</a>
+            </li>
+            <li role="presentation">
+                <a href="#countryTab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Country</a>
+            </li>
+            <li role="presentation">
+                <a href="#Item_ShortNameTab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.ShortName </a>
+            </li>
+            <li role="presentation">
+                <a href="#ConstrainsTab" aria-controls="profile" role="tab" data-toggle="tab">اشتراطات الاعتماد</a>
+            </li>
+            @*<li role="presentation">
+                    <a href="#attachmentTab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Attachment</a>
+                </li>*@
+        </ul>
+        <div class="tab-content tabs" style="background-color:whitesmoke  !important;">
+
+            <div role="tabpanel" class="tab-pane fade in active" id="ActivityTab" style="height:400px;">
+                <div class="row">
+                    <div class="col-lg-3 col-md-5 ta1">
+                        <label for="CenterName" class="control-label">نوع الاعتماد</label>
+                        <select class="form-control" data-val="true" required data-val-number="The field Center_Id must be a number."
+                                data-val-required="The Center_Id field is required." id="Accreditation_Type_ID" name="Accreditation_Type_ID" autocomplete="off">
+                            <option value="">----------</option>
+                            <option value="80">صادر</option>
+                            <option value="81">وارد</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-5 ta1">
+                        <label for="Name_Ar" class="control-label">  مسمى الاعتماد بالعربية</label>
+                        @Html.TextBoxFor(m => m.Name_AR, new { @class = "form-control required", @id = "txtName_Ar" })
+                    </div>
+                    <div class="col-lg-3 col-md-5 ta1">
+                        <label for="Name_En" class="control-label">مسمى الاعتماد بالاجنبية</label>
+                        @Html.TextBoxFor(m => m.Name_En, new { @class = "form-control", @id = "txtName_En" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-lg-3 col-md-5 ta1">
+                            <label for="ActivityType" class="control-label">@PlantQuar.WEB.Language.Resource_data1.ActivityType</label>
+
+                            @*@if (Model != null)
+                                {*@
+
+                            @Html.DropDownListFor(m => m.StationActivityType_ID, new SelectList(ViewBag.StationActivityType, "Value", "DisplayText"), new { @class = "form-control", @id = "ActivityType_List" })
+                            <!--}
+                            else
+                            {-->
+                            @*@Html.DropDownListFor(null, new SelectList(ViewBag.StationActivityType, "Value", "DisplayText"), new { @class = "form-control", @id = "ActivityType_List" })*@
+
+                            <!--<select class="form-control"   id="ActivityType_List" name="ActivityType_List">
+                                </select>
+                            }-->
+                        </div>
+                        <div class="col-lg-3 col-md-5 ta1">
+                            <label for="Name_Ar" class="control-label">@PlantQuar.WEB.Language.Resource_data1.MainTreatment</label>
+                            @Html.TextBoxFor(m => m.MainTreatment_Name, new { @class = "form-control", @id = "Name_Ar", @readonly = "readonly" })
+                        </div>
+                        <div class="col-lg-3 col-md-5 ta1">
+                            <label for="Name_Ar" class="control-label">@PlantQuar.WEB.Language.Resource_data1.TreatmentType</label>
+                            @Html.TextBoxFor(m => m.TreatmentType_Name, new { @class = "form-control", @id = "TreatmentType", @readonly = "readonly" })
+                        </div>
+                        <div class="col-lg-3 col-md-5 ta1">
+                            <label for="Name_TreatmentMethod_Ar" class="control-label">@PlantQuar.WEB.Language.Resource_data1.TreatmentMethod</label>
+                            @Html.TextBoxFor(m => m.TreatmentType_Name, new { @class = "form-control", @id = "TreatmentMethod", @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-lg-5 col-md-5 ta1">
+                            <label for="Description_Ar" class="control-label">@PlantQuar.WEB.Language.Resource_data1.ArabicDescription</label>
+                            @Html.TextAreaFor(m => m.Description_Ar, new { @class = "form-control", @id = "Txt_Description_Ar" })
+                        </div>
+                        <div class="col-lg-5 col-md-5 ta1">
+                            <label for="Description_En" class="control-label">@PlantQuar.WEB.Language.Resource_data1.EnglishDescription</label>
+                            @Html.TextAreaFor(m => m.Description_En, new { @class = "form-control", @id = "Txt_Description_En" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-lg-5 col-md-5 ta1">
+                            <label for="DescriptionMore_AR" class="control-label">@PlantQuar.WEB.Language.Resource_data1.ArabicDescription اكثر</label>
+                            @Html.TextAreaFor(m => m.DescriptionMore_AR, new { @class = "form-control", @id = "Txt_DescriptionMore_AR" })
+                        </div>
+                        <div class="col-lg-5 col-md-5 ta1">
+                            <label for="DescriptionMore_EN" class="control-label">@PlantQuar.WEB.Language.Resource_data1.EnglishDescription More</label>
+                            @Html.TextAreaFor(m => m.DescriptionMore_EN, new { @class = "form-control", @id = "Txt_DescriptionMore_EN" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-lg-2 col-md-5 ta1">
+                            @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-control", @id = "isAccreditionActive" })
+                            <label for="IsActive" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Active</label>
+                        </div>
+                    </div>
+                </div>
+
+                @*<div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-10"></div>
+                            <div class="col-md-2">
+                                <input type="submit" class="btn btn-primary LoadRecordsButton"
+                                       style="width:100%" value="@PlantQuar.WEB.Language.Resource_data1.Save"
+                                       onclick="SaveStationAccrditationData()" />
+                            </div>
+                        </div>
+                    </div>*@
+            </div>
+
+
+            <div role="tabpanel" class="tab-pane fade in" id="countryTab" style="height:600px;">
+                <div class="row">
+                    <div class="col-md-4 ta1">
+                        <label for="Union_Id" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Union</label>
+                        <select id="Union_Id" required class="form-control"></select>
+                        @*@Html.DropDownListFor(m => m.List_Station_Country.FirstOrDefault().Union_Id, new SelectList(ViewBag.Union, "Value", "DisplayText"), new { @class = "form-control", @id = "Union_Id", @required = "required" })*@
+                    </div>
+                    <div class="col-md-4 ta1">
+                        <label for="Country_Id" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Country</label>
+                        <select id="Country_List" required class="form-control"></select>
+                        @*@Html.DropDownListFor(m => m.List_Station_Country.FirstOrDefault().CountryID, new SelectList(ViewBag.Country, "Value", "DisplayText"), new { @class = "form-control", @id = "Country_List", @required = "required" })*@
+                    </div>
+                </div>
+                @*<div>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-5 ta1">
+                                @Html.CheckBoxFor(m => m.IsActive, new { @checked = "checked", @id = "CountryIsActive"})
+                                <label for="Address_En" class="control-label"> @PlantQuar.WEB.Language.Resource_data1.IsActive</label>
+                            </div>
+                        </div>
+                    </div>*@
+                <br />
+            <div class="row">
+                <div class="col-md-10"></div>
+                <div class="col-md-2">
+                    <center>
+                        <input type="submit" class="btn btn-primary LoadRecordsButton" style="width:100%" value="@PlantQuar.WEB.Language.Resource_data1.Add" onclick="addCountry()" />
+                    </center>
+                        </div>
+               
+            </div>
+                <br />
+                <div class="row tbl-report" id="listFarm_Constrain_Text" style="overflow-y:scroll;height:400px;">
+                    <table id="Constrain_CountryTable" class="table table-bordered table-striped dataTable" role="grid" style="padding:5px; width:100%">
+                        <thead>
+                            <tr>
+                                @*//<th>@PlantQuar.WEB.Language.Resource_data1.EmpolyeeNumber</th>*@
+                                <th>ID</th>
+                                <th hidden>Union_Id</th>
+                                <th hidden>CountryID</th>
+
+                                <th>اسم الدوله</th>
+                                <th>اسم الاتحاد</th>
+                                <th>الحالة</th>
+                                <th >حذف</th>
+                            </tr>
+                        </thead>
+                        <tbody id="Station_Accreditation_Data_Country_Table">
+                            @if (Model != null)
+                            {
+                                if (Model.List_Station_Country != null)
+                                {
+                                    foreach (var item in Model.List_Station_Country)
+                                    {
+                                        <tr>
+                                            <td>@item.Id</td>
+                                            <td hidden="hidden">@item.Union_Id</td>
+                                            <td hidden="hidden">@item.CountryID</td>
+                                            <td>@item.Country_Name</td>
+                                            <td>@item.Union_Name</td>
+                                            <td>
+                                                @if (@item.IsActive == true)
+                                                {
+                                                    <label for="IsActive" id="Lbl_IsActive_Country_@item.Id" class="control-label">فعال</label>
+                                                }
+                                                else
+                                                {
+                                                    <label for="IsActive" id="Lbl_IsActive_Country_@item.Id" class="control-label">غير فعال</label>
+                                                }
+                                                <input checked="@item.IsActive" class="form-control" onclick='IsActive_Country(this)' data-val="true" id="Ch_is_Active_Country_@item.Id" name="@item.Id" type="checkbox" value="true" autocomplete="off">
+
+                                                @*@if (@item.IsActive == true)
+                                                    {
+                                                        <span>فعال</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>غير فعال</span>
+                                                    }*@
+                                            </td>
+                                            <td>
+
+                                                @*<label for="IsActive" id="Lbl_IsActive" class="control-label">فعال</label>
+        <input checked="@item.IsActive" class="form-control" onclick='IsActive_Row(this)' data-val="true" id="Ch_is_Active" name="IsActive" type="checkbox" value="true" autocomplete="off">*@
+                                                <button id='btnDelete_Text' onclick='IsActive_Row(this)'>تفعيل</button>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+            <div role="tabpanel" class="tab-pane fade in" id="Item_ShortNameTab" style="height:600px;">
+
+                <div class="row marg-bottom-10">
+
+                    <div class="col-md-4 ta1">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Item_Type</label>
+                        <select id="itemTypeLst" class="form-control"></select>
+                    </div>
+                    <div class="col-md-4 ta1">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.MainCalssification</label>
+                        <select id="mainClassLst" class="form-control"></select>
+                    </div>
+                    <div class="col-md-4 ta1">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.SecondaryClassification</label>
+                        <select id="secClassLst" class="form-control"></select>
+                    </div>
+
+
+                </div>
+                <div class="row marg-bottom-10">
+                    <div class="col-md-4 ta1">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.PlantGroup</label>
+                        <select id="groupLst" class="form-control"></select>
+                    </div>
+                    <div class="col-md-4 ta1" style="margin-top: 22px;">
+                        <input type="checkbox" class="form-control" id="chkIsKNown" />
+                        <label class="control-label" id="knowntext">@PlantQuar.WEB.Language.Resource_data1.un_known</label>
+
+                    </div>
+                    <div class="col-md-4 ta1">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Items</label>
+                        <select id="Item_List" class="form-control"></select>
+                    </div>
+                </div>
+
+                <div class="row marg-bottom-10">
+
+
+                    @*<div class="col-lg-3 col-md-5 ta1">
+                            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Items</label>
+                            @Html.DropDownList("Item_List", new SelectList(ViewBag.Item_List, "Value", "DisplayText"), new { @class = "form-control", id = "Item_List" })
+                        </div>*@
+                    <div class="col-md-4 ta1">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.ShortName</label>
+                        <select id="ShortNameLst" class="form-control"></select>
+                    </div>
+
+                </div>
+
+                <div class="row marg-bottom-10">
+
+                    <div class="col-md-4 ta1">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.PlantPart</label>
+                        <input class="form-control" id="PlantPart" readonly type="text">
+                    </div>
+                    <div class="col-md-4 ta1">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Status</label>
+                        <input class="form-control" id="Status" readonly type="text">
+                    </div>
+                    <div class="col-md-4 ta1">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Purpose</label>
+                        <input class="form-control" id="Purpose" readonly type="text">
+                    </div>
+
+                </div>
+                @*<div>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-5 ta1">
+                                @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-control", @id = "ShortNameIsActive" })
+                                <label for="Address_En" class="control-label"> @PlantQuar.WEB.Language.Resource_data1.IsActive</label>
+                            </div>
+                        </div>
+                    </div>*@
+
+                <br />
+                <div class="row marg-bottom-10">
+                    <div class="col-md-10"></div>
+                    <div class="col-md-2 ta1">
+                        <input type="submit" class="btn btn-primary LoadRecordsButton" id="AddshortName"
+                               style="width:100%" value="@PlantQuar.WEB.Language.Resource_data1.Add" onclick="AddshortName()" />
+                    </div>
+                </div>
+                <br />
+                <div class="row tbl-report" id="ListShortName">
+                    <table id="ListShortName_table" class="table table-bordered table-striped dataTable" role="grid" style="padding:5px; width:100%">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>Item_ShortName_ID</th>
+                                <th>اسم النبات</th>
+                                <th> المسمى المختصر  </th>
+                                <th>الحالة </th>
+                                <th>حذف</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ListShortName_tbody">
+                            @if (Model != null)
+                            {
+                                if (Model.List_Station_Item_ShortName != null)
+                                {
+                                    foreach (var item in Model.List_Station_Item_ShortName)
+                                    {
+                                        <tr>
+                                            <td>@item.ID</td>
+                                            <td>@item.Item_ShortName_ID</td>
+                                            <td>@item.Item_Name</td>
+                                            <td>@item.ShortName_Name</td>
+                                            <td>
+                                                @if (@item.IsActive == true)
+                                                {
+                                                    <label for="IsActive" id="Lbl_IsActive_ShortName_@item.ID" class="control-label">فعال</label>
+                                                }
+                                                else
+                                                {
+                                                    <label for="IsActive" id="Lbl_IsActive_ShortName_@item.ID" class="control-label">غير فعال</label>
+                                                }
+
+                                                <input checked="@item.IsActive" class="form-control" onclick='IsActive_ShortName(this)' data-val="true" id="Ch_is_Active_ShortName_@item.ID" name="@item.ID" type="checkbox" value="true" autocomplete="off">
+
+                                                @*    @if (@item.IsActive == true)
+                                                                                            {<span> فعال</span>}
+                                                    else
+                                                    {
+                                                        <span>غير فعال</span>
+                                                    }*@
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    }
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <div role="tabpanel" class="tab-pane fade in" id="ConstrainsTab" style="height:600px;">
+                <div id="plantConstrainDiv" class="col-md-12"></div>
+                <div id="newTextDIV">
+
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="col-md-4"><label for="fname">الاشتراطات والمعايير </label></div>
+                            <div class="col-md-8">
+                                <select id="Station_Accreditation_Type_List" class="form-control"></select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <br />
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="col-md-4"><label for="fname">نوع الاشتراطات والمعايير </label></div>
+                            <div class="col-md-8">
+                                <select id="Station_Accreditation_Country_Item_ID" class="form-control"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+
+                        <div class="col-md-10">
+                            <div class="col-md-4"><label for="fname">متطلبات/تعليمات</label></div>
+                            <div class="col-md-8">
+                                <select class="form-control" data-val="true" data-val-number="The field Center_Id must be a number." data-val-required="The Center_Id field is required." id="Station_CheckList_Android_ID" name="Station_CheckList_Android_ID" autocomplete="off">
+                                    <option value="0">----------</option>
+                                    <option value="1">متطلبات</option>
+                                    <option value="2">تعليمات</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <br />
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="col-md-4"><label for="fname">عنوان الاشتراطات والمعايير</label></div>
+                            <div class="col-md-8">
+                                <select id="Station_Accreditation_Text_List" class="form-control"></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br />
+                    <div class="row">
+
+                        <div class="col-md-10">
+                            <div class="col-md-4"><label for="fname">نص الاشتراطات والمعايير</label></div>
+                            <div class="col-md-8">
+                                <textarea class="" id="InSide_Certificate_Ar" disabled autocomplete="off" style="width:100%;"></textarea>
+
+                            </div>
+                        </div>
+                    </div>
+                      
+                        <br />
+                        <div class="row">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4">
+                                <center>
+                                    <button id="addnewText" onclick="addToConstrainText()" style="background-color: #1e7c80 !important; border: 2px solid #1e8084 !important; box-shadow: 0 4px #1d9fa5 !important; outline: none !important; position: relative !important;color:#fff;"> اضافة</button>
+                   
+
+
+                            </center>
+                        </div>
+
+                              <div class="col-md-4"></div>
+                        </div>
+                        <br />
+                    </div>
+                    <div id="listFarm_Constrain_Text" class="row">
+                        <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap">
+                            <table id="Constrain_TextTable" class="table table-bordered table-striped dataTable" role="grid" style="padding:5px; width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>ID النص</th>
+                                        <th>الاشتراطات والمعايير </th>
+                                        <th>نوع الاشتراطات والمعايير </th>
+                                        <th>عنوان الاشتراطات والمعايير</th>
+                                        <th>نص الاشتراطات والمعايير</th>
+                                        @*<th>الرقم المرجعى</th>*@
+                                        <th>تعليمات / متطلبات</th>
+                                        <th>حذف</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="myTable_Constrain_Text">
+                                    @if (Model != null)
+                                    {
+                                        if (Model.List_Station_CheckList != null)
+                                        {
+                                            foreach (var item in Model.List_Station_CheckList.OrderBy(a => a.Station_CheckList_Android_Name))
+                                            {
+                                                <tr>
+                                                    <td>@item.Station_Accreditation_Data_ID</td>
+                                                    <td>@item.Station_CheckList_ID</td>
+                                                    <td>@item.Station_Constrain_Type_Name</td>
+                                                    <td>@item.Station_Accreditation_Country_Item_Name</td>
+                                                    <td>@item.Station_Accreditation_Text_Name</td>
+                                                    <td>@item.InSide_Certificate_Ar </td>
+                                                    <td>@item.Station_CheckList_Android_Name</td>
+
+                                                    <td>
+                                                        @if (@item.IsActive == true)
+                                                        {
+                                                            <label for="IsActive" id="Lbl_IsActive_CheckList_@item.Station_Accreditation_Data_ID" class="control-label">فعال</label>
+                                                        }
+                                                        else
+                                                        {
+                                                            <label for="IsActive" id="Lbl_IsActive_CheckList_@item.Station_Accreditation_Data_ID" class="control-label">غير فعال</label>
+                                                        }
+
+                                                        <input checked="@item.IsActive" class="form-control" onclick='IsActive_CheckList(this)' data-val="true" id="Ch_is_Active_CheckList_@item.Station_Accreditation_Data_ID" name="@item.Station_Accreditation_Data_ID" type="checkbox" value="true" autocomplete="off">
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            <div role="tabpanel" class="tab-pane fade in" id="attachmentTab" style="height:600px;">
+                <div class="row">
+                    <div class="col-md-12 attach" id="fileAttach">
+                        @* jTable *@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-8"></div>
+        <div class="col-md-2">
+            <center>
+                <input type="submit" class="btn btn-primary LoadRecordsButton" style="width:100%" id="Btn_save"
+                       value="@PlantQuar.WEB.Language.Resource_data1.Save" onclick="SaveStationAccrditationData()" />
+            </center>
+                </div>
+        <div class="col-md-2">
+            <center>
+                <input type="submit" class="btn btn-primary LoadRecordsButton" style="width:100%" id="Btn_Edite"
+                       value="@PlantQuar.WEB.Language.Resource_data1.Edit" onclick="EditStationAccrditationData()" />
+            </center>
+                </div>
+    </div>
+</div>
+
+<script>
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const params = Object.fromEntries(urlSearchParams.entries());
+    var StationAccrditationData_ID = params.requestId;
+
+    $("#Btn_save").attr("style", "display: none !important");
+    $("#Btn_Edite").attr("style", "display: none !important");
+    if (StationAccrditationData_ID > 0) {
+        $("#Btn_save").attr("style", "display: none !important");
+        $("#Btn_Edite").attr("style", "display: block !important");
+        //$(".checkboxdisabledCH").attr("style", "display: none !important");
+    }
+    else {
+        $("#Btn_save").attr("style", "display: block !important");
+        $("#Btn_Edite").attr("style", "display: none !important");
+    }
+
+
+
+
+
+    $(document).ready(function () {
+        $('#Accreditation_Type_ID').val(@Model.Accreditation_Type_ID)
+            });
+
+
+    $(document).on('change', "#ActivityType", function () {
+        $.ajax({
+            url: '/Station_Pages/Station_Accreditation_Data_Entry/GetTreatmentData',
+            type: "POST",
+            data: { ActivityTypeId: $(this).val() },
+            success: function (result) {
+                if (result != null) {
+                    $("#Name_Ar").text = result.Treatment_Type_Name_Ar;
+                    $("#TreatmentType").text = result.Treatment_Main_Name_Ar;
+                }
+            },
+            error: function (ex) {
+                alertify.alert('We face some technical difficulties. Hello World');
+            }
+        });
+    });
+
+//*********************************
+    $(function () {
+
+         get_ConstrainsTab();
+         $.ajax(
+                {
+                    url: '@Url.Action("ItemType_AddEDIT", "ItemList", new { area = "CommonActions" })',
+                    type: 'Post',
+                    success: function (data) {
+                        $('#itemTypeLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#itemTypeLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+             });//ajax
+
+        @*// ActivityType_List
+        $.ajax(
+                {
+                    url: '@Url.Action("StationActivityType_List", "StationActivityType", new { area = "ST_Station" })',
+                    type: 'Post',
+                    success: function (data) {
+                        $('#ActivityType_List').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#ActivityType_List').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+              });//ajax*@
+
+         $('#ActivityType_List').on("change", function () {
+
+             $.ajax(
+                 {
+                     url: '@Url.Action("StationActivityType_ByID", "StationActivityType", new { area = "ST_Station" })',
+                     type: 'Post',
+                     data: { Id: $('#ActivityType_List').val() },
+                     success: function (data) {
+                         $('#Name_Ar').empty();
+                         $("#Name_Ar").val(data.Options[0].TreatmentMethods_Name);
+                         $('#TreatmentType').empty();
+                         $("#TreatmentType").val(data.Options[0].TreatmentMain_Name);
+                         $('#TreatmentMethod').empty();
+                         $("#TreatmentMethod").val(data.Options[0].Treatment_Name);
+
+                         //$('#Name_Ar').val() = data.TreatmentMethods_Name;
+
+                     } //success
+                 });//ajax
+         });
+
+         @*$('#ActivityType_List').on("change", function () {
+              $.ajax(
+                {
+                    url: '@Url.Action("StationActivityType_ByID", "StationActivityType", new { area = "ST_Station" })',
+                    type: 'Post',
+                    success: function (data) {
+
+                        });
+         });*@
+
+         //fileAttach
+         $('#fileAttach').jtable({
+             title: '@PlantQuar.WEB.Language.Resource_data1.Attachment',
+                    paging: true,
+                    pageSize: 10,
+                    sorting: true,
+                    columnResizable: true,
+                    columnSelectable: true,
+                    saveUserPreferences: true,
+                    actions: {
+                        listAction: 'list_A_AttachmentData_Station',
+                        createAction: function (data) {
+                            var deferred = $.Deferred();
+                            // Capture form submit result from the hidden iframe
+                            $("#postiframe").load(function () {
+                                iframeContents = $("#postiframe").contents().find("body").text();
+                                var result = $.parseJSON(iframeContents);
+                                deferred.resolve(result);
+                            });
+
+                            var form = $('#jtable-create-form');
+                            form.unbind("submit");
+                            form.attr("action", "Create_A_AttachmentData_Station");//"CreateItem?itemType=" + $('#itemTypeLst').val() + "&familyId=" + $('#FamilyLst').val() + "&groupId=" + $('#groupLst').val());
+                            form.attr("method", "post");
+                            form.attr("enctype", "multipart/form-data");
+                            form.attr("encoding", "multipart/form-data");
+                            form.attr("target", "postiframe");
+                            form.submit();
+                            return deferred;
+                        }
+                        /*createAction: 'Create_A_AttachmentData_Station',*/
+                    },
+             fields: {
+                 Index: {
+                     key: true,
+                     create: false,
+                     edit: false,
+                     list: false
+                 },
+                 A_AttachmentTableType_ID: {
+                     title: 'نوع المرفق',
+                     inputClass: 'validate[required]',
+                     options: function (data) {
+
+                         return '../../CommonActions/AttachmentTable/get_AttachmentTableType_Lst';
+                     },
+                 },
+                 Attachment_TypeName: {
+                     title: '@PlantQuar.WEB.Language.Resource_data1.AttachmentName',
+                     type: 'text',
+                     inputClass: 'validate[required]',
+                 },
+                 Attachment_Number: {
+                     title: '@PlantQuar.WEB.Language.Resource_data1.AttachmentNumber',
+                     inputClass: 'validate[required]'
+                 },
+                 @*AttachmentPath: {
+                     title: ' @PlantQuar.WEB.Language.Resource_data1.Attachment',
+                     inputClass: 'validate[required]',
+                     input: function (data) {
+                         return '<input type ="file" id="Picture1" name="Picture1" class="input-type-file" accept=".jpg, .jpeg, .png"/><iframe name="postiframe" id="postiframe" style="display: none" />';
+                     },
+                     //display: function (data) {
+                     //    console.log(data.record.AttachmentPath);
+                     //    return '<input type="button" value="تحميل الملف" class=" btn btn - info" onclick=btndownload_click(this)  data-assigned-id="' + data.record.AttachmentPath + '" />';
+                     //},
+                     create: function (data) {
+                         console.log(data.record.AttachmentPath);
+                         return '<input type="button" value="تحميل الملف" class=" btn btn - info" onclick=btndownload_click(this)  data-assigned-id="' + data.record.AttachmentPath + '" />';
+                     },
+                     create: true,
+                     edit: true
+                 },*@
+
+                 Picture: {
+                     title: '@PlantQuar.WEB.Language.Resource_data1.Image',
+                     inputClass: 'validate[required]',
+                     input: function (data) {
+                         return '<input type ="file" id="Picture1" name="Picture1" class="input-type-file" accept=".jpg, .jpeg, .png"/><iframe name="postiframe" id="postiframe" style="display: none" />';
+                     },
+                     display: function (data) {
+                         console.log(data.record.Picture);
+                         return '<input type="button" value="تحميل الملف" class=" btn btn - info" onclick=btndownload_click(this)  data-assigned-id="' + data.record.Picture + '" />';
+                     },
+                     create: function (data) {
+                         console.log(data.record.Picture);
+                         return '<input type="button" value="تحميل الملف" class=" btn btn - info" onclick=btndownload_click(this)  data-assigned-id="' + data.record.Picture + '" />';
+                     },
+                     create: true,
+                     edit: true
+                 },
+             },
+                    formCreated: function (event, data) {
+                        $("#Edit-ShiftTiming_ID").change(function () {
+                            $.ajax(
+                                {
+                                    url: '@Url.Action("getShiftTiming_Mony", "Committee", new { area = "Committees" })',
+                                    type: 'Post',
+                                    //shiftId
+                                    data: { shiftId: $(this).val() },
+                                    success: function (data) {
+                                        if (data.Options != null) {
+                                            $("#Edit-money").val(data.Options);
+                                        }
+                                    } //success
+                                });//ajax
+                        });
+                        //   $('.jtable-input-field-container:nth-of-type(1)').hide();
+                        $('#Edit-money').attr('readonly', 'readonly');
+                        $('#Edit-Count').attr('type', 'number');
+                        //$('#Count').val('1');
+                        if (data.formType == "create") {
+                            $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Add");
+                        }
+                        else {
+                            $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Edit");
+                        }
+                    },
+                    formSubmitting: function (event, data) {
+                        //if ($("#Committe_Id").val() == 0) {
+                        //    return false;
+                        //    //alert("save first")
+                        // }
+                        return data.form.validationEngine('validate');
+                    },
+
+                    formClosed: function (event, data) {
+                        data.form.validationEngine('hide');
+                        data.form.validationEngine('detach');
+                        $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Delete");
+                    },
+                    recordAdded: function (event, data) {
+                        //Mah+Ag 17-4-2019 change display message
+                        alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+                    },
+                    recordUpdated: function (event, data) {
+                        //Mah+Ag 17-4-2019 change display message
+                        alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Update");
+                    },
+                    recordDeleted: function (event, data) {
+                        //Mah+Ag 17-4-2019 change display message
+                        alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Delete");
+                    },
+                });
+         function btndownload_click(elem) {
+             var path = $(elem).data('assigned-id');
+             window.open('/Imges/Downlood_Imge/Get_Downlood_Imge?path1=' + path + '', "_blank");
+         }
+    });
+        /**************************/
+
+    //**********************Country
+    constraintCountry = [];
+    $.ajax(
+                {
+                    url: '@Url.Action("Union_List", "Station_Accreditation_Data_Entry", new { area = "Station_Pages" })',
+                    type: 'Post',
+                    success: function (data) {
+                        $('#Union_Id').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#Union_Id').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+              });//ajax
+
+    $("#Union_Id").change(function () {
+        $("#Country_List").empty();
+        var Union_Id = $("#Union_Id").val();
+        $.ajax({
+            url: "../../Export_Constrains/Ex_CountryConstrains/GetCountriesUnion_Name",
+            data: { CountriesUnion_Id: Union_Id },
+            success: function (res) {
+                $.each(res.Options, function (i, e) {
+                    $("#Country_List").append("<option Value='" + e.Value + "'>" + e.DisplayText + "</option>")
+                })
+            }
+        })
+    });
+    function addCountry() {
+        var constraint_addCountry = {};
+
+        //كل بيانات داخل dropdownlistfor
+        //var vendorArr = $("#Country_List option").map(function () {
+        //    alert(this.value);
+        //}).get();
+        Country_Id = $("#Country_List option:selected").val();
+        Union_ID = $("#Union_Id option:selected").val();
+        Union_Name = $("#Union_Id option:selected").text();
+        CountryIsActive = "فعال";
+        CountryIsActivebool = true;
+        if (Country_Id.trim() >0) {
+            Country_Name = $("#Country_List option:selected").text();
+            var InsertConstrain_Text = true;
+            var rows = document.getElementById("Station_Accreditation_Data_Country_Table").rows;
+
+            for (var i = 0, ceiling = rows.length; i < ceiling; i++) {
+                cells = rows[i].getElementsByTagName('td');
+                Country_Tab_ID = cells[2].innerHTML;
+                Union_Tab_ID = cells[1].innerHTML;
+                console.log("Country_Tab_ID " + Country_Tab_ID + "   Union_Tab_ID " + Union_Tab_ID);
+                if (Country_Tab_ID.trim() == Country_Id.trim()  ) {
+                    InsertConstrain_Text = false;
+                }
+            }
+            if (InsertConstrain_Text == true) {
+                // var Station_Accreditation_Type_ListSelect = document.getElementById("Station_Accreditation_Type_List");
+                // Station_Accreditation_Type_tbody_ID = Station_Accreditation_Type_ListSelect.options[Station_Accreditation_Type_ListSelect.selectedIndex].text;
+                // // add to list
+                constraint_addCountry.Id = 0;
+                constraint_addCountry.Union_Id = Union_ID;
+                constraint_addCountry.CountryID = Country_Id;
+                constraint_addCountry.IsActive = CountryIsActivebool;
+                // var InSide_Certificate_Ar_Text = document.getElementById("InSide_Certificate_Ar").value;
+                // // add to list
+                constraintCountry.push(constraint_addCountry);
+
+                console.log(constraintCountry);
+                ////// add to table first
+                $("#Station_Accreditation_Data_Country_Table").append("<tr id=" + Country_Id + ">" +
+                    "<td ></td>" +
+                    "<td hidden>" + Union_ID + "</td>" +
+                    "<td hidden>" + Country_Id + "</td>" +
+                    "<td>" + Country_Name + "</td>" +
+                    "<td>" + Union_Name + "</td>" +
+
+                    "<td name=" + CountryIsActivebool + ">" + CountryIsActive + "</td>" +
+                    "<td><button id='btnDelete_Text' onclick='DeleteRow_Country(this)'>حذف</button></td>" +
+                    "</tr>");
+            }
+            else { alertify.error("موجود مسبقا"); }
+        }
+
+        else if (Country_Id.trim() == 0)
+        {
+             var vendorArr = $("#Country_List option").map(function () {
+                 var _Country_Id = this.value;
+                 if (_Country_Id > 0) {
+                     Country_Name = this.text;
+                     var InsertConstrain_Text = true;
+                     var rows = document.getElementById("Station_Accreditation_Data_Country_Table").rows;
+                     for (var i = 0, ceiling = rows.length; i < ceiling; i++) {
+                         cells = rows[i].getElementsByTagName('td');
+                         Country_Tab_ID = cells[2].innerHTML;
+                     /*    Union_Tab_ID = cells[1].innerHTML;*/
+                         if (Country_Tab_ID.trim() == _Country_Id.trim() ) {
+                             InsertConstrain_Text = false;
+                         }
+                     }
+                     if (InsertConstrain_Text == true) {
+                         //alert(_Country_Id);
+                         // add to list
+                         constraint_addCountry.Id = 0;
+                         constraint_addCountry.Union_Id = Union_ID;
+                         constraint_addCountry.CountryID = _Country_Id;
+                             constraint_addCountry.IsActive = CountryIsActivebool;
+                         //alert(constraint_addCountry);
+                         console.log("hh   "+"Union_Id " + Union_Id + "   _Country_Id " + _Country_Id)
+                        // constraintCountry.push(constraint_addCountry);
+                         constraintCountry.push({ Union_Id: Union_ID, CountryID: _Country_Id, IsActive: true });
+                         //alert(constraintCountry)
+                         // add to table first
+                         $("#Station_Accreditation_Data_Country_Table").append("<tr id=" + _Country_Id + ">" +
+                             "<td ></td>" +
+                             "<td hidden>" + Union_ID + "</td>" +
+                             "<td hidden >" + _Country_Id + "</td>" +
+                             "<td>" + Country_Name + "</td>" +
+                             "<td>" + Union_Name + "</td>" +
+                             "<td name=" + CountryIsActivebool + ">" + CountryIsActive + "</td>" +
+                             "<td ><button id='btnDelete_Text' onclick='DeleteRow_Country(this)'>حذف</button></td>" +
+                             "</tr>");
+                         // add to list
+                     }
+                 }
+             }).get();
+            console.log(constraintCountry);
+        }
+        else {
+            alertify.error("يجب اختيار اختيار دولة ");
+        }
+    }
+    function DeleteRow_Country(r) {
+        var rows = document.getElementById("Constrain_CountryTable").rows;
+        var i = r.parentNode.parentNode.rowIndex;
+        var cells = rows[i].getElementsByTagName('td');
+        var ID = cells[3].innerHTML;
+        document.getElementById("Constrain_CountryTable").deleteRow(i);
+        var index = constraintCountry.map(x => {
+            return x.id;
+        }).indexOf(ID);
+        constraintCountry.splice(index, 1);
+      //  console.log(constraintCountry);
+    }
+
+        //**********************End Country
+
+    function IsActive_ShortName(r) {
+        var constraint_AddshortName = {};
+        var rows = document.getElementById("ListShortName_tbody").rows;
+        var i = r.parentNode.parentNode.rowIndex;
+
+        var cells = rows[i - 1].getElementsByTagName('td');
+        var Station_Accreditation_Data_ID = cells[0].innerHTML;
+        var Item_ShortName_ID = cells[1].innerHTML;
+
+        var _IsActive = false;
+        var name_ID = r.name;
+        if ($('#Ch_is_Active_ShortName_' + name_ID + ':checked').length == 0) _IsActive = false;
+        else _IsActive = true;
+
+        if (_IsActive == true) {
+            $("#Lbl_IsActive_ShortName_" + name_ID).text('فعال')
+            } else {
+            $("#Lbl_IsActive_ShortName_" + name_ID).text('غير فعال')
+        }
+        constraint_AddshortName.Station_Accreditation_Data_ID = Station_Accreditation_Data_ID;
+        constraint_AddshortName.Item_ShortName_ID = Item_ShortName_ID;
+        constraint_AddshortName.IsActive = _IsActive;
+        constraintItem.push(constraint_AddshortName);
+        console.log(constraintItem);
+    }
+    function IsActive_Country(r) {
+        var constraint_EditeCountry = {};
+        var rows = document.getElementById("Station_Accreditation_Data_Country_Table").rows;
+        var i = r.parentNode.parentNode.rowIndex;
+
+        var cells = rows[i-1].getElementsByTagName('td');
+        var ID = cells[0].innerHTML;
+        var Country_Id = cells[2].innerHTML;
+
+        var name_ID =  r.name;
+        var known = false;
+        if ($('#Ch_is_Active_Country_' + name_ID+':checked').length == 0) known = false;
+            else known = true;
+
+        if (known == true) {
+            $("#Lbl_IsActive_Country_" + name_ID).text('فعال')
+            } else {
+            $("#Lbl_IsActive_Country_" + name_ID).text('غير فعال')
+        }
+
+        constraint_EditeCountry.Id = ID;
+        /*constraint_addCountry.Union_Id = Union_ID;*/
+        constraint_EditeCountry.CountryID = Country_Id;
+        constraint_EditeCountry.IsActive = known;
+        constraintCountry.push(constraint_EditeCountry);
+        console.log(constraintCountry);
+    }
+
+    function IsActive_CheckList(r) {
+        var constraintTextValue = {};
+        var rows = document.getElementById("myTable_Constrain_Text").rows;
+        var i = r.parentNode.parentNode.rowIndex;
+
+        var cells = rows[i - 1].getElementsByTagName('td');
+        var ID = cells[0].innerHTML;
+        var Constrain_ID = cells[1].innerHTML;
+
+
+
+
+        var name_ID = r.name;
+        var IsActive = false;
+        if ($('#Ch_is_Active_CheckList_' + name_ID + ':checked').length == 0) IsActive = false;
+        else IsActive = true;
+        if (IsActive == true) {
+            $("#Lbl_IsActive_CheckList_" + name_ID).text('فعال')
+            } else {
+            $("#Lbl_IsActive_CheckList_" + name_ID).text('غير فعال')
+        }
+        constraintTextValue.Station_Accreditation_Data_ID = ID;
+        constraintTextValue.Station_CheckList_ID = Constrain_ID;
+        constraintTextValue.IsActive = IsActive;
+        constraintText.push(constraintTextValue);
+        console.log(constraintText);
+    }
+
+    /*************Item_shortName*********/
+        $('#itemTypeLst').on("change", function () {
+            $.ajax(
+                {
+                    url: '@Url.Action("MainClassification_AddEDIT", "ItemList", new { area = "CommonActions" })',
+                    type: 'Post',
+                    data: { ItemType_ID: $('#itemTypeLst').val() },
+                    success: function (data) {
+                        $('#mainClassLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#mainClassLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+        });
+        $('#mainClassLst').on("change", function () {
+            $.ajax(
+                {
+                    url: '@Url.Action("SecondaryClassification_AddEDIT", "ItemList", new { area = "CommonActions" })',
+                    type: 'Post',
+                    data: { MainClass_ID: $('#mainClassLst').val() },
+                    success: function (data) {
+                        $('#secClassLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#secClassLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+        });
+        $('#secClassLst').on("change", function () {
+            $.ajax(
+                {
+                    url: '@Url.Action("ItemGroup_AddEDIT", "ItemList", new { area = "CommonActions" })',
+                    type: 'Post',
+                    data: { SecClass_ID: $('#secClassLst').val() },
+                    success: function (data) {
+                        $('#groupLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#groupLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+        });
+       $('#groupLst').on("change", function () {
+            getItems();
+        });
+         $('#chkIsKNown').on('click', function () {
+            //knowntext
+            if ($('#chkIsKNown:checked').length == 0)
+                $("#knowntext").text('@PlantQuar.WEB.Language.Resource_data1.un_known')
+            else $("#knowntext").text('@PlantQuar.WEB.Language.Resource_data1.Isknown');
+            getItems();
+        });
+        function getItems() {
+            var known = '';
+
+            if ($('#chkIsKNown:checked').length == 0) known = false;
+            else known = true;
+
+            if ($('#groupLst').val() > 0) {
+                 $.ajax(
+                {
+                    url: '@Url.Action("ItemFilterForShortName", "ItemList", new { area = "CommonActions" })',
+                    type: 'Post',
+                    data: {
+                        groupId: $('#groupLst').val(),
+                        known: known,
+
+
+                         itemType: $('#itemTypeLst').val(),
+                    },
+                    success: function (data) {
+                        $('#Item_List').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#Item_List').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+            }
+        }
+     $('#Item_List').on('change', function () {
+
+        var plantId = $('#Item_List').val();
+        $.ajax(
+            {
+                url: '@Url.Action("PlantCategoryList", "Station_Accreditation_Data_Entry", new { area = "Station_Pages" })',
+                data: {
+                    plantId: plantId,
+                },
+                success: function (data) {
+                    $('#plantCatLst').empty();
+                    $.each(data.Options, function (i, index) {
+                        $('#plantCatLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                    }); //each
+                } //success
+            });//ajax
+        //*********************//
+        $.ajax(
+            {
+                     url: '@Url.Action("GetPlantShortName", "Ex_CountryConstrains", new { area = "Export_Constrains" })',
+                data: {
+                    Item_Id: plantId,
+                },
+                success: function (data) {
+                    $('#ShortNameLst').empty();
+                    $.each(data.Options, function (i, index) {
+                        $('#ShortNameLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                    }); //each
+                } //success
+            });//ajax
+        //*******************//
+
+    });
+    $('#ShortNameLst').on('change', function () {
+
+        $.ajax(
+            {
+                url: '/Export_Constrains/Ex_CountryConstrains/Get_ShortNameDetails',
+                data:
+                {
+                    ShortName: $("#ShortNameLst").val(),
+                },
+                success: function (res) {
+                    $("#PlantPart").val(res.SubPart_Name);
+                    $("#Status").val(res.Status_Name);
+                    $("#Purpose").val(res.Purpose_Name);
+
+                }
+            });//ajax
+    });
+    constraintItem = [];
+    function AddshortName() {
+
+        var constraint_AddshortName = {};
+
+        ShortNameLst_Id = $("#ShortNameLst option:selected").val();
+        ShortNameLst_Name = $("#ShortNameLst option:selected").text();
+
+        if (ShortNameLst_Id.trim() >0) {
+            Item_List_ID = $("#Item_List option:selected").val();
+            Item_List_Name = $("#Item_List option:selected").text();
+            //ShortNameIsActive = $('#ShortNameIsActive').is(":checked") ? "فعال" : "غير فعال";
+            ShortNameIsActive = "فعال";
+           // ShortNameIsActivebool = $('#ShortNameIsActive').is(":checked");
+            ShortNameIsActivebool =true;
+            var InsertConstrain_Text = true;
+            var rows = document.getElementById("ListShortName_tbody").rows;
+            for (var i = 0, ceiling = rows.length; i < ceiling; i++) {
+                cells = rows[i].getElementsByTagName('td');
+                ShortName_Tab_ID = cells[1].innerHTML;
+
+                if (ShortName_Tab_ID.trim() == ShortNameLst_Id.trim()) {
+                    InsertConstrain_Text = false;
+                }
+            }
+            if (InsertConstrain_Text == true) {
+                // // add to list
+                constraint_AddshortName.Station_Accreditation_Data_ID = 0;
+                constraint_AddshortName.Item_ShortName_ID = ShortNameLst_Id;
+                constraint_AddshortName.IsActive = ShortNameIsActivebool;
+                // // add to list
+                constraintItem.push(constraint_AddshortName);
+                console.log(constraintItem);
+                ////// add to table first
+                $("#ListShortName_tbody").append("<tr id=" + ShortNameLst_Id + ">" +
+                    "<td ></td>" +
+                    "<td >" + ShortNameLst_Id + "</td>" +
+                    "<td>" + Item_List_Name + "</td>" +
+                    "<td>" + ShortNameLst_Name + "</td>" +
+                    "<td name=" + ShortNameIsActivebool + ">" + ShortNameIsActive + "</td>" +
+                    "<td><button id='btnDelete_Text' onclick='DeleteRow_ShortName(this)'>حذف</button></td>" +
+                    "</tr>");
+            }
+            else { alertify.error("موجود مسبقا"); }
+        }
+        else {
+            alertify.error("يجب اختيار اختيار دولة ");
+        }
+
+
+    }
+    function DeleteRow_ShortName(r) {
+        var rows = document.getElementById("ListShortName_table").rows;
+        var i = r.parentNode.parentNode.rowIndex;
+        var cells = rows[i].getElementsByTagName('td');
+        var ID = cells[0].innerHTML;
+        document.getElementById("ListShortName_table").deleteRow(i);
+        var index = constraintCountry.map(x => {
+            return x.id;
+        }).indexOf(ID);
+        constraintItem.splice(index, 1);
+       // console.log(constraintItem);
+    }
+
+    /*************End Item_shortName*********/
+
+     //***********************النصوص
+    function get_ConstrainsTab() {
+
+        //var CountryID = document.getElementById("Country_List").value;
+        //var ShortNameID = document.getElementById("ShortNameLst").value;
+
+        //if (CountryID >= 0 && CountryID != "") {
+        //    if (ShortNameID > 0) {
+               /* document.getElementById('newTextDIV').style.display = 'block'*/
+                $("#Station_Accreditation_Type_List").empty();
+        $.ajax({
+            url: "../../ST_Station/Station_Constrain_Type/Station_Constrain_Type_AddEDIT",
+
+                    type: "POST",
+                    //data: {
+                    //    type: 0
+                    //},
+                    success: function (result) {
+                        var analysisLabs = result.Options;
+                        var select = document.getElementById("Station_Accreditation_Type_List");
+                        //  var options = ["1", "2", "3", "4", "5"];
+                        for (var i = 0; i < analysisLabs.length; i++) {
+                            var opt = analysisLabs[i];
+                            var el = document.createElement("option");
+                            el.textContent = opt.DisplayText;
+                            el.value = opt.Value;
+                            select.appendChild(el);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                    }
+                });
+        //    }
+        //    else {
+        //        alertify.error("يجب اختيار مسمي مختصر")
+        //    }
+        //}
+        //else {
+        //    alertify.error("يجب اختيار دولة")
+        //}
+    }
+
+    $('#Station_Accreditation_Type_List').on("change", function () {
+                $.ajax(
+                    {
+                        url: '@Url.Action("Station_Constrain_Country_Item_List", "Station_Constrain_Country_Item", new { area = "ST_Station" })',
+                        type: 'Post',
+                        data: { List: $('#Station_Accreditation_Type_List').val() },
+                        success: function (data) {
+                           /* $("#Station_CheckList_ConstrainTable tbody").empty();*/
+                            $('#Station_Accreditation_Country_Item_ID').empty();
+                            $.each(data.Options, function (i, index) {
+                                $('#Station_Accreditation_Country_Item_ID').append($('<option />').val(index.Value).text(index.DisplayText));
+                            }); //each
+                        } //success
+                    });//ajax
+    });
+
+    $('#Station_Accreditation_Country_Item_ID').on("change", function () {
+        $('#Station_CheckList_Android_ID').empty();
+        $('#Station_Accreditation_Text_List').empty();
+       /* document.getElementById('InSide_Certificate_Ar').value = '';*/
+
+        $('#InSide_Certificate_Ar').val('');
+
+        $('#Station_CheckList_Android_ID').append($('<option value="0">----------</option>'));
+        $('#Station_CheckList_Android_ID').append($('<option value="1">متطلبات</option>'));
+        $('#Station_CheckList_Android_ID').append($('<option value="2">تعليمات</option>'));
+    });
+
+    $('#Station_CheckList_Android_ID').on("change", function () {
+        $('#Station_Accreditation_Text_List').empty();
+        var _Android_ID = $('#Station_CheckList_Android_ID :selected').val();
+        if (_Android_ID == 2) {
+            _Android_ID = false;
+        }
+        else {
+            _Android_ID = true;
+        }
+        $.ajax(
+            {
+                url: '@Url.Action("Station_CheckList_Constrain_List", "Station_CheckList_Constrain", new { area = "ST_Station" })',
+                type: 'Post',
+                data: { Station_Constrain_Country_Item_ID: $('#Station_Accreditation_Country_Item_ID').val(), Android_ID: _Android_ID },
+                success: function (data) {
+                    /* $("#Station_CheckList_ConstrainTable tbody").empty();*/
+                    $('#Station_Accreditation_Text_List').empty();
+                    $.each(data.Options, function (i, index) {
+                        $('#Station_Accreditation_Text_List').append($('<option />').val(index.Value).text(index.DisplayText));
+                    }); //each
+                } //success
+            });//ajax
+    });
+
+    $('#Station_Accreditation_Text_List').on("change", function () {
+
+                $.ajax(
+                    {
+                        url: '@Url.Action("Get_Station_CheckList_Constrain_Detiles", "Station_CheckList_Constrain", new { area = "ST_Station" })',
+                        type: 'Post',
+                        data: { ID: $('#Station_Accreditation_Text_List').val() },
+                        success: function (data) {
+                           /* $("#Station_CheckList_ConstrainTable tbody").empty();*/
+                            $('#InSide_Certificate_Ar').empty();
+                            $("#InSide_Certificate_Ar").val(data.Description_Ar);
+                        } //success
+                    });//ajax
+            });
+    constraintText = [];
+
+    function addToConstrainText() {
+        var constraintTextValue = {};
+        var Constrain_Text = $('#Station_Accreditation_Text_List :selected').text();
+        var Constrain_ID = $('#Station_Accreditation_Text_List :selected').val();
+        var Station_CheckList_Android_ID = $('#Station_CheckList_Android_ID :selected').text();
+        if (Station_CheckList_Android_ID == "متطلبات") {
+            Station_CheckList_Android_ID = "متطلبات";
+        } else if (Station_CheckList_Android_ID == "تعليمات") {
+            Station_CheckList_Android_ID = "تعليمات";
+        }
+        if (Constrain_ID > 0) {
+            var InsertConstrain_Text = true;
+            var rows = document.getElementById("myTable_Constrain_Text").rows;
+            for (var i = 0, ceiling = rows.length; i < ceiling; i++) {
+                cells = rows[i].getElementsByTagName('td');
+                Tab_Name = cells[1].innerHTML;
+                if (Constrain_ID.trim() == Tab_Name.trim()) {
+                    InsertConstrain_Text = false;
+                }
+            }
+
+            if (InsertConstrain_Text == true) {
+                constraintTextValue.Station_CheckList_ID = Constrain_ID;
+                var InSide_Certificate_Ar_Text = document.getElementById("InSide_Certificate_Ar").value;
+                //// add to list
+                constraintText.push(constraintTextValue);
+                // add to table first
+                $("#myTable_Constrain_Text").append("<tr>" +
+                    "<td></td>" +
+                    "<td >" + Constrain_ID + "</td>" +
+
+                    "<td>" + $('#Station_Accreditation_Type_List :selected').text() + "</td>" +
+                    "<td>" + $('#Station_Accreditation_Country_Item_ID :selected').text() + "</td>" +
+                    "<td>" + Constrain_Text + "</td>" +
+                    "<td>" + InSide_Certificate_Ar_Text + "  </td>" +
+                    "<td>" + Station_CheckList_Android_ID + "  </td>" +
+                    "<td><button id='btnDelete_Text' onclick='DeleteRow_CheckList(this)'>حذف</button></td>" +
+                    "</tr>");
+            }
+            else { alertify.error("موجود مسبقا"); }
+        } else { alertify.error("يجب اختيار عنوان الاشتراط "); }
+    }
+
+    function DeleteRow_CheckList(r) {
+        var rows = document.getElementById("Constrain_TextTable").rows;
+        var i = r.parentNode.parentNode.rowIndex;
+        var cells = rows[i].getElementsByTagName('td');
+        var ID = cells[4].innerHTML;
+        document.getElementById("Constrain_TextTable").deleteRow(i);
+        var index = constraintCountry.map(x => {
+            return x.id;
+        }).indexOf(ID);
+        constraintText.splice(index, 1);
+
+    }
+
+         //***********************النصوص end
+
+    /*************A_AttachmentData_Station*********/
+    function btndownload_click(elem) {
+
+        var path = $(elem).data('assigned-id');
+        window.open('/Imges/Downlood_Imge/Get_Downlood_Imge?path1=' + path + '', "_blank");
+    }
+
+
+    /*************End A_AttachmentData_Station*********/
+    // save
+
+      function SaveStationAccrditationData() {
+        var StationAccrditationData = {}
+        var Accreditation_Type_ID = $('#Accreditation_Type_ID').val();
+        StationActivityType_ID = $('#ActivityType_List').val();
+        if (Accreditation_Type_ID  > 0) {
+            if (StationActivityType_ID > 0) {
+            StationAccrditationData.StationActivityType_ID = StationActivityType_ID;
+            StationAccrditationData.Accreditation_Type_ID = Accreditation_Type_ID;
+            StationAccrditationData.Name_AR = $('#txtName_Ar').val();
+            StationAccrditationData.Name_En = $('#txtName_En').val();
+            StationAccrditationData.Description_Ar = $('#Txt_Description_Ar').val();
+            StationAccrditationData.Description_En = $('#Txt_Description_En').val();
+            StationAccrditationData.DescriptionMore_AR = $('#Txt_DescriptionMore_AR').val();
+            StationAccrditationData.DescriptionMore_EN = $('#Txt_DescriptionMore_EN').val();
+                StationAccrditationData.IsActive = $('#isAccreditionActive').is(":checked");
+
+            console.log(StationAccrditationData);
+
+            console.log(constraintItem);
+            console.log(constraintText);
+            $.ajax({
+                type: "POST",
+                url: "/Station_Accreditation_Data_Entry/Save_Station_Accreditation_Data",
+                dataType: "json",
+                //data: dataToSend,
+                data: JSON.stringify(
+                    {
+                        CheckedList: StationAccrditationData,
+                        Checked_Country_List: constraintCountry,
+                        Checked_Item_ShortName_List: constraintItem,
+                        Checked_CheckList_List: constraintText,
+                        //Checked_TreatmentMethod: Checked_TreatmentMethod_List
+                    }),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data == "تم الحفظ بنجاح") {
+                        alertify.success("تم الحفظ بنجاح");
+                        location.href = "/Station_Pages/Station_Accreditation_Data_Entry_List/Index";
+                    }
+                    else if (data == "لا يمكن الحفظ  لعدم وجود متطلبات") {
+                        alertify.error("لا يمكن الحفظ  لعدم وجود متطلبات");
+                    }
+                    else if (data == "الاسم موجود مسبقا") {
+                        alertify.error("الاسم موجود مسبقا");
+                    }
+                    else {
+                        alertify.error("لم يتم  الحفظ ");
+                    }
+                    @*if (data == "Exist") {
+                        alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+                        location.href = "/Station_Pages/Station_Accreditation_Data_Entry_List/Index";
+                    }
+                    else {
+                        $("#Check_Date").val(null);
+                        $("#Delegation_Date").val(null);
+                        $("#StartTime").val(null);
+                        $("#EndTime").val(null);
+                        $("#CheckRequest_Id").val(0);
+                    }*@
+                }
+            });
+            }
+            else { alertify.error("يجب اختيار نوع النشاط"); }
+        }
+        else { alertify.error("يجب اختيار نوع الاعتماد"); }
+    }
+
+     // Edit
+
+    function EditStationAccrditationData() {
+        var StationAccrditationData = {}
+        var Accreditation_Type_ID = $('#Accreditation_Type_ID').val();
+        StationActivityType_ID = $('#ActivityType_List').val();
+        if (Accreditation_Type_ID  > 0) {
+            if (StationActivityType_ID > 0) {
+                const urlSearchParams = new URLSearchParams(window.location.search);
+                const params = Object.fromEntries(urlSearchParams.entries());
+                var StationAccrditationData_ID = params.requestId;
+
+                StationAccrditationData.ID = StationAccrditationData_ID;
+            StationAccrditationData.StationActivityType_ID = StationActivityType_ID;
+            StationAccrditationData.Accreditation_Type_ID = Accreditation_Type_ID;
+            StationAccrditationData.Name_AR = $('#txtName_Ar').val();
+            StationAccrditationData.Name_En = $('#txtName_En').val();
+            StationAccrditationData.Description_Ar = $('#Txt_Description_Ar').val();
+            StationAccrditationData.Description_En = $('#Txt_Description_En').val();
+            StationAccrditationData.DescriptionMore_AR = $('#Txt_DescriptionMore_AR').val();
+            StationAccrditationData.DescriptionMore_EN = $('#Txt_DescriptionMore_EN').val();
+                StationAccrditationData.IsActive = $('#isAccreditionActive').is(":checked");
+
+
+            $.ajax({
+                type: "POST",
+                url: "/Station_Accreditation_Data_Entry/Edite_Station_Accreditation_Data",
+                dataType: "json",
+                //data: dataToSend,
+                data: JSON.stringify(
+                    {
+                        CheckedList: StationAccrditationData,
+                        Checked_Country_List: constraintCountry,
+                        Checked_Item_ShortName_List: constraintItem,
+                        Checked_CheckList_List: constraintText,
+                        //Checked_TreatmentMethod: Checked_TreatmentMethod_List
+                    }),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    /*   alert(data.);*/
+                    if (data == "تم التعديل بنجاح") {
+                        alertify.success("تم التعديل بنجاح");
+                        location.href = "/Station_Pages/Station_Accreditation_Data_Entry_List/Index";
+                    }
+                    else if (data == "لا يمكن الحفظ  لعدم وجود متطلبات") {
+                        alertify.error("لا يمكن الحفظ  لعدم وجود متطلبات");
+                    }
+                    else {
+                        alertify.error("لم يتم  التعديل ");
+                    }
+                    @*if (data == "Exist") {
+                        alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+                        location.href = "/Station_Pages/Station_Accreditation_Data_Entry_List/Index"
+
+                    }
+                    else {
+                        $("#Check_Date").val(null);
+                        $("#Delegation_Date").val(null);
+                        $("#StartTime").val(null);
+                        $("#EndTime").val(null);
+                        $("#CheckRequest_Id").val(0);
+                    }*@
+                }
+            });
+            }
+            else { alertify.error("يجب اختيار نوع النشاط"); }
+        }
+        else { alertify.error("يجب اختيار نوع الاعتماد"); }
+    }
+
+</script>
+

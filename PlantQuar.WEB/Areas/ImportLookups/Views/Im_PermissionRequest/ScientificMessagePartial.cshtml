@@ -1,0 +1,301 @@
+﻿
+
+
+<div id="ScientificMessageList">
+</div>
+<style>
+        #jtable-create-form, #jtable-edit-form {
+            width: 700px !important;
+            overflow: scroll !important;
+            height: 900px !important;
+        }
+
+        .jtable-input-field-container:nth-of-type(2), .jtable-input-field-container:nth-of-type(3),
+        .jtable-input-field-container:nth-of-type(4), .jtable-input-field-container:nth-of-type(5),
+        .jtable-input-field-container:nth-of-type(6), .jtable-input-field-container:nth-of-type(7),
+        .jtable-input-field-container:nth-of-type(8),
+        /*************Organization*******************/
+        .jtable-input-field-container:nth-of-type(11), .jtable-input-field-container:nth-of-type(12),
+        .jtable-input-field-container:nth-of-type(13), .jtable-input-field-container:nth-of-type(14),
+        .jtable-input-field-container:nth-of-type(15), .jtable-input-field-container:nth-of-type(16),
+        .jtable-input-field-container:nth-of-type(17),
+        /*************MessageType*******************/
+        .jtable-input-field-container:nth-of-type(20)
+      {
+            margin-bottom: 2px;
+            float: right;
+            width: 33% !important;
+        }
+          /********************************/
+       .jtable-input-field-container:nth-of-type(9), .jtable-input-field-container:nth-of-type(18),
+       .jtable-input-field-container:nth-of-type(21)
+      {
+            margin-bottom: 2px;
+            float: right;
+            width: 65% !important;
+        }
+           /*************MessageType Data*******************/
+
+        .jtable-input-field-container:nth-of-type(22)
+      {
+            margin-bottom: 2px;
+            float: right;
+            width: 98% !important;
+        }
+
+        /*************Header*******************/
+        .jtable-input-field-container:nth-of-type(1), .jtable-input-field-container:nth-of-type(10),
+        .jtable-input-field-container:nth-of-type(19) {
+            margin-bottom: 2px;
+            float: right;
+            width: 98% !important;
+            background-color: #87e887;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+        var counter = 0;
+        var counter_Message = 0;
+        $(function () {
+            $('#ScientificMessageList').jtable({
+                title: 'الرسائل العلمية',
+                paging: true,
+                pageSize: 10,
+                sorting: true,
+                //defaultSorting: 'CourseName ASC',
+                columnResizable: true,
+                columnSelectable: true,
+                saveUserPreferences: true,
+                openChildAsAccordion: true,
+                actions: {
+                    listAction: null,
+                  
+                  //  listAction: '/ImportRequest/ScientificMessage/listScientificMessage',
+                    createAction: '/ScientificMessage/CreateScientificMessage',
+                    updateAction: '/ScientificMessage/UpdateScientificMessage',
+                    deleteAction: '/ScientificMessage/DeleteScientificMessage'
+                },
+                fields: {
+                    ID: {
+                        key: true,
+                        create: false,
+                        edit: false,
+                        list: false
+                    },
+                    ResearcherData: {
+                        input: function () {
+                            return '<label >بيانات مقدم اللب(الباحث)</label>';
+                        },
+                        list: false
+                    },
+                    ResearcherName_Ar: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.ArabicName',
+                        inputClass: 'validate[required]',
+                        list: false
+                    },
+                    ResearcherName_En: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.EnglishName',
+                        inputClass: 'validate[required]',
+                    },
+
+                    ResearcherNationalId: {
+                        title: 'الرقم القومى',
+                        inputClass: 'validate[required]',
+                        list: false
+                    },
+                    ResearcherPassport: {
+                        title: 'رقم جواز السفر',
+                        inputClass: 'validate[required]',
+                        list: false
+                    },
+
+                    ResearcherAddress_Ar: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.Address_Ar',
+                        inputClass: 'validate[required]',
+                        list: false
+                    },
+
+                    ResearcherAddress_En: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.Address_En',
+                        inputClass: 'validate[required]',
+                        list: false
+                    },
+                    ResearcherPhone: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.PhoneNumber',
+                        inputClass: 'validate[required]',
+                        list: true
+                    },
+                    ResearcherEmail: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.Email',
+                        inputClass: 'validate[required]',
+                        list: true
+                    },
+                    //////////////Organization////////////
+                    OrganizationData: {
+                        input: function () {
+                            return '<label >بيانات الجهة التابع لها العميل</label>';
+                        },
+                        list: false
+                    },
+
+                    OrganizationName_Ar: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.ArabicName',
+                        inputClass: 'validate[required]',
+                        list: false
+                    },
+                    OrganizationName_En: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.EnglishName',
+                        inputClass: 'validate[required]',
+                    },
+                    OrganizationAddress_Ar: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.Address_Ar',
+                        inputClass: 'validate[required]',
+                        list: false
+                    },
+
+                    OrganizationAddress_En: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.Address_En',
+                        inputClass: 'validate[required]',
+                        list: false
+                    },
+                    OrganizationPhone: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.PhoneNumber',
+                        inputClass: 'validate[required]',
+                        list: true
+                    },
+                    OrganizationEmail: {
+                        title: '@PlantQuar.Web.Language.Resource_data1.Email',
+                        inputClass: 'validate[required]',
+                        list: false
+                    },
+                    OrganizationManagerName_Ar: {
+                        title: 'مدير الجهة(عربى)',
+                        inputClass: 'validate[required]',
+                        list: false
+                    },
+                    OrganizationManagerName_En: {
+                        title: 'مدير الجهة(انجليزى)',
+                        inputClass: 'validate[required]',
+                        list: false
+                    },
+
+                    //////////////MessageType////////////
+                    MessageTypeData: {
+                        input: function () {
+                            return '<label >بيانات الرسالة</label>';
+                        },
+                        list: false
+                    },
+                    MessageType: {
+                        title: 'نوع الرسالة',
+                        inputClass: 'validate[required]',
+                        options: [
+                        { Value: '1', DisplayText: 'نبات' },
+                        { Value: '2', DisplayText: 'منتج نباتى' },
+                        { Value: '3', DisplayText: 'بند خاضع' },
+                        { Value: '4', DisplayText: 'أفة/بنود ممنوعة' }
+                        ],
+                        list: false
+                    },
+
+
+                    AddBtn: {
+                        input: function () {
+                            return '<button type="button" class="btn btn-primary" style="margin-top: 11px;color:  green;background-color: #d5ead3;">إضافة بيانات نبات</button>';
+                        },
+                        list: false
+                    },
+                    Message_div: {
+                        input: function () {
+                            return '<div id="dialog-Message" ></div>';
+                        },
+                        list: false
+                    },
+
+
+
+                },
+                formCreated: function (event, data) {
+                    //when click to add new Message data
+
+
+                    $('#Edit-MessageType').change(function (e) {
+                        debugger;
+                        $("#dialog-Message").empty();
+
+                    });
+
+
+                    $("#Edit-AddBtn").click(function () {
+
+                        var div = "<br/><div class='" + counter_Message + "'>";
+                        var deletecheck = "<div id='" + counter_Message + "'>";
+                        var data = '';
+                        switch ($("#Edit-MessageType").val()) {
+                            case '1': //نبات
+                            case '2':  //منتج نباتى
+                                {
+
+                                    data += " النبات أو المنتج: <input type='text' style='width:100px !important;' id='Plant_Product" + counter_Message + "' name='Plant_Product[" + counter_Message + "].Message_ID' ></input>";
+                                    data += " الجزء النباتى : <input type='text' style='width:100px !important;' id='Plant_Part" + counter_Message + "' name='Plant_Part[" + counter_Message + "].Message_ID' ></input>";
+                                    data += " حالة المنتج : <input type='text' style='width:100px !important;' id='Plant_Statues" + counter_Message + "' name='Plant_Statues[" + counter_Message + "].Message_ID' ></input>";
+                                    data += " <br/>الغرض : <input type='text' style='width:100px !important;' id='Plant_Purpose" + counter_Message + "' name='Plant_Purpose[" + counter_Message + "].Message_ID' ></input>";
+                                    data += " الصنف الفزراعى : <input type='text' style='width:100px !important;' id='Plant_Category" + counter_Message + "' name='Plant_Category[" + counter_Message + "].Message_ID' ></input>";
+                                    break;
+                                }
+
+                            case '3': //بند خاضع
+                            case '4'://أفة/بنود ممنوعة
+                                {
+                                    data += " الاسم العلمى : <select style='width:100px !important;' id='Plant_Product" + counter_Message + "' name='Plant_Product[" + counter_Message + "].Message_ID' ></select>";
+                                    data += " الطور الحيوى: <select style='width:100px !important;' id='Plant_Part" + counter_Message + "' name='Plant_Part[" + counter_Message + "].Message_ID' ></select>";
+                                    data += " الحالة : <select style='width:100px !important;' id='Plant_Statues" + counter_Message + "' name='Plant_Statues[" + counter_Message + "].Message_ID' ></select>";
+                                    data += " <br/>السلالة  : <select style='width:100px !important;' id='Plant_Purpose" + counter_Message + "' name='Plant_Purpose[" + counter_Message + "].Message_ID' ></select>";
+                                    data += " وسيلة التعبئة : <select style='width:100px !important;' id='Plant_Category" + counter_Message + "' name='Plant_Category[" + counter_Message + "].Message_ID' ></select>";
+                                    data += " الغرض : <select style='width:100px !important;' id='Plant_Category" + counter_Message + "' name='Plant_Category[" + counter_Message + "].Message_ID' ></select> <br/>";
+                                    break;
+                                }
+                        }
+                        data += " ملخص الاحراءات : <input style='width:110px !important;'   name='[" + counter_Message + "].Note' /> ";
+                        var btn = "<button type='button' class='btn btn-primary' onclick='RemoveMessage(" + counter_Message + ");' style='margin-right: 8px;color:  green;background-color: #ea6464;'>حذف</button><br/>";
+
+                        $("#dialog-Message").append(div + data + btn + deletecheck + "</div>");
+
+                        counter_Message++;
+                    });
+
+
+                },
+
+                formSubmitting: function (event, data) {
+                    return data.form.validationEngine('validate');
+                },
+
+                formClosed: function (event, data) {
+                    data.form.validationEngine('hide');
+                    data.form.validationEngine('detach');
+                    $(".ui-dialog-title").text("@PlantQuar.Web.Language.Resource_data1.Delete");
+                },
+
+              recordAdded: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Insert");
+                },
+                recordUpdated: function (event, data) {
+                                        //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Update");
+                },recordDeleted: function (event, data) {
+                                        //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Delete");
+                },
+            });
+            $('#ScientificMessageList').jtable('load');
+
+            $('#LoadRecordsButton').click(function (e) {
+                e.preventDefault();
+            });
+            $(".jtable-toolbar-item-add-record .jtable-toolbar-item-text").text("@PlantQuar.Web.Language.Resource_data1.Add");
+
+        });
+    </script>

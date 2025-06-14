@@ -1,0 +1,192 @@
+﻿
+@model PlantQuar.DTO.DTO.Farm.FarmConstrain.Farm_Constrain_TextDTO
+
+@{
+    ViewBag.Title = "Farm_Constrain_TextAddEdit";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">إدخال الاشتراطات</h2>
+}
+
+@section Path{
+    <li>@PlantQuar.WEB.Language.Resource_data1.Constrains</li>
+    <li class="active">@PlantQuar.WEB.Language.Resource_data1.Constrains</li>
+}
+
+<style>
+    textarea {
+        resize: none;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-10"></div>
+        <div class="col-md-2">
+            @Html.ActionLink(PlantQuar.WEB.Language.Resource_data1.Back, "Index", "Farm_Constrain_Text", new { area = "FA_Farm" }, new { @class = "btn btn-primary", @style = "width:100%" })
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm("SaveFarm_Constrain_Text", "Farm_Constrain_Text", FormMethod.Post, new { area = "FA_Farm" }))
+{
+    @Html.HiddenFor(m => m.ID)     
+    <div>
+        <div class="tab" role="tabpanel" style="min-height:80% !important;">
+            <div class="tab-content tabs" style="background-color:whitesmoke  !important;">
+
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="ConstrainText_Ar" class="control-label">@PlantQuar.WEB.Language.Resource_data1.ConstrainText_Ar</label>
+                        @Html.TextAreaFor(m => m.ConstrainText_Ar, new { @class = "form-control", @id = "ConstrainText_Ar", rows = "5" })
+                    </div>
+                    <div class="col-md-6">
+                        <label for="ConstrainText_En" class="control-label">@PlantQuar.WEB.Language.Resource_data1.ConstrainText_En</label>
+                        @Html.TextAreaFor(m => m.ConstrainText_En, new { @class = "form-control", @id = "ConstrainText_En", rows = "5" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="Description_Ar" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Description_Ar</label>
+                        @Html.TextAreaFor(m => m.Description_Ar, new { @class = "form-control", @id = "Description_Ar", rows = "5" })
+                    </div>
+                    <div class="col-md-6">
+                        <label for="Description_En" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Description_En</label>
+                        @Html.TextAreaFor(m => m.Description_En, new { @class = "form-control", @id = "Description_En", rows = "5" })
+                    </div>
+                </div>
+                @*<br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="WeightFrom" class="control-label">WeightFrom</label>
+                            @Html.TextBoxFor(m => m.WeightFrom, new { @class = "form-control", @id = "WeightFrom" })
+                        </div>
+                        <div class="col-md-6">
+                            <label for="WeightTo" class="control-label">WeightTo</label>
+                            @Html.TextBoxFor(m => m.WeightTo, new { @class = "form-control", @id = "WeightTo" })
+                        </div>
+                    </div>*@
+                <br />
+                <div class="row">
+                    @*<div class="col-md-4">
+                            <label for="IsPaidBefore" class="control-label">IsPaidBefore</label>
+                            @Html.CheckBoxFor(m => m.IsPaidBefore, new { @class = "form-control", @id = "IsPaidBefore", @cols = 3 })
+                        </div>*@
+                    <div class="col-md-4">
+                        <label for="IsActive" class="control-label">@PlantQuar.WEB.Language.Resource_data1.IsActive</label>
+                        @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-control", @id = "IsActive", @cols = 3 })
+                    </div>
+
+                    <div class="col-md-6 ta1">
+
+                        <label for="IsCertificate_Addtion" class="control-label" id="IsCertificate_Addtion_Label">تعليمات</label>
+                        @if (Model.IsUpdated == true)
+                            {
+                    
+                        @Html.CheckBoxFor(m => m.IsMotataleb, new { @class = "form-control", @id = "IsCertificate_Addtion", @onchange = "changeName('IsCertificate_Addtion','IsCertificate_Addtion_Label')", @disabled = true})
+                   }
+                            else
+                        { @Html.CheckBoxFor(m => m.IsMotataleb, new { @class = "form-control", @id = "IsCertificate_Addtion", @onchange = "changeName('IsCertificate_Addtion','IsCertificate_Addtion_Label')" })}
+                        @* <input type="checkbox" name="name" id="checkbox_1" onchange="changeName('checkbox_1','IsCertificate_Addtion_Label')" />*@
+                    </div>
+                    @*<div class="col-md-4">
+                            <label for="IsMandatory" class="control-label">IsMandatory</label>
+                            @Html.CheckBoxFor(m => m.IsMandatory, new { @class = "form-control", @id = "IsMandatory" })
+                        </div>*@
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-10"></div>
+                    <div class="col-md-2">
+                        <input type="submit" class="btn btn-primary" style="width:100%" value="حفظ" autocomplete="off">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<style>
+    .attach .jtable-input-field-container:nth-of-type(1),
+    .attach .jtable-input-field-container:nth-of-type(2),
+    .attach .jtable-input-field-container:nth-of-type(3),
+    .attach .jtable-input-field-container:nth-of-type(4) {
+        margin-bottom: 2px;
+        float: right;
+        width: 48% !important;
+    }
+
+
+    .attach .jtable-input-field-container:nth-of-type(5) {
+        margin-bottom: 2px;
+        float: right;
+        width: 98% !important;
+    }
+</style>
+
+<script>
+
+    // A $( document ).ready() block.
+    $(document).ready(function () {
+        var modelJSValue = '@Model.IsMotataleb' == 'False' ? false : true;
+        //console.log("ready!" + modelJSValue);
+        document.getElementById("IsCertificate_Addtion").checked = modelJSValue;
+        var labelvar = document.getElementById("IsCertificate_Addtion_Label");
+
+        if (!modelJSValue) {
+
+            labelvar.innerHTML = "تعليمات";
+
+        }
+        else {
+            labelvar.innerHTML = "متطلبات";
+
+        }
+    });
+    $(function () {
+
+        $("#ItemId").hide(); $("#ShiftTimingId").hide(); $("#TreatmentMethodsId").hide();
+
+        $("#Fees_Process_ID").change(function () {
+            var Fees_Process_ID = $(this).val();
+            $("#Feer_Type_Action_ID").empty();
+
+            if (Fees_Process_ID == "")
+            {
+                $("#Feer_Type_Action_ID").append("<option value=''>----------</option>");
+            }
+            else
+            {
+                $.ajax({
+                type: "Get",
+                url: "@Url.Action("GetFeesTypeActionByFeesProcessId", "Farm_Constrain_Text", new { area = "FA_Farm" })",
+                data: { Fees_Process_ID: Fees_Process_ID },
+                dataType: "Json",
+                success: function (data) {
+                    $.each(data.Options, function (i, index) {
+                        $("#Feer_Type_Action_ID").append($("<option />").val(index.Value).text(index.DisplayText));
+                    });
+                }
+            })
+            }
+        });
+    });
+
+    function changeName(thecheckbox, thelabel) {
+
+        var checkboxvar = document.getElementById(thecheckbox);
+        var labelvar = document.getElementById(thelabel);
+        if (!checkboxvar.checked) {
+            labelvar.innerHTML = "تعليمات";
+
+        }
+        else {
+            labelvar.innerHTML = "متطلبات";
+
+        }
+    }
+</script>

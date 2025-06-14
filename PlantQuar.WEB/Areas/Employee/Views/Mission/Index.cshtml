@@ -1,0 +1,544 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+
+}
+
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>*@
+@section Title{
+    <h2 class="ls-top-header">المأموريات</h2>
+}
+
+
+
+@section filter{
+    <div class="row">
+        <label class="col-lg-2 col-md-12 col-sm-12">@PlantQuar.WEB.Language.Resource_data1.Startdate</label>
+        <input type="date" class="form-inline col-lg-3 col-md-12 col-sm-12" autocomplete="off" name="txt_AR_BTNSearch" id="StartDate" />&nbsp;
+        <label class="col-lg-2 col-md-12 col-sm-12">@PlantQuar.WEB.Language.Resource_data1.enddate</label>
+        <input type="date" class="form-inline col-lg-3 col-md-12 col-sm-12" autocomplete="off" name="txt_EN_BTNSearch" id="EndDate" />
+        <input type="button" class="col-lg-1 col-md-2 btn btn-primary" id="LoadRecordsButton" value="@PlantQuar.WEB.Language.Resource_data1.Search">
+    </div>
+    <br />
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <label>الاداره العامه</label>
+        @Html.DropDownList("CustomerDropDown1", new SelectList(ViewBag.Test, "Value", "DisplayText"), new { @class = "form-control",@onchange= "GetOutletID()" })
+         <label>المنفذ</label>
+        @Html.DropDownList("CustomerDropDown", new SelectList(ViewBag.ddd, "Value", "DisplayText"), new { @class = "form-control" })
+
+    </div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4"></div>
+</div>
+
+<br />
+
+
+
+<table id="resultss">
+    <thead>
+
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<input type="submit" value="save" id="insert" style="display: none;" onclick="MyFunction1()" />
+
+<div id="PR_MissionLiost"></div>
+
+
+
+    <div id="listFarm_Constrain_Text" class="row">
+        <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap">
+            <table id="Farm_Constrain_TextTable" class="table table-bordered table-striped dataTable" role="grid" style="padding:5px; width:100%">
+                <thead>
+                    <tr>
+
+                        <th>  @PlantQuar.WEB.Language.Resource_data1.EmpolyeeName </th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Outlet </th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Mission_To </th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Mission_FROM</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Status</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+
+
+
+
+        function GetOutletID() {
+
+            var GeneralAdminID = parseInt(document.getElementById("CustomerDropDown1").value);
+             
+            $.ajax({
+                        url: '@Url.Action("GetOutletID", "Mission")',
+                        type: "POST",
+
+                        dataType: "json",
+                     data: { GRID: GeneralAdminID },
+
+
+
+                        success: function (response) {
+
+                          
+                               $("#CustomerDropDown").empty();
+                            for (var i = 0; i < response.Options.length; i++) {
+                                item = response.Options[i];
+                                console.log(item[i]);
+
+                                $("#CustomerDropDown").append('<option value="'
+                                    + item.Value + '">' +
+                                    item.DisplayText + '</option>');
+
+                            }
+
+
+
+                    },
+                        error: function (xhr, status, error) {
+                    }
+                });
+
+
+        }
+
+
+       function MyFunction1() {
+
+           $("#testTable").find("tbody").empty();
+           var date = $('#StartDate').val().split("-");
+           var day = date[2];
+           var month = date[1];
+           var year = date[0];
+
+           var start = "";
+           start = year + "-" + month + "-" + day;
+
+
+
+
+           var date1 = $('#EndDate').val().split("-");
+           console.log(date1, $('#date-input').val())
+           var day1 = date1[2];
+           var month1 = date1[1];
+           var year1 = date1[0];
+
+           var End = "";
+           End = year1 + "-" + month1 + "-" + day1;
+
+        var MyUser = {};
+                MyUser.PR_User_Id = 1;
+                MyUser.Outlet_ID = document.getElementById("CustomerDropDown").value;
+               MyUser.StartDate = "10:59:00";
+                MyUser.EndDate = "11:59:00";
+                MyUser.IsActive = true;
+                var cboxes = document.getElementsByName("hello");
+                var neighborhoods = [];
+           var checkboxes = document.querySelectorAll('input[type=checkbox]:checked')
+           console.log(checkboxes)
+           for (var i = 0; i < checkboxes.length; i++) {
+
+
+               var obj = {};
+               var c = checkboxes[i].value;
+               var c1 = checkboxes[i].id;
+
+                        obj.value_Id = parseInt(c);
+                        neighborhoods.push(obj);
+               $('#check' + c + '').remove();
+
+
+
+                var temp='@PlantQuar.WEB.Language.Resource_data1.Active';
+                                $("#Farm_Constrain_TextTable tbody").append("<tr>"
+
+
+                                    + "<td>" + c1 + "</td>"
+                                    + "<td>" + MyUser.Outlet_ID + "</td>"
+                                    + "<td>" + start + "</td>"
+                                    + "<td>" + End + "</td>"
+                                    + "<td>  " + temp + "  </td>" + "</tr>");
+
+
+
+                }
+
+
+
+                    $.ajax({
+                        url: '@Url.Action("CreatePR_Mission", "Mission")',
+                        type: "POST",
+
+                        dataType: "json",
+                        data: { usr: MyUser, lstEmployeeId: JSON.stringify(neighborhoods), str: start, end: End },
+
+
+
+                        success: function (response) {
+
+
+
+
+
+
+
+
+                    },
+                        error: function (xhr, status, error) {
+                    }
+                });
+
+
+        }
+
+
+        function fillTable() {
+            $("#Farm_Constrain_TextTable tbody").empty();
+
+           var Outlet_ID = document.getElementById("CustomerDropDown").value;
+              $.ajax({
+                        url: '@Url.Action("UsersOutlet", "OutletEmployees")',
+                        type: "POST",
+
+                  dataType: "json",
+                  data: { outletID: Outlet_ID},
+
+
+
+                  success: function (result) {
+
+                      $("#Farm_Constrain_TextTable tbody").empty();
+
+                            for (var i = 1; i < result.length; i++) {
+                                var item = result[i];
+                                $("#Farm_Constrain_TextTable tbody").append("<tr>" +
+
+
+                                    "<td>" + item.Value + "</td>"
+                                    + "<td>  " + item.DisplayText + "  </td>" + "</tr>");
+
+                            }
+
+
+
+                    },
+                        error: function (xhr, status, error) {
+
+                    }
+                });
+        }
+
+
+        $(document).ready(function () {
+
+            var tab = '@ViewBag.Test';
+            console.log(tab);
+
+            $("#LoadRecordsButton").click(function (e) {
+                $("#Farm_Constrain_TextTable tbody").empty();
+
+                var date = $('#StartDate').val().split("-");
+
+                var day = date[2];
+                var month = date[1];
+                var year = date[0];
+                var start = "";
+                start = year + "-" + month + "-" + day;
+
+                var date1 = $('#EndDate').val().split("-");
+                var day1 = date1[2];
+                var month1 = date1[1];
+                var year1 = date1[0];
+                var End = "";
+                End = year1 + "-" + month1 + "-" + day1;
+
+                var e = document.getElementById("CustomerDropDown");
+                var GeneralAdminID = document.getElementById("CustomerDropDown1").value;
+               // alert(GeneralAdminID);
+                var outletId = e.options[e.selectedIndex].value;
+
+
+                var outletName = $('#CustomerDropDown').find('option:selected').text();
+
+                if (date1 == '' || date == '' || outletId == '') {
+                    alert('please enter Valid Data');
+                }
+
+
+                else {
+
+
+                  $("#Farm_Constrain_TextTable tbody").empty();
+              $.ajax({
+                        url: '@Url.Action("listPR_Mission", "Mission")',
+                        type: "POST",
+
+                  dataType: "json",
+                  data: { strt: start, end: End, outletId: outletId, outletId1: GeneralAdminID},
+
+
+
+
+                  success: function (result) {
+
+                      console.log(result);
+
+                            for (var i = 0; i < result.length; i++) {
+                                var item = result[i];
+                                var temp;
+                                var temp1 = item.StartDate;
+                             //   var n = d.toString();
+                                var temp2 = item.EndDate;
+                                var value = new Date(parseInt(item.EndDate.substr(6)));
+                                var value1 = new Date(parseInt(item.StartDate.substr(6)));
+                                //value = new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10));
+                                var v = new Date(value).toLocaleDateString("en-UE");
+                                var v1 = new Date(value1).toLocaleDateString("en-UE");
+                               // var n = d.toString();
+                                var day = temp2[2];
+                                var month = temp2[1];
+                                var year = temp2[0];
+                               // alert(v);
+                                if (item.IsActive) { temp =  '@PlantQuar.WEB.Language.Resource_data1.Active' }
+                                else { temp = '@PlantQuar.WEB.Language.Resource_data1.NotActive' }
+                                $("#Farm_Constrain_TextTable tbody").append("<tr>"
+
+
+                                    + "<td>" + item.PR_User_Name + "</td>"
+                                    + "<td>" + outletName + "</td>"
+                                    + "<td>" + v + "</td>"
+                                    + "<td>" + v1 + "</td>"
+                                    + "<td>  " + temp + "  </td>" + "</tr>");
+
+                            }
+
+
+
+                    },
+                        error: function (xhr, status, error) {
+
+                    }
+                });
+
+
+
+
+
+
+
+
+                var markaId = e.options[e.selectedIndex].value;
+
+                $("#resultss").empty();
+                $("#chek").empty();
+
+                $.ajax({
+                    url: '/Employee/Mission/GetOutlet_ID1',
+                    type: "POST",
+                    data: { markaId: markaId, strt: start, end: End },
+                    success: function (result) {
+
+                    //    $("#resultss").empty();
+                     //   $("#chek").empty();
+
+
+                        for (var i = 1; i < result.length; i++) {
+                            item = result[i];
+
+                            var row = $('<tr id ="check' + result[i].Value + '">');
+
+                          //  row.append($('<td>').html(result[i].Value));
+                            row.append($('<td>').html(result[i].Text));
+
+                            row.prepend('<td><input type="checkbox" id="' + result[i].Text + '" class="chckClass_' + i + '" value="' + result[i].Value + '"  Name="hello"/></td>');
+
+                            $('#resultss').append(row)
+
+
+
+                        }
+                    },
+                    error: function (ex) {
+
+
+                        alertify.alert('We face some technical difficulties. Hello World');
+                    }
+
+
+
+
+
+
+
+
+
+
+                });
+                $("#insert").show();
+                }
+
+
+
+
+
+
+
+
+
+
+
+            });
+
+
+            $(window).on('mouseover', (function () {
+                window.onbeforeunload = null;
+            }));
+            $(window).on('mouseout', (function () {
+                window.onbeforeunload = ConfirmLeave;
+            }));
+            function ConfirmLeave() {
+                return "";
+            }
+            var prevKey = "";
+            $(document).keydown(function (e) {
+                if (e.key == "F5") {
+                    window.onbeforeunload = ConfirmLeave;
+                }
+                else if (e.key.toUpperCase() == "W" && prevKey == "CONTROL") {
+                    window.onbeforeunload = ConfirmLeave;
+                }
+                else if (e.key.toUpperCase() == "R" && prevKey == "CONTROL") {
+                    window.onbeforeunload = ConfirmLeave;
+                }
+                else if (e.key.toUpperCase() == "F4" && (prevKey == "ALT" || prevKey == "CONTROL")) {
+                    window.onbeforeunload = ConfirmLeave;
+                }
+                prevKey = e.key.toUpperCase();
+            });
+
+             
+        });
+
+
+
+
+
+
+
+        function MyFunction123() {
+
+            var date = $('#StartDate').val().split("-");
+
+            var day = date[2];
+            var month = date[1];
+            var year = date[0];
+            var start = "";
+            start = year + "-" + month + "-" + day;
+
+            var date1 = $('#EndDate').val().split("-");
+            var day1 = date1[2];
+            var month1 = date1[1];
+            var year1 = date1[0];
+            var End = "";
+            End = year1 + "-" + month1 + "-" + day1;
+
+            var e = document.getElementById("CustomerDropDown");
+            var outletId = e.options[e.selectedIndex].value;
+
+
+            $("#Farm_Constrain_TextTable tbody").empty();
+            var EmplyeeName = document.getElementById("EmplyeeName").value;
+              $.ajax({
+                        url: '@Url.Action("listPR_Mission", "Mission")',
+                        type: "POST",
+
+
+                  data: { strt: start, end: End, outletId: outletId, outletId1: outletId},
+
+                  success: function (result) {
+
+
+
+                            for (var i = 1; i < result.length; i++) {
+                                var item = result[i];
+                                carName = 1;
+                                $("#Farm_Constrain_TextTable tbody").append("<tr>" +
+
+                                    "<td>  " + item.Value + "  </td>"
+                                    +"<td>" + item.DisplayText + "</td>" +
+                                     "<td>  " + item.Value + "  </td>"
+                                    +"<td>" + item.DisplayText + "</td>" +
+
+                                    '<td><input type="radio" id="chckBox_' + i + '" class="change-selector" value="' + result[i].Value + '" Name="' + result[i].DisplayText + '"   )"/></td>'
+                                    + '<td><input type="checkbox" id="chckBox_' + i + '' + i + '" class="chckClass_' + i + '" value="' + result[i].Value + '" Name="' + result[i].DisplayText + '"  onchange="helloo(this)" " /></td>'
+                                 // +  "<td>" + item.Value + "</td>" +
+
+
+
+                                    + "</tr>");
+
+                            }
+                      console.log(result);
+
+
+                    },
+                        error: function (xhr, status, error) {
+
+                    }
+              });
+            let checkboxes = $("input[type='checkbox']");
+            selectedCboxes = Array.prototype.slice.call(checkboxes).filter(ch => ch.checked == true);
+            console.log(checkboxes);
+        }
+    </script>
+
+    
+
+
+}
+
+
+
+
+@*<form style="padding: 10px; background-color: whitesmoke">
+        <div id="listFarm_Constrain_Text" class="row">
+            <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap">
+                <table id="Farm_Constrain_TextTable" class="table table-bordered table-striped dataTable" role="grid" style="padding:5px; width:100%">
+                    <thead>
+                        <tr>
+
+
+                            <th>رقم  الموظف </th>
+                            <th>اسم الموظف </th>
+                            <th>محافظة  الموظف </th>
+                            <th>منفذ الموظف </th>
+                            <td>ادمن</td>
+                            <td>تسجيل</td>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>*@
+
+
+
+
+

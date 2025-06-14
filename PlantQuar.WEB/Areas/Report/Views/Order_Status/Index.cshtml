@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-md-4 col-sm-12">
+        <div>
+            <p style="font-weight:bold">حالة الطلب </p>
+        </div>
+        <br />
+        <select id="selectApprove" class="form-control" autocomplete="off">
+            <option id="rdoApprovedAll" value="-1">أختر</option>
+            <option id="rdoApprovedAll" value="1"> محطة </option>
+            <option id="rdoApprovedAll" value="2">  المزرعة</option>
+            <option id="rdoApprovedAll" value="3"> وارد</option>
+            <option id="rdoApprovedAll" value="4">صادر </option>
+        </select>
+    </div>
+</div>
+
+
+<br />
+<br />
+
+
+<div class="filtering col-md-12">
+    <div class="row">
+        <label class="col-lg-2 col-md-12 col-sm-12">رقم الطلب </label>
+        <input type="text" class="form-inline col-lg-3  col-md-12 col-sm-12" autocomplete="off" name="FarmCode_14" id="FarmCode_14">
+        <input type="button" class="col-lg-1 col-md-2 btn btn-primary" id="LoadRecordsButton" value="بحث">
+    </div>
+</div>
+
+
+
+<br />
+<br />
+
+<br />
+<br />
+
+
+
+<div class="filtering col-md-12">
+    <div class="col-md-4 ta1">
+        <label for="GoveName" class="control-label">نوع الشركة</label>
+    </div>
+
+    <div class="col-md-8 ta1">
+        <input type="text" class="form-inline col-md-12 col-sm-12" autocomplete="off" name="FarmCode_14" id="FarmCode_14">
+    </div>
+</div>
+
+<div class="filtering col-md-12">
+    <div class="col-md-4 ta1">
+        <label for="CenterName" class="control-label">اسم الشركة</label>
+    </div>
+
+    <div class="col-md-8 ta1">
+        <input type="text" class="form-inline col-md-12 col-sm-12" autocomplete="off" name="FarmCode_14" id="FarmCode_14">
+    </div>
+</div>
+
+<div class="filtering col-md-12">
+    <div class="col-md-4" ta1"="">
+        <label for="VillageName" class="control-label">المنفذ</label>
+    </div>
+
+    <div class="col-md-8 ta1">
+        <input type="text" class="form-inline col-md-12 col-sm-12" autocomplete="off" name="FarmCode_14" id="FarmCode_14">
+    </div>
+</div>
+
+
+<div class="filtering col-md-12" style="margin-top: 50px;">
+   
+    <div>
+        <center>   <p style="font-weight:bold">ما تم تنفيذه </p> </center>
+</div>
+    <br />
+    <div class="row">
+        <form action="/action_page.php">
+            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+            <label for="vehicle1"> تنفيذ 1</label><br>
+            <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+            <label for="vehicle2"> تنفيذ 2</label><br>
+            <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+            <label for="vehicle3"> تنفيذ 3</label><br>
+            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+            <label for="vehicle1"> تنفيذ 4</label><br>
+            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+            <label for="vehicle1"> تنفيذ 5</label><br><br>
+
+        </form>
+
+    </div>
+</div>

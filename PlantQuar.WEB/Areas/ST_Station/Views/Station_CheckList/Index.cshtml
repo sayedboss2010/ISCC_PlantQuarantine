@@ -1,0 +1,191 @@
+﻿
+@model List<PlantQuar.DTO.DTO.Station.Station_CheckListDTO>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">Station_CheckList</h2>
+}
+
+@section Path{
+   
+    <li class="active">Station_CheckList</li>
+}
+
+@section filter{
+    <div class="row">
+        <label class="col-lg-2 col-md-12 col-sm-12">@PlantQuar.WEB.Language.Resource_data1.ArabicName</label>
+        <input type="text" class="form-inline col-lg-3  col-md-12 col-sm-12" autocomplete="off" name="txt_AR_BTNSearch" id="txt_AR_BTNSearch" />
+        <label class="col-lg-2 col-md-12 col-sm-12">@PlantQuar.WEB.Language.Resource_data1.EnglishName</label>
+        <input type="text" class="form-inline col-lg-3  col-md-12 col-sm-12" autocomplete="off" name="txt_EN_BTNSearch" id="txt_EN_BTNSearch" />
+        <input type="button" class="col-lg-1 col-md-2 btn btn-primary" id="LoadRecordsButton" value="@PlantQuar.WEB.Language.Resource_data1.Search">
+    </div>
+}
+
+<link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/scripts/DataTables/jquery.dataTables.min.js"></script>
+<link href="~/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
+
+<style>
+    th {
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    td {
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .dataTables_length, .dataTables_info, .dataTables_paginate {
+        display: none;
+    }
+
+    #Farm_Constrain_TextTable td {
+        word-break: break-all;
+    }
+
+    #Farm_Constrain_TextTable thead {
+        background-color: #0e7b80;
+        color: white;
+    }
+    table.dataTable.no-footer {
+        border-bottom: 0px solid #111!important;
+    }
+    #btnadd {
+        height: 37px;
+        width: 100px;
+        background-color: #1e7c80;
+        border: 2px solid #1e8084;
+        box-shadow: 0 4px #1d9fa5;
+        outline: none;
+        color: white;
+        float: left;
+        margin-left: 15px;
+    }
+</style>
+
+<br />
+<br />
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-10"></div>
+        <div class="col-md-2">
+            @Html.ActionLink(PlantQuar.WEB.Language.Resource_data1.Add, "Station_CheckListAddEdit", "Station_CheckList", new { area = "ST_Station" }, new { @id = "btnadd", @class = "btn btn-primary", @style = "width:100%" })
+        </div>
+    </div>
+</div>
+<div class="tab-content tabs" >
+    <div id="listStation_CheckList" class="row">
+        <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap">
+            <table id="listStation_CheckListTable" class="table table-bordered table-striped dataTable" role="grid" style="width:100%">
+                <thead>
+                    <tr>
+                        <th hidden>ID</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.ArabicName</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.EnglishName</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Description_Ar</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Description_En</th>
+
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Active</th>
+                       <th> Number_Check</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Edit</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        if (Model.Count > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td hidden>@item.ID</td>
+                                    <td>@item.ConstrainText_Ar</td>
+                                    <td>@item.ConstrainText_En</td>
+                                    <td>@item.Description_Ar</td>
+                                    <td>@item.Description_En</td>
+                                    <td>@item.IsActive</td>
+                                    <td>@item.Number_Check</td>
+                                    <td hidden>@item.User_Creation_Date</td>
+                                    <td hidden>@item.User_Creation_Id</td>
+                                    <td hidden>@item.User_Deletion_Date</td>
+                                    <td hidden>@item.User_Deletion_Id</td>
+
+                                    <td hidden>@item.User_Updation_Date</td>
+                                    <td hidden>@item.User_Updation_Id</td>
+
+                                    @*<td>
+                                            @Html.ActionLink(PlantQuar.WEB.Language.Resource_data1.Edit, "Farm_Constrain_TextAddEdit", "Farm_Constrain_Text", new { area = "FA_Farm", id = item.ID }, null)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink(PlantQuar.WEB.Language.Resource_data1.Delete, "DeleteFarm_Constrain_Text", "Farm_Constrain_Text", new { area = "FA_Farm", FarmId = item.ID }, null)
+                                        </td>*@
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#listStation_CheckListTable").DataTable({
+            paging: true,
+            lengthChange: true,
+            pageLength: 10,
+            searching: false,
+            ordering: false
+        });
+        FillTable();
+    });
+
+    function FillTable() {
+        $.ajax({
+            url: '/ST_Station/Station_CheckList/listStation_CheckList',
+            data: {
+                txt_AR_BTNSearch: $('#txt_AR_BTNSearch').val(),
+                txt_EN_BTNSearch: $('#txt_EN_BTNSearch').val(),
+            },
+            success: function (data) {
+               // console.log(listFarm_Constrain_Text);
+                $("#listStation_CheckListTable tbody").empty();
+                $.each(data.Records, function (index, item) {
+
+                    var hrefEdit = "@Url.Action("Station_CheckListAddEdit", "Station_CheckList", new { area = "ST_Station", id = "__id__" })";
+                    hrefEdit = hrefEdit.replace("__id__", item.ID);
+
+                    var hrefDel = "@Url.Action("DeleteStation_CheckList", "Station_CheckList", new {  area = "ST_Station", id = "__id__" })";
+                    hrefDel = hrefDel.replace("__id__", item.ID);
+
+                    $("#listStation_CheckListTable tbody").append("<tr>" +
+                        "<td hidden>" + item.ID + "</td>" +
+                        "<td>" + item.ConstrainText_Ar + "</td>" +
+                        "<td>" + item.ConstrainText_En + "</td>" +
+                        "<td>" + item.Description_Ar + "</td>" +
+                        "<td>" + item.Description_En + "</td>" +
+
+                        "<td>" + item.IsActive + "</td>" +
+                         "<td>" + item.Number_Check + "</td>" +
+                        "<td><a href=" + hrefEdit + ">@PlantQuar.WEB.Language.Resource_data1.Edit</a></td>" +
+                        "<td><a href=" + hrefDel + ">@PlantQuar.WEB.Language.Resource_data1.Delete</a></td>" +
+                        "</tr>");
+                });//each
+            }
+        });
+    }
+
+    $('#LoadRecordsButton').click(function (e) {
+        FillTable();
+    });
+</script>

@@ -1,0 +1,1114 @@
+﻿@model PlantQuar.DTO.DTO.Export_Certificate.CertificateDTO
+@{ var CertificateNo_printed = 0;
+    var certificateNo = Model.data.CertificateNo;
+    if (Model.data.CertificateNo > 0)
+    {
+        CertificateNo_printed = Model.data.CertificateNo;
+
+    }
+    else
+    {
+        CertificateNo_printed = 0;
+    }
+
+    var totItems = Model.data.totItems;
+    //eman
+    int? totPackageCount = 0;
+    decimal? totNetWeight = 0;
+    decimal? totGrossWeight = 0;
+    var totLotNo = 0;
+
+
+    ViewBag.Title = "@PlantQuar.WEB.Language.Resource_data1.agriculturalCertificate";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    PlantQuar.WEB.App_Start.User_Session Current = PlantQuar.WEB.App_Start.User_Session.GetInstance;
+    var Language_IsAr = Current.Language_IsAr;
+    bool? isEnglish = (Model.data.ISEnglish == null) ? false : Model.data.ISEnglish;
+}
+
+
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.agriculturalCertificate</h2>
+}
+<style>
+
+
+
+
+    .prag {
+        text-align: center;
+    }
+
+
+
+    #PrintResultButton, #PrintResultButton2 {
+        background-color: #1e7c80 !important;
+        border: 2px solid #1e8084 !important;
+        box-shadow: 0 4px #1d9fa5 !important;
+        outline: none;
+        color: white;
+        margin-bottom: 10px;
+        width: 50%;
+    }
+
+    .lab-1 {
+        margin-top: 30px;
+        margin-right: 8px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .lab-2 {
+        margin-top: 15%;
+        margin-right: 8px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    img.img1 {
+        width: 100px;
+        height: 125px;
+    }
+
+    .demo-blockquote {
+        margin-bottom: 70px !important;
+    }
+</style>
+<script src="~/scripts/jquery.qrcode.js"></script>
+<script src="~/scripts/qrcode.js"></script>
+
+@section Path{
+    <li>@PlantQuar.WEB.Language.Resource_data1.agriculturalCertificate</li>
+    <li class="active">@PlantQuar.WEB.Language.Resource_data1.agriculturalCertificate</li>
+}
+@*<script>
+           var Get_dir = (@Language_IsAr==1) ? 'rtl' : 'ltr';
+    </script>*@
+<input hidden value="@ViewBag.requestId" name="requestId" />
+
+@{
+
+    var Get_dir = (@Language_IsAr == 1) ? "rtl" : "ltr";
+}
+
+@if (@Model.data.ISEnglish == false)
+{
+    <div id="PrintAr">
+        <div id="tableArabic">
+            <div style="width:21cm;height:29.7cm;background:gray;margin:auto;padding-top:.5cm">
+                <div id="border" style="width:20cm;background:white;margin:auto;border:1px solid #000;font-family: 'Arial regular'!important;font-size:10pt;">
+                    <div id="header" style="height:4cm;">
+                        <div class="" style="margin:auto;height:inherit;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                                <div class="col-md-4 col-sm-4" style="display:inline-block;float:right;padding: 3px;height: inherit;">
+                                    <img class="img1" style="" src="~/assets/images/capq/logo-capq-114.png" />
+                                </div>
+                                <div class="col-md-8 col-sm-8" style="display:inline-block;height: inherit;">
+                                    <p class="lab-2" style="font-weight:bold">
+                                        جمهورية مصر العربية<br />
+                                        وزارة الزراعة واستصلاح الأراضي<br />
+                                        الإدارة المركزية للحجر الزراعي
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class="" style=" width: 50%; height: inherit;padding: 0px">
+                                <div class="" style="margin:auto;height:3cm;border-bottom:1px solid #000;display:flex;">
+                                    <div class="col-md-12 col-sm-12" style="display:inline-block;float:right;height: 3cm;">
+                                        <label style="margin-top: 10px;font-size: 17px;text-align:center;">شهادة صحة نباتية</label>
+                                        <label style="text-align:right;">رقم:  </label>
+                                        <span>@Model.data.CertificateNumber</span>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-12 col-sm-12" style="display:block;height:1cm;padding: 0px 10px;">
+                                    <label> 1.إلى المنظمة الوطنية لوقاية النباتات في : </label>
+                                    <label name="Orag_Plant">
+                                        @Model.data.ImportCountry_Name
+
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div id="content" style="height:19cm;">
+                        <div class="" style="margin:auto;height:2.5cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="display:block">2. اسم المصدر وعنوانه : </label>
+                                <label name="Exporter_NamePrint">@Model.data.ExporterType_Name</label>
+                                <label name="Exporter_NamePrint">@Model.data.Importer_Exporter_Name</label>
+                                <br />
+                                <label name="Exporter_AddressPrint">@Model.data.Importer_Exporter_Address</label>
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="display:block">3. اسم المرسل إليه وعنوانه حسب البيانات : </label>
+                                <label name="Reciever_NamePrint">@Model.data.ImportCompany_Name_AR</label>
+                                <br />
+                                <label name="ImportCompany_AddressPrint">@Model.data.ImporeterCompanyAddress_AR</label>
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:.5cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 100%; height: inherit; padding:0px 3px;text-align:center;">
+
+                                <label>وصف الشحنة</label>
+
+                            </div>
+                        </div>
+
+                        <div class="" style="margin:auto;height:2cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 25%; height: inherit;padding: 3px">
+                                <label> 4.وسيلة النقل حسب البيانات : </label>
+                                <label name="Transport_Mean_NamePrint">@Model.data.Ship_Name</label>/ <label name="Transport_Mean_NamePrint">@Model.data.Shipping_Port</label>
+
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 25%; height: inherit;padding: 3px">
+                                <label> 5.نقطة الدخول حسب البيانات:</label>
+                                <label name="port_arrive_NamePrint">@Model.data.PortTypeImportCountry_Name</label>/
+                                <label name="port_arrive_NamePrint">@Model.data.PortArriveName</label>/
+
+                                <label name="port_arrive_NamePrint">@Model.data.ImportCountry_Name</label>
+
+
+
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 25%; height: inherit;padding: 3px">
+                                <label>6.مكان المنشأ : </label>
+                                <label>جمهورية مصر العربية</label>
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width:25%; height: inherit;padding: 3px">
+                                <label>  7. العلامات المميزة : </label>
+
+
+                                @if (Model.LotData != null)
+                                {
+                                    for (int i = 0; i < Model.LotData.Count(); i++)
+                                    {
+
+
+                                        <label>@Model.LotData[i].LotNumber</label>
+                                        if (i < Model.LotData.Count())
+                                        {
+                                            <span>,</span>
+                                        }
+
+
+                                    }
+                                }
+
+                            </div>
+                        </div>
+
+                        <div class="" style="margin:auto;height:5.5cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 25%; height: inherit;padding: 3px">
+                                @for (int i = 0; i < Model.LotData.Count(); i++)
+                                {
+
+
+                                    if (Model.LotData != null)
+                                    {
+                                        foreach (var item in Model.LotData)
+                                        {
+
+                                            //totGrossWeight += item.Gross_Weight;
+                                            //totNetWeight += item.Net_Weight;
+                                            totPackageCount += item.Package_Count;
+                                        }
+                                    }
+                                }
+                                <label>8. عدد الطرود ووصفها  </label>
+                                <label>@totPackageCount </label>
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="display:block"> 9. اسم المنتج وكميته حسب البيانات:</label>
+                                @if (Model.LotData != null)
+                                {
+                                    decimal? tottalGrossWeight = 0;
+                                    decimal? tottalNetWeight = 0;
+                                    if (totItems > 2)
+                                    {
+
+                                        <label>
+                                            see attachments
+                                        </label>
+
+                                    }
+                                    else
+                                    {
+
+
+
+                                        for (int i = 0; i < Model.LotData.Count(); i++)
+                                        {
+                                            tottalGrossWeight += Model.LotData[i].GrossWeight;
+                                            tottalNetWeight += Model.LotData[i].Net_Weight;
+
+                                            <label>
+                                                @Model.LotData[i].Item_Name_Ar
+                                            </label>
+                                            <label>
+                                                @Model.LotData[i].Item_Status_Ar_Name
+                                            </label>
+                                            <label>
+
+                                                @Math.Round(Convert.ToDouble(Model.LotData[i].Net_Weight), 2).ToString("0.0")
+                                            </label>
+                                            <label>
+                                                @Math.Round(Convert.ToDouble(Model.LotData[i].GrossWeight), 2).ToString("0.0")
+                                            </label>
+                                            <br />
+
+                                        }
+                                    }
+
+                                    <label>
+                                        الإجمالي
+                                    </label>
+                                    <label>
+                                        @Math.Round(Convert.ToDouble(@tottalNetWeight), 2).ToString("0.0")
+                                    </label>
+                                    <label>
+                                        @Math.Round(Convert.ToDouble(@tottalGrossWeight), 2).ToString("0.0")
+                                    </label>
+                                }
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 25%; height: inherit;padding: 3px">
+                                <label>10.الأسماء العلمية للنباتات:</label>
+
+
+                                @if (Model.LotData != null)
+                                {
+
+                                    for (int i = 0; i < Model.LotData.Count(); i++)
+                                    {
+                                        <label style="color:red;font-style: italic;">
+                                            @Model.LotData[i].Scientific_Name
+                                        </label><br />
+                                    }
+
+                                }
+                            </div>
+
+                        </div>
+
+                        <div class="" style="margin: auto; height: 2cm; display: flex; border-bottom: 1px solid #000;">
+                            <div class="" style="width: 100%; height: inherit; padding: 3px">
+                                <span style="text-align:center;">نشهد بأن النباتات او المنتجات النباتية أو البنودالأخري الخاضعه للوائح الصحة النباتية الموصوفة ضمنا قد فحصت و/او اختبرت طبقا للالجراءات المعتمدة الملائمة ووجدت خالية من أفات الحجر الزراعي التى حددها الطرف المتعاقد المستورد وفقا لاشترطات الصحة النباتية لدى الطرف المتعاقد المستورد بما في ذلك الاشترطات الخاصه بالافات غير الحجرية الخاضعه للوائح </span>
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:.5cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 100%; height: inherit; padding:0px 3px;text-align:center;">
+
+                                <label>
+                                    المعالجة للتطهير من التلوث و/أو الإصابة
+                                </label>
+
+                            </div>
+                        </div>
+
+                        <div class="" style="margin:auto;height:1.5cm;border-bottom:1px solid #000;display:flex;">
+
+                            <div class="" style=" width: 25%; height: inherit;padding: 3px">
+
+                                <label>11. التاريخ :</label>
+                                @if (Model.dataTreatment != null)
+                                {
+                                    if (@Model.dataTreatment.Count() > 0)
+                                    {
+
+                                        <label>@Model.dataTreatment.FirstOrDefault().User_Delegation_Date</label>
+
+
+                                    }
+                                }
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 25%; height: inherit;padding: 3px">
+                                <label>12.  المعالجة :</label>
+                                @if (Model.dataTreatment != null)
+                                {
+                                    if (@Model.dataTreatment.Count() > 0)
+                                    {
+
+                                        <label>@Model.dataTreatment.FirstOrDefault().treatments</label>
+                                    }
+                                }
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 25%; height: inherit;padding: 3px">
+                                <label> 13. الكيماويات(المادة الفعالة) </label>
+                                @if (Model.dataTreatment != null)
+                                {
+                                    if (@Model.dataTreatment.Count() > 0)
+                                    {
+
+                                        <label>@Model.dataTreatment.FirstOrDefault().treatment_Material_Name</label>
+                                    }
+                                }
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width:25%; height: inherit;padding: 3px">
+                                <label>14. التركيز</label>
+                                @if (Model.dataTreatment != null)
+                                {
+                                    if (@Model.dataTreatment.Count() > 0)
+                                    {
+
+                                        <label>@Model.dataTreatment.FirstOrDefault().TheDose</label>
+                                    }
+                                }
+                            </div>
+                        </div>
+
+
+                        <div class="" style="margin:auto;height:1.5cm;border-bottom:1px solid #000;display:flex;">
+
+                            <div class="" style=" width: 25%; height: inherit;padding: 3px">
+
+                                <label>15. مدة التعرض ودرجة الحرارة  :</label>
+                                @if (Model.dataTreatment != null)
+                                {
+
+                                    if (Model.dataTreatment.Count() > 0)
+                                    {
+                                        if (Model.dataTreatment.FirstOrDefault().Exposure_Day != null)
+                                        {
+                                            <label>  يوم @Model.dataTreatment.FirstOrDefault().Exposure_Day</label>
+                                        }
+                                        if (Model.dataTreatment.FirstOrDefault().Exposure_Hour != null)
+                                        {
+                                            <label>ساعه @Model.dataTreatment.FirstOrDefault().Exposure_Hour</label>
+                                        }
+                                        if (Model.dataTreatment.FirstOrDefault().Exposure_Minute != null)
+                                        {
+                                            <label>دقيقه @Model.dataTreatment.FirstOrDefault().Exposure_Minute</label>
+                                        }
+
+                                        if (Model.dataTreatment.FirstOrDefault().Temperature != null)
+                                        {
+                                            <label>@Model.dataTreatment.FirstOrDefault().Temperature</label>
+                                        }
+                                    }
+                                }
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 75%; height: inherit;padding: 3px">
+                                <label style="display:block"> 16. معلومات أخرى : </label>
+                                @if (Model.dataTreatment != null)
+                                {
+
+                                    if (Model.dataTreatment.Count() > 0)
+                                    {
+                                        if (Model.dataTreatment.FirstOrDefault().Notes_Ar != null)
+                                        {
+                                            <label>@Model.dataTreatment.FirstOrDefault().Notes_Ar</label>
+                                        }
+                                    }
+                                }
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="" style="margin:auto;height:.5cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 100%; height: inherit; padding:0px 3px;text-align:center;">
+
+                                <label>
+                                    إقرار أضافي
+                                </label>
+
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:2cm;display:flex;">
+                            <div class="" style="text-align: center; width: 100%; height: inherit; padding:0px 3px">
+                                @if (Model.dataAddtion != null)
+                                {
+                                    foreach (var emp in Model.dataAddtion)
+                                    {
+
+                                        <p>@emp.Certificate_AddtionText</p>
+
+                                        <br />
+                                    }
+                                }
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+
+                    <div id="footer3" style="height: 5cm; border-top: 1px solid #000;">
+                        <div class="" style="margin:auto;height:1.5cm;border-bottom:1px solid #000;display:flex;" hidden>
+                            <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                                <label>17. تاريخ الفحص : </label>
+                                <br />
+                                <span>@Model.data.Check_Date</span>
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                                <label style="display:block">18. تاريخ الاصدار  :</label>
+
+                                <span>@DateTime.Now.ToString("yyyy/MM/dd").Split(' ')[0])</span>
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                                <label style="display:block">19. مكان الاصدار  :</label>
+
+                                <span> @ViewBag.Outlet_Name</span>
+                            </div>
+                        </div>
+
+                        <div class="" style="margin:auto;height:3.5cm;border-bottom:1px solid #000;display:flex;" hidden>
+                            <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                                <label>20. أسماء الفاحصين : </label>
+                                <br />
+                                @if (Model.committeeEmployeeName != null)
+                                {
+                                    foreach (var emp in Model.committeeEmployeeName)
+                                    {
+
+                                        <span>
+                                            @emp.FullName
+                                        </span>
+
+                                        <br />
+                                    }
+                                }
+
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                                <label style="display:block">21. اسم المسئول المفوض  :</label>
+
+                                <span>@ViewBag.FullName</span>
+                                <label style="display:block">22. الرقم التعريفي  :</label>
+
+                                <span>@ViewBag.EmpId</span>
+
+                                <label style="display:block">23. ميناء الشحن  :</label>
+
+                                <span>@Model.data.Shipping_PortName</span>
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                                <div class="circle" style=" margin: 10px 3px; width: 85px; height:100px; background-color: white; border: 1px solid black; border-radius: 50%; float: left;">
+                                </div>
+                                <label>24. ختم المنظمة  : </label>
+                                <label>25. التوقيع  : </label>    <br />
+
+
+
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                    <div class="" style="margin:auto;height:.8cm;display:flex;">
+                        <div class="" style=" width: 100%; height: inherit; padding:5px 3px;text-align:center;">
+
+                            <label>
+                                لا تتحمل الإدارة المركزية للحجر الزراعي أو أي من موظفيها أو ممثليها أي مسئولية مالية قد تنجم عن هذه الشهادة
+
+                            </label>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <br />
+
+            <br />
+
+
+
+        </div>
+
+    </div>
+    <br />
+    <br />
+}
+else
+{
+
+    <div id="PrintEn">
+        <div id="tableArabic">
+            <div style="width:21cm;height:29.7cm;background:gray;margin:auto;padding-top:.5cm">
+                <div id="border" style=" direction: ltr; text-align: left;width:20cm;background:white;margin:auto;border:1px solid #000;font-family: 'Arial regular' !important;font-size:10pt;">
+                    <div id="header" style="height:4cm;">
+                        <div class="" style="margin:auto;height:inherit;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 50%; height: inherit;padding: 3px">
+
+                                <div class="col-md-8 col-sm-8" style="display:inline-block;height: inherit;">
+                                    <p class="lab-2" style="font-weight:bold">
+                                        arab Republic of Egypt<br />
+                                        Ministry of Agriculture and Land Reclamation<br />
+                                        Central Administration of Plant Quarantine
+                                    </p>
+                                </div>
+                                <div class="col-md-4 col-sm-4" style="display:inline-block;float:right;padding: 3px;height: inherit;">
+                                    <img class="img1" style="" src="~/assets/images/capq/logo-capq-114.png" />
+                                </div>
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class="" style=" width: 50%; height: inherit;padding: 0px">
+                                <div class="" style="margin:auto;height:2cm;border-bottom:1px solid #000;display:flex;">
+                                    <div class="col-md-12 col-sm-12" style="display:inline-block;float:right;height: 3cm;">
+                                        <label style="margin-top: 10px;font-size: 17px;text-align:center;">Phytosanitary Certificate</label>
+                                        <br />
+                                        <label style="text-align:right;">No:  </label>
+                                        <span>@Model.data.CertificateNumber</span>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-12 col-sm-12" style="display:block;height:2cm;padding: 0px 10px;">
+                                    <label> 1.To the National Plant Protection Oragnization of : </label>
+                                    <label name="Orag_Plant">
+                                        @Model.data.ImportCountry_Name_En
+
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div id="content" style="height:19cm;">
+                        <div class="" style="margin:auto;height:2.5cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="display:block">2. Name and address of exporter : </label>
+                                <label name="Exporter_NamePrint">@Model.data.ExporterType_Name_En</label>
+                                <label name="Exporter_NamePrint">@Model.data.Importer_Exporter_Name_En</label>
+                                <br />
+                                <label name="Exporter_AddressPrint">@Model.data.Importer_Exporter_Address_EN</label>
+
+
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="display:block">3.Declared name and address of consignee : </label>
+                                <label name="Reciever_NamePrint">@Model.data.ImportCompany_Name_EN</label>
+                                <br />
+                                <label name="ImportCompany_AddressPrint">@Model.data.ImporeterCompanyAddress_EN</label>
+
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:.5cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 100%; height: inherit; padding:0px 3px;text-align:center;">
+
+                                <label>Description of the Consignment</label>
+
+                            </div>
+                        </div>
+
+                        <div class="" style="margin:auto;height:2cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 25%; height: inherit;padding: 3px">
+                                <label> 4.Declared means of conveyance : </label>
+                                <label name="Transport_Mean_NamePrint">@Model.data.Ship_Name</label>/ <label name="Transport_Mean_NamePrint">@Model.data.Shipping_Port</label>
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 25%; height: inherit;padding: 3px">
+                                <label> 5.Declared point of entry:</label>
+                                <label name="port_arrive_NamePrint">@Model.data.PortTypeImportCountry_Name_En</label>/
+                                <label name="port_arrive_NamePrint">@Model.data.PortArriveName_EN</label>/
+
+                                <label name="port_arrive_NamePrint">@Model.data.ImportCountry_Name_En</label>
+
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 25%; height: inherit;padding: 3px">
+                                <label>6.Place of origin : </label>
+                                <label>Egypt</label>
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width:25%; height: inherit;padding: 3px">
+                                <label>  7. Distinguishing marks : </label>
+
+                                @if (Model.LotData != null)
+                                {
+                                    for (int i = 0; i < Model.LotData.Count(); i++)
+                                    {
+
+
+                                        <label>@Model.LotData[i].LotNumber</label>
+                                        if (i < Model.LotData.Count())
+                                        {
+                                            <span>,</span>
+                                        }
+
+
+                                    }
+                                }
+
+                            </div>
+                        </div>
+
+                        <div class="" style="margin:auto;height:5.5cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 25%; height: inherit;padding: 3px">
+                                @for (int i = 0; i < Model.LotData.Count(); i++)
+                                {
+
+
+                                    if (Model.LotData != null)
+                                    {
+                                        foreach (var item in Model.LotData)
+                                        {
+
+                                            //totGrossWeight += item.Gross_Weight;
+                                            //totNetWeight += item.Net_Weight;
+                                            totPackageCount += item.Package_Count;
+                                        }
+                                    }
+                                }
+                                <label>8. Number and description of packages:  </label>
+
+                                <label>@totPackageCount </label>
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                                <label style="display:block"> 9. Name of produce and quantity declared:</label>
+                                @if (Model.LotData != null)
+                                {
+                                    decimal? tottalGrossWeight = 0;
+                                    decimal? tottalNetWeight = 0;
+                                    if (totItems > 2)
+                                    {
+
+                                        <label>
+                                            see attachments
+                                        </label>
+
+                                    }
+                                    else
+                                    {
+
+
+
+                                        for (int i = 0; i < Model.LotData.Count(); i++)
+                                        {
+                                            tottalGrossWeight += Model.LotData[i].GrossWeight;
+                                            tottalNetWeight += Model.LotData[i].Net_Weight;
+
+                                            <label>
+                                                @Model.LotData[i].Item_Name_Ar
+                                            </label>
+                                            <label>
+                                                @Model.LotData[i].Item_Status_Ar_Name
+                                            </label>
+                                            <label>
+
+                                                @Math.Round(Convert.ToDouble(Model.LotData[i].Net_Weight), 2).ToString("0.0")
+                                            </label>
+                                            <label>
+                                                @Math.Round(Convert.ToDouble(Model.LotData[i].GrossWeight), 2).ToString("0.0")
+                                            </label>
+                                            <br />
+
+                                        }
+                                    }
+
+                                    <label>
+                                        Total:
+                                    </label>
+                                    <label>
+                                        @Math.Round(Convert.ToDouble(@tottalNetWeight), 2).ToString("0.0")
+                                    </label>
+                                    <label>
+                                        @Math.Round(Convert.ToDouble(@tottalGrossWeight), 2).ToString("0.0")
+                                    </label>
+                                }
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 25%; height: inherit;padding: 3px">
+                                <label>10.Botanical name of plants:</label>
+                                @if (Model.LotData != null)
+                                {
+
+                                    for (int i = 0; i < Model.LotData.Count(); i++)
+                                    {
+                                        <label style="color:red;font-style: italic;">
+                                            @Model.LotData[i].Scientific_Name
+                                        </label><br />
+                                    }
+
+                                }
+                            </div>
+
+                        </div>
+
+                        <div class="" style="margin: auto; height: 2cm; display: flex; border-bottom: 1px solid #000;">
+                            <div class="" style="width: 100%; height: inherit; padding:1px">
+                                <span style="text-align:center;">
+                                    This is to certify that the plants, plant products or other regulated articles described herein have been inspected
+                                    and/or tested according to appropriate official procedures and are considered to be free from the quarantine
+                                    pests specified by the importing contracting party and to conform with the current phytosanitary requirements of the importing
+                                    contracting party, including those for regulated non-quarantine pests.
+
+
+                                </span>
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:.5cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 100%; height: inherit; padding:0px 3px;text-align:center;">
+
+                                <label>
+                                    Disinfestations and/or Disinfections Treatment
+                                </label>
+
+                            </div>
+                        </div>
+
+                        <div class="" style="margin:auto;height:1.5cm;border-bottom:1px solid #000;display:flex;">
+
+                            <div class="" style=" width: 25%; height: inherit;padding: 3px">
+
+                                <label>11. Date:</label>
+                                @if (Model.dataTreatment != null)
+                                {
+                                    if (@Model.dataTreatment.Count() > 0)
+                                    {
+
+                                        <label>@Model.dataTreatment.FirstOrDefault().User_Delegation_Date</label>
+
+
+                                    }
+                                }
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 25%; height: inherit;padding: 3px">
+                                <label>12.  Treatment :</label>
+                                @if (Model.dataTreatment != null)
+                                {
+                                    if (@Model.dataTreatment.Count() > 0)
+                                    {
+
+                                        <label>@Model.dataTreatment.FirstOrDefault().treatments</label>
+                                    }
+                                }
+
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 25%; height: inherit;padding: 3px">
+                                <label> 13. Chemical (active ingrdient) </label>
+                                @if (Model.dataTreatment != null)
+                                {
+                                    if (@Model.dataTreatment.Count() > 0)
+                                    {
+
+                                        <label>@Model.dataTreatment.FirstOrDefault().treatment_Material_Name</label>
+                                    }
+                                }
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width:25%; height: inherit;padding: 3px">
+                                <label>14. Concentration</label>
+                                @if (Model.dataTreatment != null)
+                                {
+                                    if (@Model.dataTreatment.Count() > 0)
+                                    {
+
+                                        <label>@Model.dataTreatment.FirstOrDefault().TheDose</label>
+                                    }
+                                }
+                            </div>
+                        </div>
+
+
+                        <div class="" style="margin:auto;height:1.5cm;border-bottom:1px solid #000;display:flex;">
+
+                            <div class="" style=" width: 25%; height: inherit;padding: 3px">
+
+                                <label>15. Duration and tempreture  :</label>
+                                @if (Model.dataTreatment != null)
+                                {
+
+                                    if (Model.dataTreatment.Count() > 0)
+                                    {
+                                        if (Model.dataTreatment.FirstOrDefault().Exposure_Day != null)
+                                        {
+                                            <label>  يوم @Model.dataTreatment.FirstOrDefault().Exposure_Day</label>
+                                        }
+                                        if (Model.dataTreatment.FirstOrDefault().Exposure_Hour != null)
+                                        {
+                                            <label>ساعه @Model.dataTreatment.FirstOrDefault().Exposure_Hour</label>
+                                        }
+                                        if (Model.dataTreatment.FirstOrDefault().Exposure_Minute != null)
+                                        {
+                                            <label>دقيقه @Model.dataTreatment.FirstOrDefault().Exposure_Minute</label>
+                                        }
+                                        if (Model.dataTreatment.FirstOrDefault().Temperature != null)
+                                        {
+                                            <label>@Model.dataTreatment.FirstOrDefault().Temperature</label>
+                                        }
+                                    }
+                                }
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 75%; height: inherit;padding: 3px">
+                                <label style="display:block"> 16. Additional information : </label>
+                                @if (Model.dataTreatment != null)
+                                {
+
+                                    if (Model.dataTreatment.Count() > 0)
+                                    {
+                                        if (Model.dataTreatment.FirstOrDefault().Notes_Ar != null)
+                                        {
+                                            <label>@Model.dataTreatment.FirstOrDefault().Notes_Ar</label>
+                                        }
+                                    }
+                                }
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="" style="margin:auto;height:.5cm;border-bottom:1px solid #000;display:flex;">
+                            <div class="" style=" width: 100%; height: inherit; padding:0px 3px;text-align:center;">
+
+                                <label>
+                                    Additional Declaration
+                                </label>
+
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:2cm;display:flex;">
+                            <div class="" style="text-align: center; width: 100%; height: inherit; padding:0px 3px">
+                                @if (Model.dataAddtion != null)
+                                {
+                                    foreach (var emp in Model.dataAddtion)
+                                    {
+
+                                        <p>@emp.Certificate_AddtionText</p>
+
+                                        <br />
+                                    }
+                                }
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+
+                    <div id="footer3" style="height: 5cm; border-top: 1px solid #000;">
+                        <div class="" style="margin:auto;height:1.5cm;border-bottom:1px solid #000;display:flex;" hidden>
+                            <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                                <label>17.Date of inspection: </label>
+                                <br />
+                                <span>@Model.data.Check_Date</span>
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                                <label style="display:block">18. Date of issue :</label>
+
+                                <span>@DateTime.Now.ToString("yyyy/MM/dd").Split(' ')[0])</span>
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                                <label style="display:block">19. Place of issue :</label>
+
+                                <span> @ViewBag.Outlet_Name</span>
+                            </div>
+                        </div>
+
+                        <div class="" style="margin:auto;height:3.5cm;border-bottom:1px solid #000;display:flex;" hidden>
+                            <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                                <label>20. Name of inspectors : </label>
+                                <br />
+                                @if (Model.committeeEmployeeName != null)
+                                {
+                                    foreach (var emp in Model.committeeEmployeeName)
+                                    {
+
+                                        <span>
+                                            @emp.FullName
+                                        </span>
+
+                                        <br />
+                                    }
+                                }
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                                <label style="display:block">21. Name of authorized officer  :</label>
+
+                                <span>@ViewBag.FullName</span>
+                                <label style="display:block">22. ID no.  :</label>
+
+                                <span>@ViewBag.EmpId</span>
+
+                                <label style="display:block">23.Port of loading :</label>
+
+                                <span>@Model.data.Shipping_PortName</span>
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+
+                                <label>24. Stamp of the service  : </label>
+                                <label>25. Signature  : </label>    <br />
+                                <div class="circle" style=" margin: -25px 3px; width: 85px; height:100px; background-color: white; border: 1px solid black; border-radius: 50%; float: right;">
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                    <div class="" style="margin:auto;height:.8cm;display:flex;">
+                        <div class="" style=" width: 100%; height: inherit; padding:0px 3px;text-align:center;">
+
+                            <label style=" font-size: 11px;">
+                                No financial liability with respect to this certificate shall attach to the Central Administraion of Plant Quarantine or to
+                                any of its officers or representatives.
+                            </label>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <br />
+
+            <br />
+
+
+
+        </div>
+
+    </div>
+
+    <br />
+    <br />
+}
+<div class="col-md-4 text-align-center">
+    <button id="PrintResultEN" class="btn btnar" value='Print' onclick='printar("PrintAr")'> Print </button>
+</div>
+
+
+
+<input type="hidden" name="Hdn_CertificateID" id="Hdn_CertificateID" value="@Model.data.CertificateID" />
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+
+<script>
+    function printen(k) {
+
+        var certificateIden = document.getElementById("Hdn_CertificateID").value;
+
+        $.post('/Certificate/putprintCertificates', { ID: certificateIden }, function (data, succ) {
+            $("#tr_" + certificateId).text("accepted");
+            $("#tr_" + certificateId).css("color", "blue");
+        });
+
+        window.open("/Export_Certificate/CertificateList/Index");
+        var restorepage2 = document.body.innerHTML;
+        var printcontent2 = $('#' + k).children();
+        var printData = '';
+        for (var i = 0; i < printcontent2.length; i++) {
+            printData += printcontent2[i].innerHTML;
+        }
+        document.body.innerHTML = printData;
+        jQuery('.qrcodeimport').qrcode("r");
+        var css = `@@page{margin: .6cm .5cm .5cm .5cm!important;}#mm{margin-top:35px  !important;}.circle{margin:-25px 3px !important}.verticalLine{width:1px !important;margin: 0!important;background: #000!important;}.lab-2 {margin-top: 20px;margin-right: 8px;text-align: center;font-size: 16px}img.img1 {margin-top: 10px !important;vertical-align: middle !important;visibility: visible !important;}.col-md-4 {width: 33.33333333%;}.col-md-8 {width: 66.66666667%;}.col-md-6 {width: 50%;}.col-md-7 {width: 58.33333333%;}.col-md-5 {width: 41.66666667%;} canvas{display: inline-block !important;vertical-align: baseline!important;top: 10px;position: absolute;}#capq{border: 1px solid #000;} #footer3{border-bottom:1px solid #000}td {border: 1px solid black !important;} `,
+            head = document.head || document.getElementsByTagName('head')[0],
+            style = document.createElement('style');
+        style.type = 'text/css';
+        style.media = 'print';
+
+        if (style.styleSheet) {
+            style.styleSheet.cssText = css;
+        }
+        else {
+            style.appendChild(document.createTextNode(css));
+        }
+        head.appendChild(style);
+        window.print();
+        history.go(0);
+        window.location.reload();
+        document.body.innerHTML = restorepage2;
+    }
+</script>
+
+
+
+<script>
+    function printar(k) {
+
+        var certificateIden = document.getElementById("Hdn_CertificateID").value;
+
+        $.post('/Certificate/putprintCertificates', { ID: certificateIden }, function (data, succ) {
+            $("#tr_" + certificateId).text("accepted");
+            $("#tr_" + certificateId).css("color", "blue");
+        });
+
+        window.open("/Export_Certificate/CertificateList/Index");
+        var restorepage2 = document.body.innerHTML;
+        var printcontent2 = $('#' + k).children();
+        var printData = '';
+        for (var i = 0; i < printcontent2.length; i++) {
+            printData += printcontent2[i].innerHTML;
+        }
+        document.body.innerHTML = printData;
+        jQuery('.qrcodeimport').qrcode("r");
+        var css = `@@page{margin: .6cm .5cm .5cm .5cm!important;}#mm{margin-top:35px  !important;}.circle{margin:10px 3px !important}.verticalLine{width:1px !important;margin: 0!important;background: #000!important;}.lab-2 {margin-top: 45px;margin-right: 8px;text-align: center;font-size: 16px}img.img1 {margin-top: 10px !important;vertical-align: middle !important;visibility: visible !important;}.col-md-4 {width: 33.33333333%;}.col-md-8 {width: 66.66666667%;}.col-md-6 {width: 50%;}.col-md-7 {width: 58.33333333%;}.col-md-5 {width: 41.66666667%;} canvas{display: inline-block !important;vertical-align: baseline!important;top: 10px;position: absolute;}#capq{border: 1px solid #000;} #footer3{border-bottom:1px solid #000}td {border: 1px solid black !important;} `,
+            head = document.head || document.getElementsByTagName('head')[0],
+            style = document.createElement('style');
+        style.type = 'text/css';
+        style.media = 'print';
+
+        if (style.styleSheet) {
+            style.styleSheet.cssText = css;
+        }
+        else {
+            style.appendChild(document.createTextNode(css));
+        }
+        head.appendChild(style);
+        window.print();
+        history.go(0);
+        window.location.reload();
+        document.body.innerHTML = restorepage2;
+    }
+</script>
+<script>
+    jQuery('.qrcodeimport').qrcode(" @Model.data.CertificateNumber");
+</script>

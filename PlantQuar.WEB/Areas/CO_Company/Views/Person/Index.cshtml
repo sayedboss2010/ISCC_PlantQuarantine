@@ -1,0 +1,146 @@
+﻿
+@model List<PlantQuar.DTO.DTO.Company.PersonDTO>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">الأفراد</h2>
+}
+
+@section Path{
+    <li>@PlantQuar.WEB.Language.Resource_data1.Constrains</li>
+    <li class="active">@PlantQuar.WEB.Language.Resource_data1.CountryConstrain</li>
+}
+
+
+
+<link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/scripts/DataTables/jquery.dataTables.min.js"></script>
+<link href="~/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
+
+<style>
+    th {
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    td {
+        font-size: 12px;
+        text-align: center;
+    }
+
+    #personTable_info {
+        display: none;
+    }
+</style>
+
+@section filter{
+    <div class="row">
+        <label class="col-lg-2 col-md-12 col-sm-12">@PlantQuar.WEB.Language.Resource_data1.ArabicName</label>
+        <input type="text" class="form-inline col-lg-3  col-md-12 col-sm-12" autocomplete="off" name="txt_AR_BTNSearch" id="txt_AR_BTNSearch" />
+        <input type="button" class="col-lg-1 col-md-2 btn btn-primary" id="LoadRecordsButton" value="@PlantQuar.WEB.Language.Resource_data1.Search">
+    </div>
+}
+
+<form style="padding: 10px;margin-top: 100px;overflow-x:scroll;overflow-y:scroll;height: 800px;">
+    <div id="listPerson" class="row">
+        <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap">
+            <table id="personTable" class="table table-bordered table-striped dataTable" role="grid" style="padding:5px; width:100%">
+                <thead>
+                    <tr>
+                        <th hidden>ID</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.ArabicName</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.TypeOfIssuer</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Number</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Country</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Job</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Address</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.PhoneNumber</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Email</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.IsActive</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        if (Model.Count > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td hidden>@item.ID</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.Person_IDType</td>
+                                    <td>@item.IDNumber</td>
+                                    <td>@item.Country_ID</td>
+                                    <td>@item.Job</td>
+                                    <td>@item.Address</td>
+                                    <td>@item.Phone</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.IsActive</td>
+                                    <td>
+                                        @Html.ActionLink(PlantQuar.WEB.Language.Resource_data1.Edit, "Details", "Person", new { area = "Im_Constrains", id = item.ID }, null)
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        $("#personTable").DataTable({
+            paging: false,
+            lengthChange: true,
+            pageLength: 10,
+            searching: false,
+            ordering: false
+        });
+        FillTable();
+    });
+
+    function FillTable() {
+        $.ajax({
+            url: '/CO_Company/Person/listPerson',
+            data: {
+                txt_AR_BTNSearch: $('#txt_AR_BTNSearch').val(),
+            },
+            success: function (listPerson) {
+                $("#personTable tbody").empty();
+                $.each(listPerson.Records, function (index, item) {
+
+                    var hrefDetails = "@Url.Action("Details", "Person", new { area = "CO_Company", id = "__id__" })";
+                    hrefDetails = hrefDetails.replace("__id__", item.ID);
+
+                    $("#personTable tbody").append("<tr>" +
+                        "<td hidden>" + item.ID + "</td>" +
+                        "<td>" + item.Name + "</td>" +
+                        "<td>" + item.Person_IDType + "</td>" +
+                        "<td>" + item.IDNumber + "</td>" +
+                        "<td>" + item.Country_ID + "</td>" +
+                        "<td>" + item.Job + "</td>" +
+                        "<td>" + item.Address + "</td>" +
+                        "<td>" + item.Phone + "</td>" +
+                        "<td>" + item.Email + "</td>" +
+                        "<td>" + item.IsActive + "</td>" +
+                        "<td><a href=" + hrefDetails + ">@PlantQuar.WEB.Language.Resource_data1.Details</a></td>" +
+                        "</tr>");
+                });//each
+            }
+        });
+    }
+
+    $('#LoadRecordsButton').click(function (e) {
+        FillTable();
+    });
+</script>

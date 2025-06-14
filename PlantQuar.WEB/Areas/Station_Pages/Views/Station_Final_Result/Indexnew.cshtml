@@ -1,0 +1,919 @@
+﻿@model List<PlantQuar.DTO.DTO.Station_Pages.Station_Final_Result_DTO>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<script src="~/scripts/jquery.dataTables.min.js"></script>
+<link href="~/assets/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+<style>
+    .display-none {
+        display: none
+    }
+
+    .tapp-title {
+        padding: 10px 30px;
+    }
+</style>
+
+<div class="row">
+
+    <label class="tapp-title">
+        بيانات المحطة
+    </label>
+
+</div>
+<br />
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-3">
+                <label>
+                    اسم المحطة
+                </label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" value="@Model.FirstOrDefault().Station_Name" readonly="" class="form-control " width="100">
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-3">
+                <label> كود المحطة</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" value="@Model.FirstOrDefault().StationCode" readonly="" class="form-control " width="100">
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-3">
+                <label>
+                    المحافظة
+                </label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" value="@Model.FirstOrDefault().Governate_Name" readonly="" class="form-control " width="100">
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-3">
+                <label> المركز</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" value="@Model.FirstOrDefault().Center_Name" readonly="" class="form-control " width="100">
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<br />
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-3">
+                <label> القرية</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" value="@Model.FirstOrDefault().Village_name" readonly="" class="form-control " width="100">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-3">
+                <label> لينك التفاصيل</label>
+            </div>
+            <div class="col-md-9">
+                <a href="../../Station_Pages/StationDetails/Index?stationId=@ViewBag.stationId">عرض التفاصيل</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<br />
+<div class="row">
+
+    <label class="tapp-title">
+        بيانات اللجان
+    </label>
+
+</div>
+<br />
+
+@*@{*@
+@*var Station_Accreditation_Data_ALL = Model.GroupBy(d =>
+        new
+        {
+            Station_Accreditation_Data_Name = d.Station_Accreditation_Data_Name,
+            Station_Accreditation_Data_ID = d.Station_Accreditation_Data_ID,
+    //contactValue = d.contactValue,
+
+    }).Select(a => new
+    {
+    Station_Accreditation_Data_Name = a.Key.Station_Accreditation_Data_Name,
+    Station_Accreditation_Data_ID = a.Key.Station_Accreditation_Data_ID,
+    //contactValue = a.Key.contactValue,
+    });
+    }*@
+
+@foreach (var item_Data in Model.FirstOrDefault().List_Station_Accreditation_Data_ALL)
+{
+
+    <table id="itemTable" class="table " style="border: 5px solid #1f6c6f !important;">
+        <tbody>
+            <tr style=" background-color: rgb(77 ,158 ,151); color: #fff; font-weight: bold; font-size: 16px;" class="toggle-div-@item_Data.Station_Accreditation_Data_ID">
+                <td colspan="12" style="font-size:inherit">
+                    <input id="@item_Data.Station_Accreditation_Data_ID" class="style-but" onClick="reply_click2(this)" type="button"
+                           value="@item_Data.Station_Accreditation_Data_Name" style="background-color: #CE9461 !important;">
+                </td>
+                <th colspan="12" style="font-size:inherit">
+
+                    <input id="@item_Data.Station_Accreditation_Data_ID"
+                           class="style-but" type="button" onClick="reply_click4(this)"
+                           value="موقف الحجر" style="background-color: #CE9461 !important;">
+
+                </th>
+            </tr>
+        </tbody>
+    </table>
+
+    @* ******************* Al-HAGR position **************** *@
+
+    <div role="tabpanel" class="display-none  tab-pane fade in QuarantineTab_@item_Data.Station_Accreditation_Data_ID" id="QuarantineTab_@item_Data.Station_Accreditation_Data_ID" style="height:auto;">
+        <div class="row">
+            <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap  ">
+                @*@{
+                        // فتح الموقف ام غلقه فى حالة الادمن
+                        var open_Quarantine = true;
+                        var Station_Check_Quarantine1 = Model.FirstOrDefault().List_Station_Check_Quarantine.Where(a => a.Station_Accreditation_Data_ID == @item_Data.Station_Accreditation_Data_ID).ToList();
+
+
+                        var Station_Check_Open = @Station_Check_Quarantine1.Where(a => a.IsAccepted_final_Admin == null).Any();
+                        if (Station_Check_Open != true)
+                        {
+                            open_Quarantine = false;
+                        }
+                    }*@
+
+
+                <table style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th class="background-c99b6d">الموقف</th>
+                            <th class="background-c99b6d">تعليق</th>
+                            <th class="background-c99b6d">التاريخ من</th>
+                            <th class="background-c99b6d">التاريخ الى</th>
+                            <th colspan="2" class="background-c99b6d">موقف الحجر</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @{
+                            var Station_Check_Quarantine22 = Model.FirstOrDefault().List_Station_Check_Quarantine.Where(a => a.Station_Accreditation_Data_ID == @item_Data.Station_Accreditation_Data_ID).ToList();
+                            //var Station_Check_Quarantine55 = Model.FirstOrDefault().List_Station_Check_Quarantine.Where(a => a.Station_Accreditation_Data_ID == @item_Data.Station_Accreditation_Data_ID).LastOrDefault();
+                            var Station_Check_Quarantine = Station_Check_Quarantine22.LastOrDefault();
+                            // موقف الحجر
+                            var Count_Quarantine = Station_Check_Quarantine.IsAccepted_Quarantine;
+                            //موقف الاندريد
+                            var Count_IsAccepted_final_Admin = Station_Check_Quarantine.IsAccepted_final_Admin;
+                        }
+                        @if (Count_IsAccepted_final_Admin == true)
+                        {
+                            if (Count_Quarantine == null)
+                            {
+                                <tr>
+                                    <td>
+                                        <span hidden>@Station_Check_Quarantine.Station_Accreditation_Request_ID</span>
+                                        <input type="hidden" value="@Station_Check_Quarantine.Station_Accreditation_Request_ID" id="Station_Accreditation_Request_ID" />
+                                        <input type="hidden" value="@item_Data.Station_Accreditation_Data_ID" id="Station_Accreditation_Data_ID" />
+                                        <input type="hidden" value="@Station_Check_Quarantine.Station_ID" id="Station_ID" />
+                                        <span>@Station_Check_Quarantine.Station_Accreditation_Request_Type_Name</span>
+                                    </td>
+                                    <td><input type="text" id="Txt_Notes_Quarantine" /></td>
+                                    <td>
+                                        <input type="text" name="Txt_StartDate_Quarantine" id="Txt_StartDate_Quarantine" class="form-control" required />
+                                    <td>
+                                        <input type="text" name="Txt_EndDate_Quarantine" id="Txt_EndDate_Quarantine" class="form-control" required />
+                                    </td>
+                                    <td>مقبول<input type="radio" id="IsAccepted_Quarantine_Accept" value="1" name="IsAccepted_Quarantine" /></td>
+                                    <td>مرفوض<input type="radio" id="IsAccepted_Quarantine_Reject" value="2 " name="IsAccepted_Quarantine" /></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input class="style-but" id="submitValue" type="button" value="حفظ الموقف" style="background-color: #CE9461 !important;">
+
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+
+                                <tr>
+                                    <td><span>@Station_Check_Quarantine.Station_Accreditation_Request_Type_Name</span></td>
+                                    <td><span>@Station_Check_Quarantine.Notes_Quarantine</span></td>
+                                    <td>
+                                        @if (Station_Check_Quarantine.StartDate_Quarantine != null)
+                                        {
+                                            <span>@Station_Check_Quarantine.StartDate_Quarantine.Value.ToString("yyyy/MM/dd")</span>
+                                        }
+                                        else
+                                        {
+                                            <span>لا يوجد تاريخ</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (Station_Check_Quarantine.EndDate_Quarantine != null)
+                                        {
+                                            <span>@Station_Check_Quarantine.EndDate_Quarantine.Value.ToString("yyyy/MM/dd") </span>
+
+                                        }
+                                        else
+                                        {
+                                            <span>لا يوجد تاريخ</span>
+                                        }
+
+
+                                    </td>
+                                    @if (Station_Check_Quarantine.IsAccepted_Quarantine == true)
+                                    {
+                                        <td><span>مقبول</span></td>
+                                    }
+                                    else if (Station_Check_Quarantine.IsAccepted_Quarantine == false)
+                                    {
+                                        <td><span>مرفوض</span></td>
+                                    }
+                                    else
+                                    {
+                                        <td><span>لا توجد نتيجة</span></td>
+                                    }
+                                </tr>
+
+                            }
+                        }
+                        else if (Count_IsAccepted_final_Admin == false)
+                        {
+                            if (Count_Quarantine == true)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-4 text-center">
+                                                <input class="style-but" id="submitValue" type="button" value="حفظ الموقف" style="background-color: #CE9461 !important;">
+                                            </div>
+                                            <div class="col-md-4"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>
+                                    <span>يجب استكمال الاجراءات</span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+
+
+            </div>
+        </div>
+    </div>
+   
+    
+    
+    var Station_Accreditation_Request_Type = Model.FirstOrDefault().List_Station_Accreditation_Request_Type.Where(a => a.Station_Accreditation_Data_ID == item_Data.Station_Accreditation_Data_ID).ToList();
+
+    foreach (var Request_Type in Station_Accreditation_Request_Type)
+    {
+        <table id="itemTable" class="table display-none  toggle-div2_@item_Data.Station_Accreditation_Data_ID" style="border: 3px solid #606f49 !important">
+            <thead>
+                <tr class="background-606f49">
+                    <th colspan="12" style="font-size:inherit">
+                        <input id="@Request_Type.Station_Accreditation_Request_ID"
+                               class="style-but" onClick="reply_click3(this)" type="button"
+                               value="@Request_Type.Station_Accreditation_Request_Type_Name" style="background-color: #CE9461 !important;">
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+                                for (int i = 0; i < Model.FirstOrDefault().List_Station_Check_Quarantine.Where(a => a.Station_Accreditation_Request_ID == Request_Type.Station_Accreditation_Request_ID).Count(); i++)
+                                {
+                                    int count_Comm = i + 1;
+                                    long Num_Comm= @Model.FirstOrDefault().List_Station_Check_Quarantine.Where(a => a.Station_Accreditation_Request_ID == Request_Type.Station_Accreditation_Request_ID).Select(a => a.Station_Accreditation_Committee_ID).FirstOrDefault();
+<div role="tabpanel" style="min-height:80% !important; width: 100% !important;" class="tab display-none  toggle-div3_@Request_Type.Station_Accreditation_Request_ID">
+    <input id="@Num_Comm"
+           class="style-but" onClick="reply_click3(this)" type="button"
+           value=" لجنة رقم @count_Comm " style="background-color: #CE9461 !important;">
+
+    <input id="@Num_Comm"
+           class="style-but"  type="text" 
+           value=" @Model.FirstOrDefault().List_Station_Check_Quarantine[i].Committee_position " style="background-color: #CE9461 !important;">
+    <div role="tabpanel" style="min-height:80% !important; width: 100% !important;" class="tab display-none  toggle-div3_@Num_Comm">
+
+
+        <ul class="row nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#companyTab_@Num_Comm" aria-controls="profile" role="tab" data-toggle="tab">موقف الأدمن</a>
+            </li>
+            <li role="presentation">
+                <a href="#BasicTab_@Num_Comm" aria-controls="profile" role="tab" data-toggle="tab">موقف المساعد</a>
+            </li>
+            @*<li role="presentation">
+                    <a href="#countryTab_@Request_Type.Station_Accreditation_Request_ID" aria-controls="profile" role="tab" data-toggle="tab">موقف الحجر</a>
+                </li>*@
+            <li role="presentation">
+                <a href="#ImgeTab_@Num_Comm" aria-controls="profile" role="tab" data-toggle="tab">الصور</a>
+            </li>
+        </ul>
+        <div class="tab-content tabs" style="background-color:whitesmoke  !important;">
+            @* ******************* admin position **************** *@
+            <div role="tabpanel" class="tab-pane fade in active" id="companyTab_@Num_Comm" style="height:auto;">
+                <div class="row">
+                    <div class="col-md-12">
+                        @{
+                        
+                            var Station_Check_Admin = Model.FirstOrDefault().List_Station_Check_Admin.
+                                                                Where(a =>
+                                                                a.Station_Accreditation_Committee_ID
+                                                                == @Num_Comm
+                                                                && a.Station_Accreditation_Request_Type_Name == Request_Type.Station_Accreditation_Request_Type_Name
+                                                                ).ToList();
+
+                        }
+                        @if (Station_Check_Admin.Count() > 0)
+                        {
+                            <table id='popup'>
+                                <thead>
+                                    <tr class="table-head-green"><td colspan="4" align="center">   <span>بيانات الادمن</span></td></tr>
+
+                                </thead>
+
+                                <tbody class="table-white">
+
+                                    <tr>
+                                        <td>تاريخ اللجنة</td>
+                                        <td>
+
+                                            @Station_Check_Admin.FirstOrDefault().Station_Committee_Delegation_Date.Value.ToString("yyyy/MM/dd")
+
+                                        </td>
+                                        <td>اسم الادمن</td>
+                                        <td>@Station_Check_Admin.FirstOrDefault().FullName </td>
+                                    </tr>
+                                    <tr>
+                                        <td>وقت البدايه</td>
+                                        <td>
+                                            @Station_Check_Admin.FirstOrDefault().Station_Committee_StartTime
+                                        </td>
+                                        <td>وقت النهايه</td>
+                                        <td>
+                                            @Station_Check_Admin.FirstOrDefault().Station_Committee_EndTime
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>موقف الادمن العام</td>
+                                        <td>
+                                            @if (@Station_Check_Admin.FirstOrDefault().IsAccepted_final_Admin != null)
+                                            {
+                                                if (@Station_Check_Admin.FirstOrDefault().IsAccepted_final_Admin == true)
+                                                {
+                                                    <span>موافق</span>
+                                                }
+                                                else
+                                                {
+                                                    <span> مرفوض </span>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <span>لا يوجد بيان</span>
+                                            }
+                                        </td>
+                                        <td>ملاحظات الادمن العام</td>
+                                        <td>
+                                            @if (@Station_Check_Admin.FirstOrDefault().Notes_Ar_final_Admin != null)
+                                            {
+                                                @Station_Check_Admin.FirstOrDefault().Notes_Ar_final_Admin
+                                            }
+                                            else
+                                            {
+                                                <span>لا يوجد بيان</span>
+                                            }
+                                        </td>
+
+
+                                    </tr>
+                                    @if (@Station_Check_Admin.FirstOrDefault().Station_Refuse_Reason_Nots != null)
+                                    {
+                                        <tr>
+                                            <td>اسباب تعزر الفحص</td>
+                                            <td colspan="3">
+                                                @if (@Station_Check_Admin.FirstOrDefault().Station_Refuse_Reason_Nots != null)
+                                                {
+                                                    @Station_Check_Admin.FirstOrDefault().Station_Refuse_Reason_Nots
+                                                }
+                                                else
+                                                {
+                                                    <span>لا يوجد بيان</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                    <tr><td colspan="4" align="center">   <span>المتطلبات</span></td></tr>
+                                </tbody>
+                            </table>
+
+                            <table style="width: 100%; border: 1px solid;">
+                                <tbody>
+                                    <tr>
+                                        <th class="background-c99b6d" hidden>  IDبند</th>
+                                        <th class="background-c99b6d"> متطلبات</th>
+                                        <th class="background-c99b6d">موقف </th>
+                                        <th class="background-c99b6d">ملاحظات </th>
+                                    </tr>
+                                    @* بنودالادمن *@
+
+                                    @foreach (var Station_CheckList_Item in Station_Check_Admin)
+                                    {
+                                        <tr>
+                                            <td hidden>@Station_CheckList_Item.Station_CheckList_ID</td>
+                                            <td>@Station_CheckList_Item.Station_CheckList_name</td>
+                                            <td>
+                                                @if (@Station_CheckList_Item.IsAccepted_Band_Admin == true)
+                                                {
+                                                    <span>متوافق</span>
+                                                }
+                                                else if (@Station_CheckList_Item.IsAccepted_Band_Admin == false)
+                                                {
+                                                    <span>غير متوافق</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>لا توجد بيانات</span>
+                                                }
+                                            </td>
+                                            <td>@Station_CheckList_Item.Notes_Ar_Band_Admin</td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        }
+                    </div>
+                </div>
+                <br />
+            </div>
+            @* ******************* assistant position  **************** *@
+            @if (Station_Check_Admin.Count() > 0)
+            {
+                <div role="tabpanel" class="tab-pane fade in" id="BasicTab_@Num_Comm" style="height:auto;">
+
+                    <table id='popup'>
+                        <thead>
+                            <tr class="table-head-green"><td colspan="6" align="center">   <span>بيانات اللجنة</span></td></tr>
+                        </thead>
+
+                        <tbody class="table-white">
+
+                            <tr>
+                                <td>تاريخ اللجنة</td>
+                                <td>@Station_Check_Admin.FirstOrDefault().Station_Committee_Delegation_Date.Value.ToString("yyyy/MM/dd")</td>
+
+                                @*<td>@Station_Check_Admin.FirstOrDefault().Station_Committee_Delegation_Date.Value.ToString("yyyy/MM/dd")</td>*@
+                                <td>وقت البدايه</td>
+                                <td>
+                                    @Station_Check_Admin.FirstOrDefault().Station_Committee_StartTime
+                                </td>
+                                <td>وقت النهايه</td>
+                                <td>
+                                    @Station_Check_Admin.FirstOrDefault().Station_Committee_EndTime
+                                </td>
+                            </tr>
+                            <tr><td colspan="6" align="center">   <span>المتطلبات</span></td></tr>
+                        </tbody>
+                    </table>
+                    <div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-lg-5 col-md-5 ta1">
+                                    <table id="farmsTable" class="table table-bordered table-striped dataTable" role="grid"
+                                           style="margin: 15px; width: 100%; background-color: lightgray; border: 2px solid #606f49; ">
+                                        <thead>
+                                            <tr>
+                                                <th class="background-c99b6d">الاسم </th>
+                                                <th class="background-c99b6d">موقف </th>
+                                                <th class="background-c99b6d">ملاحظات  </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @{
+                                                var Station_Confirm = Model.FirstOrDefault().List_Station_Confirm.
+                                                    Where(a => a.Station_Accreditation_Committee_ID == @Num_Comm).ToList();
+
+
+                                                if (Station_Confirm.Count() > 0)
+                                                {
+                                                    foreach (var item_Station_Confirm in Station_Confirm)
+                                                    {
+                                                        <tr>
+                                                            <td>@item_Station_Confirm.FullName</td>
+                                                            <td>
+                                                                @if (@item_Station_Confirm.IsAccepted_Confirm == true)
+                                                                {
+                                                                    <span>متوافق</span>
+                                                                }
+                                                                else if (@item_Station_Confirm.IsAccepted_Confirm == false)
+                                                                {
+                                                                    <span>غير موافق</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span>لا توجد بيانات</span>
+                                                                }
+                                                            </td>
+
+                                                            <td>@item_Station_Confirm.Notes_Confirm</td>
+                                                        </tr>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <tr>
+                                                        <td>لا يوجد بيانات</td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                @* ******************* Imge position **************** *@
+                <div role="tabpanel" class="tab-pane fade in" id="ImgeTab_@Num_Comm" style="height:auto;">
+                    <div class="row">
+                        <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap">
+                            <table style="width:100%;">
+
+                                <tbody>
+
+                                    @{
+                                        var Station_Check_Imge = Model.FirstOrDefault().List_Station_Check_Imge.
+                                            Where(a => a.Station_Accreditation_Request_ID == Request_Type.Station_Accreditation_Request_ID
+                                            && a.Station_Accreditation_Committee_ID== @Num_Comm
+                                            ).ToList();
+                                        //var Station_Check_Imge = Model.
+                                        //Where(a => a.Station_Accreditation_Request_Type_Name == Request_Type.Station_Accreditation_Request_Type_Name
+                                        //).GroupBy(d =>
+                                        //new
+                                        //{
+                                        //    Station_Committee_Imge_ID = d.Station_Committee_Imge_ID,
+                                        //    Station_Committee_Imge_Binary = d.Station_Committee_Imge_Binary,
+
+                                        //}).Select(a => new
+                                        //{
+                                        //    Station_Committee_Imge_ID = a.Key.Station_Committee_Imge_ID,
+                                        //    Station_Committee_Imge_Binary = a.Key.Station_Committee_Imge_Binary,
+                                        //}).Distinct();
+                                    }
+                                    @if (Station_Check_Imge.Count() > 0)
+                                    {
+                                        foreach (var item_Imge in Station_Check_Imge)
+                                        {
+                                            string imageBase64 = Convert.ToBase64String(item_Imge.Station_Committee_Imge_Binary);
+                                            string imageSrc = string.Format("data:image/png;base64,{0}", imageBase64);
+                                            <tr>
+                                                <td>
+                                                    <img width='100px' style="padding:2px;" src="@imageSrc">
+                                                </td>
+                                                <td>@item_Imge.Infection_Comment</td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+        }
+    }
+}
+<br />
+<div class="row">
+
+    <label class="tapp-title">
+        الرسوم
+    </label>
+
+</div>
+
+
+
+<br />
+
+<table id="table_List_Im_Check" class="table table-bordered table-striped dataTable">
+    <thead>
+        <tr class="label-primary">
+            <th>م</th>
+            <th>مسمي الاعتماد</th>
+            <th>حالة الاعتماد</th>
+            <th>قيمة الاعتماد</th>
+            <th>حالة الدفع</th>
+            <th>رسوم اللجنة</th>
+
+            <th>رسوم المهندس</th>
+            <th>حالة الدفع للجنة</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.FirstOrDefault().List_Station_Fees != null)
+        {
+            foreach (var item in Model.FirstOrDefault().List_Station_Fees)
+            {
+                <tr>
+                    <td>@item.row_number</td>
+                    <td>@item.Name_AR</td>
+                    <td>@item.Name_AR_Type</td>
+                    <td>
+
+                        @if (@item.fess_Requst != null)
+                        {
+                            @item.fess_Requst
+                        }
+                        else
+                        { <span>لا توجد قيمة</span>}
+                    </td>
+                    <td>
+                        @if (@item.fess_Requst != null)
+                        {
+                            if (@item.IsPaid == true)
+                            {
+                                <span>تم الدفع</span>
+                            }
+                            else
+                            {
+                                <span>لم يتم الدفع</span>
+                            }
+                        }
+                    </td>
+
+                    <td>
+                        @if (@item.fess_Shift != null)
+                        {
+                            @item.fess_Shift
+                        }
+                        else
+                        { <span>لا توجد قيمة</span>}
+
+                    </td>
+                    <td>
+                        @if (@item.Committee_eng_fess != null)
+                        {
+                            @item.Committee_eng_fess
+                        }
+                        else
+                        { <span>لا توجد قيمة</span>}
+
+
+                    </td>
+                    <td>
+                        @{
+                            var Fees_Val = 0;
+                            if (@item.fess_Shift != null || @item.Committee_eng_fess != null)
+                            {
+                                Fees_Val = 1;
+                            }
+                            if (Fees_Val == 1)
+                            {
+                                if (@item.Committee_IsPaid == true)
+                                {
+                                    <span>تم الدفع</span>
+                                }
+                                else
+                                {
+                                    <span>لم يتم الدفع</span>
+                                }
+                            }
+                            else
+                            { <span>لا توجد رسوم </span>}
+                        }
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+@*<table id="table_List_Im_Check" class="table table-bordered table-striped dataTable">
+        <thead>
+            <tr class="label-primary">
+                <th>م</th>
+                <th>مسمي الاعتماد</th>
+                <th>حالة الاعتماد</th>
+                <th>قيمة الاعتماد</th>
+                <th>حالة الدفع</th>
+                <th>رسوم اللجنة</th>
+
+                <th>رسوم المهندس</th>
+                <th>حالة الدفع للجنة</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.FirstOrDefault().List_Station_Fees != null)
+            {
+
+                <tr>
+                    <td>@Model.FirstOrDefault().List_Station_Fees.LastOrDefault().row_number</td>
+                    <td>@Model.FirstOrDefault().List_Station_Fees.LastOrDefault().Name_AR</td>
+                    <td>@Model.FirstOrDefault().List_Station_Fees.LastOrDefault().Name_AR_Type</td>
+                    <td>
+
+                        @if (@Model.FirstOrDefault().List_Station_Fees.LastOrDefault().fess_Requst != null)
+                        {
+                            @Model.FirstOrDefault().List_Station_Fees.LastOrDefault().fess_Requst
+                        }
+                        else
+                        { <span>لا توجد قيمة</span>}
+                    </td>
+                    <td>
+                        @if (@Model.FirstOrDefault().List_Station_Fees.LastOrDefault().fess_Requst != null)
+                        {
+                            if (@Model.FirstOrDefault().List_Station_Fees.LastOrDefault().IsPaid == true)
+                            {
+                                <span>تم الدفع</span>
+                            }
+                            else
+                            {
+                                <span>لم يتم الدفع</span>
+                            }
+                        }
+                    </td>
+
+                    <td>
+                        @if (@Model.FirstOrDefault().List_Station_Fees.LastOrDefault().fess_Shift != null)
+                        {
+                            @Model.FirstOrDefault().List_Station_Fees.LastOrDefault().fess_Shift
+                        }
+                        else
+                        { <span>لا توجد قيمة</span>}
+
+                    </td>
+                    <td>
+                        @if (@Model.FirstOrDefault().List_Station_Fees.LastOrDefault().Committee_eng_fess != null)
+                        {
+                            @Model.FirstOrDefault().List_Station_Fees.LastOrDefault().Committee_eng_fess
+                        }
+                        else
+                        { <span>لا توجد قيمة</span>}
+
+
+                    </td>
+                    <td>
+                        @{
+                            var Fees_Val = 0;
+                            if (@Model.FirstOrDefault().List_Station_Fees.LastOrDefault().fess_Shift != null || @Model.FirstOrDefault().List_Station_Fees.LastOrDefault().Committee_eng_fess != null)
+                            {
+                                Fees_Val = 1;
+                            }
+                            if (Fees_Val == 1)
+                            {
+                                if (@Model.FirstOrDefault().List_Station_Fees.LastOrDefault().Committee_IsPaid == true)
+                                {
+                                    <span>تم الدفع</span>
+                                }
+                                else
+                                {
+                                    <span>لم يتم الدفع</span>
+                                }
+                            }
+                            else
+                            { <span>لا توجد رسوم </span>}
+                        }
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>*@
+
+
+<script>
+    $(document).ready(function () {
+        $('#table_List_Im_Check').DataTable();
+    });
+    function reply_click2(element) {
+        $(".toggle-div2_" + element.id + "").toggle('fast', "linear");
+    }
+    function reply_click3(element) {
+        $(".toggle-div3_" + element.id + "").toggle('fast', "linear");
+    }
+
+    function reply_click4(element) {
+        $(".QuarantineTab_" + element.id + "").toggle('fast', "linear");
+    }
+
+    $(".quickview7").click(function () {
+        var picture = $(this).data("picture");
+        $("#modaldetails").empty();
+        $("#modaldetails").append("<table id='popup'><tbody><tr><td><img width='100px' src=" + picture + "> </td> </tr></tbody> </table>")
+    });
+
+    $('#submitValue').click(function (e) {
+
+        Station_ID = $("#Station_ID").val();
+        Station_Accreditation_Request_ID = $("#Station_Accreditation_Request_ID").val();
+        _Station_Accreditation_Data_ID = $("#Station_Accreditation_Data_ID").val();
+        Txt_Notes_Quarantine = $("#Txt_Notes_Quarantine").val();
+        Txt_StartDate_Quarantine = $("#Txt_StartDate_Quarantine").val();
+        Txt_EndDate_Quarantine = $("#Txt_EndDate_Quarantine").val();
+
+
+        var _Radio = $("input:radio[name=IsAccepted_Quarantine]:checked").val();
+
+        var IsAccepted_Quarantine = true;
+        if (_Radio == 2)
+            IsAccepted_Quarantine = false;
+
+        if (Txt_Notes_Quarantine == ""
+            || Txt_StartDate_Quarantine == "" || Txt_EndDate_Quarantine == "" || Station_Accreditation_Request_ID == "") {
+            alertify.error("يجب استكمال البيانات ");
+
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                url: "/Station_Final_Result/Save_Station_Requeste_Quarantine",
+                dataType: "json",
+                data: JSON.stringify(
+                    {
+                        Station_Requst_ID: Station_Accreditation_Request_ID,
+                        Notes_Quarantine: Txt_Notes_Quarantine,
+                        StartDate_Quarantine: Txt_StartDate_Quarantine,
+                        EndDate_Quarantine: Txt_EndDate_Quarantine,
+                        IsAccepted_Quarantine: IsAccepted_Quarantine,
+                        Station_Accreditation_Data_ID: _Station_Accreditation_Data_ID,
+                        Station_ID: Station_ID
+                    }),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data == "Exist") {
+                        alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+                        location.href = "/Station_Pages/Station_Final_Result/Index?stationId=" + Station_ID
+                    }
+                    else if (data == "error") {
+                        alertify.error("لم يتم تحديث الموقف");
+                    }
+                    else {
+                        //$("#Check_Date").val(null);
+                        //$("#Delegation_Date").val(null);
+                        //$("#StartTime").val(null);
+                        //$("#EndTime").val(null);
+
+                        //$("#CheckRequest_Id").val(0);
+                    }
+                }
+            });
+        }
+    });
+
+    $("#Txt_StartDate_Quarantine ,#Txt_EndDate_Quarantine ").datepicker(
+        {
+            dateFormat: 'yy-mm-dd',
+            changeYear: true,
+        });
+</script>

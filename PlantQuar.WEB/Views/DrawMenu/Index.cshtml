@@ -1,0 +1,59 @@
+﻿
+@model List<Privilages.DAL.GetGroupsNameByUserAndApplication_Result>
+
+@foreach (var item in Model)
+{
+    <li>
+        @if (item.Id == 8)
+        {
+            <a href="#" class="ward" id="impoort" onclick="getGroupID('@item.Id')">
+                <i class="fab fa-pagelines"></i> <span>  @item.GroupName </span>
+            </a>
+        }
+        else
+        {
+            <a href="#" onclick="getGroupID('@item.Id')">
+                <i class="fab fa-pagelines"></i> <span>  @item.GroupName </span>
+            </a>
+        }
+
+
+        @if (item.CountPR_ModuleId > 0)
+        {
+            <ul>
+                @Html.Action("Modul", "DrawMenu", new { id = item.Id })
+            </ul>
+        }
+        @*else
+            {
+                <ul>
+                    @Html.Action("SubIndex", "DrawMenu", new { id = item.Id, Is_Group = true })
+                </ul>
+            }*@
+    </li>
+
+    <script>
+
+        function getGroupID(element) {
+
+            var moduleId = parseInt(element);
+
+        $.ajax({
+                        url: '@Url.Action("SetGroupID", "DrawMenu")',
+                        type: "POST",
+
+
+            data: { GroupId: moduleId},
+
+                  success: function (result) {
+                   //   alert(Element+"menu");
+                            },
+                        error: function (xhr, status, error) {
+                    }
+        });
+
+
+        }
+    </script>
+}
+

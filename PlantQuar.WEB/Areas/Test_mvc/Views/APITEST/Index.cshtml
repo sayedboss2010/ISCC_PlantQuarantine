@@ -1,0 +1,63 @@
+﻿<header>
+
+    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' http://cdnjs.cloudflare.com ">
+
+</header>
+@{
+    ViewBag.Title = "@PlantQuar.WEB.Language.Resource_data1.Plant";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    var x = 1;
+ 
+}
+
+<h2>Index</h2>
+
+<script>
+
+
+
+    $(document).ready(function () {
+        //var num = '{"LoginName":"ISCC","Password":"77777"}';
+        //$.ajax({
+        //    url: 'http://10.7.7.250:40/api/Login_Android_API',
+        //    type: 'POST',
+        //    method: 'POST',
+        //    contentType: 'application/json',
+        //    data: num,
+        //    success: function () {
+        //        alert('hello');
+        //    },
+        //    error: function (xhr, status, error) {
+        //        var err = eval("(" + xhr.responseText + ")");
+        //        alert(err.Message);
+        //    }
+
+        //});
+
+        var num = '{"LoginName":"ISCC","Password":"77777"}';
+
+        $.ajax({
+           
+    
+          
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            type: "POST", /* or type:"GET" or type:"PUT" */
+            dataType: "json",
+            url: 'http://10.7.7.250:40/api/Login_Android_API',
+            data: num,
+            dataType: "json",
+            success: function (json) {
+                //Do something with the returned json object.
+                alert('hello');
+            },
+            error: function (xhr, status, error) {
+                alert(error);
+            }
+        });
+
+
+    });
+</script>
+

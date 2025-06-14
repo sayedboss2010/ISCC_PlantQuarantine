@@ -1,0 +1,402 @@
+﻿
+
+@{
+    ViewBag.Title = @PlantQuar.WEB.Language.Resource_data1.sampleLabresult;
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+
+}
+
+
+
+@section Title{
+    <h2 class="ls-top-header"> @PlantQuar.WEB.Language.Resource_data1.sampleLabresult</h2>
+}
+
+<br />
+
+<style>
+    label {
+        text-align: center;
+    }
+
+    input[type="radio"] {
+        height: 71%;
+    }
+
+    #get, #prnt, #searchbarcode {
+        right: 20px;
+        background-color: #1e7c80;
+        border: 2px solid #1e8084;
+        box-shadow: 0 4px #1d9fa5;
+        outline: none;
+        padding: 4px 10px;
+        width: 35%;
+        font-size: 2.2rem;
+    }
+
+        #get:hover {
+            background-color: #1a8488;
+            border: 1px solid #1a8488;
+        }
+
+    #innerDiv {
+        border: 1px solid gray;
+        border-radius: 20px;
+        padding: 20px;
+        height: auto;
+        background-color: white;
+    }
+
+    #leftDiv {
+        display: none;
+    }
+
+    #innerDiv input, #innerDiv textarea {
+        width: 100%;
+        border-radius: 20px;
+        text-align: center;
+    }
+
+    #innerDiv label {
+        color: #185658;
+    }
+
+    #innerDiv .col-md-5 {
+        text-align: center;
+    }
+</style>
+
+
+@*@section filter{*@
+@using (Html.BeginForm("saveLabResult", "SampleLabResult", FormMethod.Post, new { area = "LaboratoryResult", enctype = "multipart/form-data", @id = "submform" }))
+{
+    <img src="H:\1.jpeg" hidden />
+    <div class="row">
+
+        @*hadeer*@
+        <div class="col-md-4">
+            <label class="">@PlantQuar.WEB.Language.Resource_data1.Enterbarcode</label>
+        </div>
+
+        <div class="col-md-4">
+            <input type="text" class="form-control" autocomplete="off" id="barcode" name="barcode" value="@ViewBag.BarCode" />&nbsp;
+
+        </div>
+        <div class="col-md-4" style="text-align:left;">
+            <input type="button" id="searchbarcode" class="btn btn-primary" value="@PlantQuar.WEB.Language.Resource_data1.Search">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <label class="col-md-4 col-sm-12">@PlantQuar.WEB.Language.Resource_data1.Result</label>
+
+        </div>
+        <div class="col-md-4">
+            <input type="radio" id="acceptt" name="result" class="resultLab col-lg-2 col-md-2 col-sm-2" value="true">
+
+            <label class="col-lg-2 col-md-3 col-sm-10">@PlantQuar.WEB.Language.Resource_data1.Accept</label>
+
+        </div>
+        <div class="col-md-4">
+            <input type="radio" id="rejected" name="result" class="resultLab col-lg-2 col-md-2 col-sm-2" value="false">
+            <label class="col-lg-2 col-md-3 col-sm-10">@PlantQuar.WEB.Language.Resource_data1.Reject</label>
+
+        </div>
+    </div>
+
+    <br />
+    <div class="row">
+        <div class="col-md-4">
+            <label>
+                @PlantQuar.WEB.Language.Resource_data1.Notes
+                @PlantQuar.WEB.Language.Resource_data1.Arabic
+            </label>
+        </div>
+        <div class="col-md-8">
+            <textarea id="noteAr" class="" name="noteAr"></textarea>
+
+        </div>
+
+    </div>
+
+
+    <br />
+    <div class="row">
+        <div class="col-md-4">
+            <label>
+                @PlantQuar.WEB.Language.Resource_data1.Notes
+                @PlantQuar.WEB.Language.Resource_data1.English
+
+            </label>
+        </div>
+        <div class="col-md-8">
+            <textarea id="noteEn" class="" name="noteEn"></textarea>
+        </div>
+
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-md-4">
+            <label>@PlantQuar.WEB.Language.Resource_data1.chooseImage</label>
+
+        </div>
+        <div class="col-md-4">
+            <input type="file" name="imageresult" id="addfile">
+            <div id="addimg">
+
+            </div>@*//??*@
+        </div>
+
+    </div>
+    <br />
+
+    <div class="row">
+
+        <div class="col-md-4">
+
+            <div id="addimg">
+            </div>
+        </div>
+    </div>
+    <br />
+    <label id="rrr">@ViewBag.message</label>
+
+
+    <br />
+
+    <div class="row" id="leftDiv">
+
+        <div id="innerDiv">
+            <div class="row">
+                <div class="col-md-5">
+                    <label>@PlantQuar.WEB.Language.Resource_data1.labName</label>
+                </div>
+                <div class="col-md-7">
+                    <input id="labName" type="text" disabled />
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-5">
+                    <label>@PlantQuar.WEB.Language.Resource_data1.AnalysisType</label>
+                </div>
+                <div class="col-md-7">
+                    <input id="analysisType" type="text" disabled />
+                </div>
+
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-5">
+
+                    <label>
+                        @PlantQuar.WEB.Language.Resource_data1.Notes
+                        @*@PlantQuar.WEB.Language.Resource_data1.English*@
+                    </label>
+
+                </div>
+                <div class="col-md-7">
+                    <textarea id="rejectreason" type="text" disabled></textarea>
+                </div>
+
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-5">
+                    <label>@PlantQuar.WEB.Language.Resource_data1.InfectionName</label>
+                </div>
+                <div class="col-md-7">
+                    <input id="Infection_Name" type="text" disabled />
+                </div>
+
+            </div>
+            <br />
+            <div class="row">
+
+                <div class="col-md-5">
+                    <label>@PlantQuar.WEB.Language.Resource_data1.ResultinjuryName</label>
+
+                </div>
+                <div class="col-md-7">
+                    <input id="Result_injury_Name" type="text" disabled />
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-md-4" style="margin:auto;">
+            <input type="button" id="get" disabled="disabled" class="btn btn-primary" value="@PlantQuar.WEB.Language.Resource_data1.Save">
+        </div>
+        <div class="col-md-4" style="margin:auto;">
+            <input type="button" id="prnt" class="btn btn-primary" value="@PlantQuar.WEB.Language.Resource_data1.Print">
+        </div>
+    </div>
+
+
+}
+
+@*}*@
+
+<script>
+
+
+    $("#searchbarcode").click(function () {
+        $("#get").removeAttr("disabled", true);
+        $("#addfile").removeAttr("disabled", true);
+        $("#noteEn").removeAttr("disabled", true);
+        $("#noteAr").removeAttr("disabled", true);
+        $("#acceptt").removeAttr("disabled", true);
+        $("#rejected").removeAttr("disabled", true);
+        $("#noteEn").text("");
+        $("#noteAr").text("");
+        $("#addimg").empty();
+        $("#acceptt").removeAttr("checked", true);
+        $("#rejected").removeAttr("checked", true);
+        $("#rrr").text('');
+        //$("#labName").text("");
+        //$("#analysisType").text("");
+        //$("#rejectreason").text("");
+        //$("#Infection_Name").text("");
+        //$("#Result_injury_Name").text("");
+        var barcode = $("#barcode").val();
+        $.getJSON('/LaboratoryResult/SampleLABResult/getSampleInfo', { barcode: barcode }, function (data, succ) {
+
+
+
+
+            if (data == "Invalid" ) {
+                alert('الباركود غير موجود');
+                $("#get").attr("disabled", true);
+                $("#addfile").attr("disabled", true);
+                $("#noteEn").attr("disabled", true);
+                $("#noteAr").attr("disabled", true);
+                $("#acceptt").attr("disabled", true);
+                $("#rejected").attr("disabled", true);
+            }
+            else if (data == "Invalid_confirm")
+            {
+                alert('لم يتم عمل المساعد');
+                $("#get").attr("disabled", true);
+                $("#addfile").attr("disabled", true);
+                $("#noteEn").attr("disabled", true);
+                $("#noteAr").attr("disabled", true);
+                $("#acceptt").attr("disabled", true);
+                $("#rejected").attr("disabled", true);
+            }
+            else
+            {
+                if (data.IsFinishedAll == null) {
+
+                    alert('لم يتم العمل على اللجنة');
+
+
+                    $("#get").attr("disabled", true);
+                    $("#addfile").attr("disabled", true);
+                    $("#noteEn").attr("disabled", true);
+                    $("#noteAr").attr("disabled", true);
+                    $("#acceptt").attr("disabled", true);
+                    $("#rejected").attr("disabled", true);
+                }
+                 else {
+
+                    $("#leftDiv").css("display", "block");
+                    $("#labName").val(data.labName);
+                    $("#analysisType").val(data.analysisType);
+                    $("#rejectreason").val(data.rejectreason);
+                    $("#Infection_Name").val(data.Infection_Name);
+                    $("#Result_injury_Name").val(data.Result_injury_Name);
+                    if (data.result != null) {
+                        $("#get").attr("disabled", true);
+                        $("#addfile").attr("disabled", true);
+                        $("#noteEn").attr("disabled", true);
+                        $("#noteAr").attr("disabled", true);
+                        $("#acceptt").attr("disabled", true);
+                        $("#rejected").attr("disabled", true);
+                        $("#noteEn").text(data.noteEn);
+                        $("#noteAr").text(data.noteAr);
+                        $("#addimg").append("<input type='button' value='تحميل الملف' class='btn btn - info' onclick=btndownload_click(this)  data-assigned-id='"+ data.filePath +"' /> ");
+                        //$("#addimg").append("<a href='/ASP/DisplayImge.aspx' class='fa fa-download'>عرض الصورة</a>");
+                        //$("#addimg").append("<button value='//10.7.7.244/plant/Test56/Image_11125.png' class='fa fa-download' style='color:blue'>تحميتحميل</button>"
+
+
+                        if (data.result == true) {
+                            $("#acceptt").prop("checked", true);
+                        } else {
+                            $("#rejected").prop("checked", true);
+                        }
+                    }
+                }
+            }
+
+
+
+
+        });
+    });
+
+
+
+    $("#get").click(function () {
+        $("#rrr").text('');
+        var result = "";
+        $(".resultLab").each(function () {
+            if ($(this).is(":checked")) {
+                result = $(this).val();
+            }
+        });
+        var barcode = $("#barcode").val();
+        var noteAr = $("#noteAr").val();
+        var noteEn = $("#noteEn").val();
+        console.log(barcode)
+        console.log(result)
+        if (barcode != null && barcode != '' && result != "") {
+            //$.post('/LaboratoryResult/SampleLABResult/saveLabResult', { barcode: barcode, result: result, noteEn: noteEn, noteAr: noteAr}, function (data, succ) {
+            //    //debugger;
+            //    $("#rrr").text(data);
+
+            //});
+            $("#submform").submit();
+
+        } else {
+            $("#rrr").text('@PlantQuar.WEB.Language.Resource_data1.InfectionName');
+        }
+    });
+     $("#prnt").click(function () {
+
+        var barcode = $("#barcode").val();
+
+        if (barcode != null && barcode != '') {
+            window.location = '/LaboratoryResult/LaboratoryResult_Report/Index?barcode='+barcode;
+        }
+     });
+
+       $('.Show_Imge').click(function () {
+
+        var path = $(this).data('id');
+        window.open('/Imges/Downlood_Imge/Get_Downlood_Imge?path1=' + path + '', "_blank");
+
+       });
+
+     function btndownload_click(elem) {
+
+            var path = $(elem).data('assigned-id');
+
+             window.open('/Imges/Downlood_Imge/Get_Downlood_Imge?path1=' + path + '', "_blank");
+
+            //<button value="//10.7.7.244/plant/Item/2/8.jpg" class="fa fa-download" style="color:blue">تحميل</button>
+            //window.open('~/Areas/ASP/Controllers/DisplayImge.aspx?path1=' + path + '', "_blank");
+           // window.open('/DE_Item_Data/Item/GetReport?path1=' + path + '', "_blank");
+
+
+        }
+</script>
+
+

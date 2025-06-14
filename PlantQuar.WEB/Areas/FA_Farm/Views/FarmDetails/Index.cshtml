@@ -1,0 +1,331 @@
+﻿@model PlantQuar.DTO.DTO.Farm.FarmRequest.Farm_Get_Data_ResultDTO
+
+@{
+    ViewBag.Title = "تفاصيل المزرعة";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">تفاصيل المزرعة</h2>
+}
+
+
+
+<style>
+    .form-rowr {
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px dashed #cbc5ba;
+    }
+
+    .control-label {
+        font-size: 14px;
+    }
+
+    .form-control {
+        font-size: 13px;
+    }
+
+    .label-info {
+        font-size: 16px;
+        text-align: center;
+        padding: 6px;
+        border-radius: 6px 20px;
+    }
+
+    th, tr, td {
+        text-align: center;
+    }
+
+    button, html input[type="button"], input[type="reset"], input[type="submit"] {
+        margin-right: 0px;
+    }
+
+
+    #btnSave, #btnReject, #btnReject, #PrintResultButton {
+        background-color: #1e7c80 !important;
+        border: 2px solid #1e8084 !important;
+        box-shadow: 0 4px #1d9fa5 !important;
+        outline: none;
+        color: white;
+        margin-bottom: 10px;
+    }
+
+        #btnSave, #btnReject, #btnReject, #PrintResultButton:hover {
+            background-color: #1a8488 !important;
+            border: 1px solid #1a8488 !important;
+        }
+
+    /*blockquote {
+        margin-bottom: 70px !important;
+    }*/
+
+    .jtable thead tr {
+        height: 50px;
+    }
+
+    div.jtable-main-container > table.jtable > thead th.jtable-column-header div.jtable-column-header-container {
+        bottom: 12px !important;
+    }
+
+    #print {
+        width: 90%;
+        background-color: #1a8488 !important;
+        border: 1px solid #1a8488 !important;
+        box-shadow: 0 4px #1d9fa5 !important;
+        outline: none;
+        color: white;
+        margin-bottom: 10px;
+        height: 40px;
+        font-size: 18px;
+    }
+
+    #innerDiv {
+        border: 1px solid gray;
+        border-radius: 20px;
+        padding: 20px;
+        height: auto;
+        background-color: white;
+        width: 100%;
+    }
+
+        #innerDiv input, #innerDiv textarea {
+            width: 95%;
+            border-radius: 20px;
+            text-align: center
+        }
+
+        #innerDiv label {
+            color: #185658;
+        }
+
+        #innerDiv .col-md-2 {
+            text-align: center;
+        }
+</style>
+
+@if (Model == null)
+{
+    @PlantQuar.WEB.Language.Resource_data1.NoResults;
+    return;
+}
+@using (Html.BeginForm("acceptRequest", "FarmDetails", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "submform" }))
+{
+    @Html.HiddenFor(m => m.requestId)
+    @Html.HiddenFor(m => m.farmId)
+    <div class="form-group" style="min-height:400px;padding:10px;">
+
+        <div class="row">
+            <div id="innerDiv">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.FarmName </label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" value="@Model.farmName" disabled />
+                        @*<label class="control-label"></label>*@
+                    </div>
+                    <div class="col-md-2">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Governate</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" value="@Model.governorateName" disabled />
+
+                        <label class="control-label">@*@Model.governorateName*@</label>
+                    </div>
+
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Center</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" value="@Model.centerName" disabled />
+                        @*<label class="control-label">@Model.centerName</label>*@
+                    </div>
+                    <div class="col-md-2">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Village</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" value="@Model.villageName" disabled />
+                        @*<label class="control-label">@Model.villageName</label>*@
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="control-label"> @PlantQuar.WEB.Language.Resource_data1.CompanyName_</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" value="@Model.companyName" disabled />
+
+                        @*<label class="control-label">@Model.companyName</label>*@
+                    </div>
+                    @*<div class="col-md-2">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.PlantName</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" value="@Model.plantName" disabled />
+                        
+                    </div>*@
+
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.DateStart</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" value="@Model.Start_Date.Value.ToString("dd/MM/yyyy")" disabled />
+                        @*<label class="control-label">@Model.Start_Date</label>*@
+                    </div>
+                    <div class="col-md-2">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.DateEnd</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" value="@Model.End_Date.Value.ToString("dd/MM/yyyy")" disabled />
+                        <label class="control-label">@*@Model.End_Date*@</label>
+                    </div>
+
+                </div>
+                <br />
+                <div class="row">
+                    @*<div class="col-md-2">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Areainacre</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" value="@Model.area" disabled />
+
+                       
+                    </div>*@
+                    @*<div class="col-md-6">
+                            <label class="control-label">تاريخ تسجيل النبات</label>
+                            <label class="control-label"></label>
+                        </div>*@
+                    @*<div class="col-md-2">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.QuantitySize</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" value="@Model.Quantity_Ton" disabled />
+
+                       
+                    </div>*@
+                </div>
+                <br />
+                
+
+                <br />
+                <div class="row">
+                    @foreach (var cn in Model.countryName)
+                    {
+                        <div class="col-md-2">
+                            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.CountryorUnion</label>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" value="@cn" disabled />
+
+                        </div>
+                    }
+                    
+                   
+                </div>
+                <br />
+                <div class="row">
+                    <table class="table ">
+                        <thead style="background-color:#4d9e97 !important;">
+                            <tr>
+                                <th>category</th>
+                                <th>Area_Acres</th>
+                                <th>Quantity_Ton</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.farmItemCategories)
+                            {
+                                <tr>
+                                    <td>@item.categoryName</td>
+                                    <td>@item.Area_Acres</td>
+                                    <td>@item.Quantity_Ton</td>
+                                     </tr>
+                            }
+                            
+                        </tbody>
+                    </table>
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+        @Html.HiddenFor(m => m.IsAcceppted, new { @id = "txtIsAccepted" })
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                    @{
+                        //var txt = "الموافقة علي الطلب";
+                        //var Disabled = Model.IsPaid == false ? "disabled" : "";
+
+                        var Disabled = Model.IsAcceppted == true ? "disabled" : "";
+
+                        Disabled = Model.IsAcceppted == false ? "disabled" : Disabled;
+                        var t = @PlantQuar.WEB.Language.Resource_data1.approvalOfRequest;
+                        var t1 = @PlantQuar.WEB.Language.Resource_data1.requestApproval;
+
+                        var txt = Model.IsAcceppted == true ? t1 : t;
+                        var temp = @PlantQuar.WEB.Language.Resource_data1.expensesNotPaid;
+
+
+                        //txt = Model.IsPaid == false ? temp : txt;
+
+                        <input type="submit" id="btnSave" value="@txt"
+                               @Disabled
+                               class="btn ls-light-green-btn btn-round" style="width:90%;" />
+                    }
+                </div>
+
+
+
+                <div class="col-md-3">
+                    @*eman*@
+                    <input type="button" id="btnReject" value="@PlantQuar.WEB.Language.Resource_data1.requestrejected"
+                           @Disabled
+                           class="btn ls-light-green-btn btn-round" data-toggle="modal" data-target="#Modal-refuse"
+                           style="width:90%;" />
+                    @*<button type="button" id="btnReject" value="رفض الطلب"
+                                @Disabled
+                                class="btn btn-info btn-lg"
+                                data-toggle="modal" data-target="#myModal">
+                            رفض الطلب
+                        </button>*@
+
+                </div>
+                <div class="col-md-3">
+                    @*<button id="PrintResultButton" class="btn ls-light-green-btn btn-round" value='Print' onclick='printContent2("modall_content2")' style="width:90%;background-color: #3b818e;border: 2px solid #1e8084;">
+                            <span class="spann">Print</span>  <i class="fas fa-print"></i>
+                        </button>*@
+                    <a id="print" class="btn ls-light-green-btn btn-round" href=""> print</a>
+                </div>
+
+            </div>
+        </div>
+
+                        }
+
+<script>
+    $(document).ready(function () {
+
+        $("#btnSave").click(function () {
+            $("#txtIsAccepted").val(true);
+        });
+
+        $("#btnReject").click(function () {
+            $("#txtIsAccepted").val(false);
+            $("#submform").submit();
+        });
+    });
+
+
+</script>

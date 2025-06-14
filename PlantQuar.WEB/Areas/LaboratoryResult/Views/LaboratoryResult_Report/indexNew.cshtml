@@ -1,0 +1,902 @@
+﻿@model List<PlantQuar.DTO.DTO.labResult.LaboratoryResult_ReportDTO>
+@{
+    ViewBag.Title = "indexNew";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<link href="~/assets/css/print.min.css" rel="stylesheet" />
+<script src="~/assets/js/print.min.js"></script>
+@*<style>
+        #PrintResultButton, #PrintResultButton2 {
+            background-color: #1e7c80 !important;
+            border: 2px solid #1e8084 !important;
+            box-shadow: 0 4px #1d9fa5 !important;
+            outline: none;
+            color: white;
+            margin-bottom: 10px;
+            width: 50%;
+        }
+
+        .demo-blockquote {
+            margin-bottom: 70px !important;
+        }
+    </style>*@
+<style>
+    span {
+        font-size: 12px !important;
+    }
+
+    .row {
+        padding-left: 5px;
+    }
+
+    input[type="checkbox"] {
+        width: unset !important;
+        height: unset !important;
+    }
+</style>
+<div style="width:21cm;height:29.7cm;background-color: grey;margin:auto;padding-top:.6cm" id="certificat">
+    <div id="border" style="font-size:12px;width:19.5cm;background:white;margin:auto;font-family: 'Arial regular'!important;font-size:10pt;">
+        <div id="header" style="height:2.5cm;">
+            <div class="" style="margin:auto;height:inherit;display:flex;">
+                <div class="row" style=" width: 100%; height: inherit;padding: 3px">
+                    <div class="col-md-5 " style="height: inherit;text-align: right;display: flex;">
+                        <p class="lab-2" style="margin:auto;color:#000;font-weight:bold; font-size:12px;">
+                            <span>جمهورية مصر العربية</span>
+                            <br />
+                            وزارة الزراعة <br />
+                            <span style="font-size:12px;">     مركز البحوث الزراعية</span>
+                            <br />
+                            <span style="font-size:12px;">   المعمل المركزي لتحليل متبقيات المبيدات</span>
+                            <br />
+                            <span style="font-size:12px;">والعناصر الثقيلة في الأغذية</span>
+
+                        </p>
+
+                    </div>
+                    <div class="col-md-2" style="padding-top:25px;text-align:center;">
+                        <img src="~/assets/images/sonpola.jpeg" style=" width: 140px; height: 80px;" />
+                    </div>
+                    <div class="col-md-5 " style="height: inherit;text-align: left;display: flex;">
+                        <p class="lab-2" style="margin:auto;color:#000;font-weight:bold;font-size:12px;">
+                            <span>Arab Republic of Egypt</span>
+                            <br />
+                            Ministry of Agriculture<br />
+                            <span style="font-size:12px;">     Agricultural Research Center</span>
+                            <br />
+                            <span style="font-size:12px;"> Central Laboratory of Residue Analysis</span>
+                            <br />
+                            <span style="font-size:12px;">of Pesticides and Heavy Metals in Food</span>
+
+                        </p>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <br />
+        <br />
+        <div id="content" style="height:22cm;padding-right: 7px;">
+            <div class="row" style="text-align:center;font-weight:bold;color: #000;">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <span> (استمارة سحب العينات)  SAMPLING  PROTOCOL</span>
+                </div>
+            </div>
+            <div style="border:2px solid #000; text-align:left;color: #000;">
+                <div style="border-bottom:2px solid #000;margin: 0;margin: auto; height: inherit; display: flex;">
+
+                    <div class="col-lg-6 col-md-12 col-sm-12 font-bold">
+
+                        <span>  Laboratory Number</span>
+                        <br />
+                        <span>(الرقم المعملي) </span>
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12 font-bold">
+                        <span> Sampel Code: @Model.FirstOrDefault().Sample_BarCode </span>
+                        <br />
+                        <span> (كود العينة) </span>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4 col-md-12 col-sm-12 font-bold">
+                        <span> Customer ID: </span>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-12 font-bold">
+                        <span>(معلومات خاصة بالشركة)  Company Information</span>
+                    </div>
+
+
+                </div>
+                <div class="row">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <span>@Model.FirstOrDefault().companyName --- @Model.FirstOrDefault().company_Address_Ar </span>
+                        <span>(اسم الشركة والعنوان)  Name and Address of the Company</span>
+
+                    </div>
+
+
+                </div>
+                <div class="row">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <span>@Model.FirstOrDefault().companyName</span>
+                        <span>(صاحب اللوط/العينة) Lot/Sample Owner</span>
+
+                    </div>
+
+
+                </div>
+                <div class="row">
+
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <span>................</span>
+                        <span>(رقم التليفون). Telephone No</span>
+
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <span>................</span>
+                        <span> (رقم الفاكس).Fax  No </span>
+
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <span>................</span>
+                        <span> (البريد الالكتروني):Email </span>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div style="border:2px solid #000;border-top:none; text-align:left;color: #000;">
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 font-bold">
+                        <span>(اسم ومعلومات المنتج/السلعة)  Product / Commodity Name and Descriptions</span>
+                    </div>
+
+
+
+                </div>
+                <div class="row">
+
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <span>@Model.FirstOrDefault().Scientific_Name</span>
+                        <span> : (الاسم التجاري)  Trade Name</span>
+
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <span>@Model.FirstOrDefault().itemName</span>
+                        <span> : (المنتج)  Product/Commodity</span>
+
+                    </div>
+
+                </div>
+                <div class="row">
+
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <span>@Model.FirstOrDefault().FarmCode</span>
+                        <span> : (الرقم الكودى للمزارع)  Farmer Code</span>
+
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <span>@Model.FirstOrDefault().item_Type_Name</span>
+                        <span> : (النوع)  Variety</span>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+            <div style="border:2px solid #000;border-top:none; text-align:left;color: #000;">
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 font-bold">
+                        <span>(معلومات خاصة بمكان وطريقة سحب العينة)  Sampling Information</span>
+                    </div>
+
+
+
+                </div>
+                <div class="row">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <span>@Model.FirstOrDefault().Examination_Place</span>
+                        <span>(مكان وغرض سحب العينة)  Place and Reason of Sampling </span>
+
+                    </div>
+
+
+                </div>
+                <div class="row">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <span>@Model.FirstOrDefault().Delegation_Date</span>
+                        <span>(تاريخ ووقت سحب العينة)  Inspection Date and Time</span>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="row">
+
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <span>@Model.FirstOrDefault().Syl_ALkhatima_Number</span>
+                        <span>
+
+                            (رقم الختم) stamp
+
+                        </span>
+
+                    </div>
+
+                    <div class="col-lg-8 col-md-12 col-sm-12">
+                        <span>................................</span>
+                        <span>
+
+                            (الفرع) branch
+                            :
+
+                            (الحجر) Quarantine
+                            <input type="checkbox" />
+                        </span>
+
+                    </div>
+                </div>
+
+
+                <div class="row">
+
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+
+                        <span>
+
+                            (محل تجزئة) Retail
+
+                            <input type="checkbox" />
+                        </span>
+
+                    </div>
+
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+
+                        <span>
+
+                            (محطة فرز وتعبئة) Packing House
+
+                            <input type="checkbox" />
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <span>................................</span>
+                        <span>
+
+                            (مزرعة) Farm
+
+                            <input type="checkbox" />
+                        </span>
+
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <span>................................</span>
+                        <span>
+
+                            (بيانات أخرى تحدد) Others, specify
+                            <input type="checkbox" />
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <span>................................</span>
+                        <span>
+
+                            (رقم الحاوية/البراد) Container Code
+
+
+                        </span>
+
+                    </div>
+
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <span></span>
+                        <span>
+
+                            (بلد المنشأ/الوصول) Country of Origin/Destination
+
+
+                        </span>
+
+                    </div>
+
+
+
+
+                </div>
+
+
+
+
+
+                <div class="row">
+
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <span>................................</span>
+                        <span>
+
+                            (رقم الشهادة الجمركية) .Custom Cert No
+
+
+                        </span>
+
+                    </div>
+
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <span>@Model.FirstOrDefault().Origin_Countery</span>
+                        <span>
+
+                            (المنشأ) Origin
+
+                            <input type="checkbox" />
+                        </span>
+
+                    </div>
+
+
+
+
+                </div>
+
+
+                <div class="row">
+
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <span>@Model.FirstOrDefault().Station_Code</span>
+                        <span>
+
+                            (الرقم الكودي) .Code No
+
+
+                        </span>
+
+                    </div>
+
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <span>@Model.FirstOrDefault().Destination_Countery</span>
+                        <span>
+
+                            (الوصول) Destination
+
+                            <input type="checkbox" />
+                        </span>
+
+                    </div>
+
+
+
+
+                </div>
+            </div>
+
+
+            <div style="border:2px solid #000;border-top:none; text-align:left;color: #000;">
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 font-bold">
+                        <span>(معلومات خاصة باللوط والعينة) Lot and Sampling Information</span>
+                    </div>
+
+
+
+                </div>
+
+                <div class="row">
+
+                    @foreach (var item2 in Model.FirstOrDefault().ItemEx_CheckRequest)
+                    {
+                        foreach (var x in item2.item_lots2)
+                        {
+                            <div class="col-lg-6 col-md-12 col-sm-12">
+
+                                <span>(حجم/وزن اللوط)  Lot/Batch Size[Weight/Volume] </span>
+                                <br />
+                                <span>/</span> <span>@x.Size</span>
+                            </div>
+
+                            <div class="col-lg-6 col-md-12 col-sm-12">
+
+                                <span>(رقم اللوط/التشغيلة) Lot/Batch Number </span>
+                                <br />
+                                <span>/</span> <span>@x.Lot_Number</span>
+                            </div>
+                        }
+                    }
+                </div>
+
+
+                <div class="row">
+                    @foreach (var item3 in Model.FirstOrDefault().ItemEx_CheckRequest)
+                    {
+                        foreach (var x in item3.item_lots)
+                        {
+                            <div class="col-lg-6 col-md-12 col-sm-12">
+
+                                <span>(حجم العبوة) Size of Package </span>
+                                <br />
+                                <span>الوزن القائم : </span> <span>@x.Gross_Weight_Final</span><span>-------</span><span>الوزن الصافى : </span> <span>@x.Net_Weight_Final</span>
+                            </div>
+
+
+                            <div class="col-lg-6 col-md-12 col-sm-12">
+
+                                <span>(عدد ونوع العبوات) No. and Type of Package </span>
+                                <br />
+                                <span>@x.Package_Count</span><span>  </span><span>@x.packageType</span>
+                            </div>
+                        }
+                    }
+                </div>
+
+
+                <div class="row">
+
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+
+                        <span>(حم العينة المعملية)  Lab Sample Size </span>
+                        <br />
+                        <span>@Model.FirstOrDefault().SampleSize</span>
+                    </div>
+
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+
+                        <span>(عدد تحت العينات) No. of Primary Samples </span>
+                        <br />
+                        <span>@Model.FirstOrDefault().Count_Sample  </span>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+
+                        <span>(التخزين- الاستلام)  Storage Conditions as Received </span>
+                        <br>
+                        <span>(درجة الجو).Normal T </span><span style=" margin-right: 5px;">(مجمدة) 20c- </span>
+                        <span style=" margin-right: 5px;">(مبردة) 5c+</span>
+
+
+                    </div>
+
+                    @foreach (var item2 in Model.FirstOrDefault().ItemEx_CheckRequest)
+                    {
+                        foreach (var x in item2.item_lots2)
+                        {
+                            <div class="col-lg-6 col-md-12 col-sm-12">
+
+                                <span>(نوع العبوة ومادة التغليف-الاستلام) Shipment Package </span>
+                                <br />
+                                <span>@x.Package_Type_Name</span><span>  </span><span>@x.packageMaterialName</span>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+
+
+            <div style="border:2px solid #000;border-top:none; text-align:left;color: #000;">
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 font-bold">
+                        <span>(نوع التحليل المطلوب) Analysis Required</span>
+                    </div>
+
+
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-lg-2 col-md-12 col-sm-12">
+
+                        <span>
+
+                            Microbiology
+                            @if (@Model.FirstOrDefault().analysisType_En == "Pesticides")
+                            {
+
+                                <input type="checkbox" checked="checked" />
+                            }
+                            else
+                            { <input type="checkbox" />}
+                        </span>
+
+                    </div>
+
+
+                    <div class="col-lg-2 col-md-12 col-sm-12">
+
+                        <span>
+
+                            Dioxins
+
+                            @if (@Model.FirstOrDefault().analysisType_En == "Heavy metals")
+                            {
+
+                                <input type="checkbox" checked="checked" />
+                            }
+                            else
+                            { <input type="checkbox" />}
+                        </span>
+
+                    </div>
+
+                    <div class="col-lg-2 col-md-12 col-sm-12">
+
+
+                        <span>
+
+                            Veterinary Drugs
+
+                            @if (@Model.FirstOrDefault().analysisType_En == "Veterinary Drugs")
+                            {
+
+                                <input type="checkbox" checked="checked" />
+                            }
+                            else
+                            { <input type="checkbox" />}
+                        </span>
+
+
+
+
+
+
+                    </div>
+
+                    <div class="col-lg-2 col-md-12 col-sm-12">
+
+                        <span>
+
+                            Mycotoxins
+
+                            @if (@Model.FirstOrDefault().analysisType_En == "Mycotoxins")
+                            {
+
+                                <input type="checkbox" checked="checked" />
+                            }
+                            else
+                            { <input type="checkbox" />}
+                        </span>
+
+                    </div>
+
+                    <div class="col-lg-2 col-md-12 col-sm-12">
+
+                        <span>
+
+                            Heavy metals
+
+                            @if (@Model.FirstOrDefault().analysisType_En == "Heavy metals")
+                            {
+
+                                <input type="checkbox" checked="checked" />
+                            }
+                            else
+                            { <input type="checkbox" />}
+                        </span>
+
+
+
+
+                    </div>
+                    <div class="col-lg-2 col-md-12 col-sm-12">
+
+                        <span>
+
+                            Pesticides
+                            @if (@Model.FirstOrDefault().analysisType_En == "Pesticides")
+                            {
+
+                                <input type="checkbox" checked="checked" />
+                            }
+                            else
+                            { <input type="checkbox" />}
+                        </span>
+
+
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2 col-md-12 col-sm-12">
+
+                        <span>
+
+                            ميكروبيولوجي
+
+                            <input type="checkbox" />
+                        </span>
+
+                    </div>
+
+                    <div class="col-lg-2 col-md-12 col-sm-12">
+
+                        <span>
+
+                            دايوكسينات
+
+                            <input type="checkbox" />
+                        </span>
+
+                    </div>
+
+                    <div class="col-lg-2 col-md-12 col-sm-12">
+
+                        <span>
+
+                            عقاقير بيطرية
+
+                            <input type="checkbox" />
+                        </span>
+
+                    </div>
+
+                    <div class="col-lg-2 col-md-12 col-sm-12">
+
+                        <span>
+
+                            ميكوتوكسينات
+
+                            <input type="checkbox" />
+                        </span>
+
+                    </div>
+
+
+
+
+                    <div class="col-lg-2 col-md-12 col-sm-12">
+
+                        <span>
+
+                            عناصر ثقيلة
+
+                            <input type="checkbox" />
+                        </span>
+
+                    </div>
+
+
+                    <div class="col-lg-2 col-md-12 col-sm-12">
+
+                        <span>
+
+                            متبقيات مبيدات
+
+                            <input type="checkbox" />
+                        </span>
+
+                    </div>
+
+
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 ">
+                        <span>.....................................................................</span>
+                        <span class="font-bold">(تحديد نوع أو طريقة التحليل) In Specific</span>
+
+                        <br>
+                        <span>.......................................................................................................................................................................................</span>
+                        <br>
+                        <span>.......................................................................................................................................................................................</span>
+                    </div>
+
+
+
+                </div>
+
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 ">
+                        <span>.....................................</span>
+                        <span class="font-bold"> (اسم/توقيع العميل)</span>
+                        <span>.....................................</span>
+                        <span class="font-bold"> Customer Name/Signature</span>
+
+
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+
+            <div style="border:2px solid #000;border-top:none; text-align:left;color: #000;">
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <span>.................</span>
+                        <span class="font-bold">(وقت الاستلام)  Time</span>
+
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <span>..............20/......./............</span>
+                        <span class="font-bold">(تاريخ الاستلام)  Date</span>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <span>.................</span>
+                        <span>(اسم موظف الاستقبال) </span>
+
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <span>.....................</span>
+                        <span class="font-bold">Receptionist</span>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div style="border:2px solid #000;border-top:none; text-align:left;color: #000;">
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+
+                        <span>The lab has the capability to fulfill the customer requirements </span>
+
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12 font-bold">
+
+                        <span>:Review of Customer Requirements</span>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+
+                        <span>yes </span>
+                        <input type="checkbox" />
+                        <span>No </span>
+                        <input type="checkbox" />
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+
+                        <span>:Person in charge Name /signature/Date</span>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div id="footer3" style="height:3cm;">
+            <div class="row" style="text-align: left;margin-top: 0px;margin-left: 5px;color: #000;">
+
+                <div class="col-lg-12 col-md-12 col-sm-12 ">
+
+                    <span>..........................</span>
+                    <span>:Issue Date</span>
+                </div>
+
+            </div>
+            <div class="row" style="text-align: center;margin-top:5px;">
+
+                <div class="col-lg-6 col-md-12 col-sm-12 " style="height: inherit;text-align: right;display: flex;">
+
+                    <p class="lab-2" style="margin:auto;color:#000;font-size:12px;">
+                        <span>7ش نادي الصيد - الدقي - جيزة - جمهورية مصر العربية</span>
+                        <br />
+                        <span style="font-size:12px;">     تليفون: (202 37611355)</span>
+                        <br />
+                        <span style="font-size:12px;"> فاكس:202 37611106 - 202 37611216</span>
+                        <br />
+                        <span style="font-size:12px;">Website:www.qcap-egypt.com</span>
+
+                    </p>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 " style="height: inherit;text-align: left;display: flex;">
+                    <p class="lab-2" style="margin:auto;color:#000;font-size:12px;">
+                        <span>7Nadi ElSaid St.Dokki - Giza - Egypt</span>
+                        <br />
+                        <span style="font-size:12px;">     Phone: (202 37611355)</span>
+                        <br />
+                        <span style="font-size:12px;"> Fax:202 37611106 - 202 37611216</span>
+                        <br />
+                        <span style="font-size:12px;">Email:customer.service@qcap-egypt.com</span>
+
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-2 text-align-center">
+        <center>
+            <button id="PrintResultButton" class="btn btnar  btn-grd-primary" value='Print' onclick='printar("certificat")'> اطبع </button>
+
+        </center>
+    </div>
+    <div class="col-md-2 text-align-center">
+    </div>
+
+    <div class="col-md-4"></div>
+</div>
+
+
+<script>
+
+    function printar(k) {
+
+        debugger
+        var restorepage2 = document.body.innerHTML;
+        var printcontent2 = $('#' + k).html();
+
+        document.body.innerHTML = printcontent2;
+
+        var css = `@@page{margin: 0cm 0cm 0cm 0cm!important;}.verticalLine{width:1px !important;margin: 0!important;background: #000!important;}.lab-2 {margin-top: 40px;margin-right: 8px;text-align: center;font-size: 16px}img.img1 {visibility: visible;}.col-lg-4 {width: 33.33333333%;flex: 0 0 auto;}.col-lg-8 {width: 66.66666667%;flex: 0 0 auto;}.col-lg-6 {width: 50%;flex: 0 0 auto;}.col-md-7 {width: 58.33333333%;}.col-md-5 {width: 41.66666667%;}.col-lg-2 {flex: 0 0 auto;width: 16.66667%;} canvas{display: inline-block !important;vertical-align: baseline!important;top: 10px;position: absolute;}#caption1 {color: #000000;text-align: right;caption-side: top;font-weight: bold;} body, h1, h2, h4, h3, h5, h6, span, a, label, th, td, table{font-size:10px;}.row {padding-left: 10px}  `,
+            head = document.head || document.getElementsByTagName('head')[0],
+            style = document.createElement('style');
+        style.type = 'text/css';
+        style.media = 'print';
+        if (style.styleSheet) {
+            style.styleSheet.cssText = css;
+        }
+        else {
+            style.appendChild(document.createTextNode(css));
+        }
+        head.appendChild(style);
+        window.print();
+        history.go(0);
+        window.location.reload();
+        document.body.innerHTML = restorepage2;
+
+
+
+
+    }
+</script>
+
+
+
+
+
+
+

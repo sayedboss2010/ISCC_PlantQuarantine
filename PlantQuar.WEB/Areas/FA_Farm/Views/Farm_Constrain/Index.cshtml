@@ -1,0 +1,282 @@
+﻿
+@model List<PlantQuar.DTO.DTO.Farm.FarmConstrain.Farm_ConstrainDTO>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">اشتراطات الدول للمزرعة</h2>
+}
+
+@section Path{
+    <li>@PlantQuar.WEB.Language.Resource_data1.Constrains</li>
+    <li class="active">@PlantQuar.WEB.Language.Resource_data1.Farm_Constrain</li>
+}
+<link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
+<style>
+    .bootstrap-select .dropdown-menu.inner {
+        float: left !important;
+    }
+</style>
+<script src="~/scripts/jquery.dataTables.min.js"></script>
+<link href="~/assets/css/jquery.dataTables.min.css" rel="stylesheet" />
+@*@section filter{
+        <div class="row">
+            <label class="col-lg-2 col-md-12 col-sm-12">@PlantQuar.WEB.Language.Resource_data1.ArabicName</label>
+            <input type="text" class="form-inline col-lg-3  col-md-12 col-sm-12" autocomplete="off" name="txt_AR_BTNSearch" id="txt_AR_BTNSearch" />
+            <label class="col-lg-2 col-md-12 col-sm-12">@PlantQuar.WEB.Language.Resource_data1.EnglishName</label>
+            <input type="text" class="form-inline col-lg-3  col-md-12 col-sm-12" autocomplete="off" name="txt_EN_BTNSearch" id="txt_EN_BTNSearch" />
+            <input type="button" class="col-lg-1 col-md-2 btn btn-primary" id="LoadRecordsButton" value="@PlantQuar.WEB.Language.Resource_data1.Search">
+        </div>
+    }*@
+
+
+@*<style>
+        th {
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        td {
+            font-size: 12px;
+            text-align: center;
+        }
+    </style>*@
+@*<label for="Union_Id" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Union</label>
+    <select id="Union_Id" name="Union_Id" class="form-control" required></select>*@
+<div class="row">
+
+
+
+    <div class="col-md-6">
+
+        <label for="Constrain_Country" class="control-label">الدول</label>
+
+
+        <select id="Farm_Constrain_Country_Item_List" class="form-control" required></select>
+
+    </div>
+
+    <div class="col-md-6">
+
+        <label for="Country_Id" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Items</label>
+        <select id="Item_ID_List" name="Item_ID_List" class="form-control" required></select>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <input type="submit" class="btn btn-primary" id="Save_Check" style="width:100%" value="بحث" autocomplete="off">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-10"></div>
+        <div class="col-md-2">
+            @Html.ActionLink(PlantQuar.WEB.Language.Resource_data1.Add, "Farm_ConstrainAddEdit", "Farm_Constrain", new { area = "FA_Farm" }, new { @class = "btn btn-primary", @style = "width:100%" })
+        </div>
+    </div>
+</div>
+@*<form style="padding: 10px; background-color: whitesmoke">
+    <div id="listFarm_Constrain" class="row">
+        <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap">*@
+<table id="Farm_ConstrainTable" class="table table-bordered table-striped dataTable">
+    <thead>
+        <tr>
+            <th hidden>ID</th>
+            <th>@PlantQuar.WEB.Language.Resource_data1.Farm_Constrain</th>
+
+            <th>@PlantQuar.WEB.Language.Resource_data1.AnalysisType</th>
+            @*<th>@PlantQuar.WEB.Language.Resource_data1.Union</th>*@
+            <th>@PlantQuar.WEB.Language.Resource_data1.Country</th>
+            <th>@PlantQuar.WEB.Language.Resource_data1.Items</th>
+
+            <th>@PlantQuar.WEB.Language.Resource_data1.Preview</th>
+            <th>@PlantQuar.WEB.Language.Resource_data1.Active</th>
+
+            <th>@PlantQuar.WEB.Language.Resource_data1.Edit</th>
+            <th>@PlantQuar.WEB.Language.Resource_data1.Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            if (Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td hidden>@item.ID</td>
+                        <td>@item.Farm_Constrain_Text_Name</td>
+                        <td>@item.AnalysisType_Name</td>
+                        @*<td>@item.Union_Name</td>*@
+
+                        @if (@item.Country_Name != "null")
+                        {
+                            <td>@item.Country_Name </td>
+                        }
+                        else
+                        {
+                            <td>كل الدول</td>
+                        }
+
+
+                        <td>@item.Item_Name</td>
+                        <td>@item.Is_Preview</td>
+                        <td>@item.IsActive</td>
+
+
+
+                        @*<td>
+                                @Html.ActionLink(PlantQuar.WEB.Language.Resource_data1.Edit, "Farm_ConstrainAddEdit", "Farm_Constrain", new { area = "FA_Farm", id = item.ID }, null)
+                            </td>*@
+                        <td>
+                            @Html.ActionLink(PlantQuar.WEB.Language.Resource_data1.Delete, "DeleteFarm_Constrain", "Farm_Constrain", new { area = "FA_Farm", FarmId = item.ID }, null)
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+@*</div>
+        </div>
+    </form>*@
+@*<script>
+        $(function () {
+            $("#Union_Id").change(function () {
+
+                $("#Country_Id").empty();
+                var Union_Id = $("#Union_Id").val();
+                //alert(Union_Id);
+                $.ajax({
+                    url: "../../FA_Farm/Farm_Constrain/GetCountriesUnion_Name",
+                    data: { CountriesUnion_Id: Union_Id },
+
+                    success: function (res) {
+
+                        $.each(res.Options, function (i, e) {
+
+                            $("#Country_Id").append("<option Value='" + e.Value + "'>" + e.DisplayText + "</option>")
+                        })
+
+                    }
+                })
+            });
+        });
+
+    </script>*@
+
+<script src="~/assets/js/bootstrap-select1.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+     // النبات
+         $.ajax( {
+                        url: '@Url.Action("Farm_Item_List", "Farm_CheckList_Constrain", new { area = "FA_Farm" })',
+                        type: 'Post',
+                        success: function (data) {
+                            $('#Item_ID_List').empty();
+                            $.each(data.Options, function (i, index) {
+
+                                $('#Item_ID_List').append($('<option />').val(index.Value).text(index.DisplayText));
+                            }); //each
+                             $('#Item_ID_List').selectpicker('refresh');
+                        } //success
+                    });//ajax
+
+
+        //الدول
+                $.ajax(
+                    {
+                        url: '@Url.Action("Country_List", "Farm_CheckList_Constrain", new { area = "FA_Farm" })',
+
+                        type: 'Post',
+                        success: function (data) {
+                            $('#Farm_Constrain_Country_Item_List').empty();
+                            $.each(data.Options, function (i, index) {
+
+                                $('#Farm_Constrain_Country_Item_List').append($('<option />').val(index.Value).text(index.DisplayText));
+                            }); //each
+                             $('#Farm_Constrain_Country_Item_List').selectpicker('refresh');
+                        } //success
+                    });//ajax
+
+        ////////////////
+          $("#Farm_Constrain_Country_Item_List,#Item_ID_List").selectpicker({
+            liveSearch: true
+
+
+
+          });
+
+
+
+    });
+
+    $('#Save_Check').click(function (e) {
+        FillTable();
+    })
+
+
+    function FillTable() {
+        var tt = $('#Farm_ConstrainTable').DataTable();
+        tt.clear().draw(); tt.destroy();
+        $.ajax({
+            url: '/FA_Farm/Farm_Constrain/listFarm_Constrain',
+            data: {
+                txt_AR_BTNSearch: $('#txt_AR_BTNSearch').val(),
+                txt_EN_BTNSearch: $('#txt_EN_BTNSearch').val(),
+                Country_Id: $('#Farm_Constrain_Country_Item_List').val(),
+                Item_ID: $('#Item_ID_List').val()
+            },
+            success: function (listFarm_Constrain) {
+                // console.log(listFarm_Constrain);
+                $("#Farm_ConstrainTable tbody").empty();
+                $.each(listFarm_Constrain.Records, function (index, item) {
+                    @*var hrefDetails = "@Url.Action("Farm_ConstrainDetails", "Farm_Constrain", new { area = "FA_Farm", FarmId = "__id__" })";
+                    hrefDetails = hrefDetails.replace("__id__", item.ID);*@
+
+                    var hrefEdit = "@Url.Action("Farm_ConstrainAddEdit", "Farm_Constrain", new { area = "FA_Farm", id = "__id__" })";
+                    hrefEdit = hrefEdit.replace("__id__", item.ID);
+
+                    var hrefDel = "@Url.Action("DeleteFarm_Constrain", "Farm_Constrain", new {  area = "FA_Farm", id = "__id__" })";
+                    hrefDel = hrefDel.replace("__id__", item.ID);
+                    var isActiveChecked = item.IsActive ? "checked" : '';
+                    var Is_Preview = item.Is_Preview ? "checked" : '';
+                   // alert(item.Country_Name);
+                    var Country_Name = item.Country_Name;
+                   // Country_Name == null ? 'كل الدول' : item.Country_Name;
+
+
+
+                    $("#Farm_ConstrainTable tbody").append("<tr>" +
+                        "<td>" + item.Farm_Constrain_Text_Name + "</td>" +
+                        "<td>" + item.AnalysisType_Name + "</td>" +
+                       // "<td>" + Country_Name  + "</td>" +
+
+                        "<td>" + (Country_Name == null ? "كل الدول" : item.Country_Name) + "</td>" +
+
+                        "<td>" + item.Item_Name + "</td>" +
+                        "<td> <input type='checkbox'  disabled  " + Is_Preview +"></input> </td>" +
+                        "<td> <input type='checkbox'  disabled  " + isActiveChecked +"></input> </td>" +
+
+                        "<td><a href=" + hrefEdit + ">@PlantQuar.WEB.Language.Resource_data1.Edit</a></td>" +
+                        "<td><a href=" + hrefDel + ">@PlantQuar.WEB.Language.Resource_data1.Delete</a></td>" +
+                        "</tr>");
+
+                });//each
+                $('#Farm_ConstrainTable').DataTable();
+            }
+        });
+
+    }
+
+
+</script>
+

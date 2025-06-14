@@ -1,0 +1,2358 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Accreditation" xml:space="preserve">
+    <value>Accreditation</value>
+  </data>
+  <data name="AccreditationData" xml:space="preserve">
+    <value>Accreditation Data</value>
+  </data>
+  <data name="AccreditationDataAdded" xml:space="preserve">
+    <value>Accreditation Data Added Successfuly</value>
+  </data>
+  <data name="AccreditationEndDate" xml:space="preserve">
+    <value>Accreditation EndDate</value>
+  </data>
+  <data name="AccreditationFarm" xml:space="preserve">
+    <value>Accreditation EndDate Accreditation Farm</value>
+  </data>
+  <data name="AccreditationStartDate" xml:space="preserve">
+    <value>Accreditation StartDate</value>
+  </data>
+  <data name="ActivatingApprovedStations" xml:space="preserve">
+    <value> Activating Approved Stations</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Activity" xml:space="preserve">
+    <value>Activity</value>
+  </data>
+  <data name="ActivityData" xml:space="preserve">
+    <value>Activity Data</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="AddActivity" xml:space="preserve">
+    <value>Add Activity</value>
+  </data>
+  <data name="AddContactData" xml:space="preserve">
+    <value>Add ContactData</value>
+  </data>
+  <data name="AddNationalCompany" xml:space="preserve">
+    <value>Add National Company</value>
+  </data>
+  <data name="AddPlantpart" xml:space="preserve">
+    <value>Add Plantpart</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="Address_Ar" xml:space="preserve">
+    <value>Address_Ar</value>
+  </data>
+  <data name="Address_En" xml:space="preserve">
+    <value>Address_En</value>
+  </data>
+  <data name="AddStation" xml:space="preserve">
+    <value>Add Station</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="AgriculturalQuarantineMinistryofAgriculture" xml:space="preserve">
+    <value>Agricultural Quarantine- Ministry of Agriculture</value>
+  </data>
+  <data name="AgrigclutreClassification" xml:space="preserve">
+    <value>AgrigclutreClassification</value>
+  </data>
+  <data name="Allowed" xml:space="preserve">
+    <value>Allowed</value>
+  </data>
+  <data name="AllowedNot" xml:space="preserve">
+    <value>Not Allowed</value>
+  </data>
+  <data name="AllRightsAreReserved" xml:space="preserve">
+    <value>All design and programming rights are reserved to</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="Analysis" xml:space="preserve">
+    <value>Analysis</value>
+  </data>
+  <data name="AnalysisLab" xml:space="preserve">
+    <value>AnalysisLab</value>
+  </data>
+  <data name="AnalysisType" xml:space="preserve">
+    <value>AnalysisType</value>
+  </data>
+  <data name="Approved" xml:space="preserve">
+    <value>Approved</value>
+  </data>
+  <data name="ApprovedNot" xml:space="preserve">
+    <value>Not Approved</value>
+  </data>
+  <data name="ApprovedStation" xml:space="preserve">
+    <value>Approved Station</value>
+  </data>
+  <data name="ArabicName" xml:space="preserve">
+    <value>Arabic Name</value>
+  </data>
+  <data name="Area_Acres" xml:space="preserve">
+    <value>Area_Acres</value>
+  </data>
+  <data name="ArrivalPort" xml:space="preserve">
+    <value>Arrival Port</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Attachments</value>
+  </data>
+  <data name="Avaiable" xml:space="preserve">
+    <value>Avaiable</value>
+  </data>
+  <data name="AvaiableNot" xml:space="preserve">
+    <value>Not Avaiable</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="BasicData" xml:space="preserve">
+    <value>Basic Data</value>
+  </data>
+  <data name="Biological_Phase" xml:space="preserve">
+    <value>Biological_Phase</value>
+  </data>
+  <data name="category" xml:space="preserve">
+    <value>category</value>
+  </data>
+  <data name="Center" xml:space="preserve">
+    <value>Center</value>
+  </data>
+  <data name="CenteralAdmin" xml:space="preserve">
+    <value>Centeral Admin</value>
+  </data>
+  <data name="CenterDistrictCity" xml:space="preserve">
+    <value>Center/District/City</value>
+  </data>
+  <data name="CentralAdministration" xml:space="preserve">
+    <value>Central Administration</value>
+  </data>
+  <data name="check" xml:space="preserve">
+    <value>check</value>
+  </data>
+  <data name="checkPlace" xml:space="preserve">
+    <value>Place Of Check</value>
+  </data>
+  <data name="CheckrequestNamber" xml:space="preserve">
+    <value>Checkrequest Namber</value>
+  </data>
+  <data name="CommertialRecord" xml:space="preserve">
+    <value>Commertial Record</value>
+  </data>
+  <data name="Committee" xml:space="preserve">
+    <value>Committee</value>
+  </data>
+  <data name="CommitteeResult" xml:space="preserve">
+    <value>Committee Result</value>
+  </data>
+  <data name="CommitteeTask" xml:space="preserve">
+    <value>CommitteeTask</value>
+  </data>
+  <data name="CommitteMember" xml:space="preserve">
+    <value>Committe Member</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="CompanyActivity" xml:space="preserve">
+    <value>Company Activity</value>
+  </data>
+  <data name="CompanyActivityType" xml:space="preserve">
+    <value>Company ActivityType</value>
+  </data>
+  <data name="CompanyData" xml:space="preserve">
+    <value>Company Data</value>
+  </data>
+  <data name="CompanyExport" xml:space="preserve">
+    <value>Company Export</value>
+  </data>
+  <data name="CompanyInternational" xml:space="preserve">
+    <value>Company International</value>
+  </data>
+  <data name="CompanyMainActivity" xml:space="preserve">
+    <value>Company Main Activity</value>
+  </data>
+  <data name="CompanyNational" xml:space="preserve">
+    <value>National Company</value>
+  </data>
+  <data name="ComputerAndInformationSystems" xml:space="preserve">
+    <value>Computer And Information Systems Center</value>
+  </data>
+  <data name="Constrains" xml:space="preserve">
+    <value>Constrains</value>
+  </data>
+  <data name="Constrain_Type" xml:space="preserve">
+    <value>Constrain_Type</value>
+  </data>
+  <data name="ContactData" xml:space="preserve">
+    <value>Contact Data</value>
+  </data>
+  <data name="ContactType" xml:space="preserve">
+    <value>ContactType</value>
+  </data>
+  <data name="ContainerContent" xml:space="preserve">
+    <value>Container Content</value>
+  </data>
+  <data name="ContainerOwner" xml:space="preserve">
+    <value>Container Owner</value>
+  </data>
+  <data name="ContainerOwnerAddress" xml:space="preserve">
+    <value>Container Owner Address</value>
+  </data>
+  <data name="ContainerOwnerRepresentative" xml:space="preserve">
+    <value>Container Owner Representative</value>
+  </data>
+  <data name="ContainerOwnerRepresentativeAddress" xml:space="preserve">
+    <value>Container Owner Representative Address</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="CountryConstrain" xml:space="preserve">
+    <value>Country Constrain</value>
+  </data>
+  <data name="CountryConstrainType" xml:space="preserve">
+    <value>Country Constrain Type</value>
+  </data>
+  <data name="CountryExport" xml:space="preserve">
+    <value>Country Export</value>
+  </data>
+  <data name="CurrentStatus" xml:space="preserve">
+    <value>CurrentStatus</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="DateEnd" xml:space="preserve">
+    <value>DateEnd</value>
+  </data>
+  <data name="DateStart" xml:space="preserve">
+    <value>DateStart</value>
+  </data>
+  <data name="Date_of_committee" xml:space="preserve">
+    <value>Date_of_committee</value>
+  </data>
+  <data name="Date_of_registration_request" xml:space="preserve">
+    <value>Date_of_registration_request</value>
+  </data>
+  <data name="DelegationDate" xml:space="preserve">
+    <value>DelegationDate</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeletePlantpart" xml:space="preserve">
+    <value>Delete Plantpart</value>
+  </data>
+  <data name="Descreption_En" xml:space="preserve">
+    <value>English Descreption</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Description_Ar" xml:space="preserve">
+    <value>Arabic Description</value>
+  </data>
+  <data name="DisplayErorrs" xml:space="preserve">
+    <value>Display Erorrs</value>
+  </data>
+  <data name="DoesTreatmentOrNot" xml:space="preserve">
+    <value>Does the company have treatment?</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EditeActivity" xml:space="preserve">
+    <value>Edite Activity</value>
+  </data>
+  <data name="EditePlantpart" xml:space="preserve">
+    <value>Edite Plantpart</value>
+  </data>
+  <data name="EffectiveMaterial" xml:space="preserve">
+    <value>Effective Material</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmpolyeeName" xml:space="preserve">
+    <value>Empolyee Name</value>
+  </data>
+  <data name="EmpolyeeNumber" xml:space="preserve">
+    <value>Empolyee Number</value>
+  </data>
+  <data name="EngineerName" xml:space="preserve">
+    <value>Engineer Name</value>
+  </data>
+  <data name="EngineerNumber" xml:space="preserve">
+    <value>Engineer Number</value>
+  </data>
+  <data name="EnglishName" xml:space="preserve">
+    <value>English Name</value>
+  </data>
+  <data name="ExaminLocationType" xml:space="preserve">
+    <value>ExaminLocationType</value>
+  </data>
+  <data name="exempt" xml:space="preserve">
+    <value>exempt</value>
+  </data>
+  <data name="Exeporter" xml:space="preserve">
+    <value>Exeporter</value>
+  </data>
+  <data name="ExeporterName" xml:space="preserve">
+    <value>Exeporter Name</value>
+  </data>
+  <data name="ExpireDate" xml:space="preserve">
+    <value>Expire Date</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="ExportCommitte" xml:space="preserve">
+    <value>Export Committe</value>
+  </data>
+  <data name="ExportCompany" xml:space="preserve">
+    <value>Export Company</value>
+  </data>
+  <data name="ExportCompanyAddress" xml:space="preserve">
+    <value>Export Company Address</value>
+  </data>
+  <data name="ExportDate" xml:space="preserve">
+    <value>Export Date</value>
+  </data>
+  <data name="ExporterType" xml:space="preserve">
+    <value>ExporternType</value>
+  </data>
+  <data name="ExportRequest" xml:space="preserve">
+    <value>ExportRequest</value>
+  </data>
+  <data name="ExportRequestsList" xml:space="preserve">
+    <value>Export Requests List</value>
+  </data>
+  <data name="ExportSampleData" xml:space="preserve">
+    <value>Export Sample Data</value>
+  </data>
+  <data name="ExportStatus" xml:space="preserve">
+    <value>ExportnStatus</value>
+  </data>
+  <data name="FarmCategory" xml:space="preserve">
+    <value>Farm Category</value>
+  </data>
+  <data name="FarmCode" xml:space="preserve">
+    <value>Farm Code</value>
+  </data>
+  <data name="FarmName" xml:space="preserve">
+    <value>Farm Name</value>
+  </data>
+  <data name="UserCreationDate" xml:space="preserve">
+    <value>User Creation Date</value>
+  </data>
+  <data name="IsPaid" xml:space="preserve">
+    <value>Is Paid</value>
+  </data>
+  <data name="FarmData" xml:space="preserve">
+    <value>FarmData</value>
+  </data>
+  <data name="FarmPlant" xml:space="preserve">
+    <value>FarmPlant</value>
+  </data>
+  <data name="FarmSampleData" xml:space="preserve">
+    <value>Farm Sample Data</value>
+  </data>
+  <data name="FaxNumber" xml:space="preserve">
+    <value>Fax Number</value>
+  </data>
+  <data name="Fees" xml:space="preserve">
+    <value>Fees</value>
+  </data>
+  <data name="FeesType" xml:space="preserve">
+    <value>Fees Type</value>
+  </data>
+  <data name="FileName" xml:space="preserve">
+    <value>File Name</value>
+  </data>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>File is Not Found</value>
+  </data>
+  <data name="FixedFeesAmount" xml:space="preserve">
+    <value>Fixed Fees Amount</value>
+  </data>
+  <data name="ForbiddenReason" xml:space="preserve">
+    <value>Forbidden Reason</value>
+  </data>
+  <data name="ForbiddenStatus" xml:space="preserve">
+    <value>Forbidden Status</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>Full Name</value>
+  </data>
+  <data name="GeneralAdmin" xml:space="preserve">
+    <value>General Admin</value>
+  </data>
+  <data name="GeneralManager" xml:space="preserve">
+    <value>General Manager</value>
+  </data>
+  <data name="GeographicRange" xml:space="preserve">
+    <value>GeographicRange</value>
+  </data>
+  <data name="GotoPage" xml:space="preserve">
+    <value>GotoPage</value>
+  </data>
+  <data name="Governate" xml:space="preserve">
+    <value>Governate</value>
+  </data>
+  <data name="Gram" xml:space="preserve">
+    <value>Gram</value>
+  </data>
+  <data name="HagerData" xml:space="preserve">
+    <value>Quarantine Data</value>
+  </data>
+  <data name="HSCode" xml:space="preserve">
+    <value>HSCode</value>
+  </data>
+  <data name="IdentityNumber" xml:space="preserve">
+    <value>Identity Number</value>
+  </data>
+  <data name="IdentityType" xml:space="preserve">
+    <value>IdentityType</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="ImportCompany" xml:space="preserve">
+    <value>Import Company</value>
+  </data>
+  <data name="ImportCountry" xml:space="preserve">
+    <value>Import Country</value>
+  </data>
+  <data name="ImportProcedures" xml:space="preserve">
+    <value>Import Procedures</value>
+  </data>
+  <data name="ImportStatus" xml:space="preserve">
+    <value>Import Status</value>
+  </data>
+  <data name="IndustrialLicenseNumber" xml:space="preserve">
+    <value>Industrial License Number</value>
+  </data>
+  <data name="Internal" xml:space="preserve">
+    <value>Internal</value>
+  </data>
+  <data name="International" xml:space="preserve">
+    <value>International</value>
+  </data>
+  <data name="invalidCheckrequestNumber" xml:space="preserve">
+    <value>invalid Checkrequest Number</value>
+  </data>
+  <data name="InvalidMobileNumber" xml:space="preserve">
+    <value>Invalid Mobile Number</value>
+  </data>
+  <data name="IPPCMember" xml:space="preserve">
+    <value>IPPC Member</value>
+  </data>
+  <data name="IPPCMemberNot" xml:space="preserve">
+    <value>IPPC MemberNot</value>
+  </data>
+  <data name="IPPCMembership" xml:space="preserve">
+    <value>IPPC Membership</value>
+  </data>
+  <data name="ItemDataAdded" xml:space="preserve">
+    <value>Item Data Added Successfuly</value>
+  </data>
+  <data name="Job" xml:space="preserve">
+    <value>Job</value>
+  </data>
+  <data name="Kilo" xml:space="preserve">
+    <value>Kilo</value>
+  </data>
+  <data name="LiableAlive" xml:space="preserve">
+    <value> Alive Liable</value>
+  </data>
+  <data name="LiableAliveNot" xml:space="preserve">
+    <value>Not Alive Liable</value>
+  </data>
+  <data name="LiableItems" xml:space="preserve">
+    <value>LiableItems</value>
+  </data>
+  <data name="LiableItemsShortName" xml:space="preserve">
+    <value>Liable Items ShortName</value>
+  </data>
+  <data name="LiableItems_ShortName" xml:space="preserve">
+    <value>LiableItems_ShortName</value>
+  </data>
+  <data name="LiableItems_Status" xml:space="preserve">
+    <value>Items_Status</value>
+  </data>
+  <data name="LiableItems_Strain" xml:space="preserve">
+    <value>LiableItems_Strain</value>
+  </data>
+  <data name="LiableItemType" xml:space="preserve">
+    <value>Liable Item Type</value>
+  </data>
+  <data name="LocalClassifications" xml:space="preserve">
+    <value>Local Classifications</value>
+  </data>
+  <data name="LoginName" xml:space="preserve">
+    <value>Login Name</value>
+  </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>Log Out</value>
+  </data>
+  <data name="LotData" xml:space="preserve">
+    <value>Lot Data</value>
+  </data>
+  <data name="MainCalssification" xml:space="preserve">
+    <value>Main Calssification</value>
+  </data>
+  <data name="MainTreatment" xml:space="preserve">
+    <value>Main Treatment</value>
+  </data>
+  <data name="Manafest" xml:space="preserve">
+    <value>Manafest</value>
+  </data>
+  <data name="Mandatory" xml:space="preserve">
+    <value>Mandatory</value>
+  </data>
+  <data name="Member" xml:space="preserve">
+    <value>Member</value>
+  </data>
+  <data name="MemberNumber" xml:space="preserve">
+    <value>Member Number</value>
+  </data>
+  <data name="MinAmount" xml:space="preserve">
+    <value>MinAmount</value>
+  </data>
+  <data name="MinistryofMilitaryProduction" xml:space="preserve">
+    <value>Ministry of Military Production</value>
+  </data>
+  <data name="MobileNumber_Must_be11digits" xml:space="preserve">
+    <value>MobileNumber_Must_be11digits</value>
+  </data>
+  <data name="National" xml:space="preserve">
+    <value>National</value>
+  </data>
+  <data name="Nationality" xml:space="preserve">
+    <value>Nationality</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="NoResults" xml:space="preserve">
+    <value>NoResults</value>
+  </data>
+  <data name="NotActive" xml:space="preserve">
+    <value>NotActive</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="NotExempt" xml:space="preserve">
+    <value>Not Exempt</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="no_results" xml:space="preserve">
+    <value>No Search Result</value>
+  </data>
+  <data name="NumofRows" xml:space="preserve">
+    <value>NumofRows</value>
+  </data>
+  <data name="OrganizationAddress" xml:space="preserve">
+    <value>Organization Address</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="Outlet" xml:space="preserve">
+    <value>Outlet</value>
+  </data>
+  <data name="Owner_Ar" xml:space="preserve">
+    <value>Owner Name -Arabic</value>
+  </data>
+  <data name="Owner_En" xml:space="preserve">
+    <value>Owner Name -English</value>
+  </data>
+  <data name="PackageMaterial" xml:space="preserve">
+    <value>Package Material</value>
+  </data>
+  <data name="PackageType" xml:space="preserve">
+    <value>PackageType</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Phone Number</value>
+  </data>
+  <data name="PhylumSubphylum" xml:space="preserve">
+    <value>PhylumSubphylum</value>
+  </data>
+  <data name="ItemsN" xml:space="preserve">
+    <value>Item</value>
+  </data>
+  <data name="PlantCategory" xml:space="preserve">
+    <value>Plant Category</value>
+  </data>
+  <data name="PlantFamily" xml:space="preserve">
+    <value>Family</value>
+  </data>
+  <data name="PlantFeesAmount" xml:space="preserve">
+    <value>Plant Fees Amount</value>
+  </data>
+  <data name="PlantGroup" xml:space="preserve">
+    <value>Groups</value>
+  </data>
+  <data name="PlantKingdom" xml:space="preserve">
+    <value> Kingdom</value>
+  </data>
+  <data name="PlantLevel" xml:space="preserve">
+    <value>Level</value>
+  </data>
+  <data name="PlantOrder" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="PlantPart" xml:space="preserve">
+    <value>PlantPart</value>
+  </data>
+  <data name="PlantPartType" xml:space="preserve">
+    <value>Plant Part Type</value>
+  </data>
+  <data name="plantProduct" xml:space="preserve">
+    <value>Plant/Product</value>
+  </data>
+  <data name="Item_Purpose" xml:space="preserve">
+    <value>Item Purpose</value>
+  </data>
+  <data name="PlantRegistrationDate" xml:space="preserve">
+    <value>Plant Registration Date</value>
+  </data>
+  <data name="PlantShortName" xml:space="preserve">
+    <value>Plant ShortName</value>
+  </data>
+  <data name="PlantType" xml:space="preserve">
+    <value>Plant Type</value>
+  </data>
+  <data name="platData" xml:space="preserve">
+    <value>plat Data</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="PortInternational" xml:space="preserve">
+    <value>International Port </value>
+  </data>
+  <data name="PortNational" xml:space="preserve">
+    <value>National Port</value>
+  </data>
+  <data name="PortOrganization" xml:space="preserve">
+    <value>Port Organization</value>
+  </data>
+  <data name="Ports" xml:space="preserve">
+    <value>Ports</value>
+  </data>
+  <data name="PortType" xml:space="preserve">
+    <value>PortType</value>
+  </data>
+  <data name="Prevent" xml:space="preserve">
+    <value>Prevent</value>
+  </data>
+  <data name="Prevented_Not" xml:space="preserve">
+    <value>NotPrevented</value>
+  </data>
+  <data name="PreventReason" xml:space="preserve">
+    <value>PreventReason</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="ProductStatus" xml:space="preserve">
+    <value>ProductStatus</value>
+  </data>
+  <data name="ProtectionDecision" xml:space="preserve">
+    <value>Protection Decision</value>
+  </data>
+  <data name="PublicOrganization" xml:space="preserve">
+    <value>Public Organization</value>
+  </data>
+  <data name="PublicOrganizationType" xml:space="preserve">
+    <value>Public Organization Type</value>
+  </data>
+  <data name="Purpose" xml:space="preserve">
+    <value>Purpose</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>Reason</value>
+  </data>
+  <data name="ReasonFortrns" xml:space="preserve">
+    <value>ReasonFortrns</value>
+  </data>
+  <data name="Reciver" xml:space="preserve">
+    <value>Reciver</value>
+  </data>
+  <data name="RecoredName" xml:space="preserve">
+    <value>Recored Name</value>
+  </data>
+  <data name="RecoredNumber" xml:space="preserve">
+    <value>Recored Number</value>
+  </data>
+  <data name="RegisterDate" xml:space="preserve">
+    <value>Register Date</value>
+  </data>
+  <data name="RegisterDate_End" xml:space="preserve">
+    <value>Register Date End</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SaveLocation" xml:space="preserve">
+    <value>SaveLocation</value>
+  </data>
+  <data name="Save_Delete" xml:space="preserve">
+    <value>Deleted Successfully</value>
+  </data>
+  <data name="Save_Insert" xml:space="preserve">
+    <value>Inserted Successfuly</value>
+  </data>
+  <data name="Save_Update" xml:space="preserve">
+    <value>Updates Successfuly</value>
+  </data>
+  <data name="ScientificClassifications" xml:space="preserve">
+    <value>Scientific Classifications</value>
+  </data>
+  <data name="ScientificName" xml:space="preserve">
+    <value>Scientific Name</value>
+  </data>
+  <data name="ScientificNameAr" xml:space="preserve">
+    <value>Scientific Name Arabic</value>
+  </data>
+  <data name="ScientificNameEn" xml:space="preserve">
+    <value>Scientific Name English</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="SecondaryClassification" xml:space="preserve">
+    <value>SecondaryClassification</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="Select_One_More" xml:space="preserve">
+    <value>Select One Or More</value>
+  </data>
+  <data name="ShipmentMean" xml:space="preserve">
+    <value>Shipment Mean</value>
+  </data>
+  <data name="ShipmentPort" xml:space="preserve">
+    <value>Shipment Port</value>
+  </data>
+  <data name="ShipName" xml:space="preserve">
+    <value>Ship Name</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="Station" xml:space="preserve">
+    <value>Station</value>
+  </data>
+  <data name="StationAccreditation" xml:space="preserve">
+    <value>Station Accreditation</value>
+  </data>
+  <data name="StationActivity" xml:space="preserve">
+    <value>Station Activity</value>
+  </data>
+  <data name="StationName" xml:space="preserve">
+    <value>Station Name</value>
+  </data>
+  <data name="StationData" xml:space="preserve">
+    <value>Station Data</value>
+  </data>
+  <data name="StationDataAdded" xml:space="preserve">
+    <value>Station Data Added Successfuly</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="ActivityType" xml:space="preserve">
+    <value>Activity Type</value>
+  </data>
+  <data name="supervisorName" xml:space="preserve">
+    <value>supervisorName</value>
+  </data>
+  <data name="TaxesRecord" xml:space="preserve">
+    <value>TaxesRecord</value>
+  </data>
+  <data name="TheCommitteeWasFormed" xml:space="preserve">
+    <value>The Committee Was Formed</value>
+  </data>
+  <data name="TheEndDateMustBeGreaterThanTheStartDate" xml:space="preserve">
+    <value>The End Date Must Be Greater Than TheS tart Date</value>
+  </data>
+  <data name="TimeOut" xml:space="preserve">
+    <value>TimeOut</value>
+  </data>
+  <data name="Time_of_ActionFrom" xml:space="preserve">
+    <value>Time_of_ActionFrom</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="Ton" xml:space="preserve">
+    <value>Ton</value>
+  </data>
+  <data name="TotallyRejected" xml:space="preserve">
+    <value>Totally Rejected</value>
+  </data>
+  <data name="TransitCountry" xml:space="preserve">
+    <value>Transit Country</value>
+  </data>
+  <data name="TransitPort" xml:space="preserve">
+    <value>Transit Port</value>
+  </data>
+  <data name="Translate" xml:space="preserve">
+    <value>Translate</value>
+  </data>
+  <data name="TransportMean" xml:space="preserve">
+    <value>Transport Mean</value>
+  </data>
+  <data name="TransportMeanName" xml:space="preserve">
+    <value>Transport Mean Name</value>
+  </data>
+  <data name="Treatment" xml:space="preserve">
+    <value>Treatment</value>
+  </data>
+  <data name="TreatmentMaterial" xml:space="preserve">
+    <value>Treatment Material</value>
+  </data>
+  <data name="TreatmentMethod" xml:space="preserve">
+    <value>Treatment Method</value>
+  </data>
+  <data name="TreatmentStatment" xml:space="preserve">
+    <value>Treatment Statment</value>
+  </data>
+  <data name="TreatmentType" xml:space="preserve">
+    <value>Treatment Type</value>
+  </data>
+  <data name="UnderProtection" xml:space="preserve">
+    <value>Under Protection</value>
+  </data>
+  <data name="UnderProtectionNot" xml:space="preserve">
+    <value>Not Under Protection</value>
+  </data>
+  <data name="Union" xml:space="preserve">
+    <value>Union</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="Village" xml:space="preserve">
+    <value>Village</value>
+  </data>
+  <data name="Weight" xml:space="preserve">
+    <value>Weight</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="youMustChooseCommeteeTask" xml:space="preserve">
+    <value>you Must Choose Commetee Task</value>
+  </data>
+  <data name="youMustEnterNumberOrEmpoloyeeName" xml:space="preserve">
+    <value>you Must Enter Number Or Empoloyee Name</value>
+  </data>
+  <data name="YouMustinstallthedata" xml:space="preserve">
+    <value>You Must install the data</value>
+  </data>
+  <data name="ComapnyContactAdd" xml:space="preserve">
+    <value>Add Comapny Contact</value>
+  </data>
+  <data name="ContactAdd" xml:space="preserve">
+    <value>Add contact</value>
+  </data>
+  <data name="StationAdd" xml:space="preserve">
+    <value> Add Station</value>
+  </data>
+  <data name="AddAccreditation" xml:space="preserve">
+    <value>Add Accreditation</value>
+  </data>
+  <data name="AddAccreditationData" xml:space="preserve">
+    <value>Add Accreditation Data</value>
+  </data>
+  <data name="AddActivityData" xml:space="preserve">
+    <value>Add Activity Data</value>
+  </data>
+  <data name="AddCategoryData" xml:space="preserve">
+    <value>Add Category Data</value>
+  </data>
+  <data name="AdditionalData" xml:space="preserve">
+    <value>Additional Data</value>
+  </data>
+  <data name="CategoryDataAdded" xml:space="preserve">
+    <value>Category Data Added Successfuly</value>
+  </data>
+  <data name="DeleteAccreditation" xml:space="preserve">
+    <value>Delete Accreditation</value>
+  </data>
+  <data name="DeleteActivity" xml:space="preserve">
+    <value>Delete Activity</value>
+  </data>
+  <data name="EditeAccreditation" xml:space="preserve">
+    <value>Edite Accreditation</value>
+  </data>
+  <data name="EditeAccreditationData" xml:space="preserve">
+    <value>Edite Accreditation Data</value>
+  </data>
+  <data name="EditeActivityData" xml:space="preserve">
+    <value>Edite Activity Data</value>
+  </data>
+  <data name="EditeCategoryData" xml:space="preserve">
+    <value>Edite Category Data</value>
+  </data>
+  <data name="EditeStation" xml:space="preserve">
+    <value>Edite Station</value>
+  </data>
+  <data name="FileUpload" xml:space="preserve">
+    <value>File Upload</value>
+  </data>
+  <data name="NewStationAdded" xml:space="preserve">
+    <value>NewStationAdded  Successfuly</value>
+  </data>
+  <data name="PlantpartAdded" xml:space="preserve">
+    <value>Plantpart Added Successfuly</value>
+  </data>
+  <data name="TheEndDateThanStartDate" xml:space="preserve">
+    <value>The end date must be greater than the start date</value>
+  </data>
+  <data name="CompanyOwner" xml:space="preserve">
+    <value>Company Owner</value>
+  </data>
+  <data name="Delegate" xml:space="preserve">
+    <value>Delegate Name</value>
+  </data>
+  <data name="DelegateAddress" xml:space="preserve">
+    <value>Delegate Address</value>
+  </data>
+  <data name="Egypt" xml:space="preserve">
+    <value>Egypt</value>
+  </data>
+  <data name="Farm" xml:space="preserve">
+    <value>Farm</value>
+  </data>
+  <data name="MessageData" xml:space="preserve">
+    <value>Message Data</value>
+  </data>
+  <data name="MessageOwner" xml:space="preserve">
+    <value>Message Owner</value>
+  </data>
+  <data name="MessagePath" xml:space="preserve">
+    <value>Message Path</value>
+  </data>
+  <data name="OutletData" xml:space="preserve">
+    <value>Outlet Data</value>
+  </data>
+  <data name="OwnerAddress" xml:space="preserve">
+    <value>The owner's address</value>
+  </data>
+  <data name="ArrivalDate" xml:space="preserve">
+    <value>Arrival Date</value>
+  </data>
+  <data name="ArrivalHour" xml:space="preserve">
+    <value>Arrival Hour</value>
+  </data>
+  <data name="CategoryName" xml:space="preserve">
+    <value>Category Name</value>
+  </data>
+  <data name="CheckDate" xml:space="preserve">
+    <value>Check Date</value>
+  </data>
+  <data name="CompletionRequestNumber" xml:space="preserve">
+    <value>Completion Request Number</value>
+  </data>
+  <data name="consignee" xml:space="preserve">
+    <value>consignee</value>
+  </data>
+  <data name="CustomsCertificateNumber" xml:space="preserve">
+    <value>Customs Certificate Number</value>
+  </data>
+  <data name="DateOfManifesto" xml:space="preserve">
+    <value>Manifesto Submit date </value>
+  </data>
+  <data name="DischargeEndDate" xml:space="preserve">
+    <value>Discharge End Date</value>
+  </data>
+  <data name="enterAllData" xml:space="preserve">
+    <value>Be sure to enter all of the required data</value>
+  </data>
+  <data name="FreeZones" xml:space="preserve">
+    <value>Free Zones</value>
+  </data>
+  <data name="Importer" xml:space="preserve">
+    <value>Importer</value>
+  </data>
+  <data name="ImporterName" xml:space="preserve">
+    <value>Importer Name</value>
+  </data>
+  <data name="ImporterType" xml:space="preserve">
+    <value>Importer Type</value>
+  </data>
+  <data name="ImProcedureType" xml:space="preserve">
+    <value>Import Procedure Type</value>
+  </data>
+  <data name="Im_CustodyPlaceType" xml:space="preserve">
+    <value>Custody Place Type</value>
+  </data>
+  <data name="Im_Stores" xml:space="preserve">
+    <value>Stores</value>
+  </data>
+  <data name="Im_Warehouses" xml:space="preserve">
+    <value>Warehouses</value>
+  </data>
+  <data name="Initiator" xml:space="preserve">
+    <value>Initiator</value>
+  </data>
+  <data name="ManafestNumber" xml:space="preserve">
+    <value>Manafest Number</value>
+  </data>
+  <data name="NavigationCompany" xml:space="preserve">
+    <value>Navigation Company</value>
+  </data>
+  <data name="NetWeight" xml:space="preserve">
+    <value>Net Weight</value>
+  </data>
+  <data name="NotTransit" xml:space="preserve">
+    <value>NotTransit</value>
+  </data>
+  <data name="PolicyNumber" xml:space="preserve">
+    <value>Policy Number</value>
+  </data>
+  <data name="PublicOrganizationAddress" xml:space="preserve">
+    <value>Public Organization Address</value>
+  </data>
+  <data name="RequestForPermissionToImport" xml:space="preserve">
+    <value>Permission Request</value>
+  </data>
+  <data name="SelectOpretionType" xml:space="preserve">
+    <value>Select Opretion Type</value>
+  </data>
+  <data name="StandingWeight" xml:space="preserve">
+    <value>Standing Weight</value>
+  </data>
+  <data name="StatementOfAmendments" xml:space="preserve">
+    <value>Statement Of Amendments</value>
+  </data>
+  <data name="Store" xml:space="preserve">
+    <value>Store / yard</value>
+  </data>
+  <data name="StoreOwner" xml:space="preserve">
+    <value>The store owner</value>
+  </data>
+  <data name="Transit" xml:space="preserve">
+    <value>Transit</value>
+  </data>
+  <data name="Unit" xml:space="preserve">
+    <value>Unit</value>
+  </data>
+  <data name="WarehouseType" xml:space="preserve">
+    <value>Warehouse type</value>
+  </data>
+  <data name="QuarantineProgressDate" xml:space="preserve">
+    <value>Apply for Quarantine Date</value>
+  </data>
+  <data name="AddConstrainData" xml:space="preserve">
+    <value>Add Constrain Data</value>
+  </data>
+  <data name="AddLot" xml:space="preserve">
+    <value>Add Lot</value>
+  </data>
+  <data name="AddMessageData" xml:space="preserve">
+    <value>Add Message Data</value>
+  </data>
+  <data name="Attachment" xml:space="preserve">
+    <value>Attachment</value>
+  </data>
+  <data name="AttachmentName" xml:space="preserve">
+    <value>Attachment Name</value>
+  </data>
+  <data name="AttachmentNumber" xml:space="preserve">
+    <value>Attachment Number</value>
+  </data>
+  <data name="CompanyAddress" xml:space="preserve">
+    <value>Company Address</value>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Company Name</value>
+  </data>
+  <data name="ConstrainActivation" xml:space="preserve">
+    <value>Constrain Activation</value>
+  </data>
+  <data name="Constrain_Ar" xml:space="preserve">
+    <value>Arabic Constrains</value>
+  </data>
+  <data name="Constrain_En" xml:space="preserve">
+    <value>English Constrain</value>
+  </data>
+  <data name="DaysNumber" xml:space="preserve">
+    <value>Days Number</value>
+  </data>
+  <data name="DeleteLot" xml:space="preserve">
+    <value>Delete Lot</value>
+  </data>
+  <data name="DeleteMessageData" xml:space="preserve">
+    <value>Delete Message Data</value>
+  </data>
+  <data name="EditConstrainData" xml:space="preserve">
+    <value>Edit Constrain Data</value>
+  </data>
+  <data name="EditLot" xml:space="preserve">
+    <value>Edit Lot</value>
+  </data>
+  <data name="EditMessageData" xml:space="preserve">
+    <value>Edit Message Data</value>
+  </data>
+  <data name="ExeportPurpose" xml:space="preserve">
+    <value>Exeport Purpose</value>
+  </data>
+  <data name="ExportPlantNotPermitted" xml:space="preserve">
+    <value>Export of this plant is not permitted</value>
+  </data>
+  <data name="ExportSubjectNotPermitted" xml:space="preserve">
+    <value>Export of this liableItem is not permitted</value>
+  </data>
+  <data name="HoursNamber" xml:space="preserve">
+    <value>Hours Namber</value>
+  </data>
+  <data name="Includedcertificate" xml:space="preserve">
+    <value>Included in the agricultural certificate </value>
+  </data>
+  <data name="Includedcertificate_Ar" xml:space="preserve">
+    <value>Included in the agricultural certificate in Arabic</value>
+  </data>
+  <data name="Includedcertificate_En" xml:space="preserve">
+    <value>Included in the agricultural certificate in English</value>
+  </data>
+  <data name="LotDataAddad" xml:space="preserve">
+    <value>Lot Data Addad</value>
+  </data>
+  <data name="LotNumber" xml:space="preserve">
+    <value>Lot Number</value>
+  </data>
+  <data name="LotNumberExists" xml:space="preserve">
+    <value>Lot number already exists</value>
+  </data>
+  <data name="MessegeContents" xml:space="preserve">
+    <value>Messege Contents</value>
+  </data>
+  <data name="MinutesNumber" xml:space="preserve">
+    <value>Minutes Number</value>
+  </data>
+  <data name="NewMessageDataAdded" xml:space="preserve">
+    <value>New Message Data Added</value>
+  </data>
+  <data name="PackageCount" xml:space="preserve">
+    <value>Package Count</value>
+  </data>
+  <data name="PackageNetWeight" xml:space="preserve">
+    <value>Package Net Weight</value>
+  </data>
+  <data name="PackageWeight" xml:space="preserve">
+    <value>Package Weight</value>
+  </data>
+  <data name="PlantingPlace" xml:space="preserve">
+    <value>Planting Place</value>
+  </data>
+  <data name="ReceiverName" xml:space="preserve">
+    <value>Receiver Name</value>
+  </data>
+  <data name="SelectAnalysisType_AnalysisLab" xml:space="preserve">
+    <value>Select AnalysisType &amp;AnalysisLab</value>
+  </data>
+  <data name="SelectCountry" xml:space="preserve">
+    <value>Select Country</value>
+  </data>
+  <data name="SelectLiableItem_ConstrainType" xml:space="preserve">
+    <value>Select LiableItem&amp;ConstrainType before add constrains</value>
+  </data>
+  <data name="SelectUnion" xml:space="preserve">
+    <value>Select Union</value>
+  </data>
+  <data name="ShortName" xml:space="preserve">
+    <value>ShortName</value>
+  </data>
+  <data name="TheDose" xml:space="preserve">
+    <value>The Dose</value>
+  </data>
+  <data name="TotalWeight" xml:space="preserve">
+    <value>Total weight</value>
+  </data>
+  <data name="Treatment_Analysis" xml:space="preserve">
+    <value>Treatment/Analysis</value>
+  </data>
+  <data name="YouMustEnterAllTreatmentData" xml:space="preserve">
+    <value>You Must Enter All Treatment Data</value>
+  </data>
+  <data name="YouMustSelectImportCountry" xml:space="preserve">
+    <value>You Must Select Import Country</value>
+  </data>
+  <data name="TotalFees" xml:space="preserve">
+    <value>Total Fees</value>
+  </data>
+  <data name="YouMustBeAccreditationDateTheSameActivityDate" xml:space="preserve">
+    <value>You Must Be Accreditation Date in TheSame Activity Date</value>
+  </data>
+  <data name="CommitteeStatus" xml:space="preserve">
+    <value>Committee Status</value>
+  </data>
+  <data name="CommitteeFormation" xml:space="preserve">
+    <value>Committee Formation</value>
+  </data>
+  <data name="PayExpenses" xml:space="preserve">
+    <value>Pay Expenses</value>
+  </data>
+  <data name="ChooseAccpeted" xml:space="preserve">
+    <value>Choose Accpeted</value>
+  </data>
+  <data name="ChooseNotAccpeted" xml:space="preserve">
+    <value>Choose Not Accpeted</value>
+  </data>
+  <data name="CertificateList" xml:space="preserve">
+    <value>Export Certificate Requestes List</value>
+  </data>
+  <data name="CertificateRequest" xml:space="preserve">
+    <value>Certificate Requestes</value>
+  </data>
+  <data name="DateNotEntered" xml:space="preserve">
+    <value>Please Enter Correct Date</value>
+  </data>
+  <data name="ExportRequestNumber" xml:space="preserve">
+    <value>Export Request Number</value>
+  </data>
+  <data name="PaidNot" xml:space="preserve">
+    <value>Not Paid</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Print</value>
+  </data>
+  <data name="Printed" xml:space="preserve">
+    <value>Printed</value>
+  </data>
+  <data name="CommitteeType" xml:space="preserve">
+    <value>Committee Type</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="ExporterSide" xml:space="preserve">
+    <value>Exporter Side</value>
+  </data>
+  <data name="RequestDate" xml:space="preserve">
+    <value>Request Date</value>
+  </data>
+  <data name="RequestNumber" xml:space="preserve">
+    <value>Request Number</value>
+  </data>
+  <data name="ImportRequestsList" xml:space="preserve">
+    <value>Import Requests List</value>
+  </data>
+  <data name="Export_to_Excel" xml:space="preserve">
+    <value>Export to Excel</value>
+  </data>
+  <data name="AreYouSureToSave" xml:space="preserve">
+    <value>Are You Sure To Save</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Sure" xml:space="preserve">
+    <value>Sure</value>
+  </data>
+  <data name="Certificate_Addtion" xml:space="preserve">
+    <value>Add in Certificate</value>
+  </data>
+  <data name="Enterbarcode" xml:space="preserve">
+    <value>Enter barcode</value>
+  </data>
+  <data name="Accept" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="Arabic" xml:space="preserve">
+    <value>Arabic</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>Reject</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>Result</value>
+  </data>
+  <data name="ChooseReasons" xml:space="preserve">
+    <value>Choose Reasons</value>
+  </data>
+  <data name="AddResult" xml:space="preserve">
+    <value>Add Result</value>
+  </data>
+  <data name="InfectionName" xml:space="preserve">
+    <value>Infection Name</value>
+  </data>
+  <data name="QuantitySize" xml:space="preserve">
+    <value>Quantity Size</value>
+  </data>
+  <data name="SampleBarCode" xml:space="preserve">
+    <value>Sample BarCode</value>
+  </data>
+  <data name="SampleRatio" xml:space="preserve">
+    <value>Sample Ratio</value>
+  </data>
+  <data name="SampleSize" xml:space="preserve">
+    <value>Sample Size</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="Temperature" xml:space="preserve">
+    <value>Temperature</value>
+  </data>
+  <data name="TreatmentMatAmount" xml:space="preserve">
+    <value>TreatmentMat Amount</value>
+  </data>
+  <data name="WithDrawPlace" xml:space="preserve">
+    <value>WithDraw Place</value>
+  </data>
+  <data name="enterCheckNumber" xml:space="preserve">
+    <value>Enter Check Request Number</value>
+  </data>
+  <data name="IsExport" xml:space="preserve">
+    <value>IsExport</value>
+  </data>
+  <data name="Refuse_Reason" xml:space="preserve">
+    <value>Refuse / Stopping Reason</value>
+  </data>
+  <data name="IsStop" xml:space="preserve">
+    <value>IsStop</value>
+  </data>
+  <data name="Refused_stopped" xml:space="preserve">
+    <value>Refused_stopped</value>
+  </data>
+  <data name="addCenter" xml:space="preserve">
+    <value>Add centers</value>
+  </data>
+  <data name="AcceptedByCustomer" xml:space="preserve">
+    <value>Accepted By Customer</value>
+  </data>
+  <data name="AcceptedByQuarantine" xml:space="preserve">
+    <value>Accepted By Agricultural Quarantine</value>
+  </data>
+  <data name="CommitteeIsFormed" xml:space="preserve">
+    <value>Committee Is Formed</value>
+  </data>
+  <data name="RejectedByCustomer" xml:space="preserve">
+    <value>Rejected By Customer</value>
+  </data>
+  <data name="RejectedByQuarantine" xml:space="preserve">
+    <value>Rejected By Agricultural Quarantine</value>
+  </data>
+  <data name="WorkCommitteeIsFinished" xml:space="preserve">
+    <value>Work Committee Is Finished</value>
+  </data>
+  <data name="ArabicRepublicofEgyptian" xml:space="preserve">
+    <value>Arabic Republic of Egyptian</value>
+  </data>
+  <data name="CentralAdministrationofplantQuarantine" xml:space="preserve">
+    <value>Central Administration of plant Quarantine</value>
+  </data>
+  <data name="MinistryofAgricultureandLandReclamation" xml:space="preserve">
+    <value>Ministry of Agriculture and Land Reclamation</value>
+  </data>
+  <data name="Printedon" xml:space="preserve">
+    <value>Printed on</value>
+  </data>
+  <data name="Additionaldeclaration" xml:space="preserve">
+    <value>Additional declaration</value>
+  </data>
+  <data name="Additionalinformation" xml:space="preserve">
+    <value>16.Additional information</value>
+  </data>
+  <data name="Chemicals" xml:space="preserve">
+    <value>13.Chemicals (active ingredient)</value>
+  </data>
+  <data name="Concentration" xml:space="preserve">
+    <value>14.Concentration</value>
+  </data>
+  <data name="Date1" xml:space="preserve">
+    <value>11.Date</value>
+  </data>
+  <data name="Dateofinspection" xml:space="preserve">
+    <value>17.Date of inspection</value>
+  </data>
+  <data name="Dateofissue" xml:space="preserve">
+    <value>18.Date of issue</value>
+  </data>
+  <data name="DeclaredMeansofConveyance" xml:space="preserve">
+    <value>4.Declared means of conveyance</value>
+  </data>
+  <data name="DeclaredNameandAddressOfConsignee" xml:space="preserve">
+    <value>3.Declared name and address of consignee</value>
+  </data>
+  <data name="DeclaredPointofEntry" xml:space="preserve">
+    <value>5.Declared point of entry</value>
+  </data>
+  <data name="DescriptionoftheConsignment" xml:space="preserve">
+    <value>Description of the Consignment</value>
+  </data>
+  <data name="DisinfestationsandorDisinfestationsTreatment" xml:space="preserve">
+    <value>Disinfestations and/or Disinfestations Treatment</value>
+  </data>
+  <data name="DistinguishingMarks" xml:space="preserve">
+    <value>7.Distinguishing Marks</value>
+  </data>
+  <data name="Durationoftemperature" xml:space="preserve">
+    <value>15.Duration of temperature</value>
+  </data>
+  <data name="NameAndAddressOfExporter" xml:space="preserve">
+    <value>2.Name and address of exporter</value>
+  </data>
+  <data name="Nameofauthorizedofficial" xml:space="preserve">
+    <value>21.Name of authorized official</value>
+  </data>
+  <data name="Nameofinspectors" xml:space="preserve">
+    <value>20.Names of inspectors</value>
+  </data>
+  <data name="NameOFProductandQuantityDeclared" xml:space="preserve">
+    <value>9.Name of product and quantity declared</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="NumberandDescriptionofPackages" xml:space="preserve">
+    <value>8.Number and description of packages</value>
+  </data>
+  <data name="PhytosanitaryCertificate" xml:space="preserve">
+    <value>Phytosanitary Certificate</value>
+  </data>
+  <data name="Placeofissue" xml:space="preserve">
+    <value>19.Place of issue</value>
+  </data>
+  <data name="PlaceofOrigin" xml:space="preserve">
+    <value>6.Place of origin</value>
+  </data>
+  <data name="ToTheNationalPlantProtectionOrganizationOf" xml:space="preserve">
+    <value>1.To The National Plant Protection Organization Of</value>
+  </data>
+  <data name="Treatment1" xml:space="preserve">
+    <value>12.Treatment</value>
+  </data>
+  <data name="IDNo" xml:space="preserve">
+    <value>22. ID. no</value>
+  </data>
+  <data name="NumberofContainers" xml:space="preserve">
+    <value>Number of containers</value>
+  </data>
+  <data name="PortOfLoading" xml:space="preserve">
+    <value>23.Port of Loading</value>
+  </data>
+  <data name="Signature" xml:space="preserve">
+    <value>25.Signature</value>
+  </data>
+  <data name="StampOfService" xml:space="preserve">
+    <value>24.Stamp of service</value>
+  </data>
+  <data name="Exposure_Day" xml:space="preserve">
+    <value>Exposure Day</value>
+  </data>
+  <data name="Exposure_Hour" xml:space="preserve">
+    <value>Exposure Hour</value>
+  </data>
+  <data name="Exposure_Minute" xml:space="preserve">
+    <value>Exposure Minute</value>
+  </data>
+  <data name="Result_injury_Name" xml:space="preserve">
+    <value>Result injury Name</value>
+  </data>
+  <data name="choose" xml:space="preserve">
+    <value>Choose</value>
+  </data>
+  <data name="statioName" xml:space="preserve">
+    <value>station Name</value>
+  </data>
+  <data name="stationCode" xml:space="preserve">
+    <value>Station Code</value>
+  </data>
+  <data name="all" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="committeAccepted" xml:space="preserve">
+    <value>Committe Accepted</value>
+  </data>
+  <data name="committeeNotFormed" xml:space="preserve">
+    <value>Committee Not Formed</value>
+  </data>
+  <data name="committeeWorkEnded" xml:space="preserve">
+    <value>committee Work Ended</value>
+  </data>
+  <data name="committeeWorkNotEnd" xml:space="preserve">
+    <value>committee's work  not ended</value>
+  </data>
+  <data name="FarmAccreditatRequest" xml:space="preserve">
+    <value>Farm Accreditat Request</value>
+  </data>
+  <data name="mainPage" xml:space="preserve">
+    <value>Main Page</value>
+  </data>
+  <data name="notAccept" xml:space="preserve">
+    <value>Not Accept</value>
+  </data>
+  <data name="payMoney" xml:space="preserve">
+    <value>Pay Money</value>
+  </data>
+  <data name="stationActivityType" xml:space="preserve">
+    <value>Station Activity Type</value>
+  </data>
+  <data name="chooseall" xml:space="preserve">
+    <value>Choose all</value>
+  </data>
+  <data name="ExaminationRequestNumber" xml:space="preserve">
+    <value>Examination request number</value>
+  </data>
+  <data name="committeeapproved" xml:space="preserve">
+    <value>Committee approved</value>
+  </data>
+  <data name="Consignmentresults" xml:space="preserve">
+    <value>Consignment results</value>
+  </data>
+  <data name="newrequests" xml:space="preserve">
+    <value>New Requests</value>
+  </data>
+  <data name="requestnotapproved" xml:space="preserve">
+    <value>Request not approved</value>
+  </data>
+  <data name="requestrejected" xml:space="preserve">
+    <value>Request rejected</value>
+  </data>
+  <data name="Waitingcustomerresponse" xml:space="preserve">
+    <value>Waiting customer response</value>
+  </data>
+  <data name="addAttachments" xml:space="preserve">
+    <value>Add attachments</value>
+  </data>
+  <data name="exportedSidesInformations" xml:space="preserve">
+    <value>Exported sides informations</value>
+  </data>
+  <data name="higherManagement" xml:space="preserve">
+    <value>Higher management</value>
+  </data>
+  <data name="importedCompanies" xml:space="preserve">
+    <value>Imported companies</value>
+  </data>
+  <data name="issuerAddress" xml:space="preserve">
+    <value>Issuer address</value>
+  </data>
+  <data name="issuerName" xml:space="preserve">
+    <value>Issuer name</value>
+  </data>
+  <data name="messageDetails" xml:space="preserve">
+    <value>Message details</value>
+  </data>
+  <data name="placeAddress" xml:space="preserve">
+    <value>Place address</value>
+  </data>
+  <data name="requestInfos" xml:space="preserve">
+    <value>requestInformations</value>
+  </data>
+  <data name="TypeOfIssuer" xml:space="preserve">
+    <value>Type of issuer</value>
+  </data>
+  <data name="CheckCommitteeWorkEnded" xml:space="preserve">
+    <value>Check committee work ended</value>
+  </data>
+  <data name="ChooseStatusofCommittee" xml:space="preserve">
+    <value>Choose status of committee</value>
+  </data>
+  <data name="CommitteeFormationGashny" xml:space="preserve">
+    <value>Committee formation gashny</value>
+  </data>
+  <data name="WorkEnded" xml:space="preserve">
+    <value>Work ended</value>
+  </data>
+  <data name="approvalOfRequest" xml:space="preserve">
+    <value>Approval of the request</value>
+  </data>
+  <data name="expensesNotPaid" xml:space="preserve">
+    <value>Expenses  not paid</value>
+  </data>
+  <data name="itemName" xml:space="preserve">
+    <value>Item name</value>
+  </data>
+  <data name="local" xml:space="preserve">
+    <value>Local</value>
+  </data>
+  <data name="notConstrain" xml:space="preserve">
+    <value>Not constrain</value>
+  </data>
+  <data name="requestApproval" xml:space="preserve">
+    <value>The request was approved</value>
+  </data>
+  <data name="veganPart" xml:space="preserve">
+    <value>Vegan part</value>
+  </data>
+  <data name="SampleData" xml:space="preserve">
+    <value>Sample Data</value>
+  </data>
+  <data name="CheckCommittee" xml:space="preserve">
+    <value>Check committee</value>
+  </data>
+  <data name="CommitteeSampleData" xml:space="preserve">
+    <value>Committee sample data</value>
+  </data>
+  <data name="CommitteeTreatment" xml:space="preserve">
+    <value>Committee treatment</value>
+  </data>
+  <data name="FarmAccreditatRequestRegistrationDate" xml:space="preserve">
+    <value>Farm Accreditat Request Registration Date</value>
+  </data>
+  <data name="FarmNumber" xml:space="preserve">
+    <value>Farm Number</value>
+  </data>
+  <data name="GeshneyCommittee" xml:space="preserve">
+    <value>Geshney committee</value>
+  </data>
+  <data name="isadmin" xml:space="preserve">
+    <value>Is admin</value>
+  </data>
+  <data name="StationAccreditatRequestRegistrationDate" xml:space="preserve">
+    <value>Station Accreditat Request Registration Date</value>
+  </data>
+  <data name="chooseNew" xml:space="preserve">
+    <value>Choose New</value>
+  </data>
+  <data name="Resolution_Date" xml:space="preserve">
+    <value>Resolution Date</value>
+  </data>
+  <data name="Resolution_Number" xml:space="preserve">
+    <value>Resolution Number</value>
+  </data>
+  <data name="Description_En" xml:space="preserve">
+    <value>Description En</value>
+  </data>
+  <data name="seeAttachment" xml:space="preserve">
+    <value>see attachment</value>
+  </data>
+  <data name="Areainacre" xml:space="preserve">
+    <value>Area in acre</value>
+  </data>
+  <data name="chooseImage" xml:space="preserve">
+    <value>Choose Image</value>
+  </data>
+  <data name="CompanyName_" xml:space="preserve">
+    <value>Company Name</value>
+  </data>
+  <data name="CountryorUnion" xml:space="preserve">
+    <value>Country or Union</value>
+  </data>
+  <data name="get" xml:space="preserve">
+    <value>Get</value>
+  </data>
+  <data name="labName" xml:space="preserve">
+    <value>lab Name</value>
+  </data>
+  <data name="PlantName" xml:space="preserve">
+    <value>Plant Name</value>
+  </data>
+  <data name="RejectReason" xml:space="preserve">
+    <value>Reject Reason</value>
+  </data>
+  <data name="ResultinjuryName" xml:space="preserve">
+    <value>Result injury Name</value>
+  </data>
+  <data name="fieldRequired" xml:space="preserve">
+    <value>*</value>
+  </data>
+  <data name="addCenters" xml:space="preserve">
+    <value>Add Centers</value>
+  </data>
+  <data name="stopCheckRequest" xml:space="preserve">
+    <value>Stop Check Request</value>
+  </data>
+  <data name="completeData" xml:space="preserve">
+    <value>Complete data</value>
+  </data>
+  <data name="hi" xml:space="preserve">
+    <value>dfksks</value>
+  </data>
+  <data name="invalidBarcode" xml:space="preserve">
+    <value>Invalid Barcode</value>
+  </data>
+  <data name="sampleLabresult" xml:space="preserve">
+    <value>Sample Lab Result</value>
+  </data>
+  <data name="shiftTiming" xml:space="preserve">
+    <value>Shift Timing</value>
+  </data>
+  <data name="IsPaidBefore" xml:space="preserve">
+    <value>Is Paid Before</value>
+  </data>
+  <data name="IsTreatment" xml:space="preserve">
+    <value>Is Treatment</value>
+  </data>
+  <data name="WeightFrom" xml:space="preserve">
+    <value>Weight From</value>
+  </data>
+  <data name="WeightTo" xml:space="preserve">
+    <value>Weight To</value>
+  </data>
+  <data name="feesforshifttreatment" xml:space="preserve">
+    <value>Fees for Shift \Treatment</value>
+  </data>
+  <data name="IsPlantInEgypt" xml:space="preserve">
+    <value>Is Plant In Egypt</value>
+  </data>
+  <data name="IsRegister" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="allemployees" xml:space="preserve">
+    <value>all employees</value>
+  </data>
+  <data name="CommitteeMembers" xml:space="preserve">
+    <value>Committee Members</value>
+  </data>
+  <data name="enddate" xml:space="preserve">
+    <value>end date</value>
+  </data>
+  <data name="Geshney" xml:space="preserve">
+    <value>Geshney</value>
+  </data>
+  <data name="othersOpinoin" xml:space="preserve">
+    <value>others Opinoin</value>
+  </data>
+  <data name="Startdate" xml:space="preserve">
+    <value>Start date</value>
+  </data>
+  <data name="Resolution_year" xml:space="preserve">
+    <value>Resolution year</value>
+  </data>
+  <data name="BarCode" xml:space="preserve">
+    <value>BarCode</value>
+  </data>
+  <data name="AgriculturalCategory" xml:space="preserve">
+    <value>Agricultural Category</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Dateofissue1" xml:space="preserve">
+    <value>Date of issue</value>
+  </data>
+  <data name="Degree" xml:space="preserve">
+    <value>Degree</value>
+  </data>
+  <data name="FarmNoAgriculturalDistrict" xml:space="preserve">
+    <value>Farm No. / Agricultural District</value>
+  </data>
+  <data name="Lab" xml:space="preserve">
+    <value>Lab</value>
+  </data>
+  <data name="NameOFProductand" xml:space="preserve">
+    <value>Name OF Productand</value>
+  </data>
+  <data name="StartTime" xml:space="preserve">
+    <value>Start Time</value>
+  </data>
+  <data name="Index" xml:space="preserve">
+    <value>Index</value>
+  </data>
+  <data name="ConstrainActivationProcedure" xml:space="preserve">
+    <value>Constrain Activation Procedure</value>
+  </data>
+  <data name="ProcedureNow" xml:space="preserve">
+    <value>New Procedure</value>
+  </data>
+  <data name="PermissionRequest" xml:space="preserve">
+    <value>Permission Request</value>
+  </data>
+  <data name="AcceptPermissionRequest" xml:space="preserve">
+    <value>Accept Permission Request</value>
+  </data>
+  <data name="Pound" xml:space="preserve">
+    <value>Pound</value>
+  </data>
+  <data name="Item_Type" xml:space="preserve">
+    <value>Item Type</value>
+  </data>
+  <data name="Qualitative_GroupName" xml:space="preserve">
+    <value>Qualitative Group</value>
+  </data>
+  <data name="Initiators" xml:space="preserve">
+    <value>Initiators</value>
+  </data>
+  <data name="Items" xml:space="preserve">
+    <value>Items</value>
+  </data>
+  <data name="QualitativeGroup" xml:space="preserve">
+    <value>Qualitative Group</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="Isknown" xml:space="preserve">
+    <value>Is Known</value>
+  </data>
+  <data name="ItemsCategoryGrp" xml:space="preserve">
+    <value>Items Category Group</value>
+  </data>
+  <data name="ItemCategoryType" xml:space="preserve">
+    <value>Item Category Type</value>
+  </data>
+  <data name="SubPart_Type" xml:space="preserve">
+    <value>SubPart Type</value>
+  </data>
+  <data name="Continent" xml:space="preserve">
+    <value>Continent</value>
+  </data>
+  <data name="Regions" xml:space="preserve">
+    <value>Regions</value>
+  </data>
+  <data name="Continents" xml:space="preserve">
+    <value>Continents</value>
+  </data>
+  <data name="Categories_Add" xml:space="preserve">
+    <value>Categories_Add</value>
+  </data>
+  <data name="un_known" xml:space="preserve">
+    <value>un known</value>
+  </data>
+  <data name="Enrollment_type" xml:space="preserve">
+    <value>Enrollment_type</value>
+  </data>
+  <data name="ConstrainType" xml:space="preserve">
+    <value>Constrain Type</value>
+  </data>
+  <data name="Package_Count" xml:space="preserve">
+    <value>Package Count</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Product Name</value>
+  </data>
+  <data name="Units_Number" xml:space="preserve">
+    <value>Units Number</value>
+  </data>
+  <data name="Fees_process" xml:space="preserve">
+    <value>Fees process</value>
+  </data>
+  <data name="Fees_Type_Action" xml:space="preserve">
+    <value>Fees Type Action</value>
+  </data>
+  <data name="Farm_Constrain" xml:space="preserve">
+    <value>Farm_Constrain</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="AdminFinalResult_Note" xml:space="preserve">
+    <value>Admin Final Result Notes</value>
+  </data>
+  <data name="FarmCommittee" xml:space="preserve">
+    <value>Farm Committee</value>
+  </data>
+  <data name="Farm_Committee_Examination" xml:space="preserve">
+    <value>Farm Committee Examination</value>
+  </data>
+  <data name="Farm_Country" xml:space="preserve">
+    <value>Farm Country</value>
+  </data>
+  <data name="Farm_SampleData" xml:space="preserve">
+    <value>Farm Sample Data</value>
+  </data>
+  <data name="IsAccepted" xml:space="preserve">
+    <value>Sample Result</value>
+  </data>
+  <data name="IsAdminFinalResult" xml:space="preserve">
+    <value>IsAdminFinalResult</value>
+  </data>
+  <data name="Sample_BarCode" xml:space="preserve">
+    <value>Sample BarCode</value>
+  </data>
+  <data name="WithdrawDate" xml:space="preserve">
+    <value>Withdraw Date</value>
+  </data>
+  <data name="Previewresults" xml:space="preserve">
+    <value>Preview results</value>
+  </data>
+  <data name="Requests" xml:space="preserve">
+    <value>Requests</value>
+  </data>
+  <data name="IsKnownItem" xml:space="preserve">
+    <value>Is Known Item</value>
+  </data>
+  <data name="Farm_List" xml:space="preserve">
+    <value>Farm List</value>
+  </data>
+  <data name="NoWork" xml:space="preserve">
+    <value>No Work</value>
+  </data>
+  <data name="DayType" xml:space="preserve">
+    <value>Day Type</value>
+  </data>
+  <data name="RegionArea" xml:space="preserve">
+    <value>Region Area</value>
+  </data>
+  <data name="Mission" xml:space="preserve">
+    <value>Mission</value>
+  </data>
+  <data name="Mission_FROM" xml:space="preserve">
+    <value>Mission_FROM</value>
+  </data>
+  <data name="Mission_To" xml:space="preserve">
+    <value>Mission_To</value>
+  </data>
+  <data name="AdminResult" xml:space="preserve">
+    <value>Admin withdrawal result</value>
+  </data>
+  <data name="AssistResult" xml:space="preserve">
+    <value>Assistant withdrawal result</value>
+  </data>
+  <data name="HumanResource" xml:space="preserve">
+    <value>HumanResource</value>
+  </data>
+  <data name="Im_Constrain_Type" xml:space="preserve">
+    <value>Import Constrain Type</value>
+  </data>
+  <data name="ConstrainText_Ar" xml:space="preserve">
+    <value>Constrain Text Arabic</value>
+  </data>
+  <data name="ConstrainText_En" xml:space="preserve">
+    <value>ConstrainText English</value>
+  </data>
+  <data name="InSide_Certificate_Ar" xml:space="preserve">
+    <value>InSide_Certificate_Arabic</value>
+  </data>
+  <data name="InSide_Certificate_En" xml:space="preserve">
+    <value>InSide Certificate English</value>
+  </data>
+  <data name="IsActive" xml:space="preserve">
+    <value>Is Active</value>
+  </data>
+  <data name="quarantineAttitude" xml:space="preserve">
+    <value>Quarantine Attitude</value>
+  </data>
+  <data name="Countriesofacceptablevarieties" xml:space="preserve">
+    <value>Countries of acceptable varieties</value>
+  </data>
+  <data name="FinalPositionOfRequest" xml:space="preserve">
+    <value>Final position of request</value>
+  </data>
+  <data name="Rejectrequest" xml:space="preserve">
+    <value>Reject request</value>
+  </data>
+  <data name="area" xml:space="preserve">
+    <value>Area</value>
+  </data>
+  <data name="totalquantity" xml:space="preserve">
+    <value>Total Quantity</value>
+  </data>
+  <data name="acre" xml:space="preserve">
+    <value>acre</value>
+  </data>
+  <data name="Productivity" xml:space="preserve">
+    <value>Productivity for acre</value>
+  </data>
+  <data name="Allcountriesaction" xml:space="preserve">
+    <value>All countries action</value>
+  </data>
+  <data name="ExportCountry" xml:space="preserve">
+    <value>Export Country</value>
+  </data>
+  <data name="ImPermissionNumber" xml:space="preserve">
+    <value>Im Permission Number</value>
+  </data>
+  <data name="ImPermissionsList" xml:space="preserve">
+    <value>Im Permissions List</value>
+  </data>
+  <data name="ImporterName2" xml:space="preserve">
+    <value>Importer Name</value>
+  </data>
+  <data name="Seq" xml:space="preserve">
+    <value>Seq</value>
+  </data>
+  <data name="AcceptedCompany" xml:space="preserve">
+    <value>AcceptedCompany</value>
+  </data>
+  <data name="CompaniesNumberReport" xml:space="preserve">
+    <value>CompaniesNumberReport</value>
+  </data>
+  <data name="RefusedCompany" xml:space="preserve">
+    <value>RefusedCompany</value>
+  </data>
+  <data name="UnderRequestCompany" xml:space="preserve">
+    <value>UnderRequestCompany</value>
+  </data>
+  <data name="order_text" xml:space="preserve">
+    <value>Order text</value>
+  </data>
+  <data name="registerreason" xml:space="preserve">
+    <value>Register reason</value>
+  </data>
+  <data name="AdminName" xml:space="preserve">
+    <value>Admin Name</value>
+  </data>
+  <data name="AdminNote" xml:space="preserve">
+    <value>Admin Note</value>
+  </data>
+  <data name="AdminResult2" xml:space="preserve">
+    <value>Admin Result</value>
+  </data>
+  <data name="AssistResult2" xml:space="preserve">
+    <value>Assist Result</value>
+  </data>
+  <data name="ConstrainText" xml:space="preserve">
+    <value>Constrain Text</value>
+  </data>
+  <data name="ExportCompanies" xml:space="preserve">
+    <value>Export Companies</value>
+  </data>
+  <data name="ImportCountryConstrain" xml:space="preserve">
+    <value>Import Country Constrain</value>
+  </data>
+  <data name="ImportedSidesInformations" xml:space="preserve">
+    <value>Imported Sides Informations</value>
+  </data>
+  <data name="ImporterAddress" xml:space="preserve">
+    <value>Importer Address</value>
+  </data>
+  <data name="ImportName" xml:space="preserve">
+    <value>Importer Name</value>
+  </data>
+  <data name="InitiatorCountry" xml:space="preserve">
+    <value>Initiator Country</value>
+  </data>
+  <data name="TextDetails" xml:space="preserve">
+    <value>Text Details</value>
+  </data>
+  <data name="TypeOfImporter" xml:space="preserve">
+    <value>Type Of Importer</value>
+  </data>
+  <data name="ArabicDescription" xml:space="preserve">
+    <value>Arabic Description</value>
+  </data>
+  <data name="EnglishDescription" xml:space="preserve">
+    <value>English Description</value>
+  </data>
+  <data name="Import_CountryConstrain" xml:space="preserve">
+    <value>Import_CountryConstrain</value>
+  </data>
+  <data name="RF_area_en" xml:space="preserve">
+    <value>Total Farm Space</value>
+  </data>
+  <data name="RF_PlaceofOrigin_en" xml:space="preserve">
+    <value>place of issue</value>
+  </data>
+  <data name="RF_Email_en" xml:space="preserve">
+    <value>e-mail</value>
+  </data>
+  <data name="RF_FarmAddress_en" xml:space="preserve">
+    <value>Address of Farm</value>
+  </data>
+  <data name="RF_FarmCode_en" xml:space="preserve">
+    <value>Farm Code</value>
+  </data>
+  <data name="RF_FarmName_en" xml:space="preserve">
+    <value>Farm Name</value>
+  </data>
+  <data name="RF_GPS_en" xml:space="preserve">
+    <value>GPS</value>
+  </data>
+  <data name="RF_Nameofauthorizedofficial_en" xml:space="preserve">
+    <value>Name of authorized officer</value>
+  </data>
+  <data name="RF_OwnerAddress_en" xml:space="preserve">
+    <value>Address of Owner</value>
+  </data>
+  <data name="RF_Owner_en" xml:space="preserve">
+    <value>Name of Owner</value>
+  </data>
+  <data name="RF_PhoneNumber_en" xml:space="preserve">
+    <value>Mobile</value>
+  </data>
+  <data name="RF_DateofOrigin_en" xml:space="preserve">
+    <value>Date of issue</value>
+  </data>
+  <data name="RF_Plant_en" xml:space="preserve">
+    <value>Plant</value>
+  </data>
+  <data name="RF_Signature_en" xml:space="preserve">
+    <value>signature</value>
+  </data>
+  <data name="PermissionNumber" xml:space="preserve">
+    <value>Permission Number</value>
+  </data>
+  <data name="PermissionSituation" xml:space="preserve">
+    <value>Permission Situation</value>
+  </data>
+  <data name="ShortName_qualG" xml:space="preserve">
+    <value>Short Name_qualG</value>
+  </data>
+  <data name="categoryName_en" xml:space="preserve">
+    <value>category Name</value>
+  </data>
+  <data name="Fees_Action" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Request status" xml:space="preserve">
+    <value>Request status</value>
+  </data>
+  <data name="Falsestatus" xml:space="preserve">
+    <value>False Status</value>
+  </data>
+  <data name="Farmaccreditationrequest" xml:space="preserve">
+    <value>Farm Accreditation Request</value>
+  </data>
+  <data name="Nullstatus" xml:space="preserve">
+    <value>Null Status</value>
+  </data>
+  <data name="Requeststatus" xml:space="preserve">
+    <value>Request Status</value>
+  </data>
+  <data name="Truestatus" xml:space="preserve">
+    <value>True Status</value>
+  </data>
+  <data name="Cannotprint" xml:space="preserve">
+    <value>no print</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>count</value>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="NamePlant" xml:space="preserve">
+    <value>Plants</value>
+  </data>
+  <data name="DateFrom" xml:space="preserve">
+    <value>Date From</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="OperationType" xml:space="preserve">
+    <value>Operation Type</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="Types" xml:space="preserve">
+    <value>Types</value>
+  </data>
+  <data name="delegatename" xml:space="preserve">
+    <value>Delegate Name</value>
+  </data>
+  <data name="NationalID" xml:space="preserve">
+    <value>National ID</value>
+  </data>
+  <data name="Is_ImportTaxFree" xml:space="preserve">
+    <value>Is Import Tax Free</value>
+  </data>
+  <data name="NotTaxed" xml:space="preserve">
+    <value>Not Taxed</value>
+  </data>
+  <data name="Taxed" xml:space="preserve">
+    <value>Taxed</value>
+  </data>
+  <data name="InternationalTransportation" xml:space="preserve">
+    <value>InternationalTransportation</value>
+  </data>
+  <data name="ShippingAgency" xml:space="preserve">
+    <value>ShippingAgency</value>
+  </data>
+  <data name="ShippingCompany" xml:space="preserve">
+    <value>ShippingCompany</value>
+  </data>
+  <data name="TransferMethod" xml:space="preserve">
+    <value>TransferMethod</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="AllText" xml:space="preserve">
+    <value>All Text</value>
+  </data>
+  <data name="AnalysisLab_ID" xml:space="preserve">
+    <value>Analysis Lab</value>
+  </data>
+  <data name="AnaysisType" xml:space="preserve">
+    <value>Anaysis Type</value>
+  </data>
+  <data name="IsCertificate_Addtion" xml:space="preserve">
+    <value>Is Certificate Addtion ?</value>
+  </data>
+  <data name="IsCompanyAccreditation" xml:space="preserve">
+    <value>Is Company Accreditation</value>
+  </data>
+  <data name="IsFarmAccreditation" xml:space="preserve">
+    <value>Is Farm Accreditation</value>
+  </data>
+  <data name="IsStationAccreditation" xml:space="preserve">
+    <value>Is Station Accreditation</value>
+  </data>
+  <data name="TreatmentMainType" xml:space="preserve">
+    <value>Treatment Main Type</value>
+  </data>
+  <data name="Treatments" xml:space="preserve">
+    <value>Treatments</value>
+  </data>
+  <data name="view" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="agriculturalCertificate" xml:space="preserve">
+    <value>Agricultural certificate</value>
+  </data>
+  <data name="grossWeight" xml:space="preserve">
+    <value>Gross weight</value>
+  </data>
+  <data name="totGossWeight" xml:space="preserve">
+    <value>tot gross Weight:</value>
+  </data>
+  <data name="totNetWeight" xml:space="preserve">
+    <value>tot net weight</value>
+  </data>
+  <data name="StationDetails" xml:space="preserve">
+    <value>Station Details</value>
+  </data>
+  <data name="String" xml:space="preserve">
+    <value>StationActivityType</value>
+  </data>
+  <data name="Is_Plant_Egypt" xml:space="preserve">
+    <value>Is Plant In Egypt</value>
+  </data>
+  <data name="Item_Code" xml:space="preserve">
+    <value>Item Code</value>
+  </data>
+</root>

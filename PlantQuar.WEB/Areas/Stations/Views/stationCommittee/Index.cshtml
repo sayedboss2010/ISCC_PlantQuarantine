@@ -1,0 +1,324 @@
+﻿@{
+    /**/
+
+    ViewBag.Title = "Station Committee";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@section Title{
+    <h2 class="ls-top-header">لجنة اعتماد محطة</h2>
+}
+@section Path{
+    <li style="position: relative;right: 28px;">اعتماد محطة</li>
+    @*<li class="active" style="right: 43px; position: relative;">@PlantQuar.WEB.Language.Resource_data1.ExportCommitte</li>*@
+}
+<style>
+    .deep-blue-color #min-wrapper {
+        margin-top: -45px;
+    }
+
+    .row {
+        display: block !important;
+        font-size: 14px;
+    }
+
+    .form-control {
+        font-size: 12px;
+        height: 34px !important;
+    }
+</style>
+
+<link href="~/Content/jquery.timepicker.css" rel="stylesheet" />
+<script src="~/scripts/jquery.timepicker.min.js"></script>
+
+
+
+<div class="form-box" id="lagnaDiv">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="col-md-4">
+                <label>كود المحطة</label>
+                <input type="text" name="CheckRequest_Number" id="CheckRequest_Number" value="@ViewBag.stationCode" class="form-control" readonly />
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <label> تاريخ  تسجيل  طلب اعتماد محطة  </label>
+                <input type="text" name="Check_Date" id="Check_Date" class="form-control" readonly value="@ViewBag.creationDate" />
+            </div>
+            <div class="col-md-4">
+                <label> تاريخ اللجنة</label>
+                <input type="text" name="Delegation_Date" id="Delegation_Date" class="form-control" required />
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <label> وقت الإجراء من</label>
+                <input type="time" name="StartTime" id="StartTime" class="form-control" required />
+            </div>
+            <div class="col-md-4">
+                <label>  إلــــى</label>
+                <input type="time" name="EndTime" id="EndTime" class="form-control" required />
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <label> اسم الموظف</label>
+                <input type="text" name="Employee_name" id="Employee_name" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <label>  رقم الموظف</label>
+                <input type="text" name="Employee_No" id="Employee_No" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <input type="button" class="btn btn-primary pull-right" style="margin-top:20px;" id="btn_Search" value="بحث بالموظف">
+            </div>
+
+            <input type="hidden" id="Committe_Id" value="@ViewBag.stationCommitteeId" />
+            <input type="hidden" id="stationaccId" value="@ViewBag.stationAccrediationId" />
+        </div>
+    </div>
+
+    <br />
+    @section scripts{
+        <script type="text/javascript">
+                $(document).ready(function () {
+                    //$("#CommitteeType_ID").attr("class", "form-control");
+                 //   GetCheckRequest_Number_Data();
+                })
+        $(function () {
+        $('#Employee_AddEDIT').jtable({
+            title: 'أعضاء اللجنة',
+            paging: true,
+            pageSize: 10,
+            sorting: true,
+            selecting: true, //Enable selecting
+            multiselect: true, //Allow multiple selecting
+            selectingCheckboxes: true, //Show checkboxes on first column
+            columnResizable: true,
+            columnSelectable: true,
+            saveUserPreferences: true,
+                actions: {
+               // listAction: '/Committee/ListEmployee',
+                    listAction: function (postData, jtParams) {
+                        return $.Deferred(function ($dfd) {
+                            $.ajax({
+                                url: '/Committee/ListEmployee?Employee_name=' + $("#Employee_name").val() + '&Employee_No=' + $("#Employee_No").val() + '&jtStartIndex=' + jtParams.jtStartIndex + '&jtPageSize=' + jtParams.jtPageSize + '&jtSorting=' + jtParams.jtSorting,
+                                type: 'POST',
+                                dataType: 'json',
+                                data: postData,
+                                success: function (data) {
+                                    if (data.Result == '-1') {
+
+                                      //  $dfd.resolve(null);
+                                    }
+                                    else {
+                                        $.each(data.Records, function (index, r) {
+                                            var row = '<tr class="jtable-data-row jtable-row-even"><td class="jtable-selecting-column"><input type="checkbox"></td><td>' + r.Value + '</td><td>' + r.DisplayText + '</td></tr>';
+                                            $("#Employee_AddEDIT->tbody").append(row);
+                                        });
+                                          $dfd.resolve(data);
+                                        //remove dublication
+                                    }
+                                },
+                                error: function () {
+                                  //  $dfd.reject();
+                                }
+                            });
+                        });
+                    }
+                },
+            fields: {
+                Value: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                Employee_name: {
+                    title: 'العضــــو',
+                    inputClass: 'validate[required]',
+                },
+                Employee_Id: {
+                    title: ' رقم العضــــو',
+                    inputClass: 'validate[required]',
+                },
+
+                ISAdmin: {
+                    title: ' is admin',
+
+                    //inputClass: 'validate[required]',
+                    //type: 'checkbox',
+                    display: function (data) {
+                        return " <input type='checkbox' checked id='ISAdmin' /> "
+
+                    },
+            },
+            formCreated: function (event, data) {
+
+                if (data.formType == "create") {
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Add");
+                }
+                else {
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Edit");
+                }
+            },
+            formSubmitting: function (event, data) {
+                return data.form.validationEngine('validate');
+            },
+            formClosed: function (event, data) {
+                data.form.validationEngine('hide');
+                data.form.validationEngine('detach');
+                $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Delete");
+            },
+             recordAdded: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+                },
+                recordUpdated: function (event, data) {
+                                        //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Update");
+                },
+            recordDeleted: function (event, data) {
+                                        //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Delete");
+                },
+        });
+
+        $(".jtable-toolbar-item-add-record .jtable-toolbar-item-text").text("@PlantQuar.WEB.Language.Resource_data1.Add");
+
+        //Date&Time Form
+        $("#Check_Date ,#Delegation_Date").datepicker(
+            {
+                dateFormat: 'yy-mm-dd',
+                changeYear: true,
+            }
+        );
+            //$('#StartTime,#EndTime').timepicker({
+            //    timeFormat: 'HH:mm',
+            //    interval: 60,
+            //    minTime: '10',
+            //    maxTime: '06:00pm',
+            //    defaultTime: '11:00',
+            //    startTime: '10:00',
+            //    dynamic: false,
+            //    dropdown: true,
+            //    scrollbar: true,
+            //    });
+                });
+
+        String.prototype.compose = (function () {
+            var re = /\{{(.+?)\}}/g;
+            return function (o) {
+                return this.replace(re, function (_, k) {
+                    return typeof o[k] != 'undefined' ? o[k] : '';
+                });
+            }
+                }());
+
+
+
+        //btn_Search
+        $("#btn_Search").click(function ()
+        {
+
+            Employee_name = $("#Employee_name").val();
+            Employee_No = $("#Employee_No").val();
+            if (Employee_name == "" && Employee_No=="")
+            {
+                alert("يجب كتابة اسم او رقم الموظف");
+                return false;
+            }
+            $('#Employee_AddEDIT').jtable('load', {
+
+                Employee_name: $("#Employee_name").val(),
+                Employee_No: $("#Employee_No").val(),
+            });
+        })
+/// ////////////////////////////////////////////Save
+        $('#submitValue').click(function (e) {
+
+
+                    Delegation_Date = $("#Delegation_Date").val();
+                    StartTime = $("#StartTime").val();
+                    EndTime = $("#EndTime").val();
+                    if (Delegation_Date== ""
+                        || StartTime == "" || EndTime == "")
+                        {
+                        alertify.error("يجب استكمال البيانات ");
+                        return false;
+                        }
+                var selectedRows = $('#Employee_AddEDIT').jtable('selectedRows');
+                //debugger
+                if (selectedRows.length > 0) {
+
+            // build array of records
+                    var arrayRecords = new Array();
+                    var xx = [];
+                    var iftrue = 0;
+            selectedRows.each(function (index, element) {
+                arrayRecords[index] = $(this).data('record');
+                var id = $(this).data('record').Employee_Id;
+                var valu = $("#isadmin_" + id).is(":checked");
+
+                xx[index] = valu;
+                if (valu == true) {
+                    iftrue++;
+                }
+            });
+            var dataToSend = //JSON.stringify
+                        (arrayRecords);//.replace(/\/Date/g, "\\\/Date").replace(/\)\//g, "\)\\\/");
+
+                    if (iftrue > 1 || iftrue == 0) {
+                        alert("please choose one admin");
+                    }
+                    else {
+                        $.ajax({
+                            type: "POST",
+                            url: "/stationCommittee/SaveCommitte_Employee",
+
+                            //url: 'SaveCommitte_Employee',
+                            dataType: "json",
+                            //data: dataToSend,
+                            data: JSON.stringify(
+                                {
+                                    dataToSend: dataToSend,
+                                    Committe_Id: $("#Committe_Id").val(),
+                                    isAdmins: xx,
+                                    stationAccrediationId: $("#stationaccId").val(),
+                                    Delegation_Date: $("#Delegation_Date").val(),
+                                    StartTime: $("#StartTime").val(),
+                                    EndTime: $("#EndTime").val()
+                                }),
+                            contentType: "application/json; charset=utf-8",
+                            success: function (data) {
+
+                                $("#Delegation_Date").val(null);
+                                $("#StartTime").val(null);
+                                $("#EndTime").val(null);
+                                $("#Employee_AddEDIT").hide();
+
+                                alert("تم تشكيل اللجنة");
+                            }
+                        });
+                    }
+
+        }
+                });
+        </script>
+    }
+    <div id="Employee_AddEDIT">
+    </div>
+    <br />
+    <br />
+    <input type="button" class="btn btn-primary pull-right" id="submitValue" value="حــفـــظ">
+</div>

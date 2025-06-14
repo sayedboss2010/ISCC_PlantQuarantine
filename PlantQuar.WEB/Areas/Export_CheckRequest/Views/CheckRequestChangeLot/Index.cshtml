@@ -1,0 +1,299 @@
+﻿
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+
+}
+<style>
+    .bootstrap-select .dropdown-menu.inner {
+        margin-right: 0px !important;
+    }
+</style>
+<link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
+
+
+@section Title
+        {
+    <h2 class="ls-top-header"> تغيير أوزان اللوطات </h2>
+
+}
+
+<div class="row">
+   
+        <label style="text-align:center;color:red">  (لتغيير الأوزان يجب ان يكون الموقف النهائي للطلب لا يعمل ) </label>
+        
+    
+</div>
+<br />
+<br />
+<div class="row">
+    <div class="col-md-5">
+        <label class="col-md-4">رقم الطلب</label>
+        <input type="text" id="request_number" class="col-md-8 form-control" />
+    </div>
+</div>
+
+
+<br />
+<br />
+<div class="row">
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4">
+        <input required type="button" class=" btn btn-primary" id="LoadRecordsButton" value="بحــــــــــــــــث" style="width: 100%;float: left;right: 0;">
+    </div>
+    <div class="col-md-4"></div>
+</div>
+<br />
+<br />
+<div class="row">
+    <div class="col-md-12 " id="TableItemDIV">
+        <h4>موقف النباتات للطلب</h4>
+        <table id="TableItemTbl" class="table table-bordered table-striped dataTable" role="grid" style="padding:5px; width:100%">
+            <thead>
+                <tr>
+                    <th hidden></th>
+                    <th>النبات</th>
+                    <th>الإسم المختصر</th>
+                    <th>رقم اللوط</th>
+                    <th hidden></th>
+                    <th>وزن العبوة القائم</th>
+                    <th>ادخال وزن العبوة القائم</th>
+                    <th>وزن العبوة الصافي</th>
+                    <th>ادخال وزن العبوة الصافي</th>
+                    <th>عدد العبوات</th>
+                    <th>ادخال عدد العبوات</th>
+                </tr>
+            </thead>
+            <tbody id="myTable_Item">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<br />
+<div class="row" id="SaveWeightItemDIV">
+
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4">
+        <input required type="button" class=" btn btn-primary" id="ButtonSave" value="حفظ" style="width: 100%;float: left;right: 0;">
+    </div>
+    <div class="col-md-4"></div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12" id="WeightLotStatusDIV">
+
+        <div id="TableEmpChangeDIV">
+
+            <h4>موقف  تغيير أوزان اللوطات </h4>
+            <br />
+            <table id="TableEmpChangeTbl" class="table table-bordered table-striped dataTable" role="grid" style="padding:5px; width:100%">
+
+                <thead>
+                    <tr>
+                        <th>رقم الموظف</th>
+                        <th>اسم الموظف</th>
+                        <th>الموقف </th>
+                        <th>التاريخ</th>
+                        <th>الوقت</th>
+                    </tr>
+                </thead>
+                <tbody id="myTable3">
+                </tbody>
+            </table>
+
+
+
+        </div>
+    </div>
+</div>
+
+<br />
+
+@section scripts{
+    <script src="~/assets/js/bootstrap-select1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#TableItemDIV").hide();
+            $("#SaveWeightItemDIV").hide();
+            $("#WeightLotStatusDIV").hide();
+
+
+
+            //App.init();
+
+
+
+
+
+        });
+
+
+        $('#LoadRecordsButton').click(function (e) {
+
+            $("#TableItemDIV").show();
+            $("#SaveWeightItemDIV").show();
+            $("#WeightLotStatusDIV").show();
+            var request_number = document.getElementById("request_number").value;
+            if (request_number > 0) {
+                $.ajax({
+                    url: '@Url.Action("GetGeshniCommittee", "CheckRequestChangeLot")',
+                    type: "POST",
+                    data: { CheckRequestNumber: request_number },
+                    success: function (data) {
+                        $("#TableItemTbl tbody").empty();
+                        console.log(data.Options);
+                        if (data.Result != "Empty")
+                        {
+                            for (var i = 0; i < data.Options.length; i++) {
+                                var item = data.Options[i];
+                                $("#TableItemTbl tbody").append("<tr>" +
+                                    "<td hidden>  " + item.EX_ItemID + "  </td>"
+                                    + "<td>  " + item.ItemName + "  </td>"
+                                    + "<td>  " + item.ItemShortName + "  </td>"
+                                    + "<td>" + item.Lot_Number + "</td>"
+                                    + "<td hidden>" + item.LotID + "</td>"
+                                    + "<td>" + item.Package_Based_Weight + "</td>"
+                                    + "<td><input type='text' id='Package_Based_Weight_" + item.LotID + "' class='col-md-8 form-control' value='"+item.Package_Based_Weight+"' /></td>"
+
+                                    + "<td>" + item.Package_Net_Weight + "</td>"
+                                    + "<td><input type='text' id='Package_Net_Weight_" + item.LotID + "' class='col-md-8 form-control' value='" + item.Package_Net_Weight  +"' /></td>"
+                                    + "<td>" + item.Package_Count + "</td>"
+                                    + "<td><input type='text' id='Package_Count_" + item.LotID + "' class='col-md-8 form-control' value='" + item.Package_Count + "'/></td>"
+
+
+                                    + "</tr>");
+
+                            }
+
+                        }
+                        else {
+                            alertify.error("رقم الطلب غير صحيح");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                    }
+                });
+                //Start Get Employee Who make Geshni Change
+
+
+
+                $.ajax({
+
+                    url: '@Url.Action("GetEmployeeGeshniChange", "CheckRequestChangeLot")',
+
+                    type: "POST",
+
+                    data: { requestNumber: request_number },
+
+                    success: function (data) {
+
+                        if (data.Result != "Empty") {
+
+
+
+                            for (var i = 0; i < data.Options.length; i++) {
+                var item = data.Options[i];
+               // alert(item);
+                var User_Creation_Date = new Date(item.User_Creation_Date2.match(/\d+/)[0] * 1);
+                //alert(User_Creation_Date)
+                var User_Creation_Date3 = User_Creation_Date.getFullYear() + "/" + (User_Creation_Date.getMonth() + 1) + "/" + User_Creation_Date.getDate();
+                var _time = User_Creation_Date.getHours() + ":" + User_Creation_Date.getMinutes();
+                $("#TableEmpChangeTbl tbody").append("<tr>" +
+
+                    "<td>  " + item.Emp_ID2 + "  </td>"
+                  +  "<td>  " + item.EmpName2 + "  </td>"
+                    + "<td>" + item.Notes2 + "</td>" +
+                    "<td>  " + User_Creation_Date3 + "  </td>"
+                   + "<td>  " + _time + "  </td>"
+                //.Value.ToString("dd/MM/yyyy")
+                   // item.User_Creation_Date2.Date.ToString("yyyy-MM-dd")
+
+                    + "</tr>");
+
+            }
+        }
+
+
+
+    }
+
+    });
+
+// End Get Employee Who make Geshni Change
+            }
+            else {
+                alertify.error("يحب ادخال رقم الطلب ");
+            }
+            $("#TableEmpChangeDIV").show();
+
+        });
+                    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        $('#ButtonSave').click(function (e) {
+            var CheckedItemsListWeight = [];
+            var rows = document.getElementById("myTable_Item").rows;
+            for (var i = 0, ceiling = rows.length; i < ceiling; i++)
+            {
+                //if (document.getElementById("status") != null) {
+                //    var idPost = document.getElementById("status").innerHTML;
+                //}
+                cells = rows[i].getElementsByTagName('td');
+                var id_cells = cells[4].innerHTML;
+
+                var LotID = cells[4].innerHTML;
+
+               // var Package_Based_Weight_ID = "Package_Based_Weight_ " + 5234;
+                //alert(Package_Based_Weight_ID);
+              //  alert(LotID);
+
+                var Package_Based_Weight = $('#Package_Based_Weight_' + LotID).val();
+                var Package_Net_Weight = $('#Package_Net_Weight_' + LotID).val();
+                var Package_Count = $('#Package_Count_' + LotID).val();
+                // document.getElementById(Package_Based_Weight_ID).value;   //cells[6].value;
+               // document.getElementById("searchTxt").value;
+              //  document.querySelector('#searchTxt').value;
+                //alert(Package_Based_Weight);
+              //  var   Package_Net_Weight = cells[8].value;
+               // var Package_Count = cells[10].value;
+
+                CheckedItemsListWeight.push({
+                    LotID: LotID,
+                    Package_Based_Weight: Package_Based_Weight,
+                    Package_Net_Weight: Package_Net_Weight,
+                    Package_Count: Package_Count
+                });
+            }
+            $.ajax({
+           type: "POST",
+           url: "/CheckRequestChangeLot/CheckRequestChangeWeightList",
+           dataType: "json",
+           //data: dataToSend,
+           data: JSON.stringify(
+               {
+                   CheckRequest_Number: $("#request_number").val(),
+                   CheckedItemsListWeight: CheckedItemsListWeight,
+
+
+               }),
+
+           contentType: "application/json; charset=utf-8",
+           success: function (data) {
+
+               if (data.Result != "error") {
+                    // alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+                   alertify.success("تم التعديل");
+                 location.href = "/Export_CheckRequest/CheckRequestChangeLot/Index"
+               }
+               else {
+                   alertify.error("لم يتم التعديل");
+
+
+
+               }
+           }
+       });
+        });
+    </script>
+}

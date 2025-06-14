@@ -1,0 +1,2385 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Accreditation" xml:space="preserve">
+    <value>الإعتماد</value>
+  </data>
+  <data name="AccreditationData" xml:space="preserve">
+    <value>بيانات الإعتماد</value>
+  </data>
+  <data name="AccreditationEndDate" xml:space="preserve">
+    <value>تاريخ نهاية الاعتماد</value>
+  </data>
+  <data name="AccreditationFarm" xml:space="preserve">
+    <value>معتمد</value>
+  </data>
+  <data name="AccreditationStartDate" xml:space="preserve">
+    <value>تاريخ بداية الاعتماد</value>
+  </data>
+  <data name="ActivatingApprovedStations" xml:space="preserve">
+    <value>تفعيل المحطات المعتمدة</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>فعال</value>
+  </data>
+  <data name="Activity" xml:space="preserve">
+    <value>النشاط</value>
+  </data>
+  <data name="ActivityData" xml:space="preserve">
+    <value>بيانات النشاط</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>إضافة</value>
+  </data>
+  <data name="AddActivity" xml:space="preserve">
+    <value>اضافة نشاط</value>
+  </data>
+  <data name="AddContactData" xml:space="preserve">
+    <value>اضافة وسيلة اتصال</value>
+  </data>
+  <data name="AddNationalCompany" xml:space="preserve">
+    <value>اضافة شركة محلية</value>
+  </data>
+  <data name="AddPlantpart" xml:space="preserve">
+    <value>إضافة الجزء النباتى / الطور الحيوى</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>العنوان</value>
+  </data>
+  <data name="Address_Ar" xml:space="preserve">
+    <value>العنوان بالعربية</value>
+  </data>
+  <data name="Address_En" xml:space="preserve">
+    <value>العنوان بالإنجليزية</value>
+  </data>
+  <data name="AddStation" xml:space="preserve">
+    <value>تسجيل المحطة</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>مسئول النظام</value>
+  </data>
+  <data name="AgriculturalQuarantineMinistryofAgriculture" xml:space="preserve">
+    <value>الحجر الزراعي -وزارة الزراعة</value>
+  </data>
+  <data name="AgrigclutreClassification" xml:space="preserve">
+    <value>التقسيم الزراعي</value>
+  </data>
+  <data name="Allowed" xml:space="preserve">
+    <value>مسموح</value>
+  </data>
+  <data name="AllowedNot" xml:space="preserve">
+    <value>ممنوع</value>
+  </data>
+  <data name="AllRightsAreReserved" xml:space="preserve">
+    <value>جميع حقوق التصميم والبرمجة محفوظة ل</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>الكمية</value>
+  </data>
+  <data name="Analysis" xml:space="preserve">
+    <value>التحاليل</value>
+  </data>
+  <data name="AnalysisLab" xml:space="preserve">
+    <value>معمل التحاليل</value>
+  </data>
+  <data name="AnalysisType" xml:space="preserve">
+    <value>نوع التحاليل</value>
+  </data>
+  <data name="Approved" xml:space="preserve">
+    <value>معتمد</value>
+  </data>
+  <data name="ApprovedNot" xml:space="preserve">
+    <value>غير معتمد</value>
+  </data>
+  <data name="ApprovedStation" xml:space="preserve">
+    <value>محطة معتمدة</value>
+  </data>
+  <data name="ArabicName" xml:space="preserve">
+    <value>الاسم بالعربية</value>
+  </data>
+  <data name="Area_Acres" xml:space="preserve">
+    <value>المساحة بالفدان</value>
+  </data>
+  <data name="ArrivalPort" xml:space="preserve">
+    <value>ميناء الوصول</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>المرفقات</value>
+  </data>
+  <data name="Avaiable" xml:space="preserve">
+    <value>متاح</value>
+  </data>
+  <data name="AvaiableNot" xml:space="preserve">
+    <value>غير متاح</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>رجوع</value>
+  </data>
+  <data name="BasicData" xml:space="preserve">
+    <value>بيانات أساسية</value>
+  </data>
+  <data name="Biological_Phase" xml:space="preserve">
+    <value>الطور الحيوي</value>
+  </data>
+  <data name="Center" xml:space="preserve">
+    <value>مركز</value>
+  </data>
+  <data name="CenterDistrictCity" xml:space="preserve">
+    <value>مركز/حي/مدينة</value>
+  </data>
+  <data name="CentralAdministration" xml:space="preserve">
+    <value>الادارة المركزية</value>
+  </data>
+  <data name="check" xml:space="preserve">
+    <value>فحص</value>
+  </data>
+  <data name="checkPlace" xml:space="preserve">
+    <value>مكان الفحص</value>
+  </data>
+  <data name="CheckrequestNamber" xml:space="preserve">
+    <value>رقم طلب الفحص</value>
+  </data>
+  <data name="ChemicalComposition" xml:space="preserve">
+    <value>التركيب الكيميائي</value>
+  </data>
+  <data name="CommertialRecord" xml:space="preserve">
+    <value>سجل تجارى</value>
+  </data>
+  <data name="Committee" xml:space="preserve">
+    <value>اللجان</value>
+  </data>
+  <data name="CommitteeResult" xml:space="preserve">
+    <value>نتيجة اللجنة</value>
+  </data>
+  <data name="CommitteeTask" xml:space="preserve">
+    <value>مهام اللجنة</value>
+  </data>
+  <data name="CommitteMember" xml:space="preserve">
+    <value>أعضاء اللجنة</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>شركة</value>
+  </data>
+  <data name="CompanyActivity" xml:space="preserve">
+    <value> نشاط الشركة الاضافي</value>
+  </data>
+  <data name="CompanyActivityType" xml:space="preserve">
+    <value>نوع نشاط الشركة</value>
+  </data>
+  <data name="CompanyData" xml:space="preserve">
+    <value>بيانات الشركة</value>
+  </data>
+  <data name="CompanyExport" xml:space="preserve">
+    <value>الشركة المستوردة</value>
+  </data>
+  <data name="CompanyInternational" xml:space="preserve">
+    <value>شركات دولية</value>
+  </data>
+  <data name="CompanyMainActivity" xml:space="preserve">
+    <value>نشاط الشركة الرئيسي</value>
+  </data>
+  <data name="CompanyNational" xml:space="preserve">
+    <value>شركات محلية</value>
+  </data>
+  <data name="CompanyOwner" xml:space="preserve">
+    <value>صاحب الشركة</value>
+  </data>
+  <data name="ComputerAndInformationSystems" xml:space="preserve">
+    <value>شركة الانتاج الحربي لنظم المعلومات</value>
+  </data>
+  <data name="Constrains" xml:space="preserve">
+    <value>الإشتراطات</value>
+  </data>
+  <data name="Constrain_Type" xml:space="preserve">
+    <value>نوع الإشتراط</value>
+  </data>
+  <data name="ContactData" xml:space="preserve">
+    <value>وسائل الاتصال</value>
+  </data>
+  <data name="ContactType" xml:space="preserve">
+    <value>نوع وسائل الاتصال</value>
+  </data>
+  <data name="ContainerContent" xml:space="preserve">
+    <value>محتويات الرسالة</value>
+  </data>
+  <data name="ContainerOwner" xml:space="preserve">
+    <value>صاحب الرسالة</value>
+  </data>
+  <data name="ContainerOwnerAddress" xml:space="preserve">
+    <value>عنوان صاحب الرسالة</value>
+  </data>
+  <data name="ContainerOwnerRepresentative" xml:space="preserve">
+    <value>مندوب صاحب الرسالة</value>
+  </data>
+  <data name="ContainerOwnerRepresentativeAddress" xml:space="preserve">
+    <value>عنوان مندوب صاحب الرسالة</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>دولة</value>
+  </data>
+  <data name="CountryConstrain" xml:space="preserve">
+    <value>اشتراطات الدول</value>
+  </data>
+  <data name="CountryConstrainType" xml:space="preserve">
+    <value>أنواع الإشتراط</value>
+  </data>
+  <data name="CountryExport" xml:space="preserve">
+    <value>الدولة المصدرة</value>
+  </data>
+  <data name="CurrentStatus" xml:space="preserve">
+    <value>الموقف الحالي</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>التاريخ</value>
+  </data>
+  <data name="DateEnd" xml:space="preserve">
+    <value>تاريخ النهاية</value>
+  </data>
+  <data name="DateStart" xml:space="preserve">
+    <value>تاريخ البداية</value>
+  </data>
+  <data name="Date_of_committee" xml:space="preserve">
+    <value>تاريخ اللجنة</value>
+  </data>
+  <data name="Date_of_registration_request" xml:space="preserve">
+    <value>تاريخ  تسجيل  طلب الفحص</value>
+  </data>
+  <data name="DelegationDate" xml:space="preserve">
+    <value>تاريخ الانتداب</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="DeletePlantpart" xml:space="preserve">
+    <value>حذف جزء نباتي</value>
+  </data>
+  <data name="Descreption_En" xml:space="preserve">
+    <value>الوصف بالأنجليزية</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>الوصف</value>
+  </data>
+  <data name="Description_Ar" xml:space="preserve">
+    <value>الوصف بالعربية</value>
+  </data>
+  <data name="DisplayErorrs" xml:space="preserve">
+    <value>عرض الاخطاء</value>
+  </data>
+  <data name="DoesTreatmentOrNot" xml:space="preserve">
+    <value>هل الشركة بها معالجة؟ </value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>تعديل</value>
+  </data>
+  <data name="EditeActivity" xml:space="preserve">
+    <value>تعديل نشاط</value>
+  </data>
+  <data name="EditePlantpart" xml:space="preserve">
+    <value>تعديل جزء نباتي</value>
+  </data>
+  <data name="EffectiveMaterial" xml:space="preserve">
+    <value>المادة الفعالة</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>بريد إلكترونى</value>
+  </data>
+  <data name="EmpolyeeName" xml:space="preserve">
+    <value>اسم الموظف</value>
+  </data>
+  <data name="EmpolyeeNumber" xml:space="preserve">
+    <value>رقم الموظف</value>
+  </data>
+  <data name="EngineerName" xml:space="preserve">
+    <value>اسم المهندس</value>
+  </data>
+  <data name="EngineerNumber" xml:space="preserve">
+    <value>رقم المهندس</value>
+  </data>
+  <data name="EnglishName" xml:space="preserve">
+    <value>الاسم بالإنجليزية</value>
+  </data>
+  <data name="ExaminLocationType" xml:space="preserve">
+    <value>نوع أماكن التحفظ</value>
+  </data>
+  <data name="exempt" xml:space="preserve">
+    <value>معفي</value>
+  </data>
+  <data name="Exeporter" xml:space="preserve">
+    <value>الجهه المصدرة</value>
+  </data>
+  <data name="ExeporterName" xml:space="preserve">
+    <value>اسم الشخص المصدر</value>
+  </data>
+  <data name="ExpireDate" xml:space="preserve">
+    <value>تاريخ الانتهاء</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>صادر</value>
+  </data>
+  <data name="ExportCommitte" xml:space="preserve">
+    <value>لجنة الفحص</value>
+  </data>
+  <data name="ExportCompany" xml:space="preserve">
+    <value>الشركة المصدرة</value>
+  </data>
+  <data name="ExportCompanyAddress" xml:space="preserve">
+    <value>عنوان الشركة المصدرة</value>
+  </data>
+  <data name="ExportDate" xml:space="preserve">
+    <value>تاريخ الفحص</value>
+  </data>
+  <data name="ExporterType" xml:space="preserve">
+    <value>نوع المصدر</value>
+  </data>
+  <data name="ExportRequest" xml:space="preserve">
+    <value>طلب الفحص</value>
+  </data>
+  <data name="ExportRequestsList" xml:space="preserve">
+    <value>طلبات الفحص </value>
+  </data>
+  <data name="ExportSampleData" xml:space="preserve">
+    <value>استمارة سحب العينات</value>
+  </data>
+  <data name="ExportStatus" xml:space="preserve">
+    <value>الموقف من التصدير</value>
+  </data>
+  <data name="FarmCode" xml:space="preserve">
+    <value>كود المزرعة</value>
+  </data>
+  <data name="IsPaid" xml:space="preserve">
+    <value>دُفع</value>
+  </data>
+  <data name="FarmName" xml:space="preserve">
+    <value>اسم المزرعة</value>
+  </data>
+  <data name="UserCreationDate" xml:space="preserve">
+    <value>تاريخ انشاء المستخدم</value>
+  </data>
+  <data name="FarmData" xml:space="preserve">
+    <value>بيانات المزرعة</value>
+  </data>
+  <data name="FarmPlant" xml:space="preserve">
+    <value>بيانات نبات المزرعة</value>
+  </data>
+  <data name="FarmSampleData" xml:space="preserve">
+    <value>سحب عينات مزرعة</value>
+  </data>
+  <data name="FaxNumber" xml:space="preserve">
+    <value>رقم فاكس</value>
+  </data>
+  <data name="Fees" xml:space="preserve">
+    <value>المصروفات</value>
+  </data>
+  <data name="FeesType" xml:space="preserve">
+    <value>أنواع النفقات</value>
+  </data>
+  <data name="FileName" xml:space="preserve">
+    <value>اسم الملف</value>
+  </data>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>لا يوجد ملف</value>
+  </data>
+  <data name="FixedFeesAmount" xml:space="preserve">
+    <value>نفقات ثابتة</value>
+  </data>
+  <data name="ForbiddenReason" xml:space="preserve">
+    <value>سبب المنع</value>
+  </data>
+  <data name="ForbiddenStatus" xml:space="preserve">
+    <value>حالة المنع</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>من</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>الاسم الكامل</value>
+  </data>
+  <data name="GeneralAdmin" xml:space="preserve">
+    <value>الإدارة العامة</value>
+  </data>
+  <data name="GeneralManager" xml:space="preserve">
+    <value>المدير العام</value>
+  </data>
+  <data name="GeographicRange" xml:space="preserve">
+    <value>النطاق الجغرافى</value>
+  </data>
+  <data name="GotoPage" xml:space="preserve">
+    <value>اذهب إلى صفحة</value>
+  </data>
+  <data name="Governate" xml:space="preserve">
+    <value>المحافظة</value>
+  </data>
+  <data name="Gram" xml:space="preserve">
+    <value>جرام</value>
+  </data>
+  <data name="HagerData" xml:space="preserve">
+    <value>بيانات الحجر</value>
+  </data>
+  <data name="HSCode" xml:space="preserve">
+    <value>HSCode</value>
+  </data>
+  <data name="IdentityNumber" xml:space="preserve">
+    <value>رقم الهوية</value>
+  </data>
+  <data name="IdentityType" xml:space="preserve">
+    <value>نوع الهوية</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>صورة</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>الوارد</value>
+  </data>
+  <data name="ImportCompany" xml:space="preserve">
+    <value>الشركة المستوردة</value>
+  </data>
+  <data name="ImportCountry" xml:space="preserve">
+    <value>الدولة المستوردة</value>
+  </data>
+  <data name="ImportProcedures" xml:space="preserve">
+    <value>إجراءات الوارد</value>
+  </data>
+  <data name="ImportStatus" xml:space="preserve">
+    <value>الموقف من الاستيراد</value>
+  </data>
+  <data name="IndustrialLicenseNumber" xml:space="preserve">
+    <value>رقم الترخيص الصناعي</value>
+  </data>
+  <data name="Internal" xml:space="preserve">
+    <value>داخلى</value>
+  </data>
+  <data name="International" xml:space="preserve">
+    <value>دولى</value>
+  </data>
+  <data name="invalidCheckrequestNumber" xml:space="preserve">
+    <value>خطأ فى رقم طلب الفحص</value>
+  </data>
+  <data name="InvalidMobileNumber" xml:space="preserve">
+    <value>رقم الموبايل غير صحيح</value>
+  </data>
+  <data name="IPPCMember" xml:space="preserve">
+    <value>IPPC عضو في </value>
+  </data>
+  <data name="IPPCMemberNot" xml:space="preserve">
+    <value>غير عضو</value>
+  </data>
+  <data name="IPPCMembership" xml:space="preserve">
+    <value>عضوية IPPC</value>
+  </data>
+  <data name="Job" xml:space="preserve">
+    <value>الوظيفة</value>
+  </data>
+  <data name="Kilo" xml:space="preserve">
+    <value>كيلو جرام</value>
+  </data>
+  <data name="LiableAlive" xml:space="preserve">
+    <value>كائنات حية</value>
+  </data>
+  <data name="LiableAliveNot" xml:space="preserve">
+    <value>مواد غير حية</value>
+  </data>
+  <data name="LiableItems" xml:space="preserve">
+    <value>بنود خاضعة</value>
+  </data>
+  <data name="LiableItemsShortName" xml:space="preserve">
+    <value>LiableItemsShortName</value>
+  </data>
+  <data name="LiableItems_ShortName" xml:space="preserve">
+    <value>الاسم المختصر للبند الخاضع</value>
+  </data>
+  <data name="LiableItems_Status" xml:space="preserve">
+    <value>حالة البند الخاضع</value>
+  </data>
+  <data name="LiableItems_Strain" xml:space="preserve">
+    <value>انواع الاصناف</value>
+  </data>
+  <data name="LiableItemType" xml:space="preserve">
+    <value>نوع البند</value>
+  </data>
+  <data name="LocalClassifications" xml:space="preserve">
+    <value>التقسيم المحلي</value>
+  </data>
+  <data name="LoginName" xml:space="preserve">
+    <value>أسم المستخدم</value>
+  </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>تسجيل خروج</value>
+  </data>
+  <data name="LotData" xml:space="preserve">
+    <value>بيانات اللوط</value>
+  </data>
+  <data name="MainCalssification" xml:space="preserve">
+    <value>تصنيف الأساسى</value>
+  </data>
+  <data name="MainTreatment" xml:space="preserve">
+    <value>المعالجة الرئيسية</value>
+  </data>
+  <data name="Manafest" xml:space="preserve">
+    <value>المانيفستو</value>
+  </data>
+  <data name="Mandatory" xml:space="preserve">
+    <value>إجباري</value>
+  </data>
+  <data name="Member" xml:space="preserve">
+    <value>العضو</value>
+  </data>
+  <data name="MemberNumber" xml:space="preserve">
+    <value>رقم العضو</value>
+  </data>
+  <data name="MinAmount" xml:space="preserve">
+    <value>القيمة الصغرى</value>
+  </data>
+  <data name="MinistryofMilitaryProduction" xml:space="preserve">
+    <value>وزارة الانتاج الحربي</value>
+  </data>
+  <data name="MobileNumber_Must_be11digits" xml:space="preserve">
+    <value>يجب أن يكون رقم الموبايل 11 رقم</value>
+  </data>
+  <data name="National" xml:space="preserve">
+    <value>محلى</value>
+  </data>
+  <data name="Nationality" xml:space="preserve">
+    <value>الجنسية</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>لا</value>
+  </data>
+  <data name="NoResults" xml:space="preserve">
+    <value>لا يوجد نتائج عن</value>
+  </data>
+  <data name="NotActive" xml:space="preserve">
+    <value>غير فعال</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>ملاحظات</value>
+  </data>
+  <data name="NotExempt" xml:space="preserve">
+    <value>غير معفي</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>التنبيهات</value>
+  </data>
+  <data name="no_results" xml:space="preserve">
+    <value>لا يوجد نتائج عن</value>
+  </data>
+  <data name="NumofRows" xml:space="preserve">
+    <value>عدد الصفوف</value>
+  </data>
+  <data name="OrganizationAddress" xml:space="preserve">
+    <value>عنوان الهيئة</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>اخري</value>
+  </data>
+  <data name="Outlet" xml:space="preserve">
+    <value>المنفذ</value>
+  </data>
+  <data name="OutletData" xml:space="preserve">
+    <value>بيانات المنفذ</value>
+  </data>
+  <data name="Owner_Ar" xml:space="preserve">
+    <value>اسم المالك-عربى</value>
+  </data>
+  <data name="Owner_En" xml:space="preserve">
+    <value>اسم المالك-انجليزى</value>
+  </data>
+  <data name="PackageMaterial" xml:space="preserve">
+    <value>مادة العبوة</value>
+  </data>
+  <data name="PackageType" xml:space="preserve">
+    <value>نوع العبوة</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>رقم هاتف</value>
+  </data>
+  <data name="PhylumSubphylum" xml:space="preserve">
+    <value>شعب </value>
+  </data>
+  <data name="ItemsN" xml:space="preserve">
+    <value>الاصناف</value>
+  </data>
+  <data name="PlantCategory" xml:space="preserve">
+    <value>أصناف النبات</value>
+  </data>
+  <data name="PlantFamily" xml:space="preserve">
+    <value>عائلة </value>
+  </data>
+  <data name="PlantFeesAmount" xml:space="preserve">
+    <value>رسم النبات</value>
+  </data>
+  <data name="PlantGroup" xml:space="preserve">
+    <value>المجموعة</value>
+  </data>
+  <data name="PlantKingdom" xml:space="preserve">
+    <value>المملكة </value>
+  </data>
+  <data name="PlantLevel" xml:space="preserve">
+    <value>المستوى</value>
+  </data>
+  <data name="PlantOrder" xml:space="preserve">
+    <value>الرتب </value>
+  </data>
+  <data name="PlantPart" xml:space="preserve">
+    <value>الجزء النباتى/ الطور الحيوي</value>
+  </data>
+  <data name="PlantPartType" xml:space="preserve">
+    <value>أجزاء النبات</value>
+  </data>
+  <data name="plantProduct" xml:space="preserve">
+    <value>منتج/نبات</value>
+  </data>
+  <data name="Item_Purpose" xml:space="preserve">
+    <value>الغرض من التصدير/الإستيراد</value>
+  </data>
+  <data name="PlantRegistrationDate" xml:space="preserve">
+    <value>تاريخ تسجيل النبات</value>
+  </data>
+  <data name="PlantShortName" xml:space="preserve">
+    <value>الاسم المختصر للنبات</value>
+  </data>
+  <data name="PlantType" xml:space="preserve">
+    <value>أصناف النبات</value>
+  </data>
+  <data name="platData" xml:space="preserve">
+    <value>بيانات النبات</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>الميناء</value>
+  </data>
+  <data name="PortInternational" xml:space="preserve">
+    <value>ميناء دولى</value>
+  </data>
+  <data name="PortNational" xml:space="preserve">
+    <value>ميناء محلى</value>
+  </data>
+  <data name="PortOrganization" xml:space="preserve">
+    <value>هيئة الموانى</value>
+  </data>
+  <data name="Ports" xml:space="preserve">
+    <value>الموانى</value>
+  </data>
+  <data name="PortType" xml:space="preserve">
+    <value>نوع الميناء</value>
+  </data>
+  <data name="Prevent" xml:space="preserve">
+    <value>ممنوع</value>
+  </data>
+  <data name="Prevented_Not" xml:space="preserve">
+    <value>غير ممنوع</value>
+  </data>
+  <data name="PreventReason" xml:space="preserve">
+    <value>سبب المنع</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>المنتج النباتي</value>
+  </data>
+  <data name="ProductStatus" xml:space="preserve">
+    <value>حالة النبات المنتج</value>
+  </data>
+  <data name="ProtectionDecision" xml:space="preserve">
+    <value>قرار الحماية</value>
+  </data>
+  <data name="PublicOrganization" xml:space="preserve">
+    <value>هيئات عامة</value>
+  </data>
+  <data name="PublicOrganizationType" xml:space="preserve">
+    <value>أنواع الهيئات العامة</value>
+  </data>
+  <data name="Purpose" xml:space="preserve">
+    <value>الغرض</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>السبب</value>
+  </data>
+  <data name="ReasonFortrns" xml:space="preserve">
+    <value>أسباب النقل تحت التحفظ</value>
+  </data>
+  <data name="Reciver" xml:space="preserve">
+    <value>المرسل إليه</value>
+  </data>
+  <data name="RecoredName" xml:space="preserve">
+    <value>اسم السجل</value>
+  </data>
+  <data name="RecoredNumber" xml:space="preserve">
+    <value>رقم السجل</value>
+  </data>
+  <data name="RegisterDate" xml:space="preserve">
+    <value>تاريخ التسجيل</value>
+  </data>
+  <data name="RegisterDate_End" xml:space="preserve">
+    <value>تاريخ الانهاء</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="SaveLocation" xml:space="preserve">
+    <value>أماكن التحفظ</value>
+  </data>
+  <data name="Save_Delete" xml:space="preserve">
+    <value>تم الحذف بنجاح</value>
+  </data>
+  <data name="Save_Insert" xml:space="preserve">
+    <value>تم الاضافة بنجاح</value>
+  </data>
+  <data name="Save_Update" xml:space="preserve">
+    <value>تم التعديل بنجاح</value>
+  </data>
+  <data name="ScientificClassifications" xml:space="preserve">
+    <value>التقسيم العلمي</value>
+  </data>
+  <data name="ScientificName" xml:space="preserve">
+    <value>الإسم العلمى</value>
+  </data>
+  <data name="ScientificNameAr" xml:space="preserve">
+    <value>الاسم العلمي بالعربية</value>
+  </data>
+  <data name="ScientificNameEn" xml:space="preserve">
+    <value>الاسم العلمي بالإنجليزية</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>بحث</value>
+  </data>
+  <data name="SecondaryClassification" xml:space="preserve">
+    <value>تصنيف فرعى</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>اختر</value>
+  </data>
+  <data name="Select_One_More" xml:space="preserve">
+    <value>حدد واحد أو أكثر</value>
+  </data>
+  <data name="ShipmentMean" xml:space="preserve">
+    <value>وسيلة الشحن</value>
+  </data>
+  <data name="ShipmentPort" xml:space="preserve">
+    <value>ميناء الشحن</value>
+  </data>
+  <data name="ShipName" xml:space="preserve">
+    <value>إسم الباخرة</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>إظهار</value>
+  </data>
+  <data name="Station" xml:space="preserve">
+    <value>محطة</value>
+  </data>
+  <data name="StationAccreditation" xml:space="preserve">
+    <value>إعتماد المحطة</value>
+  </data>
+  <data name="StationActivity" xml:space="preserve">
+    <value>نشاط المحطة</value>
+  </data>
+  <data name="StationName" xml:space="preserve">
+    <value>اسم المحطة</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
+  <data name="ActivityType" xml:space="preserve">
+    <value>نوع النشاط</value>
+  </data>
+  <data name="supervisorName" xml:space="preserve">
+    <value>اسم المشرف</value>
+  </data>
+  <data name="TaxesRecord" xml:space="preserve">
+    <value>سجل ضريبى</value>
+  </data>
+  <data name="TheCommitteeWasFormed" xml:space="preserve">
+    <value>تم تشكيل اللجنة</value>
+  </data>
+  <data name="TimeOut" xml:space="preserve">
+    <value>نهاية المهلة</value>
+  </data>
+  <data name="Time_of_ActionFrom" xml:space="preserve">
+    <value>وقت الإجراء من</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>إلى</value>
+  </data>
+  <data name="Ton" xml:space="preserve">
+    <value>طن</value>
+  </data>
+  <data name="TotallyRejected" xml:space="preserve">
+    <value>مرفوض كليا</value>
+  </data>
+  <data name="TransitCountry" xml:space="preserve">
+    <value>دولة العبور</value>
+  </data>
+  <data name="TransitPort" xml:space="preserve">
+    <value>ميناء العبور</value>
+  </data>
+  <data name="Translate" xml:space="preserve">
+    <value>الترجمة</value>
+  </data>
+  <data name="TransportMean" xml:space="preserve">
+    <value>طريقة النقل</value>
+  </data>
+  <data name="TransportMeanName" xml:space="preserve">
+    <value>اسم وسيلة الشحن</value>
+  </data>
+  <data name="Treatment" xml:space="preserve">
+    <value>المعالجة</value>
+  </data>
+  <data name="TreatmentMaterial" xml:space="preserve">
+    <value>مادة المعالجة</value>
+  </data>
+  <data name="TreatmentMethod" xml:space="preserve">
+    <value>طريقة المعالجة </value>
+  </data>
+  <data name="TreatmentStatment" xml:space="preserve">
+    <value>بيان المعالجة</value>
+  </data>
+  <data name="TreatmentType" xml:space="preserve">
+    <value>نوع المعالجة</value>
+  </data>
+  <data name="UnderProtection" xml:space="preserve">
+    <value>تحت الحمايه</value>
+  </data>
+  <data name="UnderProtectionNot" xml:space="preserve">
+    <value>ليس تحت الحمايه</value>
+  </data>
+  <data name="Union" xml:space="preserve">
+    <value>الاتحاد </value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>القيمة</value>
+  </data>
+  <data name="Village" xml:space="preserve">
+    <value>قرية</value>
+  </data>
+  <data name="Weight" xml:space="preserve">
+    <value>الوزن</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>نعم</value>
+  </data>
+  <data name="youMustChooseCommeteeTask" xml:space="preserve">
+    <value>يجب اختيار مهام اللجنة</value>
+  </data>
+  <data name="youMustEnterNumberOrEmpoloyeeName" xml:space="preserve">
+    <value>يجب كتابة اسم او رقم الموظف</value>
+  </data>
+  <data name="YouMustinstallthedata" xml:space="preserve">
+    <value>يجب استكمال البيانات</value>
+  </data>
+  <data name="ComapnyContactAdd" xml:space="preserve">
+    <value>إضافة بيانات شركة</value>
+  </data>
+  <data name="ContactAdd" xml:space="preserve">
+    <value>إضافة وسيلة إتصال</value>
+  </data>
+  <data name="StationAdd" xml:space="preserve">
+    <value>تسجيل المحطة</value>
+  </data>
+  <data name="AccreditationDataAdded" xml:space="preserve">
+    <value>تمت إضافة بيانات الآعتماد</value>
+  </data>
+  <data name="AddAccreditation" xml:space="preserve">
+    <value>اضافة اعتماد</value>
+  </data>
+  <data name="AddAccreditationData" xml:space="preserve">
+    <value>اضافةبيانات الآعتماد</value>
+  </data>
+  <data name="AddActivityData" xml:space="preserve">
+    <value>إضافة بيانات النشاط</value>
+  </data>
+  <data name="AddCategoryData" xml:space="preserve">
+    <value>إضافة بيانات الاصناف</value>
+  </data>
+  <data name="AdditionalData" xml:space="preserve">
+    <value>بيانات إضافية</value>
+  </data>
+  <data name="category" xml:space="preserve">
+    <value>اصناف</value>
+  </data>
+  <data name="CategoryDataAdded" xml:space="preserve">
+    <value>تمت إضافة بيانات الاصناف</value>
+  </data>
+  <data name="DeleteAccreditation" xml:space="preserve">
+    <value>حذف اعتماد</value>
+  </data>
+  <data name="DeleteActivity" xml:space="preserve">
+    <value>حذف نشاط</value>
+  </data>
+  <data name="EditeAccreditation" xml:space="preserve">
+    <value>تعديل اعتماد</value>
+  </data>
+  <data name="EditeAccreditationData" xml:space="preserve">
+    <value>تعديل بيانات الآعتماد</value>
+  </data>
+  <data name="EditeActivityData" xml:space="preserve">
+    <value>تعديل بيانات النشاط</value>
+  </data>
+  <data name="EditeCategoryData" xml:space="preserve">
+    <value>تعديل بيانات الاصناف</value>
+  </data>
+  <data name="EditeStation" xml:space="preserve">
+    <value>تعديل محطة</value>
+  </data>
+  <data name="FarmCategory" xml:space="preserve">
+    <value>اصناف المزرعة</value>
+  </data>
+  <data name="FileUpload" xml:space="preserve">
+    <value>تحميل ملف</value>
+  </data>
+  <data name="NewStationAdded" xml:space="preserve">
+    <value>تمت إضافة محطة جديدة</value>
+  </data>
+  <data name="PlantpartAdded" xml:space="preserve">
+    <value>تمت إضافة جزء نباتي</value>
+  </data>
+  <data name="TheEndDateThanStartDate" xml:space="preserve">
+    <value>لابد ان يكون تاريخ النهاية اكبر من تاريخ البداية</value>
+  </data>
+  <data name="Delegate" xml:space="preserve">
+    <value>مندوب صاحب الرسالة</value>
+  </data>
+  <data name="DelegateAddress" xml:space="preserve">
+    <value>عنوان مندوب صاحب الرسالة</value>
+  </data>
+  <data name="Egypt" xml:space="preserve">
+    <value>مصر</value>
+  </data>
+  <data name="Farm" xml:space="preserve">
+    <value>المزرعة</value>
+  </data>
+  <data name="MessageData" xml:space="preserve">
+    <value>بيانات الرسالة</value>
+  </data>
+  <data name="MessageOwner" xml:space="preserve">
+    <value>صاحب الرسالة</value>
+  </data>
+  <data name="MessagePath" xml:space="preserve">
+    <value>مسار الرسالة</value>
+  </data>
+  <data name="OwnerAddress" xml:space="preserve">
+    <value>عنوان صاحب الرسالة</value>
+  </data>
+  <data name="ArrivalDate" xml:space="preserve">
+    <value>تاريخ الوصول</value>
+  </data>
+  <data name="ArrivalHour" xml:space="preserve">
+    <value>ساعة الوصول</value>
+  </data>
+  <data name="CategoryName" xml:space="preserve">
+    <value>اسم الصنف</value>
+  </data>
+  <data name="CheckDate" xml:space="preserve">
+    <value>تاريخ الفحص</value>
+  </data>
+  <data name="CompletionRequestNumber" xml:space="preserve">
+    <value>رقم طلب الاتمام</value>
+  </data>
+  <data name="consignee" xml:space="preserve">
+    <value>المرسل إليه</value>
+  </data>
+  <data name="CustomsCertificateNumber" xml:space="preserve">
+    <value>رقم الشهادة الجمركية</value>
+  </data>
+  <data name="DateOfManifesto" xml:space="preserve">
+    <value>تاريخ تقديم المنافيستو</value>
+  </data>
+  <data name="DischargeEndDate" xml:space="preserve">
+    <value>تاريخ نهاية التفريغ</value>
+  </data>
+  <data name="enterAllData" xml:space="preserve">
+    <value>تأكد من إدخال كافة البيانات المطلوبة</value>
+  </data>
+  <data name="FreeZones" xml:space="preserve">
+    <value>المناطق الحرة</value>
+  </data>
+  <data name="Importer" xml:space="preserve">
+    <value>الجهة المستوردة</value>
+  </data>
+  <data name="ImporterName" xml:space="preserve">
+    <value>اسم الشخص المستورد</value>
+  </data>
+  <data name="ImporterType" xml:space="preserve">
+    <value>نوع الجهة المستوردة</value>
+  </data>
+  <data name="ImProcedureType" xml:space="preserve">
+    <value>إجراءات الوارد</value>
+  </data>
+  <data name="Im_CustodyPlaceType" xml:space="preserve">
+    <value>أنواع أماكن التحفظ</value>
+  </data>
+  <data name="Im_Stores" xml:space="preserve">
+    <value>المخازن</value>
+  </data>
+  <data name="Im_Warehouses" xml:space="preserve">
+    <value>المستودعات</value>
+  </data>
+  <data name="Initiator" xml:space="preserve">
+    <value>المنشأ</value>
+  </data>
+  <data name="ManafestNumber" xml:space="preserve">
+    <value>رقــم المانيفستو</value>
+  </data>
+  <data name="NavigationCompany" xml:space="preserve">
+    <value>شركة الملاحة</value>
+  </data>
+  <data name="NetWeight" xml:space="preserve">
+    <value>الوزن الصافي</value>
+  </data>
+  <data name="NotTransit" xml:space="preserve">
+    <value>ليس ترانزيت</value>
+  </data>
+  <data name="PolicyNumber" xml:space="preserve">
+    <value>رقم البوليصة</value>
+  </data>
+  <data name="PublicOrganizationAddress" xml:space="preserve">
+    <value>عنوان الهيئة</value>
+  </data>
+  <data name="RequestForPermissionToImport" xml:space="preserve">
+    <value>طلب اذن استيراد</value>
+  </data>
+  <data name="SelectOpretionType" xml:space="preserve">
+    <value>اختيار نوع العملية</value>
+  </data>
+  <data name="StandingWeight" xml:space="preserve">
+    <value>الوزن القائم</value>
+  </data>
+  <data name="StatementOfAmendments" xml:space="preserve">
+    <value>بيان التعديلات</value>
+  </data>
+  <data name="Store" xml:space="preserve">
+    <value>المخزن/الساحة</value>
+  </data>
+  <data name="StoreOwner" xml:space="preserve">
+    <value>مالك المخزن</value>
+  </data>
+  <data name="Transit" xml:space="preserve">
+    <value>ترانزيت</value>
+  </data>
+  <data name="Unit" xml:space="preserve">
+    <value>الوحدة</value>
+  </data>
+  <data name="WarehouseType" xml:space="preserve">
+    <value>نوع المستودع</value>
+  </data>
+  <data name="QuarantineProgressDate" xml:space="preserve">
+    <value>تاريخ التقدم للحجر الزراعي</value>
+  </data>
+  <data name="AddConstrainData" xml:space="preserve">
+    <value>إضافة بيانات الآشتراط</value>
+  </data>
+  <data name="AddLot" xml:space="preserve">
+    <value>إضافة للوط</value>
+  </data>
+  <data name="AddMessageData" xml:space="preserve">
+    <value>إضافة بيانات الرسالة</value>
+  </data>
+  <data name="Attachment" xml:space="preserve">
+    <value>المرفق</value>
+  </data>
+  <data name="AttachmentName" xml:space="preserve">
+    <value>اسم المرفق</value>
+  </data>
+  <data name="AttachmentNumber" xml:space="preserve">
+    <value>رقم المرفق</value>
+  </data>
+  <data name="CompanyAddress" xml:space="preserve">
+    <value>عنوان الشركة/المرسل إليه</value>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>اسم الشركة / الراسل </value>
+  </data>
+  <data name="ConstrainActivation" xml:space="preserve">
+    <value>تفعيل الإشتراطات</value>
+  </data>
+  <data name="Constrain_Ar" xml:space="preserve">
+    <value>الإشتراط بالعربية</value>
+  </data>
+  <data name="Constrain_En" xml:space="preserve">
+    <value>الإشتراط بالانجليزية</value>
+  </data>
+  <data name="DaysNumber" xml:space="preserve">
+    <value>عدد الأيام</value>
+  </data>
+  <data name="DeleteLot" xml:space="preserve">
+    <value>حذف اللوط</value>
+  </data>
+  <data name="DeleteMessageData" xml:space="preserve">
+    <value>حذف بيانات الرسالة</value>
+  </data>
+  <data name="EditConstrainData" xml:space="preserve">
+    <value>تعديل بيانات الأشتراطات</value>
+  </data>
+  <data name="EditLot" xml:space="preserve">
+    <value>فحص</value>
+  </data>
+  <data name="EditMessageData" xml:space="preserve">
+    <value>تعديل بيانات الرسالة</value>
+  </data>
+  <data name="ExeportPurpose" xml:space="preserve">
+    <value>غرض التصدير</value>
+  </data>
+  <data name="ExportPlantNotPermitted" xml:space="preserve">
+    <value>غير مسموح بتصدير هذا النبات</value>
+  </data>
+  <data name="ExportSubjectNotPermitted" xml:space="preserve">
+    <value>غير مسموح بتصدير هذا البند الخاضع</value>
+  </data>
+  <data name="HoursNamber" xml:space="preserve">
+    <value>عدد الساعات</value>
+  </data>
+  <data name="Includedcertificate" xml:space="preserve">
+    <value>متضمن في الشهادة الزراعي</value>
+  </data>
+  <data name="Includedcertificate_Ar" xml:space="preserve">
+    <value>متضمن في الشهادة الزراعية بالعربي</value>
+  </data>
+  <data name="Includedcertificate_En" xml:space="preserve">
+    <value>متضمن في الشهادة الزراعية بالإنجليزي</value>
+  </data>
+  <data name="LotDataAddad" xml:space="preserve">
+    <value>تمت إضافة اللوط</value>
+  </data>
+  <data name="LotNumber" xml:space="preserve">
+    <value>رقم اللوط</value>
+  </data>
+  <data name="LotNumberExists" xml:space="preserve">
+    <value>رقم اللوط موجود مسبقا</value>
+  </data>
+  <data name="MessegeContents" xml:space="preserve">
+    <value>محتويات الرسالة</value>
+  </data>
+  <data name="MinutesNumber" xml:space="preserve">
+    <value>عدد الدقائق</value>
+  </data>
+  <data name="NewMessageDataAdded" xml:space="preserve">
+    <value>تمت إضافة بيانات الرسالة الجديدة</value>
+  </data>
+  <data name="PackageCount" xml:space="preserve">
+    <value>عدد العبوات</value>
+  </data>
+  <data name="PackageNetWeight" xml:space="preserve">
+    <value>وزن العبوة الصافي</value>
+  </data>
+  <data name="PackageWeight" xml:space="preserve">
+    <value>وزن العبوة</value>
+  </data>
+  <data name="PlantingPlace" xml:space="preserve">
+    <value>ناحية الزراعة</value>
+  </data>
+  <data name="ReceiverName" xml:space="preserve">
+    <value>اسم المستلم</value>
+  </data>
+  <data name="SelectAnalysisType_AnalysisLab" xml:space="preserve">
+    <value>يجب اختيار نوع التحليل والمعمل</value>
+  </data>
+  <data name="SelectCountry" xml:space="preserve">
+    <value>يجب اختيار الدولة</value>
+  </data>
+  <data name="SelectLiableItem_ConstrainType" xml:space="preserve">
+    <value>يجب اختيار نوع الإشتراط و البند الخاضع ومواصفاته قبل إضافة الإشتراطات</value>
+  </data>
+  <data name="SelectUnion" xml:space="preserve">
+    <value>يجب اختيار الاتحاد</value>
+  </data>
+  <data name="ShortName" xml:space="preserve">
+    <value>المسمي المختصر</value>
+  </data>
+  <data name="TheDose" xml:space="preserve">
+    <value>الجرعة</value>
+  </data>
+  <data name="TotalWeight" xml:space="preserve">
+    <value>الوزن الإجمالي</value>
+  </data>
+  <data name="Treatment_Analysis" xml:space="preserve">
+    <value>تحاليل/معالجة</value>
+  </data>
+  <data name="YouMustEnterAllTreatmentData" xml:space="preserve">
+    <value>يجب إدخال بيانات المعالجة كاملة</value>
+  </data>
+  <data name="YouMustSelectImportCountry" xml:space="preserve">
+    <value>يجب إختيار الدولة المستوردة</value>
+  </data>
+  <data name="TotalFees" xml:space="preserve">
+    <value>المجموع الكلي للرســوم</value>
+  </data>
+  <data name="YouMustBeAccreditationDateTheSameActivityDate" xml:space="preserve">
+    <value>لابد ان يكون تاريخي الاعتماد في نفس فترة تاريخي النشاط</value>
+  </data>
+  <data name="CommitteeStatus" xml:space="preserve">
+    <value>حالة اللجنة</value>
+  </data>
+  <data name="CommitteeFormation" xml:space="preserve">
+    <value>تشكيل اللجنة</value>
+  </data>
+  <data name="PayExpenses" xml:space="preserve">
+    <value>دفع النفقات</value>
+  </data>
+  <data name="ChooseAccpeted" xml:space="preserve">
+    <value>  الموافق </value>
+  </data>
+  <data name="ChooseNotAccpeted" xml:space="preserve">
+    <value>غير الموافق</value>
+  </data>
+  <data name="CertificateList" xml:space="preserve">
+    <value>طلبات الشهادة الزراعية(صادر)</value>
+  </data>
+  <data name="CertificateRequest" xml:space="preserve">
+    <value>طلبات الشهادة الزراعية</value>
+  </data>
+  <data name="DateNotEntered" xml:space="preserve">
+    <value>من فضلك ادخل تاريخ صحيح</value>
+  </data>
+  <data name="ExportRequestNumber" xml:space="preserve">
+    <value>رقم طلب الفحص</value>
+  </data>
+  <data name="PaidNot" xml:space="preserve">
+    <value>لم يتم الدفع</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>طباعة</value>
+  </data>
+  <data name="Printed" xml:space="preserve">
+    <value>تم الطباعة</value>
+  </data>
+  <data name="CommitteeType" xml:space="preserve">
+    <value>نوع اللجنة</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>التفاصيل</value>
+  </data>
+  <data name="ExporterSide" xml:space="preserve">
+    <value>الجهة المصدرة</value>
+  </data>
+  <data name="RequestDate" xml:space="preserve">
+    <value>تاريخ الطلب</value>
+  </data>
+  <data name="RequestNumber" xml:space="preserve">
+    <value>رقم طلب الفحص</value>
+  </data>
+  <data name="ImportRequestsList" xml:space="preserve">
+    <value>تفاصيل الطلب الحالية</value>
+  </data>
+  <data name="Export_to_Excel" xml:space="preserve">
+    <value>حفظ فى اكسل</value>
+  </data>
+  <data name="AreYouSureToSave" xml:space="preserve">
+    <value>تأكيد الحفظ</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="Sure" xml:space="preserve">
+    <value>تأكيد</value>
+  </data>
+  <data name="Certificate_Addtion" xml:space="preserve">
+    <value>اضافة الى الشهادة الصحة النباتية</value>
+  </data>
+  <data name="Enterbarcode" xml:space="preserve">
+    <value>أدخل الرمز الشريطي</value>
+  </data>
+  <data name="Accept" xml:space="preserve">
+    <value>مقبول</value>
+  </data>
+  <data name="Arabic" xml:space="preserve">
+    <value>عربى</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>انجليزى</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>مرفوض</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>النتيجة</value>
+  </data>
+  <data name="ChooseReasons" xml:space="preserve">
+    <value>أختر الاسباب</value>
+  </data>
+  <data name="AddResult" xml:space="preserve">
+    <value>أضف نتيجة</value>
+  </data>
+  <data name="InfectionName" xml:space="preserve">
+    <value>اسم الاصابه</value>
+  </data>
+  <data name="QuantitySize" xml:space="preserve">
+    <value>حجم الكمية</value>
+  </data>
+  <data name="SampleBarCode" xml:space="preserve">
+    <value>نموذج الباركود</value>
+  </data>
+  <data name="SampleRatio" xml:space="preserve">
+    <value>نسبة العينة</value>
+  </data>
+  <data name="SampleSize" xml:space="preserve">
+    <value>حجم العينة</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>الحجم</value>
+  </data>
+  <data name="Temperature" xml:space="preserve">
+    <value>درجة الحرارة</value>
+  </data>
+  <data name="TreatmentMatAmount" xml:space="preserve">
+    <value>مبلغ العلاج</value>
+  </data>
+  <data name="WithDrawPlace" xml:space="preserve">
+    <value>مكان السحب</value>
+  </data>
+  <data name="enterCheckNumber" xml:space="preserve">
+    <value>ادخل رقم طلب الفحص</value>
+  </data>
+  <data name="IsExport" xml:space="preserve">
+    <value>صادر/وارد</value>
+  </data>
+  <data name="Refuse_Reason" xml:space="preserve">
+    <value>أسباب الرفض/الإيقاف</value>
+  </data>
+  <data name="IsStop" xml:space="preserve">
+    <value>هل إيقاف</value>
+  </data>
+  <data name="Refused_stopped" xml:space="preserve">
+    <value>Refused_stopped</value>
+  </data>
+  <data name="addCenter" xml:space="preserve">
+    <value>إضافة مراكز</value>
+  </data>
+  <data name="AcceptedByCustomer" xml:space="preserve">
+    <value>تم موافقة العميل للجنة</value>
+  </data>
+  <data name="AcceptedByQuarantine" xml:space="preserve">
+    <value>تم الموافقه علي الطلب من الحجر</value>
+  </data>
+  <data name="CommitteeIsFormed" xml:space="preserve">
+    <value>تم تشكيل لجنة</value>
+  </data>
+  <data name="RejectedByCustomer" xml:space="preserve">
+    <value>تم رفض العميل للجنة</value>
+  </data>
+  <data name="RejectedByQuarantine" xml:space="preserve">
+    <value>تم رفض الطلب من الحجر</value>
+  </data>
+  <data name="WorkCommitteeIsFinished" xml:space="preserve">
+    <value>تم انتهاء عمل اللجنة</value>
+  </data>
+  <data name="ArabicRepublicofEgyptian" xml:space="preserve">
+    <value>جمهوريه مصر العربيه</value>
+  </data>
+  <data name="CentralAdministrationofplantQuarantine" xml:space="preserve">
+    <value>الادارة المركزية للحجر الزراعي</value>
+  </data>
+  <data name="MinistryofAgricultureandLandReclamation" xml:space="preserve">
+    <value>وزارة الزراعة واستصلاح الاراضي</value>
+  </data>
+  <data name="Printedon" xml:space="preserve">
+    <value>تمت الطباعة بتاريخ</value>
+  </data>
+  <data name="Additionaldeclaration" xml:space="preserve">
+    <value>اقرار اضافي</value>
+  </data>
+  <data name="Additionalinformation" xml:space="preserve">
+    <value>١٦ .معلومة اضافية</value>
+  </data>
+  <data name="Chemicals" xml:space="preserve">
+    <value>١٣ .الكيماويات(الماده الفعاله)</value>
+  </data>
+  <data name="Concentration" xml:space="preserve">
+    <value>١٤ .التركيز</value>
+  </data>
+  <data name="Date1" xml:space="preserve">
+    <value>١١ .التاريخ</value>
+  </data>
+  <data name="Dateofinspection" xml:space="preserve">
+    <value>١٧ .تاريخ الفحص</value>
+  </data>
+  <data name="Dateofissue" xml:space="preserve">
+    <value>١٨ .تاريخ الاصدار</value>
+  </data>
+  <data name="DeclaredMeansofConveyance" xml:space="preserve">
+    <value>٤ .وسيله النقل حسب البيانات</value>
+  </data>
+  <data name="DeclaredNameandAddressOfConsignee" xml:space="preserve">
+    <value>٣.اسم المرسل اليه وعنوانه حسب بياناته</value>
+  </data>
+  <data name="DeclaredPointofEntry" xml:space="preserve">
+    <value>٥ .نقطة الدخول حسب البيانات</value>
+  </data>
+  <data name="DescriptionoftheConsignment" xml:space="preserve">
+    <value>وصف الشحنة</value>
+  </data>
+  <data name="DisinfestationsandorDisinfestationsTreatment" xml:space="preserve">
+    <value>المعالجة للتطهير من التلوث و/أو الإصابة</value>
+  </data>
+  <data name="DistinguishingMarks" xml:space="preserve">
+    <value>٧ .العلامات المميزه</value>
+  </data>
+  <data name="Durationoftemperature" xml:space="preserve">
+    <value>١٥ .درجه الحراره</value>
+  </data>
+  <data name="NameAndAddressOfExporter" xml:space="preserve">
+    <value>٢.اسم المصدر وعنوانه</value>
+  </data>
+  <data name="Nameofauthorizedofficial" xml:space="preserve">
+    <value>٢١ .اسم المسئول المفوض</value>
+  </data>
+  <data name="Nameofinspectors" xml:space="preserve">
+    <value>٢٠ .اسماء الفاحصين</value>
+  </data>
+  <data name="NameOFProductandQuantityDeclared" xml:space="preserve">
+    <value>٩ .اسم المنتج وكميتة حسب بيناته</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>رقم</value>
+  </data>
+  <data name="NumberandDescriptionofPackages" xml:space="preserve">
+    <value>٨ .عدد الطرود و وصفها</value>
+  </data>
+  <data name="PhytosanitaryCertificate" xml:space="preserve">
+    <value>شهادة صحة نباتية</value>
+  </data>
+  <data name="Placeofissue" xml:space="preserve">
+    <value>١٩ .مكان الاصدار</value>
+  </data>
+  <data name="PlaceofOrigin" xml:space="preserve">
+    <value>٦ .مكان المنشأ</value>
+  </data>
+  <data name="ToTheNationalPlantProtectionOrganizationOf" xml:space="preserve">
+    <value>١ .إلى المنظمة الوطنية لوقاية النباتات في</value>
+  </data>
+  <data name="Treatment1" xml:space="preserve">
+    <value>١٢ .المعالجة</value>
+  </data>
+  <data name="IDNo" xml:space="preserve">
+    <value>٢٢ .الرقم التعريفي</value>
+  </data>
+  <data name="NumberofContainers" xml:space="preserve">
+    <value>عدد الحاويات</value>
+  </data>
+  <data name="PortOfLoading" xml:space="preserve">
+    <value>٢٣ .ميناء الشحن</value>
+  </data>
+  <data name="Signature" xml:space="preserve">
+    <value>٢٥ .التوقيع</value>
+  </data>
+  <data name="StampOfService" xml:space="preserve">
+    <value>٢٤ .ختم المنظومه</value>
+  </data>
+  <data name="Exposure_Day" xml:space="preserve">
+    <value>وقت التعرض/يوم</value>
+  </data>
+  <data name="Exposure_Hour" xml:space="preserve">
+    <value>وقت التعرض/ساعه</value>
+  </data>
+  <data name="Exposure_Minute" xml:space="preserve">
+    <value>وقت التعرض/دقيقة</value>
+  </data>
+  <data name="Result_injury_Name" xml:space="preserve">
+    <value>نتيجة الاصابه</value>
+  </data>
+  <data name="choose" xml:space="preserve">
+    <value>أختر</value>
+  </data>
+  <data name="stationCode" xml:space="preserve">
+    <value>كود المحطة</value>
+  </data>
+  <data name="all" xml:space="preserve">
+    <value>الكل</value>
+  </data>
+  <data name="committeAccepted" xml:space="preserve">
+    <value>تمت الموافقة علي اللجنة</value>
+  </data>
+  <data name="committeeNotFormed" xml:space="preserve">
+    <value>لم يتم تشكيل اللجنة</value>
+  </data>
+  <data name="committeeWorkEnded" xml:space="preserve">
+    <value>تم انتهاء عمل اللجنة</value>
+  </data>
+  <data name="committeeWorkNotEnd" xml:space="preserve">
+    <value>لم يتم انتهاء عمل اللجنة</value>
+  </data>
+  <data name="FarmAccreditatRequest" xml:space="preserve">
+    <value>طلب اعتماد مزرعة </value>
+  </data>
+  <data name="ggg" xml:space="preserve">
+    <value>تلتلتلتلتلتلت</value>
+  </data>
+  <data name="mainPage" xml:space="preserve">
+    <value>الصفحة الرئيسة</value>
+  </data>
+  <data name="notAccept" xml:space="preserve">
+    <value>غير الموافق</value>
+  </data>
+  <data name="payMoney" xml:space="preserve">
+    <value>دفع النفقات</value>
+  </data>
+  <data name="stationActivityType" xml:space="preserve">
+    <value>نوع نشاط المحطة</value>
+  </data>
+  <data name="chooseall" xml:space="preserve">
+    <value>الكل</value>
+  </data>
+  <data name="newrequests" xml:space="preserve">
+    <value>طلبات جديدة</value>
+  </data>
+  <data name="ExaminationRequestNumber" xml:space="preserve">
+    <value>تفاصيل طلب الفحص</value>
+  </data>
+  <data name="committeeapproved" xml:space="preserve">
+    <value>تمت الموافقة علي اللجنة</value>
+  </data>
+  <data name="Consignmentresults" xml:space="preserve">
+    <value>نتائج الشحنة</value>
+  </data>
+  <data name="requestnotapproved" xml:space="preserve">
+    <value>لم يتم الموافقة علي الطلب</value>
+  </data>
+  <data name="requestrejected" xml:space="preserve">
+    <value>تم رفض الطلب</value>
+  </data>
+  <data name="Waitingcustomerresponse" xml:space="preserve">
+    <value>في انتظار رد العميل</value>
+  </data>
+  <data name="addAttachments" xml:space="preserve">
+    <value>اضافة مرفقات</value>
+  </data>
+  <data name="exportedSidesInformations" xml:space="preserve">
+    <value>بيانات الجهة المصدرة</value>
+  </data>
+  <data name="higherManagement" xml:space="preserve">
+    <value>الإدارة العليا</value>
+  </data>
+  <data name="importedCompanies" xml:space="preserve">
+    <value>الشركات المستوردة</value>
+  </data>
+  <data name="issuerAddress" xml:space="preserve">
+    <value>عنوان الجهة المصدرة</value>
+  </data>
+  <data name="issuerName" xml:space="preserve">
+    <value>اسم المصدر</value>
+  </data>
+  <data name="messageDetails" xml:space="preserve">
+    <value>تفاصيل الرسالة</value>
+  </data>
+  <data name="placeAddress" xml:space="preserve">
+    <value>عنوان المكان</value>
+  </data>
+  <data name="requestInfos" xml:space="preserve">
+    <value>بيانات الطلب</value>
+  </data>
+  <data name="TypeOfIssuer" xml:space="preserve">
+    <value>نوع الجهة المصدرة</value>
+  </data>
+  <data name="CheckCommitteeWorkEnded" xml:space="preserve">
+    <value>تم انتهاء عمل لجنه الفحص</value>
+  </data>
+  <data name="ChooseStatusofCommittee" xml:space="preserve">
+    <value>اختر حالة اللجنة</value>
+  </data>
+  <data name="CommitteeFormationGashny" xml:space="preserve">
+    <value>تشكيل لجنه جيشني</value>
+  </data>
+  <data name="WorkEnded" xml:space="preserve">
+    <value>تم انتهاء عمل</value>
+  </data>
+  <data name="approvalOfRequest" xml:space="preserve">
+    <value>الموافقة علي الطلب</value>
+  </data>
+  <data name="expensesNotPaid" xml:space="preserve">
+    <value>لا يتم دفع النفقات</value>
+  </data>
+  <data name="itemName" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
+  <data name="local" xml:space="preserve">
+    <value>محلى</value>
+  </data>
+  <data name="notConstrain" xml:space="preserve">
+    <value>لايوجد الإشتراط</value>
+  </data>
+  <data name="requestApproval" xml:space="preserve">
+    <value>تمت الموافقة علي الطلب</value>
+  </data>
+  <data name="veganPart" xml:space="preserve">
+    <value>الجزء النباتي</value>
+  </data>
+  <data name="SampleData" xml:space="preserve">
+    <value>سحب عينة</value>
+  </data>
+  <data name="CheckCommittee" xml:space="preserve">
+    <value>لجنة فحص</value>
+  </data>
+  <data name="CommitteeSampleData" xml:space="preserve">
+    <value>لجنة سحب عينة</value>
+  </data>
+  <data name="CommitteeTreatment" xml:space="preserve">
+    <value>لجنة معالجة</value>
+  </data>
+  <data name="FarmAccreditatRequestRegistrationDate" xml:space="preserve">
+    <value>تاريخ  تسجيل  طلب اعتماد مزرعة</value>
+  </data>
+  <data name="FarmNumber" xml:space="preserve">
+    <value>رقم المزرعة</value>
+  </data>
+  <data name="GeshneyCommittee" xml:space="preserve">
+    <value>لجنة جيشني</value>
+  </data>
+  <data name="isadmin" xml:space="preserve">
+    <value>مشرف</value>
+  </data>
+  <data name="StationAccreditatRequestRegistrationDate" xml:space="preserve">
+    <value>تاريخ  تسجيل  طلب اعتماد محطة</value>
+  </data>
+  <data name="chooseNew" xml:space="preserve">
+    <value>إختار جديد</value>
+  </data>
+  <data name="Resolution_Date" xml:space="preserve">
+    <value>تاريخ القرار</value>
+  </data>
+  <data name="Resolution_Number" xml:space="preserve">
+    <value>رقم القرار</value>
+  </data>
+  <data name="Description_En" xml:space="preserve">
+    <value>الوصف الاجنبى</value>
+  </data>
+  <data name="seeAttachment" xml:space="preserve">
+    <value>انظر المرفق</value>
+  </data>
+  <data name="Areainacre" xml:space="preserve">
+    <value>المساحه بالفدان</value>
+  </data>
+  <data name="chooseImage" xml:space="preserve">
+    <value>اختر صورة</value>
+  </data>
+  <data name="CompanyName_" xml:space="preserve">
+    <value>اسم الشركة</value>
+  </data>
+  <data name="CountryorUnion" xml:space="preserve">
+    <value>الدولة او الاتحاد</value>
+  </data>
+  <data name="get" xml:space="preserve">
+    <value>احصل على ..</value>
+  </data>
+  <data name="labName" xml:space="preserve">
+    <value>اسم المعمل </value>
+  </data>
+  <data name="PlantName" xml:space="preserve">
+    <value>اسم النبات</value>
+  </data>
+  <data name="RejectReason" xml:space="preserve">
+    <value>سبب الرفض</value>
+  </data>
+  <data name="ResultinjuryName" xml:space="preserve">
+    <value>اسم إصابة النتيجة</value>
+  </data>
+  <data name="stopCheckRequest" xml:space="preserve">
+    <value>إيقاف طلب الفحص</value>
+  </data>
+  <data name="fieldRequired" xml:space="preserve">
+    <value>*</value>
+  </data>
+  <data name="addCenters" xml:space="preserve">
+    <value>إضافة مراكز</value>
+  </data>
+  <data name="completeData" xml:space="preserve">
+    <value>بيانات كاملة</value>
+  </data>
+  <data name="hi" xml:space="preserve">
+    <value>الالالا</value>
+  </data>
+  <data name="invalidBarcode" xml:space="preserve">
+    <value>رمز شريطي غير صالح</value>
+  </data>
+  <data name="sampleLabresult" xml:space="preserve">
+    <value>نتيجة المختبر النموذجي</value>
+  </data>
+  <data name="shiftTiming" xml:space="preserve">
+    <value>مواعيد النبواتجية</value>
+  </data>
+  <data name="IsPaidBefore" xml:space="preserve">
+    <value>تم الدفع من قبل</value>
+  </data>
+  <data name="IsTreatment" xml:space="preserve">
+    <value>تم المعالجة</value>
+  </data>
+  <data name="WeightFrom" xml:space="preserve">
+    <value>الوزن من</value>
+  </data>
+  <data name="WeightTo" xml:space="preserve">
+    <value>الوزن الي</value>
+  </data>
+  <data name="feesforshifttreatment" xml:space="preserve">
+    <value>رسوم النوباتجية\المعالجة</value>
+  </data>
+  <data name="IsPlantInEgypt" xml:space="preserve">
+    <value>يزرع في مصر </value>
+  </data>
+  <data name="IsRegister" xml:space="preserve">
+    <value>مسجل </value>
+  </data>
+  <data name="allemployees" xml:space="preserve">
+    <value>كل الموظفين</value>
+  </data>
+  <data name="CommitteeMembers" xml:space="preserve">
+    <value>أعضاء اللجنة</value>
+  </data>
+  <data name="enddate" xml:space="preserve">
+    <value>تاريخ النهايه</value>
+  </data>
+  <data name="Geshney" xml:space="preserve">
+    <value>جيشني</value>
+  </data>
+  <data name="othersOpinoin" xml:space="preserve">
+    <value>راي الشخص الاخر</value>
+  </data>
+  <data name="Startdate" xml:space="preserve">
+    <value>تاريخ البدايه</value>
+  </data>
+  <data name="Resolution_year" xml:space="preserve">
+    <value>سنة القرار</value>
+  </data>
+  <data name="AgriculturalCategory" xml:space="preserve">
+    <value>الصنف الزراعي</value>
+  </data>
+  <data name="BarCode" xml:space="preserve">
+    <value>باركود</value>
+  </data>
+  <data name="Dateofissue1" xml:space="preserve">
+    <value>تاريخ الاصدار</value>
+  </data>
+  <data name="Degree" xml:space="preserve">
+    <value>الدرجه</value>
+  </data>
+  <data name="FarmNoAgriculturalDistrict" xml:space="preserve">
+    <value>رقم المزارع/ناحية الزراعة</value>
+  </data>
+  <data name="Lab" xml:space="preserve">
+    <value>المعمل</value>
+  </data>
+  <data name="NameOFProductand" xml:space="preserve">
+    <value>اسم المنتج</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>اغلاق</value>
+  </data>
+  <data name="StartTime" xml:space="preserve">
+    <value>وقت البداية</value>
+  </data>
+  <data name="Index" xml:space="preserve">
+    <value>مسلسل</value>
+  </data>
+  <data name="ConstrainActivationProcedure" xml:space="preserve">
+    <value>الإجراءات على الطلب</value>
+  </data>
+  <data name="ProcedureNow" xml:space="preserve">
+    <value>الإجراء الجديد</value>
+  </data>
+  <data name="PermissionRequest" xml:space="preserve">
+    <value>إذن الاستيراد</value>
+  </data>
+  <data name="AcceptPermissionRequest" xml:space="preserve">
+    <value>قبول إذن الاستيراد</value>
+  </data>
+  <data name="Pound" xml:space="preserve">
+    <value>جنيهاً</value>
+  </data>
+  <data name="Item_Type" xml:space="preserve">
+    <value>انواع الاصناف</value>
+  </data>
+  <data name="Qualitative_GroupName" xml:space="preserve">
+    <value>المجموعة النوعية</value>
+  </data>
+  <data name="Initiators" xml:space="preserve">
+    <value>المناشئ</value>
+  </data>
+  <data name="Items" xml:space="preserve">
+    <value>كائانات حية وغير حية</value>
+  </data>
+  <data name="QualitativeGroup" xml:space="preserve">
+    <value>المجموعة النوعية</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>الأصناف</value>
+  </data>
+  <data name="Isknown" xml:space="preserve">
+    <value>معروف</value>
+  </data>
+  <data name="ItemsCategoryGrp" xml:space="preserve">
+    <value>مجموعات الأصناف</value>
+  </data>
+  <data name="ItemCategoryType" xml:space="preserve">
+    <value>نوع الصنف</value>
+  </data>
+  <data name="SubPart_Type" xml:space="preserve">
+    <value>انواع الاجزاء والطور</value>
+  </data>
+  <data name="Continent" xml:space="preserve">
+    <value>القارات</value>
+  </data>
+  <data name="Regions" xml:space="preserve">
+    <value>الاقاليم</value>
+  </data>
+  <data name="Continents" xml:space="preserve">
+    <value>القارات</value>
+  </data>
+  <data name="Categories_Add" xml:space="preserve">
+    <value>الاصناف / السلالات</value>
+  </data>
+  <data name="un_known" xml:space="preserve">
+    <value>غير معروف</value>
+  </data>
+  <data name="Enrollment_type" xml:space="preserve">
+    <value>انواع التسجيل</value>
+  </data>
+  <data name="ConstrainType" xml:space="preserve">
+    <value>انواع الاشتراطات</value>
+  </data>
+  <data name="Package_Count" xml:space="preserve">
+    <value>عدد العبوات</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>اسم الصنف</value>
+  </data>
+  <data name="Units_Number" xml:space="preserve">
+    <value>عدد الوحدات</value>
+  </data>
+  <data name="Fees_process" xml:space="preserve">
+    <value>انواع العمليات</value>
+  </data>
+  <data name="Fees_Type_Action" xml:space="preserve">
+    <value>انواع الرسوم</value>
+  </data>
+  <data name="Farm_Constrain" xml:space="preserve">
+    <value>شروط المزرعة</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>عرض</value>
+  </data>
+  <data name="AdminFinalResult_Note" xml:space="preserve">
+    <value>ملاحظات الأدمن</value>
+  </data>
+  <data name="FarmCommittee" xml:space="preserve">
+    <value>نتيجة لجنة المزرعة</value>
+  </data>
+  <data name="Farm_Committee_Examination" xml:space="preserve">
+    <value>نتيجة معاينة المزرعة</value>
+  </data>
+  <data name="Farm_Country" xml:space="preserve">
+    <value>بلد المزرعة</value>
+  </data>
+  <data name="Farm_SampleData" xml:space="preserve">
+    <value>نتيجة سحب عينة المزرعة</value>
+  </data>
+  <data name="IsAccepted" xml:space="preserve">
+    <value>نتيجة المعمل</value>
+  </data>
+  <data name="IsAdminFinalResult" xml:space="preserve">
+    <value>ملاحظات الأدمن الاخيرة</value>
+  </data>
+  <data name="Sample_BarCode" xml:space="preserve">
+    <value>عينة الباركود</value>
+  </data>
+  <data name="WithdrawDate" xml:space="preserve">
+    <value>وقت السحب</value>
+  </data>
+  <data name="Previewresults" xml:space="preserve">
+    <value>نتائج المعاينة</value>
+  </data>
+  <data name="Requests" xml:space="preserve">
+    <value>الطلبات</value>
+  </data>
+  <data name="IsKnownItem" xml:space="preserve">
+    <value>عنصر معروف</value>
+  </data>
+  <data name="Farm_List" xml:space="preserve">
+    <value>قائمة المزارع</value>
+  </data>
+  <data name="NoWork" xml:space="preserve">
+    <value>لم يتم العمل</value>
+  </data>
+  <data name="DayType" xml:space="preserve">
+    <value>ايام العمل</value>
+  </data>
+  <data name="RegionArea" xml:space="preserve">
+    <value>المنطقه الاقليميه</value>
+  </data>
+  <data name="Mission" xml:space="preserve">
+    <value>المأموريات</value>
+  </data>
+  <data name="Mission_FROM" xml:space="preserve">
+    <value>بداية المأمورية</value>
+  </data>
+  <data name="Mission_To" xml:space="preserve">
+    <value>نهاية المأمورية</value>
+  </data>
+  <data name="AdminResult" xml:space="preserve">
+    <value>نتيجة المعاينة أدمن</value>
+  </data>
+  <data name="AssistResult" xml:space="preserve">
+    <value>نتيجة معاينة المساعد</value>
+  </data>
+  <data name="HumanResource" xml:space="preserve">
+    <value>الموارد البشرية</value>
+  </data>
+  <data name="Im_Constrain_Type" xml:space="preserve">
+    <value>نوع اشتراط الوارد</value>
+  </data>
+  <data name="ConstrainText_Ar" xml:space="preserve">
+    <value>الاشتراط بالعربية</value>
+  </data>
+  <data name="ConstrainText_En" xml:space="preserve">
+    <value>الاشتراط بالانجليزية</value>
+  </data>
+  <data name="InSide_Certificate_Ar" xml:space="preserve">
+    <value>الشهادة الداخلية بالعربية</value>
+  </data>
+  <data name="InSide_Certificate_En" xml:space="preserve">
+    <value>الشهاده الداخلية بالانجليزية</value>
+  </data>
+  <data name="IsActive" xml:space="preserve">
+    <value>نشط</value>
+  </data>
+  <data name="quarantineAttitude" xml:space="preserve">
+    <value>موقف الحجر</value>
+  </data>
+  <data name="Countriesofacceptablevarieties" xml:space="preserve">
+    <value>دول الاصناف المقبولة</value>
+  </data>
+  <data name="FinalPositionOfRequest" xml:space="preserve">
+    <value>الموقف النهائى للطلب</value>
+  </data>
+  <data name="Rejectrequest" xml:space="preserve">
+    <value>رفض الطلب</value>
+  </data>
+  <data name="area" xml:space="preserve">
+    <value>المساحة</value>
+  </data>
+  <data name="totalquantity" xml:space="preserve">
+    <value>الكمية الكلية</value>
+  </data>
+  <data name="acre" xml:space="preserve">
+    <value>فدان</value>
+  </data>
+  <data name="Productivity" xml:space="preserve">
+    <value>الإنتاجية للفدان</value>
+  </data>
+  <data name="Allcountriesaction" xml:space="preserve">
+    <value>التنفيذ لكل الدول</value>
+  </data>
+  <data name="ExportCountry" xml:space="preserve">
+    <value>اسم الدوله المستوردة</value>
+  </data>
+  <data name="ImPermissionNumber" xml:space="preserve">
+    <value>رقم إذن الاستيراد</value>
+  </data>
+  <data name="ImPermissionsList" xml:space="preserve">
+    <value>قائمه اذن الاستيراد</value>
+  </data>
+  <data name="ImporterName2" xml:space="preserve">
+    <value>اسم الشركة المستوردة</value>
+  </data>
+  <data name="Seq" xml:space="preserve">
+    <value>م</value>
+  </data>
+  <data name="AcceptedCompany" xml:space="preserve">
+    <value>عدد الشركات المقبولة</value>
+  </data>
+  <data name="CompaniesNumberReport" xml:space="preserve">
+    <value>تقرير عدد الشركات </value>
+  </data>
+  <data name="RefusedCompany" xml:space="preserve">
+    <value>عدد الشركات المرفوضة</value>
+  </data>
+  <data name="UnderRequestCompany" xml:space="preserve">
+    <value>عدد الشركات تحت الدراسة</value>
+  </data>
+  <data name="AdminName" xml:space="preserve">
+    <value>اسم الادمن</value>
+  </data>
+  <data name="AdminNote" xml:space="preserve">
+    <value>ملاحظات الادمن</value>
+  </data>
+  <data name="AdminResult2" xml:space="preserve">
+    <value>نتيجة سحب الادمن</value>
+  </data>
+  <data name="AssistResult2" xml:space="preserve">
+    <value>نتيجة سحب المساعد</value>
+  </data>
+  <data name="ConstrainText" xml:space="preserve">
+    <value>نص الاشتراط</value>
+  </data>
+  <data name="ExportCompanies" xml:space="preserve">
+    <value>الشركات المصدرة</value>
+  </data>
+  <data name="ImportCountryConstrain" xml:space="preserve">
+    <value>اشترطات الوارد</value>
+  </data>
+  <data name="ImportedSidesInformations" xml:space="preserve">
+    <value>بيانات الجهة المستوردة</value>
+  </data>
+  <data name="ImporterAddress" xml:space="preserve">
+    <value>عنوان الجهة المستوردة</value>
+  </data>
+  <data name="ImportName" xml:space="preserve">
+    <value>اسم المستورد</value>
+  </data>
+  <data name="InitiatorCountry" xml:space="preserve">
+    <value>دولة المنشئ</value>
+  </data>
+  <data name="order_text" xml:space="preserve">
+    <value>الرتبة</value>
+  </data>
+  <data name="registerreason" xml:space="preserve">
+    <value>سبب الدخول</value>
+  </data>
+  <data name="TextDetails" xml:space="preserve">
+    <value>تفاصيل الاشتراط</value>
+  </data>
+  <data name="TypeOfImporter" xml:space="preserve">
+    <value>نوع الجهة المستوردة</value>
+  </data>
+  <data name="ArabicDescription" xml:space="preserve">
+    <value>الوصف بالعربية</value>
+  </data>
+  <data name="EnglishDescription" xml:space="preserve">
+    <value>الوصف بالإنجليزية</value>
+  </data>
+  <data name="Import_CountryConstrain" xml:space="preserve">
+    <value>إشتراطات إدخال</value>
+  </data>
+  <data name="RF_area" xml:space="preserve">
+    <value>مساحة المزرعة الكلية</value>
+  </data>
+  <data name="RF_DateofOrigin" xml:space="preserve">
+    <value>تاريخ الإصدار</value>
+  </data>
+  <data name="RF_Email" xml:space="preserve">
+    <value>البريد الإلكترونى</value>
+  </data>
+  <data name="RF_FarmAddress" xml:space="preserve">
+    <value>عنوان المزرعة</value>
+  </data>
+  <data name="RF_FarmCode" xml:space="preserve">
+    <value>كود المزرعة</value>
+  </data>
+  <data name="RF_FarmName" xml:space="preserve">
+    <value>اسم المزرعة</value>
+  </data>
+  <data name="RF_GPS" xml:space="preserve">
+    <value>GPS</value>
+  </data>
+  <data name="RF_Nameofauthorizedofficial" xml:space="preserve">
+    <value>اسم المسؤول المفوض</value>
+  </data>
+  <data name="RF_OwnerAddress" xml:space="preserve">
+    <value>عنوان المالك</value>
+  </data>
+  <data name="RF_Owner_Ar" xml:space="preserve">
+    <value>اسم المالك</value>
+  </data>
+  <data name="RF_PhoneNumber" xml:space="preserve">
+    <value>رقم الهاتف</value>
+  </data>
+  <data name="RF_PlaceofOrigin" xml:space="preserve">
+    <value>مكان الإصدار</value>
+  </data>
+  <data name="RF_Plant" xml:space="preserve">
+    <value>النبات</value>
+  </data>
+  <data name="RF_Signature" xml:space="preserve">
+    <value>التوقيع</value>
+  </data>
+  <data name="PermissionNumber" xml:space="preserve">
+    <value>رقم الإذن</value>
+  </data>
+  <data name="PermissionSituation" xml:space="preserve">
+    <value>موقف الإذن</value>
+  </data>
+  <data name="ShortName_qualG" xml:space="preserve">
+    <value>الإسم المختصر/المجموعة النوعية</value>
+  </data>
+  <data name="RF_area_en" xml:space="preserve">
+    <value>Total Farm Space</value>
+  </data>
+  <data name="RF_DateofOrigin_en" xml:space="preserve">
+    <value>Date of issue</value>
+  </data>
+  <data name="RF_Email_en" xml:space="preserve">
+    <value>e-mail</value>
+  </data>
+  <data name="RF_FarmAddress_en" xml:space="preserve">
+    <value>Address of Farm</value>
+  </data>
+  <data name="RF_FarmCode_en" xml:space="preserve">
+    <value>Farm Code</value>
+  </data>
+  <data name="RF_FarmName_en" xml:space="preserve">
+    <value>Farm Name</value>
+  </data>
+  <data name="RF_GPS_en" xml:space="preserve">
+    <value>GPS</value>
+  </data>
+  <data name="RF_Nameofauthorizedofficial_en" xml:space="preserve">
+    <value>Name of authorized officer</value>
+  </data>
+  <data name="RF_OwnerAddress_en" xml:space="preserve">
+    <value>Address of Owner</value>
+  </data>
+  <data name="RF_Owner_en" xml:space="preserve">
+    <value>Name of Owner</value>
+  </data>
+  <data name="RF_PhoneNumber_en" xml:space="preserve">
+    <value>Mobile</value>
+  </data>
+  <data name="RF_PlaceofOrigin_en" xml:space="preserve">
+    <value>place of issue</value>
+  </data>
+  <data name="RF_Plant_en" xml:space="preserve">
+    <value>Plant</value>
+  </data>
+  <data name="RF_Signature_en" xml:space="preserve">
+    <value>signature</value>
+  </data>
+  <data name="Fees_Action" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Request status" xml:space="preserve">
+    <value>حالة الطلب</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Falsestatus" xml:space="preserve">
+    <value>تم رفض المزرعة</value>
+  </data>
+  <data name="Farmaccreditationrequest" xml:space="preserve">
+    <value>طلب إعتماد مزرعة</value>
+  </data>
+  <data name="Nullstatus" xml:space="preserve">
+    <value>لم يتخذ إجراء على المزرعة</value>
+  </data>
+  <data name="Requeststatus" xml:space="preserve">
+    <value>حالة الطلب</value>
+  </data>
+  <data name="Truestatus" xml:space="preserve">
+    <value>تم الموافقة على المزرعة</value>
+  </data>
+  <data name="Cannotprint" xml:space="preserve">
+    <value>لا طباعة</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>الكمية</value>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>المجموعة</value>
+  </data>
+  <data name="NamePlant" xml:space="preserve">
+    <value>نباتات</value>
+  </data>
+  <data name="DateFrom" xml:space="preserve">
+    <value>التاريخ من</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
+  <data name="OperationType" xml:space="preserve">
+    <value>نوع العملية</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>الوقت</value>
+  </data>
+  <data name="Types" xml:space="preserve">
+    <value>أنواع</value>
+  </data>
+  <data name="delegatename" xml:space="preserve">
+    <value>اسم مندوب الشركه</value>
+  </data>
+  <data name="NationalID" xml:space="preserve">
+    <value>الرقم القومي</value>
+  </data>
+  <data name="Is_ImportTaxFree" xml:space="preserve">
+    <value>معفى من اذن الاستيراد</value>
+  </data>
+  <data name="NotTaxed" xml:space="preserve">
+    <value>معفى</value>
+  </data>
+  <data name="Taxed" xml:space="preserve">
+    <value>غير معفى</value>
+  </data>
+  <data name="InternationalTransportation" xml:space="preserve">
+    <value>النقل الدولي</value>
+  </data>
+  <data name="ShippingAgency" xml:space="preserve">
+    <value>وكلات الشحن</value>
+  </data>
+  <data name="ShippingCompany" xml:space="preserve">
+    <value>شركات الشحن </value>
+  </data>
+  <data name="TransferMethod" xml:space="preserve">
+    <value>وسائل النقل</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>العدد</value>
+  </data>
+  <data name="AllText" xml:space="preserve">
+    <value>كل النص</value>
+  </data>
+  <data name="AnalysisLab_ID" xml:space="preserve">
+    <value>معمل التحليل</value>
+  </data>
+  <data name="AnaysisType" xml:space="preserve">
+    <value>نوع التحليل</value>
+  </data>
+  <data name="IsCertificate_Addtion" xml:space="preserve">
+    <value>إضافة الشهادة ؟</value>
+  </data>
+  <data name="IsCompanyAccreditation" xml:space="preserve">
+    <value>شركة معتمده </value>
+  </data>
+  <data name="IsFarmAccreditation" xml:space="preserve">
+    <value>مزرعة معتمده</value>
+  </data>
+  <data name="IsStationAccreditation" xml:space="preserve">
+    <value>محطه معتمده </value>
+  </data>
+  <data name="TreatmentMainType" xml:space="preserve">
+    <value>نوع المعالجة الرئيسى</value>
+  </data>
+  <data name="Treatments" xml:space="preserve">
+    <value>المعالجات</value>
+  </data>
+  <data name="view" xml:space="preserve">
+    <value>عرض</value>
+  </data>
+  <data name="agriculturalCertificate" xml:space="preserve">
+    <value>الشهادة الزراعية</value>
+  </data>
+  <data name="grossWeight" xml:space="preserve">
+    <value>الوزن الإجمالي</value>
+  </data>
+  <data name="totGossWeight" xml:space="preserve">
+    <value>إجمالي الوزن الإجمالي:</value>
+  </data>
+  <data name="totNetWeight" xml:space="preserve">
+    <value>الوزن الصافي الكلي:</value>
+  </data>
+  <data name="StationDetails" xml:space="preserve">
+    <value>تفاصيل المحطة</value>
+  </data>
+  <data name="Is_Plant_Egypt" xml:space="preserve">
+    <value>يزرع فى مصر</value>
+  </data>
+  <data name="Item_Code" xml:space="preserve">
+    <value>كود الصنف</value>
+  </data>
+</root>

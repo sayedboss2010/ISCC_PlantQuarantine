@@ -1,0 +1,389 @@
+﻿
+@model List<PlantQuar.DTO.DTO.Export_CheckRequest.EXCheckRequestListDTO>
+
+
+<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<link href="~/assets/css/jquery.dataTables.min.css" rel="stylesheet" />
+<style>
+    .bootstrap-select .dropdown-menu.inner {
+        margin-right: 0px !important;
+    }
+</style>
+<link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
+
+
+
+@{
+    ViewBag.Title = "طلبات فحص الصادر للمحطات";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    var model = Model;
+}
+
+@section Title{
+    <h2 class="ls-top-header">@ViewBag.Title</h2>
+}
+
+@section Path{
+    <li style="position: relative;right: 28px;">فحص</li>
+    <li class="active" style="right: 29px; position: relative;">Im Check Request List</li>
+}
+
+
+<div class="row">
+    <div class="col-md-2  col-sm-12">
+
+        <p style="font-weight:bold;margin-top:15px;">موقف الطلب</p>
+    </div>
+
+
+    <div class="col-md-6">
+        <select id="selectApprove" class="form-control">
+            <option id="rdoApprovedAll" value="choose">@PlantQuar.WEB.Language.Resource_data1.choose</option>
+            <option id="rdoApprovedAll" value="1">@PlantQuar.WEB.Language.Resource_data1.chooseall</option>
+            <option id="rdoRefusedAll" value="2">لم يتم الموافقة</option>
+            <option id="rdoNothingAll" value="3">لم يتم اتخاذ اجراء</option>
+            <option id="rdoClosedAll" value="4">الطلب مغلق</option>
+        </select>
+    </div>
+    <div class="col-md-4"></div>
+
+</div>
+<br />
+<br />
+@*الكل*@
+<div id="checkRequest_lst4" class="table-responsive" hidden="hidden">
+    <table class="table table-bordered col-md-12" id="tblCheckLst">
+        <thead>
+            <tr class="label-primary">
+                <th>م</th>
+                <th hidden>منفذ فحص</th>
+                <th>منفذ فحص</th>
+                <th hidden>محطة فحص</th>
+                <th>منفذ جشني</th>
+                <th hidden>منفذ جشني</th>
+
+                <th hidden>محطة جشني</th>
+
+                <th>@PlantQuar.WEB.Language.Resource_data1.RequestNumber</th>
+                <th>بيانات الطلب</th>
+
+                <th>الحالة</th>
+                <th>العرض</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (model != null)
+            {
+
+                var i = 1;
+                foreach (var item in model.OrderByDescending(x => x.Ex_CheckRequest_ID))
+                {
+
+                    <tr>
+                        <td>@i</td>
+                        <td hidden>@item.Outlet_Examination_ID</td>
+                        <td hidden>@item.Station_Examination_ID</td>
+                        <td hidden>@item.Outlet_Genshi_ID</td>
+                        <td hidden>@item.Station_Genshi_ID</td>
+                        <td>
+                            @if (item.Outlet_Examination_Name != null)
+                            {
+                                <span>منفذ :@item.Outlet_Examination_Name</span>
+                            }
+                            else if (item.Station_Examination_Name != null)
+                            {
+                                <span>محطة :@item.Station_Examination_Name</span>
+                            }
+                        </td>
+                        <td>
+                            @if (item.Outlet_Genshi_Name != null)
+                            {
+                                <span>منفذ :@item.Outlet_Genshi_Name</span>
+                            }
+                            else if (item.Station_Genshi_Name != null)
+                            {
+                                <span>محطة :@item.Station_Genshi_Name</span>
+                            }
+
+                        </td>
+
+                        <td>
+                            @*<a href='/Export_CheckRequest/EX_CheckRequestDetails/Index?ImCheckRequest_Number=@item.ImCheckRequest_Number&Station_Examination_ID=@item.Station_Examination_ID&Outlet_Examination_ID=@item.Outlet_Examination_ID'>@item.ImCheckRequest_Number</a>*@
+                            <span>@item.ImCheckRequest_Number</span>
+                        </td>
+                        <td style="width:150px;">
+                            <span>نوع الجهة:   @item.ImporterTypeName</span><br />
+                            <span>اسم الجهة :   @item.ImporterName</span><br />
+                            <span>الدولة  :   @item.ExportCountryName</span><br />
+                            <span>التاريخ :   @item.Creation_Date.ToString("dd/MM/yyyy")</span>
+                        </td>
+
+                        @*<td><a href='/Export_CheckRequest/EX_CheckRequestDetails/Index?ImCheckRequest_Number=@item.ImCheckRequest_Number'>@PlantQuar.WEB.Language.Resource_data1.Details</a></td>*@
+
+
+                        @if (item.IsAccepted == true && @item.IsPaid == null)
+                        {
+                            <td>تمت الموافقة على الطلب ولم يتم الدفع</td>
+                        }
+                        else if (item.IsAccepted == false)
+                        {
+                            <td>تم رفض الطلب</td>
+                        }
+                        else if (@item.IsPaid == true && @item.Closed_Request == 0)
+                        {
+                            <td>
+                                <span>تم الدفع</span>
+
+
+                                <br />
+                                @if (@item.Final_Result_Name != null || @item.Final_Result_Name == "")
+                                {
+                                    <span>@item.Final_Result_Name</span>
+                                }
+                                else
+                                {
+                                    <span>لم يتم اتخاذ موقف</span>
+                                }
+                            </td>
+                        }
+                        else if (@item.IsPaid == true && @item.Closed_Request == 0 && item.Final_Result_ID == 0)
+                        {
+                            <td>
+                                <span>تم الدفع</span>
+
+                                <br />
+                                @if (@item.Final_Result_Name != null)
+                                {
+                                    <span>@item.Final_Result_Name</span>
+                                }
+                                else
+                                {
+                                    <span>لم يتم اتخاذ موقف</span>
+                                }
+                            </td>
+                        }
+                        else if (item.IsAccepted == null && @item.IsPaid == null && @item.Closed_Request == 0 && item.Final_Result_ID == 0)
+                        {
+                            <td>
+                                <span>لم يتم الدفع </span>
+                                <br />
+                                <br />
+                                @if (@item.Final_Result_Name != null)
+                                {
+                                    <span>لم يتم اتخاذ اجراء</span>
+                                }
+                                else
+                                {
+                                    <span>لم يتم اتخاذ موقف</span>
+                                }
+                                <br />
+                                @*<a href='/Committees/Ex_Committee/Index?requestId=@item.Ex_CheckRequest_ID&Outlet_Examination_ID=@item.Outlet_Examination_ID&Station_Examination_ID=@item.Station_Examination_ID&Outlet_Genshi_ID=@item.Outlet_Genshi_ID&Station_Genshi_ID=@item.Station_Genshi_ID'>تشكيل لجنه </a>*@
+
+                            </td>
+                        }
+                        else if (@item.IsPaid == true && @item.Closed_Request > 0 && item.Final_Result_ID > 0)
+                        {
+                            <td>
+                                @if (item.Final_Result_ID != 11)
+                                {
+
+
+                                    <span>تم الدفع</span>
+
+
+                                } <br />
+                                @if (@item.Final_Result_Name != null)
+                                {
+                                    <span>@item.Final_Result_Name</span>
+                                }
+                                else
+                                {
+                                    <span>لم يتم اتخاذ موقف</span>
+                                }
+                            </td>
+                        }
+
+                        else if (item.IsPaid == false)
+                        {
+                            <td>
+                                <span>لم يتم الدفع </span><br />
+                            </td>
+                        }
+
+                        else
+                        {
+                            <td style='color: red;font-weight: 700;'>لم يتم اتخاذ اجراء</td>
+                        }
+
+                        <td><a href='/Export_CheckRequest/EX_CheckRequestCertificate/Index?ExCheckRequest_Number=@item.ImCheckRequest_Number'>بيان طلب الفحص</a></td>
+
+                    </tr>
+
+                    i++;
+
+                }
+            }
+        </tbody>
+    </table>
+</div>
+@*لم يتم الموافقة*@
+<!--<div id="checkRequest_lst1" class="table-responsive" hidden="hidden">
+    <table class="table table-bordered col-md-12" id="tblCheckLst1">
+        <thead>
+            <tr class="label-primary">
+                <th>م</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.RequestNumber</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.ImporterType</th>
+                <th>Importer Name</th>
+                <th>Export Country</th>
+                <th>Creation Date</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.Details</th>
+                <th>تشكيل اللجنه</th>
+                <th>عرض النتائج</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (model != null)
+            {
+                foreach (var item in model.Where(a => a.IsAccepted == false))
+                {
+                    <tr>
+                        <td>@item.Ex_CheckRequest_ID</td>
+                        <td>@item.ImCheckRequest_Number</td>
+                        <td>@item.ImporterTypeName</td>
+                        <td>@item.ImporterName</td>
+                        <td>@item.ExportCountryName</td>
+                        <td>@item.Creation_Date.ToString("dd/MM/yyyy")</td>
+                        <td><a href='/Export_CheckRequest/EX_CheckRequestDetails/Index?ImCheckRequest_Number=@item.ImCheckRequest_Number&Station_Examination_ID=@item.Station_Examination_ID&Outlet_Examination_ID=@item.Outlet_Examination_ID'>@PlantQuar.WEB.Language.Resource_data1.Details</a></td>
+                        <td style='color: red;font-weight: 700;'>لم يتم الموافقة</td>
+                        <td><a href='/Export_CheckRequest_New/EX_Committee_Final_Result/Index?requestId=@item.Ex_CheckRequest_ID&Outlet_ID=@item.Outlet_ID'>عرض النتائج</a></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>-->
+@*لم يتم اتخاذ اجراء*@
+<!--<div id="checkRequest_lst2" class="table-responsive" hidden="hidden">
+    <table class="table table-bordered col-md-12" id="tblCheckLst2">
+        <thead>
+            <tr class="label-primary">
+                <th>م</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.RequestNumber</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.ImporterType</th>
+                <th>Importer Name</th>
+                <th>Export Country</th>
+                <th>Creation Date</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.Details</th>
+                <th>تشكيل اللجنه</th>
+                <th>عرض النتائج</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (model != null)
+            {
+                foreach (var item in model.Where(a => a.IsAccepted != true && a.IsAccepted != false))
+                {
+                    <tr>
+                        <td>@item.Ex_CheckRequest_ID</td>
+                        <td>@item.ImCheckRequest_Number</td>
+                        <td>@item.ImporterTypeName</td>
+                        <td>@item.ImporterName</td>
+                        <td>@item.ExportCountryName</td>
+                        <td>@item.Creation_Date.ToString("dd/MM/yyyy")</td>
+                        <td><a href='/Export_CheckRequest/EX_CheckRequestDetails/Index?ImCheckRequest_Number=@item.ImCheckRequest_Number&Station_Examination_ID=@item.Station_Examination_ID&Outlet_Examination_ID=@item.Outlet_Examination_ID'>@PlantQuar.WEB.Language.Resource_data1.Details</a></td>
+                        <td style='color: red;font-weight: 700;'>لم يتم اتخاذ اجراء</td>
+                        <td><a href='/Export_CheckRequest_New/EX_Committee_Final_Result/Index?requestId=@item.Ex_CheckRequest_ID&Outlet_ID=@item.Outlet_ID'>عرض النتائج</a></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>-->
+@*الطلب مغلق*@
+<!--<div id="checkRequest_lst3" class="table-responsive" hidden="hidden">
+    <table class="table table-bordered col-md-12" id="tblCheckLst3">
+        <thead>
+            <tr class="label-primary">
+                <th>م</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.RequestNumber</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.ImporterType</th>
+                <th>Importer Name</th>
+                <th>Export Country</th>
+                <th>Creation Date</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.Details</th>
+                <th>تشكيل اللجنه</th>
+                <th>عرض النتائج</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (model != null)
+            {
+                foreach (var item in model.Where(a => a.Closed_Request > 0))
+                {
+
+
+
+                    <tr>
+                        <td>@item.Ex_CheckRequest_ID</td>
+                        <td>@item.ImCheckRequest_Number</td>
+                        <td>@item.ImporterTypeName</td>
+                        <td>@item.ImporterName</td>
+                        <td>@item.ExportCountryName</td>
+                        <td>@item.Creation_Date.ToString("dd/MM/yyyy")</td>
+                        <td><a href='/Export_CheckRequest/EX_CheckRequestDetails/Index?ImCheckRequest_Number=@item.ImCheckRequest_Number&Station_Examination_ID=@item.Station_Examination_ID&Outlet_Examination_ID=@item.Outlet_Examination_ID'>@PlantQuar.WEB.Language.Resource_data1.Details</a></td>
+                        <td style='color: red;font-weight: 700;'>الطلب مغلق</td>
+                        <td><a href='/Export_CheckRequest_New/EX_Committee_Final_Result/Index?requestId=@item.Ex_CheckRequest_ID&Outlet_ID=@item.Outlet_ID'>عرض النتائج</a></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>-->
+@*@Html.Partial("~/Areas/Im_CheckRequests/Views/List_ImCheckRequestDetail/Index.cshtml")*@
+
+
+<script>
+
+    $('select').change(function () {
+
+
+        if ($('#selectApprove').val() != 'choose') {
+            if (this.value == '1') {
+
+                $("#checkRequest_lst4").show();
+                $("#checkRequest_lst1").hide();
+                $("#checkRequest_lst2").hide();
+                $("#checkRequest_lst3").hide();
+                $('#tblCheckLst').DataTable();
+            }
+            else if (this.value == '2') {
+
+                $("#checkRequest_lst4").hide();
+                $("#checkRequest_lst1").show();
+                $("#checkRequest_lst2").hide();
+                $("#checkRequest_lst3").hide();
+                $('#tblCheckLst1').DataTable();
+            }
+            else if (this.value == '3') {
+                $("#checkRequest_lst4").hide();
+                $("#checkRequest_lst1").hide();
+                $("#checkRequest_lst2").show();
+                $("#checkRequest_lst3").hide();
+                $('#tblCheckLst2').DataTable();
+            }
+            else if (this.value == '4') {
+                $("#checkRequest_lst4").hide();
+                $("#checkRequest_lst1").hide();
+                $("#checkRequest_lst2").hide();
+                $("#checkRequest_lst3").show();
+                $('#tblCheckLst3').DataTable();
+            }
+        }
+        else
+        {
+                 alertify.error("@PlantQuar.WEB.Language.Resource_data1.ChooseStatusofCommittee");
+        }
+        });
+</script>
+<script src="~/scripts/jquery.dataTables.min.js"></script>

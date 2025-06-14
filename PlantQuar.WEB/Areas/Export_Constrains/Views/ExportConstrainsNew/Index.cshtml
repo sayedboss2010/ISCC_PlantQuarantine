@@ -1,0 +1,606 @@
+﻿@model PlantQuar.DTO.DTO.Export_Constrains.CustomCountryConstrain
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.CountryConstrain</h2>
+}
+
+@section Path{
+    <li>@PlantQuar.WEB.Language.Resource_data1.CountryConstrain</li>
+    <li class="active">@PlantQuar.WEB.Language.Resource_data1.CountryConstrain</li>
+}
+@*3/6/2020*@
+<style>
+    .form-box {
+        border: none;
+    }
+
+    div[ aria-labelledby="ui-id-4"], div[ aria-labelledby="ui-id-12"], div[ aria-labelledby="ui-id-20"], div[ aria-labelledby="ui-id-28"] {
+        top: 100px !important;
+    }
+
+    select.form-control:not([size]):not([multiple]) {
+        height: 3.7rem;
+    }
+
+    .row {
+        width: 100%;
+    }
+
+    blockquote {
+        margin-bottom: 50px !important;
+    }
+
+    .ta1 {
+        display: inline-block;
+    }
+</style>
+
+@using (Html.BeginForm("constrainSave", "ExportConstrains", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "ex_ConstrainForm" }))
+{
+    <div class="row form-box">
+
+        <div class="col-md-4">
+            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.CountryConstrainType</label>
+            @Html.DropDownListFor(m => m.ownerTypeId, new SelectList(ViewBag.ConstrainTypeLst, "Value", "DisplayText"), new { @class = "form-control", @id = "constrainType" })
+
+        </div>
+
+        <div class="col-md-4" id="countriesDiv" hidden>
+            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Country</label>
+            @Html.DropDownListFor(m => m.countryId, new SelectList(ViewBag.CountriesLst, "Value", "DisplayText"), new { @class = "form-control", @id = "countriesLst" })
+
+        </div>
+
+
+        <div class="col-md-4" id="unionsDiv" hidden>
+            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Union</label>
+            @Html.DropDownListFor(m => m.unionId, new SelectList(ViewBag.UnionsLst, "Value", "DisplayText"), new { @class = "form-control", @id = "unionsLst" })
+        </div>
+
+    </div>
+    <div style="border: 1px dashed #cbc5ba; margin: 13px;"></div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-lg-3 col-md-5 ta1">
+                <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Items</label>
+                @Html.DropDownList("plantLst", new SelectList(ViewBag.PlantLst, "Value", "DisplayText"), new { @class = "form-control", id = "plantLst" })
+            </div>
+            <div class="col-lg-3 col-md-5 ta1">
+                <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.ShortName</label>
+                <select id="ShortNameLst" class="form-control"></select>
+            </div>
+            <div class="col-lg-3 col-md-5 ta1">
+                <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.PlantCategory</label>
+                <select id="plantCatLst" class="form-control"></select>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="col-lg-3 col-md-5 ta1">
+                <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.PlantPart</label>
+                <input class="form-control" id="PlantPart" readonly type="text">
+            </div>
+            <div class="col-lg-3 col-md-5 ta1">
+                <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Status</label>
+                <input class="form-control" id="Status" readonly type="text">
+            </div>
+            <div class="col-lg-3 col-md-5 ta1">
+                <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Purpose</label>
+                <input class="form-control" id="Purpose" readonly type="text">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        @*<label>IsCertificate_Addtion</label>
+            <input type="checkbox" class="dissablcheck_plant" name="IsCertificate_Addtion_plant" id="IsCertificate_Addtion_plant" value="false" />
+            <br />*@
+        <label>@PlantQuar.WEB.Language.Resource_data1.IsStationAccreditation</label>
+        <input type="checkbox" class="dissablcheck_plant" name="IsStationAccreditation_plant" id="IsStationAccreditation_plant" value="false" />
+        <br />
+        <label>@PlantQuar.WEB.Language.Resource_data1.IsFarmAccreditation</label>
+        <input type="checkbox" class="dissablcheck_plant" name="IsFarmAccreditation_plant" id="IsFarmAccreditation_plant" value="false" />
+        <br />
+        <label>@PlantQuar.WEB.Language.Resource_data1.IsCompanyAccreditation</label>
+        <input type="checkbox" class="dissablcheck_plant" name="IsCompanyAccreditation_plant" id="IsCompanyAccreditation_plant" value="false" />
+        <br />
+        @*<div id="ArrivalPortList_plantdiv">
+                <label>arrival ports</label>
+                <select name="ArrivalPortList_plant" id="ArrivalPortList_plant"></select>
+            </div>*@
+
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tab" role="tabpanel">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active">
+                        <a data-id="1" href="#textsTab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.AllText</a>
+                    </li>
+                    <li role="presentation">
+                        <a data-id="2" href="#analysisTab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Analysis</a>
+                    </li>
+                    <li role="presentation">
+                        <a data-id="2" href="#treatmentab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Treatments</a>
+                    </li>
+                    <li role="presentation" id="port2">
+                        <a data-id="2" href="#portstab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Ports</a>
+                    </li>
+
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content tabs" style="min-height:433px;">
+                    <div role="tabpanel" class="tab-pane fade in active" id="textsTab">
+                        <div id="plantConstrainDiv" class="col-md-12"></div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="analysisTab">
+
+                        <div id="plantConstrainDiv_Analysis" class="col-md-12"></div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="treatmentab">
+
+                        <div id="plantConstrainDiv_treatment" class="col-md-12"></div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="portstab">
+
+                        <div id="plantConstrainDiv_ports" class="col-md-12"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @* *****************************  SAVE  ************************* *@
+    <div class="row">
+        <div class="col-md-11"></div>
+        <input type="button" id="btnSavec" name="btnSave" value="@PlantQuar.WEB.Language.Resource_data1.Save" class="btn ls-light-green-btn btn-round btn-lg col-md-1 col-sm-4" style="float:left" />
+    </div>
+}
+
+@*/**********************************/*@
+
+
+<script>
+
+    //*****************************SAYED*******************//
+    $("#IsStationAccreditation_plant").on('change', function () {
+        if ($(this).is(':checked')) {
+            $(this).attr('value', 'true');
+        } else {
+            $(this).attr('value', 'false');
+        }
+
+
+    });
+    $("#IsCompanyAccreditation_plant").on('change', function () {
+        if ($(this).is(':checked')) {
+            $(this).attr('value', 'true');
+        } else {
+            $(this).attr('value', 'false');
+        }
+
+
+    });
+    $("#IsFarmAccreditation_plant").on('change', function () {
+        if ($(this).is(':checked')) {
+            $(this).attr('value', 'true');
+        } else {
+            $(this).attr('value', 'false');
+        }
+    });
+
+     $('#plantLst').on('change', function () {
+
+        var plantId = $('#plantLst').val();
+        $.ajax(
+            {
+                url: '@Url.Action("PlantCategoryList", "ExportConstrains", new { area = "Export_Constrains" })',
+                data: {
+                    plantId: plantId,
+                },
+                success: function (data) {
+                    $('#plantCatLst').empty();
+                    $.each(data.Options, function (i, index) {
+                        $('#plantCatLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                    }); //each
+                } //success
+            });//ajax
+        //*********************//
+        $.ajax(
+            {
+                url: '@Url.Action("GetPlantShortName", "ExportConstrains", new { area = "Export_Constrains" })',
+                data: {
+                    Item_Id: plantId,
+                },
+                success: function (data) {
+                    $('#ShortNameLst').empty();
+                    $.each(data.Options, function (i, index) {
+                        $('#ShortNameLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                    }); //each
+                } //success
+            });//ajax
+        //*******************//
+     });
+    $('#plantLst, #ShortNameLst').change(function (e) {
+        alert(1);
+        $("#IsCertificate_Addtion_plant").attr('value', 'false');
+        $("#IsStationAccreditation_plant").attr('value', 'false');
+        $("#IsFarmAccreditation_plant").attr('value', 'false');
+        $("#IsCompanyAccreditation_plant").attr('value', 'false');
+        $('#IsCertificate_Addtion_plant').prop('checked', false);
+        $('#IsStationAccreditation_plant').prop('checked', false);
+        $('#IsFarmAccreditation_plant').prop('checked', false);
+        $('#IsCompanyAccreditation_plant').prop('checked', false);
+
+        if ($("#plantLst").val() > 0 && $("#ShortNameLst").val() > 0) {
+            alert(2);
+            var ownerId = 0;
+            if ($('#constrainType').val() == 2) {
+                ownerId = $('#countriesLst').val();
+            } else if ($('#constrainType').val() == 3) {
+                ownerId = $('#unionsLst').val();
+            }
+           //debugger;
+
+            $.ajax(
+                {
+                    url: "/Export_Constrains/ExportConstrainsNew/getConstrainsPlants",
+                    data: {
+
+                        ShortName_ID: $('#ShortNameLst').val(),
+                        catId: $("#plantCatLst").val(),
+                        constrainType: $('#constrainType').val(),
+                        owner: ownerId,
+                    },
+                    complete: function (res) {
+                        $('#plantConstrainDiv').jtable('load');
+                        $('#plantConstrainDiv_ports').jtable('load');
+                        $("#plantConstrainDiv_Analysis").jtable('load');
+                        $("#plantConstrainDiv_treatment").jtable('load');
+                    },
+                    success: function (res) {
+                       //debugger;
+                        console.log(res)
+                        if (res != null) {
+
+                            //$("#IsCertificate_Addtion_plant").val(res[0].IsCertificate_Addtion_plant);
+                            $("#IsStationAccreditation_plant").val(res.IsStationAccreditation_plant);
+                            $("#IsFarmAccreditation_plant").val(res.IsFarmAccreditation_plant);
+                            $("#IsCompanyAccreditation_plant").val(res.IsCompanyAccreditation_plant);
+                            //$('.dissablcheck').each(function () {
+                            //    $(this).prop('disable', true);
+                            //});
+
+                            //if (res[0].IsCertificate_Addtion_plant == true) {
+                            //    $('#IsCertificate_Addtion_plant').prop('checked', true);
+                            //}
+                            if (res.IsStationAccreditation_plant == true) {
+                                $('#IsStationAccreditation_plant').prop('checked', true);
+                            }
+                            if (res.IsFarmAccreditation_plant == true) {
+                                $('#IsFarmAccreditation_plant').prop('checked', true);
+                            }
+                            if (res.IsCompanyAccreditation_plant == true) {
+                                $('#IsCompanyAccreditation_plant').prop('checked', true);
+                            }
+
+                            //arrivaleman
+                            //var values = res[0].ArrivalPortList_plant;
+                            //console.log(values)
+                            //$.each(values, function (i, e) {
+                            //    $("#ArrivalPortList_plant option[value='" + e + "']").prop("selected", true);
+
+                            //});
+                            //var options_selected = res[0].ArrivalPortList_plant;
+                            //console.log(options_selected)
+                            //var optionValues = [];
+                            //$('#ArrivalPortList_plant option:not(:selected)').each(function () {
+                            //    if ($.inArray(this.value, optionValues) > -1) {
+
+                            //        $(this).remove()
+
+                            //    }
+                            //    else {
+                            //        optionValues.push(this.value);
+                            //    }
+                            //    var found = jQuery.inArray(this.value, options_selected);
+                            //    if (found != -1) {
+                            //        $(this).remove()
+                            //    }
+                            //});
+
+                            //$("#ArrivalPortList_plant").trigger('chosen:updated');
+
+                        }
+
+                        //
+                        //$('#plantConstrainDiv').jtable('load');
+                        //$('#plantConstrainDiv_ports').jtable('load');
+                        //$("#plantConstrainDiv_Analysis").jtable('load');
+                        //$("#plantConstrainDiv_treatment").jtable('load');
+                    } //success
+                });//ajax
+        }
+    });
+    $('#ShortNameLst').on('change', function () {
+
+        $.ajax(
+            {
+                url: '/Export_Constrains/ExportConstrains/Get_ShortNameDetails',
+                data:
+                {
+                    ShortName: $("#ShortNameLst").val(),
+                },
+                success: function (res) {
+                    $("#PlantPart").val(res.SubPart_Name);
+                    $("#Status").val(res.Status_Name);
+                    $("#Purpose").val(res.Purpose_Name);
+                }
+            });//ajax
+    });
+
+
+     //*****************************SAYED*******************//
+    //******** Drop Change *****************//
+
+    $("#countriesLst").change(function (e) {
+        $.ajax({
+            async: true,
+            url: '../../CommonActions/PortData/PortInternational?CountryID=' + $('#countriesLst').val() + '&IsJtable=true',
+            type: 'POST',
+            success: function (data) {
+                $.each(data.Options, function (index, row) {
+                    $("#ArrivalPortList_plant").append("<option value='" + row.Value + "'>" + row.DisplayText + " </option>");
+                    $("#ArrivalPortList_plant").trigger("chosen:updated");
+                    $("#ArrivalPortList_product").append("<option value='" + row.Value + "'>" + row.DisplayText + " </option>");
+                    $("#ArrivalPortList_product").trigger("chosen:updated");
+                    $("#ArrivalPortList_live").append("<option value='" + row.Value + "'>" + row.DisplayText + " </option>");
+                    $("#ArrivalPortList_live").trigger("chosen:updated");
+                    $("#ArrivalPortList_notlive").append("<option value='" + row.Value + "'>" + row.DisplayText + " </option>");
+                    $("#ArrivalPortList_notlive").trigger("chosen:updated");
+                });
+
+            }
+        });
+    });
+    $('#constrainType').on('change', function () {
+        var selected = $('#constrainType').val();
+
+        if (selected == 0 || selected == 1) {
+            $('#countriesDiv').hide();
+            $('#unionsDiv').hide();
+            $('#countriesLst').val(0);
+            $('#unionsLst').val(0);
+        }
+        else if (selected == 2) {
+            $('#countriesDiv').show();
+            $('#unionsDiv').hide();
+            $('#countriesLst').val(0);
+            $('#unionsLst').val(0);
+        }
+        else if (selected == 3) {
+            $('#countriesDiv').hide();
+            $('#unionsDiv').show();
+
+            $('#countriesLst').val(0);
+            $('#unionsLst').val(0);
+        }
+    });
+
+     //*********** JTable ******************//
+    var plantOperation = 0
+    $(function () {
+        $("#plantConstrainDiv").jtable({
+            title: '@PlantQuar.WEB.Language.Resource_data1.Constrains',
+            paging: true,
+            pageSize: 10,
+            sorting: true,
+            columnResizable: true,
+            columnSelectable: true,
+            saveUserPreferences: true,
+
+            actions: {
+                listAction: '/Export_Constrains/ExportConstrainsNew/ListItemRows',
+                createAction: '/Export_Constrains/ExportConstrainsNew/CreateItemRows',
+                updateAction: '/Export_Constrains/ExportConstrainsNew/UpdateItemRows',
+                deleteAction: '/Export_Constrains/ExportConstrainsNew/DeleteItemRows',
+            },
+            fields: {
+                index: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                ConstrainText_Ar: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.Constrain_Ar ',
+                    type: 'textarea',
+                    inputClass: 'validate[required]'
+                },
+                ConstrainText_En: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.Constrain_En ',
+                    type: 'textarea',
+                    inputClass: 'validate[required]'
+                },
+                InSide_Certificate_Ar: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.Includedcertificate_Ar',
+                     type: 'textarea',
+                    list: true,
+                },
+                InSide_Certificate_En: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.Includedcertificate_En',
+                     type: 'textarea',
+                     list: true,
+                },
+                IsCertificate_Addtion: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.IsCertificate_Addtion',
+                        type: 'checkbox',
+                        values: { 'false': ' @PlantQuar.WEB.Language.Resource_data1.No ', 'true': '@PlantQuar.WEB.Language.Resource_data1.Yes ' },
+                        defaultValue: 'false',
+                },
+                Id: {
+                    type: 'text',
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                countryConstraintext_Id: {
+                    type: 'text',
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+            },
+            formCreated: function (event, data) {
+
+                if (data.formType == "create") {
+
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.AddConstrainData");
+                }
+                else {
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.EditConstrainData");
+                }
+            },
+            formSubmitting: function (event, data) {
+                if ($("#plantLst").val() > 0 && $("#ShortNameLst").val() > 0 && $("#constrainType").val() > 0) {
+
+                    if ($("#constrainType").val() == 2) {
+                        if ($("#countriesLst").val() > 0) {
+                        }
+                        else {
+                            alertify.error('@PlantQuar.WEB.Language.Resource_data1.SelectCountry');
+                            return false;
+                        }
+                    }
+                    else if ($("#constrainType").val() == 3) {
+                        if ($("#unionsLst").val() > 0) {
+                        }
+                        else {
+                            alertify.error('@PlantQuar.WEB.Language.Resource_data1.SelectUnion');
+                            return false;
+                        }
+                    }
+
+                    return data.form.validationEngine('validate');
+                }
+                else {
+                    alertify.error('@PlantQuar.WEB.Language.Resource_data1.SelectLiableItem_ConstrainType');
+                    return false;
+                }
+            },
+            formClosed: function (event, data) {
+                data.form.validationEngine('hide');
+                data.form.validationEngine('detach');
+                $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Delete");
+
+                //1-6-2020 rest treatment/analysis selection
+                plantOperation = 0;
+            },
+            recordAdded: function (event, data) {
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+            },
+            recordUpdated: function (event, data) {
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Update");
+            },
+            recordDeleted: function (event, data) {
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Delete");
+            },
+        });
+        $("#plantConstrainDiv").jtable('load');
+
+        $(".jtable-toolbar-item-add-record .jtable-toolbar-item-text").text("@PlantQuar.WEB.Language.Resource_data1.AddConstrainData");
+    });
+
+    //ex_ConstrainForm
+    $("#btnSavec").click(function () {
+        alert(0);
+        //notAliveConstrainDiv
+        var rowCount3 = $('#aliveConstrainDiv table tbody tr:not("[class^= jtable-no-data-row]")').length;
+        var rowCount4 = $('#notAliveConstrainDiv table tbody tr:not("[class^= jtable-no-data-row]")').length;
+        var rowCount1 = $('#plantConstrainDiv table tbody tr:not("[class^= jtable-no-data-row]")').length;
+        var rowCount2 = $('#productConstrainDiv table tbody tr:not("[class^= jtable-no-data-row]")').length;
+
+        // if (rowCount1 > 0 && rowCount2 > 0 && rowCount3 > 0 && rowCount1)
+        //jtable-no-data-row
+        var textt = "";
+        var nodata = "";
+        var CheckedItemsList = [];
+        if ($("#plantLst").val() > 0 && $("#ShortNameLst").val() > 0 && $('#constrainType').val() > 0) {
+            // *******************sayed***************************
+            // حفظ فى الجدول الرئيسي
+            alert($("#constrainType").val());
+
+
+
+
+            var selected = $('#constrainType').val();
+            var ConstrainOwner_ID = 0;
+            if (selected == 0 || selected == 1) {
+                ConstrainOwner_ID = 0
+            }
+            else if (selected == 2) {
+                ConstrainOwner_ID = $('#countriesLst').val();
+            }
+            else if (selected == 3) {
+                ConstrainOwner_ID = $('#unionsLst').val();
+            }
+
+            CheckedItemsList.push({
+
+                ConstrainOwner_ID: ConstrainOwner_ID,
+                CountryConstrain_Type: $("#constrainType").val(),
+                Item_ShortName_id: $("#ShortNameLst").val(),
+                IsExport: 1,
+                IsStationAccreditation: $("#IsStationAccreditation_plant").val(),
+                IsFarmAccreditation: $("#IsFarmAccreditation_plant").val(),
+                IsCompanyAccreditation: $("#IsCompanyAccreditation_plant").val(),
+                IsAcceppted: 1,
+                IsActive: 1,
+                ItemCategories_ID: $("#plantCatLst").val(),
+            });
+            alert(CheckedItemsList);
+            $.ajax(
+                {
+                    url: "/ExportConstrainsnNew/constrainSave",
+                    type: "POST",
+                    data: JSON.stringify(
+                        {
+                            countryConstrain: CheckedItemsList,
+                        }),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (res) {
+
+                    }
+                });
+
+
+
+            //**********************end sayed ***************
+
+            if (rowCount1 <= 0) {
+                //$("#btnSavec").submit();
+
+                textt = "enter texts";
+
+            }
+        }
+
+
+        if (textt == "") {
+            $("#ex_ConstrainForm").submit();
+        } else {
+            alert(textt)
+
+        }
+    });
+</script>

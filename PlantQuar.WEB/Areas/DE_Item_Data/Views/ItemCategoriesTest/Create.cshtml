@@ -1,0 +1,470 @@
+﻿@model PlantQuar.DAL.ItemCategory
+
+
+@{
+    ViewBag.Title = @PlantQuar.WEB.Language.Resource_data1.Categories;
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.Items => @PlantQuar.WEB.Language.Resource_data1.Categories_Add</h2>
+}
+
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div id="BasicDiv">
+        <div class="row">
+            <div class="col-md-4">
+                <label class="control-label mar-b-10">@PlantQuar.WEB.Language.Resource_data1.Item_Type</label>
+                <select id="itemTypeLst" name="itemTypeLst" class="form-control"></select>
+            </div>
+            <div class="col-md-4">
+                <label class="control-label mar-b-10">@PlantQuar.WEB.Language.Resource_data1.MainCalssification</label>
+                <select id="mainClassLst" name="mainClassLst" class="form-control"></select>
+            </div>
+            <div class="col-md-4">
+                <label class="control-label mar-b-10">@PlantQuar.WEB.Language.Resource_data1.SecondaryClassification</label>
+                <select id="secClassLst" name="secClassLst" class="form-control"></select>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-4">
+                <label class="control-label mar-b-10">@PlantQuar.WEB.Language.Resource_data1.PlantGroup</label>
+                <select id="groupLst" class="form-control"></select>
+            </div>
+            <div class="col-md-4 ta1" style="margin-top: 35px;">
+                <input type="checkbox" class="form-control" checked id="chkIsKNown" />
+                <label class="control-label" id="lblknown"  name="lblknown">@PlantQuar.WEB.Language.Resource_data1.Isknown</label>
+            </div>
+            <div class="col-md-4">
+                <label class="mar-b-10 control-label">@PlantQuar.WEB.Language.Resource_data1.Items</label>
+                <select id="Item_ID" name="Item_ID" class="form-control" onchange="callScientific_Name()"></select>
+                @*@Html.DropDownList("Item_ID", null, "----------", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Item_ID, "", new { @class = "text-danger" })*@
+            </div>
+
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-4">
+                <label class="control-label mar-b-10">الأسم العلمى</label>
+                <input type="text" id="Scientific_Name" name="Scientific_Name" value="" readonly class="form-control" />
+
+            </div>
+            <div class="col-md-4">
+                <label class="control-label mar-b-10">
+                    @PlantQuar.WEB.Language.Resource_data1.ItemCategoryType
+                </label>
+                @Html.DropDownList("ItemCategories_Type", null, "----------", htmlAttributes: new { @class = "form-control", @onchange = "Fill_ItemCategories_Group_ID(this.value)" })
+                @Html.ValidationMessageFor(model => model.ItemCategories_Type, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-4">
+
+                <label class="control-label mar-b-10">
+                    @PlantQuar.WEB.Language.Resource_data1.ItemsCategoryGrp
+                </label>
+                <select id="ItemCategories_Group_ID" name="ItemCategories_Group_ID" class="form-control"></select>
+            </div>
+
+
+        </div>
+    </div>
+    <br />
+    <div id="SeconderyDiv">
+        <div class="row">
+
+            <div class="col-md-4">
+                <label class="control-label mar-b-10">
+                    @PlantQuar.WEB.Language.Resource_data1.ArabicName
+                </label>
+                @Html.EditorFor(model => model.Name_Ar, new { htmlAttributes = new { @class = "form-control" } })
+
+                @Html.ValidationMessageFor(model => model.Name_Ar, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-4">
+                <label class="control-label mar-b-10">
+                    @PlantQuar.WEB.Language.Resource_data1.EnglishName
+                </label>
+                @Html.EditorFor(model => model.Name_En, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name_En, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-4">
+                <label class="control-label mar-b-10">
+                    @PlantQuar.WEB.Language.Resource_data1.IsRegister
+                </label>
+                <div class="checkbox ta1 ">
+                    <input type="checkbox" name="IsRegister" id="IsRegister" onchange="callIsRegister()" checked>
+                    <span class="control-label mar-r-30 " id="IsRegisterText">@PlantQuar.WEB.Language.Resource_data1.Yes</span>
+                    @*@Html.EditorFor(model => model.IsRegister, "----------")
+                    @Html.ValidationMessageFor(model => model.IsRegister, "", new { @class = "text-danger" })*@
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="control-label mar-b-10">
+                    @PlantQuar.WEB.Language.Resource_data1.Resolution_Number
+                </label>
+                <label class="control-label mar-b-10">
+                    @Html.EditorFor(model => model.Resolution_Number, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Resolution_Number, "", new { @class = "text-danger" })
+                </label>
+            </div>
+        </div>
+        <br />
+        <div id="firstDiv" style="display:block">
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="control-label mar-b-10">
+                        @PlantQuar.WEB.Language.Resource_data1.Resolution_year
+                    </label>
+                    @Html.EditorFor(model => model.Resolution_Date, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Resolution_Date, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label mar-b-10">
+                        @PlantQuar.WEB.Language.Resource_data1.RegisterDate
+                    </label>
+                    <input type="date" name="Register_NumDate" id="Register_NumDate" value="" class="form-control" />
+                    @*@Html.EditorFor(model => model.Register_NumDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Register_NumDate, "", new { @class = "text-danger" })*@
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label mar-b-10">
+                        @PlantQuar.WEB.Language.Resource_data1.RegisterDate_End
+                    </label>
+                    <input type="date" name="Register_EndDate" id="Register_EndDate" value="" class="form-control" />
+
+                    @*@Html.EditorFor(model => model.Register_EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Register_EndDate, "", new { @class = "text-danger" })*@
+                </div>
+            </div>
+
+            <br />
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="control-label mar-b-10">
+                        @PlantQuar.WEB.Language.Resource_data1.TimeOut
+                    </label>
+                    <input type="date" name="TimeOut" id="TimeOut" value="" class="form-control" />
+
+                    @*@Html.EditorFor(model => model.TimeOut, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TimeOut, "", new { @class = "text-danger" })*@
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label mar-b-10">
+                        موجود فى مصر
+                    </label>
+                    <div class="checkbox">
+                        <input type="checkbox" name="Is_Plant_Egypt" id="Is_Plant_Egypt" onchange="callIs_Plant_Egypt()" checked>
+                        <span class="jtable-option-text-clickable mar-r-30 " id="Is_Plant_EgyptText">@PlantQuar.WEB.Language.Resource_data1.Yes</span>
+                        @*@Html.EditorFor(model => model.Is_Plant_Egypt)
+                        @Html.ValidationMessageFor(model => model.Is_Plant_Egypt, "", new { @class = "text-danger" })*@
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <br />
+        <div class="row">
+            <div class="col-md-4">
+                <label class="control-label mar-b-10">
+                    @PlantQuar.WEB.Language.Resource_data1.ForbiddenStatus
+                </label>
+                <div class="checkbox">
+                    @*'false': '@PlantQuar.WEB.Language.Resource_data1.Prevented_Not',
+                    'true': '@PlantQuar.WEB.Language.Resource_data1.Prevent'*@
+                    <input type="checkbox" name="IsForbidden" id="IsForbidden" onchange="callIsForbidden()">
+                    <span class="jtable-option-text-clickable mar-r-30" id="IsForbiddenText">ممنوع</span>
+                    @* @Html.EditorFor(model => model.IsForbidden)*@
+                    @* @Html.ValidationMessageFor(model => model.IsForbidden, "", new { @class = "text-danger" })*@
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="control-label mar-b-10">
+                    @PlantQuar.WEB.Language.Resource_data1.Status
+                </label>
+                <div class="checkbox">
+                    <input type="checkbox" name="Status" id="Status" onchange="callstatus()">
+                    <span class="jtable-option-text-clickable mar-r-30" id="statusText">@PlantQuar.WEB.Language.Resource_data1.UnderProtectionNot</span>
+                    @*@Html.EditorFor(model => model.CurrentStatus)
+                    @Html.ValidationMessageFor(model => model.CurrentStatus, "", new { @class = "text-danger" })*@
+                </div>
+            </div>
+
+
+        </div>
+        <br />
+        <div id="secondDiv" style="display:block" class="row">
+            <div class="col-md-4">
+                <label class="control-label mar-b-10">
+                    @PlantQuar.WEB.Language.Resource_data1.ProtectionDecision
+                </label>
+                <input type="file" name="Protect_Property_File" value="" />
+
+            </div>
+            <div class="col-md-4">
+                <label class="control-label mar-b-10">
+                    @PlantQuar.WEB.Language.Resource_data1.FileName
+                </label>
+                @Html.EditorFor(model => model.Protect_Property, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Protect_Property, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-4">
+                <label class="control-label mar-b-10">
+
+                    @PlantQuar.WEB.Language.Resource_data1.Notes
+                </label>
+                @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+        <br />
+        <div class="form-group row">
+            <div class="col-md-4"></div>
+            <div class="col-md-offset-2 col-md-4">
+                <input type="submit" value="إنشاء" class="btn btn-default" />
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+
+    </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+    <script>
+
+    function Fill_ItemCategories_Group_ID(element) {
+      //  alert(element);
+             $.ajax(
+                    {
+                        url: '@Url.Action("ItemCategoriesGrp_ByItem", "CommonActions/ItemList", new { area = "Controllers" })',
+                        type: 'Post',
+                     data: { ItemId: element },
+                        success: function (data) {
+                            $('#ItemCategories_Group_ID').empty();
+                            $.each(data.Options, function (i, index) {
+                                $('#ItemCategories_Group_ID').append($('<option />').val(index.Value).text(index.DisplayText));
+                            }); //each
+
+                            } //success
+                        });//ajax
+    }
+
+    function callIsForbidden() {
+    checkBox = document.getElementById('IsForbidden');
+        if (checkBox.checked) {
+            document.getElementById('IsForbiddenText').innerHTML = "غير ممنوع";
+        }
+        else { document.getElementById('IsForbiddenText').innerHTML = " ممنوع"; }
+    }
+
+    function callstatus() {
+
+        checkBox = document.getElementById('Status');
+        if (checkBox.checked) {
+            document.getElementById('statusText').innerHTML = "@PlantQuar.WEB.Language.Resource_data1.UnderProtection";
+        }
+        else {
+            document.getElementById('statusText').innerHTML = "@PlantQuar.WEB.Language.Resource_data1.UnderProtectionNot"; }
+    }
+
+    function callIsRegister() {
+
+        checkBox = document.getElementById('IsRegister');
+        if (!checkBox.checked) {
+            document.getElementById('IsRegisterText').innerHTML = "@PlantQuar.WEB.Language.Resource_data1.No";
+            document.getElementById('firstDiv').style.display = 'none';
+            document.getElementById('secondDiv').style.display = 'none';
+        }
+        else {
+            document.getElementById('IsRegisterText').innerHTML = "@PlantQuar.WEB.Language.Resource_data1.Yes";
+            document.getElementById('firstDiv').style.display = 'block';
+            document.getElementById('secondDiv').style.display = 'block';
+
+        }
+    }
+
+    function callIs_Plant_Egypt() {
+
+        checkBox = document.getElementById('Is_Plant_Egypt');
+        if (checkBox.checked) {
+            document.getElementById('Is_Plant_EgyptText').innerHTML = "@PlantQuar.WEB.Language.Resource_data1.Yes";
+        }
+        else {
+            document.getElementById('Is_Plant_EgyptText').innerHTML = "@PlantQuar.WEB.Language.Resource_data1.No"; }
+    }
+
+    function callScientific_Name() {
+   $.ajax(
+                {
+                    url: '@Url.Action("ItemScientific_Name", "ItemList", new { area = "CommonActions" })',
+                    type: 'Post',
+                    data: { Item_ID: $('#Item_ID').val() },
+                    success: function (data) {
+                        $('#Scientific_Name').empty();
+                        $.each(data.Options, function (i, index) {
+                            /* $('#mainClassLst').append($('<option />').val(index.Value).text(index.DisplayText));*/
+                            /* $('#Scientific_Name').value = index.DisplayText;*/
+                            document.getElementById('Scientific_Name').value += index.DisplayText;
+                        }); //each
+                    } //success
+                });//ajax
+    }
+     $(document).ready(function () {
+             $.ajax(
+                {
+                    url: '@Url.Action("ItemType_AddEDIT", "ItemList", new { area = "CommonActions" })',
+                    type: 'Post',
+                    success: function (data) {
+                        $('#itemTypeLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#itemTypeLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+        });
+          $('#itemTypeLst').on("change", function () {
+            $.ajax(
+                {
+                    url: '@Url.Action("MainClassification_AddEDIT", "ItemList", new { area = "CommonActions" })',
+                    type: 'Post',
+                    data: { ItemType_ID: $('#itemTypeLst').val() },
+                    success: function (data) {
+                        $('#mainClassLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#mainClassLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+          });
+
+          $('#mainClassLst').on("change", function () {
+            $.ajax(
+                {
+                    url: '@Url.Action("SecondaryClassification_AddEDIT", "ItemList", new { area = "CommonActions" })',
+                    type: 'Post',
+                    data: { MainClass_ID: $('#mainClassLst').val() },
+                    success: function (data) {
+                        $('#secClassLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#secClassLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+          });
+     $('#secClassLst').on("change", function () {
+            $.ajax(
+                {
+                    url: '@Url.Action("ItemGroup_AddEDIT", "ItemList", new { area = "CommonActions" })',
+                    type: 'Post',
+                    data: { SecClass_ID: $('#secClassLst').val() },
+                    success: function (data) {
+                        $('#groupLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#groupLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+     });
+    $('#groupLst').on("change", function () {
+        getItems();
+    });
+
+    $('#chkIsKNown').on('click', function () {
+        getItems();
+    });
+     function getItems() {
+            var known = '';
+            if ($('#chkIsKNown:checked').length == 0) known = false;
+            else known = true;
+
+            if (known == false) {
+                $("#lblknown").text('@PlantQuar.WEB.Language.Resource_data1.un_known')
+            } else {
+                $("#lblknown").text('@PlantQuar.WEB.Language.Resource_data1.Isknown')
+            }
+
+            if ($('#groupLst').val() > 0) {
+                 $.ajax(
+                {
+                      @*url: '@Url.Action("ItemData_AddEDIT_Known", "ItemList", new { area = "CommonActions" })',*@
+                     url: '@Url.Action("ItemFilterForShortName", "ItemList", new { area = "CommonActions" })',
+                    type: 'Post',
+                    data: {
+                        groupId: $('#groupLst').val(),
+                        known: known,
+                         itemType: $('#itemTypeLst').val(),
+                    },
+                    success: function (data) {
+                        $('#Item_ID').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#Item_ID').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+            }
+        }
+    $("#Name_Ar, #Name_En").attr('autocomplete', 'off');
+
+    $('#Resolution_Number,#Resolution_Date,#Resolution_Number').attr('type', 'number');
+
+
+    // Arabic + spaces + numeric
+    $("#Name_Ar").keypress(function (e) {
+        var unicode = e.charCode ? e.charCode : e.keyCode
+        if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+            if (unicode == 32)
+                return true;
+            else {
+                if ((unicode < 48 || unicode > 57) && (unicode < 0x0600 || unicode > 0x06FF)) //if not a number or arabic
+                    return false; //disable key press
+            }
+        }
+    });
+    // English + spaces + numeric
+    $("#Name_En").keypress(function (e) {
+
+        var unicode = e.charCode ? e.charCode : e.keyCode
+        if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+            if (unicode == 32)
+                return true;
+            else {
+                if (!(unicode < 0x0600 || unicode > 0x06FF)) //if not english
+                    return false; //
+            }
+        }
+    });
+    </script>

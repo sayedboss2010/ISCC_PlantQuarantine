@@ -1,0 +1,362 @@
+﻿
+@model PlantQuar.DTO.DTO.DataEntry.Fees.Fees_ActionDTO
+
+@{
+    ViewBag.Title = "FeesActionAddEdit";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.Fees</h2>
+}
+
+@section Path{
+    <li>@PlantQuar.WEB.Language.Resource_data1.Constrains</li>
+    <li class="active">FeesAction</li>
+}
+
+<style>
+    textarea {
+        resize: none;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-10"></div>
+        <div class="col-md-2">
+            @Html.ActionLink(PlantQuar.WEB.Language.Resource_data1.Back, "Index", "FeesAction", new { area = "DE_Fees" }, new { @class = "btn btn-primary", @style = "width:100%" })
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm("SaveFeesAction", "FeesAction", FormMethod.Post, new { area = "DE_Fees" }))
+{
+    @Html.HiddenFor(m => m.ID)
+    <div>
+        <div class="tab" role="tabpanel" style="min-height:80% !important;">
+            <div class="tab-content tabs" style="background-color:whitesmoke  !important;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="Fees_Process_ID" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Fees_process</label>
+                        @Html.DropDownListFor(m => m.Fees_Process_ID, new SelectList(ViewBag.Fees_Process, "Value", "DisplayText"), new { @class = "form-control", @id = "Fees_Process_ID" })
+                    </div>
+                    <div class="col-md-6">
+                        <label for="FeesType_Id" class="control-label">@PlantQuar.WEB.Language.Resource_data1.FeesType</label>
+                        @Html.DropDownListFor(m => m.FeesType_Id, new SelectList(ViewBag.Fees_Type, "Value", "DisplayText"), new { @class = "form-control", @id = "FeesType_Id" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="Feer_Type_Action_ID" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Fees_Type_Action</label>
+                        <select id="Feer_Type_Action_ID" name="Feer_Type_Action_ID" class="form-control">
+                            <option value="">----------</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="ItemShowHide">
+                            <label for="ItemId" class="control-label">Item</label>
+                            <select id="ItemId" name="ItemId" class="form-control">
+                                <option value="">----------</option>
+                            </select>
+                        </div>
+                        <div id="ItemShortNameShowHide">
+                            <label for="ItemShortNameId" class="control-label">Short Name</label>
+                            <select id="ItemShortNameId" name="ItemShortNameId" class="form-control">
+                                <option value="">----------</option>
+                            </select>
+                        </div>
+                        <div id="ShiftTimingShowHide">
+                            <div>
+                                <label for="ShiftTypeId" class="control-label">Shift Types</label>
+                                <select id="ShiftTypeId" name="ShiftTypeId" class="form-control">
+                                    @foreach (var cc in ViewBag.ShiftTypes)
+                                    {
+                                        <option value="@cc.Value">@cc.DisplayText</option>
+                                    }
+
+                                </select>
+                            </div>
+                            <div>
+                                <label for="ShiftTimingId" class="control-label">ShiftTiming</label>
+                                <select id="ShiftTimingId" name="ShiftTimingId" class="form-control">
+                                    <option value="">----------</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="TreatmentMethodsShowHide">
+                            <label for="TreatmentMethodsId" class="control-label">@PlantQuar.WEB.Language.Resource_data1.TreatmentMethod</label>
+                            <select id="TreatmentMethodsId" name="TreatmentMethodsId" class="form-control">
+                                <option value="">----------</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6" id="Name_Ardiv">
+                        <label for="Name_Ar" class="control-label">@PlantQuar.WEB.Language.Resource_data1.ArabicName</label>
+                        @Html.TextBoxFor(m => m.Name_Ar, new { @class = "form-control", @id = "Name_Ar" })
+                    </div>
+                    <div class="col-md-6" id="Name_Endiv">
+                        <label for="Name_En" class="control-label">@PlantQuar.WEB.Language.Resource_data1.EnglishName</label>
+                        @Html.TextBoxFor(m => m.Name_En, new { @class = "form-control", @id = "Name_En" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="Amount" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Amount</label>
+                        @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", @id = "Amount" })
+                    </div>
+                    <div class="col-md-6">
+                        <label for="MinAmount" class="control-label">@PlantQuar.WEB.Language.Resource_data1.MinAmount</label>
+                        @Html.TextBoxFor(m => m.MinAmount, new { @class = "form-control", @id = "MinAmount" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6" id="WeightFromdiv">
+                        <label for="WeightFrom" class="control-label">@PlantQuar.WEB.Language.Resource_data1.WeightFrom</label>
+                        @Html.TextBoxFor(m => m.WeightFrom, new { @class = "form-control", @id = "WeightFrom" })
+                    </div>
+                    <div class="col-md-6" id="WeightTodiv">
+                        <label for="WeightTo" class="control-label">@PlantQuar.WEB.Language.Resource_data1.WeightTo</label>
+                        @Html.TextBoxFor(m => m.WeightTo, new { @class = "form-control", @id = "WeightTo" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="IsPaidBefore" class="control-label">@PlantQuar.WEB.Language.Resource_data1.IsPaidBefore</label>
+                        @Html.CheckBoxFor(m => m.IsPaidBefore, new { @class = "form-control", @id = "IsPaidBefore", @cols = 3 })
+                    </div>
+                    <div class="col-md-4">
+                        <label for="IsActive" class="control-label">@PlantQuar.WEB.Language.Resource_data1.IsActive</label>
+                        @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-control", @id = "IsActive", @cols = 3 })
+                    </div>
+                    <div class="col-md-4">
+                        <label for="IsMandatory" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Mandatory</label>
+                        @Html.CheckBoxFor(m => m.IsMandatory, new { @class = "form-control", @id = "IsMandatory" })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-10"></div>
+                    <div class="col-md-2">
+                        <input type="submit" class="btn btn-primary" style="width:100%" value="حفظ" autocomplete="off">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<style>
+    .attach .jtable-input-field-container:nth-of-type(1),
+    .attach .jtable-input-field-container:nth-of-type(2),
+    .attach .jtable-input-field-container:nth-of-type(3),
+    .attach .jtable-input-field-container:nth-of-type(4) {
+        margin-bottom: 2px;
+        float: right;
+        width: 48% !important;
+    }
+
+
+    .attach .jtable-input-field-container:nth-of-type(5) {
+        margin-bottom: 2px;
+        float: right;
+        width: 98% !important;
+    }
+</style>
+
+<script>
+   
+    $(function () {
+        $("#ItemShowHide").hide(); $("#ItemShortNameShowHide").hide(); $("#ShiftTimingShowHide").hide(); $("#TreatmentMethodsShowHide").hide();
+       ////debugger
+
+            if ($("#Fees_Process_ID").val()== "")
+            {
+                $("#Feer_Type_Action_ID").append("<option value=''>----------</option>");
+            }
+            else
+            {
+                $.ajax({
+                    type: "Get",
+                    url: "@Url.Action("GetFeesTypeActionByFeesProcessId", "FeesAction", new { area = "DE_Fees" })",
+                    data: { Fees_Process_ID: $("#Fees_Process_ID").val() },
+                    dataType: "Json",
+                    success: function (data) {
+                        $.each(data.Options, function (i, index) {
+                            $("#Feer_Type_Action_ID").append($("<option />").val(index.Value).text(index.DisplayText));
+                            $("#Feer_Type_Action_ID").val('@Model.Feer_Type_Action_ID')
+                        });
+                    }
+                });
+            }
+        ////
+        //ItemShortNameShowHide
+        function getdata() {
+             var FeesType_Id = $("#FeesType_Id").val();
+            if (FeesType_Id == 2)  // Treatment ...
+            {
+                $("#ItemShowHide").hide(); $("#ShiftTimingShowHide").hide(); $("#TreatmentMethodsShowHide").show();
+                  $.ajax({
+                    type: "Get",
+                    url: "@Url.Action("GetTreatmentMethods", "FeesAction", new { area = "DE_Fees" })",
+                    data: "",
+                    dataType: "Json",
+                    success: function (data) {
+                        $("#TreatmentMethodsId").empty();
+                        $.each(data.Options, function (i, index) {
+                            $("#TreatmentMethodsId").append($("<option />").val(index.Value).text(index.DisplayText));
+                            $("#TreatmentMethodsId").val('@Model.TreatmentMethodsId')
+                        });
+                    }
+                })
+
+            }
+            else if (FeesType_Id == 3)  // ShiftTiming ...
+            {
+                $("#ItemShowHide").hide(); $("#ShiftTimingShowHide").show(); $("#TreatmentMethodsShowHide").hide();
+       $("#Name_Ardiv").hide();
+    $("#Name_Endiv").hide();
+    $("#WeightTodiv").hide();
+    $("#WeightFromdiv").hide();
+                 $("#ShiftTypeId").change(function(){
+    var typeId = $(this).val();
+    $.ajax(
+                {
+                    url: '@Url.Action("getShiftTiming", "Committee", new { area = "Committees" })',
+                    type: 'Post',
+                    data: { dayType: typeId },
+                    success: function (data) {
+                        $('#ShiftTimingId').empty();
+
+                        $.each(data.Options, function (i, index) {
+                            $('#ShiftTimingId').append($('<option />').val(index.Value).text(index.DisplayText));
+                             $("#ShiftTimingId").val('@Model.ShiftTimingId')
+                        }); //each
+                    } //success
+                });//ajax
+    @*$.ajax({
+                    type: "Get",
+                    url: "@Url.Action("GetShiftTiming", "FeesAction", new { area = "DE_Fees" })",
+                    data: "",
+                    dataType: "Json",
+                    success: function (data) {
+                        $("#ShiftTimingId").empty();
+                        $.each(data.Options, function (i, index) {
+                            $("#ShiftTimingId").append($("<option />").val(index.Value).text(index.DisplayText));
+                        });
+                    }
+                })*@
+    });
+
+            }
+            else if (FeesType_Id == 5)  // Item ...
+            {
+                $("#ItemShowHide").show(); $("#ShiftTimingShowHide").hide(); $("#TreatmentMethodsShowHide").hide();
+                  $.ajax({
+                    type: "Get",
+                    url: "@Url.Action("GetItems", "FeesAction", new { area = "DE_Fees" })",
+                    data: "",
+                    dataType: "Json",
+                    success: function (data) {
+                        $("#ItemId").empty();
+                        $.each(data.Options, function (i, index) {
+                            $("#ItemId").append($("<option />").val(index.Value).text(index.DisplayText));
+                            $("#ItemId").val('@Model.ItemId')
+                        });
+                    }
+                })
+            }
+                else if (FeesType_Id == 6)  // Item ...
+            {
+                $("#ItemShowHide").show();$("#ItemShortNameShowHide").show(); $("#ShiftTimingShowHide").hide(); $("#TreatmentMethodsShowHide").hide();
+                  $.ajax({
+                    type: "Get",
+                    url: "@Url.Action("GetItems", "FeesAction", new { area = "DE_Fees" })",
+                    data: "",
+                    dataType: "Json",
+                    success: function (data) {
+                        $("#ItemId").empty();
+                        $.each(data.Options, function (i, index) {
+                            $("#ItemId").append($("<option />").val(index.Value).text(index.DisplayText));
+
+                            $("#ItemId").val('@Model.ItemId')
+                        });
+                    }
+                  })
+                 var itemId = '@Model.ItemId';
+                $("#ItemShortNameId").empty();
+                 $.ajax({
+                    type: "Post",
+                    url: "@Url.Action("shortNames_List", "Item_ShortName", new { area = "DE_Item_Data" })",
+                    data: {itemId: itemId },
+                    dataType: "Json",
+                    success: function (data) {
+                        $.each(data.Options, function (i, index) {
+                            $("#ItemShortNameId").append($("<option />").val(index.Value).text(index.DisplayText));
+                            $("#ItemShortNameId").val('@Model.ItemShortNameId')
+                        });
+                    }
+                })
+            }
+            else
+            {
+                $("#ItemShowHide").hide(); $("#ShiftTimingShowHide").hide(); $("#TreatmentMethodsShowHide").hide();
+            }
+
+        }
+        getdata();
+        $("#FeesType_Id").change(function () {
+            getdata();
+        });
+        $("#ItemId").change(function () {
+            if ($("#FeesType_Id").val() == 6) {
+                var itemId = $("#ItemId").val();
+                $("#ItemShortNameId").empty();
+                 $.ajax({
+                    type: "Post",
+                    url: "@Url.Action("shortNames_List", "Item_ShortName", new { area = "DE_Item_Data" })",
+                    data: {itemId: itemId },
+                    dataType: "Json",
+                    success: function (data) {
+                        $.each(data.Options, function (i, index) {
+                            $("#ItemShortNameId").append($("<option />").val(index.Value).text(index.DisplayText));
+                        });
+                    }
+                })
+            }
+        });
+        $("#Fees_Process_ID").change(function () {
+            var Fees_Process_ID = $(this).val();
+            $("#Feer_Type_Action_ID").empty();
+
+            if (Fees_Process_ID == "")
+            {
+                $("#Feer_Type_Action_ID").append("<option value=''>----------</option>");
+            }
+            else
+            {
+                $.ajax({
+                    type: "Get",
+                    url: "@Url.Action("GetFeesTypeActionByFeesProcessId", "FeesAction", new { area = "DE_Fees" })",
+                    data: { Fees_Process_ID: Fees_Process_ID },
+                    dataType: "Json",
+                    success: function (data) {
+                        $.each(data.Options, function (i, index) {
+                            $("#Feer_Type_Action_ID").append($("<option />").val(index.Value).text(index.DisplayText));
+                        });
+                    }
+                })
+            }
+        });
+        
+            
+        });
+    
+</script>

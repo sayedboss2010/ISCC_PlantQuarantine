@@ -1,0 +1,326 @@
+﻿body {
+    margin: 0;
+    font-size: 28px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.imgg {
+    margin-top: 0px;
+}
+
+.imgg:hover {
+          transform: scale(1.3);
+    }
+
+/*.icon2 {
+    height: 42px;
+    width: 42px;
+    border-radius: 50%;
+    display: inline-block;
+    padding: 4px 6px 33px 5px !important;
+    margin: 2px 0px 0px 15px;
+}*/
+
+    /*.icon2:hover {
+        background-color: #ffbb84;
+    }*/
+
+.navbarr {
+    overflow: hidden;
+    z-index: 10;
+    background-color: #515e3b;
+    height: 45px !important;
+}
+
+.header {
+    background-color: #f1f1f1;
+    padding: 30px;
+    text-align: center;
+}
+.view2_b {
+    background-color: #f9f9f5;
+    min-height: 484px;
+    padding: 20px;
+    line-height: 1.45;
+    position: relative;
+    right: 211px;
+    top: 26px;
+    width: 83%;
+}
+
+.red:link, .red:visited {
+    color: white;
+}
+.red:hover, .red:active {
+    color: #e16500;
+    text-decoration: none;
+}
+.big_menu {
+    position: absolute;
+}
+.leaff {
+    display: inline;
+    float: right;
+    color: white;
+    padding: 15px 10px;
+}
+.li_hov:hover {
+    background-color: #ACBDAA;
+}
+.a_border {
+    background-color: #0D5052;
+    border-top: 1px solid #2E801A;
+}
+#searchbtn {
+    margin-right: -13px;
+    float: right;
+    height: 37px;
+    width: 101px;
+    background-color: #3b818e;
+    border: 2px solid #1e8084;
+    box-shadow: 0 4px #999;
+}
+#searchbtn:hover {
+        background-color: #27a1b8;
+        border: 1px solid #349bae;
+    }
+
+#searchbtn:active {
+        background-color: #5babba;
+        border: 1px solid #1d474f;
+        box-shadow: 0 2px #666;
+        transform: translateY(4px);
+    }
+#searchbtn:visited {
+        background-color: #218e91;
+        /*background-color:#258c4f;*/
+        border: 1px solid #258c4f;
+    }
+#searchForm {
+    /*position: relative;*/
+    /* top: 110%; */
+    /*left: 5%;*/
+    transform: translate(0%,-50%);
+    transition: all 1s;
+    width: 38px;
+    height: 38px;
+    background-color: white;
+    /*box-sizing: border-box;*/
+    border-radius: 25px;
+    border: 2px solid white;
+  
+}
+.inputt {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    line-height: 10px;
+    outline: 0;
+    border: 0;
+    border-radius: 20px;
+    padding: 0 16px;
+}
+.searchIcon {
+    box-sizing: border-box;
+    padding: 7px 0px 7px 8px;
+    width: 38px;
+    height: 38px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 50%;
+    color: #457d72;
+    text-align: center;
+    font-size: 1.2em;
+    transition: all 1s;
+}
+#searchForm:hover {
+    width: 200px;
+    left: 200px;
+    cursor: pointer;
+}
+    #searchForm:hover .inputt {
+        display: block;
+    }
+    #searchForm:hover .searchIcon .searchIcon:hover {
+        background: #376259;
+        color: black;
+        width: 42.5px;
+        height: 42.5px;
+    }
+.dropdown-menu {
+    width: 287px !important;
+    margin: 0;
+    border-radius: 1px;
+    -moz-border-radius: 1px;
+    -webkit-border-radius: 1px;
+    padding: 0;
+    border: 0;
+    min-width: 275px;
+    /*position: absolute;
+    right: 0;*/
+    z-index: 1000;
+    display: none;
+    /*float: right;*/
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 1px -250px 0 0px !important;
+    font-size: 14px;
+    text-align: right;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+    .dropdown-menu.top-notification h4 {
+        color: white;
+    }
+.top-navigation .dropdown-menu h4 {
+    padding: 10px;
+    margin: 0;
+    font-size: 14px;
+    color: white;
+    background: #1b6669;
+}
+.dropdown-menu ul {
+    list-style: none !important;
+    padding: 0;
+    margin: 0;
+    float: none;
+}
+    .dropdown-menu ul li {
+        margin-left: 14px;
+    }
+.top-navigation ul.ls-feed li a {
+    padding: 0;
+    color: #6e6e6e;
+    display: block;
+    line-height: 22px;
+    font-size: 14px;
+}
+.ls-feed li {
+    font-size: 14px;
+    line-height: 14px;
+    margin-bottom: 10px;
+    padding: 10px 33px 10px 0;
+    position: relative;
+}
+.dropdown-menu.top-notification .ls-feed li {
+    margin-bottom: 10px;
+    border-bottom: 1px dotted #cbc5ba;
+    background: white;
+    color: dimgrey;
+    float: right;
+    width: 100%;
+}
+.dropdown-menu ul li.only-link {
+    text-align: center;
+    padding: 5px 0;
+    border-bottom: 0 !important;
+    margin-top: 0;
+}
+.ls-feed li .date {
+    padding-left: 10px;
+    text-align: left;
+    font-style: italic;
+    font-size: 12px;
+    float: left;
+    direction: ltr
+}
+.mass {
+    float: right;
+    margin-right: 6px;
+}
+.lightGreen {
+    color: #1fb5ad
+}
+.footerStyle {
+    background: #ececec;
+    text-align: left;
+    padding-left: 50px;
+    padding: 10px;
+    border-top: 1px #cbc5ba dotted;
+    height: 37px;
+    margin-top: 43px;
+}
+
+a:focus {
+    outline: none;
+}
+@media only screen and (max-width: 600px) {
+    #txt_AR_BTNSearch, #txt_EN_BTNSearch {
+      top: 0px!important;
+    }
+}
+@media only screen and (max-width: 1024px) {
+    .menu-control {
+        display: none !important;
+    }
+
+    #brc1 {
+        display: none;
+    }
+
+   
+
+    #txt_AR_BTNSearch, #txt_EN_BTNSearch {
+        height: 36px;
+        top: 14px;
+        left: 14px;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+
+    #LoadRecordsButton {
+        margin-right: -8px;
+        top: 30px;
+        position: relative;
+        width: 87px !important;
+    }
+}
+#saveallcoun, #nextform5, .btnEditCountry, .btnSaveCountry, #btnRedir, #statuss, #farmId, #reqId {
+    background-color: #1e7c80 !important;
+    border: 2px solid #1e8084 !important;
+    box-shadow: 0 4px #1d9fa5 !important;
+    outline: none !important;
+    position: relative;
+    border-radius: 19px !important;
+    color: white !important;
+}
+
+.form-inline {
+    outline: none;
+}
+
+.formErrorArrow {
+    display: none;
+}
+
+.navbar-nav {
+    margin: 0px 0px !important;
+}
+
+.countries_action {
+    border: 1px solid black;
+    padding: 3px;
+    font-size: 15px !important;
+}
+
+.header_countries_action {
+    text-align: right;
+    padding: 17px;
+}
+
+@media (min-width: 768px) {
+    .navbar-nav {
+        float: right !important;
+    }
+}

@@ -1,0 +1,369 @@
+﻿@model PlantQuar.DTO.DTO.Custome_ImCheckRequest
+@{
+    ViewBag.Title = ">طلب الفحص";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@*<link href="~/Design/css/W.css" rel="stylesheet" />*@
+
+<style>
+    #Im_OpertaionType, #ImporterTypeId, #company_List, #lst_ImportCountry, #lst_ArrivalPort, #PortInternational_T, #PortNational, #lst_ShipmentMean, #lst_TransportationMean {
+        height: 40px;
+    }
+</style>
+@using (Html.BeginForm("checkIm_RequestSave", "Im_PermissionRequest", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "checkReqForm" }))
+{
+    <div id="myWizard">
+        <div class="row" style="display:block">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <label class="control-label">اختيار نوع العملية</label>
+                    @Html.DropDownList("Im_OpertaionType", (IEnumerable<SelectListItem>)ViewBag.Im_OpertaionType as SelectList, new { @class = "form-control", @id = "lst_Im_OpertaionType" })
+                </div>
+            </div>
+        </div>
+
+        <br />
+        <div class="tab">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#step1" data-toggle="tab" data-step="1">الجهه المستورده</a></li>
+                <li><a href="#step2" data-toggle="tab" data-step="2">مسار الرساله</a></li>
+                <li><a href="#DetailsTab" data-toggle="tab" data-step="3">تفاصيل الرساله</a></li>
+            </ul>
+        </div>
+     
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="step1">
+
+                <div class="well">
+                    <br />
+                    <div id="DIV_PartialView_Per_Com">
+                       
+                        @Html.Partial("~/Areas/ImportLookups/Views/Im_PermissionRequest/PartialView_Per_Com.cshtml")
+                    </div>
+                    <div id="DIvScientificMessage" hidden>
+                        @Html.Partial("~/Areas/ImportLookups/Views/Im_PermissionRequest/ScientificMessagePartial.cshtml")
+
+                    </div>
+                </div>
+
+                <a class="btn btn-default btn-lg next" href="#">Continue</a>
+            </div>
+            <div class="tab-pane fade" id="step2">
+                <div class="well">    
+                    
+                    @Html.Partial("~/Areas/ImportLookups/Views/Im_PermissionRequest/PartialView_ImReqPort.cshtml")
+                </div>
+                <a class="btn btn-default next btn-lg next" href="#">Continue</a>
+            </div>
+            @*<div class="tab-pane fade" id="step3">
+                <div class="well">
+                        @Html.Partial("~/Areas/ImportLookups/Views/Im_Plant/Im_Plant.cshtml")
+                </div>
+                <a class="btn btn-default btn-lg next" href="#">Continue</a>
+            </div>*@
+
+            <div role="tabpanel" class="tab-pane fade" id="DetailsTab">
+                <div id="div_messageDetails">
+                    <div class="tab" role="tabpanel">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active" id="tab_PlantTab">
+                                <a href="#PlantTab" aria-controls="home" role="tab" data-toggle="tab">النباتات</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#ProductTab" aria-controls="profile" role="tab" data-toggle="tab">منتجات نباتية</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#AliveLiableItemsTab" aria-controls="messages" role="tab" data-toggle="tab">بنود خاضعة - كائنات حية</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#NotAliveLiableItemsTab" aria-controls="messages" role="tab" data-toggle="tab">بنود خاضعة - مواد غير حية</a>
+                            </li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content tabs">
+                            @*<div role="tabpanel" class="tab-pane fade in active" id="PlantTab">*@
+                            
+                            @*</div>*@
+                            @*<div role="tabpanel" class="tab-pane fade" id="ProductTab">
+                                @Html.Partial("~/Areas/ExportRequest/Views/Ex_Products/Ex_Products.cshtml")
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="AliveLiableItemsTab">
+                                @Html.Partial("~/Areas/ExportRequest/Views/Ex_AliveLiable/Ex_AliveLiable.cshtml")
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="NotAliveLiableItemsTab">
+                                @Html.Partial("~/Areas/ExportRequest/Views/Ex_NotAliveLiable/Ex_NotAliveLiable.cshtml")
+
+                            </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @Html.Partial("~/Areas/ImportLookups/Views/Im_Plant/Im_Plant.cshtml")
+            <div class="tab-pane fade" id="step3">
+                <div class="well">
+                    
+                    @*@Html.Action("Im_Plant", "Im_PermissionRequest")*@
+                    @*@Html.Partial("~/Areas/ImportLookups/Views/Im_PermissionRequest/PartialView_ImReqPort.cshtml")*@
+                </div>
+                <a class="btn btn-default next btn-lg next" href="#">Continue</a>
+            </div>
+        </div>
+    </div>
+
+
+        @* *****************************  SAVE  ************************* *@
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-11"></div>
+                <input type="submit" name="btnSave" value="حفظ" class="btn ls-light-green-btn btn-round btn-lg col-md-1" />
+            </div>
+        </div>
+}
+@* **************************** Scripts/Styles *********************** *@
+<script>
+
+    $('.next').click(function () {
+        var nextId = $(this).parents('.tab-pane').next().attr("id");
+        $('[href=#' + nextId + ']').tab('show');
+        return false;
+    })
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        //update progress
+        var step = $(e.target).data('step');
+        var percent = (parseInt(step) / 3) * 100;
+
+        $('.progress-bar').css({ width: percent + '%' });
+        $('.progress-bar').text("Step " + step + " of 3");
+        //e.relatedTarget // previous tab
+    })
+
+    $('.first').click(function () {
+        $('#myWizard a:first').tab('show')
+    })
+
+
+    $("#ImporterTypeId").change(function () {
+        var selectedValue = $("#ImporterTypeId").val();
+        if (selectedValue == 6) {//company
+            $("#div_publicOrg").hide();
+            $("#div_Person").hide();
+            $("#div_ExportCompany").show();
+
+            //add validations
+            $("#company_List").prop('required', true);
+            $("#txtOwner_Company").prop('required', true);
+            $("#txtOwnerAddress_Company").prop('required', true);
+            $("#txtOwnerdelegate_Company").prop('required', true);
+            $("#txtOwnerdelegateAddress_Company").prop('required', true);
+
+            //remove validation
+            $("#publicOrg_List").prop('required', false);
+            $("#txtOwner_PublicOrg").prop('required', false);
+            $("#txtOwnerAddress_PublicOrg").prop('required', false);
+            $("#txtOwnerdelegate_PublicOrg").prop('required', false);
+            $("#txtOwnerdelegateAddress_PublicOrg").prop('required', false);
+
+            $("#txtPersonName").prop('required', false);
+            $("#txtPersonAddress").prop('required', false);
+            $("#lst_PersonNationality").prop('required', false);
+            $("#personIdType_List").prop('required', false);
+            $("#txtPersonIdNumber").prop('required', false);
+            $("#txtJob").prop('required', false);
+            $("#txtPhoneNumber").prop('required', false);
+            $("#txtEmailAddress").prop('required', false);
+
+        } else
+            if (selectedValue == 7) {//public org
+                $("#div_ExportCompany").hide();
+                $("#div_Person").hide();
+                $("#div_publicOrg").show();
+
+                //add validations
+                $("#publicOrg_List").prop('required', true);
+                $("#txtOwner_PublicOrg").prop('required', true);
+                $("#txtOwnerAddress_PublicOrg").prop('required', true);
+                $("#txtOwnerdelegate_PublicOrg").prop('required', true);
+                $("#txtOwnerdelegateAddress_PublicOrg").prop('required', true);
+
+                //remove validation
+                $("#company_List").prop('required', false);
+                $("#txtOwner_Company").prop('required', false);
+                $("#txtOwnerAddress_Company").prop('required', false);
+                $("#txtOwnerdelegate_Company").prop('required', false);
+                $("#txtOwnerdelegateAddress_Company").prop('required', false);
+
+                $("#txtPersonName").prop('required', false);
+                $("#txtPersonAddress").prop('required', false);
+                $("#lst_PersonNationality").prop('required', false);
+                $("#personIdType_List").prop('required', false);
+                $("#txtPersonIdNumber").prop('required', false);
+                $("#txtJob").prop('required', false);
+                $("#txtPhoneNumber").prop('required', false);
+                $("#txtEmailAddress").prop('required', false);
+
+            } else
+                if (selectedValue == 8) {//person
+                    $("#div_ExportCompany").hide();
+                    $("#div_publicOrg").hide();
+                    $("#div_Person").show();
+
+                    //add validations
+                    $("#txtPersonName").prop('required', true);
+                    $("#txtPersonAddress").prop('required', true);
+                    $("#lst_PersonNationality").prop('required', true);
+                    $("#personIdType_List").prop('required', true);
+                    $("#txtPersonIdNumber").prop('required', true);
+                    $("#txtJob").prop('required', true);
+                    $("#txtPhoneNumber").prop('required', true);
+                    $("#txtEmailAddress").prop('required', true);
+
+                    //remove validation
+                    $("#company_List").prop('required', false);
+                    $("#txtOwner_Company").prop('required', false);
+                    $("#txtOwnerAddress_Company").prop('required', false);
+                    $("#txtOwnerdelegate_Company").prop('required', false);
+                    $("#txtOwnerdelegateAddress_Company").prop('required', false);
+
+                    $("#publicOrg_List").prop('required', false);
+                    $("#txtOwner_PublicOrg").prop('required', false);
+                    $("#txtOwnerAddress_PublicOrg").prop('required', false);
+                    $("#txtOwnerdelegate_PublicOrg").prop('required', false);
+                    $("#txtOwnerdelegateAddress_PublicOrg").prop('required', false);
+                }
+    });
+
+    // sayed 16-6-2019
+    $("#lst_Im_OpertaionType").change(function () {
+        var selectedValue = $("#lst_Im_OpertaionType").val();
+        if (selectedValue == 6) {
+            //$("#ImporterTypeId").hide();
+            //$("#Lbl_Name_Type").hide();
+            //$("#div_publicOrg").hide();
+            //$("#div_Person").hide();
+            //$("#div_ExportCompany").hide();
+            $("#DIvScientificMessage").show();
+            $("#DIV_PartialView_Per_Com").hide();
+        }
+        else {
+            $("#DIvScientificMessage").hide();
+            $("#DIV_PartialView_Per_Com").show();
+            //$("#ImporterTypeId").show();
+            //$("#Lbl_Name_Type").show();
+            //$("#div_publicOrg").hide();
+            //$("#div_Person").hide();
+            //$("#div_ExportCompany").show();
+        }
+    });
+    //GET COMPANY ADDRESS
+    $("#company_List").change(function () {
+        var selectedCompany = $('#company_List').val();
+
+        $.ajax(
+            {
+                url: "getCompanyAddress",
+                data: {
+                    companyId: selectedCompany
+                },
+                success: function (data) {
+                    $("#lblCompanyAddress").val(data.Records.Address_Ar);
+                }
+
+            });
+    });
+
+
+    //Get OrgAddress
+    $("#publicOrg_List").change(function () {
+        var selectedOrg = $('#publicOrg_List').val();
+
+        $.ajax(
+            {
+                url: "getPublicOrgAddress",
+                data: {
+                    publicOrgId: selectedOrg
+                },
+                success: function (data) {
+                    $("#lblPublic_OrgAddress").val(data.Records.Address_Ar);
+                }
+
+            });
+    });
+
+    $(function () {
+        $("#Arrival_Date").datepicker();
+
+        $("#lst_ImportCountry").change(function () {
+
+            var selectedCountry = $('#lst_ImportCountry').val();
+
+            $.ajax(
+                {
+                    url: "getPortInternational",
+                    data: {
+                        ExportCountry_Id: selectedCountry
+                    },
+                    success: function (data) {
+
+                        $('#lst_ArrivalPort').empty();
+                        $.each(data, function (i, index) {
+                            $('#lst_ArrivalPort').append($('<option />').val(index.Value).text(index.DisplayText));
+                        });
+                    }
+
+                });
+        });
+
+    });
+</script>
+
+<style>
+    .ui-accordion .ui-accordion-header {
+        display: block;
+        cursor: pointer;
+        position: relative;
+        font-size: 70%;
+        border: 1px solid #FDF8E4;
+        border-radius: 10px;
+        background: #2c8b8e;
+        color: #fff;
+        padding-right: 10px;
+    }
+
+    .ui-accordion .ui-accordion-content {
+        border: 1px solid black;
+        border-top: 0;
+        border-radius: 8px;
+    }
+    /**************************************/
+    blockquote.styles {
+        font-style: normal !important;
+    }
+
+    .row {
+        font-size: 13px !important;
+        font: menu !important;
+    }
+    /**************************************/
+    .control-label {
+        font-weight: bold !important;
+        font-size: 14px !important;
+    }
+
+    .form-control {
+        font-size: 13px !important;
+        height: 36px;
+        margin-right: 10px;
+    }
+
+    .ui-widget select {
+        width: 100% !important;
+        /*height: 26PX !important;*/
+    }
+
+    .label-primary {
+        background-color: #c2dbe0;
+    }
+</style>

@@ -1,0 +1,706 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+
+}
+@section Title{
+    <h2 class="ls-top-header">صلاحيات المستخدمين</h2>
+}
+
+<style>
+
+
+
+
+    th {
+        background: #1f6c6f;
+        color: white;
+    }
+
+    #Farm_Constrain_TextTable {
+        font-size: 16px;
+    }
+
+    input[type="radio"], input[type="checkbox"] {
+        margin: 4px 5px 0;
+    }
+
+    .mar-bottom-5 {
+        margin-bottom: 5px;
+    }
+
+    .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+        border: 1px solid #000;
+    }
+</style>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-1">
+
+        <label>@PlantQuar.WEB.Language.Resource_data1.Outlet</label>
+    </div>
+    <div class="col-md-5">
+        @Html.DropDownList("CustomerDropDown", new SelectList(ViewBag.ddd, "Value", "DisplayText"), new { @class = "form-control", @onchange = "MyFunction()" })
+
+    </div>
+    <div class="col-md-3"></div>
+</div>
+
+<br />
+<div id="listFarm_Constrain_Text" onchange="Old_Menu(this)" class="row" style="margin-bottom:20px;">
+
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <table id="myTable" border="1" name="gh" class="table table-bordered table-striped dataTable">
+            <thead>
+                <tr>
+                    <th hidden="hidden" class="text-center">Id </th>
+                    <th hidden="hidden" class="text-center">رقم الموظف </th>
+                    <th class="text-center">المجموعة </th>
+                    <th class="text-center">الموديول </th>
+                    <th class="text-center">الشاشة</th>
+                    <th hidden="hidden" class="text-center">المجموعة_ID </th>
+                    <th hidden="hidden" class="text-center">الموديول_ID </th>
+                    <th hidden="hidden" class="text-center">الشاشة_ID</th>
+                    <th class="text-center">حذف</th>
+                </tr>
+            </thead>
+            <tbody id="Emp_Table"></tbody>
+        </table>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-2">
+
+        <label>القائمة الرئيسية</label>
+    </div>
+    <div class="col-md-4">
+        @Html.DropDownList("GroupDropDown", new SelectList(ViewBag.group, "Value", "DisplayText"), new { @class = "form-control", @id = "GroupDropDown" })
+
+
+
+
+
+    </div>
+    <div class="col-md-6"></div>
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-2">
+
+        <label>القائمة الفرعية</label>
+    </div>
+    <div class="col-md-4">
+        <select id="ModuleDropDown" class="form-control"></select>
+        @*@Html.DropDownList("ModuleDropDown", new SelectList(ViewBag.Module, "Value", "DisplayText"), new { @class = "form-control" })*@
+
+    </div>
+    <div class="col-md-6"></div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-2"><label>الشاشات </label></div>
+
+    <div class="col-md-10" id="checkbox_Menu">
+
+        @*@foreach (var item in ViewBag.Menu)
+            {*@
+        <br />
+        @*<input type="checkbox" name="@item.DisplayText" id="@item.Value" onchange="helloo(this)" />
+            <label value="@item.Value">@item.DisplayText</label>*@
+        @*}*@
+    </div>
+    @*<div class="col-md-6">
+            <input type="checkbox"  >APK
+            <input type="checkbox" >APK
+            <input type="checkbox" >APK
+            <input type="checkbox" >APK
+            <input type="checkbox" >APK
+        </div>*@
+
+</div>
+<br />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <table id="myTable1" border="1" name="gh" class="table table-bordered table-striped dataTable">
+            <thead>
+                <tr>
+                    <th class="text-center">المجموعة </th>
+                    <th class="text-center">الموديول </th>
+                    <th class="text-center">الشاشة</th>
+
+                    <th hidden="hidden" class="text-center">رقم المجموعة</th>
+                    <th hidden="hidden" class="text-center">رقم الموديول </th>
+                    <th hidden="hidden" class="text-center"> رقم الشاشة</th>
+                    <th class="text-center">منفذ</th>
+                    <th class="text-center">محطة</th>
+                    <th class="text-center">منفذ جشنى</th>
+                    <th class="text-center">محطة جشنى</th>
+                </tr>
+            </thead>
+            <tbody id="myTable2">
+                @*<tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td hidden="hidden"></td>
+                        <td hidden="hidden"></td>
+                        <td hidden="hidden"></td>
+                    </tr>*@
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+@*noura*@
+
+<div id="mytextVisa" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h4 class="modal-title">لتاكيد إضافة تاشيرة </h4>
+            </div>
+            <div class="modal-body" id="modaldetails">
+                هل تريد إضافة هذه التاشيرة؟؟
+            </div>
+            <div class="modal-footer" style="text-align:center">
+                <button type="button" class="btn btn-default " onClick="reply_Insert_Visa(this)" data-dismiss="modal">نعم</button>
+                <button type="button" class="btn btn-default " data-dismiss="modal">لا</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <input type="button" onclick="Save_MyFunction()" value="حفظ" style="color:#fff;width: 50%;" />
+    </div>
+    <div class="col-md-4"></div>
+</div>
+<script>
+
+         $('#CustomerDropDown').on("change", function () {
+            $("#Emp_Table").empty();
+
+        });
+
+
+
+        $('#GroupDropDown').on("change", function () {
+            $("#ModuleDropDown").empty();
+            $("#checkbox_Menu").empty();
+            $.ajax(
+                {
+                    url: '@Url.Action("Module_AddEDIT", "User_Privilage", new { area = "EX_User" })',
+                    type: 'Post',
+                    data: { PR_GroupId: $('#GroupDropDown').val() },
+                    success: function (data) {
+                        $('#ModuleDropDown').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#ModuleDropDown').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+        });
+    $('#GroupDropDown').on("change", function () {
+            $("#ModuleDropDown").empty();
+            $("#checkbox_Menu").empty();
+            $.ajax(
+                {
+                    url: '@Url.Action("Module_AddEDIT", "User_Privilage", new { area = "EX_User" })',
+                    type: 'Post',
+                    data: { PR_GroupId: $('#GroupDropDown').val() },
+                    success: function (data) {
+                        $('#ModuleDropDown').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#ModuleDropDown').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+        });
+
+        $('#ModuleDropDown').on("change", function () {
+            $.ajax(
+                {
+                    url: '@Url.Action("Menu_AddEDIT", "User_Privilage", new { area = "EX_User" })',
+                    type: 'Post',
+                    data: { PR_ModuleId: $('#ModuleDropDown').val(), PR_GroupId: $('#GroupDropDown').val() },
+                    success: function (data) {
+                        $("#checkbox_Menu").empty();
+                        for (var i = 0; i < data.length; i++) {
+                            /*alertify.alert("لا");*/
+                            var item = data[i];
+                            $("#checkbox_Menu").append("<tr>" +
+                                "<td>" + '<input type="checkbox" name="' + item.DisplayText + '" id="' + item.Value + '" onchange="helloo(this)"/>' + "</td>" +
+                                "<td>" + '<label  value=' + item.Value + '>' + item.DisplayText + '</label>' + "</td>" +
+
+                                ( item.Value ==104 ?
+                                "<td>" + '<input type="checkbox" name="' + item.DisplayText + '" id="1" />' + "</td>" +
+                                "<td>" + '<label  value=1>تفاصيل</label>' + "</td>" +
+                                 "<td>" + '<input type="checkbox" name="' + item.DisplayText + '" id="2" />' + "</td>" +
+                                "<td>" + '<label  value=2>تشكيل لجنة</label>' + "</td>" +
+                                 "<td>" + '<input type="checkbox" name="' + item.DisplayText + '" id="3" />' + "</td>" +
+                                "<td>" + '<label  value=3>عرض النتايج</label>' + "</td>"
+                                :
+                                '<a title="Add to Cart" href="javascript:void(0)"> </a>'
+                                )+  ( item.Value ==100 ?
+                                "<td>" + '<input type="checkbox" name="' + item.DisplayText + '" id="manvaz"  onchange="helloomanvaz(this)"   />' + "</td>" +
+                                "<td>" + '<label  value=1>منفذ</label>' + "</td>" +
+                                "<td>" + '<input type="checkbox" name="' + item.DisplayText + '" id="st" onchange="helloomanvaz(this)" />' + "</td>" +
+                                "<td>" + '<label  value=2>محطة</label>' + "</td>" +
+                                "<td>" + '<input type="checkbox" name="' + item.DisplayText + '" id="geshny" onchange="helloomanvaz(this)" />' + "</td>" +
+                                "<td>" + '<label  value=3>منفذ جشنى</label>' + "</td>" +
+                                "<td>" + '<input type="checkbox" name="' + item.DisplayText + '" id="stGeshny" onchange="helloomanvaz(this)" />' + "</td>" +
+                                "<td>" + '<label  value=3>محطة جشنى</label>' + "</td>"
+                                :
+                                '<a title="Add to Cart" href="javascript:void(0)"> </a>'
+                                ) +
+                                (item.Value == 227 ?
+                                    "<td>" + '<input type="checkbox" name="' + item.DisplayText + '" id="manvaz"  onchange="helloomanvaz(this)"   />' + "</td>" +
+                                    "<td>" + '<label  value=1>منفذ</label>' + "</td>" +
+                                    "<td>" + '<input type="checkbox" name="' + item.DisplayText + '" id="st" onchange="helloomanvaz(this)" />' + "</td>" +
+                                    "<td>" + '<label  value=2>محطة</label>' + "</td>" +
+                                    "<td>" + '<input type="checkbox" name="' + item.DisplayText + '" id="geshny" onchange="helloomanvaz(this)" />' + "</td>" +
+                                    "<td>" + '<label  value=3>منفذ جشنى</label>' + "</td>" +
+                                    "<td>" + '<input type="checkbox" name="' + item.DisplayText + '" id="stGeshny" onchange="helloomanvaz(this)" />' + "</td>" +
+                                    "<td>" + '<label  value=3>محطة جشنى</label>' + "</td>"
+                                    :
+                                    '<a title="Add to Cart" href="javascript:void(0)"> </a>'
+                                ) +
+                               ///******edit******/
+
+                                //"<td>" + '<input type="checkbox" name="' + item.DisplayText + '" id="' + item.Value + '" onchange="helloo(this)"/>' + "</td>" +
+                                //"<td>" + '<label  value=' + item.Value + '>تفاصيل</label>' + "</td>" +
+                                // "<td>" + '<input type="checkbox" name="' + item.DisplayText + '" id="' + item.Value + '" onchange="helloo(this)"/>' + "</td>" +
+                                //"<td>" + '<label  value=' + item.Value + '>تشكيل لجنة</label>' + "</td>" +
+                                // "<td>" + '<input type="checkbox" name="' + item.DisplayText + '" id="' + item.Value + '" onchange="helloo(this)"/>' + "</td>" +
+                                //"<td>" + '<label  value=' + item.Value + '>عرض النتايج</label>' + "</td>" +
+
+                                //  "<td>" + '<input type="checkbox" name="' + item.DisplayText + '" id="' + item.Value + '" onchange="helloo(this)"/>' + "</td>" +
+                                // "<td>" + '<label  value=' + item.Value + '>مسح</label>' + "</td>" +
+                                //  "<td>" + '<input type="checkbox" name="' + item.DisplayText + '" id="' + item.Value + '" onchange="helloo(this)"/>' + "</td>" +
+                                // "<td>" + '<label  value=' + item.Value + '>طباعة</label>' + "</td>" +
+
+
+
+                                "</tr>");
+                        }
+
+                        @*<input type="checkbox" name="@item.DisplayText" id="@item.Value" onchange="helloo(this)" />
+                            <label value="@item.Value">@item.DisplayText</label>*@
+
+                    } //success
+                });//ajax
+        });
+        var id_n = [];
+        function MyFunction() {
+
+
+            $("#listFarm_Constrain_Text").empty();
+
+            var Outlet_ID = document.getElementById("CustomerDropDown").value;
+
+            $.ajax({
+                url: '@Url.Action("UsersOutlet", "User_Privilage")',
+                type: "POST",
+                data: { outletID: Outlet_ID },
+                success: function (result) {
+
+                        for (var i = 1; i < result.length; i++) {
+
+                            '<br/>'
+                            var item = result[i];
+                            $("#listFarm_Constrain_Text").append("<div class='col-md-4 mar-bottom-5'>" +
+
+                                '<input type="radio" name="EmpID" id=" ' + item.Id + '"/>'
+                                + item.FullName + '<br />' +
+                                "</div>");
+
+                        }
+
+
+
+
+                },
+                error: function (xhr, status, error) {
+                }
+            });
+        };
+        function deleteRow(element) {
+            Check_Delete_id = [];
+            var ids;
+           
+            if (element.checked) {
+                var res = prompt("حذف", "هل تريد حذف هذه الصلاحية");
+               
+                if (res != null) {
+                    var c = element.id;
+                    ids = c.split('_')[2];
+                    Check_Delete_id.push({
+                        EmpId: ids,
+                    });
+                   
+                    $.ajax({
+                        url: '@Url.Action("Get_Priv_Emp_Old2", "User_Privilage")',
+                        type: "POST",
+                        data: { Check_Delete_id: ids },
+                        success: function (response) {
+                            alertify.success("تم المسح بنجاح");
+                            console.log('tr_' + ids);
+                            $('#tr_' + ids).closest("tr").remove();
+                        },
+                        error: function (xhr, status, error) {
+                            alertify.error("خطأ فى اضافه الحفظ");
+                        }
+                    });
+                } else {
+                    document.getElementById(element.id).checked = false;
+                    //element.prop('checked', false);
+                }
+            }
+        }
+        var check_ID;
+        function helloo(element) {
+
+            if (element.checked) {
+                check_ID = element.id;
+                var Group_ID = $("#GroupDropDown option:selected").val();
+                var Module_ID = $("#ModuleDropDown option:selected").val();
+
+                if (Group_ID > 0 && Module_ID > 0) {
+
+                    // alert(element.id.length)
+                    Find_ID = 0;
+                    var rows_old = document.getElementById("Emp_Table").rows;
+                    for (var i = 1, ceiling = rows_old.length; i < ceiling; i++) {
+                        cells = rows_old[i].getElementsByTagName('td');
+                        Id_old = cells[0].innerHTML;
+                        PR_MenuId_old = cells[7].innerHTML;
+                        //  alert(PR_MenuId_old.length)
+                        //alert(element.id);
+                        if (element.id.trim() == PR_MenuId_old.trim()) {
+                            Find_ID = 1
+                        }
+                    }
+                    if (Find_ID == 0) {
+
+                        $("#myTable1 tbody").append("<tr>" +
+
+                            "<td>" + $("#GroupDropDown option:selected").text() + "</td>" +
+                            "<td>" + $("#ModuleDropDown option:selected").text() + " </td>" +
+                            "<td>" + element.name + "</td>" +
+
+                            "<td hidden='hidden'>" + Group_ID + "</td>" +
+                            "<td hidden='hidden'>" + Module_ID + "</td>" +
+                            "<td hidden='hidden'>" + element.id + "</td>" +
+                            "<td></td>" +
+                            "<td></td>" +
+                            "<td></td>" +
+                            "<td></td>" +
+                            "</tr>");
+                    }
+                    else {
+                        alertify.error("الشاشة موجودة مسبقا");
+
+                        // var _ID = element.id;
+                        // alert(_ID);
+                        // document.getElementById("125").checked = false;
+                        // var ch = '"#' + _ID+'"';
+                        // document.getElementById("125").checked = false;
+                        // $("#125").prop("checked", false);
+                        //// $(ch).prop('checked', false);
+                        // $("#125").attr("checked", false);
+                        // alert(_ID);
+                    }
+                }
+                else {
+                    var _ID = element.id;
+                    var ch = '#' + _ID + '';
+                    $(ch).prop('checked', false);
+                    alertify.error("يجب اخيار مجموعة و Module");
+                }
+            }
+            else {
+                //var c = '#id' + element.value + '';
+                //$(c).remove();
+
+
+
+                var _ID = element.id;
+                var Group_ID = $("#GroupDropDown option:selected").val();
+                var Module_ID = $("#ModuleDropDown option:selected").val();
+
+
+                var row_delete = document.getElementById("myTable2").rows;
+
+                for (var i = 0, ceiling = row_delete.length; i < ceiling; i++) {
+                    cells = row_delete[i].getElementsByTagName('td');
+                    if (_ID == cells[5].innerHTML) {
+                        if (Group_ID == cells[3].innerHTML) {
+                            if (Module_ID == cells[4].innerHTML) {
+                                document.getElementById("myTable2").deleteRow(i);
+
+                            }
+                        }
+
+
+
+
+
+                    }
+
+                }
+
+
+
+            }
+        }
+
+        function Old_Menu(element) {
+
+            document.getElementById("GroupDropDown").selectedIndex = 0;
+            $("#ModuleDropDown").empty();
+            $("#myTable2").empty();
+            $("#checkbox_Menu").empty();
+
+            // alert(element.val)
+            $("#Emp_Table").empty();
+            var checkedEmpId;
+            $("input:radio[name=EmpID]:checked").each(function () {
+                var $this = $(this);
+                if ($this.is(":checked")) {
+                    checkedEmpId = ($this.attr("id"));
+                }
+
+            });
+            var table = document.getElementById("Emp_Table");
+            var rowCount = table.rows.length;
+            var row = table.insertRow(rowCount);
+            row.id = 'id' + element.value;
+
+            $.ajax({
+                url: '@Url.Action("Get_Priv_Emp_Old", "User_Privilage")',
+                type: "POST",
+                data: { checkedEmpId: checkedEmpId },
+                success: function (result) {
+                    for (var i = 0; i < result.length; i++) {
+                        id_n.push(result[i].Id);
+                        $("#Emp_Table").append("<tr id='tr_" + result[i].Id + "'>" +
+                            "<td  hidden='hidden'>" + result[i].Id + "</td>" +
+                        "<td  hidden='hidden'>" + checkedEmpId + "</td>" +
+
+                            "<td>" + result[i].Old_PR_Group_Name + "</td>" +
+                            "<td>" + result[i].Old_PR_Module_Name + "</td>" +
+                            "<td>" + result[i].Old_PR_Menu_Name + "</td>" +
+
+                            "<td hidden='hidden'>" + result[i].Old_PR_GroupId + "</td>" +
+                            "<td hidden='hidden'>" + result[i].Old_PR_ModuleId + "</td>" +
+                            "<td hidden='hidden'>" + result[i].Old_PR_MenuId + "</td>" +
+                            "<td> <input type='checkbox'  onchange='deleteRow(this)' name='Check_Delete' id ='Check_Delete_" + result[i].Id + "'/> </td>" +
+                            "</tr>");
+                    }
+                },
+                error: function (xhr, status, error) {
+                }
+            });
+        }
+        function Save_MyFunction() {
+
+
+            var Outlet_ID = document.getElementById("CustomerDropDown").value;
+            if (Outlet_ID > 0) {
+                var checkedEmpId = [];
+                var menus_new = [];
+                var ID_User = "";
+
+                $("input:radio[name=EmpID]:checked").each(function () {
+                    var $this = $(this);
+                    if ($this.is(":checked")) {
+                        ID_User = ($this.attr("id"));
+                    }
+                });
+                if (ID_User != "") {
+                    var rows = document.getElementById("myTable2").rows;
+                    if (rows.length > 0) {
+                        $("input:radio[name=EmpID]:checked").each(function () {
+                            var $this = $(this);
+                            if ($this.is(":checked")) {
+                                checkedEmpId.push($this.attr("id"));
+                            }
+
+                        });
+
+                        var Id = "";
+                        var PR_GroupId = "";
+                        var PR_ModuleId = "";
+                        var PR_MenuId = "";
+                        var PR_manvaz = "";
+                        var PR_st = "";
+                        var PR_geshny = "";
+                        var PR_stGeshny = "";
+                        for (var h = 0; h < checkedEmpId.length; h++) {
+                            for (var i = 0, ceiling = rows.length; i < ceiling; i++) {
+                                cells = rows[i].getElementsByTagName('td');
+
+                                PR_GroupId = cells[3].innerHTML;
+                                PR_ModuleId = cells[4].innerHTML;
+                                PR_MenuId = cells[5].innerHTML;
+                                PR_manvaz = cells[6].innerHTML;
+                                PR_st = cells[7].innerHTML;
+                                PR_geshny = cells[8].innerHTML;
+                                PR_stGeshny = cells[9].innerHTML;
+                                EmpId = checkedEmpId[h];
+                                //var cells = rows_old_id[i].getElementsByTagName('td');
+
+                                menus_new.push({
+                                    EmpId: EmpId, New_PR_GroupId: PR_GroupId
+                                    , New_PR_ModuleId: PR_ModuleId, New_PR_MenuId: PR_MenuId
+                                    , CanView: PR_manvaz
+                                    , CanAdd: PR_st
+                                    , CanEdit: PR_geshny
+                                    , CanDelete: PR_stGeshny
+                                });
+                            }
+                        }
+                        //
+
+                        var menus_old = [];
+                        var rows_old = document.getElementById("Emp_Table").rows;
+
+                        var Id_old = "";
+                        var EmpId = "";
+                        var PR_GroupId_old = "";
+                        var PR_ModuleId_old = "";
+                        var PR_MenuId_old = "";
+                        var PR_manvaz_old = "";
+                        var PR_st_old = "";
+                        var PR_geshny_old = "";
+                        var PR_stGeshny_old = "";
+                        var Check_Delete = true;
+                        for (var i = 1, ceiling = rows_old.length; i < ceiling; i++) {
+                            cells = rows_old[i].getElementsByTagName('td');
+                            Id_old = cells[0].innerHTML;
+                            EmpId = cells[1].innerHTML;
+
+                            PR_GroupId_old = cells[5].innerHTML;
+                            PR_ModuleId_old = cells[6].innerHTML;
+                            PR_MenuId_old = cells[7].innerHTML;
+
+                            //PR_manvaz_old = cells[3].innerHTML;
+                            //PR_stGeshny_old = cells[4].innerHTML;
+                            //PR_geshny_old = cells[5].innerHTML;
+                            //PR_manvaz_old = cells[6].innerHTML;
+                            Check_Delete = true;
+                            menus_old.push({ Id: Id_old, EmpId: EmpId, Old_PR_GroupId: PR_GroupId_old, Old_PR_ModuleId: PR_ModuleId_old, Old_PR_MenuId: PR_MenuId_old, Check_Delete: Check_Delete });
+                        }
+                        $.ajax({
+                            url: '@Url.Action("InsertEmpPrivilage", "User_Privilage")',
+                            type: "POST",
+                            data: "{EmpId:" + ID_User + ",menus_new:" + JSON.stringify(menus_new) + ", menus_old:" + JSON.stringify(menus_old) + "}",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (response) {
+                                alertify.success("تم الحفظ بنجاح");
+                                /*$("#GroupDropDown").empty();*/
+                                document.getElementById("GroupDropDown").selectedIndex = 0;
+                                $("#ModuleDropDown").empty();
+                                $("#myTable2").empty();
+                                $("#checkbox_Menu").empty();
+                                Old_Menu(0);
+                                @*alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+
+                     location.href = "/DE_Fees/Im_Fees_Actions/Index"*@
+                            },
+                            error: function (xhr, status, error) {
+                                alertify.error("خطأ فى اضافه الحفظ");
+                            }
+                        });
+                    }
+                    else {
+                        alertify.error("يجب اختيار شاشات ");
+                    }
+
+                }
+                else {
+                    alertify.error("يجب اختيار موظف");
+                }
+            }
+            else {
+                alertify.error("يجب اختيار منفذ");
+            }
+        };
+
+
+
+        function helloomanvaz(element) {
+
+            if (element.checked) {
+                var Group_ID = $("#GroupDropDown option:selected").val();
+                var Module_ID = $("#ModuleDropDown option:selected").val();
+                var sader = check_ID;
+              //  alert(sader);
+                if (Group_ID > 0 && Module_ID > 0 && (sader == 100 || sader == 227)) {
+
+                    Find_ID = 0;
+                    var rows_old = document.getElementById("myTable1").rows;
+                    var x = element.id;
+                    for (var i = 1, ceiling = rows_old.length; i < ceiling; i++) {
+                        cells = rows_old[i].getElementsByTagName('td');
+                        if (x == "manvaz") cells[6].innerHTML = true;
+                        if (x == "st") cells[7].innerHTML = true;
+                        if (x == "geshny") cells[8].innerHTML = true;
+                        if (x == "stGeshny") cells[9].innerHTML = true;
+                    }
+
+
+                }
+                else {
+                    var _ID = element.id;
+                    var ch = '#' + _ID + '';
+                    $(ch).prop('checked', false);
+                    alertify.error("يجب اخيار مجموعة و Module");
+                }
+            }
+            else {
+                //var c = '#id' + element.value + '';
+                //$(c).remove();
+
+
+
+                var _ID = element.id;
+                var Group_ID = $("#GroupDropDown option:selected").val();
+                var Module_ID = $("#ModuleDropDown option:selected").val();
+
+
+                var row_delete = document.getElementById("myTable2").rows;
+
+                for (var i = 0, ceiling = row_delete.length; i < ceiling; i++) {
+                    cells = row_delete[i].getElementsByTagName('td');
+                    if (_ID == cells[5].innerHTML) {
+                        if (Group_ID == cells[3].innerHTML) {
+                            if (Module_ID == cells[4].innerHTML) {
+                                document.getElementById("myTable2").deleteRow(i);
+
+                            }
+                        }
+                    }
+
+                }
+
+            }
+        }
+</script>

@@ -1,0 +1,846 @@
+﻿
+@model PlantQuar.DTO.DTO.Farm.FarmData.FarmsDataDTO
+
+@{
+    ViewBag.Title = "FarmDetails";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.FarmData => @PlantQuar.WEB.Language.Resource_data1.Details</h2>
+}
+
+@section Path{
+    <li>@PlantQuar.WEB.Language.Resource_data1.Farm </li>
+    <li class="active">@PlantQuar.WEB.Language.Resource_data1.FarmData</li>
+}
+
+<style>
+    form {
+        font-size: 16px;
+    }
+
+    th {
+        font-size: 14px !important;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    td {
+        font-size: 12px !important;
+        text-align: center;
+    }
+
+    blockquote.styles {
+        margin-bottom: 70px !important;
+    }
+
+    .but-de {
+        background-color: #1e7c80 !important;
+        border: 2px solid #1e8084 !important;
+        box-shadow: 0 4px #1d9fa5 !important;
+        outline: none;
+        color: white;
+        margin-bottom: 10px;
+        width: 80px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-10"></div>
+        <div class="col-md-2">
+            @{
+                if (Model.RequestId > 0)
+                {
+                    @Html.ActionLink(PlantQuar.WEB.Language.Resource_data1.Back, "Index", "FarmListOnLine", new { area = "FA_Farm" }, new { @class = "btn btn-primary but-de", @style = "width:100%" })
+                    @Html.HiddenFor(m => m.RequestId, new { @id = "txtRequestId" })
+                }
+                else
+                {
+                    @Html.ActionLink(PlantQuar.WEB.Language.Resource_data1.Back, "Index", "FarmData", new { area = "FA_Farm" }, new { @class = "btn btn-primary but-de", @style = "width:100%" })
+                }
+            }
+        </div>
+    </div>
+</div>
+<div>
+    <div class="tab" role="tabpanel" style="min-height:80% !important;">
+        <ul class="row nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#companyTab" aria-controls="profile" role="tab" data-toggle="tab">بيانات الجهة</a>
+            </li>
+            <li role="presentation">
+                <a href="#BasicTab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.BasicData</a>
+            </li>
+            <li role="presentation">
+                <a href="#countryTab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Country @PlantQuar.WEB.Language.Resource_data1.Accreditation</a>
+            </li>
+            <li role="presentation">
+                <a href="#plantTab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.FarmPlant</a>
+            </li>
+            <li role="presentation">
+                <a href="#attachmentTab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Attachments</a>
+            </li>
+            <li role="presentation">
+                <a href="#constrainTab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Constrains</a>
+            </li>
+            <li role="presentation">
+                <a href="#FeesTab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.FeesType</a>
+            </li>
+            <li role="presentation">
+                <a href="#RefuseTab" aria-controls="profile" role="tab" data-toggle="tab">أسباب الرفض</a>
+            </li>
+        </ul>
+        <div class="tab-content tabs" style="background-color:whitesmoke  !important;">
+            @* ******************* OWNER DATA **************** *@
+            <div role="tabpanel" class="tab-pane fade in active" id="companyTab" style="height:auto;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-lg-3 col-md-5 ta1">
+                            <label for="exporterType_name" class="control-label">نوع الجهة</label>
+                            @Html.TextBoxFor(m => m.ownerData.exporterType_name, new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-11">
+                        @{
+                            if (Model.ownerData.ExporterType_Id == 6)
+                            {
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-lg-3 col-md-5 ta1">
+                                            <label for="compName" class="control-label">@PlantQuar.WEB.Language.Resource_data1.CompanyName</label>
+                                            @Html.TextBoxFor(m => m.ownerData.companyData.compName, new { @class = "form-control", @readonly = "readonly" })
+                                        </div>
+                                        <div class="col-lg-3 col-md-5 ta1">
+                                            <label for="compOwnerName" class="control-label">@PlantQuar.WEB.Language.Resource_data1.CompanyOwner</label>
+                                            @Html.TextBoxFor(m => m.ownerData.companyData.compOwnerName, new { @class = "form-control", @readonly = "readonly" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-lg-3 col-md-5 ta1">
+                                            <label for="GoveName" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Governate</label>
+                                            @Html.TextBoxFor(m => m.ownerData.companyData.GoveName, new { @class = "form-control", @readonly = "readonly" })
+                                        </div>
+                                        <div class="col-lg-3 col-md-5 ta1">
+                                            <label for="CenterName" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Center</label>
+                                            @Html.TextBoxFor(m => m.ownerData.companyData.CenterName, new { @class = "form-control", @readonly = "readonly" })
+                                        </div>
+                                        <div class="col-lg-3 col-md-5 ta1">
+                                            <label for="VillageName" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Village</label>
+                                            @Html.TextBoxFor(m => m.ownerData.companyData.VillageName, new { @class = "form-control", @readonly = "readonly" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-lg-5 col-md-5 ta1">
+                                            <label for="address" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Address</label>
+                                            @Html.TextAreaFor(m => m.ownerData.companyData.address, new { @class = "form-control", @readonly = "readonly", @rows = "5" })
+                                        </div>
+                                        <div class="col-lg-3 col-md-5 ta1">
+                                            @{
+                                                if (Model.ownerData.IsAcive == true)
+                                                {
+                                                    <input type="checkbox" checked disabled class="form-control" />
+                                                }
+                                                else
+                                                {
+                                                    <input type="checkbox" class="form-control" disabled />
+                                                }
+                                            }
+                                            <label for="IsActive" class="control-label">الشركة فعالة علي المزرعة</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                                }
+                                                else if (Model.ownerData.ExporterType_Id == 7)
+                                                {
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-lg-3 col-md-5 ta1">
+                                            <label for="orgName" class="control-label">@PlantQuar.WEB.Language.Resource_data1.PublicOrganization</label>
+                                            @Html.TextBoxFor(m => m.ownerData.orgData.orgName, new { @class = "form-control", @readonly = "readonly" })
+                                        </div>
+                                        <div class="col-lg-3 col-md-5 ta1">
+                                            <label for="orgTypeName" class="control-label">@PlantQuar.WEB.Language.Resource_data1.PublicOrganizationType</label>
+                                            @Html.TextBoxFor(m => m.ownerData.orgData.orgTypeName, new { @class = "form-control", @readonly = "readonly" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-md-12">
+                                            <div class="col-lg-5 col-md-5 ta1">
+                                                <label for="orgAddress" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Address</label>
+                                                @Html.TextAreaFor(m => m.ownerData.orgData.orgAddress, new { @class = "form-control", @readonly = "readonly", @rows = "5" })
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-5 ta1">
+                                            @{
+                                                if (Model.ownerData.IsAcive == true)
+                                                {
+                                                    <input type="checkbox" checked disabled class="form-control" />
+                                                }
+                                                else
+                                                {
+                                                    <input type="checkbox" class="form-control" disabled />
+                                                }
+                                            }
+                                            <label for="IsActive" class="control-label">الهيئة فعال علي المزرعة</label>
+                                        </div>
+                                        <div class="col-lg-2 col-md-5 ta1">
+                                            @{
+                                                if (Model.ownerData.orgData.IsNational == true)
+                                                {
+                                                    <input type="checkbox" checked disabled class="form-control" />
+                                                }
+                                                else
+                                                {
+                                                    <input type="checkbox" class="form-control" disabled />
+                                                }
+                                            }
+                                            <label for="IsNational" class="control-label">@PlantQuar.WEB.Language.Resource_data1.National</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                                }
+                                                else if (Model.ownerData.ExporterType_Id == 8)
+                                                {
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-lg-5 col-md-5 ta1">
+                                            <label for="Name" class="control-label">@PlantQuar.WEB.Language.Resource_data1.FullName</label>
+                                            @Html.TextBoxFor(m => m.ownerData.personData.Name, new { @class = "form-control", @readonly = "readonly" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-lg-3 col-md-5 ta1">
+                                            <label for="nationality" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Nationality</label>
+                                            @Html.TextBoxFor(m => m.ownerData.personData.nationality, new { @class = "form-control", @readonly = "readonly" })
+                                        </div>
+                                        <div class="col-lg-3 col-md-5 ta1">
+                                            <label for="personIdType_Name" class="control-label">@PlantQuar.WEB.Language.Resource_data1.IdentityType</label>
+                                            @Html.TextBoxFor(m => m.ownerData.personData.personIdType_Name, new { @class = "form-control", @readonly = "readonly" })
+                                        </div>
+                                        <div class="col-lg-3 col-md-5 ta1">
+                                            <label for="IDNumber" class="control-label">@PlantQuar.WEB.Language.Resource_data1.IdentityNumber</label>
+                                            @Html.TextBoxFor(m => m.ownerData.personData.IDNumber, new { @class = "form-control", @readonly = "readonly" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-lg-3 col-md-5 ta1">
+                                            <label for="Phone" class="control-label">@PlantQuar.WEB.Language.Resource_data1.PhoneNumber</label>
+                                            @Html.TextBoxFor(m => m.ownerData.personData.Phone, new { @class = "form-control", @readonly = "readonly" })
+                                        </div>
+                                        <div class="col-lg-3 col-md-5 ta1">
+                                            <label for="Job" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Job</label>
+                                            @Html.TextBoxFor(m => m.ownerData.personData.Job, new { @class = "form-control", @readonly = "readonly" })
+                                        </div>
+                                        <div class="col-lg-3 col-md-5 ta1">
+                                            <label for="Email" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Email</label>
+                                            @Html.TextBoxFor(m => m.ownerData.personData.Email, new { @class = "form-control", @readonly = "readonly" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-lg-5 col-md-5 ta1">
+                                            <label for="Address" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Address</label>
+                                            @Html.TextAreaFor(m => m.ownerData.personData.Address, new { @class = "form-control", @readonly = "readonly", @rows = "5" })
+                                        </div>
+                                        <div class="col-lg-3 col-md-5 ta1">
+                                            @{
+                                                if (Model.ownerData.IsAcive == true)
+                                                {
+                                                    <input type="checkbox" checked disabled class="form-control" />
+                                                }
+                                                else
+                                                {
+                                                    <input type="checkbox" class="form-control" disabled />
+                                                }
+                                            }
+                                            <label for="IsActive" class="control-label">الشخص فعال علي المزرعة</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                                }
+                        }
+                    </div>
+
+
+                </div>
+
+                <div>
+                    <div class="row">
+
+                        <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap">
+                            <table id="farmsTable" class="table table-bordered table-striped dataTable" role="grid" style="margin: 15px;width: 97%;background-color: lightgray; ">
+                                <thead>
+                                    <tr>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.ContactType</th>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.ContactData</th>
+
+                                    </tr>
+                                </thead>
+                               <tbody>
+                                    @foreach (var item in Model.ownerData.Contact_Data)
+                                    {
+                                        <tr>
+                                            <td>@item.Name_Ar</td>
+                                            <td>@item.Value</td>
+                                        </tr>
+
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @* ******************* FARM DATA **************** *@
+            <div role="tabpanel" class="tab-pane fade in" id="BasicTab" style="height:auto;">
+                <div>
+                    @{
+                        var _Start_Date_Request = @Model.requestLst.Select(a => a.Start_Date_Request).FirstOrDefault();
+                        var _End_Date_Request = @Model.requestLst.Select(a => a.End_Date_Request).FirstOrDefault();
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-lg-5 col-md-5 ta1">
+                                    <label for="FarmCode_14" class="control-label">تاريخ بداية الطلب </label>
+
+                                    @Html.TextBoxFor(m => _Start_Date_Request, new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+                                <div class="col-lg-5 col-md-5 ta1">
+                                    <label for="Name_Ar" class="control-label">تاريخ نهاية الطلب</label>
+                                    @Html.TextBoxFor(m => _End_Date_Request, new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+
+                            </div>
+                        </div>}
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-lg-3 col-md-5 ta1">
+                                <label for="FarmCode_14" class="control-label">@PlantQuar.WEB.Language.Resource_data1.FarmCode</label>
+                                @Html.TextBoxFor(m => m.FarmCode_14, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                            <div class="col-lg-3 col-md-5 ta1">
+                                <label for="Name_Ar" class="control-label">@PlantQuar.WEB.Language.Resource_data1.ArabicName</label>
+                                @Html.TextBoxFor(m => m.Name_Ar, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                            <div class="col-lg-3 col-md-5 ta1">
+                                <label for="Name_En" class="control-label">@PlantQuar.WEB.Language.Resource_data1.EnglishName</label>
+                                @Html.TextBoxFor(m => m.Name_En, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-lg-3 col-md-5 ta1">
+                                <label for="GoveName" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Governate</label>
+                                @Html.TextBoxFor(m => m.GoveName, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                            <div class="col-lg-3 col-md-5 ta1">
+                                <label for="CenterName" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Center</label>
+                                @Html.TextBoxFor(m => m.CenterName, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                            <div class="col-lg-3 col-md-5 ta1">
+                                <label for="VillageName" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Village</label>
+                                @Html.TextBoxFor(m => m.VillageName, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-lg-5 col-md-5 ta1">
+                                <label for="Address_Ar" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Address_Ar</label>
+                                @Html.TextAreaFor(m => m.Address_Ar, new { @class = "form-control", @readonly = "readonly", @rows = "5" })
+                            </div>
+                            <div class="col-lg-5 col-md-5 ta1">
+                                <label for="Address_En" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Address_En</label>
+                                @Html.TextAreaFor(m => m.Address_En, new { @class = "form-control", @readonly = "readonly", @rows = "5" })
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-lg-5 col-md-5 ta1">
+                                <label for="GPSRead" class="control-label">GPSRead</label>
+                                @Html.TextAreaFor(m => m.GPSRead, new { @class = "form-control", @readonly = "readonly", @rows = "5" })
+                            </div>
+                            <div class="col-lg-5 col-md-5 ta1">
+                                <label for="ThePivot" class="control-label">ThePivot</label>
+                                @Html.TextAreaFor(m => m.ThePivot, new { @class = "form-control", @readonly = "readonly", @rows = "5" })
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-lg-2 col-md-5 ta1">
+                                @{
+                                    if (Model.IsApproved == true)
+                                    {
+                                        <input type="checkbox" checked disabled class="form-control" />
+                                    }
+                                    else
+                                    {
+                                        <input type="checkbox" class="form-control" disabled />
+                                    }
+                                }
+                                <label for="IsApproved" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Approved</label>
+                            </div>
+                            <div class="col-lg-2 col-md-5 ta1">
+                                @{
+                                    if (Model.IsActive == true)
+                                    {
+                                        <input type="checkbox" checked disabled class="form-control" />
+                                    }
+                                    else
+                                    {
+                                        <input type="checkbox" class="form-control" disabled />
+                                    }
+                                }
+                                <label for="IsActive" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Active</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @* ******************* Approved Countries **************** *@
+            <div role="tabpanel" class="tab-pane fade in" id="countryTab" style="height:auto;">
+                <div class="row">
+
+                    <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap">
+                        <table id="farmsTable" class="table table-bordered table-striped dataTable"
+                               role="grid" style="margin: 15px;width: 97%;background-color: lightgray; ">
+                            <thead>
+                                <tr>
+                                    <th hidden>@PlantQuar.WEB.Language.Resource_data1.Union</th>
+                                    <th>@PlantQuar.WEB.Language.Resource_data1.Country</th>
+                                    <th>@PlantQuar.WEB.Language.Resource_data1.Startdate</th>
+                                    <th>@PlantQuar.WEB.Language.Resource_data1.enddate</th>
+                                    <th>@PlantQuar.WEB.Language.Resource_data1.Accept</th>
+                                    <th>@PlantQuar.WEB.Language.Resource_data1.Active</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.requestLst != null)
+                                {
+                                    if (Model.requestLst.Count > 0)
+                                    {
+                                        foreach (var item in Model.requestLst)
+                                        {
+                                            foreach (var country in item.countryLst)
+                                            {
+                                <tr>
+                                    @*<td>@country.union_Name</td>*@
+                                    
+                                    <td>@country.country_Name</td>
+                                    <td>@country.Start_Date</td>
+                                    <td>@country.End_Date</td>
+                                    <td>@country.IsAcceppted</td>
+                                    <td>@country.IsActive</td>                                  
+                                
+                                </tr>
+                                            }
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            @* ******************* FARM Plant Categories DATA **************** *@
+            <div role="tabpanel" class="tab-pane fade in" id="plantTab" style="height:auto;">
+                <div class="row">
+
+                    <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap">
+                        <table id="farmsTable" class="table table-bordered table-striped dataTable" role="grid"
+                               style="margin: 15px;width: 97%;background-color: lightgray; ">
+                            <thead>
+                                <tr>
+                                    <th>@PlantQuar.WEB.Language.Resource_data1.FarmPlant</th>
+                                    <th>@PlantQuar.WEB.Language.Resource_data1.ScientificName</th>
+                                    <th>@PlantQuar.WEB.Language.Resource_data1.category</th>
+                                    <th>@PlantQuar.WEB.Language.Resource_data1.Area_Acres</th>
+                                    <th>@PlantQuar.WEB.Language.Resource_data1.QuantitySize / @PlantQuar.WEB.Language.Resource_data1.Ton</th>
+                                    <th>@PlantQuar.WEB.Language.Resource_data1.Startdate</th>
+                                    <th>@PlantQuar.WEB.Language.Resource_data1.enddate</th>
+                                    <th>@PlantQuar.WEB.Language.Resource_data1.Active</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.plantList != null)
+                                {
+                                    if (Model.plantList.Count > 0)
+                                    {
+                                        foreach (var item in Model.plantList)
+                                        {
+                                            <tr>
+                                                <td>@Model.PlantName</td>
+                                                <td>@Model.ScientificName</td>
+                                                <td>@item.categoryName</td>
+                                                <td>@item.Area_Acres</td>
+                                                <td>@item.Quantity_Ton</td>
+                                                <td>@item.StartDate</td>
+                                                <td>@item.EndDate</td>
+                                                <td>@item.IsActive</td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            @* ******************* ATTACHMENT Files **************** *@
+            <div role="tabpanel" class="tab-pane fade in" id="attachmentTab" style="height:auto;">
+                <div class="row">
+
+                    <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap">
+                        <table id="farmsTable" class="table table-bordered table-striped dataTable" role="grid" style="margin: 15px;width: 97%;background-color: lightgray; ">
+                            <thead>
+                                <tr>
+                                    <th>@PlantQuar.WEB.Language.Resource_data1.AttachmentName</th>
+                                    <th>@PlantQuar.WEB.Language.Resource_data1.AttachmentNumber</th>
+                                    <th>@PlantQuar.WEB.Language.Resource_data1.Startdate</th>
+                                    <th>@PlantQuar.WEB.Language.Resource_data1.enddate</th>
+                                    <th>@PlantQuar.WEB.Language.Resource_data1.Attachment</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.attachmentList != null)
+                                {
+                                    if (Model.attachmentList.Count > 0)
+                                    {
+                                        foreach (var item in Model.attachmentList)
+                                        {
+                                            <tr>
+                                                <td>@item.Attachment_TypeName</td>
+                                                <td>@item.Attachment_Number</td>
+                                                @if (@item.StartDate != null)
+                                                {
+                                                    <td>@item.StartDate.Value.ToString("dd/MM/yyyy")</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                @if (@item.EndDate != null)
+                                                {
+                                                    <td>@item.EndDate.Value.ToString("dd/MM/yyyy")</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                <td>
+                                                    @{ if (item.AttachmentPath != null)
+                                                        {
+                                                            <input type="button" value="تحميل الملف" class=" btn btn - info" onclick=btndownload_click(this) data-assigned-id="@item.AttachmentPath" />
+
+                                                            @*<a href="../../../' + data.record.AttachmentPath + '" download width="30" height="30">
+                                                                    <span>
+                                                                        @PlantQuar.WEB.Language.Resource_data1.FileUpload
+                                                                    </span>
+                                                                </a>*@
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>@PlantQuar.WEB.Language.Resource_data1.FileNotFound</span>
+                                                        }
+                                                    }
+                                                </td>
+                                            </tr>
+                                                                }
+                                                            }
+                                                        }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            @* *******************Constrains Area **************** *@
+            <div role="tabpanel" class="tab-pane fade in" id="constrainTab" style="height:auto;">
+                <div class="row">
+
+                    <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap">
+                        <table id="farmsTable" class="table table-bordered table-striped dataTable" role="grid" style="margin: 15px;width: 97%;background-color: lightgray; ">
+                            <thead>
+                                <tr>
+                                    <th>AnalysisType_Name</th>
+                                    <th>ConstrainText_text</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model._Farm_Requst_List != null)
+                                {
+                                    if (Model._Farm_Requst_List.Count > 0)
+                                    {
+                                        foreach (var item in Model._Farm_Requst_List)
+                                        {
+                                            <tr>
+                                                <td>@item.AnalysisType_Name</td>
+                                                <td>@item.ConstrainText_text</td>
+
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            @* ******************* Fees Area **************** *@
+            <div role="tabpanel" class="tab-pane fade in" id="FeesTab" style="height:auto;">
+                <div class="row">
+
+                    <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap">
+                        @{
+                            var _Fees = @Model.requestLst.Select(a => a.Fees).FirstOrDefault();
+                            var _Fees_Actual = @Model.requestLst.Select(a => a.Fees_Actual).FirstOrDefault();
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-lg-5 col-md-5 ta1">
+                                        <label for="FarmCode_14" class="control-label">الرسوم </label>
+                                    </div><div class="col-lg-5 col-md-5 ta1">
+                                        @Html.TextBoxFor(m => _Fees, new { @class = "form-control", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-lg-5 col-md-5 ta1">
+                                        <label for="Name_Ar" class="control-label">الرسوم الفعلية</label>
+                                    </div><div class="col-lg-5 col-md-5 ta1">
+                                        @Html.TextBoxFor(m => _Fees_Actual, new { @class = "form-control", @readonly = "readonly" })
+                                    </div>
+
+                                </div>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                @* ******************* Refuse Area **************** *@
+                <div role="tabpanel" class="tab-pane fade in" id="RefuseTab" style="height:auto;">
+                    <div class="row">
+
+                        <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap">
+                            <table id="farmsTable" class="table table-bordered table-striped dataTable" role="grid" style="margin: 15px;width: 97%;background-color: lightgray; ">
+                                <thead>
+                                    <tr>
+                                        <th>اسباب الرفض</th>
+                                        <th>ملاحظات</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Farm_Requst_RefuseReason_List != null)
+                                    {
+                                        if (Model.Farm_Requst_RefuseReason_List.Count > 0)
+                                        {
+                                            foreach (var item in Model.Farm_Requst_RefuseReason_List)
+                                            {
+                                                <tr>
+                                                    <td>@item.Refuse_Reason</td>
+                                                    <td>@item.Nots</td>
+                                                </tr>
+                                            }
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @{
+        if (Model.RequestId > 0)
+        {
+            //if (Model.requestPaid == true)
+            //{
+            if (Model.requestLst.Where(r => r.ID == Model.RequestId).Select(r => r.IsAcceppted).SingleOrDefault() == null)
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-8"></div>
+                        <div class="col-md-2">
+                            @Html.ActionLink(PlantQuar.WEB.Language.Resource_data1.Accept, "AcceptRequest", "FarmData",
+                       new { area = "FA_Farm", accept = 1, farmId = Model.ID, requestId = Model.RequestId },
+                       new { @class = "btn btn-primary", @style = "width:100%" })
+                        </div>
+                        <!--ChooseReason-->
+                        <div>
+
+                            <div id="Modal-refuse" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">@PlantQuar.WEB.Language.Resource_data1.ChooseReasons</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <select id="rejreasons" multiple>
+                                                @foreach (var c in ViewBag.ListReasons)
+                                                {
+                                                    <option value="@c.Value">@c.DisplayText</option>
+                                                }
+                                            </select>
+                                            <br />
+                                            <textarea name="message" id="message" rows="3" cols="33"></textarea>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal" id="saverejectreason"
+                                                    data-id="@Model.RequestId">
+                                                @PlantQuar.WEB.Language.Resource_data1.Save
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal Details -->
+                        <div id="mymodalemanexamination" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
+                                        <h4 class="modal-title">@PlantQuar.WEB.Language.Resource_data1.Details </h4>
+                                    </div>
+                                    <div class="modal-body" id="modaldetails">
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default " data-dismiss="modal">@PlantQuar.WEB.Language.Resource_data1.Close</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--End_Modal Details -->
+                        <!--ChooseReasonmodel-->
+
+                        <div class="col-md-2">
+
+                            @*eman*@
+
+                            <input type="button" id="btnReject" value="@PlantQuar.WEB.Language.Resource_data1.requestrejected"
+                                   @*@Disabled*@
+                                   class="btn ls-light-green-btn btn-round" data-toggle="modal" data-target="#Modal-refuse"
+                                   style="width:90%;" />
+
+                            @*@Html.ActionLink(PlantQuar.WEB.Language.Resource_data1.Reject, "AcceptRequest", "FarmData",
+                                new { area = "FA_Farm", accept = 0, farmId = Model.ID, requestId = Model.RequestId },
+                                new { @class = "btn btn-primary", @style = "width:100%" })*@
+                        </div>
+                    </div>
+                </div>
+            }
+            @*}
+                else
+                {
+                    <div class="row" style="background-color:beige;padding:10px;">
+                        <div class="col-md-12">
+                            <div class="col-md-8"></div>
+                            <div class="col-md-2">
+                                <p>لم يتم دفع النفقات</p>
+                            </div>
+                        </div>
+                    </div>
+                }*@
+        }
+    }
+
+    <script>
+    function btndownload_click(elem) {
+      
+            var path = $(elem).data('assigned-id');
+
+        //window.open('/Imges/Downlood_Imge/Get_Downlood_Imge?path1=plant / Farms / 2023 / 4 / FarmFiles55 / Image_2262808.jpg', "_blank");
+             window.open('/Imges/Downlood_Imge/Get_Downlood_Imge?path1=' + path + '', "_blank");
+
+
+    }
+        $(document).ready(function () {
+
+        $("#rejreasons").addClass("chosen-select").prop("multiple", true);
+
+        $('#rejreasons_chosen option').prop('selected', true);
+
+
+        $("#rejreasons option[value=]").remove();
+        $("#rejreasons").chosen({
+            // disable_search_threshold: 10,
+            no_results_text: "@PlantQuar.WEB.Language.Resource_data1.no_results : ",
+            placeholder_text_multiple: "@PlantQuar.WEB.Language.Resource_data1.Select_One_More",
+            //placeholder_text_single: "ÍÏÏ @PlantQuar.WEB.Language.Resource_data1.Governate",
+            width: "95%",
+            rtl: true,
+            search_contains: true,
+        });
+
+        });
+
+    $("#saverejectreason").click(function () {
+        $("#txtIsAccepted").val(false);
+        var list = $("#rejreasons").val();
+        // console.log(list)
+        var id = $(this).data("id");
+
+        var _message = $("#message").val();
+        alert(_message);
+
+        if (list != null) {
+
+            $.post('/FA_Farm/FarmData/saveReasons', { listIDs: list, Farm_Request_ID: id, message: _message }, function (data, succ) {
+
+                $("#submform").submit();
+                window.location.href = "../FarmListOnLine/Index";
+
+            });
+        } else {
+            alertify.error("choose reasons")
+        }
+
+    });
+    </script>

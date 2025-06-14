@@ -1,0 +1,499 @@
+﻿@model List<PlantQuar.DTO.DTO.Station_Pages.Station_Get_Data_ResultDTO>
+@{
+    ViewBag.Title = "Stration_Print";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+
+
+
+
+<div id="tblCheckLst">
+    <div style="width:21cm;height:29.7cm;background:gray;margin:auto;padding-top:.6cm">
+        <div id="border" style="font-size:12px;width:20cm;background:white;margin:auto;border:1px solid #000;font-family: 'Arial regular'!important;font-size:10pt;">
+            <div id="header" style="height:4.5cm;">
+                <div class="" style="margin:auto;height:inherit;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <div class="col-md-4" style="display:inline-block;float:right;padding: 3px;height: inherit;">
+                            <img class="img1" style="" src="~/assets/images/capq/logo-capq-114.png" />
+                        </div>
+                        <div class="col-md-8 " style="display:inline-block;height: inherit;">
+                            <p class="lab-2" style="font-weight:bold">
+                                جمهورية مصر العربية<br />
+                                وزارة الزراعة واستصلاح الأراضي<br />
+                                الإدارة المركزية للحجر الزراعي
+
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <div class="col-md-7" style="text-align: left;display:inline-block; float: right; height: inherit;"><label style="margin-top: 10px;font-size: 20px;">اعتماد محطة</label></div>
+                        <div class="col-md-5" style="display:inline-block;height:inherit;"><label style="font-size: 70px; float: left; font-family: AlphanumericqrSpace-O5z8 !important">3</label></div>
+                    </div>
+                </div>
+            </div>
+            <div id="content" style="height:21cm;">
+
+
+
+
+
+                <div class="" style="text-align:center; margin:auto;height:1.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 100%; height: inherit; padding: 3px">
+                        <span>
+                            تعتمد المحطة طبقا لجميع القواعد التى قررها قانون الزراعة رقم 53 لسنة 1966
+                            والقرار الوزارى رقم 562 لسنة 2019
+                            ومعايير الصحة النباتية وبالإشتراطات التالية لصالح :
+                        </span>
+                    </div>
+
+
+                </div>
+
+
+
+
+                <div class="" style="margin: auto; height: 1.6cm; border-bottom: 1px solid #000; display: flex;">
+                    <div class="" style=" width: 100%; height: inherit;padding: 3px">
+                        <label style="  ">اسم المالك :</label>
+                        <span>------------------</span>
+
+                    </div>
+                </div>
+
+
+
+                <div class="" style="margin: auto; height: 1.6cm; border-bottom: 1px solid #000; display: flex;">
+                    <div class="" style=" width: 100%; height: inherit;padding: 3px">
+                        <label style="  ">عنوان المالك :</label>
+                        <span>------------------</span>
+
+                    </div>
+                </div>
+
+
+
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">سجل تجاري:</label>
+                        <span>------------------</span>
+
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">الرقم الضريبي:</label>
+                        <span>----------</span>
+
+                    </div>
+                </div>
+
+
+
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">تليفون:</label>
+                        <span> ---------- </span>
+
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">بريد الكتروني:</label>
+                        <span>----------</span>
+                    </div>
+                </div>
+
+
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 100%; height: inherit;padding: 3px">
+                        <label style="  ">اسم المحطة :</label>
+                        <span>------------------</span>
+
+                    </div>
+                </div>
+
+
+
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%;height: inherit;padding: 3px">
+                        <label style="  ">سجل تجاري:</label>
+                        <span>----------</span>
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">الرقم الضريبي :</label>
+                        <span>----------</span>
+
+                    </div>
+                </div>
+
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 100%; height: inherit;padding: 3px">
+                        <label style="  ">عنوان المحطة :</label>
+                        <span>------------------</span>
+
+                    </div>
+                </div>
+
+
+                <div class="" style="margin: auto; height: 1.6cm; border-bottom: 1px solid #000; display: flex;">
+                    <div class="" style=" width: 100%; height: inherit;padding: 3px">
+                        <label style="  ">GPS :</label>
+                        <span>------------------</span>
+
+                    </div>
+                </div>
+
+
+
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+
+                        <label style="  ">الترخيص الصناعي  :</label>
+                        <span>-------</span>
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">المدير المسؤل:</label>
+                        <span>--------</span>
+                    </div>
+                </div>
+
+
+
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+
+                        <label style="  ">نوع النشاط    :</label>
+                        <span>-------</span>
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">الاعتماد :</label>
+                        <span>--------</span>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+                <div class="" style="text-align:center; margin:auto;height:7.8cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 100%; height: inherit; padding: 3px">
+                        <span>
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            وصف الاعتماد
+                        </span>
+                    </div>
+
+
+                </div>
+
+
+
+
+
+                <div class="" style="text-align:center; margin:auto;height:2.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 100%; height: inherit; padding: 3px">
+                        <span>
+                            تم اصدار هذا الإعتماد في 26/10/2022 وتسري صلاحية هذا الإعتماد حتى 26/01/2020
+                            <br />
+                            يعد هذا الإعتماد بمثابة اقرار صاحب الشأن الإلتزام بقواعد المنظمة للحجر الزراعي
+                            والالتزام بكافة تعليمات الحجر الزراعي المصري
+                            <br />
+                            يجوز للحجرالزراعي المصري وقف هذا الإعتماد فى حالات المخالفة أو انتهاء الأعمال التى أصدر من أجلها
+
+                        </span>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+
+
+
+            <div id="footer3" style="height:3cm;">
+                <div class="" style="margin:auto;height:inherit;display:flex;">
+                    <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                        <label style="  ">مكان الإصدار:الاسكندرية</label>
+                        <span></span>
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                        <label style="  ">اسم المسئول المفوض:</label>
+                        <span>حسام كمال</span>
+                        <br />
+                        <label style="  ">التوقيع:</label>
+                        <span>..............................</span>
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                        <label style="  ">تاريخ الإصدار:</label>
+                        <span>تلقائي</span>
+                        <div style="margin: -2px 3px; width: 92px; height: 92px; background-color: white; border: 1px solid black; border-radius: 50%; float: left;">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<hr />
+<hr />
+
+
+<div id="tblCheckLst2">
+    <div style="width:21cm;height:29.7cm;background:gray;margin:auto;padding-top:.6cm">
+        <div id="border" style="direction:ltr;text-align:left;font-size:12px;width:20cm;background:white;margin:auto;border:1px solid #000;font-family: 'times-new-roman'!important;font-size:10pt">
+            <div id="header" style="height:4.5cm;">
+                <div class="" style="margin:auto;height:inherit;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <div class="col-md-4" style="display:inline-block;float:left;padding: 3px;height: inherit;">
+                            <img class="img1" style="" src="~/assets/images/capq/logo-capq-114.png" />
+                        </div>
+                        <div class="col-md-8 " style="display:inline-block;height: inherit;">
+                            <p class="lab-1" style="font-weight:bold">
+                                Arab Republic of Egypt<br />
+                                Ministry of Agriculture and <br />
+                                Land Reclamation <br />
+                                Central Administration <br />
+                                of Plant Quarantine <br />
+
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <div class="col-md-7" style="display:inline-block;float:left;height: inherit;text-align:right;"><label style="margin-top: 10px;font-size: 20px;">Farm Accreditation</label></div>
+                        <div class="col-md-5" style="display:inline-block;height:inherit;"><label style="font-size: 70px; float: right; font-family: AlphanumericqrSpace-O5z8 !important">3</label></div>
+
+                    </div>
+                </div>
+            </div>
+            <div id="content" style="height:21cm;">
+
+
+                <div class="" style="text-align:center; margin:auto;height:1.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 100%; height: inherit; padding: 3px">
+                        <span>
+                            this station
+                        </span>
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="" style="margin: auto; height: 1.6cm; border-bottom: 1px solid #000; display: flex;">
+                    <div class="" style=" width: 100%; height: inherit;padding: 3px">
+                        <label style="  ">Owner Name :</label>
+                        <span>------------------</span>
+
+                    </div>
+                </div>
+
+
+
+                <div class="" style="margin: auto; height: 1.6cm; border-bottom: 1px solid #000; display: flex;">
+                    <div class="" style=" width: 100%; height: inherit;padding: 3px">
+                        <label style="  ">Owner Address :</label>
+                        <span>------------------</span>
+
+                    </div>
+                </div>
+
+
+
+
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  "> Commercial record:</label>
+                        <span>-----</span>
+
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">Tax Number:</label>
+                        <span>-------------)</span>
+
+                    </div>
+                </div>
+                <div class="" style="margin: auto; height: .6cm; border-bottom: 1px solid #000; display: flex;">
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">Telephone:</label>
+                        <span>-----</span>
+
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class=" " style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  "> Email:</label>
+                        <span>----------</span>
+                    </div>
+                </div>
+
+
+
+
+                <div class="" style="margin: auto; height: .6cm; border-bottom: 1px solid #000; display: flex;">
+                    <div class="" style=" width: 100%; height: inherit;padding: 3px">
+                        <label style="  ">Packing station Name :</label>
+                        <span>------------------</span>
+
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%;height: inherit;padding: 3px">
+                        <label style="  ">Commercial record:</label>
+                        <span>-----</span>
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  "> Tax No:</label>
+                        <span>-------</span>
+
+                    </div>
+                </div>
+
+
+
+
+                <div class="" style="margin: auto; height: .6cm; border-bottom: 1px solid #000; display: flex;">
+                    <div class="" style=" width: 100%; height: inherit;padding: 3px">
+                        <label style="  ">Packing station address :</label>
+                        <span>------------------</span>
+
+                    </div>
+                </div>
+
+                <div class="" style="margin: auto; height: 1.6cm; border-bottom: 1px solid #000; display: flex;">
+                    <div class="" style=" width: 100%; height: inherit;padding: 3px">
+                        <label style="  ">GPS :</label>
+                        <span>------------------</span>
+
+                    </div>
+                </div>
+
+
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%;height: inherit;padding: 3px">
+                        <label style="  ">Industrial license:</label>
+                        <span>-----</span>
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  "> Managing Director:</label>
+                        <span>-------</span>
+
+                    </div>
+                </div>
+
+
+                <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 50%;height: inherit;padding: 3px">
+                        <label style="  "> Activity type:</label>
+                        <span>-----</span>
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class="" style=" width: 50%; height: inherit;padding: 3px">
+                        <label style="  ">  Accreditation:</label>
+                        <span>-------</span>
+
+                    </div>
+                </div>
+
+
+
+                <div class="" style="text-align:center; margin:auto;height:7.8cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 100%; height: inherit; padding: 3px">
+                        <span>
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            Description
+                        </span>
+                    </div>
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+                <div class="" style="text-align:center; margin:auto;height:2.6cm;border-bottom:1px solid #000;display:flex;">
+                    <div class="" style=" width: 100%; height: inherit; padding: 3px">
+                        <span>
+                            this accredion
+                        </span>
+                    </div>
+
+
+                </div>
+
+            </div>
+            <div id="footer3" style="height:3cm;">
+                <div class="" style="margin:auto;height:inherit;display:flex;">
+                    <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                        <label style="  ">place of issue:Alex</label>
+                        <span></span>
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                        <label style="  ">Name of authorized official:</label>
+                        <span>hossam</span>
+                        <br />
+                        <label style="  ">signature:</label>
+                        <span>..............................</span>
+                    </div>
+                    <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                    <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                        <label style="  ">Date of issue:</label>
+                        <span>26/10/2020</span>
+                        <div style="margin: -2px 3px; width: 92px; height: 92px; background-color: white; border: 1px solid black; border-radius: 50%; float: left;">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+

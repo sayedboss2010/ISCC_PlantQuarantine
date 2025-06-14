@@ -1,0 +1,955 @@
+﻿
+<style>
+    .ta1 {
+        display: inline-block;
+    }
+
+    .jtable-input-field-container:nth-of-type(1),
+    .jtable-input-field-container:nth-of-type(2),
+    .jtable-input-field-container:nth-of-type(3),
+    .jtable-input-field-container:nth-of-type(4),
+    .jtable-input-field-container:nth-of-type(5),
+    .jtable-input-field-container:nth-of-type(6),
+    .jtable-input-field-container:nth-of-type(7),
+    .jtable-input-field-container:nth-of-type(8) {
+        width: 50% !important;
+        margin-bottom: 2px;
+        float: right;
+    }
+</style>
+<div class="row">
+
+    
+    <div class="col-md-12">
+        <div class="col-lg-3 col-md-5 ta1">
+            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Items</label>
+            @Html.DropDownList("plantLst", new SelectList(ViewBag.PlantLst, "Value", "DisplayText"), new { @class = "form-control", id = "plantLst" })
+        </div>
+        <div class="col-lg-3 col-md-5 ta1">
+            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.ShortName</label>
+            <select id="ShortNameLst" class="form-control"></select>
+        </div>
+        <div class="col-lg-3 col-md-5 ta1">
+            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.PlantCategory</label>
+            <select id="plantCatLst" class="form-control"></select>
+           
+        </div>
+       
+    </div>
+</div>
+<div class="row">
+  
+    <div class="col-md-12">
+        <div class="col-lg-3 col-md-5 ta1">
+            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.PlantPart</label>
+            <input class="form-control" id="PlantPart" readonly type="text">
+        </div>
+        <div class="col-lg-3 col-md-5 ta1">
+            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Status</label>
+            <input class="form-control" id="Status" readonly type="text">
+        </div>
+        <div class="col-lg-3 col-md-5 ta1">
+            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Purpose</label>
+            <input class="form-control" id="Purpose" readonly type="text">
+        </div>
+    </div>
+</div>
+<div class="row">
+    @*<label>IsCertificate_Addtion</label>
+        <input type="checkbox" class="dissablcheck_plant" name="IsCertificate_Addtion_plant" id="IsCertificate_Addtion_plant" value="false" />
+        <br />*@
+    <label>@PlantQuar.WEB.Language.Resource_data1.IsStationAccreditation</label>
+    <input type="checkbox" class="dissablcheck_plant" name="IsStationAccreditation_plant" id="IsStationAccreditation_plant" value="false" />
+    <br />
+    <label>@PlantQuar.WEB.Language.Resource_data1.IsFarmAccreditation</label>
+    <input type="checkbox" class="dissablcheck_plant" name="IsFarmAccreditation_plant" id="IsFarmAccreditation_plant" value="false" />
+    <br />
+    <label>@PlantQuar.WEB.Language.Resource_data1.IsCompanyAccreditation</label>
+    <input type="checkbox" class="dissablcheck_plant" name="IsCompanyAccreditation_plant" id="IsCompanyAccreditation_plant" value="false" />
+    <br />
+
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="tab" role="tabpanel">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a data-id="1" href="#textsTab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.AllText</a>
+                </li>
+                <li role="presentation">
+                    <a data-id="2" href="#analysisTab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Analysis</a>
+                </li>
+                <li role="presentation">
+                    <a data-id="2" href="#treatmentab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Treatments</a>
+                </li>
+                <li role="presentation" id="port2">
+                    <a data-id="2" href="#portstab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Ports</a>
+                </li>
+
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content tabs" style="min-height:433px;">
+                <div role="tabpanel" class="tab-pane fade in active" id="textsTab">
+                    <div id="plantConstrainDiv" class="col-md-12"></div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="analysisTab">
+
+                    <div id="plantConstrainDiv_Analysis" class="col-md-12"></div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="treatmentab">
+
+                    <div id="plantConstrainDiv_treatment" class="col-md-12"></div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="portstab">
+
+                    <div id="plantConstrainDiv_ports" class="col-md-12"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" style="margin-top:15px">
+
+</div>
+@*/**********************************/*@
+<style>
+    div[ aria-labelledby="ui-id-4"] {
+        top: 100px !important;
+    }
+
+    .jtable-radiobuttonlist-input {
+        margin-right: 20px !important;
+        padding: 3px;
+    }
+
+    .jtable-radio-input {
+        width: 20%;
+        float: right;
+        padding: 3px;
+    }
+
+    #jtable-create-form, #jtable-edit-form {
+        overflow: hidden !important;
+        height: auto;
+        width: 550px;
+    }
+
+    /*.jtable-input-field-container:nth-of-type(1),
+    .jtable-input-field-container:nth-of-type(2),
+    .jtable-input-field-container:nth-of-type(3),
+    .jtable-input-field-container:nth-of-type(4) {
+        margin-bottom: 2px;
+        float: right;
+        width: 98% !important;
+    }*/
+
+
+    /*.jtable-input-field-container:nth-of-type(5) {
+        margin-bottom: 2px;
+        float: right;
+        width: 98% !important;
+    }*/
+
+    /*.jtable-input-field-container:nth-of-type(6),
+    .jtable-input-field-container:nth-of-type(10) {
+        margin-bottom: 2px;
+        float: right;
+        width: 98% !important;
+    }*/
+
+    .jtable-input-field-container:nth-of-type(1) .jtable-textarea-input textarea,
+    .jtable-input-field-container:nth-of-type(2) .jtable-textarea-input textarea,
+    .jtable-input-field-container:nth-of-type(3) .jtable-textarea-input textarea,
+    .jtable-input-field-container:nth-of-type(4) .jtable-textarea-input textarea {
+        width: 98% !important;
+        min-height: 80px !important;
+    }
+</style>
+@*/**********************************/*@
+<script>
+    //'../../CommonActions/PortData/PortInternational?CountryID=' + $('#countriesLst').val()+ '&IsJtable=true';
+
+
+    //    $(function () {
+
+    //        $("#ArrivalPortList_plant").chosen({
+    //            ltr: true,
+    //            max_shown_results: 20,
+    //            placeholder_text_single: "إختار اسم النوع",
+    //            search_contains: true,
+    //            enable_split_word_search: false,
+    //            no_results_text: "لا يوجد نتائج",
+    //            width: "100%"
+    //        });
+    //});
+
+
+    //$("#ArrivalPortList_plant").attr("multiple", "multiple");
+    //$("#ArrivalPortList_plant").trigger('chosen:updated');
+
+
+
+    //$("#countriesLst").change(function (e) {
+    //    $("#ArrivalPortList_plant").empty();
+    //    $.ajax({
+    //        async: true,
+    //        url: '../../CommonActions/PortData/PortInternational?CountryID=' + $('#countriesLst').val() + '&IsJtable=true',
+    //        type: 'POST',
+    //        success: function (data) {
+
+    //            $.each(data.Options, function (index, row) {
+    //                $("#ArrivalPortList_plant").append("<option value='" + row.Value + "'>" + row.DisplayText + " </option>");
+    //                $("#ArrivalPortList_plant").trigger("chosen:updated");
+    //            });
+
+    //        }
+    //    });
+    //});
+
+
+
+    $("#IsStationAccreditation_plant").on('change', function () {
+        if ($(this).is(':checked')) {
+            $(this).attr('value', 'true');
+        } else {
+            $(this).attr('value', 'false');
+        }
+
+
+    });
+    $("#IsCompanyAccreditation_plant").on('change', function () {
+        if ($(this).is(':checked')) {
+            $(this).attr('value', 'true');
+        } else {
+            $(this).attr('value', 'false');
+        }
+
+
+    });
+
+    $("#IsFarmAccreditation_plant").on('change', function () {
+        if ($(this).is(':checked')) {
+            $(this).attr('value', 'true');
+        } else {
+            $(this).attr('value', 'false');
+        }
+
+
+    });
+
+    //$("#IsCertificate_Addtion_plant").on('change', function () {
+    //    if ($(this).is(':checked')) {
+    //        $(this).attr('value', 'true');
+    //    } else {
+    //        $(this).attr('value', 'false');
+    //    }
+
+
+    //});
+
+</script>
+<script>
+
+    $('#plantLst').on('change', function () {
+       
+        var plantId = $('#plantLst').val();
+        $.ajax(
+            {
+                url: '@Url.Action("PlantCategoryList", "ExportConstrains", new { area = "Export_Constrains" })',              
+                data: {
+                    plantId: plantId,
+                },
+                success: function (data) {
+                    $('#plantCatLst').empty();
+                    $.each(data.Options, function (i, index) {
+                        $('#plantCatLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                    }); //each
+                } //success
+            });//ajax
+        //*********************//
+        $.ajax(
+            {
+                url: '@Url.Action("GetPlantShortName", "ExportConstrains", new { area = "Export_Constrains" })',
+                data: {
+                    Item_Id: plantId,
+                },
+                success: function (data) {
+                    $('#ShortNameLst').empty();
+                    $.each(data.Options, function (i, index) {
+                        $('#ShortNameLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                    }); //each
+                } //success
+            });//ajax
+        //*******************//      
+    });
+    $('#ShortNameLst').on('change', function () {
+       
+        $.ajax(
+            {
+                url: '/Export_Constrains/ExportConstrains/Get_ShortNameDetails',
+                data:
+                {
+                    ShortName: $("#ShortNameLst").val(),                 
+                },
+                success: function (res) {
+                    $("#PlantPart").val(res.SubPart_Name);
+                    $("#Status").val(res.Status_Name);
+                    $("#Purpose").val(res.Purpose_Name);
+                }
+            });//ajax
+    });
+
+    //*********** JTable ******************//
+    var plantOperation = 0
+    $(function () {
+        $("#plantConstrainDiv").jtable({
+            title: '@PlantQuar.WEB.Language.Resource_data1.Constrains',
+            paging: true,
+            pageSize: 10,
+            sorting: true,
+            columnResizable: true,
+            columnSelectable: true,
+            saveUserPreferences: true,
+
+            actions: {
+                listAction: '/Export_Constrains/PlantConstrain/ListPlantsRows',
+                createAction: '/Export_Constrains/PlantConstrain/CreatePlantsRows',
+                updateAction: '/Export_Constrains/PlantConstrain/UpdatePlantsRows',
+                deleteAction: '/Export_Constrains/PlantConstrain/DeletePlantsRows',
+            },
+            fields: {
+                index: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                ConstrainText_Ar: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.Constrain_Ar ',
+                    type: 'textarea',
+                    inputClass: 'validate[required]'
+                },
+                ConstrainText_En: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.Constrain_En ',
+                    type: 'textarea',
+                    inputClass: 'validate[required]'
+                },
+                InSide_Certificate_Ar: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.Includedcertificate_Ar',
+                     type: 'textarea',
+                    list: true,
+                },
+                InSide_Certificate_En: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.Includedcertificate_En',
+                     type: 'textarea',
+                     list: true,
+                },
+                IsCertificate_Addtion: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.IsCertificate_Addtion',
+                        type: 'checkbox',
+                        values: { 'false': ' @PlantQuar.WEB.Language.Resource_data1.No ', 'true': '@PlantQuar.WEB.Language.Resource_data1.Yes ' },
+                        defaultValue: 'false',
+                },
+                Id: {
+                    type: 'text',
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                countryConstraintext_Id: {
+                    type: 'text',
+                    create: false,
+                    edit: false,
+                    list: false
+                },               
+            },
+            formCreated: function (event, data) {
+
+                if (data.formType == "create") {
+
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.AddConstrainData");
+                }
+                else {
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.EditConstrainData");
+                }
+            },
+            formSubmitting: function (event, data) {
+                if ($("#plantLst").val() > 0 && $("#ShortNameLst").val() > 0 && $("#constrainType").val() > 0) {
+
+                    if ($("#constrainType").val() == 2) {
+                        if ($("#countriesLst").val() > 0) {
+                        }
+                        else {
+                            alertify.error('@PlantQuar.WEB.Language.Resource_data1.SelectCountry');
+                            return false;
+                        }
+                    }
+                    else if ($("#constrainType").val() == 3) {
+                        if ($("#unionsLst").val() > 0) {
+                        }
+                        else {
+                            alertify.error('@PlantQuar.WEB.Language.Resource_data1.SelectUnion');
+                            return false;
+                        }
+                    }
+                    
+                    return data.form.validationEngine('validate');
+                }
+                else {
+                    alertify.error('@PlantQuar.WEB.Language.Resource_data1.SelectLiableItem_ConstrainType');
+                    return false;
+                }
+            },
+            formClosed: function (event, data) {
+                data.form.validationEngine('hide');
+                data.form.validationEngine('detach');
+                $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Delete");
+
+                //1-6-2020 rest treatment/analysis selection
+                plantOperation = 0;
+            },
+            recordAdded: function (event, data) {
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+            },
+            recordUpdated: function (event, data) {
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Update");
+            },
+            recordDeleted: function (event, data) {
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Delete");
+            },
+        });
+        $("#plantConstrainDiv").jtable('load');
+
+        //eman --treatment
+        $("#plantConstrainDiv_treatment").jtable({
+            title: '@PlantQuar.WEB.Language.Resource_data1.Constrains',
+            paging: true,
+            pageSize: 10,
+            sorting: true,
+            columnResizable: true,
+            columnSelectable: true,
+            saveUserPreferences: true,
+
+            actions: {
+                listAction: '/Export_Constrains/PlantConstrain/ListPlantsRows_treatments',
+                createAction: '/Export_Constrains/PlantConstrain/CreatePlantsRows_treatments',
+                updateAction: '/Export_Constrains/PlantConstrain/UpdatePlantsRows_treatments',
+                deleteAction: '/Export_Constrains/PlantConstrain/DeletePlantsRows_treatments',
+            },
+            fields: {
+                index: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                TreatmentMainType_ID: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.TreatmentMainType',
+
+                    options: function (data) {
+                        return '/Export_Constrains/ExportConstrains/GetTraetmentMainType_Jtable?type=0';
+                    },
+                    list: false,
+                    //inputClass: 'validate[required]'
+                },
+                TreatmentType_ID: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.TreatmentType',
+                    dependsOn: 'TreatmentMainType_ID',
+                    options: function (data) {
+                        return '/Export_Constrains/ExportConstrains/GetTraetmentType_Jtable?mainType=' + data.dependedValues.TreatmentMainType_ID;
+                    },
+                    list: true,
+                    //inputClass: 'validate[required]'
+                },
+                TreatmentMaterial_ID: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.TreatmentMaterial',
+                    list: true,
+                    dependsOn: 'TreatmentType_ID',
+                    options: function (data) {
+                        return '/Export_Constrains/ExportConstrains/GetTraetmentMaterial_Jtable?treatmentType=' + data.dependedValues.TreatmentType_ID;
+
+                    }
+                },
+                TreatmentMethod: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.TreatmentMethod',
+                    list: true,
+                    dependsOn: 'TreatmentType_ID',
+                    options: function (data) {
+                        return '/Export_Constrains/ExportConstrains/GetTraetmentMethod_Jtable?treatmentType=' + data.dependedValues.TreatmentType_ID;
+
+                    }
+                },
+
+                TheDose: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.TheDose',
+                    list: true,
+                    defaultValue: 0
+                },
+                Exposure_Day: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.Exposure_Day',
+                    list: true,
+                    defaultValue: 0
+                },
+                Exposure_Minute: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.Exposure_Minute',
+                    list: true,
+                    defaultValue: 0
+                },
+                Exposure_Hour: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.Exposure_Hour',
+                    list: true,
+                    defaultValue: 0
+                },
+                Id: {
+                    type: 'text',
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+
+                TreatmentConstrain_ID: {
+                    type: 'text',
+                    create: false,
+                    edit: false,
+                    list: false
+                }
+            },
+            formCreated: function (event, data) {
+
+
+                if (data.formType == "create") {
+
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.AddConstrainData");
+                }
+                else {
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.EditConstrainData");
+
+
+                }
+                $("#Edit-TheDose, #Edit-Exposure_Day, #Edit-Exposure_Minute,#Edit-Exposure_Hour").attr('autocomplete', 'off');
+
+                // numeric only
+                $("#Edit-TheDose, #Edit-Exposure_Day").keydown(function (e) {
+                    if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+                        (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                        (e.keyCode >= 35 && e.keyCode <= 40)) {
+                        return;
+                    }
+                    if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                        e.preventDefault();
+                    }
+                });
+
+
+            },
+            formSubmitting: function (event, data) {
+                if ($("#plantLst").val() > 0 && $("#plantPurposeLst").val() > 0
+                    && $("#plantStatusLst").val() > 0 && $("#plantPartLst").val() > 0 && $("#constrainType").val() > 0) {
+
+                    if ($("#constrainType").val() == 2) {
+                        if ($("#countriesLst").val() > 0) {
+                        }
+                        else {
+                            alertify.error('@PlantQuar.WEB.Language.Resource_data1.SelectCountry');
+                            return false;
+                        }
+                    }
+                    else if ($("#constrainType").val() == 3) {
+                        if ($("#unionsLst").val() > 0) {
+                        }
+                        else {
+                            alertify.error('@PlantQuar.WEB.Language.Resource_data1.SelectUnion');
+                            return false;
+                        }
+                    }
+                   //debugger;
+
+                    return data.form.validationEngine('validate');
+                }
+                else {
+                    alertify.error('@PlantQuar.WEB.Language.Resource_data1.SelectLiableItem_ConstrainType');
+                    return false;
+                }
+            },
+            formClosed: function (event, data) {
+                data.form.validationEngine('hide');
+                data.form.validationEngine('detach');
+                $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Delete");
+
+                //1-6-2020 rest treatment/analysis selection
+                plantOperation = 0;
+            },
+            recordAdded: function (event, data) {
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+            },
+            recordUpdated: function (event, data) {
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Update");
+            },
+            recordDeleted: function (event, data) {
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Delete");
+            },
+        });
+        $("#plantConstrainDiv_treatment").jtable('load');
+        //end eman -treatment
+        //eman analysis
+        $("#plantConstrainDiv_Analysis").jtable({
+            title: '@PlantQuar.WEB.Language.Resource_data1.Constrains',
+            paging: true,
+            pageSize: 10,
+            sorting: true,
+            columnResizable: true,
+            columnSelectable: true,
+            saveUserPreferences: true,
+
+            actions: {
+                listAction: '/Export_Constrains/PlantConstrain/ListPlants_Analysis',
+                createAction: '/Export_Constrains/PlantConstrain/CreatePlants_Analysis',
+                updateAction: '/Export_Constrains/PlantConstrain/UpdatePlants_Analysis',
+                deleteAction: '/Export_Constrains/PlantConstrain/DeletePlants_Analysis',
+            },
+            fields: {
+                index: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+
+
+                Id: {
+                    type: 'text',
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                AnalysisConstrain_ID: {
+                    type: 'text',
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                AnalysisType_ID: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.AnaysisType',
+
+                    options: function (data) {
+                        return '/Export_Constrains/ExportConstrains/GetAnalysisTypes_Jtable?type=0';
+                    },
+                    list: true,
+                    //inputClass: 'validate[required]'
+                },
+                AnalysisLab_ID: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.AnalysisLab_ID ',
+                    dependsOn: 'AnalysisType_ID',
+                    options: function (data) {
+                        return '/Export_Constrains/ExportConstrains/GetAnalysisLab_Jtable?analysisType=' + data.dependedValues.AnalysisType_ID;
+                    },
+                    list: true,
+                    //inputClass: 'validate[required]'
+                },
+
+                //AnalysisLabTypeID: {
+                //    type: 'text',
+                //    list: false
+                //},
+
+
+            },
+            formCreated: function (event, data) {
+
+                //*********************Jtable
+                if (data.formType == "create") {
+
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.AddConstrainData");
+                }
+                else {
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.EditConstrainData");
+
+                }
+
+
+            },
+            formSubmitting: function (event, data) {
+                if ($("#plantLst").val() > 0 && $("#plantPurposeLst").val() > 0
+                    && $("#plantStatusLst").val() > 0 && $("#plantPartLst").val() > 0 && $("#constrainType").val() > 0) {
+
+                    if ($("#constrainType").val() == 2) {
+                        if ($("#countriesLst").val() > 0) {
+                        }
+                        else {
+                            alertify.error('@PlantQuar.WEB.Language.Resource_data1.SelectCountry');
+                            return false;
+                        }
+                    }
+                    else if ($("#constrainType").val() == 3) {
+                        if ($("#unionsLst").val() > 0) {
+                        }
+                        else {
+                            alertify.error('@PlantQuar.WEB.Language.Resource_data1.SelectUnion');
+                            return false;
+                        }
+                    }
+                   //debugger;
+
+                    return data.form.validationEngine('validate');
+                }
+                else {
+                    alertify.error('@PlantQuar.WEB.Language.Resource_data1.SelectLiableItem_ConstrainType');
+                    return false;
+                }
+            },
+            formClosed: function (event, data) {
+                data.form.validationEngine('hide');
+                data.form.validationEngine('detach');
+                $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Delete");
+
+                //1-6-2020 rest treatment/analysis selection
+                plantOperation = 0;
+            },
+            recordAdded: function (event, data) {
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+            },
+            recordUpdated: function (event, data) {
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Update");
+            },
+            recordDeleted: function (event, data) {
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Delete");
+            },
+        });
+        $("#plantConstrainDiv_Analysis").jtable('load');
+        //end eman analysis
+        //eman arrival ports
+        $("#plantConstrainDiv_ports").jtable({
+            title: '@PlantQuar.WEB.Language.Resource_data1.Constrains',
+            paging: true,
+            pageSize: 10,
+            sorting: true,
+            columnResizable: true,
+            columnSelectable: true,
+            saveUserPreferences: true,
+
+            actions: {
+                listAction: '/Export_Constrains/PlantConstrain/ListPlants_ports',
+                createAction: '/Export_Constrains/PlantConstrain/CreatePlants_ports',
+                updateAction: '/Export_Constrains/PlantConstrain/UpdatePlants_ports',
+                deleteAction: '/Export_Constrains/PlantConstrain/DeletePlants_ports',
+            },
+            fields: {
+                index: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+
+
+                Id: {
+                    type: 'text',
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                ArrivalConstrain_ID: {
+                    type: 'text',
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                PortType_ID: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.PortType',
+
+                    options: function (data) {
+                        return '/CommonActions/PortData/PortType_List';
+                    },
+                    list: true,
+                    //inputClass: 'validate[required]'
+                },
+                PortInternationalID: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.PortInternational',
+                    dependsOn: 'PortType_ID',
+                    options: function (data) {
+                        return '/CommonActions/PortData/PortInternationalWithType?CountryID=' + $('#countriesLst').val() + '&IsJtable=true&portType=' + data.dependedValues.PortType_ID;
+                    },
+                    list: true,
+                    //inputClass: 'validate[required]'
+                },
+
+                //AnalysisLabTypeID: {
+                //    type: 'text',
+                //    list: false
+                //},
+
+
+            },
+            formCreated: function (event, data) {
+
+                //*********************Jtable
+                if (data.formType == "create") {
+
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.AddConstrainData");
+                }
+                else {
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.EditConstrainData");
+
+                }
+
+
+            },
+            formSubmitting: function (event, data) {
+                if ($("#plantLst").val() > 0 && $("#plantPurposeLst").val() > 0
+                    && $("#plantStatusLst").val() > 0 && $("#plantPartLst").val() > 0 && $("#constrainType").val() > 0) {
+
+                    if ($("#constrainType").val() == 2) {
+                        if ($("#countriesLst").val() > 0) {
+                        }
+                        else {
+                            alertify.error('@PlantQuar.WEB.Language.Resource_data1.SelectCountry');
+                            return false;
+                        }
+                    }
+                    else if ($("#constrainType").val() == 3) {
+                        if ($("#unionsLst").val() > 0) {
+                        }
+                        else {
+                            alertify.error('@PlantQuar.WEB.Language.Resource_data1.SelectUnion');
+                            return false;
+                        }
+                    }
+                   //debugger;
+
+                    return data.form.validationEngine('validate');
+                }
+                else {
+                    alertify.error('@PlantQuar.WEB.Language.Resource_data1.SelectLiableItem_ConstrainType');
+                    return false;
+                }
+            },
+            formClosed: function (event, data) {
+                data.form.validationEngine('hide');
+                data.form.validationEngine('detach');
+                $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Delete");
+
+                //1-6-2020 rest treatment/analysis selection
+                plantOperation = 0;
+            },
+            recordAdded: function (event, data) {
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+            },
+            recordUpdated: function (event, data) {
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Update");
+            },
+            recordDeleted: function (event, data) {
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Delete");
+            },
+        });
+        $("#plantConstrainDiv_ports").jtable('load');
+        //end eman arrival ports
+
+        $('#plantLst, #ShortNameLst').change(function (e) {
+                alert(1);
+                $("#IsCertificate_Addtion_plant").attr('value', 'false');
+                $("#IsStationAccreditation_plant").attr('value', 'false');
+                $("#IsFarmAccreditation_plant").attr('value', 'false');
+                $("#IsCompanyAccreditation_plant").attr('value', 'false');
+                $('#IsCertificate_Addtion_plant').prop('checked', false);
+                $('#IsStationAccreditation_plant').prop('checked', false);
+                $('#IsFarmAccreditation_plant').prop('checked', false);
+                $('#IsCompanyAccreditation_plant').prop('checked', false);
+
+            if ($("#plantLst").val() > 0 && $("#ShortNameLst").val() > 0) {
+                alert(2);
+                    var ownerId = 0;
+                    if ($('#constrainType').val() == 2) {
+                        ownerId = $('#countriesLst').val();
+                    } else if ($('#constrainType').val() == 3) {
+                        ownerId = $('#unionsLst').val();
+                    }
+                   //debugger;
+
+                    $.ajax(
+                        {
+                            url: "/Export_Constrains/ExportConstrains/getConstrainsPlants",
+                            data: {
+                          
+                                ShortName_ID: $('#ShortNameLst').val(),
+                                catId: $("#plantCatLst").val(),
+                                constrainType: $('#constrainType').val(),
+                                owner: ownerId,
+                            },
+                            complete: function (res) {
+                                $('#plantConstrainDiv').jtable('load');
+                                $('#plantConstrainDiv_ports').jtable('load');
+                                $("#plantConstrainDiv_Analysis").jtable('load');
+                                $("#plantConstrainDiv_treatment").jtable('load');
+                            },
+                            success: function (res) {
+                               //debugger;
+                                console.log(res)
+                                if (res != null) {
+
+                                    //$("#IsCertificate_Addtion_plant").val(res[0].IsCertificate_Addtion_plant);
+                                    $("#IsStationAccreditation_plant").val(res.IsStationAccreditation_plant);
+                                    $("#IsFarmAccreditation_plant").val(res.IsFarmAccreditation_plant);
+                                    $("#IsCompanyAccreditation_plant").val(res.IsCompanyAccreditation_plant);
+                                    //$('.dissablcheck').each(function () {
+                                    //    $(this).prop('disable', true);
+                                    //});
+
+                                    //if (res[0].IsCertificate_Addtion_plant == true) {
+                                    //    $('#IsCertificate_Addtion_plant').prop('checked', true);
+                                    //}
+                                    if (res.IsStationAccreditation_plant == true) {
+                                        $('#IsStationAccreditation_plant').prop('checked', true);
+                                    }
+                                    if (res.IsFarmAccreditation_plant == true) {
+                                        $('#IsFarmAccreditation_plant').prop('checked', true);
+                                    }
+                                    if (res.IsCompanyAccreditation_plant == true) {
+                                        $('#IsCompanyAccreditation_plant').prop('checked', true);
+                                    }
+
+                                    //arrivaleman
+                                    //var values = res[0].ArrivalPortList_plant;
+                                    //console.log(values)
+                                    //$.each(values, function (i, e) {
+                                    //    $("#ArrivalPortList_plant option[value='" + e + "']").prop("selected", true);
+
+                                    //});
+                                    //var options_selected = res[0].ArrivalPortList_plant;
+                                    //console.log(options_selected)
+                                    //var optionValues = [];
+                                    //$('#ArrivalPortList_plant option:not(:selected)').each(function () {
+                                    //    if ($.inArray(this.value, optionValues) > -1) {
+
+                                    //        $(this).remove()
+
+                                    //    }
+                                    //    else {
+                                    //        optionValues.push(this.value);
+                                    //    }
+                                    //    var found = jQuery.inArray(this.value, options_selected);
+                                    //    if (found != -1) {
+                                    //        $(this).remove()
+                                    //    }
+                                    //});
+
+                                    //$("#ArrivalPortList_plant").trigger('chosen:updated');
+
+                                }
+
+                                //
+                                //$('#plantConstrainDiv').jtable('load');
+                                //$('#plantConstrainDiv_ports').jtable('load');
+                                //$("#plantConstrainDiv_Analysis").jtable('load');
+                                //$("#plantConstrainDiv_treatment").jtable('load');
+                            } //success
+                        });//ajax
+                }
+            });
+
+        $(".jtable-toolbar-item-add-record .jtable-toolbar-item-text").text("@PlantQuar.WEB.Language.Resource_data1.AddConstrainData");
+    });
+
+
+
+</script>

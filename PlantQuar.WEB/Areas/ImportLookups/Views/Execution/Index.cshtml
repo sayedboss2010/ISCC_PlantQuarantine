@@ -1,0 +1,174 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@section Title{
+    <h2 class="ls-top-header"> لجنه إعدام  </h2>
+
+}
+<br />
+<style>
+    #submitValue {
+        top: 50px;
+        position: relative;
+    } 
+</style>
+@section Path{
+    <li>لجنه إعدام </li>
+
+}
+
+   
+    <div class="row">
+        <label class="col-md-3">رقم الإذن:</label> 
+        <input type="text" class="form-inline col-md-2" style="height: 32px;margin-right:-101px;" name="PermissionNumber" />
+    </div>
+    <br />
+    <div class="row">
+        <label class="col-md-3">مكان الإعدام :</label>
+        <input type="text" class="form-inline col-md-2" style="height: 32px;margin-right:-101px;width:320px;" name="ExecutionPlace" />
+
+    </div>
+    <br />
+    <div class="row">
+        <label class="col-md-3">طريقة الإعدام:</label>
+        <input type="text" class="form-inline col-md-2" style="height: 32px;margin-right:-101px;width:320px;" name="ExecutionWay" />
+
+    </div>
+<br />
+<div class="row">
+    <label class="col-md-3">محضر الإعدام:</label>
+    <input type="file" class="form-inline col-md-2" name="uploadFile" />
+</div>
+    <br />
+    <div class="row">
+        <input type="radio" id="amount" class="form-inline " name="options" value="amount" style="margin-right: 19px;"> كمية
+        <input type="radio" id="lot" class="form-inline " name="options" value="lot" style="margin-right: 236px;"> لوطات
+    </div>
+
+@section scripts{
+    <script>
+        $(function () {
+            $('#amount').click(function () {
+                $('#textBox').show();
+                $('#multiblechoicecontent').hide();
+            });
+            $('#lot').click(function () {
+                $('#multiblechoicecontent').show();
+                $('#textBox').hide();
+            });
+            $('#multiblechoicecontent').jtable({
+                title: 'اللوطات',
+                paging: true,
+                pageSize: 10,
+                sorting: true,
+                //defaultSorting: 'CourseName ASC',
+                columnResizable: true,
+                columnSelectable: true,
+                saveUserPreferences: true,
+                actions: {
+                    listAction: function (data, jprams) {
+                        return {
+                            "Result": "OK",
+                            "Records": [
+                                { "Lot_Num": ' 123 ', "Product_": 'صنف1', "Execution_Done": 'true' },
+                                { "Lot_Num": '948', "Product_": 'صنف2', "Execution_Done": 'false' },
+                             { "Lot_Num": ' 205 ', "Product_": 'صنف3', "Execution_Done": 'true' }],
+                            "TotalRecordCount": '3'
+                        };
+                    },
+                    createAction: 'CreateLots',
+                    updateAction: 'UpdateLots',
+                    deleteAction: 'DeleteLots'
+                },
+                fields: {
+                    ID: {
+                        key: true,
+                        create: false,
+                        edit: false,
+                        list: false
+                    },
+                    Lot_Num: {
+                        title: 'رقم اللوط',
+                        inputClass: 'validate[required]'
+                    },
+                    Product_: {
+                        title: 'الصنف',
+                        inputClass: 'validate[required]'
+                    },
+                    Execution_Done: {
+                        title: 'تم الإعدام',
+                        inputClass: 'validate[required]',
+                        type: 'checkbox',
+                        values: { 'false': 'لم يتم', 'true': 'تم' },
+                        defaultValue: 'true',
+                    },
+                },
+                formCreated: function (event, data) {
+
+                    if (data.formType == "create") {
+                        $(".ui-dialog-title").text("@PlantQuar.Web.Language.Resource_data1.Add");
+                    }
+                    else {
+                        $(".ui-dialog-title").text("@PlantQuar.Web.Language.Resource_data1.Edit");
+                    }
+
+
+                    $("#Edit-Lot_Num, #Edit-Product_").attr('autocomplete', 'off');
+                    // $("#Edit-License_Num, #Edit-Country_,#Edit-Release_Date").css('margin-right', '45px');
+                    // $("#Edit-Release_Date").datepicker();
+
+                },
+                formSubmitting: function (event, data) {
+                    return data.form.validationEngine('validate');
+                },
+                formClosed: function (event, data) {
+                    data.form.validationEngine('hide');
+                    data.form.validationEngine('detach');
+                    $(".ui-dialog-title").text("@PlantQuar.Web.Language.Resource_data1.Delete");
+                },
+               recordAdded: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Insert");
+                },
+                recordUpdated: function (event, data) {
+                                        //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Update");
+               },
+                recordDeleted: function (event, data) {
+                                        //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Delete");
+                },
+            });
+            $('#multiblechoicecontent').jtable('load');
+
+
+            $('#LoadRecordsButton').click(function (e) {
+
+                e.preventDefault();
+                $('#multiblechoicecontent').jtable('load', {
+
+                    // txt_AR_BTNSearch: $('#txt_AR_BTNSearch').val(),
+                    // txt_EN_BTNSearch: $('#txt_EN_BTNSearch').val()
+                });
+            });
+        });
+    </script>
+
+}
+
+<br />
+<div id="textBox" style="margin-top:10px;" hidden>
+  
+    <div class="row">
+     
+        <label class="col-md-3">الكمية:</label>
+        <input type="text" class="form-inline col-md-2" style="height: 32px;margin-right:-101px;" name="Amount" />
+
+    </div>
+</div>
+<div id="multiblechoicecontent"  hidden>
+
+</div>
+<input type="button" class="btn btn-primary float-right" id="submitValue" value="حــفـــظ">

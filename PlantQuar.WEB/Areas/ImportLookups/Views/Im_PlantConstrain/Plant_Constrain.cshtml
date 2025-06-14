@@ -1,0 +1,637 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-3">
+            <label class="control-label">النبات</label>
+            @Html.DropDownList("plantLst", new SelectList(ViewBag.PlantLst, "Value", "DisplayText"), new { @class = "form-control", id = "plantLst" })
+        </div>
+        <div class="col-md-3">
+            <label class="control-label">اجزاء النبات</label>
+            @Html.DropDownList("plantPartLst", new SelectList(ViewBag.PlantPartLst, "Value", "DisplayText"), new { @class = "form-control", id = "plantPartLst" })
+        </div>
+        <div class="col-md-3">
+            <label class="control-label">الحالة</label>
+            @Html.DropDownList("plantStatusLst", new SelectList(ViewBag.StatusLst, "Value", "DisplayText"), new { @class = "form-control", id = "plantStatusLst" })
+        </div>
+        <div class="col-md-3">
+            <label class="control-label">الغرض</label>
+            @Html.DropDownList("plantPurposeLst", new SelectList(ViewBag.PurposeLst, "Value", "DisplayText"), new { @class = "form-control", id = "plantPurposeLst" })
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-3">
+            <label class="control-label">الصنف الزراعى</label>
+            @Html.DropDownList("plantCatLst", new SelectList(ViewBag.PlantCategoryLst, "Value", "DisplayText"), new { @class = "form-control", @id = "plantCatLst" })
+        </div>
+        <div class="col-md-3">
+            <label class="control-label">المسمي المختصر</label>
+            <input class="form-control" id="plantShortName" readonly type="text">
+        </div>
+        <div class="col-md-3">
+            <label class="control-label">البند الجمركي</label>
+            <input class="form-control" id="plantHScode" readonly type="text">
+        </div>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div id="plantConstrainDiv" class="col-md-12"></div>
+</div>
+@*/**********************************/*@
+<style>
+    .jtable-radiobuttonlist-input {
+        margin-right: 20px !important;
+        padding: 3px;
+    }
+
+    .jtable-radio-input {
+        width: 20%;
+        float: right;
+        padding: 3px;
+    }
+
+    #jtable-create-form, #jtable-edit-form {
+        overflow: hidden !important;
+        height: 600px;
+        width: 550px;
+    }
+
+    .jtable-input-field-container:nth-of-type(1),
+    .jtable-input-field-container:nth-of-type(2),
+    .jtable-input-field-container:nth-of-type(3),
+    .jtable-input-field-container:nth-of-type(4) {
+        margin-bottom: 2px;
+        float: right;
+        width: 50% !important;
+    }
+
+
+    .jtable-input-field-container:nth-of-type(5) {
+        margin-bottom: 2px;
+        float: right;
+        width: 98% !important;
+    }
+
+    .jtable-input-field-container:nth-of-type(6),
+    .jtable-input-field-container:nth-of-type(10) {
+        margin-bottom: 2px;
+        float: right;
+        width: 98% !important;
+    }
+
+    .jtable-input-field-container:nth-of-type(1) .jtable-textarea-input textarea,
+    .jtable-input-field-container:nth-of-type(2) .jtable-textarea-input textarea,
+    .jtable-input-field-container:nth-of-type(3) .jtable-textarea-input textarea,
+    .jtable-input-field-container:nth-of-type(4) .jtable-textarea-input textarea {
+        width: 98% !important;
+        min-height: 80px !important;
+    }
+</style>
+@*/**********************************/*@
+<script>
+    $('#plantLst').on('change', function () {
+        var plantId = $('#plantLst').val();
+        $.ajax(
+            {
+                url: "/Export_Constrains/ExportConstrains/PlantPartsList",
+                data: {
+                    plantId: plantId,
+                },
+                success: function (data) {
+                    $('#plantPartLst').empty();
+                    $.each(data.Options, function (i, index) {
+                        $('#plantPartLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                    }); //each
+                } //success
+            });//ajax
+        //*********************//
+        $.ajax(
+            {
+                url: "/Export_Constrains/ExportConstrains/PlantCategoryList",
+                data: {
+                    plantId: plantId,
+                },
+                success: function (data) {
+                    $('#plantCatLst').empty();
+                    $.each(data.Options, function (i, index) {
+                        $('#plantCatLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                    }); //each
+                } //success
+            });//ajax
+        //*******************//
+        getShortName();
+    });
+
+    $("#plantPartLst,  #plantStatusLst  ,#plantPurposeLst").on('change', function () {
+        getShortName();
+    });
+
+    function getShortName() {
+        if ($("#plantLst").val() > 0 && $("#plantPurposeLst").val() > 0
+            && $("#plantStatusLst").val() > 0 && $("#plantPartLst").val() > 0) {
+            $.ajax(
+                {
+                    url: '/Export_Constrains/ExportConstrains/GetPlantShortName',
+                    data:
+                    {
+                        plantId: $("#plantLst").val(),
+                        purposeId: $("#plantPurposeLst").val(),
+                        statusId: $("#plantStatusLst").val(),
+                        partType: $("#plantPartLst").val(),
+                        catId: $("#plantCatLst").val(),
+                    },
+                    success: function (res) {
+                        $("#plantShortName").val(res.shortName);
+                        $("#plantHScode").val(res.hsCode);
+                    }
+                });//ajax
+        }
+    }
+
+    //*********** JTable ******************//
+    var operation = 0
+    $(function () {
+        $("#plantConstrainDiv").jtable({
+            title: 'الإشتراطات',
+            paging: true,
+            pageSize: 10,
+            sorting: true,
+            columnResizable: true,
+            columnSelectable: true,
+            saveUserPreferences: true,
+
+            actions: {
+                listAction: '/ImportLookups/Im_PlantConstrain/ListPlantsRows',
+                createAction: '/ImportLookups/Im_PlantConstrain/CreatePlantsRows',
+                updateAction: '/ImportLookups/Im_PlantConstrain/UpdatePlantsRows',
+                deleteAction: '/ImportLookups/Im_PlantConstrain/DeletePlantsRows',
+            },
+            fields: {
+                index: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                ConstrainText_Ar: {
+                    title: 'الإشتراط بالعربية ',
+                    type: 'textarea',
+                    inputClass: 'validate[required]'
+                },
+                ConstrainText_En: {
+                    title: 'الإشتراط بالانجليزية ',
+                    type: 'textarea',
+                    inputClass: 'validate[required]'
+                },
+                InSide_Certificate_Ar: {
+                    title: 'متضمن في الشهادة الزراعية بالعربي',
+                     type: 'textarea',
+                    list: false,
+                },
+                InSide_Certificate_En: {
+                    title: 'متضمن في الشهادة الزراعية بالإنجليزي',
+                     type: 'textarea',
+                     list: false
+                },
+                IsAnalysis_IsTreatment: {
+                    title: 'تحاليل/معالجة',
+                    type: 'radiobutton',
+                    options: [
+                        { Value: '0', DisplayText: 'None' },
+                        { Value: '1', DisplayText: '@PlantQuar.Web.Language.Resource_data1.Analysis' },
+                        { Value: '2', DisplayText: '@PlantQuar.Web.Language.Resource_data1.Treatment' }
+                    ],
+                    defaultValue: 0,
+                },
+                Analysis_List: {
+                    title: '@PlantQuar.Web.Language.Resource_data1.Analysis',
+                    input: function (data) {
+                        return '<div id="analysisDiv" class="jtable-input-field-container" style="background-color:#dcefec;width:100% !important">'
+                            + '<div class="row" style="margin-right:15px;">'
+                            + '<div style="width:50%;float:right;"><label class="jtable-input-label" >التحليل</label>'
+                            + '<div class="jtable-input jtable-dropdown-input"><select id="drpAnalysisType"></select></div></div>'
+
+                            + '<div style="width:50%;float:left;"><label class="jtable-input-label">معمل التحاليل</label>'
+                            + '<div class="jtable-input jtable-dropdown-input"><select id="drpAnalysisLab"></select></div></div>'
+                            + '</div>'
+
+                            + '<div class="row" style="margin:15px;" hidden><input type="checkbox" id="chkAnalysisInCertificate"/>'
+                            + '<label class="jtable-input-label">متضمن في الشهادة الزراعية</label></div>'
+                            + '</div>';
+                    },
+                    list: false,
+                },
+                AnalysisLabTypeID: {
+                    type: 'text',
+                    list: false
+                },
+                AnalysisType_ID: {
+                    type: 'text',
+                    list: false
+                },
+                AnalysisLab_ID: {
+                    type: 'text',
+                    list: false
+                },
+                Treatment_List: {
+                    title: '@PlantQuar.Web.Language.Resource_data1.Treatment',
+                    input: function (data) {
+                        return '<div id="traetmentDiv" class="jtable-input-field-container" style="background-color:#dcefec; width:100% !important">'
+                            + '<div class="row" style="margin:15px;">'
+                            + '<div style="width:50%;float:right;"><label class="jtable-input-label" >نوع المعالجة الرئيسي</label>'
+                            + '<div class="jtable-input jtable-dropdown-input"><select id="drpMainTreatment"></select></div></div>'
+                            + '<div style="width:50%;float:left;"><label class="jtable-input-label">نوع المعالجة</label>'
+                            + '<div class="jtable-input jtable-dropdown-input"><select id="drpTreatmentType"></select></div></div>'
+                            + '</div>'
+
+                            + '<div class="row" style="margin:15px;">'
+                            + '<div style="width:50%;float:right;"><label class="jtable-input-label">طريقة المعالجة</label>'
+                            + '<div class="jtable-input jtable-dropdown-input"><select id="drpTreatmentMethod"></select></div></div>'
+                            + '<div style="width:50%;float:left;"><label class="jtable-input-label">مادة المعالجة</label>'
+                            + '<div class="jtable-input jtable-dropdown-input"><select id="drpTreatmentMaterial"></select></div></div>'
+                            + '</div>'
+
+                            + '<div class="row" style="margin:15px;">'
+                            + '<div style="width:25%"><label class="jtable-input-label">الجرعة</label>'
+                            + '<div class="jtable-input jtable-text-input"><input id="txtDose" value="0" type="number" style="width: 60px !important;"/></div></div>'
+                            + '<div style="width:25%"><label class="jtable-input-label">عدد الأيام</label>'
+                            + '<div class="jtable-input jtable-text-input"><input id="txtDaysNum" type="number" value="0" style="width: 60px !important;"/></div></div>'
+                            + '<div style="width:25%"><label class="jtable-input-label">عدد الساعات</label>'
+                            + '<div class="jtable-input jtable-text-input"><input id="txtHoursNum" type="number" value="0" style="width: 60px !important;"/></div></div>'
+                            + '<div style="width:25%"><label class="jtable-input-label">عدد الدقائق</label>'
+                            + '<div class="jtable-input jtable-text-input"><input id="txtMinutesNum" type="number" value="0" style="width: 60px !important;"/></div></div>'
+                            + '</div>'
+
+                            + '<div class="row" style="margin:15px;" hidden><input type="checkbox" id="chkTreatmentInCertificate" />'
+                            + '<label class="jtable-input-label">متضمن في الشهادة الزراعية</label></div>'
+                            + '</div>';
+                    },
+                    list: false,
+                },
+                TreatmentMainType_ID: {
+                    type: 'text',
+                    list: false
+                },
+                TreatmentType_ID: {
+                    type: 'text',
+                    list: false
+                },
+                TreatmentMaterial_ID: {
+                    type: 'text',
+                    list: false
+                },
+                TreatmentMethod: {
+                    type: 'text',
+                    list: false
+                },
+                TheDose: {
+                    type: 'text',
+                    list: false
+                },
+                Exposure_Day: {
+                    type: 'text',
+                    list: false
+                },
+                Exposure_Minute: {
+                    type: 'text',
+                    list: false
+                },
+                Exposure_Hour: {
+                    type: 'text',
+                    list: false
+                },
+                Id: {
+                    type: 'text',
+                    list: false
+                },
+                countryConstrain_Id: {
+                    type: 'text',
+                    list: false
+                }
+            },
+            formCreated: function (event, data) {
+                $('.jtable-input-field-container:nth-of-type(6)').hide();
+                $('.jtable-input-field-container:nth-of-type(10)').hide();
+
+                $('.jtable-input-field-container:nth-of-type(7)').hide();
+                $('.jtable-input-field-container:nth-of-type(8)').hide();
+                $('.jtable-input-field-container:nth-of-type(9)').hide();
+                $('.jtable-input-field-container:nth-of-type(11)').hide();
+                $('.jtable-input-field-container:nth-of-type(12)').hide();
+                $('.jtable-input-field-container:nth-of-type(13)').hide();
+                $('.jtable-input-field-container:nth-of-type(14)').hide();
+                $('.jtable-input-field-container:nth-of-type(15)').hide();
+                $('.jtable-input-field-container:nth-of-type(16)').hide();
+                $('.jtable-input-field-container:nth-of-type(17)').hide();
+                $('.jtable-input-field-container:nth-of-type(18)').hide();
+                $('.jtable-input-field-container:nth-of-type(19)').hide();
+                $('.jtable-input-field-container:nth-of-type(20)').hide();
+                //*********************Jtable
+                if (data.formType == "create") {
+                    $(".ui-dialog-title").text("إضافة بيانات الأشتراطات");
+                }
+                else {
+                    $(".ui-dialog-title").text("تعديل بيانات الأشتراطات");
+
+                    if ($('#Edit-AnalysisLabTypeID').val() > 0) {
+                        $('.jtable-input-field-container:nth-of-type(6)').show();
+                        $('.jtable-input-field-container:nth-of-type(10)').hide();
+
+                        operation = 1;
+                    }
+                    else if ($('#Edit-TreatmentType_ID').val() > 0) {
+                        $('.jtable-input-field-container:nth-of-type(6)').hide();
+                        $('.jtable-input-field-container:nth-of-type(10)').show();
+
+                        operation = 2;
+                    }
+                    else {
+                        $('.jtable-input-field-container:nth-of-type(6)').hide();
+                        $('.jtable-input-field-container:nth-of-type(10)').hide();
+
+                        operation = 0;
+                    }
+                }
+
+                $('#Edit-IsAnalysis_IsTreatment-0').on('change', function () {
+                    $('.jtable-input-field-container:nth-of-type(6)').hide();
+                    $('.jtable-input-field-container:nth-of-type(10)').hide();
+
+                    operation = 0;
+                });
+
+                $('#Edit-IsAnalysis_IsTreatment-1').on('change', function () {
+                    $('.jtable-input-field-container:nth-of-type(6)').show();
+                    $('.jtable-input-field-container:nth-of-type(10)').hide();
+
+                    operation = 1;
+                });
+
+                $('#Edit-IsAnalysis_IsTreatment-2').on('change', function () {
+                    $('.jtable-input-field-container:nth-of-type(6)').hide();
+                    $('.jtable-input-field-container:nth-of-type(10)').show();
+
+                   operation = 2;
+                });
+             //***********************
+                 $.ajax(
+                    {
+                        url: '/Export_Constrains/ExportConstrains/GetAnalysisTypes',
+                        data:
+                        {
+                            type : 0
+                        },
+                        success: function (res) {
+                            $('#drpAnalysisType').empty();
+                            $.each(res, function (i, index) {
+                                $('#drpAnalysisType').append($('<option />').val(index.Value).text(index.DisplayText));
+                            }); //each
+
+                            if (operation == 1) {
+                                $('#drpAnalysisType').val($('#Edit-AnalysisType_ID').val());
+                                $("#drpAnalysisType").trigger("change");
+                            }
+                        }
+                      });//ajax
+
+                  $.ajax(
+                    {
+                        url: '/Export_Constrains/ExportConstrains/GetTraetmentMainType',
+                        data:
+                        {
+                            type : 0
+                        },
+                        success: function (data) {
+                            $('#drpMainTreatment').empty();
+                            $.each(data, function (i, index) {
+                                $('#drpMainTreatment').append($('<option />').val(index.Value).text(index.DisplayText));
+                            }); //each
+
+                            //alert($('#Edit-TreatmentMainType_ID').val());
+
+                            if (operation == 2) {
+                                $('#drpMainTreatment').val($('#Edit-TreatmentMainType_ID').val());
+                                $("#drpMainTreatment").trigger("change");
+                            }
+                        }
+                    });//ajax
+                  //*********************Analysis
+                $('#drpAnalysisType').on("change", function () {
+                    $.ajax(
+                        {
+                            url: '/Export_Constrains/ExportConstrains/GetAnalysisLab',
+                            data:
+                            {
+                                analysisType: $('#drpAnalysisType').val(),
+                            },
+                            success: function (res) {
+                                $('#drpAnalysisLab').empty();
+                                $.each(res, function (i, index) {
+                                    $('#drpAnalysisLab').append($('<option />').val(index.Value).text(index.DisplayText));
+                                }); //each
+
+                                if (operation == 1) {
+                                    $('#drpAnalysisLab').val($('#Edit-AnalysisLabTypeID').val());
+                                }
+                            }
+                        });//ajax
+                });
+                //*********************Treatment
+                $('#drpMainTreatment').on("change", function () {
+                    $.ajax(
+                        {
+                            url: '/Export_Constrains/ExportConstrains/GetTraetmentType',
+                            data:
+                            {
+                                mainType: $('#drpMainTreatment').val(),
+                            },
+                            success: function (data) {
+                                $('#drpTreatmentType').empty();
+                                $.each(data, function (i, index) {
+                                    $('#drpTreatmentType').append($('<option />').val(index.Value).text(index.DisplayText));
+                                }); //each
+
+                                if (operation == 2) {
+                                    $('#drpTreatmentType').val($('#Edit-TreatmentType_ID').val());
+                                    $('#drpTreatmentType').trigger("change");
+                                }
+                            }
+                        });//ajax
+                });
+                $('#drpTreatmentType').on("change", function () {
+                    $.ajax(
+                        {
+                            url: '/Export_Constrains/ExportConstrains/GetTraetmentMethod',
+                            data:
+                            {
+                                treatmentType: $('#drpTreatmentType').val(),
+                            },
+                            success: function (data) {
+                                $('#drpTreatmentMethod').empty();
+                                $.each(data, function (i, index) {
+                                    $('#drpTreatmentMethod').append($('<option />').val(index.Value).text(index.DisplayText));
+                                }); //each
+
+                                if (operation == 2) {
+                                    $('#drpTreatmentMethod').val($('#Edit-TreatmentMethod').val());
+                                }
+                            }
+                        });//ajax
+
+                    $.ajax(
+                        {
+                            url: '/Export_Constrains/ExportConstrains/GetTraetmentMaterial',
+                            data:
+                            {
+                                treatmentType: $('#drpTreatmentType').val(),
+                            },
+                            success: function (data) {
+                                $('#drpTreatmentMaterial').empty();
+                                $.each(data, function (i, index) {
+                                    $('#drpTreatmentMaterial').append($('<option />').val(index.Value).text(index.DisplayText));
+                                }); //each
+
+                                if (operation == 2) {
+                                    $('#drpTreatmentMaterial').val($('#Edit-TreatmentMaterial_ID').val());
+                                }
+                            }
+                        });//ajax
+
+                    //** txtDose ** txtDaysNum ** txtHoursNum ** txtMinutesNum ** chkTreatmentInCertificate
+                });
+                //**********************
+            },
+            formSubmitting: function (event, data) {
+                if ($("#plantLst").val() > 0 && $("#plantPurposeLst").val() > 0
+                    && $("#plantStatusLst").val() > 0 && $("#plantPartLst").val() > 0 && $("#constrainType").val() > 0) {
+
+                    if ($("#constrainType").val() == 2) {
+                        if ($("#countriesLst").val() > 0) {
+                        }
+                        else {
+                            alertify.error('يجب اختيار الدولة');
+                            return false;
+                        }
+                    }
+                    else if ($("#constrainType").val() == 3) {
+                        if ($("#unionsLst").val() > 0) {
+                        }
+                        else {
+                            alertify.error('يجب اختيار الاتحاد');
+                            return false;
+                        }
+                    }
+
+                    if (operation == 1) {
+                        if ($('#drpAnalysisType').val() > 0 && $('#drpAnalysisLab').val() > 0) {
+                            $("#Edit-AnalysisLabTypeID").val($('#drpAnalysisLab').val());
+
+                            $("#Edit-TreatmentMainType_ID").val('');
+                            $("#Edit-TreatmentType_ID").val('');
+                            $("#Edit-TreatmentMaterial_ID").val('');
+                            $("#Edit-TreatmentMethod").val('');
+                            $("#Edit-TheDose").val('');
+                            $("#Edit-Exposure_Day").val('');
+                            $("#Edit-Exposure_Minute").val('');
+                            $("#Edit-Exposure_Hour").val('');
+                        }
+                        else {
+                            alertify.error('يجب اختيار نوع التحليل والمعمل');
+                            return false;
+                        }
+                    }
+                    else if (operation == 2) {
+                        if ($('#drpMainTreatment').val() > 0 && $('#drpTreatmentType').val() > 0
+                            && $('#drpTreatmentMethod').val() > 0 && $('#drpTreatmentMaterial').val() > 0
+                            && $('#txtDose').val() >= 0 && $('#txtDaysNum').val() >= 0
+                            && $('#txtHoursNum').val() >= 0 && $('#txtMinutesNum').val() >= 0) {
+
+                            $("#Edit-AnalysisLabTypeID").val('');
+
+                            $("#Edit-TreatmentMainType_ID").val($('#drpMainTreatment').val());
+                            $("#Edit-TreatmentType_ID").val($('#drpTreatmentType').val());
+                            $("#Edit-TreatmentMaterial_ID").val($('#drpTreatmentMaterial').val());
+                            $("#Edit-TreatmentMethod").val($('#drpTreatmentMethod').val());
+                            $("#Edit-TheDose").val($('#txtDose').val());
+                            $("#Edit-Exposure_Day").val($('#txtDaysNum').val());
+                            $("#Edit-Exposure_Minute").val($('#txtMinutesNum').val());
+                            $("#Edit-Exposure_Hour").val($('#txtHoursNum').val());
+                        }
+                        else {
+                            alertify.error('يجب إدخال بيانات المعالجة كاملة');
+                            return false;
+                        }
+                    }
+                    else {
+                        $("#Edit-AnalysisLabTypeID").val('');
+
+                        $("#Edit-TreatmentMainType_ID").val('');
+                        $("#Edit-TreatmentType_ID").val('');
+                        $("#Edit-TreatmentMaterial_ID").val('');
+                        $("#Edit-TreatmentMethod").val('');
+                        $("#Edit-TheDose").val('');
+                        $("#Edit-Exposure_Day").val('');
+                        $("#Edit-Exposure_Minute").val('');
+                        $("#Edit-Exposure_Hour").val('');
+
+                    }
+                    return data.form.validationEngine('validate');
+                }
+                else {
+                    alertify.error('يجب اختيار نوع الإشتراط و النبات ومواصفاته قبل إضافة الإشتراطات');
+                    return false;
+                }
+            },
+            formClosed: function (event, data) {
+                data.form.validationEngine('hide');
+                data.form.validationEngine('detach');
+                $(".ui-dialog-title").text("@PlantQuar.Web.Language.Resource_data1.Delete");
+            },
+            recordAdded: function (event, data) {
+                alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Insert");
+            },
+            recordUpdated: function (event, data) {
+                alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Update");
+            },
+            recordDeleted: function (event, data) {
+                alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Delete");
+            },
+        });
+        $("#plantConstrainDiv").jtable('load');
+
+        $('#plantLst, #plantPartLst,  #plantStatusLst  ,#plantPurposeLst, #plantCatLst,#constrainType').
+            change(function (e) {
+                if ($("#plantLst").val() > 0 && $("#plantPurposeLst").val() > 0
+                    && $("#plantStatusLst").val() > 0 && $("#plantPartLst").val() > 0
+                    && $('#constrainType').val() > 0) {
+
+                    var ownerId = 0;
+                    if ($('#constrainType').val() == 2) {
+                        ownerId = $('#countriesLst').val();
+                    } else if ($('#constrainType').val() == 3) {
+                        ownerId = $('#unionsLst').val();
+                    }
+                    $.ajax(
+                        {
+                            url: "getConstrainsPlants",
+                            data: {
+                                plantId: $('#plantLst').val(),
+                                purposeId: $("#plantPurposeLst").val(),
+                                statusId: $("#plantStatusLst").val(),
+                                partType: $("#plantPartLst").val(),
+                                catId: $("#plantCatLst").val(),
+                                constrainType: $('#constrainType').val(),
+                                owner: ownerId,
+                            },
+                            success: function (res) {
+                                debugger;
+                                $('#plantConstrainDiv').jtable('load');
+                            } //success
+                        });//ajax
+                }
+            });
+
+        $(".jtable-toolbar-item-add-record .jtable-toolbar-item-text").text("إضافة بيانات الآشتراط");
+    });
+</script>

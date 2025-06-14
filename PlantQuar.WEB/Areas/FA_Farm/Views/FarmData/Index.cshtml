@@ -1,0 +1,153 @@
+﻿
+@model List<PlantQuar.DTO.DTO.Farm.FarmData.FarmsDataDTO>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.FarmData</h2>
+}
+
+@section Path{
+    <li>@PlantQuar.WEB.Language.Resource_data1.Farm </li>
+    <li class="active">@PlantQuar.WEB.Language.Resource_data1.FarmData</li>
+}
+
+@section filter{
+    <div class="row">
+        <label class="col-lg-2 col-md-12 col-sm-12">@PlantQuar.WEB.Language.Resource_data1.FarmCode</label>
+        <input type="text" class="form-inline col-lg-3  col-md-12 col-sm-12" autocomplete="off" name="FarmCode_14" id="FarmCode_14" />
+        <input type="button" class="col-lg-1 col-md-2 btn btn-primary" id="LoadRecordsButton" value="@PlantQuar.WEB.Language.Resource_data1.Search">
+    </div>
+}
+
+<link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/scripts/DataTables/jquery.dataTables.min.js"></script>
+<link href="~/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
+
+<style>
+    th {
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    td {
+        font-size: 12px;
+        text-align: center;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-10"></div>
+        <div class="col-md-2">
+            @Html.ActionLink(PlantQuar.WEB.Language.Resource_data1.Add, "FarmAddEdit", "FarmData", new { area = "FA_Farm" }, new { @class = "btn btn-primary", @style = "width:100%" })
+        </div>
+    </div>
+</div>
+<form style="padding: 10px; background-color: whitesmoke">
+    <div id="FarmsList" class="row">
+        <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap">
+            <table id="farmsTable" class="table table-bordered table-striped dataTable" role="grid" style="padding:5px; width:100%">
+                <thead>
+                    <tr>
+                        <th hidden>ID</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.ArabicName</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.EnglishName</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.FarmCode</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.FarmPlant</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.placeAddress</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Details</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Edit</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        if (Model.Count > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td hidden>@item.ID</td>
+                                    <td>@item.Name_Ar</td>
+                                    <td>@item.Name_En</td>
+                                    <td>@item.FarmCode_14</td>
+                                    <td>@item.PlantName</td>
+                                    <td>@item.GoveName / @item.CenterName / @item.VillageName</td>
+                                    <td>
+                                        @Html.ActionLink(PlantQuar.WEB.Language.Resource_data1.Details, "FarmDetails", "FarmData", new { area = "FA_Farm", FarmId = item.ID }, null)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink(PlantQuar.WEB.Language.Resource_data1.Edit, "FarmAddEdit", "FarmData", new { area = "FA_Farm", FarmId = item.ID }, null)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink(PlantQuar.WEB.Language.Resource_data1.Delete, "Delete", "FarmData", new { area = "FA_Farm", FarmId = item.ID }, null)
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        $("#farmsTable").DataTable({
+            paging: false,
+            lengthChange: true,
+            pageLength: 10,
+            searching: false,
+            ordering: true
+        });
+        FillTable();
+    });
+
+    function FillTable() {
+        //alert("filltable  " + $('#FarmCode_14').val());
+        $.ajax({
+            url: '/FA_Farm/FarmData/GetFarmsList',
+            data: {
+                FarmCode_14: $('#FarmCode_14').val(),
+            },
+            success: function (farmList) {
+                $("#farmsTable tbody").empty();
+                $.each(farmList.Records, function (index, item) {
+
+                    var hrefDetails = "@Url.Action("FarmDetails", "FarmData", new { area = "FA_Farm", FarmId = "__id__" })";
+                    hrefDetails = hrefDetails.replace("__id__", item.ID);
+
+                    var hrefEdit = "@Url.Action("FarmAddEdit", "FarmData", new { area = "FA_Farm", FarmId = "__id__" })";
+                    hrefEdit = hrefEdit.replace("__id__", item.ID);
+
+                    var hrefDel = "@Url.Action("Delete", "FarmData", new {  area = "FA_Farm", FarmId = "__id__" })";
+                    hrefDel = hrefDel.replace("__id__", item.ID);
+
+                    $("#farmsTable tbody").append("<tr>" +
+                        "<td hidden>" + item.ID + "</td>" +
+                        "<td>" + item.Name_Ar + "</td>" +
+                        "<td>" + item.Name_En + "</td>" +
+                        "<td>" + item.FarmCode_14 + "</td>" +
+                        "<td>" + item.PlantName + "</td>" +
+                        "<td>" + item.GoveName + " / " + item.CenterName + " / " + item.VillageName + "</td>" +
+                        "<td><a href=" + hrefDetails + ">@PlantQuar.WEB.Language.Resource_data1.Details</a></td>" +
+                        "<td><a href=" + hrefEdit + ">@PlantQuar.WEB.Language.Resource_data1.Edit</a></td>" +
+                        "<td><a href=" + hrefDel + ">@PlantQuar.WEB.Language.Resource_data1.Delete</a></td>" +
+                        "</tr>");
+                });//each
+            }
+        });
+    }
+
+    $('#LoadRecordsButton').click(function (e) {
+        FillTable();
+    });
+</script>

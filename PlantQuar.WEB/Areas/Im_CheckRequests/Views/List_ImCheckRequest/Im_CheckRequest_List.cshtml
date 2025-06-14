@@ -1,0 +1,125 @@
+﻿@model List<PlantQuar.DTO.DTO.Import.CheckRequests.ImCheckRequestListDTO>
+@{
+    ViewBag.Title = "Ex check request List\r\n";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<script src="~/scripts/jquery.dataTables.min.js"></script>
+<link href="~/assets/css/jquery.dataTables.min.css" rel="stylesheet" />
+<asp:Label runat="server" Text="zcvzxcv"></asp:Label>
+
+<br />
+
+ @if (Model != null)
+ {
+<table id="table_List_Im_Check" class="table table-bordered table-striped dataTable">
+    <thead>
+        <tr class="label-primary">
+            <th>م</th>
+            <th>@PlantQuar.WEB.Language.Resource_data1.RequestNumber</th>
+            <th>@PlantQuar.WEB.Language.Resource_data1.ImporterType</th>
+            <th>الشركة المورده</th>
+            <th>الشركة المصدرة</th>
+            <th>تاريخ الإنشاء</th>
+            <th>@PlantQuar.WEB.Language.Resource_data1.Details</th>
+            <th>موقف اللجنه</th>
+            <th>عرض النتائج</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            //const urlSearchParams = new URLSearchParams(window.location.search);
+            //const params = Object.fromEntries(urlSearchParams.entries());
+            //var startDate = params.startDate;
+
+            //var endDate = params.endDate;
+
+            var selectApproveId = ViewBag.selectApproveId;
+            var Current_Status = "";
+            var Count = 0;
+            foreach (var item in Model)
+            {              
+                <tr>
+                    <td>@item.row_number</td>
+                    <td>@item.ImCheckRequest_Number</td>
+                    <td>@item.ImporterTypeName</td>
+                    <td>@item.ImporterName</td>
+                    <td>@item.ExportCountryName</td>
+                    <td>@item.Creation_Date.ToString("yyyy-MM-dd")</td>
+                    @switch (selectApproveId)
+                    {
+                        case 1:
+                            <td><a href='/Im_CheckRequests/Im_CheckRequestDetails/Index?ImCheckRequest_Number=@item.ImCheckRequest_Number&Outlet_ID=@item.Outlet_ID'>تفاصيل </a></td>
+                            <td>
+                                @if (item.IsAccepted == false && item.Closed_Request == null)
+                                {
+                                    <span>لم يتم الموافقة</span>
+                                }
+                                else if (item.IsAccepted == true && item.Closed_Request == null)
+                                {
+                                    <a href='/Committees/Committee_Im/Index?requestId=@item.Im_CheckRequest_ID&Outlet_ID=@item.Outlet_ID'> تشكيل لجنه <br /> تمت الموفقة</a>
+                                }
+                                else if (item.IsAccepted == null)
+                                {
+                                    <span>لم يتم اتخاذ اجراء</span>
+                                }
+                                else if (item.IsAccepted == true && item.Closed_Request == true && item.Closed_Request == null)
+                                {
+                                    <a href='/Committees/Committee_Im/Index?requestId=@item.Im_CheckRequest_ID&Outlet_ID=@item.Outlet_ID'> تشكيل لجنه <br /> تمت الموفقة</a>
+                                }
+                                else if (item.Closed_Request == true)
+                                {
+                                    <a href='/Committees/Committee_Im/Index?requestId=@item.Im_CheckRequest_ID&Outlet_ID=@item.Outlet_ID'> تشكيل لجنه <br />@item.Name_Final_Result</a>
+                                }
+                                else if (item.Closed_Request == false)
+                                {
+                                    @item.Name_Final_Result;
+                                }
+                            </td>
+                            <td><a href='/Committees/ImCommittee_Final_Result/Index?requestId=@item.Im_CheckRequest_ID&Outlet_ID=@item.Outlet_ID'> عرض النتائج</a></td>
+                            break;
+                        case 2:
+                            <td><a href='/Im_CheckRequests/Im_CheckRequestDetails/Index?ImCheckRequest_Number=@item.ImCheckRequest_Number&Outlet_ID=@item.Outlet_ID'>تفاصيل </a></td>
+                            <td><span>لم يتم الموافقة</span></td>
+                            <td><a href='/Committees/ImCommittee_Final_Result/Index?requestId=@item.Im_CheckRequest_ID&Outlet_ID=@item.Outlet_ID'> عرض النتائج</a></td>
+                            break;
+                        case 3:
+                            <td><a href='/Im_CheckRequests/Im_CheckRequestDetails/Index?ImCheckRequest_Number=@item.ImCheckRequest_Number&Outlet_ID=@item.Outlet_ID'>تفاصيل </a></td>
+                            <td>لم يتم اتخاذ اجراء</td>
+                            <td><a href='/Committees/ImCommittee_Final_Result/Index?requestId=@item.Im_CheckRequest_ID&Outlet_ID=@item.Outlet_ID'> عرض النتائج</a></td>
+                            break;
+                        case 4:
+                            <td><a href='/Im_CheckRequests/Im_CheckRequestDetails/Index?ImCheckRequest_Number=@item.ImCheckRequest_Number&Outlet_ID=@item.Outlet_ID'>تفاصيل </a></td>
+                            <td>الطلب مغلق</td>
+                            <td><a href='/Committees/ImCommittee_Final_Result/Index?requestId=@item.Im_CheckRequest_ID&Outlet_ID=@item.Outlet_ID'> عرض النتائج</a></td>
+                            break;
+                        case 5:
+                            <td><a href='/Im_CheckRequests/Im_CheckRequestDetails/Index?ImCheckRequest_Number=@item.ImCheckRequest_Number&Outlet_ID=@item.Outlet_ID'>تفاصيل </a></td>
+                            <td><a href='/Committees/Committee_Im/Index?requestId=@item.Im_CheckRequest_ID&Outlet_ID=@item.Outlet_ID'> تشكيل لجنه</a></td>
+                            <td><a href='/Committees/ImCommittee_Final_Result/Index?requestId=@item.Im_CheckRequest_ID&Outlet_ID=@item.Outlet_ID'> عرض النتائج</a></td>
+                            break;
+                        case 6:
+                            <td><a href='/Im_CheckRequests/Im_CheckRequestDetails/Index?ImCheckRequest_Number=@item.ImCheckRequest_Number&Outlet_ID=@item.Outlet_ID'>تفاصيل </a></td>
+                            <td><a href='/Committees/Committee_Im/Index?requestId=@item.Im_CheckRequest_ID&Outlet_ID=@item.Outlet_ID'> تشكيل لجنه <br />@item.Name_Final_Result</a></td>
+                            <td><a href='/Committees/ImCommittee_Final_Result/Index?requestId=@item.Im_CheckRequest_ID&Outlet_ID=@item.Outlet_ID'> عرض النتائج</a></td>
+                            break;
+                        case 7:
+                            <td><a href='/Im_CheckRequests/Im_CheckRequestDetails/Index?ImCheckRequest_Number=@item.ImCheckRequest_Number&Outlet_ID=@item.Outlet_ID'>تفاصيل </a></td>
+                            <td>@item.Name_Final_Result</td>
+                            <td><a href='/Committees/ImCommittee_Final_Result/Index?requestId=@item.Im_CheckRequest_ID&Outlet_ID=@item.Outlet_ID'> عرض النتائج</a></td>
+                            break;
+                        default:
+                            break;
+                    }
+
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+            }
+            else { <span>لا توجد بيانات</span>}
+
+<script>
+    $(document).ready(function () {
+        $('#table_List_Im_Check').DataTable();
+    });</script>

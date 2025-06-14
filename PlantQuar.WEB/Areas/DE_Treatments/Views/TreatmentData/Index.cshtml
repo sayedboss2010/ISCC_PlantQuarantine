@@ -1,0 +1,361 @@
+﻿@model PlantQuar.DTO.DTO.DataEntry.Treatments.TreatmentMethodDTO
+
+@{
+    ViewBag.Title = "Treatment Methods";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.TreatmentMethod</h2>
+}
+
+<br />
+
+<div>
+    <div class="row">
+        <div class="col-lg-6 col-md-5 ta1">
+            <label for="Name_Ar" class="control-label col-lg-6 col-md-12 col-sm-12">الاسم بالعربية</label>
+            <input type="text" class="form-control col-lg-6 col-md-12 col-sm-12" autocomplete="off" name="txt_AR_BTNSearch" id="txt_AR_BTNSearch" />
+        </div>
+        <div class="col-lg-6 col-md-5 ta1">
+            <label for="Name_Ar" class="control-label col-lg-6 col-md-12 col-sm-12">الاسم بالنجليزية</label>
+            <input type="text" class="form-control col-lg-6 col-md-12 col-sm-12" autocomplete="off" name="txt_AR_BTNSearch" id="txt_EN_BTNSearch" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-6 col-md-5 ta1">
+            <label for="" class="control-label col-lg-6 col-md-12 col-sm-12">الوصف بالانجليزية</label>
+            <input type="text" class="form-control col-lg-6 col-md-12 col-sm-12" autocomplete="off" name="txt_AR_BTNSearch" id="txt_AR_Search" />
+        </div>
+
+        <div class="col-lg-6 col-md-5 ta1">
+            <label for="Name_Ar" class="control-label col-lg-6 col-md-12 col-sm-12">الوصف بالنجليزية</label>
+            <input type="text" class="form-control col-lg-6 col-md-12 col-sm-12" autocomplete="off" name="txt_AR_BTNSearch" id="txt_EN_Search" />
+        </div>
+
+    </div>
+
+    <br />
+    <div class="row">
+        <div class="col-md-6">
+            <label for="AnalysisType_ID" class="control-label col-lg-6 col-md-12 col-sm-12">معالجة اساسية</label>
+            @*@Html.DropDownListFor(m => m.TreatmentMain_Id, new SelectList(ViewBag.TreatmentMain, "Value", "DisplayText"), new { @class = "form-control", @id = "TreatmentMain_List" })*@
+            @Html.DropDownList("CustomerDropDown1", new SelectList(ViewBag.TreatmentMain, "Value", "DisplayText"), new { @class = "form-control col-lg-6 col-md-12 col-sm-12", @onchange = "gg(this)" })
+        </div>
+
+        <div class="col-md-6">
+            <label for="AnalysisType_ID" class="control-label col-lg-6 col-md-12 col-sm-12">نوع المعالجة</label>
+            @Html.DropDownList("CustomerDropDown", new SelectList(ViewBag.TreatmentType, "Value", "DisplayText"), new { @class = "form-control col-lg-6 col-md-12 col-sm-12" })
+        </div>
+
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-6">
+            <label for="AnalysisType_ID" class="control-label col-lg-6 col-md-12 col-sm-12">مادة المعالجة</label>
+            <div id="someId"></div>
+        </div>
+    </div>
+    @* @Html.DropDownList("hhhh", new SelectList(@ViewBag.TreatmentType, "Value", "DisplayText"), new { @class = "form-control" })*@
+
+    @* @Html.DropDownList("accountid", new SelectList(ViewBag.Accounts, "AccountID", "AccountName"))*@
+
+
+
+
+
+
+
+
+
+
+
+
+    @*<div class="col-md-12">
+
+            <div class="col-md-6">
+                <input type="checkbox" />
+                <label for="AnalysisType_ID" class="control-label">تبخير1</label>
+            </div>
+
+            <div class="col-md-6">
+                <input type="checkbox" />
+                <label for="AnalysisType_ID" class="control-label">تبخير2</label>
+            </div>
+
+
+
+
+        </div>*@
+
+
+
+</div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+
+
+
+         $.ajax({
+                        url: '@Url.Action("getTreatmentMethodTypes", "TreatmentData")',
+                        type: "POST",
+
+                  success: function (result) {
+
+
+
+                            for (var i = 1; i < result.length; i++) {
+                                var item = result[i];
+
+                                $('<input />', {
+                                    type: 'checkbox',
+                                    id: 'id' + i,
+                                    name: item.name,
+                                    value: item.Value
+                                })
+                                    .appendTo("#someId");
+
+                                var label = "<label for=" + item.DisplayText + ">" + item.DisplayText + "</label>";
+                                $("#someId").append(label);
+
+                            }
+
+
+
+                    },
+                        error: function (xhr, status, error) {
+
+                    }
+            });
+        if ('@Model.TreatmentType_ID'=='' ) {
+
+            document.getElementById("insertNewData").value = 'Submit';
+
+        }
+
+        else {
+              document.getElementById("txt_AR_BTNSearch").value = '@Model.Ar_Name';
+            document.getElementById("txt_EN_BTNSearch").value = '@Model.En_Name';
+            document.getElementById("txt_AR_Search").value = '@Model.Desc_Ar';
+            document.getElementById("txt_EN_Search").value = '@Model.Desc_En';
+            document.getElementById("insertNewData").value = 'Edit';
+            document.getElementById("CustomerDropDown1").value = parseInt(' @Model.User_Updation_Id ');
+
+            gg();
+            /////////
+            var TreatmentMethodId = parseInt('@Model.ID');
+          //  console.log(getSelectedTreatmentMethodTypes);
+
+               $.ajax({
+                        url: '@Url.Action("getSelectedTreatmentMethodTypes", "TreatmentData")',
+                   type: "POST",
+                   data: { TreatmentMethodId: TreatmentMethodId},
+                  success: function (result) {
+
+                 //     console.log(result);
+
+                            for (var i = 0; i < result.length; i++) {
+                                var item = result[i];
+                            //    console.log(item.Item_ID);
+                                $("input[value='" + item.Item_ID + "']").prop('checked', true);
+
+
+
+                            }
+
+
+
+                    },
+                        error: function (xhr, status, error) {
+
+                    }
+              });
+            //////////////
+        }
+        //alert(d);
+
+
+    })
+
+    function gg(element) {
+
+
+        var select = document.getElementById("CustomerDropDown");
+        $('#CustomerDropDown').empty();
+
+        TreatmentMain_Id = document.getElementById('CustomerDropDown1').value;
+
+              $.ajax({
+                        url: '@Url.Action("getTreatmentMain", "TreatmentData")',
+                        type: "POST",
+
+
+                  data: { TreatmentMain_Id: TreatmentMain_Id},
+
+
+
+                  success: function (result) {
+
+                 //     console.log(result);
+
+                            for (var i = 0; i < result.length; i++) {
+                                var item = result[i];
+
+                                var option = document.createElement("option");
+                                option.value = result[i].Value;
+                                option.text = result[i].DisplayText;
+                                select.appendChild(option);
+
+
+                            }
+                         if (element == null) {
+
+               var d =@Model.User_Creation_Id;
+           // alert(d);
+            document.getElementById("CustomerDropDown").value = 1;
+        }
+
+
+                    },
+                        error: function (xhr, status, error) {
+
+                    }
+              });
+
+
+    }
+
+
+
+    function insertData() {
+
+        var En_Name = $("#txt_EN_BTNSearch").val();
+        var Ar_Name = $("#txt_AR_BTNSearch").val();
+        var Desc_Ar = $("#txt_AR_Search").val();
+        var Desc_En = $("#txt_EN_Search").val();
+        var TreatmentType_ID = $("#CustomerDropDown").val();
+
+        var lst = [];
+        var lst1 = [];
+        var opts = $(":checkbox:checked").map(function () {
+            var item = {};
+            item.TreatmentMethods_ID = TreatmentType_ID;
+            item.Item_ID = $(this).val();
+
+            item.IsActive = true;
+            lst.push(item);
+            lst1.push(item);
+
+            return $(this).val();
+        }).get();
+        var optss = $(":checkbox:unchecked").map(function () {
+            var item = {};
+            item.TreatmentMethods_ID = TreatmentType_ID;
+            item.Item_ID = $(this).val();
+
+            item.IsActive = false;
+            lst1.push(item);
+
+            return $(this).val();
+        }).get();
+
+      //  var ss = opts.concat(optss);
+        console.log(lst1);
+
+        TreatmentMethod = {};
+
+        TreatmentMethod.Ar_Name = Ar_Name;
+        TreatmentMethod.En_Name = En_Name;
+        TreatmentMethod.Desc_Ar = Desc_Ar;
+        TreatmentMethod.Desc_En = Desc_En;
+        TreatmentMethod.TreatmentType_ID = TreatmentType_ID;
+
+        TreatmentMethod.IsActive = true
+
+
+        //console.log(opts);
+        //console.log(lst);
+        var c = $('#insertNewData').val();
+        if (c.localeCompare("Edit") == 0) {
+
+            TreatmentMethod.ID = parseInt('@Model.ID');
+        $.ajax({
+            url: '@Url.Action("updateMathod", "TreatmentData")',
+            type: "POST",
+
+
+            data: { Dto: TreatmentMethod, Dto1: lst1},
+
+
+
+            success: function (result) {
+
+               
+
+
+
+                alert('success1');
+               
+
+
+
+            },
+            error: function (xhr, status, error) {
+
+            }
+        });
+
+        }
+        else if (c.localeCompare("Submit") == 0) {
+            
+
+
+      
+
+        $.ajax({
+            url: '@Url.Action("CreateTreatmentMethod", "TreatmentData")',
+            type: "POST",
+
+
+            data: { Dto: TreatmentMethod, Dto1: lst},
+
+
+
+            success: function (result) {
+
+                //console.log(result);
+
+
+
+                alert('success1');
+                //for (var i = 0; i < result.length; i++) {
+                //    var item = result[i];
+
+                //    var option = document.createElement("option");
+                //    option.value = result[i].Value;
+                //    option.text = result[i].DisplayText;
+                //    select.appendChild(option);
+
+
+                //}
+
+
+
+            },
+            error: function (xhr, status, error) {
+
+            }
+        });
+        }
+    }
+</script>
+ 
+
+
+<input type="submit" id="insertNewData" onclick="insertData()" />

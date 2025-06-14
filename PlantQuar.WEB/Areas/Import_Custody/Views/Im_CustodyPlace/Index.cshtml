@@ -1,0 +1,297 @@
+﻿
+
+@{
+    ViewBag.Title = "طلب معاينة مكان التحفظ";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+
+<style>
+    #jtable-create-form, #jtable-edit-form {
+        width: 380px !important;
+        overflow: hidden !important;
+        height: 490px !important;
+    }
+
+    .jtable-input-field-container:nth-of-type(1), .jtable-input-field-container:nth-of-type(2),
+    .jtable-input-field-container:nth-of-type(3), .jtable-input-field-container:nth-of-type(4),
+    .jtable-input-field-container:nth-of-type(5), .jtable-input-field-container:nth-of-type(6),
+    .jtable-input-field-container:nth-of-type(8), .jtable-input-field-container:nth-of-type(9),
+    .jtable-input-field-container:nth-of-type(11),
+    .jtable-input-field-container:nth-of-type(12) {
+        margin-bottom: 2px;
+        display: block;
+        float: right;
+        width: 48% !important;
+    }
+
+
+    .jtable-input-field-container:nth-of-type(7), .jtable-input-field-container:nth-of-type(10) {
+        margin-bottom: 2px;
+        display: block;
+        float: right;
+        width: 98% !important;
+    }
+</style>
+
+
+
+@section Title{
+    <h2 class="ls-top-header">طلب معاينة مكان التحفظ</h2>
+}
+
+<br />
+@section filter{
+    <div class="row">
+        <label class="col-md-4">البحث برقم طلب إذن الإستيراد</label>
+        <input type="text" class="form-inline col-md-3" autocomplete="off" name="txt_AR_BTNSearch" id="txt_AR_BTNSearch" />
+        @*<label class="col-md-2">البحث بالإنجليزية</label>&nbsp;
+            <input type="text" class="form-inline col-md-3" autocomplete="off" name="txt_EN_BTNSearch" id="txt_EN_BTNSearch" />&nbsp;*@
+        <input type="button" class="btn btn-primary" id="LoadRecordsButton" value="بحـــث">
+    </div>
+}
+
+@section Path{
+    <li>معاينة مكان التحفظ</li>
+    <li class="active">طلب معاينة مكان التحفظ</li>
+}
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $('#JTReservation').jtable({
+                title: 'طلب معاينة مكان التحفظ',
+                paging: true,
+                pageSize: 10,
+                sorting: true,
+                //defaultSorting: 'CourseName ASC',
+                columnResizable: true,
+                columnSelectable: true,
+                saveUserPreferences: true,
+                actions: {
+                    listAction: 'listIm_CustodyPlace',
+                    createAction: function (data) {
+                        var deferred = $.Deferred();
+                        var form = $('#jtable-create-form');
+                        form.unbind("submit");
+                        form.attr("action", "CreateIm_CustodyPlace?txt_AR_BTNSearch=" + $("#txt_AR_BTNSearch").val());
+                        form.attr("method", "post");
+                        form.attr("enctype", "multipart/form-data");
+                        form.attr("encoding", "multipart/form-data");
+                        form.attr("target", "postiframe");
+                        form.submit();
+                        return deferred;
+                    },
+
+                    updateAction: 'UpdateIm_CustodyPlace',
+                    deleteAction: 'DeleteIm_CustodyPlace',
+                },
+                fields: {
+                    ID: {
+                        key: true,
+                        create: false,
+                        edit: false,
+                        list: false
+                    },
+                    PlaceType: {
+                        title: 'نوع المكان',
+                        options: '../../ImportLookups/Im_CustodyPlaceType/Im_CustodyPlace_AddEDIT',
+                        list: false,
+                        inputClass: 'validate[required]'
+                    },
+                    Storage_capacity: {
+                        title: 'السعه التخزنيه للمكان',
+                        inputClass: 'validate[required]',
+                    },
+                    Ar_Desc:
+                    {
+                        title: 'وصف المكان بالعربية',
+                        inputClass: 'validate[required]',
+                    },
+                    En_Desc:
+                    {
+                        title: 'وصف المكان بالإنجليزية',
+                        inputClass: 'validate[required]',
+                    },
+                    Gov_ID: {
+                        title: 'المحافظه',
+                        options: '../../CommonActions/GovToVillage/GetGovOptions',
+                        list: false,
+                        inputClass: 'validate[required]'
+                    },
+                    Center_Id: {
+                        title: 'المركز',
+                        dependsOn: 'Gov_ID',
+                        options: function (data) {
+                            return '../../CommonActions/GovToVillage/GetCenterOptions?Govern_ID=' + data.dependedValues.Gov_ID;
+                        },
+                        list: false,
+                        inputClass: 'validate[required]'
+                    },
+                    Address: {
+                        title: 'عنوان',
+
+                        inputClass: 'validate[required]'
+                    },
+                    Owner_Name: {
+                        title: 'صاحب المكان',
+                        inputClass: 'validate[required]'
+                    },
+                    NationalID: {
+                        title: 'الرقم القومى',
+                        inputClass: 'validate[required]'
+                    },
+                    Phone: {
+                        title: 'التليفون',
+                        inputClass: 'validate[required]',
+                    },
+
+                    //PreviewQuantityDuration: {
+                    //    input: function () {
+                    //        return '<label >مدة كمية المعاينة</label>';
+                    //    },
+
+                    //},
+                    DateStored: {
+                        title: '   التاريخ',
+                        type: 'date',
+                       inputClass: 'validate[required]',
+                       list:false
+                    },
+
+                    Quantity: {
+                        title: 'الكمية',
+                        inputClass: 'validate[required]',
+                    },
+                    //Date_: {
+                    //    title: 'التاريخ ',
+                    //    inputClass: 'validate[required]',
+                    //    type: 'date',
+                    //    list:false
+                    //},
+                    //,Active: {
+                    //    title: 'التفعيل',
+                    //    inputClass: 'validate[required]',
+                    //},
+
+                },
+                formCreated: function (event, data) {
+
+                    if (data.formType == "create") {
+                        $(".ui-dialog-title").text("إضافة");
+                    }
+                    else {
+                        $(".ui-dialog-title").text("تعديل");
+                    }
+
+                    $("#Edit-Name_Ar, #Edit-Name_En, #txt_AR_BTNSearch, #txt_EN_BTNSearch").attr('autocomplete', 'off');
+
+                    // Arabic + spaces + numeric
+                    $("#Edit-Ar_Desc, #Edit-Address, #Edit-Owner_Name").keypress(function (e) {
+                        debugger;
+                        var unicode = e.charCode ? e.charCode : e.keyCode
+                        if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+                            if (unicode == 32)
+                                return true;
+                            else {
+                                if ((unicode < 48 || unicode > 57) && (unicode < 0x0600 || unicode > 0x06FF)) //if not a number or arabic
+                                    return false; //disable key press
+                            }
+                        }
+                    });
+
+                    // English + spaces + numeric
+                    $("#Edit-En_Desc").keypress(function (e) {
+                        debugger;
+                        var unicode = e.charCode ? e.charCode : e.keyCode
+                        if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+                            if (unicode == 32)
+                                return true;
+                            else {
+                                if (!(unicode < 0x0600 || unicode > 0x06FF)) //if not english
+                                    return false; //
+                            }
+                        }
+                    });
+
+                    // Number Only
+                    $("#Edit-Storage_capacity, #Edit-NationalID, #Edit-Phone").keydown(function (e) {
+                        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+                            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                            (e.keyCode >= 35 && e.keyCode <= 40)) {
+                            return;
+                        }
+                        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                            e.preventDefault();
+                        }
+                    });
+                },
+                formSubmitting: function (event, data) {
+                    return data.form.validationEngine('validate');
+                },
+                formClosed: function (event, data) {
+                    data.form.validationEngine('hide');
+                    data.form.validationEngine('detach');
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Delete");
+                },
+                recordAdded: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+                },
+                recordUpdated: function (event, data) {
+                                        //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Update");
+                },recordDeleted: function (event, data) {
+                                        //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Delete");
+                },
+            });
+            $('#JTReservation').jtable('load');
+
+
+            $('#LoadRecordsButton').click(function (e) {
+
+                e.preventDefault();
+                $('#JTReservation').jtable('load', {
+
+                    permissionId: $('#txt_AR_BTNSearch').val()
+
+                });
+               // Session["permissionNum"] = $('#txt_AR_BTNSearch').val();
+            });
+
+            $(".jtable-toolbar-item-add-record .jtable-toolbar-item-text").text("@PlantQuar.WEB.Language.Resource_data1.Add");
+
+            // Arabic + spaces + numeric
+            $("#txt_AR_BTNSearch").keypress(function (e) {
+                var unicode = e.charCode ? e.charCode : e.keyCode
+                if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+                    if (unicode == 32)
+                    { }// return data.form.validationEngine('validate');
+                    else {
+                        if ((unicode < 48 || unicode > 57) && (unicode < 0x0600 || unicode > 0x06FF)) //if not a number or arabic
+                            return false; //disable key press
+                    }
+                }
+            });
+            // English + spaces + numeric
+            $("#txt_EN_BTNSearch").keypress(function (e) {
+                debugger;
+                var unicode = e.charCode ? e.charCode : e.keyCode
+                if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+                    if (unicode == 32)
+                        return true;
+                    else {
+                        if (!(unicode < 0x0600 || unicode > 0x06FF)) //if not english
+                            return false; //
+                    }
+                }
+            });
+
+        });
+    </script>
+}
+<br />
+<div id="JTReservation">
+</div>
+

@@ -1,0 +1,1431 @@
+﻿@model PlantQuar.DTO.DTO.Export_Constrains.CustomCountryConstrain
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.CountryConstrain</h2>
+}
+
+@section Path{
+    <li>@PlantQuar.WEB.Language.Resource_data1.CountryConstrain</li>
+    <li class="active">@PlantQuar.WEB.Language.Resource_data1.CountryConstrain</li>
+}
+@*3/6/2020*@
+<style>
+    .form-box {
+        border: none;
+    }
+
+    div[ aria-labelledby="ui-id-4"], div[ aria-labelledby="ui-id-12"], div[ aria-labelledby="ui-id-20"], div[ aria-labelledby="ui-id-28"] {
+        top: 100px !important;
+    }
+
+    select.form-control:not([size]):not([multiple]) {
+        height: 3.7rem;
+    }
+
+    .row {
+        width: 100%;
+    }
+
+    blockquote {
+        margin-bottom: 50px !important;
+    }
+
+    .ta1 {
+        display: inline-block;
+    }
+    #addnewText, #AnalysisLab_ID, #AnaysisType,#searchResultPart {
+        width: 100%
+    }
+</style>
+
+@*@using (Html.BeginForm("constrainSave", "ExportConstrains", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "ex_ConstrainForm" }))
+    {*@
+<div class="row form-box">
+
+    <div class="col-md-4">
+        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.CountryConstrainType</label>
+        @Html.DropDownListFor(m => m.ownerTypeId, new SelectList(ViewBag.ConstrainTypeLst, "Value", "DisplayText"), new { @class = "form-control", @id = "constrainType", @onchange = "getAllData()" })
+
+    </div>
+
+
+
+
+    <div class="col-md-4" id="unionsDiv">
+        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Union</label>
+        @Html.DropDownListFor(m => m.unionId, new SelectList(ViewBag.UnionsLst, "Value", "DisplayText"), new { @class = "form-control", @id = "unionsLst", @onchange = "getAllData()" })
+    </div>
+
+    <div class="col-md-4" id="countriesDiv">
+        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Country</label>
+        @Html.DropDownListFor(m => m.countryId, new SelectList(ViewBag.CountriesLst, "Value", "DisplayText"), new { @class = "form-control", @id = "countriesLst", @onchange = "getAllData()" })
+
+    </div>
+
+</div>
+<div style="border: 1px dashed #cbc5ba; margin: 13px;"></div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="tab" role="tabpanel">
+           
+            <div class="tab-content tabs" style="min-height:433px;">
+                <div role="tabpanel" class="tab-pane fade in active" id="PlantTab">
+
+
+
+                    <style>
+                        .ta1 {
+                            display: inline-block;
+                        }
+
+                        .jtable-input-field-container:nth-of-type(1),
+                        .jtable-input-field-container:nth-of-type(2),
+                        .jtable-input-field-container:nth-of-type(3),
+                        .jtable-input-field-container:nth-of-type(4),
+                        .jtable-input-field-container:nth-of-type(5),
+                        .jtable-input-field-container:nth-of-type(6),
+                        .jtable-input-field-container:nth-of-type(7),
+                        .jtable-input-field-container:nth-of-type(8) {
+                            width: 50% !important;
+                            margin-bottom: 2px;
+                            float: right;
+                        }
+                    </style>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-lg-3 col-md-5 ta1">
+                                <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Items</label>
+                                @Html.DropDownList("plantLst", new SelectList(ViewBag.PlantLst, "Value", "DisplayText"), new { @class = "form-control", id = "plantLst" })
+                            </div>
+                            <div class="col-lg-3 col-md-5 ta1">
+                                <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.ShortName</label>
+                                <select id="ShortNameLst" class="form-control"></select>
+                            </div>
+                            <div class="col-lg-3 col-md-5 ta1">
+                                <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.PlantCategory</label>
+                                <select id="plantCatLst" class="form-control"></select>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="col-lg-3 col-md-5 ta1">
+                                <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.PlantPart</label>
+                                <input class="form-control" id="PlantPart" readonly type="text">
+                            </div>
+                            <div class="col-lg-3 col-md-5 ta1">
+                                <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Status</label>
+                                <input class="form-control" id="Status" readonly type="text">
+                            </div>
+                            <div class="col-lg-3 col-md-5 ta1">
+                                <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Purpose</label>
+                                <input class="form-control" id="Purpose" readonly type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"> <button id="searchResultPart" onclick="SearchResult()"> بحث</button></div>
+                        <div class="col-md-4"></div>
+                    </div>
+
+
+
+                   
+                    <br />
+                    <div id="tabForSearchResult" style="display:none">
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>@PlantQuar.WEB.Language.Resource_data1.IsStationAccreditation</label>
+                                <input type="checkbox" class="dissablcheck_plant" name="IsStationAccreditation_plant" id="IsStationAccreditation_plant" value="false" />
+                            </div>
+                            <div class="col-md-4">
+                                <label>@PlantQuar.WEB.Language.Resource_data1.IsFarmAccreditation</label>
+                                <input type="checkbox" class="dissablcheck_plant" name="IsFarmAccreditation_plant" id="IsFarmAccreditation_plant" value="false" />
+
+                            </div>
+                            <div class="col-md-4">
+                                <label>@PlantQuar.WEB.Language.Resource_data1.IsCompanyAccreditation</label>
+                                <input type="checkbox" class="dissablcheck_plant" name="IsCompanyAccreditation_plant" id="IsCompanyAccreditation_plant" value="false" />
+
+                            </div>
+                          
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="tab" role="tabpanel">
+                                    <!-- Nav tabs -->
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li role="presentation" class="active">
+                                            <a data-id="1" href="#textsTab" aria-controls="profile" role="tab"
+                                               data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.AllText</a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a data-id="2" href="#analysisTab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Analysis</a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a data-id="2" href="#treatmentab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Treatments</a>
+                                        </li>
+                                        <li role="presentation" id="port2">
+                                            <a data-id="2" href="#portstab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Ports</a>
+                                        </li>
+
+                                    </ul>
+                                    <!-- Tab panes -->
+                                    <div class="tab-content tabs" style="min-height:433px;">
+                                        <div role="tabpanel" class="tab-pane fade in active" id="textsTab">
+                                            <div id="plantConstrainDiv" class="col-md-12"></div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <button id="addNewTextBTN" onclick="get()">
+                                                        اضافة نص جديد
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-4"></div>
+                                                <div class="col-md-4"></div>
+                                            </div>
+                                            <br />
+                                            @* four hidden*@
+                                            <div style="display: none;" id="newTextDIV">
+                                                <div class="row">
+                                                    <div class="col-md-6"> <label for="fname">@PlantQuar.WEB.Language.Resource_data1.Constrain_Ar</label></div>
+                                                    <div class="col-md-6">  <input type="text" id="Constrain_Ar" name="Constrain_Ar" class="form-control"></div>
+                                                </div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="col-md-6"> <label for="fname">@PlantQuar.WEB.Language.Resource_data1.Constrain_En </label></div>
+                                                    <div class="col-md-6"><input type="text" id="Constrain_En" name="Constrain_En" class="form-control"></div>
+                                                </div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="col-md-6">   <label for="fname">@PlantQuar.WEB.Language.Resource_data1.Includedcertificate_Ar</label></div>
+                                                    <div class="col-md-6"> <input type="text" class="form-control" id="Includedcertificate_Ar" name="Includedcertificate_Ar"></div>
+                                                </div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="col-md-6"> <label for="fname">@PlantQuar.WEB.Language.Resource_data1.Includedcertificate_En</label></div>
+                                                    <div class="col-md-6"><input type="text" class="form-control" id="Includedcertificate_En" name="Includedcertificate_En"></div>
+                                                </div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label for="fname">@PlantQuar.WEB.Language.Resource_data1.IsCertificate_Addtion</label>
+                                                        <input type="checkbox" class="form-control" id="IsAddToCertificate" />
+                                                    </div>
+                                                    <div class="col-md-6"></div>
+                                                </div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="col-md-4"></div>
+                                                    <div class="col-md-4">  <button id="addnewText" onclick="addToConstrainText()" class="form-control"> اضافة</button></div>
+                                                    <div class="col-md-4"></div>
+                                                </div>
+                                                <br />
+                                            </div>
+
+                                            <div id="listFarm_Constrain_Text" class="row">
+                                                <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap">
+                                                    <table id="Farm_Constrain_TextTable" class="table table-bordered table-striped dataTable" role="grid" style="padding:5px; width:100%">
+                                                        <thead>
+                                                            <tr>
+
+                                                                <th> @PlantQuar.WEB.Language.Resource_data1.Constrain_Ar </th>
+                                                                <th>@PlantQuar.WEB.Language.Resource_data1.Constrain_En </th>
+                                                                <th>@PlantQuar.WEB.Language.Resource_data1.Includedcertificate_Ar</th>
+                                                                <th>@PlantQuar.WEB.Language.Resource_data1.Includedcertificate_En</th>
+                                                                <th>@PlantQuar.WEB.Language.Resource_data1.IsCertificate_Addtion</th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="analysisTab">
+
+                                            @*    <div id="plantConstrainDiv_Analysis" class="col-md-12"></div>*@
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                            @*  *@
+
+
+
+
+
+
+
+
+
+
+                                            <div role="tabpanel" class="tab-pane fade in active" id="textsTab">
+                                                <div id="plantConstrainDiv" class="col-md-12"></div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <button id="addNewTextBTN" onclick="AddAAnalysis()">
+                                                            اضافة نص جديد
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-4"></div>
+                                                    <div class="col-md-4"></div>
+                                                </div>
+                                                <br />
+                                                @* four hidden*@
+                                                <div style="display: none;" id="AddAAnalysisNew">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="col-md-4"><label for="fname">@PlantQuar.WEB.Language.Resource_data1.AnaysisType </label></div>
+                                                            <div class="col-md-8">
+                                                                <select id="AnaysisType" onchange="getAnaysisTypeID(this);" class="form-control">
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="col-md-4"><label for="fname">@PlantQuar.WEB.Language.Resource_data1.AnalysisLab_ID </label></div>
+                                                            <div class="col-md-8">
+                                                                <select id="AnalysisLab_ID" class="form-control">
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <br />
+                                                    <div class="row">
+                                                        <div class="col-md-4"></div>
+                                                        <div class="col-md-4">
+                                                            <button id="addnewText" onclick="addToConstrainLabType()"> اضافة</button>
+                                                        </div>
+                                                        <div class="col-md-4"></div>
+                                                    </div>
+
+                                                    <br />
+
+
+                                                </div>
+
+                                                <div id="listFarm_Constrain_Text" class="row">
+                                                    <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap">
+                                                        <table id="AnalysisPart" class="table table-bordered table-striped dataTable" role="grid" style="padding:5px; width:100%">
+                                                            <thead>
+                                                                <tr>
+
+                                                                    <th> @PlantQuar.WEB.Language.Resource_data1.AnaysisType </th>
+                                                                    <th>@PlantQuar.WEB.Language.Resource_data1.AnalysisLab_ID </th>
+
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                            @*  *@
+
+
+
+
+
+
+
+
+
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="treatmentab">
+
+                                            <div id="plantConstrainDiv_treatment" class="col-md-12"></div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="portstab">
+
+
+
+
+
+                                            <div role="tabpanel" class="tab-pane fade in active" id="textsTab">
+                                                <div id="plantConstrainDiv" class="col-md-12"></div>
+                                                <button id="addNewTextBTN" onclick="AddArravilAirPort()">
+                                                    اضافة نص جديد
+                                                </button>
+                                                @* four hidden*@
+                                                <div style="display: none;" id="AddAAirPortNew">
+
+                                                    <label for="fname">@PlantQuar.WEB.Language.Resource_data1.PortType </label>
+
+                                                    <select id="AirportType" onchange="getInternationalAirport(this);">
+                                                    </select>
+                                                    <label for="fname">@PlantQuar.WEB.Language.Resource_data1.PortInternational </label>
+
+                                                    <select id="AirportInterbational">
+                                                    </select>
+
+                                                    <button id="addnewText" onclick="addToConstrainAirPort()"> اضافة</button>
+                                                </div>
+
+                                                <div id="listFarm_Constrain_Text" class="row">
+                                                    <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap">
+                                                        <table id="ArrivalAirportPart" class="table table-bordered table-striped dataTable" role="grid" style="padding:5px; width:100%">
+                                                            <thead>
+                                                                <tr>
+
+
+
+
+
+                                                                    <th> @PlantQuar.WEB.Language.Resource_data1.PortType </th>
+                                                                    <th>@PlantQuar.WEB.Language.Resource_data1.PortInternational </th>
+
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+                                            @*    <div id="plantConstrainDiv_ports" class="col-md-12"></div>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:15px">
+
+                        </div>
+                    </div>
+                    <br />
+                    @* cksdskdkls *@
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+@* *****************************  SAVE  ************************* *@
+<div style="display:none" id="SaveCountryConstrain">
+    <div class="row">
+        <div class="col-md-11"></div>
+        <input type="button" id="btnSavec" name="btnSave" value="@PlantQuar.WEB.Language.Resource_data1.Save" class="btn ls-light-green-btn btn-round btn-lg col-md-1 col-sm-4" style="float:left" />
+    </div>
+</div>
+@*}  *@
+
+@*/**********************************/*@
+
+
+
+
+<script>
+
+
+
+    plantOperation = 0
+    constraintAnalysisLabType = [];
+    constraintAirPortInternational = []
+    constraintText = [];
+    country = {}
+
+
+
+     $(document).ready(function () {
+
+
+
+
+
+
+
+
+
+
+
+
+        $("#ArrivalPortList_productdiv").hide();
+        $("#ArrivalPortList_plantdiv").hide();
+        $("#ArrivalPortList_livediv").hide();
+        $("#ArrivalPortList_notlivediv").hide();
+        if ($('#constrainType').val() != 2) {
+            $("#port2").hide();
+            $("#port1").hide();
+            $("#port3").hide();
+            $("#port4").hide();
+        }
+    });
+    $("#countriesLst").change(function (e) {
+        $("#ArrivalPortList_product").empty();
+        $("#ArrivalPortList_plant").empty();
+        $("#ArrivalPortList_live").empty();
+        $("#ArrivalPortList_notlive").empty();
+        $.ajax({
+            async: true,
+            url: '../../CommonActions/PortData/PortInternational?CountryID=' + $('#countriesLst').val() + '&IsJtable=true',
+            type: 'POST',
+            success: function (data) {
+
+                $.each(data.Options, function (index, row) {
+                    $("#ArrivalPortList_plant").append("<option value='" + row.Value + "'>" + row.DisplayText + " </option>");
+                    $("#ArrivalPortList_plant").trigger("chosen:updated");
+                    $("#ArrivalPortList_product").append("<option value='" + row.Value + "'>" + row.DisplayText + " </option>");
+                    $("#ArrivalPortList_product").trigger("chosen:updated");
+                    $("#ArrivalPortList_live").append("<option value='" + row.Value + "'>" + row.DisplayText + " </option>");
+                    $("#ArrivalPortList_live").trigger("chosen:updated");
+                    $("#ArrivalPortList_notlive").append("<option value='" + row.Value + "'>" + row.DisplayText + " </option>");
+                    $("#ArrivalPortList_notlive").trigger("chosen:updated");
+                });
+
+            }
+        });
+    });
+    $('#constrainType').on('change', function () {
+        var selected = $('#constrainType').val();
+
+        if (selected == 0 || selected == 1) {
+            $('#countriesDiv').hide();
+            $('#unionsDiv').hide();
+
+            $('#countriesLst').val(0);
+            $('#unionsLst').val(0);
+            $("#ArrivalPortList_productdiv").hide();
+            $("#ArrivalPortList_plantdiv").hide();
+            $("#ArrivalPortList_livediv").hide();
+            $("#ArrivalPortList_notlivediv").hide();
+            $("#port2").hide();
+            $("#port1").hide();
+            $("#port3").hide();
+            $("#port4").hide();
+
+        }
+        else if (selected == 2) {
+            $('#countriesDiv').show();
+            $('#unionsDiv').hide();
+
+            $('#countriesLst').val(0);
+            $('#unionsLst').val(0);
+            $("#ArrivalPortList_productdiv").show();
+            $("#ArrivalPortList_plantdiv").show();
+            $("#ArrivalPortList_livediv").show();
+            $("#ArrivalPortList_notlivediv").show();
+            $("#port1").show();
+            $("#port2").show();
+            $("#port3").show();
+            $("#port4").show();
+        }
+        else if (selected == 3) {
+            $('#countriesDiv').hide();
+            $('#unionsDiv').show();
+
+            $('#countriesLst').val(0);
+            $('#unionsLst').val(0);
+            $("#ArrivalPortList_productdiv").hide();
+            $("#ArrivalPortList_plantdiv").hide();
+            $("#ArrivalPortList_livediv").hide();
+            $("#ArrivalPortList_notlivediv").hide();
+            $("#port2").hide();
+            $("#port1").hide();
+            $("#port3").hide();
+            $("#port4").hide();
+        }
+    });
+    //boss
+    $('#unionsLst').on('change', function () {
+        var selected = $('#unionsLst').val();
+        alert(1);
+        $("#countriesLst").empty();
+        var Union_Id = $("#unionsLst").val();
+        //alert(Union_Id);
+        $.ajax({
+            url: "../../FA_Farm/Farm_Constrain/GetCountriesUnion_Name",
+            data: { CountriesUnion_Id: Union_Id },
+
+            success: function (res) {
+
+                $.each(res.Options, function (i, e) {
+
+                    $("#countriesLst").append("<option Value='" + e.Value + "'>" + e.DisplayText + "</option>")
+                })
+
+            }
+        })
+       
+    });
+
+     $("#btnSavec").click(function () {
+
+
+
+
+
+         console.log(constraintText)
+         console.log(constraintAnalysisLabType)
+         console.log(constraintAirPortInternational)
+
+
+
+
+
+        var e = document.getElementById("constrainType");
+        var ww = e.options[e.selectedIndex].value;
+        var ww1 = e.options[e.selectedIndex].text;
+
+        var cc;
+
+        if (ww1.localeCompare("دولي") == 0) {
+
+            var c = document.getElementById("countriesLst");
+            cc = c.options[c.selectedIndex].value;
+        }
+        else if (ww1.localeCompare("اتحاد") == 0) {
+            var c = document.getElementById("unionsLst");
+            cc = c.options[c.selectedIndex].value;
+        }
+        else if (ww1.localeCompare("محلي") == 0) {
+            cc = 0;
+
+        }
+
+
+        var v = document.getElementById("ShortNameLst");
+        var shortNameID = v.options[v.selectedIndex].value;
+
+        var ed = document.getElementById("plantCatLst");
+        var plantCatID = ed.options[ed.selectedIndex].value;
+
+        var IsStationAccreditation_plant = $('#IsStationAccreditation_plant').prop("checked") ? true : false;
+        var IsFarmAccreditation_plant = $('#IsFarmAccreditation_plant').prop("checked") ? true : false;
+        var IsCompanyAccreditation_plant = $('#IsCompanyAccreditation_plant').prop("checked")  ? true : false;
+
+        country.ConstrainOwner_ID = cc;
+        country.CountryConstrain_Type = ww;
+        country.Item_ShortName_id = shortNameID;
+        country.IsStationAccreditation = IsStationAccreditation_plant;
+        country.IsFarmAccreditation = IsFarmAccreditation_plant;
+        country.IsCompanyAccreditation = IsCompanyAccreditation_plant;
+        country.ItemCategories_ID = plantCatID;
+        var someDataFromPartialSomehow = $("#Constrain_Ar").val();
+
+
+
+
+
+
+
+
+          $.ajax({
+
+                        url: '@Url.Action("postExConstrain", "ExportConstrains")',
+                        type: "POST",
+
+
+              data: {
+                  EX_CountryConstrain: country,
+                  CountryConstrain_TextDTO: constraintText,
+                  AnalysisLabType: constraintAnalysisLabType,
+                  ConstraintAirPortInternational: constraintAirPortInternational
+
+              },
+
+
+
+                  success: function (result) {
+
+
+
+
+
+                    },
+                        error: function (xhr, status, error) {
+
+                    }
+                });
+
+
+
+
+
+    });
+
+
+
+
+    function getAllData() {
+
+
+    }
+
+    $(function () {
+
+        //eman --treatment
+        $("#plantConstrainDiv_treatment").jtable({
+            title: '@PlantQuar.WEB.Language.Resource_data1.Constrains',
+            paging: true,
+            pageSize: 10,
+            sorting: true,
+            columnResizable: true,
+            columnSelectable: true,
+            saveUserPreferences: true,
+
+            actions: {
+                listAction: '/Export_Constrains/PlantConstrain/ListPlantsRows_treatments',
+                createAction: '/Export_Constrains/PlantConstrain/CreatePlantsRows_treatments',
+                updateAction: '/Export_Constrains/PlantConstrain/UpdatePlantsRows_treatments',
+                deleteAction: '/Export_Constrains/PlantConstrain/DeletePlantsRows_treatments',
+            },
+            fields: {
+                index: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                TreatmentMainType_ID: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.TreatmentMainType',
+
+                    options: function (data) {
+                        return '/Export_Constrains/ExportConstrains/GetTraetmentMainType_Jtable?type=0';
+                    },
+                    list: false,
+                    //inputClass: 'validate[required]'
+                },
+                TreatmentType_ID: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.TreatmentType',
+                    dependsOn: 'TreatmentMainType_ID',
+                    options: function (data) {
+                        return '/Export_Constrains/ExportConstrains/GetTraetmentType_Jtable?mainType=' + data.dependedValues.TreatmentMainType_ID;
+                    },
+                    list: true,
+                    //inputClass: 'validate[required]'
+                },
+                TreatmentMaterial_ID: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.TreatmentMaterial',
+                    list: true,
+                    dependsOn: 'TreatmentType_ID',
+                    options: function (data) {
+                        return '/Export_Constrains/ExportConstrains/GetTraetmentMaterial_Jtable?treatmentType=' + data.dependedValues.TreatmentType_ID;
+
+                    }
+                },
+                TreatmentMethod: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.TreatmentMethod',
+                    list: true,
+                    dependsOn: 'TreatmentType_ID',
+                    options: function (data) {
+                        return '/Export_Constrains/ExportConstrains/GetTraetmentMethod_Jtable?treatmentType=' + data.dependedValues.TreatmentType_ID;
+
+                    }
+                },
+
+                TheDose: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.TheDose',
+                    list: true,
+                    defaultValue: 0
+                },
+                Exposure_Day: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.Exposure_Day',
+                    list: true,
+                    defaultValue: 0
+                },
+                Exposure_Minute: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.Exposure_Minute',
+                    list: true,
+                    defaultValue: 0
+                },
+                Exposure_Hour: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.Exposure_Hour',
+                    list: true,
+                    defaultValue: 0
+                },
+                Id: {
+                    type: 'text',
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+
+                TreatmentConstrain_ID: {
+                    type: 'text',
+                    create: false,
+                    edit: false,
+                    list: false
+                }
+            },
+            formCreated: function (event, data) {
+
+
+                if (data.formType == "create") {
+
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.AddConstrainData");
+                }
+                else {
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.EditConstrainData");
+
+
+                }
+                $("#Edit-TheDose, #Edit-Exposure_Day, #Edit-Exposure_Minute,#Edit-Exposure_Hour").attr('autocomplete', 'off');
+
+                // numeric only
+                $("#Edit-TheDose, #Edit-Exposure_Day").keydown(function (e) {
+                    if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+                        (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                        (e.keyCode >= 35 && e.keyCode <= 40)) {
+                        return;
+                    }
+                    if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                        e.preventDefault();
+                    }
+                });
+
+
+            },
+            formSubmitting: function (event, data) {
+                if ($("#plantLst").val() > 0 && $("#plantPurposeLst").val() > 0
+                    && $("#plantStatusLst").val() > 0 && $("#plantPartLst").val() > 0 && $("#constrainType").val() > 0) {
+
+                    if ($("#constrainType").val() == 2) {
+                        if ($("#countriesLst").val() > 0) {
+                        }
+                        else {
+                            alertify.error('@PlantQuar.WEB.Language.Resource_data1.SelectCountry');
+                            return false;
+                        }
+                    }
+                    else if ($("#constrainType").val() == 3) {
+                        if ($("#unionsLst").val() > 0) {
+                        }
+                        else {
+                            alertify.error('@PlantQuar.WEB.Language.Resource_data1.SelectUnion');
+                            return false;
+                        }
+                    }
+                   //debugger;
+
+                    return data.form.validationEngine('validate');
+                }
+                else {
+                    alertify.error('@PlantQuar.WEB.Language.Resource_data1.SelectLiableItem_ConstrainType');
+                    return false;
+                }
+            },
+            formClosed: function (event, data) {
+                data.form.validationEngine('hide');
+                data.form.validationEngine('detach');
+                $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Delete");
+
+                //1-6-2020 rest treatment/analysis selection
+                plantOperation = 0;
+            },
+            recordAdded: function (event, data) {
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+            },
+            recordUpdated: function (event, data) {
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Update");
+            },
+            recordDeleted: function (event, data) {
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Delete");
+            },
+        });
+        $("#plantConstrainDiv_treatment").jtable('load');
+
+    });
+
+    function get() {
+        document.getElementById('newTextDIV').style.display = 'block'
+     //   document.getElementById('newTextDIV').style.display = 'block'
+
+    }
+
+    function AddAAnalysis() {
+        document.getElementById('AddAAnalysisNew').style.display = 'block'
+  
+          $.ajax({
+                        url: '@Url.Action("GetAnalysisTypes_Jtable", "ExportConstrains")',
+                        type: "POST",
+              data: {
+                  type: 0
+              },
+              success: function (result) {
+                  var analysisLabs = result.Options;
+                  var select = document.getElementById("AnaysisType");
+                    //  var options = ["1", "2", "3", "4", "5"];
+                  for (var i = 0; i < analysisLabs.length; i++) {
+                      var opt = analysisLabs[i];
+                          var el = document.createElement("option");
+                      el.textContent = opt.DisplayText;
+                      el.value = opt.Value;
+                          select.appendChild(el);
+                      }
+                    },
+                        error: function (xhr, status, error) {
+                    }
+                });
+    }
+
+    function AddArravilAirPort() {
+        document.getElementById('AddAAirPortNew').style.display = 'block'
+     //   document.getElementById('newTextDIV').style.display = 'block'
+
+
+
+
+
+
+
+
+          $.ajax({
+
+
+              url: "../../CommonActions/PortData/PortType_List",
+                         type: "POST",
+
+
+              data: {
+                  type: 0
+              },
+
+
+
+              success: function (result) {
+                  var analysisLabs = result.Options;
+
+
+                  var select = document.getElementById("AirportType");
+
+
+                  for (var i = 0; i < analysisLabs.length; i++) {
+                      var opt = analysisLabs[i];
+                          var el = document.createElement("option");
+                      el.textContent = opt.DisplayText;
+                      el.value = opt.Value;
+                          select.appendChild(el);
+                      }
+
+
+                    },
+                        error: function (xhr, status, error) {
+
+                    }
+                });
+
+
+
+
+
+
+            /// Export_Constrains / ExportConstrains / GetAnalysisTypes_Jtable ? type = 0
+
+
+
+    }
+
+    function getAnaysisTypeID(EL) {
+    //    alert(EL.value);
+       // /Export_Constrains/ExportConstrains / GetAnalysisLab_Jtable ? analysisType = '
+        //    + data.dependedValues.AnalysisType_ID
+  $.ajax({
+
+                        url: '@Url.Action("GetAnalysisLab_Jtable", "ExportConstrains")',
+                        type: "POST",
+
+
+              data: {
+                  analysisType: EL.value
+              },
+
+
+
+      success: function (result) {
+
+
+          $("#AnalysisLab_ID").empty();
+
+                  var analysisLabs = result.Options;
+
+
+                  var select = document.getElementById("AnalysisLab_ID");
+                    //  var options = ["1", "2", "3", "4", "5"];
+
+                  for (var i = 0; i < analysisLabs.length; i++) {
+                      var opt = analysisLabs[i];
+                          var el = document.createElement("option");
+                      el.textContent = opt.DisplayText;
+                      el.value = opt.Value;
+                          select.appendChild(el);
+                      }
+
+
+                    },
+                        error: function (xhr, status, error) {
+
+                    }
+                });
+    }
+
+    function getInternationalAirport(EL) {
+
+        var CountryID = document.getElementById("countriesLst").value;
+
+
+
+  $.ajax({
+
+      url: "../../CommonActions/PortData/PortInternationalWithType",
+
+                        type: "POST",
+
+
+              data: {
+                  CountryID: CountryID,
+                  IsJtable: true,
+                  portType: EL.value
+              },
+
+
+
+      success: function (result) {
+
+
+          $("#AirportInterbational").empty();
+
+          var analysisLabs = result.Options;
+
+
+          var select = document.getElementById("AirportInterbational");
+                    //  var options = ["1", "2", "3", "4", "5"];
+
+                  for (var i = 0; i < analysisLabs.length; i++) {
+                      var opt = analysisLabs[i];
+                          var el = document.createElement("option");
+                      el.textContent = opt.DisplayText;
+                      el.value = opt.Value;
+                          select.appendChild(el);
+                      }
+
+
+                    },
+                        error: function (xhr, status, error) {
+
+                    }
+                });
+    }
+    function addToConstrainText() {
+        var constraintTextValue = {};
+        var Constrain_Ar = document.getElementById("Constrain_Ar").value;
+        var Constrain_En = document.getElementById("Constrain_En").value;
+        var Includedcertificate_Ar = document.getElementById("Includedcertificate_Ar").value;
+        var Includedcertificate_En = document.getElementById("Includedcertificate_En").value;
+
+        var IsAddToCertificate = $('#IsAddToCertificate').prop("checked") ? true : false;
+        var IsAddToCertificatetext = $('#IsAddToCertificate').prop("checked") ? 'نعم' : 'لا';
+      //console.log(IsAddToCertificatetext)
+        // add to list
+        constraintTextValue.ConstrainText_Ar = Constrain_Ar;
+        constraintTextValue.ConstrainText_En = Constrain_En;
+        constraintTextValue.InSide_Certificate_Ar = Includedcertificate_Ar;
+        constraintTextValue.InSide_Certificate_En = Includedcertificate_En;
+        constraintTextValue.IsCertificate_Addtion = IsAddToCertificate;
+        constraintText.push(constraintTextValue);
+        // add to table first
+        $("#Farm_Constrain_TextTable tbody").append("<tr>" +
+
+            "<td>  " + Constrain_Ar + "  </td>"
+            + "<td>" + Constrain_En + "</td>" +
+            "<td>  " + Includedcertificate_Ar + "  </td>"
+            + "<td>" + Includedcertificate_En + "</td>"
+            + "<td>" + IsAddToCertificatetext + "</td>"
+            + "</tr>");
+
+    }
+
+    function addToConstrainLabType() {
+        var constraintAnalysisLab = {};
+      
+
+
+
+
+
+        var AnalysisLab_IDSelect = document.getElementById("AnalysisLab_ID");
+         // add to list
+        constraintAnalysisLab.AnalysisLabTypeID =
+            AnalysisLab_IDSelect.options[AnalysisLab_IDSelect.selectedIndex].value;
+
+        AnaysisType = AnalysisLab_IDSelect.options[AnalysisLab_IDSelect.selectedIndex].text;
+
+        var AnaysisTypeSelect = document.getElementById("AnaysisType");
+        AnalysisLab_ID = AnaysisTypeSelect.options[AnaysisTypeSelect.selectedIndex].text;
+
+     //   constraintTextValue.AnalysisLabTypeID = AnaysisTypeSelect.options[AnaysisTypeSelect.selectedIndex].value;
+
+       // console.log(constraintAnalysisLab)
+
+
+        // add to list
+
+
+        constraintAnalysisLabType.push(constraintAnalysisLab);
+        // add to table first
+        $("#AnalysisPart tbody").append("<tr>" +
+
+            "<td>  " + AnalysisLab_ID + "  </td>"
+            + "<td>" + AnaysisType  + "</td>"
+            + "</tr>");
+        console.log(constraintAnalysisLabType)
+    }
+
+    function addToConstrainAirPort()  {
+        var constraintAirportInernational = {};
+        //var Constrain_Ar = document.getElementById("Constrain_Ar").value;
+        //var Constrain_En = document.getElementById("Constrain_En").value;
+        //var Includedcertificate_Ar = document.getElementById("Includedcertificate_Ar").value;
+        //var Includedcertificate_En = document.getElementById("Includedcertificate_En").value;
+
+        //var IsAddToCertificate = $('#IsAddToCertificate').prop("checked") ? true : false;
+        //var IsAddToCertificatetext = $('#IsAddToCertificate').prop("checked") ? 'نعم' : 'لا';
+
+
+
+
+
+        var AirportInterbationalSelect = document.getElementById("AirportInterbational");
+         // add to list
+         constraintAirportInernational.Port_International_Id =
+            AirportInterbationalSelect.options[AirportInterbationalSelect.selectedIndex].value;
+
+        AirportInterbationalSelectText = AirportInterbationalSelect.options[AirportInterbationalSelect.selectedIndex].text;
+
+
+
+
+
+        var AirportType = document.getElementById("AirportType");
+        AirportType_ID = AirportType.options[AirportType.selectedIndex].text;
+
+     //   constraintTextValue.AnalysisLabTypeID = AnaysisTypeSelect.options[AnaysisTypeSelect.selectedIndex].value;
+
+      //  console.log(constraintAirPortInternational)
+
+
+        // add to list
+
+
+        constraintAirPortInternational.push(constraintAirportInernational);
+        // add to table first
+        $("#ArrivalAirportPart tbody").append("<tr>" +
+
+            "<td>  " + AirportType_ID + "  </td>"
+            + "<td>" + AirportInterbationalSelectText   + "</td>"
+            + "</tr>");
+      //  console.log(constraintAnalysisLabType)
+    }
+
+    function SearchResult() {
+
+
+
+
+        constraintAnalysisLabType = [];
+        constraintAirPortInternational = []
+        constraintText = [];
+        country = {}
+
+
+
+
+
+
+
+
+
+
+
+        $('#Farm_Constrain_TextTable tbody').empty();
+        $('#AnalysisPart tbody').empty();
+        $('#ArrivalAirportPart tbody').empty();
+
+        document.getElementById('tabForSearchResult').style.display = 'block'
+        document.getElementById('SaveCountryConstrain').style.display = 'block'
+
+
+        // get perv Ex_countryConstrain
+
+
+        var e = document.getElementById("constrainType");
+        var ww = e.options[e.selectedIndex].value;
+        var ww1 = e.options[e.selectedIndex].text;
+
+        var cc;
+
+        if (ww1.localeCompare("دولي") == 0) {
+
+            var c = document.getElementById("countriesLst");
+            cc = c.options[c.selectedIndex].value;
+        }
+        else if (ww1.localeCompare("اتحاد") == 0) {
+            var c = document.getElementById("unionsLst");
+            cc = c.options[c.selectedIndex].value;
+        }
+        else if (ww1.localeCompare("محلي") == 0) {
+            cc = 0;
+
+        }
+
+
+        var v = document.getElementById("ShortNameLst");
+        var shortNameID = v.options[v.selectedIndex].value;
+
+        var ed = document.getElementById("plantCatLst");
+        var plantCatID = ed.options[ed.selectedIndex].value;
+
+        var IsStationAccreditation_plant = $('#IsStationAccreditation_plant').prop("checked") ? true : false;
+        var IsFarmAccreditation_plant = $('#IsFarmAccreditation_plant').prop("checked") ? true : false;
+        var IsCompanyAccreditation_plant = $('#IsCompanyAccreditation_plant').prop("checked") ? true : false;
+        country = {}
+        country.ConstrainOwner_ID = cc;
+        country.CountryConstrain_Type = ww;
+        country.Item_ShortName_id = shortNameID;
+        country.IsStationAccreditation = IsStationAccreditation_plant;
+        country.IsFarmAccreditation = IsFarmAccreditation_plant;
+        country.IsCompanyAccreditation = IsCompanyAccreditation_plant;
+        country.ItemCategories_ID = plantCatID;
+
+        $.ajax({
+
+            url: '@Url.Action("getPervExCountryConstrain", "ExportConstrains")',
+            type: "POST",
+
+
+            data: {
+                EX_CountryConstrain: country
+            },
+
+
+
+            success: function (result) {
+
+
+                country.ID = result.CountryConstrain_ID;
+                //  console.log(country.ID);
+
+                var text = result.Text;
+                $("#IsStationAccreditation_plant").prop("checked", result.IsStationAccreditation);
+                $("#IsFarmAccreditation_plant").prop("checked", result.IsFarmAccreditation);
+                $("#IsCompanyAccreditation_plant").prop("checked", result.IsCompanyAccreditation);
+
+                for (i = 0; i < text.length; i++) {
+
+
+                    textElemnt = text[i];
+
+                    constraintTextValue = {}
+                    constraintTextValue.ConstrainText_Ar = textElemnt.ConstrainText_Ar;
+                    constraintTextValue.ConstrainText_En = textElemnt.ConstrainText_En;
+                    constraintTextValue.InSide_Certificate_Ar = textElemnt.InSide_Certificate_Ar;
+                    constraintTextValue.InSide_Certificate_En = textElemnt.InSide_Certificate_En;
+                    constraintTextValue.IsCertificate_Addtion = textElemnt.IsCertificate_Addtion;
+                    constraintText.push(constraintTextValue);
+
+
+                    var IsCertificate_Addtion = textElemnt.IsCertificate_Addtion ? "نعم" : "لا";
+                    //       console.log(textElemnt.Constrain_Ar)
+
+                    $("#Farm_Constrain_TextTable tbody").append("<tr>" +
+
+                        "<td>  " + textElemnt.ConstrainText_Ar + "  </td>"
+                        + "<td>" + textElemnt.ConstrainText_En + "</td>" +
+                        "<td>" + textElemnt.InSide_Certificate_Ar + "</td>"
+                        + "<td>" + textElemnt.InSide_Certificate_En + "</td>"
+                        + "<td>" + IsCertificate_Addtion + "</td>"
+                        + "</tr>");
+
+                }
+
+
+                var Analysis = result.Analysis;
+
+
+                for (i = 0; i < Analysis.length; i++) {
+
+
+                    textElemnt = Analysis[i];
+                    constraintAnalysisLab = {}
+                    constraintAnalysisLab.AnalysisLabTypeID =
+                        textElemnt.ExConstrainsLabsAndTypID;
+                    constraintAnalysisLabType.push(constraintAnalysisLab);
+
+                    console.log(textElemnt.ExConstrainsLabsAndTypID)
+
+                    $("#AnalysisPart tbody").append("<tr>" +
+
+                        "<td>  " + textElemnt.TypeName_Ar + "  </td>"
+                        + "<td>" + textElemnt.LabName_Ar + "</td>"
+                        + "</tr>");
+
+                }
+
+
+
+
+
+                var Ports = result.Ports;
+
+
+                for (i = 0; i < Ports.length; i++) {
+
+
+                    textElemnt = Ports[i];
+                    constraintAirportInernational = {}
+                    constraintAirportInernational.Port_International_Id =
+                        textElemnt.ExConstrainsAirPortAndCountryID;
+                    constraintAirPortInternational.push(constraintAirportInernational);
+
+
+                    $("#ArrivalAirportPart tbody").append("<tr>" +
+
+                        "<td>  " + textElemnt.AirPortName_Ar + "  </td>"
+                        + "<td>" + textElemnt.CountryName_Ar + "</td>"
+
+                        + "</tr>");
+
+                }
+
+            },
+            error: function (xhr, status, error) {
+
+            }
+        });
+
+
+    }
+
+    $("#IsStationAccreditation_plant").on('change', function () {
+        if ($(this).is(':checked')) {
+            $(this).attr('value', 'true');
+        } else {
+            $(this).attr('value', 'false');
+        }
+
+
+    });
+    $("#IsCompanyAccreditation_plant").on('change', function () {
+        if ($(this).is(':checked')) {
+            $(this).attr('value', 'true');
+        } else {
+            $(this).attr('value', 'false');
+        }
+
+
+    });
+
+    $("#IsFarmAccreditation_plant").on('change', function () {
+        if ($(this).is(':checked')) {
+            $(this).attr('value', 'true');
+        } else {
+            $(this).attr('value', 'false');
+        }
+
+
+    });
+
+    $('#plantLst').on('change', function () {
+
+        var plantId = $('#plantLst').val();
+        $.ajax(
+            {
+                url: '@Url.Action("PlantCategoryList", "ExportConstrains", new { area = "Export_Constrains" })',
+                data: {
+                    plantId: plantId,
+                },
+                success: function (data) {
+                    $('#plantCatLst').empty();
+                    $.each(data.Options, function (i, index) {
+                        $('#plantCatLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                    }); //each
+                } //success
+            });//ajax
+        //*********************//
+        $.ajax(
+            {
+                url: '@Url.Action("GetPlantShortName", "ExportConstrains", new { area = "Export_Constrains" })',
+                data: {
+                    Item_Id: plantId,
+                },
+                success: function (data) {
+                    $('#ShortNameLst').empty();
+                    $.each(data.Options, function (i, index) {
+                        $('#ShortNameLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                    }); //each
+                } //success
+            });//ajax
+        //*******************//
+    });
+    $('#ShortNameLst').on('change', function () {
+
+        $.ajax(
+            {
+                url: '/Export_Constrains/ExportConstrains/Get_ShortNameDetails',
+                data:
+                {
+                    ShortName: $("#ShortNameLst").val(),
+                },
+                success: function (res) {
+                    $("#PlantPart").val(res.SubPart_Name);
+                    $("#Status").val(res.Status_Name);
+                    $("#Purpose").val(res.Purpose_Name);
+                }
+            });//ajax
+    });
+
+
+
+</script>
+

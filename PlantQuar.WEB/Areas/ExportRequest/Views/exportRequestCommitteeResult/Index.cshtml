@@ -1,0 +1,724 @@
+﻿@model PlantQuar.DTO.DTO.ExportRequest.requestCommitteeResultDTO
+
+@{
+    ViewBag.Title = "تفاصيل طلب الفحص";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    var DetailsId = 0;
+    var CommitteeHasResult = 0;
+}
+
+<link href="~/assets/css/print.min.css" rel="stylesheet" />
+<script src="~/assets/js/print.min.js"></script>
+@section Title{
+    <h2 class="ls-top-header">نتائج الشحنة</h2>
+}
+
+@section Path{
+    <li style="position: relative;right: 28px;">نتائج الشحنة</li>
+
+}
+
+
+<style>
+    blockquote {
+        padding: 50px 25px !important;
+    }
+
+    .jtable-child-row {
+        display: table-row !important;
+    }
+
+    .form-rowr {
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px dashed #cbc5ba;
+    }
+
+    .control-label {
+        font-size: 14px;
+    }
+
+    .form-control {
+        font-size: 13px;
+    }
+
+    .label-info {
+        font-size: 16px;
+        text-align: center;
+        padding: 6px;
+        border-radius: 6px 20px;
+    }
+
+    th, tr, td {
+        text-align: center;
+    }
+
+    button, html input[type="button"], input[type="reset"], input[type="submit"] {
+        margin-right: 0px;
+    }
+
+
+    #btnSave, #btnReject, #btnReject, #PrintResultButton, #closedetails {
+        background-color: #1e7c80 !important;
+        border: 2px solid #1e8084 !important;
+        box-shadow: 0 4px #1d9fa5 !important;
+        outline: none;
+        color: white;
+        margin-bottom: 10px;
+    }
+
+        #btnSave, #btnReject, #btnReject, #PrintResultButton:hover, #closedetails:hover {
+            background-color: #1a8488 !important;
+            border: 1px solid #1a8488 !important;
+        }
+
+    blockquote {
+        margin-bottom: 70px !important;
+    }
+
+    .labelprint {
+        font-size: 14px !important;
+    }
+
+    .headings {
+        width: 30%;
+        margin: auto;
+    }
+
+    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+        padding: 3px !important;
+    }
+
+    .pp {
+        font-size: 13.5px;
+        font-weight: bold;
+        line-height: 1.25;
+        color: #368e86;
+    }
+
+    .listemployee {
+        list-style: none;
+        padding: 0px;
+    }
+
+    .tab-pane {
+        padding: 10px !important;
+    }
+
+    .modal-header .close {
+        background-image: url(../../../scripts/jtable/themes/metro/close.png) !important;
+        width: 17px;
+        margin: 0px 0 0 0;
+        padding: 1px;
+        height: 17px;
+        opacity: .75;
+    }
+
+    .modal-content {
+        padding: 5px;
+    }
+
+    .modal-header {
+        background-color: #3b818e !important;
+        color: white;
+        font-weight: bold;
+    }
+
+    #saveresultt {
+        width: 60px;
+        font-size: 15px;
+        text-align: center;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        background-color: #5c8d96;
+        color: white;
+    }
+
+    #rrr {
+        font-size: 30px;
+        color: #368e86;
+    }
+
+    .addres, #detailsbutton, .addresG {
+        color: white;
+        border-radius: 8px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .modal-dialog {
+        left: 0px !important;
+        margin-right: auto !important;
+        margin-left: auto !important;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $(".listemployee li:last-child").css(
+            "margin-bottom", "0px");
+    });
+</script>
+<div class="tab" id="modall_content2" role="tabpanel" style="min-height:80% !important;">
+
+    <ul class="nav nav-tabs" role="tablist" style="padding-left:33px !important;">
+        <li role="presentation" class="active">
+            <a href="#check" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.check</a>
+        </li>
+        <li role="presentation">
+            <a href="#sa7b" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.SampleData</a>
+        </li>
+        <li role="presentation">
+            <a href="#Treatment" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Treatment</a>
+        </li>
+        <li role="presentation">
+            <a href="#Geshny" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Geshney</a>
+        </li>
+    </ul>
+    <div class="tab-content tabs" style="background-color:whitesmoke !important;">
+        <div role="tabpanel" class="tab-pane fade in active" id="check">
+            <table class="table table-bordered">
+                <thead style="background-color:#4d9e97 !important;">
+                    <tr>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Plant</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.CommitteeType</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.LotNumber</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.CommitteeResult</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Weight</th>
+                        <th>العدد</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.InfectionName</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Result_injury_Name</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.DelegationDate</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Startdate</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.enddate</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.CommitteeMembers </th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.othersOpinoin</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.check != null)
+                    {
+                        var checkCommitteeGroupedByCommId = Model.check.Where(o => o.committeeTypeId == 1).
+                            GroupBy(s => s.committe_id);
+                        var checks = checkCommitteeGroupedByCommId.SelectMany(group => group);
+                        var newchecks = checks.ToList();
+                        for (int i = 0; i < newchecks.Count(); i++)
+                        {
+
+                            <tr class="lotrow" data-id="@newchecks[i].rowId">
+                                <td>@newchecks[i].itemName</td>
+                                <td>@newchecks[i].committeeName</td>
+                                @if (newchecks[i].lotNumber == "0")
+                                {
+                                    <td>فحص كلي</td>
+                                }
+                                else
+                                {
+                                    <td>@newchecks[i].lotNumber</td>
+                                }
+
+                                <td class="lotrowres_@newchecks[i].rowId" data-resval="@newchecks[i].resultbitAdmin">@newchecks[i].committeeResultName</td>
+                                <td>@newchecks[i].Weight</td>
+                                <td>@newchecks[i].QuantitySize</td>
+                                <td>@newchecks[i].Infection_Name</td>
+                                <td>@newchecks[i].Result_injury_Name</td>
+                                <td>@newchecks[i].committeeDelegationDate.Value.ToShortDateString()</td>
+                                <td>@newchecks[i].startTime</td>
+                                <td>@newchecks[i].endtime</td>
+                                <td class="c_@newchecks[i].committe_id">
+                                    @if (newchecks[i].allempXml_xml != null)
+                                    {
+                                        <ul class="listemployee">
+                                            @if (newchecks[i].allempXml_xml.fn_CommitteEmployee_GetData != null)
+                                            {
+
+                                                for (int x = 0; x < newchecks[i].allempXml_xml.fn_CommitteEmployee_GetData.Count(); x++)
+                                                {
+                                                    <li style="margin-bottom:6px;" data-id="@newchecks[i].committe_id" class="samecommid @newchecks[i].committe_id">
+                                                        @newchecks[i].allempXml_xml.fn_CommitteEmployee_GetData[x].FullName
+                                                        <br />
+                                                        <span style="color:#1a8488;font-weight:700;"> @(newchecks[i].allempXml_xml.fn_CommitteEmployee_GetData[x].ISAdmin ? "مشرف" : "عضو")</span>
+                                                    </li>
+                                                }
+                                            }
+
+                                        </ul>
+                                    }
+                                </td>
+
+                                <td>
+                                    @if (newchecks[i].empXml_xml != null)
+                                    {
+                                        <ul class="listemployee">
+                                            @if (newchecks[i].empXml_xml.fn_Get_Employee_Committee_Result != null)
+                                            {
+                                                CommitteeHasResult = 1;
+                                                for (int x = 0; x < newchecks[i].empXml_xml.fn_Get_Employee_Committee_Result.Count(); x++)
+                                                {
+                                                    <li style="margin-bottom: 6px;"> @Model.check[i].empXml_xml.fn_Get_Employee_Committee_Result[x].Employee_name</li>
+
+
+                                                    if (newchecks[i].empXml_xml.fn_Get_Employee_Committee_Result[x].result == "مرفوض")
+                                                    {
+                                                        <li style="font-weight:bold;margin-bottom:10px;padding-bottom:5px;color:red;" class="lotrowres_@newchecks[i].rowId" data-resval="@newchecks[i].empXml_xml.fn_Get_Employee_Committee_Result[x].resultbit">@newchecks[i].empXml_xml.fn_Get_Employee_Committee_Result[x].result</li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li style="font-weight:bold;margin-bottom:10px;color:forestgreen;" class="lotrowres_@newchecks[i].rowId" data-resval="@newchecks[i].empXml_xml.fn_Get_Employee_Committee_Result[x].resultbit">@newchecks[i].empXml_xml.fn_Get_Employee_Committee_Result[x].result</li>
+                                                    }
+                                                }
+                                                <li><button id="detailsbutton" onclick="DisplayDetails(@i)">@PlantQuar.WEB.Language.Resource_data1.Details </button></li>
+                                            }
+
+                                        </ul>
+                                    }
+                                </td>
+                                <td id="addbutt_@newchecks[i].rowId"></td>
+                            </tr>
+                        }
+
+
+                    }
+                </tbody>
+            </table>
+
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="sa7b">
+            <table class="table table-bordered">
+                <thead style="background-color:#4d9e97 !important;">
+                    <tr>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Plant</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.CommitteeType</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.LotNumber</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.CommitteeResult</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.SampleBarCode</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Notes</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.WithDrawPlace</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.SampleSize</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.SampleRatio</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.AnalysisType</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.AnalysisLab</th>
+                        @*<th>اسم المستلم</th>*@
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.withdrowSample != null)
+                    {
+                        for (int i = 0; i < Model.withdrowSample.Count(); i++)
+                        {
+                            <tr>
+                                <td>@Model.withdrowSample[i].itemName</td>
+                                <td>@Model.withdrowSample[i].committeeName</td>
+                                @if (Model.withdrowSample[i].lotNumber == "0")
+                                {
+                                    <td>فحص كلي</td>
+                                }
+                                else
+                                {
+                                    <td>@Model.withdrowSample[i].lotNumber</td>
+                                }
+
+                                <td>@Model.withdrowSample[i].committeeResultName</td>
+                                <td>@Model.withdrowSample[i].SampleBarCode</td>
+                                <td>@Model.withdrowSample[i].notes</td>
+                                <td>@Model.withdrowSample[i].WithDrawPlace</td>
+                                <td>@Model.withdrowSample[i].SampleSize</td>
+                                <td>@Model.withdrowSample[i].SampleRatio</td>
+                                <td>@Model.withdrowSample[i].AnalysisType_Name</td>
+                                <td>@Model.withdrowSample[i].AnalysisLab_Name</td>
+
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="Treatment">
+            <table class="table table-bordered" style="font-size: 13px;">
+                <thead style="background-color:#4d9e97 !important;">
+                    <tr>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.Plant</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.CommitteeType</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.LotNumber</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.CommitteeResult</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.TreatmentType</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.Company</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.TreatmentMaterial</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.TreatmentMethod</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.Temperature</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.Exposure_Day</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.Exposure_Hour</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.Exposure_Minute</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.TheDose</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.Size</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.TreatmentMatAmount</th>
+                        <th style="padding: 1px !important;">@PlantQuar.WEB.Language.Resource_data1.Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Treatment != null)
+                    {
+                        for (int i = 0; i < Model.Treatment.Count(); i++)
+                        {
+
+                            <tr>
+                                <td>@Model.Treatment[i].itemName</td>
+                                <td>@Model.Treatment[i].committeeName</td>
+                                @if (Model.Treatment[i].lotNumber == "0")
+                                {
+                                    <td>فحص كلي</td>
+                                }
+                                else
+                                {
+                                    <td>@Model.Treatment[i].lotNumber</td>
+                                }
+
+                                <td>@Model.Treatment[i].committeeResultName</td>
+                                <td>@Model.Treatment[i].TreatmentType_Name</td>
+                                <td>@Model.Treatment[i].Company_Name</td>
+                                <td>@Model.Treatment[i].TreatmentMaterial_Name</td>
+                                <td>@Model.Treatment[i].TreatmentMethods_Name</td>
+                                <td>@Model.Treatment[i].Temperature</td>
+                                <td>@Model.Treatment[i].Exposure_Day</td>
+                                <td>@Model.Treatment[i].Exposure_Hour</td>
+                                <td>@Model.Treatment[i].Exposure_Minute</td>
+                                <td>@Model.Treatment[i].TheDose</td>
+                                <td>@Model.Treatment[i].Size</td>
+                                <td>@Model.Treatment[i].TreatmentMat_Amount</td>
+                                <td>@Model.Treatment[i].notes</td>
+                            </tr>
+
+
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="Geshny">
+            <table class="table table-bordered">
+                <thead style="background-color:#4d9e97 !important;">
+                    <tr>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Plant</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.CommitteeType</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.LotNumber</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.CommitteeResult</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Weight</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.QuantitySize</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.InfectionName</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Result_injury_Name</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.DelegationDate</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Startdate</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.enddate</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.allemployees</th>
+                        <th></th>
+                        <th></th>
+                        @*<th>اسم المستلم</th>*@
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.check != null)
+                    {
+                        for (int i = 0; i < Model.check.Count(); i++)
+                        {
+                            if (Model.check[i].committeeTypeId == 2)
+                            {
+                                <tr class="lotrowGeshny" data-id="@Model.check[i].rowId">
+                                    <td>@Model.check[i].itemName</td>
+                                    <td>@Model.check[i].committeeName</td>
+                                    @if (Model.check[i].lotNumber == "0")
+                                    {
+                                        <td>فحص كلي</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@Model.check[i].lotNumber</td>
+                                    }
+
+                                    <td class="lotrowresGeshny_@Model.check[i].rowId" data-resval="@Model.check[i].resultbitAdmin">@Model.check[i].committeeResultName</td>
+                                    <td>@Model.check[i].Weight</td>
+                                    <td>@Model.check[i].QuantitySize</td>
+                                    <td>@Model.check[i].Infection_Name</td>
+                                    <td>@Model.check[i].Result_injury_Name</td>
+                                    <td>@Model.check[i].committeeDelegationDate</td>
+                                    <td>@Model.check[i].startTime</td>
+                                    <td>@Model.check[i].endtime</td>
+                                    <td>
+                                        @if (Model.check[i].allempXml_xml != null)
+                                        {
+                                            <ul class="listemployee">
+                                                @if (Model.check[i].allempXml_xml.fn_CommitteEmployee_GetData != null)
+                                                {
+
+                                                    for (int x = 0; x < Model.check[i].allempXml_xml.fn_CommitteEmployee_GetData.Count(); x++)
+                                                    {
+                                                        <li style="margin-bottom: 6px;"> @Model.check[i].allempXml_xml.fn_CommitteEmployee_GetData[x].FullName</li>
+                                                        @*<li style="margin-bottom: 6px;"><p class="pp"> الملاحظات:</p>@Model.check[i].empXml_xml.fn_Get_Employee_Committee_Result[x].notes</li>*@
+
+
+                                                    }
+                                                }
+
+                                            </ul>
+                                        }
+                                    </td>
+
+                                    <td>
+                                        @if (Model.check[i].empXml_xml != null)
+                                        {
+                                            <ul class="listemployee">
+                                                @if (Model.check[i].empXml_xml.fn_Get_Employee_Committee_Result != null)
+                                                {
+                                                    for (int x = 0; x < Model.check[i].empXml_xml.fn_Get_Employee_Committee_Result.Count(); x++)
+                                                    {
+                                                        <li style="margin-bottom: 6px;">@Model.check[i].empXml_xml.fn_Get_Employee_Committee_Result[x].Employee_name</li>
+                                                        <li>@Model.check[i].empXml_xml.fn_Get_Employee_Committee_Result[x].notes</li>
+                                                        if (@Model.check[i].empXml_xml.fn_Get_Employee_Committee_Result[x].result == "مرفوض")
+                                                        {
+                                                            <li class="lotrowresGeshny_@Model.check[i].rowId" data-resval="@Model.check[i].empXml_xml.fn_Get_Employee_Committee_Result[x].resultbit" style="color:red;font-weight:bold;">@Model.check[i].empXml_xml.fn_Get_Employee_Committee_Result[x].result</li>
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <li class="lotrowresGeshny_@Model.check[i].rowId" data-resval="@Model.check[i].empXml_xml.fn_Get_Employee_Committee_Result[x].resultbit" style="color:forestgreen;font-weight:bold;">@Model.check[i].empXml_xml.fn_Get_Employee_Committee_Result[x].result</li>
+
+                                                        }
+                                                    }
+
+                                                }
+                                            </ul>
+                                        }
+                                    </td>
+                                    <td id="addbuttG_@Model.check[i].rowId"></td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div id="myModal2" class="modal fade" role="dialog" style="">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"></button>
+                <h4 class="modal-title">Add Your result</h4>
+            </div>
+            <div class="modal-body" style="margin-left:-300px;">
+                <input type="hidden" id="commresId" />
+                <div class="row">
+                    <label class="col-lg-2 col-md-3 col-sm-12">@PlantQuar.WEB.Language.Resource_data1.Result</label>
+                    <div class="col-lg-2 col-md-2 col-sm-6">
+                        <input type="radio" name="result_" class="resultadm col-lg-2 col-md-2 col-sm-2" value="true">
+                        <label class="col-lg-2 col-md-3 col-sm-10">@PlantQuar.WEB.Language.Resource_data1.Accept</label>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-6">
+                        <input type="radio" name="result_" class="resultadm col-lg-2 col-md-2 col-sm-2" value="false">
+                        <label class="col-lg-2 col-md-3 col-sm-10">@PlantQuar.WEB.Language.Resource_data1.Reject</label>
+                    </div>
+
+
+                </div>
+                <br />
+                <div class="row">
+
+                    <label class="col-lg-2 col-md-3 col-sm-12">
+                        @PlantQuar.WEB.Language.Resource_data1.Notes
+                        @PlantQuar.WEB.Language.Resource_data1.Arabic
+                    </label>
+                    <textarea id="noteAr" class="col-lg-4 col-md-4 col-sm-12"></textarea>
+                </div>
+                <br />
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="saveresultt">save</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@*show notes details*@
+
+<div id="myModal1" class="modal fade" role="dialog" style="margin-left:-200px;">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"></button>
+                <h4 class="modal-title" style="margin: auto;">تفاصيل الملاحظات</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <table class="table table-bordered" style="width:100%;">
+                        <thead>
+                            <tr style="background-color: #4d9e97 !important; color:white;">
+                                <th>اسم الموظف</th>
+                                <th>الملاحظات</th>
+                                <th>النتيجة</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ if (Model.check.Count() > 0)
+                                {
+                                    if (Model.check[DetailsId].committeeTypeId == 1)
+
+                                    {
+                                        if (Model.check[DetailsId].empXml_xml != null)
+                                        {
+                                            if (Model.check[DetailsId].empXml_xml.fn_Get_Employee_Committee_Result != null)
+                                            {
+                                                for (int x = 0; x < Model.check[DetailsId].empXml_xml.fn_Get_Employee_Committee_Result.Count(); x++)
+                                                {
+                                                    <tr>
+                                                        <td> @Model.check[DetailsId].empXml_xml.fn_Get_Employee_Committee_Result[x].Employee_name</td>
+                                                        <td>@Model.check[DetailsId].empXml_xml.fn_Get_Employee_Committee_Result[x].notes</td>
+                                                        @if (@Model.check[DetailsId].empXml_xml.fn_Get_Employee_Committee_Result[x].result == "مرفوض")
+                                                        {
+                                                            <td style="font-weight:bold;margin-bottom:10px;padding-bottom:5px;color:red;" class="lotrowres_@Model.check[DetailsId].rowId" data-resval="@Model.check[DetailsId].empXml_xml.fn_Get_Employee_Committee_Result[x].resultbit">@Model.check[DetailsId].empXml_xml.fn_Get_Employee_Committee_Result[x].result</td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td style="font-weight:bold;margin-bottom:10px;color:forestgreen;" class="lotrowres_@Model.check[DetailsId].rowId" data-resval="@Model.check[DetailsId].empXml_xml.fn_Get_Employee_Committee_Result[x].resultbit">@Model.check[DetailsId].empXml_xml.fn_Get_Employee_Committee_Result[x].result</td>
+                                                        }
+                                                    </tr>
+                                                }
+
+                                            }
+                                        }
+                                    }
+
+                                }
+
+                            }
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+                <br />
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="closedetails" style="width: 19%;"> اغلاق</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<br />
+@*<div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4" style="text-align: center;" >
+            <label id="rrr"></label>
+        </div>
+        <div class="col-md-4"></div>
+    </div>*@
+
+<script>
+
+    $(document).ready(function () {
+        $(".lotrow").each(function () {
+            var rowId = $(this).data("id");
+            var totNum = 0;
+            var numTrue = 0;
+            var numfalse = 0;
+            $(".lotrowres_" + rowId).each(function () {
+                totNum = totNum + 1;
+                var val = $(this).data("resval");
+                console.log(val)
+                if (val == "True") {
+                    numTrue = numTrue + 1;
+                } else {
+                    numfalse = numfalse + 1;
+                }
+            });
+            debugger;
+            if (totNum > 1
+                //fz admin adds result only if there is conflict
+                && numfalse > 0) {
+                $("#addbutt_" + rowId).append('<button data-toggle="modal" class="addres" data-rowid="' + rowId + '">@PlantQuar.WEB.Language.Resource_data1.AddResult</button>');
+            }
+        });
+        $(".lotrowGeshny").each(function () {
+            var rowId = $(this).data("id");
+            var totNum = 0;
+            var numTrue = 0;
+            var numfalse = 0;
+            $(".lotrowresGeshny_" + rowId).each(function () {
+                totNum = totNum + 1;
+                var val = $(this).data("resval");
+                console.log(val)
+                if (val == "True") {
+                    numTrue = numTrue + 1;
+                } else {
+                    numfalse = numfalse + 1;
+                }
+            });
+
+            //9-6-2020 eman check for admin conformation also in stored fn_check_CanalterGashny
+            if (totNum > 1 //fz admin adds result only if there is conflict
+                && numfalse > 0) {
+                $("#addbuttG_" + rowId).append('<button data-toggle="modal" class="addresG" data-rowid="' + rowId + '">@PlantQuar.WEB.Language.Resource_data1.AddResult</button>');
+            }
+        });
+        $(".addres").click(function () {
+          
+            var id = $(this).data("rowid");
+            $("#commresId").val(id);
+            /*$('#myModal2').modal('show');*/
+        });
+        $("#closedetails").click(function () {
+            $('#myModal1').modal('hide');
+        });
+        $(".addresG").click(function () {
+            var id = $(this).data("rowid");
+            $("#commresId").val(id);
+            $('#myModal2').modal('show');
+        });
+
+        $("#saveresultt").click(function () {
+            $("#rrr").text('');
+            var result = "";
+            $(".resultadm").each(function () {
+                if ($(this).is(":checked")) {
+                    result = $(this).val();
+                }
+            });
+
+            var noteAr = $("#noteAr").val();
+            var committeeResultId = $("#commresId").val();
+            console.log(result)
+            if (result != "") {
+                $.post('/ExportRequest/exportRequestCommitteeResult/saveAdminResult', { result: result, noteAr: noteAr ,committeeResultId:committeeResultId}, function (data, succ) {
+
+                    $("#rrr").text(data);
+
+                });
+
+            } else {
+                $("#rrr").text('complete data');
+            }
+        });
+    });
+
+    function DisplayDetails(i) {
+        debugger;
+        DetailsId = i;
+        $('#myModal1').modal('show');
+
+    }
+
+</script>
+

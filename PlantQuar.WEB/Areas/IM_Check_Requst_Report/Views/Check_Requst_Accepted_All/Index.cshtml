@@ -1,0 +1,1128 @@
+﻿
+@model PlantQuar.DTO.DTO.IM_Check_Requst_Report.Check_Requst_Accepted_All_DTO
+@{
+    /**/
+
+    ViewBag.Title = "Committee";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    var x = 0;
+
+}
+
+@section Title{
+    <h2 class="ls-top-header">بيان فحص رسائل وارد</h2>
+}
+
+<link href="~/Content/jquery.timepicker.css" rel="stylesheet" />
+<script src="~/scripts/jquery.timepicker.min.js"></script>
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style>
+        .lab-2 {
+            margin-top: 45px;
+            margin-right: 8px;
+            text-align: center;
+            font-size: 16px;
+        }
+    </style>
+    <style>
+        td:first-child {
+            border-right: none;
+        }
+
+        td:last-child {
+            border-left: none;
+        }
+
+        td, th {
+            border: 1px solid black;
+            padding: 0px 3px !important;
+        }
+
+        table {
+            width: inherit;
+        }
+
+
+        .border-top-none {
+            border-top: none !important;
+        }
+
+        .title-td {
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .demo-blockquote {
+            margin-bottom: 70px;
+        }
+
+        hr {
+            margin-top: 10px !important;
+            margin-bottom: 10px !important;
+        }
+    </style>
+
+    <script src="~/scripts/jquery.qrcode.js"></script>
+    <script src="~/scripts/qrcode.js"></script>
+
+</head>
+
+<body>
+    @if (Model != null)
+    {
+        <div id="tableArabic" style="width:21cm;height:auto;background:gray;margin:auto;padding-top:.6cm">
+            <div id="border" style="width:20cm;background:white;margin:auto;border:1px solid #000;font-family: 'Arial regular'!important;font-size:10pt;">
+                <div id="header" style="height:4.5cm;">
+                    <div class="" style="margin:auto;height:inherit;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style="width: 50%; height:inherit;padding:3px">
+                            <div class="col-md-4 col-sm-4" style="display:inline-block;float:right;padding: 3px;height: inherit;">
+                                <img class="img1" style="" src="~/assets/images/capq/logo-capq-114.png" />
+                            </div>
+                            <div class="col-md-8 col-sm-8" style="display:inline-block;height: inherit;">
+                                <p class="lab-2" style="font-weight:bold">
+                                    جمهورية مصر العربية<br />
+                                    وزارة الزراعة واستصلاح الأراضي<br />
+                                    الإدارة المركزية للحجر الزراعي
+
+                                </p>
+                            </div>
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style="width: 50%;height: inherit;padding: 3px;">
+                            <div class="col-md-6 col-sm-6" style="display:inline-block;float:right;height: inherit;text-align: right;">
+                                <label style="margin-top: 10px;font-size: 20px;">بيان فحص رسائل وارد</label>
+                                <label>رقم:</label><span></span>
+                                <br />
+
+                                <label>الإدارة العامة:</label>
+                                @if (@Model.General_Admin_Name == null || @Model.General_Admin_Name == "")
+                                {
+                                    <span>#######</span>
+                                }
+                                else
+                                {
+                                    <span>@Model.General_Admin_Name</span>
+                                }
+
+
+                                <br />
+                                <label>ميناء:</label><span>@Model.ArrivePortName</span>
+                            </div>
+                            <div class="col-md-6 col-sm-6" style="display:inline-block;height:inherit;padding: 35px 10px;">
+                                <label style="width: 100px; height: 100px; margin-bottom: 0px; float: left; " class="qrcodeimport"></label>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div id="content" style="height:7.5cm;">
+                    <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>رقم الشهادة الجمركية:</label>
+                            @if (@Model.Customs_Certificate_Number == null || @Model.Customs_Certificate_Number == "")
+                            {
+                                <span>#######</span>
+                            }
+                            else
+                            {
+                                <span>@Model.Customs_Certificate_Number</span>
+                            }
+
+
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div style="width :50%; height :inherit;padding :3px">
+                            <label>تاريخ الشهادة الجمركية:</label>
+                            @if (@Model.Certification_Date == null)
+                            {
+                                <span>#######</span>
+                            }
+                            else
+                            {
+                                <span>@Model.Certification_Date.Value.ToString("dd/MM/yyyy")</span>
+                            }
+
+
+                        </div>
+                    </div>
+                    <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style="width:50%;height:inherit;padding:3px">
+                            <label>رقم المنافستو:</label>
+                            @if (@Model.Manifest_Number == null || @Model.Manifest_Number == "")
+                            {
+                                <span>#######</span>
+                            }
+                            else
+                            {
+                                <span>@Model.Manifest_Number</span>
+                            }
+
+
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>ACID:</label>
+
+                            @if (@Model.Certificate_Number_Each_Product == null || @Model.Certificate_Number_Each_Product == "")
+                            {
+                                <span>#######</span>
+                            }
+                            else
+                            {
+                                <span>@Model.Certificate_Number_Each_Product</span>
+                            }
+
+                        </div>
+                    </div>
+                    <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>تاريخ الشحن:</label>
+                            @if (@Model.Shipment_Date == null)
+                            {
+                                <span>#######</span>
+                            }
+                            else
+                            {
+                                <span>@Model.Shipment_Date.Value.ToString("dd/MM/yyyy")</span>
+                            }
+
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>تاريخ الوصول:</label>
+                            @if (@Model.Arrival_Date == null)
+                            {
+                                <span>#######</span>
+                            }
+                            else
+                            {
+                                <span>@Model.Arrival_Date.Value.ToString("dd/MM/yyyy")</span>
+                            }
+
+
+                        </div>
+                    </div>
+                    <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>نوع العملية:</label>
+                            <span>@Model.OperationType_Name</span>
+
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>التوكيل الملاحي:</label>
+                            <span>@Model.Shipping_Agency_Name</span>
+                        </div>
+                    </div>
+                    <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>اسم المستورد:</label>
+                            <span>@Model.ImporterName</span>
+
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>العنوان:</label>
+                            <span>@Model.ImporterAddress</span>
+
+
+                        </div>
+                    </div>
+                    <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>رقم السجل التجاري:</label>
+                            <span> @Model.CommertialRecord</span>
+
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>رقم البطاقة الضربية:</label>
+                            <span>@Model.TaxesRecord</span>
+
+                        </div>
+                    </div>
+                    <div class="" style="margin:auto;height:.9cm;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>نوع النشاط ورقم النشاط:</label>
+                            @if (Model._CompanyActivitys != null)
+                            {
+                                foreach (var itm in Model._CompanyActivitys)
+                                {
+                                    int xc = (int)@itm.Enrollment_Number;
+                                    <span class="red">(</span>
+
+                                    <span>@itm.CompActivityType__Name </span>
+                                    <span>@xc </span><span class="red">)</span>
+
+                                }
+                            }
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label> المندوب \رقم البطاقة:</label>
+                            @if (@Model.MessageOwner == null && @Model.MessageOwnerNationalID == null)
+                            {
+                                <span>#######</span>
+                            }
+                            else
+                            {
+                                <span>@Model.MessageOwner</span><span class="red">/</span> <span>@Model.MessageOwnerNationalID</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>الدولة المصدرة:</label>
+                            <span>@Model.ExportCountryName</span>
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>نوع وميناء الشحن:</label>
+                            <span>@Model.TransportPortType</span>  <span>@Model.TransportPortName</span>
+                        </div>
+                    </div>
+                    <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>دولة العبور:</label>
+                            @if (@Model.TransitCountry == null)
+                            {
+                                <span>#######</span>
+                            }
+                            else
+                            {
+                                <span>@Model.TransitCountry</span>
+                            }
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>نوع وميناء الشحن:</label>
+                            @if (@Model.TransitPortType == null || @Model.TransitPort == null)
+                            {
+                                <span>#######</span>
+                            }
+                            else
+                            {
+                                <span>@Model.TransitPortType</span> <span class="red">/</span> <span>@Model.TransitPort</span>
+                            }
+
+                        </div>
+                    </div>
+                    <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>نوع وسيلة الشحن:</label>
+                            <span>@Model.Shipment_MeanName</span>
+
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>اسم وسيلة الشحن أو رقم الرحلة:</label>
+                            <span>@Model.Ship_Name</span>
+
+                        </div>
+                    </div>
+                    <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>اسم المورد:</label>
+
+                            @if (Model.ImportersCompanies != null)
+                            {
+                                for (int i = 0; i < Model.ImportersCompanies.Count(); i++)
+                                {
+
+                                    <span>@Model.ImportersCompanies[i].ImporterCompany</span>
+
+
+
+                                }
+                            }
+
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+
+                            <label>العنوان:</label>
+                            @if (Model.ImportersCompanies != null)
+                            {
+                                for (int i = 0; i < Model.ImportersCompanies.Count(); i++)
+                                {
+
+                                    <span>@Model.ImportersCompanies[i].ImporterCompanyAddress</span>
+                                }
+                            }
+                        </div>
+                    </div>
+
+
+                    <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style="width:100%; height:inherit;padding:3px">
+                            <label>رقم أذون الاستيراد للرسالة:</label>
+                            @*@for (int i = 0; i < @Model.PermissionNumbersList.Count(); i++)*@
+                            @if (Model.PermissionNumbersList != null)
+                            {
+                                foreach (var item in Model.PermissionNumbersList)
+                                {
+                                    <span>@item.ImPermission_Number</span><span class="red">/</span>
+                                }
+                            }
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="" style="margin:auto;height:auto;border-bottom:1px solid #000;display:flex;margin-top:5px">
+                    <div class="" style="width:100%; height:inherit;padding:0px 3px">
+                        @if (ViewBag.opt != 0)
+                        {
+
+
+                            <h4 style="font-weight: bold; text-align: center; margin: 0;">المنتجات</h4>
+
+                            <table style="width:19.85cm !important;">
+
+
+                                <tr style="border-bottom:1px solid #000; border-top:1px solid #000;">
+                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">اسم المنتج</td>
+                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">الصنف</td>
+                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">الاسم المختصر</td>
+                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">الوزن القائم</td>
+                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">الوزن الصافي</td>
+                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">نوع العبوة</td>
+                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">وزن العبوة</td>
+                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">العدد</td>
+                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">الاسم العلمي</td>
+                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">عدد البالتات الخشبية</td>
+                                    <td style="border-top:1px solid #000;">المنشأ</td>
+                                </tr>
+
+
+                                <tbody>
+
+
+                                    @try
+                                    {
+                                        if (Model.ItemCategories_lots != null)
+                                        {
+                                            for (int i = 0; i < Model.ItemCategories_lots.Count(); i++)
+                                            {
+                                                <tr>
+                                                    <td style="border-left:1px solid #000; border-bottom:1px solid #000;">@Model.ItemCategories_lots[i].ItemName</td>
+                                                    <td style="border-left:1px solid #000; border-bottom:1px solid #000;">@Model.ItemCategories_lots[i].categoryName</td>
+                                                    <td style="border-left:1px solid #000; border-bottom:1px solid #000;">@Model.ItemCategories_lots[i].ItemShortName</td>
+                                                    <td style="border-left:1px solid #000; border-bottom:1px solid #000;">@Model.ItemCategories_lots[i].GrossWeight</td>
+                                                    <td style="border-left:1px solid #000; border-bottom:1px solid #000;">@Model.ItemCategories_lots[i].Net_Weight</td>
+                                                    <td style="border-left:1px solid #000; border-bottom:1px solid #000;">@Model.ItemCategories_lots[i].packageType</td>
+                                                    <td style="border-left:1px solid #000; border-bottom:1px solid #000;">@Model.ItemCategories_lots[i].Package_Based_Weight</td>
+                                                    <td style="border-left:1px solid #000; border-bottom:1px solid #000;">@Model.ItemCategories_lots[i].Package_Count</td>
+                                                    <td style="border-left:1px solid #000; border-bottom:1px solid #000;">@Model.ItemCategories_lots[i].ScientificName</td>
+                                                    <td style="border-left:1px solid #000; border-bottom:1px solid #000;">@Model.ItemCategories_lots[i].Number_Wooden_Package</td>
+                                                    <td style="border-bottom:1px solid #000;">@Model.ItemCategories_lots[i].InitiatorCountry</td>
+                                                </tr>
+                                            }
+                                        }
+
+                                    }
+                                    catch (Exception)
+                                    {
+
+                                        throw;
+                                    }
+
+
+
+                                </tbody>
+                            </table>
+                        }
+                        @if (ViewBag.opt1 != 0)
+                        {
+
+                            <h4 style="font-weight: bold; text-align: center; margin: 0;">الإجراءات التي تمت على الرسالة</h4>
+                            <table style="width:19.85cm !important;">
+
+
+                                <tr style="border-bottom:1px solid #000; border-top:1px solid #000;">
+                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">نوع اللجنة</td>
+                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">تاريخ اللجنة</td>
+                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">اسماء الفاحصين</td>
+                                    <td style="border-top:1px solid #000;">النتيجة</td>
+
+                                </tr>
+
+
+                                <tbody>
+                                    @if (Model.List_Committee_Lot_Accept != null)
+                                    {
+                                        for (int i = 0; i < Model.List_Committee_Lot_Accept.Count(); i++)
+                                        {
+                                            <tr>
+                                                <td style="border-left:1px solid #000; border-bottom:1px solid #000;">لجنة فحص-وارد</td>
+                                                <td style="border-left:1px solid #000; border-bottom:1px solid #000;">@Model.List_Committee_Lot_Accept[i].Date</td>
+                                                <td style="border-left:1px solid #000; border-bottom:1px solid #000;">@Model.List_Committee_Lot_Accept[i].Employee_Name</td>
+                                                <td style="border-bottom:1px solid #000;">@Model.List_Committee_Lot_Accept[i].ResultTypes_Name</td>
+                                            </tr>
+                                        }
+                                    }
+
+
+
+                                </tbody>
+                            </table>
+                        }
+                        @if (ViewBag.opt2 != 0)
+                        {
+                            <h4 style="font-weight: bold; text-align: center; margin: 0;">نتائج سحب العينات</h4>
+                            <table style="width:19.85cm !important;">
+
+
+                                <tr style="border-bottom:1px solid #000; border-top:1px solid #000;">
+                                    <td style="border-left:1px solid #000; border-top:1px solid #000;"> اسم النبات</td>
+                                    <td style="border-left:1px solid #000; border-top:1px solid #000;"> اسم التحليل</td>
+                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">المعمل</td>
+                                    <td style="border-left: none; border-top: 1px solid #000;">النتيجة</td>
+                                    <td hidden="hidden" style="border-left:1px solid #000; border-top:1px solid #000;">المسبب</td>
+
+                                </tr>
+
+
+                                <tbody>
+                                    @if (Model.List_Lot_Committee_Sample != null)
+                                    {
+                                        for (int s = 0; s < Model.List_Lot_Committee_Sample.Count(); s++)
+                                        {
+                                        <tr>
+                                            <td style="border-left: none; border-bottom: 1px solid #000;">@Model.List_Lot_Committee_Sample[s].itemName</td>
+                                            <td style="border-left: none; border-bottom: 1px solid #000;">@Model.List_Lot_Committee_Sample[s].Analysis_Name</td>
+                                            <td style="border-left: none; border-bottom: 1px solid #000;">@Model.List_Lot_Committee_Sample[s].Lab_Name</td>
+                                            @if (@Model.List_Lot_Committee_Sample[s].IsAccepted == true)
+                                            {
+                                                <td style="border-left: none; border-bottom: 1px solid #000;">مقبــول</td>
+                                            }
+                                            else if (@Model.List_Lot_Committee_Sample[s].IsAccepted == true)
+                                            {
+                                                <td style="border-left: none; border-bottom: 1px solid #000;">مرفوض</td>
+                                            }
+
+                                            <td hidden="hidden" style="border-left: none; border-bottom: 1px solid #000;"></td>
+
+                                        </tr>
+                                        }
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        }
+                        @if (ViewBag.opt3 != 0)
+                        {
+                            <h4 style="font-weight: bold; text-align: center; margin: 0;">إجراءات المعالجة</h4>
+
+                            <table style="width:19.85cm !important;">
+
+
+                                <tr style="border-bottom:1px solid #000; border-top:1px solid #000;">
+                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">طريقة المعالجة</td>
+                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">مادة المعالجة</td>
+                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">مكان المعالجة</td>
+                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">شركة المعالجة</td>
+                                    <td style="border-top:1px solid #000;">رقم بيان المعالجة</td>
+
+                                </tr>
+
+
+                                <tbody>
+                                    <tr>
+                                        <td style="border-left:1px solid #000; border-bottom:1px solid #000;"></td>
+                                        <td style="border-left:1px solid #000; border-bottom:1px solid #000;"></td>
+                                        <td style="border-left:1px solid #000; border-bottom:1px solid #000;"></td>
+                                        <td style="border-left:1px solid #000; border-bottom:1px solid #000;"></td>
+                                        <td style="border-bottom:1px solid #000;"></td>
+
+                                    </tr>
+
+
+
+                                </tbody>
+                            </table>
+                        }
+                        @if (ViewBag.opt4 != 0)
+                        {
+
+                            <table style="width:19.85cm !important;">
+                                <tr>
+                                    <td class="border-top-none title-td" colspan="12"><h4 style="font-weight: bold; text-align: center; margin: 0;">الاجزاء المرفوضة من الرسالة</h4></td>
+                                </tr>
+
+                                <tbody>
+                                    <tr style="border-bottom:1px solid #000; border-top:1px solid #000;"></tr>
+
+
+
+                                </tbody>
+                            </table>
+
+
+
+                        }
+                        @if (ViewBag.opt5 != 0)
+                        {
+                            <h4 style="font-weight: bold; text-align: center; margin: 0;">إجراءات التحفظ على الرسالة</h4>
+                            <table style="width:19.85cm !important;">
+
+
+                                <tr style="border-bottom:1px solid #000; border-top:1px solid #000;">
+                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">مكان التحفظ</td>
+                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">عنوان</td>
+                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">الكمية او اللوط</td>
+                                    <td style="border-top:1px solid #000;">الغرض من التحفظ</td>
+
+                                </tr>
+
+
+                                <tbody>
+                                    <tr>
+                                        <td style="border-left:1px solid #000; border-bottom:1px solid #000;"></td>
+                                        <td style="border-left:1px solid #000; border-bottom:1px solid #000;"></td>
+                                        <td style="border-left:1px solid #000; border-bottom:1px solid #000;"></td>
+                                        <td style="border-bottom:1px solid #000;"></td>
+
+                                    </tr>
+
+
+
+                                </tbody>
+                            </table>
+
+
+                        }
+                        @if (ViewBag.opt6 != 0)
+                        {
+                            <h4 style="font-weight: bold; text-align: center; margin: 0;">الإجراءات النهائية للرسالة</h4>
+                            <table style="width:19.85cm !important;">
+
+
+                                <tr style="border-bottom:1px solid #000; border-top:1px solid #000;">
+                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">التأشيرات</td>
+                                    <td style="border-top:1px solid #000;">المسؤول المختص</td>
+                                </tr>
+
+
+                                <tbody>
+                                    <tr>
+                                        <td style="border-left:1px solid #000; border-bottom:1px solid #000;"></td>
+                                        <td style="border-bottom:1px solid #000;"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        }
+                        @if (ViewBag.opt7 != 0)
+                        {
+                            <h4 style="font-weight: bold; text-align: center; margin: 0;">الرسوم</h4>
+                            <table style="width:19.85cm !important;">
+
+
+                                <tbody>
+                                    <tr style="border-bottom:1px solid #000; border-top:1px solid #000;">
+                                        <td style="border-left:1px solid #000; border-top:1px solid #000;">
+                                            رســــوم ثــابتة  /  <span class="bold"> رسوم طلب فحص</span>
+                                        </td>
+                                        <td style="border-top:1px solid #000;">10 ج.م</td>
+
+                                    </tr>
+                                    <tr>
+                                    <tr style="border-bottom:1px solid #000; border-top:1px solid #000;">
+                                        <td colspan="2"> رسوم المنتجات</td>
+                                    </tr>
+                                    <tr>
+                                        <table style="width:19.85cm !important;">
+
+                                            <thead>
+                                                <tr style="border-bottom:1px solid #000; border-top:1px solid #000;">
+                                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">أسم المنتج</td>
+                                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">المسمي المختصر</td>
+                                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">الوزن   الأجمالى للوطات ( الطن )</td>
+                                                    <td style="border-top:1px solid #000;">القيمـة(ج.م.)</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model.Fees_Item_All != null)
+                                                {
+                                                    for (int i = 0; i < Model.Fees_Item_All.Count; i++)
+                                                    {
+
+
+                                                    <tr>
+                                                        <td style="border-left:1px solid #000; border-bottom:1px solid #000;">  @Model.Fees_Item_All[i].ItemName</td>
+                                                        <td style="border-left:1px solid #000; border-bottom:1px solid #000;">@Model.Fees_Item_All[i].ItemShortName</td>
+                                                        <td style="border-left:1px solid #000; border-bottom:1px solid #000;"> @Model.Fees_Item_All[i].GrossWeight</td>
+                                                        <td style="border-bottom:1px solid #000;">@Model.Fees_Item_All[i].Fees</td>
+                                                    </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </tr>
+                                    <tr>
+                                        <table style="width:19.85cm !important;">
+                                            <tr style="border-bottom:1px solid #000; border-top:1px solid #000;">
+                                                <td style="border-left:1px solid #000; border-top:1px solid #000;">
+                                                    رســــوم النوبتجية
+                                                </td>
+                                                <td style="border-top:1px solid #000;"> @Model.Shift_Item_All ج.م.</td>
+
+                                            </tr>
+
+                                        </table>
+                                    </tr>
+                                    <tr>
+                                        <table border="1" class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    @*<th style="text-align:center;">اسم المعمل</th>
+                                    <th style="text-align:center;">اسم التحليل</th>
+                                    <th style="text-align:center;">نوع الفحص</th>*@
+                                                    <td style="text-align:center;">اجمالى رسوم السحب</td>
+                                                    <td style="text-align:center;">العدد </td>
+                                                    <td style="text-align:center;">القيمة</td>
+                                                    <td style="text-align:center;">الاجمالى</td>
+                                                    @*<th style="text-align:center;">الدفع</th>*@
+
+
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model.List_Sample != null)
+                                                {
+                                                    for (int i = 0; i < Model.List_Sample.Count; i++)
+                                                    {
+                                                    <tr>
+                                                        @*<td>
+                                            @Model.List_Sample[i].Laboratory_Name
+                                        </td>
+                                        <td>
+                                            @Model.List_Sample[i].Sample_Name
+                                        </td>
+                                        <td>
+                                            @Model.List_Sample[i].Is_Total
+                                        </td>*@
+
+                                                        @*<td>
+                                            @Model.List_Sample[i].Sample_Count
+                                        </td>
+                                        <td>
+                                            @Model.List_Sample[i].Sample_Amount
+                                        </td>
+                                        <td>
+                                            @Model.List_Sample[i].Sample_Sum_All
+                                        </td>*@
+                                                        @*<td>
+
+                                            @if (Model.List_Sample[i].Is_Paid_Sample != null)
+                                            {
+                                                @Model.List_Sample[i].Is_Paid_Sample
+                                            }
+                                            else
+                                            {
+                                                <span>لم يتم الدفع</span>
+                                            }
+                                        </td>*@
+
+
+
+                                                    </tr>
+
+                                                    }
+
+                                                }
+
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td></td>
+
+                                                    <td>
+                                                        @if (Model.List_Sample != null)
+                                                        {
+                                                            @Model.List_Sample.Sum(a => a.Sample_Count)
+                                                        }
+                                                        </td>
+                                                    <td>
+                                                        200
+                                                    </td>
+
+                                                    <td>
+                                                        @if (Model.List_Sample != null)
+                                                        {
+                                                            @Model.List_Sample.Sum(a => a.Sample_Sum_All)
+                                                        }
+                                                        </td>
+                                                    @*<td>
+
+
+                                        @if (Model.List_Sample.Where(a => a.Is_Paid_Sample != null).Any())
+                                        {
+                                            <span>تم الدفع</span>
+                                        }
+                                        else
+                                        {
+                                            <span>لم يتم الدفع</span>
+                                        }
+                                    </td>*@
+
+
+
+
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </tr>
+                                    <tr style="border-bottom:1px solid #000; border-top:1px solid #000;">
+                                        <td style="border-left:1px solid #000; border-top:1px solid #000;">السعر الأجمالى للطلب الفحص الوراد (بالجنية المصرى) </td>
+                                        @if (Model.List_Sample != null)
+                                        {
+                                            <td style="border-top:1px solid #000;">@(Model.SUM_Shift_Fees_Item + @Model.List_Sample.Sum(a => a.Sample_Sum_All)) ج.م.</td>
+                                        }
+                                        </tr>
+                                </tbody>
+                            </table>
+
+                            }
+                        @if (ViewBag.opt8 != 0)
+                        {
+
+                            <h4 style="font-weight: bold; text-align: center; margin: 0;">المرفقات</h4>
+                            <table style="width:19.85cm !important;">
+
+
+                                <thead>
+                                    <tr style="border-bottom:1px solid #000; border-top:1px solid #000;">
+                                        <td style="border-left:1px solid #000; border-top:1px solid #000;">
+                                            نوع المرفق
+
+                                        </td>
+                                        <td style="border-left:1px solid #000; border-top:1px solid #000;">
+                                            رقم المرفق
+
+                                        </td>
+                                        <td style="border-left:1px solid #000; border-top:1px solid #000;">
+                                            تاريخ البداية
+
+                                        </td>
+                                        <td style="border-left:1px solid #000; border-top:1px solid #000;">
+                                            تاريخ الانتهاء
+                                        </td>
+                                        <td style="border-top:1px solid #000;">
+                                            المرفق
+
+                                        </td>
+                                    </tr>
+
+
+                                </thead>
+                                <tbody>
+                                    @if (Model.Attachments != null)
+                                    {
+                                        for (int i = 0; i < Model.Attachments.Count(); i++)
+                                        {
+                                            <tr>
+                                                <td class="ModelxmlItem_Data@(i)" style="border-left:1px solid #000; border-bottom:1px solid #000;">
+                                                    @Model.Attachments[i].Attachment_TypeName
+                                                </td>
+                                                <td class="ModelxmlItem_Data@(i)" style="border-left:1px solid #000; border-bottom:1px solid #000;">
+                                                    @Model.Attachments[i].Attachment_Number
+                                                </td>
+                                                <td class="ModelxmlItem_Data@(i)" style="border-left:1px solid #000; border-bottom:1px solid #000;">
+                                                    @Model.Attachments[i].AttachmentStartDate.Value.ToString("dd/MM/yyyy")
+                                                </td>
+                                                <td class="ModelxmlItem_Data@(i)" style="border-left:1px solid #000; border-bottom:1px solid #000;">
+                                                    @Model.Attachments[i].AttachmentEndDate.Value.ToString("dd/MM/yyyy")
+                                                </td>
+                                                <td class="ModelxmlItem_Data@(i)" style="border-bottom:1px solid #000;">
+                                                    <a href="././@Model.Attachments[i].AttachmentPath">File</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+
+                        }
+                        @if (ViewBag.opt9 != 0)
+                        {
+                            <h4 style="font-weight: bold; text-align: center; margin: 0;">بيان وحدات الشحن</h4>
+                            <table style="width:19.85cm !important;">
+
+
+                                <tr style="border-bottom:1px solid #000; border-top:1px solid #000;">
+                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">نوع الوحدة</td>
+                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">الرقم</td>
+                                    <td style="border-top:1px solid #000;">السيل الملاحي</td>
+
+                                </tr>
+
+
+                                <tbody>
+                                    <tr>
+                                        <td style="border-left:1px solid #000; border-bottom:1px solid #000;">@Model.containerName</td>
+                                        <td style="border-left:1px solid #000; border-bottom:1px solid #000;">@Model.ContainerNumber </td>
+                                        <td style="border-bottom:1px solid #000;">@Model.NavigationalNumber</td>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+
+                        }
+
+                        @if (ViewBag.opt10 != 0)
+                        {
+
+                            <h4 style="font-weight: bold; text-align: center; margin: 0;">التأشيرة</h4>
+
+                            @*<table>
+                <tbody>
+                    <tr>
+                        <th>التأشيرة</th>
+                        <th>نص التأشيرة</th>
+                        <th>تاريخ التأشيرة</th>
+
+
+            </table>*@
+
+
+
+                            @*<table>
+                <tbody>
+
+                    <tr>
+                        <th> التأشيرة	</th>
+                        <th>نص التأشيرة	</th>
+                        <th>تاريخ التأشيرة </th>
+                        <th>اسم الموظف </th>
+                    </tr>
+                    @if (Model.CheckRequest_Visa != null)
+                    {
+                        for (int cm = 0; cm < Model.CheckRequest_Visa.Count(); cm++)
+                        {
+
+                            <tr>
+                                <td>@Model.CheckRequest_Visa[cm].Visa_Name</td>
+                                <td>
+                                    <p>@Model.CheckRequest_Visa[cm].Visa_Result_Name</p>
+                                </td>
+                                <td>@Model.CheckRequest_Visa[cm].Date_Visa.Value.ToString("dd/MM/yyyy")</td>
+                                <td>@Model.CheckRequest_Visa[cm].Visa_Result_Employee_Name</td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>*@
+                            <div class="" style="margin:auto;height:auto;border-bottom:1px solid #000;display:flex;">
+
+                                <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                                <div class="" style="width: 25%; height: inherit; padding: 3px; border-top: 1px solid #000;">
+                                    <label> التأشيرة</label>
+
+
+                                </div>
+                                <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                                <div class="" style="width: 25%; height: inherit; padding: 3px; border-top: 1px solid #000;">
+                                    <label>تاريخ التأشيرة</label>
+
+
+                                </div>
+                                <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                                <div class="" style="width: 25%; height: inherit; padding: 3px; border-top: 1px solid #000;">
+                                    <label>اسم الموظف </label>
+
+
+                                </div>
+                            </div>
+                            if (Model.CheckRequest_Visa != null)
+                            {
+                                for (int cm = 0; cm < Model.CheckRequest_Visa.Count(); cm++)
+                                {
+                                    <div class="" style="margin:auto;height:auto;border-bottom:1px solid #000;display:flex;">
+
+
+                                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                                        <div class="" style="width:25%; height:inherit;padding:3px;word-break:break-all">
+                                            <p>@Model.CheckRequest_Visa[cm].Visa_Result_Name</p>
+
+
+                                        </div>
+                                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                                        <div class="" style="width:25%; height:inherit;padding:3px">
+                                            <label>@Model.CheckRequest_Visa[cm].Date_Visa.Value.ToString("dd/MM/yyyy")</label>
+
+
+                                        </div>
+                                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                                        <div class="" style="width:25%; height:inherit;padding:3px">
+                                            <label>@Model.CheckRequest_Visa[cm].Visa_Result_Employee_Name</label>
+
+
+                                        </div>
+
+
+                                    </div>
+
+                                }
+                            }
+
+
+
+
+
+
+                        }
+                        @if (ViewBag.opt11 != 0)
+                        {
+                            <h4 style="font-weight: bold; text-align: center; margin: 0;">الموقف النهائى</h4>
+                            <table style="width:19.85cm !important;">
+                                <tr style="border-bottom:1px solid #000; border-top:1px solid #000;">
+                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">اسم الموظف </td>
+                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">تاريخ الطلب </td>
+                                    <td style="border-left:1px solid #000; border-top:1px solid #000;">حالة الطلب </td>
+                                    <td style="border-top:1px solid #000;">الموقف النهائي للطلب </td>
+                                </tr>
+
+
+                                <tbody>
+                                    @if (Model.FinalResults != null)
+                                    {
+                                        for (int cm = 0; cm < Model.FinalResults.Count(); cm++)
+                                        {
+                                            <tr>
+                                                <td style="border-left:1px solid #000; border-bottom:1px solid #000;">@Model.FinalResults[cm].Final_Result_Employee_Name</td>
+                                                <td style="border-left:1px solid #000; border-bottom:1px solid #000;">@Model.FinalResults[cm].DateFinalResult.Value.ToString("dd/MM/yyyy")</td>
+                                                @if (Model.FinalResults[cm].Final_Result_Status == true)
+                                                {
+                                                    <td style="border-left:1px solid #000; border-bottom:1px solid #000;">الطلب يعمل</td>
+                                                }
+                                                else
+                                                {
+                                                    <td style="border-left:1px solid #000; border-bottom:1px solid #000;">الطلب لا يعمل</td>
+                                                }
+                                                <td style="border-bottom:1px solid #000;">@Model.FinalResults[cm].Final_Result_Name</td>
+                                            </tr>
+                                        }
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        }
+                        <hr />
+                        <div id="footer3" style="height:3cm;">
+                            <div class="" style="margin:auto;height:inherit;display:flex;">
+                                <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                                    <label>مكان الإصدار:</label>
+                                    <span>@Model.outletName</span>
+                                </div>
+                                <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                                <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                                    <label>اسم المسئول المفوض:</label>
+                                    <span>@ViewBag.FullName</span>
+                                    <br />
+                                    <label>التوقيع:</label>
+                                    <span></span>
+                                </div>
+                                <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                                <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                                    <label>تاريخ الإصدار:</label>
+
+
+                                    <span>@DateTime.Now</span>
+                                    <div class="circle" style="margin: 9px 3px; width:92px; height:92px; background-color:white; border:1px solid black; border-radius :50%; float :left;">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+
+            <div class="text-width" style="font-family: 'Arial regular' !important; font-size: 10pt; width: 20cm; background-color: white; margin: auto; height: 1cm; display: flex; text-align: center">
+                <div class="" style="width:100%; height:inherit; padding:3px">
+                    <span>
+                        لا تتحمل الإدارة المركزية للحجر الزراعي أو أي من موظفيها أو ممثليها أي مسئولية مالية قد تنجم عن هذه الشهادة
+                    </span>
+                </div>
+            </div>
+
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-5">
+            </div>
+            <div class="col-md-4">
+
+                <button id="PrintResultButton" class="btn btnar" value='Print' onclick='printar("tableArabic")'> اطبع </button>
+
+            </div>
+
+            <div class="col-md-3"></div>
+        </div>
+    }
+</body>
+</html>
+<script>
+
+    function printar(k) {
+
+        var restorepage2 = document.body.innerHTML;
+        var printcontent2 = $('#' + k).html();
+        document.body.innerHTML = printcontent2;
+
+        var css = `@@page{margin: .6cm .5cm .5cm .5cm!important;}.verticalLine{width:1px !important;margin: 0!important;background: #000!important;}.lab-2 {margin-top: 45px;margin-right: 8px;text-align: center;font-size: 16px}img.img1 {visibility: hidden}.col-md-4 {width: 33.33333333%;}.col-md-8 {width: 66.66666667%;}.col-md-6 {width: 50%;}.col-md-7 {width: 58.33333333%;}.col-md-5 {width: 41.66666667%;} canvas{display: inline-block !important;vertical-align: baseline!important;top: 10px;position: absolute;}  `,
+
+            //var css = `.display-none {visibility: hidden!important;} .footer {position:fixed!important;}@@page{margin:10px 15px 10px 15px!important;}td{padding: 5px!important;} #tableArabic{height: 1120px !important;}`,
+            head = document.head || document.getElementsByTagName('head')[0],
+            style = document.createElement('style');
+        style.type = 'text/css';
+        style.media = 'print';
+        head.appendChild(style);
+        window.print();
+        history.go(0);
+        window.location.reload();
+        document.body.innerHTML = restorepage2;
+
+
+
+
+    }
+</script>
+<script>
+
+
+
+
+
+    jQuery('.qrcodeimport').qrcode("@Model.ImCheckRequest_Number");
+
+
+
+</script>

@@ -1,0 +1,119 @@
+﻿@model IEnumerable<PlantQuar.DTO.DTO.Station_Pages.Station_Emp_DTO>
+
+@{
+    ViewBag.Title = "تعديل";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="~/assets/js/bootstrap-select1.min.js"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.FirstOrDefault().Id)
+
+        <table id="personTable" class="table table-bordered table-striped dataTable" role="grid" style="padding:5px; width:100%">
+            <thead>
+                <tr>
+                    <th>اسم الشركة</th>
+                    <th>اسم المحطة</th>
+                    <th> كود المحطة</th>
+                    <th>المحافظة</th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => Model.FirstOrDefault().Company_Name)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.FirstOrDefault().Station_Name)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.FirstOrDefault().Station_Code)</td>
+                    <td>@Html.DisplayFor(modelItem => Model.FirstOrDefault().Govern_Name)</td>
+
+
+                </tr>
+
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-md-6">
+                <label class="control-label col-md-2">المحطة</label>
+                @Html.DropDownList("Station_Id", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled", @id = "Station_Id" })
+                @Html.ValidationMessageFor(model => model.FirstOrDefault().Station_Id, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-6">
+                <label class="control-label">اسم الموظف</label>
+                @Html.DropDownList("Emp_Id", null, "----أختر -------", htmlAttributes: new { @class = "form-control", @id = "Emp_Id" })
+                @Html.ValidationMessageFor(model => model.FirstOrDefault().Emp_Id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label class="control-label ">بداية التاريخ</label>
+                <input class="form-control" type="date" id="Date_From" name="Date_From" />
+            </div>
+            <div class="col-md-6">
+                <label class="control-label ">نهاية التاريخ</label>
+                <input class="form-control" type="date" id="Date_To" name="Date_To" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="حفظ" class="btn btn-default" />
+        </div>
+    </div>
+
+}
+<table id="personTable" class="table table-bordered table-striped dataTable" role="grid" style="padding:5px; width:100%">
+    <thead>
+        <tr>
+            <th>اسم المحطة</th>
+            <th> اسم الموظف</th>
+            <th>من </th>
+            <th>الى </th>
+            <th>اسم المنفذ </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Station_Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.FullName)</td>
+                <td>@Html.DisplayFor(modelItem => item.Date_From)</td>
+                <td>@Html.DisplayFor(modelItem => item.Date_To)</td>
+                <td>@Html.DisplayFor(modelItem => item.OutletName)</td>
+                <td>
+                    @Html.ActionLink("حذف", "Delete", new { id = item.Station_Emp_ID })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (@Model.Count() > 0)
+{
+    @*<label> ViewBag.Error</label>   *@
+    @*@Html.Raw(ViewBag.Error)*@
+}
+
+
+        <div>
+            @Html.ActionLink("رجوع الى القائمة", "Index")
+        </div>
+        <script>
+            $(document).ready(function () {
+
+                $("#Emp_Id").selectpicker({
+                    liveSearch: true
+                });
+
+            });
+
+        </script>

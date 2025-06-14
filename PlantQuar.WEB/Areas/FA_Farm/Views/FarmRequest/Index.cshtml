@@ -1,0 +1,379 @@
+﻿@model List<PlantQuar.DTO.DTO.Farm.FarmRequest.Farm_Committee_GetData_DTO>
+
+
+@using PagedList.Mvc;
+
+<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Farm Request";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    var model = Model;
+}
+
+@section Title{
+    <h2 class="ls-top-header">إجراءات الطلبات </h2>
+}
+
+@section Path{
+    <li style="position: relative;right: 28px;">Farm Committee</li>
+    @*<li class="active" style="right: 43px; position: relative;">@PlantQuar.WEB.Language.Resource_data1.ExportRequestsList</li>*@
+}
+
+
+<div style="bottom: 40px;position: relative;">
+    <div class="col-md-4 col-sm-12">
+        <div>
+            <p style="font-weight:bold">@PlantQuar.WEB.Language.Resource_data1.CommitteeStatus </p>
+        </div>
+        <select id="selectApprove" class="form-control">
+            @*<option value="choose">@PlantQuar.Web.Language.Resource_data1.choose</option>
+                <option id="rdoApprovedAll" value="-1">@PlantQuar.Web.Language.Resource_data1.all</option>
+                <option id="rdoApproved" value="1">@PlantQuar.Web.Language.Resource_data1.Accept</option>
+                <option id="rdoApprovedNot" value="0">@PlantQuar.Web.Language.Resource_data1.notAccept</option>
+                <option id="rdoApprovedNot2" value="-3">@PlantQuar.Web.Language.Resource_data1.committeeNotFormed</option>
+                <option id="rdoApprovedNot2" value="-2">@PlantQuar.Web.Language.Resource_data1.committeeWorkNotEnd</option>
+                <option id="rdoApprovedNot2" value="2">@PlantQuar.Web.Language.Resource_data1.committeeWorkEnded</option>*@
+            <option id="rdoApprovedAll" value="choose">@PlantQuar.WEB.Language.Resource_data1.choose</option>
+            <option id="rdoApprovedAll" value="-1">@PlantQuar.WEB.Language.Resource_data1.chooseall</option>
+            @*<option id="rdoApproved" value="1">@PlantQuar.WEB.Language.Resource_data1.newrequests</option>
+                <option id="rdoApprovedNot" value="0">@PlantQuar.WEB.Language.Resource_data1.AcceptedByQuarantine</option>
+                <option id="rdoApprovedNot2" value="-2">@PlantQuar.WEB.Language.Resource_data1.RejectedByQuarantine</option>
+                <option id="rdoApprovedNot2" value="-3">@PlantQuar.WEB.Language.Resource_data1.CommitteeIsFormed</option>
+                <option id="rdoApprovedNot2" value="3">@PlantQuar.WEB.Language.Resource_data1.AcceptedByCustomer </option>
+                <option id="rdoApprovedNot2" value="4">@PlantQuar.WEB.Language.Resource_data1.RejectedByCustomer </option>
+                <option id="rdoApprovedNot2" value="-4">@PlantQuar.WEB.Language.Resource_data1.WorkCommitteeIsFinished </option>*@
+        </select>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <p style="font-weight:bold; margin-bottom:0px">@PlantQuar.WEB.Language.Resource_data1.FarmCode</p>
+        <input type="text" id="farmcode" class="form-control">
+    </div>
+</div>
+
+<div id="checkRequest_lst" class="table-responsive">
+    <table class="table table-bordered" id="tblCheckLst">
+        <thead>
+            <tr class="label-primary">
+
+                <th>@PlantQuar.WEB.Language.Resource_data1.FarmName</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.FarmCode</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.UserCreationDate</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.DelegationDate</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.CommitteeType</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.Details </th>
+                @*<th>تسجيل النتائج </th>*@
+                <th>@PlantQuar.WEB.Language.Resource_data1.Previewresults </th>
+                <th>طباعة الباركود </th>
+                <th>تعديل البيانات</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.CommitteeFormation</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (model != null)
+            {
+                foreach (var item in model)
+                {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.Farm_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.FarmCode_14)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.User_Creation_Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Delegation_Date)
+                </td>
+
+                @if (item.committeetype_Name == null)
+                {
+                    <td>
+                        ----
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.DisplayFor(m => item.committeetype_Name)
+                    </td>
+                }
+
+                <td>
+                    @Html.ActionLink(@PlantQuar.WEB.Language.Resource_data1.Details, "FarmDetails", "FarmData", new { FarmId = item.FarmId, RequestId = item.requestId }, null)
+                </td>
+
+                <td>
+                    @if (item.committee_IsFinishedAll == true)
+                    {
+                        @Html.ActionLink(@PlantQuar.WEB.Language.Resource_data1.Previewresults, "Index", "Farm_Final_Result", new { FarmCommittee_ID = item.FarmCommitteeId }, null)
+                    }
+                    else
+                    {
+                        @PlantQuar.WEB.Language.Resource_data1.Previewresults
+                    }
+
+                </td>
+                <td>
+                   
+                        @Html.ActionLink("طباعة الباركود ", "Print_Barcode", "Farm_Final_Result", new { FarmCommittee_Print_ID = item.FarmCommitteeId }, null)
+                   
+                </td>
+                <td>
+                    <a href="/FA_Farm/FarmData/FarmAddEdit?FarmId=@item.FarmId&RequestId=@item.requestId">تعديل البيانات</a>
+                 
+                    @*@Html.ActionLink("تعديل البيانات", "FarmAddEdit", "FarmData", new { FarmId = item.FarmId, RequestId=item.requestId }, null)*@
+                </td>
+
+                @if (item.IsAcceppted == true)
+                {
+                    if (item.IsPaid == true)
+                    {
+                        if (item.Status == null)
+                        {
+                            <td>
+                                @if (item.FarmCommitteeId != null && item.requestId != null)
+                                {
+                                    if (item.Start_Date_Request != null && item.End_Date_Request != null || item.committee_Is_Cancel == true)
+                                    {
+                                        if (item.committee_IsFinishedAll != true)
+                                        {
+                                            <input type="button" onClick="send_list_Recoust(this)" value="@PlantQuar.WEB.Language.Resource_data1.CommitteeFormation" class="btn btn-primary" id="Btn_CommitteeFormation_@item.FarmId _@item.requestId _@item.FarmCommitteeId" />
+                                        }
+                                        else
+                                        {
+                                            @Html.Label("تم انتهاء عمل اللجنة ");
+                                        }
+                                    }
+
+                                    else
+                                    {
+                                        @Html.Label("لم يتم تحديد التاريخ من قبل العميل");
+                                    }
+                                    //Btn_CommitteeFormation_ @item.FarmId_ @item.FarmCommitteeId_ @item.requestId
+
+
+
+                                }
+                                else if (item.requestId == null)
+                                {
+                                    @Html.Label("لا توجد دول على الطلب");
+
+                                }
+                                else
+                                {
+                                    @Html.Label("لا يوجد طلب تشكيل لجنه");
+
+                                }
+                            </td>
+                        }
+                        else if (item.Status == false)
+                        {
+                            if (item.IsApproved == null)
+                            {
+                                <td>@PlantQuar.WEB.Language.Resource_data1.Waitingcustomerresponse</td>
+                            }
+                            else if (item.IsApproved == true)
+                            {
+                                if (item.IspaidCommittee == true)
+                                {
+                                    <td>@PlantQuar.WEB.Language.Resource_data1.committeeapproved وتم الدفع</td>
+
+                                }
+                                else
+                                {
+                                    <td>@PlantQuar.WEB.Language.Resource_data1.committeeapproved ولم يتم الدفع</td>
+
+                                }
+                            }
+                            else
+                            {
+                                <td>
+                                    @PlantQuar.WEB.Language.Resource_data1.Reject
+                                    @* @Html.ActionLink(@PlantQuar.WEB.Language.Resource_data1.CommitteeFormation, "IndexFarm", "Committee", new { area = "Committees", farmCommitteeId = item.FarmCommitteeId, reqId = item.requestId }, null)*@
+
+
+
+                                </td>
+                            }
+                        }
+                        else
+                        {
+                            <td>@PlantQuar.WEB.Language.Resource_data1.committeeWorkEnded</td>
+                        }
+                    }
+                    else if (item.IsPaid == false)
+                    {
+                        <td>  لم يتم دفع النفقات </td>
+                    }
+                }
+                else if (item.IsAcceppted == false)
+                {
+                    <td> @PlantQuar.WEB.Language.Resource_data1.requestrejected </td>
+                }
+                else
+                {
+                    <td> @PlantQuar.WEB.Language.Resource_data1.requestnotapproved </td>
+                }
+            </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <br />
+
+</div>
+
+<script>
+    $("#CommitteeType_ID").addClass("form-control")
+
+    $("#CommitteeType_ID").on('change', function () {
+        btn_Approved_Click();
+    });
+
+    $(function () {
+
+
+        $('#selectApprove').change(function () {
+            localStorage.selectApproveVal = $('#selectApprove').val();
+            btn_Approved_Click();
+        });
+
+
+
+        $('#farmcode').change(function () {
+
+            btn_Approved_Click();
+        });
+
+        $("#selectApprove").val(localStorage.selectApproveVal);
+        if (window.event) {
+            //alert(localStorage.selectApproveVal);
+           // $("#tblCheckLst tbody").empty();
+           // btn_Approved_Click();
+        }
+        //else {
+        //    btn_Approved_Click(1);
+        //}
+
+    });
+    function btn_Approved_Click() {
+        ////debugger;
+        var farmcode = $("#farmcode").val();
+        if (farmcode == null || farmcode == "" || farmcode == 'undefined') {
+            farmcode = "";
+        }
+
+        var html = '';
+        var j = 0;
+        var Status = $("#selectApprove").val();
+        if (Status != 'choose') {
+            $.getJSON('/FA_Farm/FarmRequest/getFarmCommitteeData', {
+                farmcode: farmcode, Status: Status, farmId:'@ViewBag.farmId'}, function (data, succ) {
+                console.log(data)
+                $.each(data, function (i, item) {
+                    farm_Id = data[i].FarmId;
+                    var Delegation_Date2 = "";
+                    if (data[i].Delegation_Date == null) {
+                        Delegation_Date2 = "--";
+
+                    } else {
+                        var Delegation_Date = new Date(data[i].Delegation_Date.match(/\d+/)[0] * 1);
+                        Delegation_Date2 = Delegation_Date.getDate() + "/" + (Delegation_Date.getMonth() + 1) + "/" + Delegation_Date.getFullYear();
+                    }
+
+                    var User_Creation_Date = new Date(data[i].User_Creation_Date.match(/\d+/)[0] * 1);
+                    var User_Creation_Date2 = User_Creation_Date.getDate() + "/" + (User_Creation_Date.getMonth() + 1) + "/" + User_Creation_Date.getFullYear();
+                    j = i + 1;
+                    html += "<tr id='farm_Id_" + farm_Id + "'><td>" + data[i].Farm_Name + "</td><td>" + data[i].FarmCode_14 + "</td><td>" + User_Creation_Date2 + "</td><td>" +
+                        Delegation_Date2
+                    html += "</td><td>" + data[i].committeetype_Name + "</td><td><a href='/FA_Farm/FarmData/FarmDetails?FarmId=" + data[i].FarmId + "&RequestId=" + data[i].requestId + "' >@PlantQuar.WEB.Language.Resource_data1.Details </a>";
+                    html += "</td>";
+                        //< td > <a href='/FA_Farm/Farm_Final_Result/Farm_SampleData?FarmCommittee_ID=" + data[i].FarmCommitteeId + "' >تسجيل النتائج </a></td > ";
+                    if (data[i].IspaidCommittee == true) {
+                        html += "<td><a href='/FA_Farm/FarmRequest/Index?FarmCommittee_ID=" + data[i].FarmCommitteeId + "' >@PlantQuar.WEB.Language.Resource_data1.Previewresults </a></td>";
+
+                        /*html += " <td><input type='checkbox' name='name' id='Req_checkbox' onchange='send_list_Recoust(this)' value=" + data[i].FarmID + "_" + data[i].Farm_Request_ID + "_" + data[i].Farm_Committee_ID + " /></td>";*/
+
+                    } else {
+                        html += "<td>@PlantQuar.WEB.Language.Resource_data1.Previewresults </td>";
+
+                    }
+
+                    if (data[i].IsPaid == true) {
+                        if (data[i].IsAcceppted == true) {
+                            if (data[i].Status == null) {
+                                html += "<td><a href='/Committees/Committee/IndexFarm?farmCommitteeId=" + data[i].FarmCommitteeId + "&reqId=" + data[i].requestId+"'>@PlantQuar.WEB.Language.Resource_data1.CommitteeFormation </a></td>";
+                                }
+                            else if (data[i].Status == false) {
+
+                                if (data[i].IsApproved == null) {
+                                        html += "<td>@PlantQuar.WEB.Language.Resource_data1.Waitingcustomerresponse</td>";
+                                }
+                                else if (data[i].IsApproved == true) {
+                                    if (data[i].IspaidCommittee == true) {
+                                         html += "<td>@PlantQuar.WEB.Language.Resource_data1.committeeapproved وتم دفع النفقات</td>";
+
+                                    } else {
+                                         html += "<td>@PlantQuar.WEB.Language.Resource_data1.committeeapproved ولم يتم دفع النفقات</td>";
+
+                                    }
+                                          } else {
+                                        html += "<td>@PlantQuar.WEB.Language.Resource_data1.Reject</td>"
+                                    }
+                            }
+                                //status true
+                                else {
+
+
+                                }
+                            }
+                        else if (data[i].IsAcceppted == false)
+                            {
+                                html += "<td>@PlantQuar.WEB.Language.Resource_data1.requestrejected</td>"
+                            }
+                       else {
+                                html += "<td>@PlantQuar.WEB.Language.Resource_data1.requestnotapproved</td>"
+                            }
+
+                    } else if (data[i].IsPaid == false) {
+                        html += "<td><a href='/Payment/FarmPayment/Index?farm_committee_Id=" + data[i].FarmCommitteeId + "'>@PlantQuar.WEB.Language.Resource_data1.PayExpenses </a></td>";
+                        }
+                    html += "</tr>";
+                });
+                $("#tblCheckLst tbody").empty();
+                $("#tblCheckLst tbody").append(html);
+            });
+
+        }
+
+    }
+
+    var list_Request = [];
+    function send_list_Recoust(element) {
+
+        var farm_id = element.id.split('_')[2].trim();
+        var request_id = element.id.split('_')[3].trim();
+        var farm_committe_id = element.id.split('_')[4].trim();
+
+
+        list_Request.push({ farm_Id: farm_id, reqId: request_id, Farm_Committee_ID: farm_committe_id });
+
+        $.ajax({
+
+             url: '@Url.Action("getFarmListByReqId", "FarmListOnLine", new { area = "FA_Farm" })',
+                    type: 'Post',
+            data: { F_List: list_Request},
+            success: function (message) {
+                window.location.href = '/Committees/Committee_Farm/Index';
+
+            }
+        });
+
+    }
+
+
+
+
+</script>

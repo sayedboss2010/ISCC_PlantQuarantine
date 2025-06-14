@@ -1,0 +1,61 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PlantQuar.DTO.DTO.Station
+{
+    public class Station_Accrediation_Committee_GetData_DTO
+    {
+        public int IsExport { get; set; }
+        public long Outlet_ID { get; set; }
+        public string Ar_Name { get; set; }
+        public Nullable<short> Outlet_Center_ID { get; set; }
+        public string Outlet_Center_Name { get; set; }
+        public Nullable<short> Outlet_Gov_Id { get; set; }
+        public string Outlet_Gov_Name { get; set; }
+        public string station_Status { get; set; }
+        public int station_btn { get; set; }
+        public long Station_ID { get; set; }
+        public string Ar_Name1 { get; set; }
+        public string StationCode { get; set; }
+        public Nullable<long> Company_ID { get; set; }
+        public string Company_Name { get; set; }
+        public Nullable<short> Gov_Id { get; set; }
+        public Nullable<short> Center_Id { get; set; }
+        public Nullable<short> Village_Id { get; set; }
+        public string Gov_Ar_Name { get; set; }
+        public string Center_Ar_Name { get; set; }
+        public string Village_Ar_Name { get; set; }
+        public Nullable<bool> station_IsActive { get; set; }
+        public Nullable<bool> station_IsAccepted { get; set; }
+        public Nullable<short> Station_User_Deletion_Id { get; set; }
+        public long Station_Accreditation_Data_ID { get; set; }
+        public byte Station_Accreditation_Request_Type_ID { get; set; }
+        public Nullable<bool> Station_Accreditation_Request_ISActive { get; set; }
+        public Nullable<bool> Station_Accreditation_Request_ISpaid { get; set; }
+        public Nullable<bool> Station_Accreditation_Request_IsAccepted { get; set; }
+        public Nullable<bool> Is_Final_requst { get; set; }
+        public string Station_Accreditation_Data_Name { get; set; }
+        public Nullable<bool> Station_Accreditation_Data_IsActive { get; set; }
+        public string Station_Accreditation_Request_Type_Name { get; set; }
+        public Nullable<bool> Station_Accreditation_Request_Type_IsActive { get; set; }
+        public long Station_Accreditation_Request_ID { get; set; }
+        public Nullable<int> Accreditation_Type_ID { get; set; }
+        public Nullable<byte> StationActivityType_ID { get; set; }
+        public Nullable<short> Request_User_Deletion_Id { get; set; }
+        public Nullable<long> Station_Accreditation_Committee_ID { get; set; }
+        public Nullable<System.DateTime> Delegation_Date { get; set; }
+        public Nullable<System.TimeSpan> StartTime { get; set; }
+        public Nullable<System.TimeSpan> EndTime { get; set; }
+        public Nullable<bool> IsApproved { get; set; }
+        public Nullable<bool> IsPaid { get; set; }
+        public Nullable<bool> Status { get; set; }
+        public Nullable<bool> IsAccepted { get; set; }
+        public Nullable<bool> Is_Start_Android { get; set; }
+        public Nullable<bool> Is_Cancel { get; set; }
+        public Nullable<short> Committee_User_Deletion_Id { get; set; }
+
+    }
+}

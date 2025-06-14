@@ -1,0 +1,1480 @@
+﻿
+@model List<PlantQuar.DTO.DTO.Farm.FarmCommittee.FarmCommitteeExaminationAndSampleDataVM>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.FarmCommittee</h2>
+}
+
+@section Path{
+    <li>@PlantQuar.WEB.Language.Resource_data1.Constrains</li>
+    <li class="active">@PlantQuar.WEB.Language.Resource_data1.FarmCommittee</li>
+}
+
+@section filter{
+    <div class="row">
+        <label class="col-lg-2 col-md-12 col-sm-12">@PlantQuar.WEB.Language.Resource_data1.ArabicName</label>
+        <input type="text" class="form-inline col-lg-3  col-md-12 col-sm-12" autocomplete="off" name="txt_AR_BTNSearch" id="txt_AR_BTNSearch" />
+        <label class="col-lg-2 col-md-12 col-sm-12">@PlantQuar.WEB.Language.Resource_data1.EnglishName</label>
+        <input type="text" class="form-inline col-lg-3  col-md-12 col-sm-12" autocomplete="off" name="txt_EN_BTNSearch" id="txt_EN_BTNSearch" />
+        <input type="button" class="col-lg-1 col-md-2 btn btn-primary" id="LoadRecordsButton" value="@PlantQuar.WEB.Language.Resource_data1.Search">
+    </div>
+}
+
+<link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/scripts/DataTables/jquery.dataTables.min.js"></script>
+<link href="~/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
+
+@*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
+
+<style>
+    @@media screen and (min-width: 768px) {
+        .modal-dialog {
+            left: 0% !important;
+        }
+    }
+
+    th {
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    td {
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .btn-default {
+        color: #f7f4f4;
+        background-color: #167479;
+        border-color: #1b6569;
+    }
+
+        .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default {
+            color: #333;
+            background-color: #a0dde0;
+            border-color: #adadad;
+        }
+
+    .modal-content {
+        color: #167479;
+    }
+
+    .modal-header {
+        background-color: #167479;
+        color: white;
+    }
+
+    .modalspan {
+        color: #333;
+    }
+
+    .labelspan {
+        font-weight: bold;
+        color: #167479;
+        margin: auto;
+    }
+
+    .pagination {
+        display: none;
+    }
+
+    .tapp-title {
+        padding: 10px 30px;
+    }
+
+    .form-inline .form-control {
+        width: 100px !important;
+    }
+</style>
+
+<br />
+<br />
+@if (ViewBag.FarmCommittee_ID == 0)
+{
+    <div style="padding: 10px;margin-top:200px;background-color: whitesmoke">
+        <h4 class="tapp-title">@PlantQuar.WEB.Language.Resource_data1.NoResults</h4>
+    </div>
+}
+else
+{
+    //المعاينة
+
+
+    <form style="padding: 10px; background-color: whitesmoke">
+
+        <div id="form1">
+            <h4 class="tapp-title">@PlantQuar.WEB.Language.Resource_data1.Farm_Committee_Examination</h4>
+            <br />
+            <div id="listFarm_Committee_Examination" class="row">
+                <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap">
+                    <table id="Farm_Committee_ExaminationTable" class="table table-bordered table-striped dataTable" role="grid" style=" width:100%">
+                        <thead>
+                            <tr>
+                                <th hidden>ID</th>
+                                <th>@PlantQuar.WEB.Language.Resource_data1.PlantName</th>
+                                <th>@PlantQuar.WEB.Language.Resource_data1.CategoryName</th>
+
+                                <th>@PlantQuar.WEB.Language.Resource_data1.AdminResult</th>
+                                <th>@PlantQuar.WEB.Language.Resource_data1.AssistResult</th>
+                                @*<th>@PlantQuar.WEB.Language.Resource_data1.quarantineAttitude</th>*@
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                if (Model.Count > 0)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td hidden>@item.Committee_Examination.ID</td>
+                                            <td>@item.Committee_Examination.Notes</td>
+                                            <td>@item.Committee_Examination.StartDate</td>
+                                            <td>@item.Committee_Examination.EndDate</td>
+                                            <td>@item.Committee_Examination.AdminFinalResult_Note</td>
+                                            <td>@item.Committee_Examination.Quantity_Ton</td>
+                                            <td>@item.Committee_Examination.IsAccepted</td>
+                                            <td>@item.Committee_Examination.IsAdminFinalResult</td>
+
+                                        </tr>
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="form2">
+            <h4 class="tapp-title">@PlantQuar.WEB.Language.Resource_data1.Farm_SampleData</h4>
+            <br />
+            <div id="listFarm_SampleData" class="row">
+                <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap">
+                    <table id="Farm_SampleDataTable" class="table table-bordered table-striped dataTable" role="grid" style=" width:100%">
+                        <thead>
+                            <tr>
+                                <th hidden>ID</th>
+                                <th>@PlantQuar.WEB.Language.Resource_data1.PlantName</th>
+                                <th>@PlantQuar.WEB.Language.Resource_data1.CategoryName</th>
+                                <th>@PlantQuar.WEB.Language.Resource_data1.BarCode</th>
+                                <th>@PlantQuar.WEB.Language.Resource_data1.AnalysisType</th>
+                                <th>@PlantQuar.WEB.Language.Resource_data1.AdminResult2</th>
+                                <th>@PlantQuar.WEB.Language.Resource_data1.AssistResult2</th>
+                                @*<th>@PlantQuar.WEB.Language.Resource_data1.ExportResult</th>*@
+                                <th>موقف المعمل</th>
+                                @*<th>موقف الحجر</th>*@
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                if (Model.Count > 0)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td hidden>@item.SampleData.ID</td>
+                                            <td>@item.SampleData.WithdrawDate</td>
+                                            <td>@item.SampleData.Sample_BarCode</td>
+                                            <td>@item.SampleData.SampleSize</td>
+                                            <td>@item.SampleData.SampleRatio</td>
+                                            <td>@item.SampleData.IsAccepted</td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="form15">
+            <h4 class="tapp-title">  البنود </h4>
+            <div id="Farm_Committee_CheckList_List_Div" class="row">
+                <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap" style="overflow-y: scroll;height: 500px;overflow-x: hidden;">
+                    <table id="Farm_Committee_CheckList_List" class="table table-bordered table-striped dataTable" role="grid" style=" width:100%">
+                        <thead>
+                            <tr>
+                                <th hidden>ID</th>
+                                <th>الشرط</th>
+                                <th>@PlantQuar.WEB.Language.Resource_data1.Country</th>
+
+                                <th> موقف الأدمن</th>
+
+                                <th> موقف المساعد</th>
+
+                                <th>&nbsp;&nbsp;موقف الحجر &nbsp;&nbsp;@*<input type="radio" class="acceptAllChk" name="acceptAllChk" value="1" /><span>@PlantQuar.WEB.Language.Resource_data1.Accept الكل</span><input type="radio" class="acceptAllChk" name="acceptAllChk" value="0" /> <span>@PlantQuar.WEB.Language.Resource_data1.Reject الكل</span>*@ </th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+            <br />
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="tapp-title">
+                        ملاحظات علي كل البنود الخاصة بالأندرويد
+                    </h4>
+                </div>
+            </div>
+            <div class="row dataTables_wrapper form-inline dt-bootstrap">
+
+
+                <div class=" col-md-12">
+                    <br />
+                    <label>ملاحظات  الادمن علي كل البنود</label>
+                    <br />
+                    <table class="table table-bordered table-striped dataTable" id="Farm_Check_List_Admin_Note_Tbl" role="grid" style="width:100%">
+
+                        <thead>
+                            <tr>
+                                <th>الأسم</th>
+
+                                <th>ملاحظات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class=" col-md-12">
+                    <br />
+                    <label>ملاحظات  المساعد علي كل البنود</label>
+                    <br />
+                    <table class="table table-bordered table-striped dataTable" id="Farm_Check_List_Confirm_Note_Tbl" role="grid" style=" width:100%">
+
+                        <thead>
+                            <tr>
+                                <th>الأسم</th>
+
+                                <th>ملاحظات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+            </div>
+
+            <div class="row dataTables_wrapper form-inline dt-bootstrap">
+
+                <div class="col-md-12">
+                    <br />
+                    <label for="finalNotesforAll"> الملاحظات السابقة علي كل البنود</label>
+                    <br />
+                    <table class="table table-bordered table-striped dataTable " id="Farm_Check_List_AdminQuarantine_Note_Tbl" role="grid" style=" width:100%">
+
+                        <thead>
+                            <tr>
+                                <th>الأسم</th>
+
+                                <th>ملاحظات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+
+
+                </div>
+
+
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="finalNotesforAll">إضافة ملاحظات علي كل البنود</label>
+                </div>
+                <div class="col-md-9">
+                    <textarea id="finalNotesforAll" name="finalNotesforAll" rows="4" style="width: 100%;"></textarea>
+                </div>
+
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4 text-center">
+                    <input type="button" class="saveFinalNotesforAll" data-farmcommitteeid="@ViewBag.FarmCommittee_ID" value="@PlantQuar.WEB.Language.Resource_data1.Save" style=" color: white" />
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+        <br />
+        <div id="form25" style="padding: 10px; background-color: whitesmoke">
+            <h4 class="tapp-title"> موقف الحجر النهائى للأصناف</h4>
+            <div id="listFarmRequestItem_Categories" class="row">
+                <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap">
+                    <table id="FarmRequestItem_Categories" class="table table-bordered table-striped dataTable" role="grid" style=" width:100%">
+                        <thead>
+                            <tr>
+                                <th hidden>ID</th>
+                                <th hidden>ID2</th>
+                                <th>@PlantQuar.WEB.Language.Resource_data1.CategoryName</th>
+                                <th> المساحات الخاصة بالاندرويد</th>
+                                <th>المساحة الخاصة بالحجر </th>
+                                <th>الكمية الخاصة بالحجر</th>
+                                <th>الكمية الصالحة للتصدير الخاصة بالحجر</th>
+                                <th>الانتاجية بالطن الخاصة بالحجر</th>
+
+                                <th>موقف الحجر</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            <div class=" row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4 text-center">
+                    <input type="button" class="saveFinalItemCategoryAreaforAll" data-farmcommitteeid="@ViewBag.FarmCommittee_ID" value="@PlantQuar.WEB.Language.Resource_data1.Save" style="height: auto;color: white;" />
+                </div>
+                <div class="col-md-4"></div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4 text-left">
+                @*<input type="button" id="nextform1" class="saveFinalItemCategoryAreaforAll" data-farmcommitteeid="@ViewBag.FarmCommittee_ID" value="التالي" style="height: auto;color: white;" />*@
+                <button id="nextform5">التالي</button>
+            </div>
+        </div>
+
+
+
+        <div id="lastres">
+
+            <h4 class="tapp-title"> @PlantQuar.WEB.Language.Resource_data1.FinalPositionOfRequest</h4>
+            <br />
+            <div class="row">
+
+                <div class='col-md-4'>
+                    @PlantQuar.WEB.Language.Resource_data1.Countriesofacceptablevarieties
+                    <input type='radio' name="group" class="Ch_Accept" id='Ch_Accept1' value="1" />
+                </div>
+                <div class='col-md-4'>
+                    @PlantQuar.WEB.Language.Resource_data1.Rejectrequest
+                    <input type='radio' name="group" class="Ch_Accept" id='Ch_Accept2' value="2" />
+                </div>
+            </div>
+
+        </div>
+
+        <div id="form3">
+            <br />
+            <h4 class="tapp-title">@PlantQuar.WEB.Language.Resource_data1.Farm_Country</h4>
+
+            <div>
+
+
+                <h4 class="header_countries_action ">@PlantQuar.WEB.Language.Resource_data1.Allcountriesaction</h4>
+
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="col-md-5">@PlantQuar.WEB.Language.Resource_data1.Active</label>
+                        <input class="col-md-4 form-control" type="checkbox" id="isactiveallcoun" />
+                    </div>
+                    <div class="col-md-2">
+                        <label class="col-md-5">@PlantQuar.WEB.Language.Resource_data1.Accept</label>
+                        <input class="col-md-4 form-control" type="checkbox" id="isacceptallcoun" />
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="col-md-5">@PlantQuar.WEB.Language.Resource_data1.Startdate</label>
+                        <input class="col-md-6 form-control" id="startdateallcoun" />
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="col-md-5">@PlantQuar.WEB.Language.Resource_data1.enddate</label>
+                        <input class="col-md-6 form-control" id="enddateallcoun" />
+                    </div>
+
+                    <div class="col-md-2" style="margin-bottom: 10px;">
+                        <input type="button" id="saveallcoun" class="saveFinalItemCategoryAreaforAll" value="@PlantQuar.WEB.Language.Resource_data1.Save" style="height: auto;color: white;" autocomplete="off">
+
+                    </div>
+                </div>
+
+
+            </div>
+            <br />
+            <div id="listFarm_Country" class="row">
+                <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap" style="overflow-y:scroll;height:500px;overflow-x:hidden" id="checkRequest_lst1">
+                    <table id="Farm_CountryTable" class="table table-bordered table-striped dataTable" role="grid" style=" width:100%">
+                        <thead>
+                            <tr>
+                                <th hidden>ID</th>
+                                <th>@PlantQuar.WEB.Language.Resource_data1.ArabicName</th>
+                                <th>@PlantQuar.WEB.Language.Resource_data1.EnglishName</th>
+                                <th>@PlantQuar.WEB.Language.Resource_data1.Active</th>
+                                <th>@PlantQuar.WEB.Language.Resource_data1.Accept</th>
+                                <th>@PlantQuar.WEB.Language.Resource_data1.Startdate</th>
+                                <th>@PlantQuar.WEB.Language.Resource_data1.enddate</th>
+                                <th>عدد مرات الزياره من الاشتراطات</th>
+                                <th>عدد مرات الزياره الفعلية</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                if (Model.Count > 0)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <th hidden>@item.Country.ID</th>
+                                            <td>@item.Country.Ar_Name</td>
+                                            <td>@item.Country.En_Name</td>
+                                            <td>@item.Country.IsActive</td>
+                                            <td>@item.Country.IsAcceppted</td>
+                                            <td>@item.Country.Start_Date</td>
+                                            <td>@item.Country.End_Date</td>
+                                            <td>
+                                                <input type="hidden" value="@item.Country.ID" />
+                                                <a href="" class="btnEditCountry btn btn-primary">@PlantQuar.WEB.Language.Resource_data1.Edit</a>
+                                            </td>
+                                            <td>
+                                                <input type="hidden" value="@item.Country.ID" />
+                                                <a href="" class="btnSaveCountry btn btn-primary">@PlantQuar.WEB.Language.Resource_data1.Save</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4 text-center">
+                <div class="btnRedir">
+                    <input type="hidden" id="reqId" />
+                    <input type="hidden" id="farmId" />
+                    <input type="hidden" id="statuss" />
+                    <input type="button" id="btnRedir" class="btn btn-success" value="@PlantQuar.WEB.Language.Resource_data1.FarmData" />
+
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        <br />
+        <br />
+    </form>
+
+
+
+    <!-- Modal -->
+    <div id="mymodalemanexamination" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
+                    <h4 class="modal-title">@PlantQuar.WEB.Language.Resource_data1.Details</h4>
+                </div>
+                <div class="modal-body" id="modaldetails">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default " data-dismiss="modal">@PlantQuar.WEB.Language.Resource_data1.Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+<script>
+
+    $(document).ready(function () {
+        if ('@ViewBag.committeeType' == 5) {
+            $("#listFarm_SampleData").hide();
+
+        }
+        $("#startdateallcoun").datepicker();
+        $("#enddateallcoun").datepicker();
+
+        $("#lastres").hide();
+        //$("#form2").hide();
+         $("#form5").hide();
+        $("#btnRedir").click(function () {
+            var commId = '@ViewBag.FarmCommittee_ID';
+            window.open("/FA_Farm/FarmData/FarmAddEdit?FarmId=" + $("#farmId").val() + "&RequestId=" + $("#reqId").val(), "_self");
+        });
+        // المعاينة
+        $("#Farm_Committee_ExaminationTable").DataTable({
+            paging: true,
+            lengthChange: true,
+            pageLength: 10,
+            searching: false,
+            ordering: false
+        });
+
+           $("#Farm_Committee_ExaminationTable").on("click", ".acceptChk", function () {
+            var id = $(this).prev().val();
+              // var value = $(this).is(":checked");
+               var value = false;
+               var chkval = $(this).val();
+               if (chkval == 1) {
+                   value = true;
+               }
+            @*if (value == true)
+                $(this).next().text("@PlantQuar.WEB.Language.Resource_data1.Accept");
+            else
+                $(this).next().text("@PlantQuar.WEB.Language.Resource_data1.Reject");*@
+            $.ajax({
+                url: '/FA_Farm/FarmCommittee/SaveFarm_Committee_Examination',
+                data: { ID: id, Admin_Confirmation: value },
+                success: function (res) {
+
+                }
+            });
+        });
+
+        $("#Farm_SampleDataTable").DataTable({
+            paging: true,
+            lengthChange: true,
+            pageLength: 10,
+            searching: false,
+            ordering: false
+        });
+
+         $("#Farm_SampleDataTable").on("click", ".acceptChk", function () {
+            var id = $(this).prev().val();
+           // var value = $(this).is(":checked");
+             var value = false;
+               var chkval = $(this).val();
+               if (chkval == 1) {
+                   value = true;
+               }
+            @*if (value == true)
+                $(this).next().text("@PlantQuar.WEB.Language.Resource_data1.Accept");
+            else
+                $(this).next().text("@PlantQuar.WEB.Language.Resource_data1.Reject");*@
+            $.ajax({
+                url: '/FA_Farm/FarmCommittee/SaveFarm_SampleData',
+                data: { ID: id, Admin_Confirmation: value },
+                success: function (res) {
+
+                }
+            });
+         });
+        //eman
+        $("#FarmRequestItem_Categories").DataTable({
+            paging: true,
+            lengthChange: true,
+            pageLength: 10,
+            searching: false,
+            ordering: false
+        });
+
+         $("#FarmRequestItem_Categories").on("click", ".acceptChk", function () {
+            var id = $(this).prev().val();
+           // var value = $(this).is(":checked");
+             var value = false;
+               var chkval = $(this).val();
+               if (chkval == 1) {
+                   value = true;
+               }
+
+            $.ajax({
+                url: '/FA_Farm/FarmCommittee/UpdateFarmRequestItem_Categories',
+                data: { ID: id, IsActive: value },
+                success: function (res) {
+
+                }
+            });
+        });
+
+    });
+    $("#saveallcoun").click(function () {
+        var FarmCommittee_ID = '@ViewBag.FarmCommittee_ID';
+        var active = false;
+         if ($("#isactiveallcoun").is(':checked'))
+                        active = true;
+                    else
+            active = false;
+        var accept = false;
+         if ($("#isacceptallcoun").is(':checked'))
+                        accept = true;
+                    else
+            accept = false;
+        var sdateallcoun = $("#startdateallcoun").val();
+        var edateallcoun = $("#enddateallcoun").val();
+        if (edateallcoun != "") {
+            if (sdateallcoun != "") {
+
+                $.ajax({
+                    url: '/FA_Farm/FarmCommittee/SaveAllFarm_Country',
+                    data: { FarmCommittee_ID: FarmCommittee_ID, start: sdateallcoun, end: edateallcoun, active: active, accept: accept },
+                    success: function (res) {
+                        location.reload(true);
+                    }
+                });
+            }
+            else {
+                alertify.error("يجب ادخال تاريخ البداية");
+            }
+        }
+        else {
+            alertify.error("يجب ادخال تاريخ النهاية");
+        }
+    });
+    FillTable();
+
+    //????
+        $("#Farm_CountryTable").DataTable({
+            paging: true,
+            lengthChange: true,
+            pageLength: 10,
+            searching: false,
+            ordering: false
+        });
+
+
+    $("#nextform1").click(function () {
+        location.reload(true);
+       // $("#form2").show();
+
+    });
+    $("#nextform2").click(function () {
+        location.reload(true);
+       // $("#form2").show();
+
+    });
+    $("#nextform").click(function () {
+        location.reload(true);
+       // $("#form2").show();
+
+    });
+
+    var allow = 0;
+    function FillTable() {
+
+        var FarmCommittee_ID = window.location.search.split('=')[1];
+
+        $.ajax({
+            url: '/FA_Farm/FarmCommittee/listFarm_Committee_Examination',
+            data: {
+                txt_AR_BTNSearch: $('#txt_AR_BTNSearch').val(),
+                txt_EN_BTNSearch: $('#txt_EN_BTNSearch').val(),
+                FarmCommittee_ID: FarmCommittee_ID
+            },
+            success: function (listFarm_Committee_Examination) {
+                $("#Farm_Committee_ExaminationTable tbody").empty();
+                //console.log(listFarm_Committee_Examination.Records)
+                //console.log(listFarm_Committee_Examination.ifAllConfirmed)
+                if (listFarm_Committee_Examination.ifAppearCategories == 1) {
+                    if ('@ViewBag.committeeType' == 5) {
+                        $("#form5").show();
+                    }// $("#lastres").show();
+
+                }
+                $.each(listFarm_Committee_Examination.Records, function (index, item) {
+                    //var startdate = new Date(item.Start_Date.match(/\d +/)[0] * 1);
+                    //var enddate = new Date(item.End_Date.match(/\d +/)[0] * 1);
+                    var sDate = "";
+                    var eDate = "";
+                    if (item.StartDate != null) {
+                       sDate= item.StartDate.substr(0, item.StartDate.indexOf('T'))
+                    }
+                    if (item.EndDate != null) {
+                       eDate= item.EndDate.substr(0, item.EndDate.indexOf('T'))
+                    }
+                    //eman
+                    var isadminacc = "";
+                    if (item.IsAccepted_Admin == null) {
+                        isadminacc = "no result";
+                    } else if (item.IsAccepted_Admin == true) {
+                        isadminacc = "@PlantQuar.WEB.Language.Resource_data1.Accept";
+                    } else {
+                        isadminacc = "@PlantQuar.WEB.Language.Resource_data1.Reject";
+                    }
+                    var admincon = "";
+                    if (item.IsTotalRes == true) {
+                         if (item.Admin_Confirmation != null)
+                    {
+                        //////debugger;
+                        if (item.Admin_Confirmation == true)
+                        {
+                            admincon = "<td><div class='row'><span class='col-md-6'>@PlantQuar.WEB.Language.Resource_data1.Reject</span><input type='radio' class='offset-md-2 col-md-4 acceptChk' name='xxx" + item.ID + "' disabled /></div><div class='row'> <span class='col-md-6'>@PlantQuar.WEB.Language.Resource_data1.Accept</span><input type='radio' class='offset-md-2 col-md-4 acceptChk' name='xxx" + item.ID +"' checked disabled /></div></td>"
+
+
+                        } else {
+
+                            admincon = "<td><div class='row'> <span class='col-md-6'>@PlantQuar.WEB.Language.Resource_data1.Reject</span><input type='radio' class='offset-md-2 col-md-4 acceptChk' name='xxx" + item.ID + "' checked disabled /></div><div class='row'> <span class='col-md-6'>@PlantQuar.WEB.Language.Resource_data1.Accept</span><input type='radio' class='offset-md-2 col-md-4 acceptChk' name='xxx" + item.ID +"' disabled /></div></td>"
+
+                        }
+
+                    }
+                    else {
+                        allow = 1;
+                             //$(".Ch_Accept").attr('disabled', 'disabled')
+                        admincon = "<td id='accept" + item.ID + "'><input type='hidden' value='" + item.ID + "' /><input type='radio' class='acceptChk' name='xxx" +item.ID+"' value='0'/> <span>@PlantQuar.WEB.Language.Resource_data1.Reject</span><input type='hidden' value='" + item.ID + "' /><input type='radio' class='acceptChk' name='xxx" +item.ID+"' value='1'/> <span>@PlantQuar.WEB.Language.Resource_data1.Accept</span></td>";
+                    }
+                    }
+                    var empp = "<td></td>";
+                    var IsAccepted_Confirm = "@PlantQuar.WEB.Language.Resource_data1.Reject"
+
+                    if (item.employeeRes.length > 0) {
+                        empp = "<td>";
+                        $.each(item.employeeRes, function (indexemp, itememp) {
+                             if (itememp.IsAccepted_Confirm == true) {
+                        IsAccepted_Confirm = "@PlantQuar.WEB.Language.Resource_data1.Accept"
+                    }
+                    else if (itememp.IsAccepted_Confirm == false) {
+                        IsAccepted_Confirm = "@PlantQuar.WEB.Language.Resource_data1.Reject"
+                    }
+                    else {
+                        IsAccepted_Confirm = "@PlantQuar.WEB.Language.Resource_data1.NoWork"
+                    }
+                       //sayed
+                        empp += "<div class='row'><div class='col-md-6'>" + IsAccepted_Confirm + "</div>";
+                        empp += "<div class='col-md-6'>" + itememp.Notes_Confirm + "</div></div><div class='row'><div class='col-md-10'>" + itememp.empName + "</div></div><div class='row'><div class='col-md-10'>" + itememp.Date + "</div> </div>";
+
+                        @*empp += "<button type='button' class='btn btn-default btn- info btn- lg quickview'data-toggle='modal' data-target='#mymodalemanexamination'@PlantQuar.WEB.Language.Resource_data1.Notes=" + item.employeeRes[0].Notes_Confirm
+                            + " @PlantQuar.WEB.Language.Resource_data1.EmpolyeeName=" + item.employeeRes[0].empName + " @PlantQuar.WEB.Language.Resource_data1.Date=" + item.employeeRes[0].Date + " autocomplete='off'>@PlantQuar.WEB.Language.Resource_data1.Details</button></dt>";*@
+
+                       @*empp +  " <div class='col-md-4'><button type='button' class='btn btn-default btn- info btn- lg quickview' data-toggle='modal' data-target='#mymodalemanexamination' @PlantQuar.WEB.Language.Resource_data1.Startdate='" + item.employeeRes[0].Notes_Confirm
+                        + "' data-edate='" + item.employeeRes[0].empName + "' data-quan='" + item.employeeRes[0].Date + "' >@PlantQuar.WEB.Language.Resource_data1.Details</button></div> </div></td>" +*@
+
+
+                        });
+                        empp += "</td>";
+                          }
+                    $("#Farm_Committee_ExaminationTable tbody").append("<tr>" +
+                        "<td hidden>" + item.ID + "</td>" +
+                        "<td>" + item.Item_Name_Ar + "</td>" +
+                        "<td>" + item.ItemCategories_Name_Ar + "</td>" +
+
+
+
+                        "<td><div class='row'><div class='col-md-2'>" + isadminacc +" </div>"
+                        + " <div class='col-md-4'><button type='button' class='btn btn-default btn- info btn- lg quickview' data-toggle='modal' data-target='#mymodalemanexamination' data-adminname='" + item.AdminName +"' data-adminnote='" + item.AdminFinalResult_Note +"' data-sdate='" + sDate
+                        + "' data-edate='" + eDate + "' data-quan='" + item.Quantity_Ton + "' data-area='" + item.Area_Acres + "' data-totquan='" + item.Area_Acres * item.Quantity_Ton + "'>@PlantQuar.WEB.Language.Resource_data1.Details</button></div> </div></td>" +
+
+                        empp+
+                        //admincon +
+
+
+                        "</tr>");
+
+                    @*if (item.Admin_Confirmation == true)
+                        $("#accept" + item.ID + "").replaceWith("<td><input type='hidden' value='" + item.ID + "' /><input type='checkbox' checked class='acceptChk' id='accept" + item.ID + "' /> <span>@PlantQuar.WEB.Language.Resource_data1.Accept</span></td>");*@
+                });
+                $(".quickview").click(function () {
+                    var sdate = $(this).data("sdate");
+                    var edate = $(this).data("edate");
+                    var quan = $(this).data("quan");
+                    var area = $(this).data("area");
+                    var totquan = $(this).data("totquan");
+                    var adminname = $(this).data("adminname");
+                    var adminnote=$(this).data("adminnote");
+                    $("#modaldetails").empty();
+                    $("#modaldetails").append("<label>@PlantQuar.WEB.Language.Resource_data1.Startdate : <span class='modalspan'>" + sdate + "</span></label><br><label>@PlantQuar.WEB.Language.Resource_data1.enddate :  <span class='modalspan'>" + edate + "</span></label><br><label>@PlantQuar.WEB.Language.Resource_data1.Productivity :  <span class='modalspan'>" + quan + "</span><span> @PlantQuar.WEB.Language.Resource_data1.Ton</span></label> <br/><label>@PlantQuar.WEB.Language.Resource_data1.area  : <span class='modalspan'> " + area +"</span><span> @PlantQuar.WEB.Language.Resource_data1.acre</span></label><br><label>@PlantQuar.WEB.Language.Resource_data1.totalquantity  :  <span class='modalspan'>" + totquan +"</span><span> @PlantQuar.WEB.Language.Resource_data1.Ton</span></label><br><label>@PlantQuar.WEB.Language.Resource_data1.AdminName :  <span class='modalspan'>" + adminname +"</span></label><br><label> @PlantQuar.WEB.Language.Resource_data1.AdminNote :  <span class='modalspan'>" + adminnote +"</span></label><br>")
+                });
+            }
+        });
+        //eslam
+        $.ajax({
+            url: '/FA_Farm/FarmCommittee/listFarm_Committee_Examination',
+            data: {
+                txt_AR_BTNSearch: $('#txt_AR_BTNSearch').val(),
+                txt_EN_BTNSearch: $('#txt_EN_BTNSearch').val(),
+                FarmCommittee_ID: FarmCommittee_ID
+            },
+            success: function (listFarm_Committee_Examination) {
+                $("#Farm_Committee_CheckList_List tbody").empty();
+                //console.log(listFarm_Committee_Examination._Farm_Check_List)
+
+
+                $.each(listFarm_Committee_Examination._Farm_Check_List, function (index, item) {
+                    var _IsAcceptedAdmin = "";
+                    if (item.IsAcceptedAdmin==true) {
+                        _IsAcceptedAdmin="موافق"
+                    }
+                    else if (item.IsAcceptedAdmin == false) {
+                        _IsAcceptedAdmin="مرفوض"
+                    }
+                    else
+                    {
+                        _IsAcceptedAdmin = " لم يتم العمل عليه"
+                    }
+
+                    if (item.IsAcceptedConfirm == true)
+                    {
+                        __IsAcceptedConfirm="موافق"
+                    }
+                     else if (item.IsAcceptedConfirm==false) {
+                        __IsAcceptedConfirm="مرفوض"
+                    }
+                    else
+                    {
+                        __IsAcceptedConfirm = "لم يتم العمل عليه"
+                    }
+                    var _IsConfirm = "";
+                    if (item.ConfirmEmployeeId == null) {
+                        _IsConfirm = "لا يوجد مساعد ";
+                        __IsAcceptedConfirm = "";
+
+                    }
+                    else
+                    {
+                       _IsConfirm =  item.ConfirmName+"<br>"
+                    }
+
+                    $("#Farm_Committee_CheckList_List tbody").append("<tr>" +
+                        "<td hidden>" + item.FarmCommittee_ID + "</td>" +
+ "<td>" + item.Constrain_Ar + "</td>" +
+                        "<td>" + item.Farm_Country_CheckList + "</td>" +
+
+                        @*"<td><div class='col-md-6'><button type='button' class='quickview4' style='height: auto;color: white;background-color: #1e7c80;border: 2px solid #1e8084;box-shadow: 0 4px #1d9fa5; outline: none; color: white;margin-top: 5px;' data-toggle='modal' data-target='#mymodalemanexamination'" +
+                        "data-delegationdate='" + item.IsAcceptedAdmin + "'" +
+                        ">@PlantQuar.WEB.Language.Resource_data1.Details</button> </div>+ </td>" +*@
+                        "<td><span>" + item.AdminNameCheckList + "</span></br>" +
+                        "<span>" + _IsAcceptedAdmin + "</span></br>" +
+                        "</br></td>" +
+                        "<td><span>" + _IsConfirm+ "</span></br>" +
+                        "<span>" + __IsAcceptedConfirm+ "</span></br>" +
+                        "</br></td>" +
+                        "<td id='acceptt" + item.CheckList_ID + "'><input type='hidden' value='" + item.CheckList_ID + "' /><input type='radio' class='acceptChk' name='yyy#" +item.CheckList_ID+"' value='accept#" +item.CheckList_ID+"'/> <span>@PlantQuar.WEB.Language.Resource_data1.Accept</span><input type='hidden' value='" + item.CheckList_ID + "' /><input type='radio' class='acceptChk' name='yyy#" +item.CheckList_ID+"' value='rej#" +item.CheckList_ID+"'/> <span>@PlantQuar.WEB.Language.Resource_data1.Reject</span></td>"+
+                        "</tr>");
+
+                    //console.log(item.Notes_ArAdmin);//$('#replyBox').append(quote);
+
+                    @*if (item.Admin_Confirmation == true)
+                        $("#accept" + item.ID + "").replaceWith("<td><input type='hidden' value='" + item.ID + "' /><input type='checkbox' checked class='acceptChk' id='accept" + item.ID + "' /> <span>@PlantQuar.WEB.Language.Resource_data1.Accept</span></td>");*@
+                });
+                //ADMINNOTES
+                $.each(listFarm_Committee_Examination._Farm_Check_List_Admin_Note, function (index,item)
+                {
+
+
+
+                    $("#Farm_Check_List_Admin_Note_Tbl tbody").append("<tr>" +
+                        "<td hidden>" + item.AdminEmployeeId + "</td>" +
+                        "<td>" + item.AdminName + "</td>" +
+                        "<td>" + item.Notes_ArAdmin + "</td></tr>");
+
+                });
+                //adminQuarantine_Note
+                   $.each(listFarm_Committee_Examination._Farm_Check_List_AdminQuarantine_Note, function (index,item)
+                {
+
+
+
+                    $("#Farm_Check_List_AdminQuarantine_Note_Tbl tbody").append("<tr>" +
+                        "<td hidden>" + item.AdminQuarantineEmployeeId + "</td>" +
+                        "<td>" + item.QuarantineAdminName + "</td>" +
+                        "<td>" + item.Notes_ArAdminQuarantine + "</td></tr>");
+                   // console.log(item);
+                });
+                //
+                //ConfirmNOTES
+                   $.each(listFarm_Committee_Examination._Farm_Check_List_Confirm_Note, function (index, item)
+                {
+                      // console.log(item.ConfirmName);
+                         $("#Farm_Check_List_Confirm_Note_Tbl tbody").append("<tr>" +
+                        "<td hidden>" + item.ConfirmEmployeeId + "</td>" +
+ "<td>" + item.ConfirmName + "</td>" +
+                        "<td>" + item.Notes_ArConfirm + "</td></tr>");
+                   });
+                                // Fill SaveNotes
+                $('.saveFinalNotesforAll').click(function (e) {
+                     var rad_cls = document.querySelectorAll('input[class=acceptChk]:checked');
+                     var _Check_List_Status = [];
+                    if (rad_cls.length > 0) {
+                         //حفظ موقف الحجر في البنود _Check_List_Approval
+                       // alert(rad_cls.length);
+                        var status;
+                        for (var i = 0; i < rad_cls.length; i++)   //to full CheckedItemsList
+                        {
+                            var CheckList_ID_Radio = rad_cls[i].value.split('#')[1];
+                             var CheckList_Status_Radio = rad_cls[i].value.split('#')[0];
+                          //  alert(CheckList_ID_Radio)
+                          //  alert(CheckList_Status_Radio)
+                            if (CheckList_Status_Radio == "rej") {
+                                //alert(CheckList_Status_Radio);
+                                status = false;
+                            }
+                            else if ( CheckList_Status_Radio == "accept") {
+                                 //alert(CheckList_Status_Radio);
+                                status = true;
+                            }
+                           // alert(status)
+                             _Check_List_Status.push({
+
+                                        FarmCommittee_ID: CheckList_ID_Radio,
+                                        IsAccepted_Quarantine: status,
+
+                             });
+                            //save CheckListStatus
+
+                        }
+
+
+                    }
+                    else
+                    {
+                        alertify.error("يجب الموافقه او الرفض علي البنود ");
+                    }
+                    var id = $(this).data("farmcommitteeid");
+
+                    //console.log(id)
+
+                    var notes = $("#finalNotesforAll").val();
+
+                    $.post('/FA_Farm/FarmCommittee/SaveNotes', { farmCommitteeId: id, notes: notes,CheckListStatus: _Check_List_Status }, function (data, succ) {
+
+                        alertify.success('تم إضافة الملاحظات ')
+                        $("#finalNotesforAll").val('')
+
+                    });
+
+
+    });
+
+            }
+        });
+        //eslam
+        $.ajax({
+            url: '/FA_Farm/FarmCommittee/listFarm_SampleData',
+            data: {
+                txt_AR_BTNSearch: $('#txt_AR_BTNSearch').val(),
+                txt_EN_BTNSearch: $('#txt_EN_BTNSearch').val(),
+                FarmCommittee_ID: FarmCommittee_ID
+            },
+            success: function (listFarm_SampleData) {
+                $("#Farm_SampleDataTable tbody").empty();
+                if (listFarm_SampleData.ifAppearCategories == 1) {
+                     if ('@ViewBag.committeeType' == 12) {
+                        $("#form5").show();
+                    }// $
+                    ////debugger;
+                    //set attr selec and disable
+                    //if (listFarm_SampleData.status == 1) {
+                    //    $("#Ch_Accept1").attr('checked', 'checked');
+                    //    $("#Ch_Accept1").attr('disabled', 'disabled');
+                    //    $("#Ch_Accept2").attr('disabled', 'disabled');
+                    //    //$("#form5").show();
+                    //    //$("#form3").show();
+                    //    //$(".btnRedir").show();
+
+                    //} else if (listFarm_SampleData.status == 2) {
+                    //    $("#Ch_Accept2").attr('checked', 'checked');
+                    //    $("#Ch_Accept1").attr('disabled', 'disabled');
+                    //    $("#Ch_Accept2").attr('disabled', 'disabled');
+                    //}
+                    //$("#form5").show();
+                    //        $("#lastres").show();
+
+                }
+                $.each(listFarm_SampleData.Records, function (index, item) {
+                    if (item.IsAccepted == 1)
+                    {
+                        item.IsAccepted = "@PlantQuar.WEB.Language.Resource_data1.Accept";
+                    }
+                    else if (item.IsAccepted == 0)
+                    {
+                        item.IsAccepted = "@PlantQuar.WEB.Language.Resource_data1.Reject";
+                    }
+                    else
+                    {
+                        item.IsAccepted = "@PlantQuar.WEB.Language.Resource_data1.NoWork";
+                    }
+
+                     var admincon = "";
+                    if (item.IsTotalRes == true) {
+                         if (item.Admin_Confirmation != null)
+                    {
+
+                        if (item.Admin_Confirmation == true)
+                        {
+                            admincon = "<td><div class='row'> <span class='col-md-6'>@PlantQuar.WEB.Language.Resource_data1.Reject</span><input type='radio' class='offset-md-2 col-md-4 acceptChk' name='yyy" + item.ID + "' disabled /></div><div class='row'><span class='col-md-6'>@PlantQuar.WEB.Language.Resource_data1.Accept</span><input type='radio' class='offset-md-2 col-md-4 acceptChk' name='yyy" + item.ID +"' checked disabled /></div></td>"
+
+
+                        } else {
+
+                            admincon = "<td><div class='row'> <span class='col-md-6'>@PlantQuar.WEB.Language.Resource_data1.Reject</span><input type='radio' class='offset-md-2 col-md-4 acceptChk' name='yyy" + item.ID + "' checked disabled /></div><div class='row'><span class='col-md-6'>@PlantQuar.WEB.Language.Resource_data1.Accept</span><input type='radio' class='offset-md-2 col-md-4 acceptChk' name='yyy" + item.ID + "' disabled /> </div></td>"
+
+                        }
+
+                    }
+                    else {
+                        allow = 1;
+                             //$(".Ch_Accept").attr('disabled', 'disabled')
+                        admincon = "<td id='accept" + item.ID + "'><input type='hidden' value='" + item.ID + "' /><input type='radio' class='acceptChk' name='yyy" +item.ID+"' value='0'/> <span>@PlantQuar.WEB.Language.Resource_data1.Reject</span><input type='hidden' value='" + item.ID + "' /><input type='radio' class='acceptChk' name='yyy" +item.ID+"' value='1'/> <span>@PlantQuar.WEB.Language.Resource_data1.Accept</span></td>";
+                    }
+                    }
+                    var empp = "<td></td>";
+                    var IsAccepted_Confirm = "@PlantQuar.WEB.Language.Resource_data1.Reject"
+                   if (item.employeeRes.length > 0) {
+                        empp = "<td>";
+                        $.each(item.employeeRes, function (indexemp, itememp) {
+                             if (itememp.IsAccepted_Confirm == true) {
+                        IsAccepted_Confirm = "@PlantQuar.WEB.Language.Resource_data1.Accept"
+                    }
+                    else if (itememp.IsAccepted_Confirm == false) {
+                        IsAccepted_Confirm = "@PlantQuar.WEB.Language.Resource_data1.Reject"
+                    }
+                    else {
+                        IsAccepted_Confirm = "@PlantQuar.WEB.Language.Resource_data1.NoWork"
+                    }
+                       //sayed
+                        empp += "<div class='row'><div class='col-md-6'>" + IsAccepted_Confirm + "</div>";
+                        empp += "<div class='col-md-6'>" + itememp.Notes_Confirm + "</div></div><div class='row'><div class='col-md-10'>" + itememp.empName + "</div></div><div class='row'><div class='col-md-10'>" + itememp.Date + "</div> </div>";
+
+                        @*empp += "<button type='button' class='btn btn-default btn- info btn- lg quickview'data-toggle='modal' data-target='#mymodalemanexamination'@PlantQuar.WEB.Language.Resource_data1.Notes=" + item.employeeRes[0].Notes_Confirm
+                            + " @PlantQuar.WEB.Language.Resource_data1.EmpolyeeName=" + item.employeeRes[0].empName + " @PlantQuar.WEB.Language.Resource_data1.Date=" + item.employeeRes[0].Date + " autocomplete='off'>@PlantQuar.WEB.Language.Resource_data1.Details</button></dt>";*@
+
+                       @*empp +  " <div class='col-md-4'><button type='button' class='btn btn-default btn- info btn- lg quickview' data-toggle='modal' data-target='#mymodalemanexamination' @PlantQuar.WEB.Language.Resource_data1.Startdate='" + item.employeeRes[0].Notes_Confirm
+                        + "' data-edate='" + item.employeeRes[0].empName + "' data-quan='" + item.employeeRes[0].Date + "' >@PlantQuar.WEB.Language.Resource_data1.Details</button></div> </div></td>" +*@
+
+
+                        });
+                        empp += "</td>";
+                          }
+                    @*if (item.employeeRes.length > 0) {
+                        if (item.employeeRes[0].IsAccepted_Confirm == true) {
+                        IsAccepted_Confirm = "@PlantQuar.WEB.Language.Resource_data1.Accept"
+                    }
+                    else if (item.employeeRes[0].IsAccepted_Confirm == false) {
+                        IsAccepted_Confirm = "@PlantQuar.WEB.Language.Resource_data1.Reject"
+                    }
+                    else {
+                        IsAccepted_Confirm = "@PlantQuar.WEB.Language.Resource_data1.NoWork"
+                    }
+                       empp = "<td style='width:17%';><div class='row'><div class='col-md-6'>"+IsAccepted_Confirm + "</div><div class='col-md-6'>" + item.employeeRes[0].Notes_Confirm + "</div></div><div class='row'><div class='col-md-12'>" + item.employeeRes[0].empName + "</div></div><div class='row'><div class='col-md-12'>" + item.employeeRes[0].Date + "</div> </div></td>";
+                     }*@
+                    var brc = "";
+                    if (item.Sample_BarCode != null) {
+                        if (item.IsPrint == true) {
+                        brc = "<td>" + item.Sample_BarCode + "  وتمت الطباعه</td>";
+                    } else {
+                        brc = "<td><a href='/LaboratoryResult/LaboratoryResult_Report/Index?barcode=" + item.Sample_BarCode + "'>" + item.Sample_BarCode + "</a></td>";
+                    }
+                    } else {
+                         brc = "<td>" + item.Sample_BarCode + "</td>";
+                    }
+                    var path = "No Attached";
+                    if (item.imageUrl != null && item.imageUrl != 'undefined') {
+                        path = "<a href='/" + item.imageUrl + "' target='_blank'>Attached</a>";
+                    }
+                    $("#Farm_SampleDataTable tbody").append("<tr>" +
+                        "<td hidden>" + item.ID + "</td>" +
+                        "<td>" + item.Item_Name_Ar + "</td>" +
+                        "<td>" + item.ItemCategories_Name_Ar + "</td>" +
+                      brc +
+
+                        "<td style='width:15%;'><span class='labelspan'>@PlantQuar.WEB.Language.Resource_data1.Analysis</span> <span>" + item.AnalysisType_Name + "</span><br/><span class='labelspan'>@PlantQuar.WEB.Language.Resource_data1.labName</span><span>" + item.AnalysisLab_Name + "</span> </div><span class='labelspan'>" + item.IsRejectedAll + "</span></div></td>" +
+                        "<td style='width:15%;'><div class='row'><div class='col-md-6'>  " + item.Notes_Ar + " </div><button type='button' class='col-md-5 btn btn-default btn- info btn- lg quickview2' data-toggle='modal' data-target='#mymodalemanexamination' data-sampleratio='" + item.SampleRatio + "' data-samplesize='" + item.SampleSize + "' data-withdrow='" + item.WithdrawDate +"' data-adminname='"+ item.AdminName+"'> @PlantQuar.WEB.Language.Resource_data1.Details</button></div></td>" +
+
+                        empp +
+                        "<td><div>" + item.IsAccepted + "<br/>" + item.RejectReason_Ar + "<br/>" +path+"</div></td>" +
+                       /* +"<td>" + admincon + "</td/>"*/ +
+                        "</tr > ");
+                    //
+                        //if (item.Admin_Confirmation == true)
+                        //    $("#accept" + item.ID + "").replaceWith("<td><input type='hidden' value='" + item.ID + "' /><input type='checkbox' checked class='acceptChk' id='accept" + item.ID + "' /> <span>@PlantQuar.WEB.Language.Resource_data1.Accept</span></td>");
+                });
+                $(".quickview2").click(function () {
+                    var samplesize = $(this).data("samplesize");
+                    var sampleratio = $(this).data("sampleratio");
+                    var withdrow = $(this).data("withdrow");
+                    var adminname = $(this).data("adminname");
+                    $("#modaldetails").empty();
+                    $("#modaldetails").append("<label> @PlantQuar.WEB.Language.Resource_data1.SampleSize :<span class='modalspan'> " + samplesize + "</span><span> @PlantQuar.WEB.Language.Resource_data1.kg</span></label><br><label>@PlantQuar.WEB.Language.Resource_data1.SampleRatio  :<span class='modalspan'> " + sampleratio  + "</span><span> @PlantQuar.WEB.Language.Resource_data1.kg</span></label><br><label>@PlantQuar.WEB.Language.Resource_data1.WithdrawDate  :<span class='modalspan'> " + withdrow  +"</span></label><br><label>@PlantQuar.WEB.Language.Resource_data1.AdminName :<span class='modalspan'> " + adminname + "</span></label><br>")
+                });
+            }
+        });
+        $.ajax({
+            url: '/FA_Farm/FarmCommittee/listFarmRequestItem_Categories',
+            data: {
+                txt_AR_BTNSearch: $('#txt_AR_BTNSearch').val(),
+                txt_EN_BTNSearch: $('#txt_EN_BTNSearch').val(),
+                FarmCommittee_ID: FarmCommittee_ID
+            },
+            success: function (listFarmRequestItem_Categories) {
+                $("#FarmRequestItem_Categories tbody").empty();
+
+                $.each(listFarmRequestItem_Categories.Records, function (index, item) {
+
+                    //"<td>" + item.IsActive + "</td>"
+                    //"<td>" + item.categoryName + "</td>"
+                    if (listFarmRequestItem_Categories.allIsActive == 0) {
+                        if (listFarmRequestItem_Categories.status == 1) {
+                        $("#Ch_Accept1").attr('checked', 'checked');
+                        $("#Ch_Accept1").attr('disabled', 'disabled');
+                        $("#Ch_Accept2").attr('disabled', 'disabled');
+                        //$("#form5").show();
+                        $("#form3").show();
+                        $(".btnRedir").show();
+
+                    } else if (listFarmRequestItem_Categories.status == 2) {
+                        $("#Ch_Accept2").attr('checked', 'checked');
+                        $("#Ch_Accept1").attr('disabled', 'disabled');
+                        $("#Ch_Accept2").attr('disabled', 'disabled');
+                    }
+                    //$("#form5").show();
+                          $("#lastres").show();
+                    }
+                     var admincon = "";
+
+                         if (item.IsActive != null)
+                    {
+
+                        if (item.IsActive == true)
+                        {
+                            admincon = "<td><div class='row'> <span class='col-md-6'>@PlantQuar.WEB.Language.Resource_data1.Reject</span><input type='radio' class='offset-md-2 col-md-4 acceptChk' name='yyy_" + item.ID + "' disabled /></div><div class='row'><span class='col-md-6'>@PlantQuar.WEB.Language.Resource_data1.Accept</span><input type='radio' class='offset-md-2 col-md-4 acceptChk' name='yyy_" + item.ID +"' checked disabled /></div></td>"
+
+
+                        } else {
+
+                            admincon = "<td><div class='row'> <span class='col-md-6'>@PlantQuar.WEB.Language.Resource_data1.Reject</span><input type='radio' class='offset-md-2 col-md-4 acceptChk' name='yyy_" + item.ID + "' checked disabled /></div><div class='row'><span class='col-md-6'>@PlantQuar.WEB.Language.Resource_data1.Accept</span><input type='radio' class='offset-md-2 col-md-4 acceptChk' name='yyy_" + item.ID + "' disabled /> </div></td>"
+
+                        }
+
+                    }
+                    else {
+
+                        admincon = "<td id='acceptt" + item.ID + "'><input type='hidden' value='" + item.ID + "' /><input type='radio' class='acceptChk'  name='yyy_" +item.ID+"' value='0'/> <span>@PlantQuar.WEB.Language.Resource_data1.Reject</span><input type='hidden' value='" + item.ID + "' /><input type='radio' class='acceptChk' name='yyy_" +item.ID+"' value='1'/> <span>@PlantQuar.WEB.Language.Resource_data1.Accept</span></td>";
+                    }
+
+
+
+                    $("#FarmRequestItem_Categories tbody").append("<tr>" +
+                        "<td hidden>" + item.ID + "</td>" +
+                        "<td hidden>" + item.Farm_ItemCategories_ID + "</td>" +
+                        "<td>" + item.categoryName + "</td>" +
+                        "<td> <span>المساحة" + item.Area_Acres + "</span><br>" +
+                        "<span>الإنتاجية للفدان" + item.Quantity_Ton + "</span><br>" +
+                        " <span>الكميةالكلية" +  item.Area_Acres*item.Quantity_Ton  + "</span></td>" +
+                       "<td> <input type='text'class='form-control'name='AreaSize' id='AreaSize_"+ item.ID +"_"+item.Farm_ItemCategories_ID+"' /></td>" +
+                        "<td><input type='text'class='form-control'name=='productionSize' id='productionSize_"+ item.ID +"_"+item.Farm_ItemCategories_ID+"' /></td>" +
+                        " <td><input type='text'name='productionSizeForExport'class='form-control' id='productionSizeForExport_"+ item.ID +"_"+item.Farm_ItemCategories_ID+"' /></td>" +
+                        "<td><input type='text'name='AllproductionSizeForExport' disabled class='form-control' id='AllproductionSizeForExport#"+ item.ID +"#"+item.Farm_ItemCategories_ID+"'/></td>" +
+                       admincon+"</tr>");
+                    //
+                        //if (item.Admin_Confirmation == true)
+                        //    $("#accept" + item.ID + "").replaceWith("<td><input type='hidden' value='" + item.ID + "' /><input type='checkbox' checked class='acceptChk' id='accept" + item.ID + "' /> <span>@PlantQuar.WEB.Language.Resource_data1.Accept</span></td>");
+                });
+                $('.saveFinalItemCategoryAreaforAll').click(function (e) {
+                    var _FinalItemCategoryAreaforAll = [];
+
+                   // var AreaSizeValue = $('.AreaSize').map(function () {return +this.value; }).get();
+                   //                 alert(AreaSizeValue)
+                   //            var productionSizeValue = $('.productionSize').map(function () {return +this.value;}).get();
+
+                   // console.log(productionSizeValue); alert(productionSizeValue)
+                   //var productionSizeForExportValue = $('.productionSizeForExport').map(function () { return +this.value;}).get();
+                   // console.log(productionSizeForExportValue); alert(productionSizeForExportValue)
+                    var table = document.getElementById('FarmRequestItem_Categories').rows;
+
+                    for (var i = 1; i < table.length; i++)
+                    {
+
+                          cells = table[i].getElementsByTagName('td');
+                        var _Farm_Request_ItemCategoriesId = cells[0].innerHTML;
+                        var _Farm_ItemCategories_ID = cells[1].innerHTML;
+
+                        Area_Acres_Quarant = $("#AreaSize_" + _Farm_Request_ItemCategoriesId + "_" + _Farm_ItemCategories_ID).val();
+
+                        Quantity_Ton__Export = $("#productionSize_" + _Farm_Request_ItemCategoriesId + "_" + _Farm_ItemCategories_ID).val();
+                        Quantity_Ton__Quarant = $("#productionSizeForExport_" + _Farm_Request_ItemCategoriesId + "_" + _Farm_ItemCategories_ID).val();
+            //            var inpNamee = "yyy_" + _Farm_ItemCategories_ID;
+
+            //             var rad_cls = document.querySelectorAll('input[class=acceptChk22]:checked');
+            //// alert(rad_cls.length);
+            ////var rad_cls = document.querySelectorAll('input[name=fav_language]:checked');       //to get checked checkboxes
+            //            if (rad_cls.length > 0) {
+            //                alert("ZXcZXZXC")
+            //            }
+            //           // alert(inpNamee)
+            //              var rad_cls = document.querySelectorAll('input[class=acceptChk22]:checked');
+                        //var radios  = document.querySelectorAll('input[class=acceptChk22]:checked');
+                         // var TotalORPart = rad_cls[i].value.split('#')[1];
+                            //alert(rad_cls[i].value);
+                            //alert(TotalORPart);
+                           // var Item_ShortName_ID_Radio = rad_cls[i].value.split('#')[0];
+                         //alert(rad_cls)
+                        _FinalItemCategoryAreaforAll.push({
+                            ID: _Farm_Request_ItemCategoriesId,//0
+                            Farm_ItemCategories_ID: _Farm_ItemCategories_ID,//1
+                            Area_Acres_Quarant: Area_Acres_Quarant,//4
+                            Quantity_Ton__Export: Quantity_Ton__Export,//5
+                            Quantity_Ton__Quarant: Quantity_Ton__Quarant,//6
+                            //7
+                        });
+
+            //$.ajax({
+            //    url: '/FA_Farm/FarmCommittee/SaveFarm_Committee_Examination',
+            //    data: { ID: id, Admin_Confirmation: value },
+            //    success: function (res) {
+
+            //    }
+            //});
+        //});
+                        console.log(_FinalItemCategoryAreaforAll);
+
+                    }
+
+
+
+
+                    $.post('/FA_Farm/FarmCommittee/SaveAreaAndWightFarmRequestQaur', { FinalItemCategoryAreaforAll: _FinalItemCategoryAreaforAll }, function (data, succ) {
+
+                        alertify.success('تم إضافة المساحات و الأوزان الخاصة بالحجر ')
+                        $("#finalNotesforAll").val('')
+
+                    });
+
+
+    });
+            }
+        });
+
+        $(".btnRedir").hide();
+        $("#form3").hide();
+        //sayed
+        //////debugger;
+        //if (allow == 1) {
+        //    $(".Ch_Accept").attr("disabled", true)
+
+        //}
+        $(".Ch_Accept").change(function () {
+            var val = $(this).val();
+            if (val == 1) {
+                $(".btnRedir").show();
+                $("#form3").show();
+            }
+            else {
+                $(".btnRedir").hide();
+                $("#form3").hide();
+            }
+            $.ajax({
+                url: '/FA_Farm/FarmCommittee/updateFarm_Request_IsStatus',
+                data: {
+                    accept: val,
+                    Id: $("#reqId").val()
+                },
+            });
+
+        });
+        //end sayed
+        $.ajax({
+            url: '/FA_Farm/FarmCommittee/listFarm_Country',
+            data: {
+                txt_AR_BTNSearch: $('#txt_AR_BTNSearch').val(),
+                txt_EN_BTNSearch: $('#txt_EN_BTNSearch').val(),
+                FarmCommittee_ID: FarmCommittee_ID
+            },
+            success: function (listFarm_Country) {
+                $("#Farm_CountryTable tbody").empty();
+               // console.log(listFarm_Country.Records)
+                $.each(listFarm_Country.Records, function (index, item) {
+                    localStorage.farmRequestId = item.Farm_Request_ID;
+
+                    $("#reqId").val(item.Farm_Request_ID);
+                    //$("#statuss").val(item.status);
+                    $("#farmId").val(item.Farm_ID);
+                    var sDate = "";
+                    var eDate = "";
+                    if (item.Start_Date != null) {
+                       sDate= item.Start_Date.substr(0, item.Start_Date.indexOf('T'))
+                    }
+                    if (item.End_Date != null) {
+                       eDate= item.End_Date.substr(0, item.End_Date.indexOf('T'))
+                    }
+                    var hrefEdit = "@Url.Action("Accept", "FarmCommittee", new { area = "FA_Farm", id = "__id__" })";
+                    hrefEdit = hrefEdit.replace("__id__", item.ID);
+
+                    var hrefDel = "@Url.Action("Reject", "FarmCommittee", new {  area = "FA_Farm", id = "__id__" })";
+                    hrefDel = hrefDel.replace("__id__", item.ID);
+
+                    $("#Farm_CountryTable tbody").append("<tr>" +
+                        "<td>" + item.Ar_Name + "</td>" +
+                        "<td>" + item.En_Name + "</td>" +
+                        "<td><input type='checkbox' disabled id='IsActive" + item.ID + "' /></td>" +
+                        "<td><input type='checkbox' disabled id='IsAcceppted" + item.ID + "' /></td>" +
+                        "<td>" + sDate + "</td>" +
+                        "<td>" + eDate + "</td>" +
+                        "<td>" + eDate + "</td>" +
+                         "<td>" + eDate + "</td>" +
+                        "<td><input type='hidden' value='" + item.ID + "' /><input type='button' class='btnEditCountry btn btn-primary' id='btnEditCountry"+ item.ID+"' value='@PlantQuar.WEB.Language.Resource_data1.Edit' /></td>" +
+                        "<td class='saveCountryShowHide'><input type='hidden' value='" + item.ID + "' /><input type='button' class='btnSaveCountry btn btn-primary' id='btnSaveCountry"+ item.ID+"' value='@PlantQuar.WEB.Language.Resource_data1.Save' /></td>" +
+                        "</tr>");
+
+                    $("#form3").on("focus", "#Start_Date" + item.ID + ", #End_Date" + item.ID + "", function () {
+                        $(this).datepicker();
+                    });
+
+                    if (item.IsActive == true)
+                        $("#IsActive" + item.ID + "").replaceWith("<input type='checkbox' checked id='IsActive" + item.ID + "' />");
+                    //else
+                    //    $("#IsActive").replaceWith("<input type='checkbox' id='IsActive' />");
+
+                    if (item.IsAcceppted == true)
+                        $("#IsAcceppted" + item.ID + "").replaceWith("<input type='checkbox' checked id='IsAcceppted" + item.ID + "' />");
+                    //else
+                    //    $("#IsAcceppted").replaceWith("<input type='checkbox' id='IsAcceppted' />");
+                    if (item.IsActive != null && item.Start_Date != null) {
+                        $("#btnSaveCountry" +item.ID).attr("disabled", "disabled");
+                        $("#btnEditCountry" + item.ID).attr("disabled", "disabled");
+                        $("#IsActive" + item.ID + "").attr("disabled", "disabled");
+                        $("#IsAcceppted" + item.ID + "").attr("disabled", "disabled");
+
+                          $("#isactiveallcoun").attr("disabled", "disabled");
+                        $("#isacceptallcoun").attr("disabled", "disabled");
+                        $("#startdateallcoun").attr("disabled", "disabled");
+                        $("#enddateallcoun").attr("disabled", "disabled");
+                           $("#saveallcoun").attr("disabled", "disabled");
+                    }
+                });//each
+                $("#Farm_CountryTable").on("click", ".btnSaveCountry", function () {
+                    //////debugger;
+                    var farmCountryId = $(this).prev().val();
+                    //$(this).parent().prev().prev().prev().prev().prev().find('input').replaceWith("<input type='checkbox' id='IsActive" + farmCountryId + "' />");
+                    //$(this).parent().prev().prev().prev().prev().find('input').replaceWith("<input type='checkbox' id='IsAcceppted" + farmCountryId + "' />");
+
+                    //////debugger;
+
+                    var start = $(this).parent().prev().prev().prev().find('input').val();
+                    var end = $(this).parent().prev().prev().find('input').val();
+                    var active = $(this).parent().prev().prev().prev().prev().prev().find('input');
+                    var accept = $(this).parent().prev().prev().prev().prev().find('input');
+                    if (active.is(':checked'))
+                        active = true;
+                    else
+                        active = false;
+                    if (accept.is(":checked"))
+                        accept = true;
+                    else
+                        accept = false;
+
+                    ////debugger;
+                    if (start != null && start != "" && end != null && end != "") {
+                         $(this).parent().prev().prev().prev().replaceWith("<td>" + start + "</td>");
+                    $(this).parent().prev().prev().replaceWith("<td>" + end + "</td>");
+                        $.ajax({
+                        url: '/FA_Farm/FarmCommittee/SaveFarm_Country2',
+                        data: { ID: farmCountryId, start: start, end: end, active: active, accept: accept },
+                        success: function (res) {
+
+                        }
+                        });
+                        $(this).parent().hide();
+                    $(this).parent().prev().show();
+                    }
+
+
+                });
+
+                //$(".saveCountryShowHide").hide();
+                //if ($("#Farm_CountryTable tbody").children('tr').length > 0)
+                //    $("#form3").show();
+                //else
+                //    $("#form3").hide();
+            }
+        });
+    }
+    $("#Farm_CountryTable").on("click", ".btnEditCountry", function () {
+        var id = $(this).prev().val();
+        $(this).parent().prev().prev().prev().prev().find('input').replaceWith("<input type='checkbox' id='IsActive" + id + "' />");
+        $(this).parent().prev().prev().prev().find('input').replaceWith("<input type='checkbox' id='IsAcceppted" + id + "' />");
+        $(this).parent().hide();
+        $(this).parent().next().show();
+        var start = $(this).parent().prev().prev().text();
+        var end = $(this).parent().prev().text();
+        $(this).parent().prev().prev().replaceWith("<td><input type='text' value='" + start + "' class='form-control' id='Start_Date" + id + "' /></td>");
+        $(this).parent().prev().replaceWith("<td><input type='text' value='" + end + "' class='form-control' id='End_Date" + id + "' /></td>");
+    });
+    //eslam make Aproval For CheckList
+//      $(".acceptAllChk").change(function () {
+//          var val = $(this).val();
+
+//           var table = document.getElementById("Farm_Committee_CheckList_List");
+//          var rowCount = table.rows.length;
+////        radiobtn = document.getElementById("theid");
+////radiobtn.checked = true;
+//          if (val == 1) {
+//                //lموافق للكل
+//              //make all check  Box Checked accepted
+//             var radiobtn = document.getElementsByClassName("acceptChk");
+//              radiobtn.checked = true;
+//            }
+//          else {
+//              //0مرفوض للكل
+
+//               //make all check  Box Checked rejected
+//            }
+//            $.ajax({
+//                url: '/FA_Farm/FarmCommittee/updateApprovalForCheckList',
+//                data: {
+//                    accept: val,
+//                   Commitee_Id: $("#Commitee_Id").val()
+//                },
+//            });
+
+//        });
+      //End acceptAllChkeslam make Aproval For CheckList
+    $('#LoadRecordsButton').click(function (e) {
+        FillTable();
+    });
+</script>
+<script>
+    $(document).ready(function () {
+
+
+        let params = new URLSearchParams(document.location.search);
+        let urlParams = params.get("radio_ID"); // is the string "Jonathan"
+
+
+
+        if (urlParams == '1') {
+            $("#checkRequest_lst1").show();
+
+            $('#Farm_CountryTable').DataTable();
+        }
+
+    });
+
+
+
+
+</script>

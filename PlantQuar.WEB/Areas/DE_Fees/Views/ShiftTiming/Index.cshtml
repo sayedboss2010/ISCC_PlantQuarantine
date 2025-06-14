@@ -1,0 +1,787 @@
+﻿
+@{
+    ViewBag.Title = "Shift_Timing";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.shiftTiming</h2>
+}
+
+<br />
+
+<style>
+    #jtable-create-form, #jtable-edit-form {
+        width: 400px !important;
+        overflow: hidden !important;
+        height: auto !important;
+        /*cursor: move;*/
+        /*display: block;
+        width: 450px;
+        overflow: hidden !important;
+        height: 550px;*/
+    }
+
+    .jtable-input-field-container:nth-of-type(1), .jtable-input-field-container:nth-of-type(2), .jtable-input-field-container:nth-of-type(3), .jtable-input-field-container:nth-of-type(4),
+    .jtable-input-field-container:nth-of-type(5), .jtable-input-field-container:nth-of-type(6) {
+        margin-bottom: 2px;
+        display: block;
+        float: right;
+        width: 50% !important;
+    }
+
+
+    .jtable-input-field-container:nth-of-type(7), .jtable-input-field-container:nth-of-type(8) {
+        margin-bottom: 2px;
+        display: block;
+        /*float: right;*/
+        width: 98% !important;
+    }
+
+    #tableExcell {
+        float: right;
+        /*height: 37px;
+        width: 133px;*/
+        background-color: #1e7c80;
+        border: 2px solid #1e8084;
+        box-shadow: 0 4px #1d9fa5;
+        outline: none;
+        color: white;
+    }
+
+        #tableExcell:hover {
+            background-color: #1a8488;
+            border: 1px solid #1a8488;
+        }
+</style>
+
+
+
+@section filter{
+    <div class="row">
+        <label class="col-lg-2 col-md-12 col-sm-12">@PlantQuar.WEB.Language.Resource_data1.ArabicName</label>
+        <input type="text" class="form-inline col-lg-3 col-md-12 col-sm-12" autocomplete="off" name="txt_AR_BTNSearch" id="txt_AR_BTNSearch" />&nbsp;
+        <label class="col-lg-2 col-md-12 col-sm-12">@PlantQuar.WEB.Language.Resource_data1.EnglishName</label>
+        <input type="text" class="form-inline col-lg-3 col-md-12 col-sm-12" autocomplete="off" name="txt_EN_BTNSearch" id="txt_EN_BTNSearch" />
+        <input type="button" class="col-lg-1 col-md-2 btn btn-primary" id="LoadRecordsButton" value="@PlantQuar.WEB.Language.Resource_data1.Search">
+    </div>
+}
+
+@section Path{
+    <li id="liparenthref" style="position: relative;right: 15px;">@PlantQuar.WEB.Language.Resource_data1.BasicData</li>
+    <li style="position: relative; right: 28px;">shift timing</li>
+
+
+    <a id="childehref" class="active" style="right: 42px; position: relative;">shift timing</a>
+}
+
+@section scripts{
+    <script type="text/javascript">
+
+
+        $(function () {
+
+            var urlBAseADDress = window.location.origin;
+            var urlpathname = window.location.pathname;
+            var x = urlpathname.split('/');
+            $('#liparenthref').removeAttr("href").attr("href", urlBAseADDress);
+            $('#childehref').attr("href", urlBAseADDress + "/" + x[1] + "/" + x[2] + "/" + x[3]);
+        });
+
+        $(function () {
+            $('#ShiftTimingLiost').jtable({
+                title: '@PlantQuar.WEB.Language.Resource_data1.shiftTiming',
+                paging: true,
+                pageSize: 10,
+                sorting: true,
+                defaultSorting: 'Name_Ar ASC',
+                columnResizable: true,
+                columnSelectable: true,
+                saveUserPreferences: true,
+                actions: {
+                    listAction: 'listShiftTiming',
+                    createAction: 'CreateShiftTiming',
+                    updateAction: 'UpdateShiftTiming',
+                    deleteAction: 'DeleteShiftTiming'
+                },
+                fields: {
+                    ID: {
+                        key: true,
+                        create: false,
+                        edit: false,
+                        list: false
+                    },
+                    Name_Ar: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.ArabicName',
+                        inputClass: 'validate[required]'
+                    },
+                    Name_En: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.EnglishName',
+                        inputClass: 'validate[required]'
+                    },
+                    //ShiftTiming_From: {
+                    //    title: 'ShiftTiming_From',
+
+                    //    inputClass: 'validate[required]'
+                    //},
+                    //ShiftTiming_To: {
+                    //    title: 'ShiftTiming_To',
+
+                    //    inputClass: 'validate[required]'
+                    //},
+                    count: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.Count',
+
+                        inputClass: 'validate[required]'
+                    },
+
+                    IsActive: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.Status',
+                        type: 'checkbox',
+                        values: { 'false': ' @PlantQuar.WEB.Language.Resource_data1.NotActive', 'true': '@PlantQuar.WEB.Language.Resource_data1.Active ' },
+                        defaultValue: 'true',
+                    },
+                    @*Day_Type: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.DayType',
+                        type: 'list',
+                        defaultValue: 'true',
+                        options: [
+                          { Value: '96', DisplayText: 'يوم عطلة رسمية' },
+                          { Value: '97', DisplayText: 'يوم عمل رسمي' }
+                          ]
+
+                    }*@
+
+                },
+                formCreated: function (event, data) {
+
+                    if (data.formType == "create") {
+                        $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Add");
+                    }
+                    else {
+                        $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Edit");
+                    }
+
+                    //////////
+                    $("#Edit-Name_Ar, #Edit-Name_En, #txt_AR_BTNSearch, #txt_EN_BTNSearch").attr('autocomplete', 'off');
+                    $("#Edit-ShiftTiming_From").attr('type', 'time');
+
+                    $("#Edit-count").attr('type', 'number');
+                    $("#Edit-ShiftTiming_To").attr('type', 'time');
+                    // Arabic + spaces + numeric
+                    $("#Edit-Name_Ar").keypress(function (e) {
+
+                        var unicode = e.charCode ? e.charCode : e.keyCode
+                        if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+                            if (unicode == 32)
+                                return true;
+                            else {
+                                if ((unicode < 48 || unicode > 57) && (unicode < 0x0600 || unicode > 0x06FF)) //if not a number or arabic
+                                    return false; //disable key press
+                            }
+                        }
+                    });
+
+                    // English + spaces + numeric
+                    $("#Edit-Name_En").keypress(function (e) {
+
+                        var unicode = e.charCode ? e.charCode : e.keyCode
+                        if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+                            if (unicode == 32)
+                                return true;
+                            else {
+                                if (!(unicode < 0x0600 || unicode > 0x06FF)) //if not english
+                                    return false; //
+                            }
+                        }
+                    });
+
+                },
+                formSubmitting: function (event, data) {
+                    return data.form.validationEngine('validate');
+                },
+                formClosed: function (event, data) {
+                    data.form.validationEngine('hide');
+                    data.form.validationEngine('detach');
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Delete");
+                },
+                recordAdded: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+                },
+                recordUpdated: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Update");
+                },
+                recordDeleted: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Delete");
+                },
+            });
+            $('#ShiftTimingLiost').jtable('load');
+
+
+            $('#LoadRecordsButton').click(function (e) {
+
+                e.preventDefault();
+                $('#ShiftTimingLiost').jtable('load', {
+
+                    txt_AR_BTNSearch: $('#txt_AR_BTNSearch').val().trim(),
+                    txt_EN_BTNSearch: $('#txt_EN_BTNSearch').val().trim()
+                });
+            });
+
+            $(".jtable-toolbar-item-add-record .jtable-toolbar-item-text").text("@PlantQuar.WEB.Language.Resource_data1.Add");
+
+            // Arabic + spaces + numeric
+            $("#txt_AR_BTNSearch").keypress(function (e) {
+                var unicode = e.charCode ? e.charCode : e.keyCode
+                if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+                    if (unicode == 32) { }// return data.form.validationEngine('validate');
+                    else {
+                        if (((unicode < 48 || unicode > 57) && unicode != 13) && (unicode < 0x0600 || unicode > 0x06FF)) //if not a number or arabic
+
+                        {
+                            return false; //disable key press
+                        } else {
+                            if (unicode == 13) {
+                                $('#LoadRecordsButton').click();
+                            }
+
+                        }
+
+
+                    }
+                }
+            });
+            $("#txt_EN_BTNSearch").keypress(function (e) {
+
+                var unicode = e.charCode ? e.charCode : e.keyCode
+                if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+                    if (unicode == 32)
+                        return true;
+                    else {
+                        if (!(unicode < 0x0600 || unicode > 0x06FF)) //if not english
+                        {
+                            return false; //disable key press
+                        } else {
+                            if (unicode == 13) {
+                                $('#LoadRecordsButton').click();
+                            }
+
+                        }
+                    }
+                }
+            });
+
+        });
+
+
+         $("#tableExcell").click(function () {
+        var html = "";
+             $.getJSON('/DE_Fees/ShiftTiming/AllShiftTimingsExcell', {}, function (data, succ) {
+           // console.log(data)
+            $.each(data, function (i, item) {
+
+                html += "<tr><td>" + data[i].Name_Ar + "</td>"
+
+                html += "</tr>";
+            });
+            $("#tbl tbody").empty();
+            $("#tbl tbody").append(html);
+            tableToExcel('all analysis lab', 'Table');
+        });
+
+
+    });
+
+    var tableToExcel = (function () {
+        var uri = 'data:application/vnd.ms-excel;base64,'
+            , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta charset="UTF-8"></head><body><table>{table}</table></body></html>'
+            , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+            , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+        return function (table, name) {
+            if (!table.nodeType) table = document.getElementById('tbl')
+            var ctx = { worksheet: '@PlantQuar.WEB.Language.Resource_data1.AnalysisLab', table: table.innerHTML }
+            window.location.href = uri + base64(format(template, ctx))
+        }
+    })()
+    </script>
+
+    <script type="text/javascript">
+
+
+
+        //$("#tableExcell").click(function () {
+
+        //    var tab_text = "<table border='2px'>";
+        //    $.getJSON('AllShiftTimingsExcell', {}, function (data, succ) {
+        //        // console.log(data)
+        //        $.each(data, function (i, item) {
+
+        //            tab_text += "<tr><td>" + data[i].Name_Ar + "</td><td>" + data[i].Name_En + "</td><td>" + data[i].Name_Ar + "</td><td>" + data[i].Name_En + "</td>"
+
+        //            tab_text += "</tr>";
+        //            //debugger;
+        //        });
+
+        //        //debugger;
+
+
+        //        var textRange; var j = 0;
+
+        //        //tab_text = tab_text + "</table>";
+        //        //tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+        //        //tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if u want images in your table
+        //        //tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+
+        //        var ua = window.navigator.userAgent;
+        //        var msie = ua.indexOf("MSIE ");
+
+        //        if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+        //        {
+        //            txtArea1.document.open("txt/html;charset=UTF-8", "replace");
+        //            txtArea1.document.write(tab_text);
+        //            txtArea1.document.close();
+        //            txtArea1.focus();
+        //            sa = txtArea1.document.execCommand("SaveAs", true, "Say Thanks to Sumit.xls");
+        //        }
+        //        else                 //other browser not tested on IE 11
+        //            sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
+
+        //        return (sa);
+        //    });
+        //});
+
+
+
+   
+
+    //    $("#tableExcell").click(function () {
+
+
+
+    ////        <div class="col-md-12" style="display:none;">
+    ////            <br>
+    ////                <br>
+    ////                    <table id="tbl">
+    ////                        <thead>
+    ////                            <tr style="background-color:aqua;">
+    ////                                <th>Arabic Name</th>
+    ////                                <th>English Name</th>
+    ////                            </tr>
+    ////                        </thead>
+    ////                        <tbody>
+
+    ////                        </tbody>
+    ////                    </table>
+
+    ////</div>
+
+
+    //    //var html = "<table>";
+    //    //$.getJSON('/Refuse_Reason/AllRefuse_Reasons', {}, function (data, succ) {
+    //    //   // console.log(data)
+    //    //    $.each(data, function (i, item) {
+
+    //    //        html += "<tr><td>" + data[i].Name_Ar + "</td><td>" + data[i].Name_En + "</td>"
+
+    //    //        html += "</tr>";
+    //    //    });
+    //    //    html += "</table>";
+    //    //    //$("#tbl tbody").empty();
+    //    //    //$("#tbl tbody").append(html);
+    //    //    tableToExcel('all analysis lab', 'Table');
+    //    //});
+
+
+    //});
+
+
+    </script>
+}
+<br />
+<div id="ShiftTimingLiost">
+</div>
+<br />
+<br />
+<div class="row">
+    <iframe id="txtArea1" style="display:none"></iframe>
+    <input type="button" value="@PlantQuar.WEB.Language.Resource_data1.Export_to_Excel" id="tableExcell">
+    <br>
+    <br>
+
+
+</div>
+
+@*@{
+    ViewBag.Title = "Shift_Timing";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.shiftTiming</h2>
+}
+
+<br />
+
+<style>
+    #jtable-create-form, #jtable-edit-form {
+        width: 400px !important;
+        overflow: hidden !important;
+        height: auto !important;
+        /*cursor: move;*/
+        /*display: block;
+        width: 450px;
+        overflow: hidden !important;
+        height: 550px;*/
+    }
+
+    .jtable-input-field-container:nth-of-type(1), .jtable-input-field-container:nth-of-type(2), .jtable-input-field-container:nth-of-type(3), .jtable-input-field-container:nth-of-type(4),
+    .jtable-input-field-container:nth-of-type(5), .jtable-input-field-container:nth-of-type(6) {
+        margin-bottom: 2px;
+        display: block;
+        float: right;
+        width: 50% !important;
+    }
+
+
+    .jtable-input-field-container:nth-of-type(7), .jtable-input-field-container:nth-of-type(8) {
+        margin-bottom: 2px;
+        display: block;
+        /*float: right;*/
+        width: 98% !important;
+    }
+
+    #tableExcell {
+        float: right;
+        /*height: 37px;
+        width: 133px;*/
+        background-color: #1e7c80;
+        border: 2px solid #1e8084;
+        box-shadow: 0 4px #1d9fa5;
+        outline: none;
+        color: white;
+    }
+
+        #tableExcell:hover {
+            background-color: #1a8488;
+            border: 1px solid #1a8488;
+        }
+</style>
+
+
+
+@section filter{
+    <div class="row">
+        <label class="col-lg-2 col-md-12 col-sm-12">@PlantQuar.WEB.Language.Resource_data1.ArabicName</label>
+        <input type="text" class="form-inline col-lg-3 col-md-12 col-sm-12" autocomplete="off" name="txt_AR_BTNSearch" id="txt_AR_BTNSearch" />&nbsp;
+        <label class="col-lg-2 col-md-12 col-sm-12">@PlantQuar.WEB.Language.Resource_data1.EnglishName</label>
+        <input type="text" class="form-inline col-lg-3 col-md-12 col-sm-12" autocomplete="off" name="txt_EN_BTNSearch" id="txt_EN_BTNSearch" />
+        <input type="button" class="col-lg-1 col-md-2 btn btn-primary" id="LoadRecordsButton" value="@PlantQuar.WEB.Language.Resource_data1.Search">
+    </div>
+}
+
+@section Path{
+    <li id="liparenthref" style="position: relative;right: 15px;">@PlantQuar.WEB.Language.Resource_data1.BasicData</li>
+    <li style="position: relative; right: 28px;">shift timing</li>
+
+
+    <a id="childehref" class="active" style="right: 42px; position: relative;">shift timing</a>
+}
+
+@section scripts{
+    <script type="text/javascript">
+
+
+        $(function () {
+
+            var urlBAseADDress = window.location.origin;
+            var urlpathname = window.location.pathname;
+            var x = urlpathname.split('/');
+            $('#liparenthref').removeAttr("href").attr("href", urlBAseADDress);
+            $('#childehref').attr("href", urlBAseADDress + "/" + x[1] + "/" + x[2] + "/" + x[3]);
+        });
+
+        $(function () {
+            $('#ShiftTimingLiost').jtable({
+                title: '@PlantQuar.WEB.Language.Resource_data1.shiftTiming',
+                paging: true,
+                pageSize: 10,
+                sorting: true,
+                defaultSorting: 'Name_Ar ASC',
+                columnResizable: true,
+                columnSelectable: true,
+                saveUserPreferences: true,
+                actions: {
+                    listAction: 'listShiftTiming',
+                    createAction: 'CreateShiftTiming',
+                    updateAction: 'UpdateShiftTiming',
+                    deleteAction: 'DeleteShiftTiming'
+                },
+                fields: {
+                    ID: {
+                        key: true,
+                        create: false,
+                        edit: false,
+                        list: false
+                    },
+                    Name_Ar: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.ArabicName',
+                        inputClass: 'validate[required]'
+                    },
+                    Name_En: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.EnglishName',
+                        inputClass: 'validate[required]'
+                    },
+                    ShiftTiming_From: {
+                        title: 'ShiftTiming_From',
+
+                        inputClass: 'validate[required]'
+                    },
+                    ShiftTiming_To: {
+                        title: 'ShiftTiming_To',
+
+                        inputClass: 'validate[required]'
+                    },
+
+                    IsActive: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.Status',
+                        type: 'checkbox',
+                        values: { 'false': ' @PlantQuar.WEB.Language.Resource_data1.NotActive', 'true': '@PlantQuar.WEB.Language.Resource_data1.Active ' },
+                        defaultValue: 'true',
+                    },
+                    Day_Type: {
+                        title: 'Day_Type',
+                        inputClass: 'validate[required]',
+
+                        options: function (data) {
+
+                            return '/DE_Fees/ShiftTiming/getShiftTypes'
+
+                        }
+                },
+                formCreated: function (event, data) {
+
+                    if (data.formType == "create") {
+                        $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Add");
+                    }
+                    else {
+                        $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Edit");
+                    }
+
+                    //////////
+                    $("#Edit-Name_Ar, #Edit-Name_En, #txt_AR_BTNSearch, #txt_EN_BTNSearch").attr('autocomplete', 'off');
+                    $("#Edit-ShiftTiming_From").attr('type', 'time');
+
+                    $("#Edit-ShiftTiming_To").attr('type', 'time');
+                    // Arabic + spaces + numeric
+                    $("#Edit-Name_Ar").keypress(function (e) {
+
+                        var unicode = e.charCode ? e.charCode : e.keyCode
+                        if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+                            if (unicode == 32)
+                                return true;
+                            else {
+                                if ((unicode < 48 || unicode > 57) && (unicode < 0x0600 || unicode > 0x06FF)) //if not a number or arabic
+                                    return false; //disable key press
+                            }
+                        }
+                    });
+
+                    // English + spaces + numeric
+                    $("#Edit-Name_En").keypress(function (e) {
+
+                        var unicode = e.charCode ? e.charCode : e.keyCode
+                        if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+                            if (unicode == 32)
+                                return true;
+                            else {
+                                if (!(unicode < 0x0600 || unicode > 0x06FF)) //if not english
+                                    return false; //
+                            }
+                        }
+                    });
+
+                },
+                formSubmitting: function (event, data) {
+                    return data.form.validationEngine('validate');
+                },
+                formClosed: function (event, data) {
+                    data.form.validationEngine('hide');
+                    data.form.validationEngine('detach');
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Delete");
+                },
+                recordAdded: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+                },
+                recordUpdated: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Update");
+                },
+                recordDeleted: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Delete");
+                },
+            });
+            $('#ShiftTimingLiost').jtable('load');
+
+
+            $('#LoadRecordsButton').click(function (e) {
+
+                e.preventDefault();
+                $('#ShiftTimingLiost').jtable('load', {
+
+                    txt_AR_BTNSearch: $('#txt_AR_BTNSearch').val().trim(),
+                    txt_EN_BTNSearch: $('#txt_EN_BTNSearch').val().trim()
+                });
+            });
+
+            $(".jtable-toolbar-item-add-record .jtable-toolbar-item-text").text("@PlantQuar.WEB.Language.Resource_data1.Add");
+
+            // Arabic + spaces + numeric
+            $("#txt_AR_BTNSearch").keypress(function (e) {
+                var unicode = e.charCode ? e.charCode : e.keyCode
+                if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+                    if (unicode == 32) { }// return data.form.validationEngine('validate');
+                    else {
+                        if (((unicode < 48 || unicode > 57) && unicode != 13) && (unicode < 0x0600 || unicode > 0x06FF)) //if not a number or arabic
+
+                        {
+                            return false; //disable key press
+                        } else {
+                            if (unicode == 13) {
+                                $('#LoadRecordsButton').click();
+                            }
+
+                        }
+
+
+                    }
+                }
+            });
+            $("#txt_EN_BTNSearch").keypress(function (e) {
+
+                var unicode = e.charCode ? e.charCode : e.keyCode
+                if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+                    if (unicode == 32)
+                        return true;
+                    else {
+                        if (!(unicode < 0x0600 || unicode > 0x06FF)) //if not english
+                        {
+                            return false; //disable key press
+                        } else {
+                            if (unicode == 13) {
+                                $('#LoadRecordsButton').click();
+                            }
+
+                        }
+                    }
+                }
+            });
+
+        });
+    </script>
+
+    <script type="text/javascript">
+
+
+
+        $("#tableExcell").click(function () {
+
+            var tab_text = "<table border='2px'>";
+            $.getJSON('AllShiftTimings', {}, function (data, succ) {
+                // console.log(data)
+                $.each(data, function (i, item) {
+
+                    tab_text += "<tr><td>" + data[i].Name_Ar + "</td><td>" + data[i].Name_En + "</td>"
+
+                    tab_text += "</tr>";
+                    //debugger;
+                });
+
+                //debugger;
+
+
+            var textRange; var j = 0;
+
+            //tab_text = tab_text + "</table>";
+            //tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+            //tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if u want images in your table
+            //tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+
+            var ua = window.navigator.userAgent;
+            var msie = ua.indexOf("MSIE ");
+
+            if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+            {
+                txtArea1.document.open("txt/html;charset=UTF-8", "replace");
+                 txtArea1.document.write(tab_text);
+                txtArea1.document.close();
+                txtArea1.focus();
+                sa = txtArea1.document.execCommand("SaveAs", true, "Say Thanks to Sumit.xls");
+            }
+            else                 //other browser not tested on IE 11
+                sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
+
+            return (sa);
+        });
+        });
+
+    //    $("#tableExcell").click(function () {
+
+
+
+    ////        <div class="col-md-12" style="display:none;">
+    ////            <br>
+    ////                <br>
+    ////                    <table id="tbl">
+    ////                        <thead>
+    ////                            <tr style="background-color:aqua;">
+    ////                                <th>Arabic Name</th>
+    ////                                <th>English Name</th>
+    ////                            </tr>
+    ////                        </thead>
+    ////                        <tbody>
+
+    ////                        </tbody>
+    ////                    </table>
+
+    ////</div>
+
+
+    //    //var html = "<table>";
+    //    //$.getJSON('/Refuse_Reason/AllRefuse_Reasons', {}, function (data, succ) {
+    //    //   // console.log(data)
+    //    //    $.each(data, function (i, item) {
+
+    //    //        html += "<tr><td>" + data[i].Name_Ar + "</td><td>" + data[i].Name_En + "</td>"
+
+    //    //        html += "</tr>";
+    //    //    });
+    //    //    html += "</table>";
+    //    //    //$("#tbl tbody").empty();
+    //    //    //$("#tbl tbody").append(html);
+    //    //    tableToExcel('all analysis lab', 'Table');
+    //    //});
+
+
+    //});
+
+
+    </script>
+}
+<br />
+<div id="ShiftTimingLiost">
+</div>
+<br />
+<br />
+<div class="row">
+    <iframe id="txtArea1" style="display:none"></iframe>
+    <input type="button" value="@PlantQuar.WEB.Language.Resource_data1.Export_to_Excel" id="tableExcell">
+    <br>
+    <br>
+
+
+</div>*@

@@ -1,0 +1,22 @@
+﻿
+
+/*.tbl_prnt {
+   background-color: red;
+}*/
+
+/*.pagebreak {
+    background-color: red;
+    clear: both;
+    page-break-after: always;
+    page-break-before: always;
+}*/
+
+@media print {
+
+    .pagebreak {
+        /*background-color: red;*/
+        clear: both;
+        page-break-after: always;
+        page-break-before: always;
+    }
+}

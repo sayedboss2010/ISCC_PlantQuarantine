@@ -1,0 +1,320 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<div class="row">
+    <div class="col-md-6">
+        <label class="col-md-4">نوع الجهة</label>
+        <select name="types" id="typesList" class="form-control col-md-8">
+            <option value="0">اختار</option>
+            <option value="1">شركة</option>
+            <option value="2">هيئة </option>
+            <option value="3">فرد</option>
+
+        </select>
+
+    </div>
+</div>
+
+
+<div class="row" id="lst_Company_Name">
+    <div class="col-md-6">
+        <label class="col-md-4">اسم الشركة</label>
+        @*@Html.DropDownList("CompanyDropDown", new { @class = "form-control col-md-8 CompanyDropDown" })*@
+        <select id="CompanyDropDown" name="Analysiss_name" class="form-control col-md-8"></select>
+
+    </div>
+</div>
+@*<div class="row" id="lst_Orgniztion_Name">
+    <div class="col-md-6">
+        <label class="col-md-4">اسم الهيئة</label>
+        @Html.DropDownList("CompanyDropDown", new SelectList(ViewBag.lst_Orgniztion_Name, "Value", "DisplayText"), new { @class = "form-control col-md-8 CompanyDropDown" })
+
+    </div>
+</div>
+<div class="row" id="lst_Person_Name">
+    <div class="col-md-6">
+        <label class="col-md-4">اسم الفرد</label>
+        @Html.DropDownList("CompanyDropDown", new SelectList(ViewBag.lst_Person_Name, "Value", "DisplayText"), new { @class = "form-control col-md-8 CompanyDropDown" })
+
+    </div>
+</div>*@
+<div id="listFarm_Constrain_Text" onchange="Old_Menu(this)" class="row" style="margin-bottom:20px;">
+</div>
+<div class="col-md-10">
+    <table id="myTable1" border="1" name="gh" class="table table-bordered table-striped dataTable">
+        <thead>
+            <tr>
+                <th class="text-center">ID</th>
+                <th class="text-center"> اسم المحطة</th>
+                <th class="text-center"> اسم الاعتماد</th>
+
+                <th class="text-center">بداية المدة</th>
+                <th class="text-center">نهاية المدة</th>
+                <th class="text-center"> حالة المحطة</th>
+                <th class="text-center">الحالة السابقة </th>
+                <th class="text-center">اسم المستخدم </th>
+                @*<th hidden="hidden" class="text-center"> رقم المحطة</th>*@
+
+            </tr>
+        </thead>
+        <tbody id="myTable2">
+        </tbody>
+    </table>
+</div>
+<br />
+<br />
+<br />
+<br />
+
+@*<input type="radio" name="IsActive" value="IsActive" />*@
+<div class="col-md-4">
+    <input type="button" onclick="Save_MyFunction(this)" value="حفظ" style="color:#fff;width: 50%;" />
+</div>
+
+
+<script>
+    $(document).ready(function () {
+   
+
+    });
+
+
+    $('#typesList').on("change", function () {
+        var _Company_Type_Id = $('#typesList').val();
+
+        if (_Company_Type_Id == 1) {
+            _Company_Type_Id = 6
+        }
+        else if (_Company_Type_Id == 2) {
+            _Company_Type_Id = 7
+        }
+        else if (_Company_Type_Id == 3) {
+            _Company_Type_Id = 8
+        }
+
+        $.ajax(
+                {
+
+                    url: '@Url.Action( "Company_Name_Pr", "AcceptedStation_Company", new { area = "Station_Pages" })',
+                    type: 'Post',
+                data: { Company_Type_Id: _Company_Type_Id },
+                    success: function (data) {
+                        $("#CompanyDropDown").empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#CompanyDropDown').append($('<option />').val(index.Value).text(index.DisplayText));
+
+                        }); //each
+                    } //success
+                });//ajax
+        //alert(value);
+        //if (value == 1) {
+        //    $('#lst_Company_Name').show();
+        //    $('#lst_Orgniztion_Name').hide();
+        //    $('#lst_Person_Name').hide();
+        //}
+        //else if (value == 2) {
+        //    $('#lst_Orgniztion_Name').show();
+        //    $('#lst_Company_Name').hide();
+
+        //    $('#lst_Person_Name').hide();
+        //}
+        //else if (value == 3) {
+        //    $('#lst_Person_Name').show();
+        //    $('#lst_Company_Name').hide();
+        //    $('#lst_Orgniztion_Name').hide();
+
+        //}
+        //else
+        //{
+        //    $('#lst_Company_Name').show();
+        //    $('#lst_Orgniztion_Name').hide();
+        //    $('#lst_Person_Name').hide();
+        //}
+    });
+    $('#CompanyDropDown').on("change", function () {
+
+        $('#myTable2').empty();
+        var Company_Id = document.getElementById("CompanyDropDown").value;
+        //alert(Company_Id);
+        var _Company_Type_Id = document.getElementById("typesList").value;
+        //alert(_Company_Type_Id);
+        var Company_Type_Id;
+        if (_Company_Type_Id == 1) {
+            Company_Type_Id = 6
+        }
+        else if (_Company_Type_Id == 2) {
+            Company_Type_Id = 7
+        }
+        else if (_Company_Type_Id == 3) {
+            Company_Type_Id = 8
+        }
+       //alert(Company_Type_Id);
+            $.ajax(
+                {
+
+                    url: '@Url.Action("StationsCompany", "AcceptedStation_Company", new { area = "Station_Pages" })',
+                    type: 'Post',
+                    data: { Company_Id: Company_Id, Company_Type_Id: Company_Type_Id },
+                    success: function (data) {
+                        $("#listFarm_Constrain_Text").empty();
+                        for (var i = 0; i < data.length; i++) {
+                            /*alertify.alert("لا");*/
+                            var item = data[i];
+                           // var accept = false;
+                           // var Reject = false;
+                           // var Study = false;
+                           // if (item.IsActive == true)
+                           //     accept = true;
+                           //else  if (item.IsActive == false)
+                           //     Reject = true;
+                           // else
+                           //     Study = true;
+
+                            //alert("accept" + accept + "   Reject" + Reject +"   Study"+Study);
+
+                            //alert(d.value.ToString("dd/MM/yyyy"))
+
+
+                            var html = "";
+                            html = "<tr>" +
+                                "<td>" + item.StationCompany_ID + "</td>" +
+                                "<td>" + item.Station_Name + "</td>"+
+                                "<td>" + item.Station_Accreditation_Data_Name + "</td>"+
+                                "<td>" + item.StartDate+ "</td>" +     /*.Value.ToString("dd/MM/yyyy")*/
+                                "<td>" + item.EndDate + "</td>";
+
+                            html += "<td id='Stationtd_" + item.StationCompany_ID +"'>";
+                            if (item.IsActive == true) {
+                              /*  html += "<input type = 'option'   value = '1' checked onchange='helloo(this)'  /><label >مقبول</label> <br>";*/
+
+                                html += " <select name='Station_Status'><option value='4'  onchange='helloo(this)'>أختر</option>  ";
+                                html += " <option value='1'  onchange='helloo(this)'>مقبول</option>  ";
+                                html += " <option value='0'  onchange='helloo(this)'>مرفوض</option> ";
+                                //html += " <option value='2'  onchange='helloo(this)'>تحت الدراسة</option>  ";
+                                //html += " <option value='3' checked onchange='helloo(this)'>ايقاف</option>  </select>";
+
+                                //html += "<input type = 'radio'  name= 'Grop_radio_" + item.ID + "' value = '1' checked onchange='helloo(this)'  /><label >مقبول</label> <br>";
+                                //html += "<input type='radio'  name=  'Grop_radio_" + item.ID + "' value='0' onchange='helloo(this)' /><label >مرفوض</label> <br>";
+                                //html += "<input type='radio' name= 'Grop_radio_" + item.ID + "' value='-1'  onchange='helloo(this)'/><label >تحت الدراسة</label> <br>";
+                                //html += "<input type='radio'  name='Grop_radio_" + item.ID + "'  value='3' onchange='helloo(this)'/><label >ايقاف</label> <br></td >";
+                            }
+                            else if (item.IsActive == false) {
+
+                                html += " <select  name='Station_Status'><option value='4'  onchange='helloo(this)'>أختر</option>  ";
+                                html += " <option value='1'  onchange='helloo(this)'>مقبول</option>  ";
+                                html += " <option value='0' onchange='helloo(this)'>مرفوض</option> ";
+                                //html += " <option value='2'  onchange='helloo(this)'>تحت الدراسة</option>  ";
+                                //html += " <option value='3'  onchange='helloo(this)'>ايقاف</option>  </select>";
+                                //html += "<input type = 'radio'  name= 'Grop_radio_" + item.ID + "' value = '1' onchange='helloo(this)' /><label >مقبول</label> <br>";
+                                //html += "<input type='radio'  name=  'Grop_radio_" + item.ID + "' value='0' checked onchange='helloo(this)'/><label >مرفوض</label> <br>";
+                                //html += "<input type='radio' name= 'Grop_radio_" + item.ID + "' value='-1' onchange='helloo(this)' /><label >تحت الدراسة</label> <br>";
+                                //html += "<input type='radio'  name='Grop_radio_" + item.ID + "'  value='3' onchange='helloo(this)'/><label >ايقاف</label> <br></td >";
+                            }
+                            else {
+
+                                html += " <select  name='Station_Status'><option value='4'  onchange='helloo(this)'>أختر</option>  ";
+                                html += " <option value='1'  onchange='helloo(this)'>مقبول</option>  ";
+                                html += " <option value='0'  onchange='helloo(this)'>مرفوض</option> ";
+                                //html += " <option value='2'  onchange='helloo(this)'>تحت الدراسة</option>  ";
+                                //html += " <option value='3'  onchange='helloo(this)'>ايقاف</option>  </select>";
+                                //html += "<input type = 'radio'  name= 'Grop_radio_" + item.ID + "' value = '1' onchange='helloo(this)' /><label >مقبول</label> <br>";
+                                //html += "<input type='radio'  name=  'Grop_radio_" + item.ID + "' value='0' onchange='helloo(this)' /><label >مرفوض</label> <br>";
+                                //html += "<input type='radio' name= 'Grop_radio_" + item.ID + "' value='-1' checked onchange='helloo(this)' /><label >تحت الدراسة</label> <br>";
+                                //html += "<input type='radio'  name='Grop_radio_" + item.ID + "'  value='3' onchange='helloo(this)'/><label >ايقاف</label> <br></td >";
+                            }
+
+                            /*html += "<td>" + item.IsActive + "</td>"*/
+                            html += "<td>";
+                            if (item.Status == 1) {
+
+                                html += " <label >مقبول</label>";
+                            }
+                            else if (item.Status == 0) {
+                                html += " <label >مرفوض</label>";
+                            }
+                            //else if (item.Status == 2) {
+                            //    html += " <label >تحت الدراسة</label>";
+
+                            //}
+                            //else {
+                            //    html += " <label >إيقاف</label>";
+                            //}
+                            html += "<td>" + item.FullName+"</td>";
+                                + "</tr>";
+
+                            //alert(html)
+                            $("#myTable1 tbody").append(html);
+                        }
+                    } //success
+                });//ajax
+    });
+    var _Company_Station_List = [];
+    function Save_MyFunction(element) {
+
+
+        var Company_ID = document.getElementById("CompanyDropDown").value;
+        //alert(Company_ID);
+        if (Company_ID > 0) {
+                var menus_Id = [];
+                var menus_Status_new = [];
+                    var rows = document.getElementById("myTable2").rows;
+                    if (rows.length > 0) {
+
+                        var Station_Id_Row = "";
+                        for (var i = 0, ceiling = rows.length; i < ceiling; i++) {
+
+                            cells = rows[i].getElementsByTagName('td');
+
+                            Station_Id_Row = cells[0].innerHTML;
+                            Station_Status_old = cells[4].innerHTML;
+                            /*alert(Station_Id_Row);*/
+
+                            var id = cells[0].innerHTML;
+                            var Station_Status_new = $("#Stationtd_" + id + " option:selected").val();
+
+                            /*alert(Station_Status_new);*/
+
+                            if (Station_Status_new != 4) {
+                                _Company_Station_List.push({
+                                    StationCompany_ID: Station_Id_Row,
+                                    Status: Station_Status_new
+                                });
+                            }
+                        }
+
+                        console.log(_Company_Station_List);
+                        $.ajax({
+                            url: '@Url.Action("InsertStationsCompany", "AcceptedStation_Company")',
+                            type: "POST",
+                            data: JSON.stringify(
+                                {
+                                    menus_Status_new: _Company_Station_List,
+                                }),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (response) {
+                                alertify.success("تم الحفظ بنجاح");
+                                //document.getElementById("CompanyDropDown").selectedIndex = 0;
+                                //$("#myTable2").empty();
+                                //menus_Status_new(0);
+                                @*alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");*@
+
+                                location.href = "/Station_Pages/AcceptedStation_Company/Index"
+                            },
+                            error: function (xhr, status, error) {
+                                alertify.error("خطأ فى اضافه الحفظ");
+                            }
+                        });
+                    }
+                    else {
+                        alertify.error("يجب اختيار محطة ");
+                    }
+
+            }
+            else {
+                alertify.error("يجب اختيار شركة");
+            }
+        };
+</script>

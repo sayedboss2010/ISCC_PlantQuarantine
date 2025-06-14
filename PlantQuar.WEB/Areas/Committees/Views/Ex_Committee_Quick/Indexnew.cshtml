@@ -1,0 +1,264 @@
+﻿@model List<PlantQuar.DTO.DTO.Committee.Ex_Committee_Quick_DTO>
+
+@{
+    ViewBag.Title = "Committee";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    var x = 0;
+}
+
+@section Title{
+    <h2 class="ls-top-header">لجنة صادر</h2>
+}
+@section Path{
+    <li class="active" style="right: 43px; position: relative;">Export Committe</li>
+}
+
+<link href="~/Content/jquery.timepicker.css" rel="stylesheet" />
+<script src="~/scripts/jquery.timepicker.min.js"></script>
+
+<div class="container">
+
+    <input type="hidden" name="Hdn_CommitteeTypeId" id="Hdn_CommitteeTypeId" value="@ViewBag.CommitteeTypeId" />
+
+    <br />
+
+    <!-- معلومات اللجنة -->
+    <section class="mb-5">
+        <label class="label-info d-block mb-3" style="font-weight: bold; font-size: 18px;">معلومات اللجنة</label>
+        <div id="DivCommitteeType">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="CommitteeType1" name="CommitteeType" value="1" />
+                        <label class="form-check-label" for="CommitteeType1">@PlantQuar.WEB.Language.Resource_data1.CheckCommittee</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="CommitteeType3" name="CommitteeType" value="3" />
+                        <label class="form-check-label" for="CommitteeType3">@PlantQuar.WEB.Language.Resource_data1.CommitteeSampleData</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="CommitteeType6" name="CommitteeType" value="6" />
+                        <label class="form-check-label" for="CommitteeType6">@PlantQuar.WEB.Language.Resource_data1.CommitteeTreatment</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="CommitteeType2" name="CommitteeType" value="2" />
+                        <label class="form-check-label" for="CommitteeType2">@PlantQuar.WEB.Language.Resource_data1.GeshneyCommittee</label>
+                    </div>
+
+                    <select id="CommitteeType_ID" hidden class="form-control mt-3">
+                        <option value="0">@PlantQuar.WEB.Language.Resource_data1.choose</option>
+                        <option value="1">@PlantQuar.WEB.Language.Resource_data1.CheckCommittee</option>
+                        <option value="3">@PlantQuar.WEB.Language.Resource_data1.CommitteeSampleData</option>
+                        <option value="6">@PlantQuar.WEB.Language.Resource_data1.CommitteeTreatment</option>
+                        <option value="2">@PlantQuar.WEB.Language.Resource_data1.GeshneyCommittee</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="Delegation_Date"> @PlantQuar.WEB.Language.Resource_data1.Date_of_committee</label>
+                        <input type="date" name="Delegation_Date" id="Delegation_Date" class="form-control" required />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- بيانات الموظفين -->
+    <section class="mb-5">
+        <label class="label-info d-block mb-3" style="font-weight: bold; font-size: 18px;">بيانات الموظفين</label>
+
+        <span>@ViewBag.Accreditation_Type_ID</span>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>اسم المنفذ</label>
+                    @if (ViewBag.Outlet != null)
+                    {
+                        @Html.DropDownList("CustomerDropDown", new SelectList(ViewBag.Outlet, "Value", "DisplayText"), new { @class = "form-control" })
+                    }
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label> @PlantQuar.WEB.Language.Resource_data1.EmpolyeeName</label>
+                    <input type="text" id="Employee_name" placeholder="enter emp name" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>  @PlantQuar.WEB.Language.Resource_data1.EmpolyeeNumber</label>
+                    <input type="text" name="Employee_No" id="Employee_No" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-3 d-flex align-items-end justify-content-center">
+                <button type="button" id="search" onclick="MyFunction()" class="btn btn-primary">بحث بالموظف</button>
+                <input type="hidden" id="CheckRequest_Id" value="@ViewBag.requestId" />
+                <input type="hidden" id="shiftId" />
+            </div>
+        </div>
+
+        <br />
+
+        <div class="table-responsive">
+            <table id="Farm_Constrain_TextTable" class="table table-bordered table-striped dataTable" role="grid" style="padding:5px; width:100%">
+                <thead>
+                    <tr>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.EmpolyeeNumber </th>
+                        <th>اسم الموظف </th>
+                        <th>محافظة الموظف </th>
+                        <th>منفذ الموظف </th>
+                        <th hidden>ادمن</th>
+                        <th>تسجيل</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <br />
+
+        <div class="table-responsive">
+            <table id="myTable" class="table table-bordered table-striped dataTable" border="1" name="gh">
+                <thead>
+                    <tr>
+                        <th>اسم المهندس </th>
+                        <th>كود المهندس </th>
+                        <th>ادمن</th>
+                        <th>حذف</th>
+                    </tr>
+                </thead>
+                <tbody id="myTable2"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- النوبتجية -->
+    <section class="mb-5">
+        <label class="label-info d-block mb-3" style="font-weight: bold; font-size: 18px;">النوبتجية</label>
+
+        <div class="row mb-3">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="ShiftTiming_select">مواعيد النبواتجية</label>
+                    <select id="ShiftTiming_select" name="Analysiss_name" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="Txt_money">المبلغ</label>
+                    <input type="text" name="Txt_money" id="Txt_money" class="form-control" readonly />
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="Txt_Count">عدد الأيام</label>
+                    <input type="number" id="Txt_Count" name="name" class="form-control" value="1" min="1" />
+                </div>
+            </div>
+
+            <div class="col-md-3 d-flex align-items-end">
+                <button type="button" class="btn btn-primary" onClick="reply_ShiftTiming(this)">اضافة</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 table-responsive">
+                <table id="ShiftTiming_Table" class="table table-bordered table-striped dataTable" border="1" name="ShiftTiming">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>مواعيد النبواتجية</th>
+                            <th>الحساب</th>
+                            <th>عدد الأيام</th>
+                            <th>الاجمالى</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ShiftTiming_tbody"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- البدلات -->
+    <section class="mb-5">
+        <label class="label-info d-block mb-3" style="font-weight: bold; font-size: 18px;">البدلات</label>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="Station_Fees_Type_select">اسم الوردية</label>
+                    <select id="Station_Fees_Type_select" name="Station_Fees_Type" class="form-control">
+                        <option value="0">-- اختار الوردية --</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="Station_Fees_Type_Price">السعر</label>
+                    <input type="text" id="Station_Fees_Type_Price" name="Station_Fees_Type_Price" class="form-control" readonly />
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="Station_Fees_Type_Count">العدد</label>
+                    <input type="number" id="Station_Fees_Type_Count" name="Station_Fees_Type_Count" class="form-control" value="1" min="1" />
+                </div>
+            </div>
+
+            <div class="col-md-3 d-flex align-items-end">
+                <button type="button" class="btn btn-primary" id="AddStation_Fees_Type_btn">اضافة</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 table-responsive">
+                <table id="Station_Fees_Type_Table" class="table table-bordered table-striped dataTable" border="1" name="ShiftTiming">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>اسم الوردية</th>
+                            <th>السعر</th>
+                            <th>العدد</th>
+                            <th>الاجمالى</th>
+                        </tr>
+                    </thead>
+                    <tbody id="Station_Fees_Type_tbody"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- أزرار حفظ وطباعة -->
+    <section class="text-center mb-5">
+        <button id="SaveCom" type="button" class="btn btn-success btn-lg mx-2" onclick="SaveComm()">
+            <i class="fas fa-save"></i> حفظ
+        </button>
+        <button id="PrintReport" type="button" class="btn btn-info btn-lg mx-2" onclick="Print_Committee()">
+            <i class="fas fa-print"></i> طباعة
+        </button>
+    </section>
+
+</div>
+
+<script>
+    function MyFunction() {
+        // Your search function code here
+    }
+
+    function reply_ShiftTiming(btn) {
+        // Your add shift timing code here
+    }
+
+    function SaveComm() {
+        // Your save function code here
+    }
+
+    function Print_Committee() {
+        // Your print function code here
+    }
+</script>

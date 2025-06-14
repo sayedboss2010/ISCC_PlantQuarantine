@@ -1,0 +1,420 @@
+﻿@model List<PlantQuar.DTO.DTO.Farm.FarmRequest.FarmsListDTO>
+
+
+@{
+    ViewBag.Title = "@PlantQuar.WEB.Language.Resource_data1.Farm_List";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    var model = Model;
+}
+
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.Farmaccreditationrequest</h2>
+
+
+
+}
+
+@section Path{
+    <li style="position: relative;right: 28px;">@PlantQuar.WEB.Language.Resource_data1.Farm_List</li>
+    @*<li class="active" style="right: 43px; position: relative;">@PlantQuar.WEB.Language.Resource_data1.ExportRequestsList</li>*@
+}
+
+<div class="row">
+    <div class="col-md-4 col-sm-12">
+        <div>
+            <p style="font-weight:bold">@PlantQuar.WEB.Language.Resource_data1.Requeststatus </p>
+        </div>
+        <select id="selectApprove" class="form-control">
+            <option id="rdoApprovedAll" value="-1">@PlantQuar.WEB.Language.Resource_data1.choose</option>
+            <option id="rdoApprovedAll" value="1"> @PlantQuar.WEB.Language.Resource_data1.Nullstatus</option>
+            <option id="rdoApprovedAll" value="2"> @PlantQuar.WEB.Language.Resource_data1.Truestatus</option>
+            <option id="rdoApprovedAll" value="3"> @PlantQuar.WEB.Language.Resource_data1.Falsestatus</option>
+            <option id="rdoApprovedAll" value="4">تشكيل لجنة</option>
+            <option id="rdoApprovedAll" value="5"> لجنة معاينة</option>
+            <option id="rdoApprovedAll" value="12"> لجنة معاينة وسحب</option>
+            <option id="rdoApprovedAll" value="6"> تم الدفع</option>
+            <option id="rdoApprovedAll" value="7">لم يتم الدفع</option>
+            <option id="rdoApprovedAll" value="8">الطلبات المنتهية من الحجر</option>
+            <option id="rdoApprovedAll" value="9">الطلبات الغير منتهية من الحجر</option>
+        </select>
+    </div>
+</div>
+
+<div class="row mar-bottom-15" id="dateFrom_To_Search" hidden>
+    <div class="col-md-6 flex-align" id="Start_Date">
+        <label class="col-md-4" style="margin-top:10px">بداية البحث</label>
+        <input class="form-control col-md-8" id="dateFrom" name="date" value="@ViewBag.DateTo.Date.ToString("yyyy-MM-dd")" placeholder="DD/MM/YYY" type="date" />
+    </div>
+    <div class="col-md-6 flex-align" id="End_Date">
+        <label class="col-md-4" style="margin-top:10px">نهاية البحث</label>
+        <input class="form-control col-md-8" id="dateEnd" name="date" placeholder="DD/MM/YYY" value="@ViewBag.DateFrom.Date.ToString("yyyy-MM-dd")" type="date" />
+    </div>
+</div>
+
+
+@* plant *@
+
+
+
+<div class="row">
+    <div class="col-md-4 col-sm-12">
+        <label for="Item_ID" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Items</label>
+        @Html.DropDownListFor(m => m.FirstOrDefault().itemId, new SelectList(ViewBag.Item, "Value", "DisplayText"), new { @class = "form-control", @id = "Item_ID", @required = "required" })
+    </div>
+    <div class="col-md-4 ta1">
+        <label for="ItemCategories_Name" class="control-label">الصنف</label>
+        <select id="ItemCategories_Lst" class="form-control"></select>
+    </div>
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-4 ta1">
+        <label for="GoveName" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Governate</label>
+        <select id="govLst" class="form-control">
+            @foreach (var gov in ViewBag.GovList)
+            {
+                <option value="@gov.Value">@gov.DisplayText</option>
+            }
+        </select>
+    </div>
+    <div class="col-md-4 ta1">
+        <label for="CenterName" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Center</label>
+        <select id="centerLst" class="form-control"></select>
+    </div>
+    <div class=col-md-4 ta1">
+        <label for="VillageName" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Village</label>
+        <select id="villageLst" class="form-control"></select>
+    </div>
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-2">
+        <input type="submit" id="Search_data" class="btn btn-primary" style="width:100%" value="بـــــحث" autocomplete="off">
+    </div>
+    <div class="col-md-5"></div>
+</div>
+
+@*<label>اظهار التفاصيل</label>
+    <input type="checkbox" id="hiddet" disabled="disabled" />*@
+
+
+<br>
+
+<div id="checkRequest_lst" class="table-responsive">
+    <table class="table table-bordered" id="tblFarmLst">
+        <thead>
+            <tr class="label-primary">
+                <th>اختيار</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.FarmName</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.FarmCode</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.Items</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.Requests</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.Print</th>
+            </tr>
+        </thead>
+        <tbody id="mytbody_list_Recoust">
+            @*@if (model != null)
+                {
+                    foreach (var item in model)
+                    {
+                        <tr>
+                            <td><input type="checkbox" name="name" id="Req_checkbox" onchange="send_list_Recoust(this)" value="@item.FarmID _@item.Farm_Request_ID _@item.Farm_Committee_ID" /></td>
+                            <td>
+                                @Html.DisplayFor(m => item.Name_Ar)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.FarmCode_14)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.ItemName)
+                            </td>
+                            <td><a href="/FA_Farm/FarmRequest/Index?farmId=@item.FarmID">@PlantQuar.WEB.Language.Resource_data1.Requests</a>&nbsp;<i class="fa fa-link"></i></td>
+                            <td><a href="/FA_Farm/farm_Print/Index?Farm_ID=@item.FarmID">@PlantQuar.WEB.Language.Resource_data1.Print</a>&nbsp;<i class="fa fa-print"></i></td>
+                        </tr>
+                    }
+                }*@
+        </tbody>
+    </table>
+    <br />
+
+</div>
+<input type="button" hidden class=" btn btn-primary btnNext float-left" id="messagedata" value="تشكيل لجنة مجمعة">
+
+
+<script>
+    $(document).ready(function () {
+
+        var Status = $("#selectApprove").val();
+        var x = document.getElementById("dateFrom_To_Search");
+        var y = document.getElementById("messagedata");
+        if (Status == 4) {
+
+            x.style.display = "block";
+            y.style.display = "block";
+        }
+        else {
+            x.style.display = "none";
+            y.style.display = "none";
+        }
+
+        $('#govLst').on("change", function () {
+            $.ajax(
+                {
+                    url: '@Url.Action("CenterList_ByGov", "FarmData", new { area = "FA_Farm" })',
+                    data: {
+                        Govern_ID: $('#govLst').val()
+                    },
+                    success: function (data) {
+                        $('#centerLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#centerLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+        });
+        $('#centerLst').on("change", function () {
+            $.ajax(
+                {
+                    url: '@Url.Action("VillageList_ByCenter", "FarmData", new { area = "FA_Farm" })',
+                    data: {
+                        Center_ID: $('#centerLst').val()
+                    },
+                    success: function (data) {
+                        $('#villageLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#villageLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+        });
+        //Hadeer
+        $('#Item_ID').on("change", function () {
+            $.ajax(
+                {
+                    url: '@Url.Action("ItemCategoryList_ByItemID", "FarmData", new { area = "FA_Farm" })',
+                    data: {
+                        ItemId: $('#Item_ID').val()
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        $('#ItemCategories_Lst').empty();
+                        $.each(data.Options, function (i, index) {
+
+                            $('#ItemCategories_Lst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+        });
+
+        $('#selectApprove').on("change", function () {
+
+            var Status = $("#selectApprove").val();
+            var x = document.getElementById("dateFrom_To_Search");
+            var y = document.getElementById("messagedata");
+            if (Status == 4 ) {
+                x.style.display = "block";
+                y.style.display = "block";
+            }
+            else {
+                x.style.display = "none";
+                y.style.display = "none";
+            }
+
+            // $("#dateFrom_To_Search").attr("style", "display: none !important");
+            //$("#dateFrom_To_Search").attr("style", "display: none !important");
+            //$('#dateFrom_To_Search').attr("style", "display: none !important");
+            //dateFrom_To_Search
+        });
+    });
+     $("#hideDetails").hide();
+    $("#hiddet").on('change', function () {
+        if ($(this).is(':checked')) {
+            $("#hideDetails").show();
+        } else {
+            $("#hideDetails").hide();
+        }
+
+
+    });
+    $("#isKnown").on('change', function () {
+        if ($(this).is(':checked')) {
+            $(this).attr('value', 'true');
+        } else {
+            $(this).attr('value', 'false');
+        }
+
+
+    });
+    @*$('#isKnown,#groupLst,#FamilyLst,#itemTypeLst,#mainClassLst,#secClassLst,#KingdomLst,#PhylumLst,#orderLst').on("change", function (e) {
+                $.ajax(
+                {
+                    url: '@Url.Action("ItemFilterForShortName", "ItemList", new { area = "CommonActions" })',
+                    type: 'Post',
+                    data: {
+                        itemType: $('#itemTypeLst').val(),
+                        familyId: $('#FamilyLst').val(),
+                        groupId: $('#groupLst').val(),
+                        known: $('#isKnown').val()
+                        },
+                        //complete: function (data) {
+                        //    $('#Item_ShortNameList').jtable('load', {
+                        //        itemId: $("#ItemsLst").val(),
+                        //        itemType: $("#itemTypeLst").val()
+                        //    });
+                        //} ,
+                    success: function (data) {
+                        $('#ItemsLst').empty();
+
+                        $.each(data.Options, function (i, index) {
+                            $('#ItemsLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+
+
+                    } //success
+                });//ajax
+                //e.preventDefault();
+
+            });*@
+
+    //change req status
+    @*$('#selectApprove,#centerLst,#villageLst,#Item_ID,#govLst,#dateFrom,#dateEnd').on("change", function (e) {
+        var Status = $("#selectApprove").val();
+        var villageId = $("#villageLst").val();
+        var govId = $("#govLst").val();
+         var centerId = $("#centerLst").val();
+        var itemId = $('#Item_ID').val();
+        var Date_From = $('#dateFrom').val();
+        var Date_End = $('#dateEnd').val();
+
+        if (Status != 'choose') {
+        var html = '';
+            $.getJSON('/FA_Farm/FarmListOnLine/getFarmListByAnyChange', { status: Status, itemId: itemId, govId: govId, centerId: centerId, villageId: villageId, Date_From: Date_From, Date_End: Date_End}, function (data, succ) {
+                console.log(data)
+                $.each(data, function (i, item) {
+
+                    html += "<tr><td>" + data[i].Name_Ar + "</td><td>" + data[i].FarmCode_14 + "</td><td>" + data[i].ItemName
+                        + "</td><td><a href='/FA_Farm/FarmRequest/Index?farmId=" + data[i].FarmID
+                        + "'>@PlantQuar.WEB.Language.Resource_data1.Requests</a></td>"
+                    if (data[i].IsStatus == 2) {
+                       html += " <td><a href='/FA_Farm/farm_Print/Index?Farm_ID=" + data[i].FarmID + "'>@PlantQuar.WEB.Language.Resource_data1.Print</a></td>"
+
+                    } else {
+                        html +="<td>@PlantQuar.WEB.Language.Resource_data1.Cannotprint</td>"
+                    }
+                    html += "</tr>";
+                });
+                $("#tblFarmLst tbody").empty();
+               $("#tblFarmLst tbody").append(html);
+            });
+        }
+    });*@
+
+
+    //send to list Recoust
+    var list_Recoust = [];
+    function send_list_Recoust(element) {
+
+
+
+        var elm = element.value;
+       /* alert(elm.split('_'));*/
+        //alert(elm.split('_')[0])
+        //alert(elm.split('_')[1])
+       var _farm_Id = elm.split('_')[0].trim();
+        var _reqId = elm.split('_')[1].trim();
+        var _Commity_ID = elm.split('_')[2].trim();
+        //alert(_farm_Id)
+        //alert(_reqId)
+        /* list_Recoust.push(element.value);*/
+
+
+
+        if (element.checked) {
+            list_Recoust.push({ farm_Id: _farm_Id, reqId: _reqId, Farm_Committee_ID: _Commity_ID });
+
+            element.classList.add("messageCheckbox");
+
+
+        }
+        else {
+            element.classList.remove("messageCheckbox");
+
+            list_Recoust.splice(list_Recoust.findIndex(a => a.Farm_Committee_ID === _Commity_ID), 1)
+        }
+
+
+    }
+
+    $('#messagedata').click(function (e) {
+        //Committees/Committee_Farm/IndexFarm?farmCommitteeId = 543 & reqId=837, 910004, 910008, 910010, 910011
+       // alert(list_Recoust)
+        //window.location.href = '/Committees/Committee_Farm/IndexFarm?farmCommitteeId=543&reqId= 910010&dd=' + list_Recoust; // redirect to another page
+        console.log(list_Recoust);
+        //alert(1);
+        var inputElements = document.getElementsByClassName('messageCheckbox');
+        //alert(inputElements.length)
+        //alert(list_Recoust.length)
+        var x = 0;
+        for (var i = 0; inputElements[i]; ++i) {
+            if (inputElements[i].checked) {
+                checkedValue = inputElements[i].value;
+             /*   alert(checkedValue);*/
+                x++;
+            }
+        }
+        if (x != 0) {
+            $.ajax({
+
+                url: '@Url.Action("getFarmListByReqId", "FarmListOnLine", new { area = "FA_Farm" })',
+                type: 'Post',
+                data: { F_List: list_Recoust },
+               
+                success: function (message) {
+                    window.location.href = '/Committees/Committee_Farm/Index';
+                }
+            });
+
+        } else { alert('يجب أختيار لجنة'); }
+
+    });
+
+    $('#Search_data').click( function (e) {
+        var Status = $("#selectApprove").val();
+        var villageId = $("#villageLst").val();
+        var govId = $("#govLst").val();
+         var centerId = $("#centerLst").val();
+        var itemId = $('#Item_ID').val();
+        var Date_From = $('#dateFrom').val();
+        var Date_End = $('#dateEnd').val();
+        if (Status != 'choose') {
+        var html = '';
+            $.getJSON('/FA_Farm/FarmListOnLine/getFarmListByAnyChange', { status: Status, itemId: itemId, govId: govId, centerId: centerId, villageId: villageId, Date_From: Date_From, Date_End: Date_End}, function (data, succ) {
+                console.log(data)
+                $.each(data, function (i, item) {
+                    html += "<tr>";
+                    if (Status == 4) {
+                        html += " <td><input type='checkbox' class='messageCheckbox' name='name' id='Req_checkbox' onchange='send_list_Recoust(this)' value=" + data[i].FarmID + "_" + data[i].Farm_Request_ID + "_" + data[i].Farm_Committee_ID + " /></td>";
+                     }
+                    else {
+                        html += " <td></td>";
+                    }
+                        html += "<td>" + data[i].Name_Ar + "</td><td>" + data[i].FarmCode_14 + "</td><td>" + data[i].ItemName
+                        + "</td><td><a href='/FA_Farm/FarmRequest/Index?farmId=" + data[i].FarmID
+                        + "'>@PlantQuar.WEB.Language.Resource_data1.Requests</a></td>"
+                    if (data[i].IsStatus == 2) {
+                        html += " <td><a href='/FA_Farm/farm_Print/Index?Farm_ID=" + data[i].FarmID + "&RequestId=" + data[i].Farm_Request_ID + "'>@PlantQuar.WEB.Language.Resource_data1.Print</a></td>"
+
+                    } else {
+                        html +="<td>@PlantQuar.WEB.Language.Resource_data1.Cannotprint</td>"
+                    }
+                    html += "</tr>";
+                });
+                $("#tblFarmLst tbody").empty();
+               $("#tblFarmLst tbody").append(html);
+            });
+        }
+    });
+</script>

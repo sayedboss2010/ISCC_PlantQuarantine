@@ -1,0 +1,1250 @@
+﻿ 
+@model PlantQuar.DTO.DTO.Farm.FarmData.FarmsDataDTO
+
+@{
+    ViewBag.Title = "FarmAddEdit";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.FarmData</h2>
+}
+
+@section Path{
+    <li>@PlantQuar.WEB.Language.Resource_data1.Farm </li>
+    <li class="active">@PlantQuar.WEB.Language.Resource_data1.FarmData</li>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-10"></div>
+        <div class="col-md-2">
+            @Html.ActionLink(PlantQuar.WEB.Language.Resource_data1.Back, "Index", "FarmData", new { area = "FA_Farm" }, new { @class = "btn btn-primary", @style = "width:100%" })
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm("SaveFarm", "FarmData", FormMethod.Post, new { area = "FA_Farm", id = "farmForm" }))
+{
+<div>
+    <div class="tab" role="tabpanel" style="min-height:80% !important;">
+        <ul class="row nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#companyTab" aria-controls="profile" role="tab" data-toggle="tab">بيانات الجهة</a>
+            </li>
+            <li role="presentation">
+                <a href="#BasicTab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.BasicData</a>
+            </li>
+            <li role="presentation">
+                <a href="#countryTab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Country @PlantQuar.WEB.Language.Resource_data1.Accreditation</a>
+            </li>
+            <li role="presentation">
+                <a href="#plantTab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.FarmPlant</a>
+            </li>
+            <li role="presentation">
+                <a href="#attachmentTab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Attachments</a>
+            </li>
+        </ul>
+        <div class="tab-content tabs" style="background-color:whitesmoke  !important;">
+            <div role="tabpanel" class="tab-pane fade in active" id="companyTab" style="height:600px;">
+                @Html.HiddenFor(m => m.ownerData.ID, new { @id = "hiddenFarmCompanyId" })
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-lg-3 col-md-5 ta1">
+                            <label for="ExporterType_Id" class="control-label">نوع الجهة</label>
+                            @Html.DropDownListFor(m => m.ownerData.ExporterType_Id, new SelectList(ViewBag.OwnerType, "Value", "DisplayText"), new { @class = "form-control", @readonly = "readonly", @id = "exporterTypeLst" })
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-11">
+                        <div class="row" id="companyDiv" hidden>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-lg-3 col-md-5 ta1">
+                                        <label for="Company_ID" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Company</label>
+
+                                        @Html.DropDownListFor(m => m.ownerData.Company_ID, new SelectList(ViewBag.CompanyList, "Value", "DisplayText"), new { @class = "form-control", @id = "companyLst" })
+                                    </div>
+                                    <div class="col-lg-3 col-md-5 ta1">
+                                        <label for="compOwnerName" class="control-label">@PlantQuar.WEB.Language.Resource_data1.CompanyOwner</label>
+                                        @Html.TextBoxFor(m => m.ownerData.companyData.compOwnerName, new { @class = "form-control", @readonly = "readonly", @id = "compOwnerName" })
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-lg-3 col-md-5 ta1">
+                                        <label for="GoveName" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Governate</label>
+                                        @Html.TextBoxFor(m => m.ownerData.companyData.GoveName, new { @class = "form-control", @readonly = "readonly", @id = "companyGoveName" })
+                                    </div>
+                                    <div class="col-lg-3 col-md-5 ta1">
+                                        <label for="CenterName" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Center</label>
+                                        @Html.TextBoxFor(m => m.ownerData.companyData.CenterName, new { @class = "form-control", @readonly = "readonly", @id = "companyCenterName" })
+                                    </div>
+                                    <div class="col-lg-3 col-md-5 ta1">
+                                        <label for="VillageName" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Village</label>
+                                        @Html.TextBoxFor(m => m.ownerData.companyData.VillageName, new { @class = "form-control", @readonly = "readonly", @id = "companyVillageName" })
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-lg-5 col-md-5 ta1">
+                                        <label for="address" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Address</label>
+                                        @Html.TextAreaFor(m => m.ownerData.companyData.address, new { @class = "form-control", @readonly = "readonly", @id = "companyAddress" })
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-lg-3 col-md-5 ta1">
+                                        @Html.CheckBoxFor(m => m.ownerData.IsAcive, new { @class = "form-control" })
+                                        <label for="IsActive" class="control-label">الشركة فعالة علي المزرعة</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="generalOrgDiv" hidden>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-lg-3 col-md-5 ta1">
+                                        <label for="orgTypesLst" class="control-label">@PlantQuar.WEB.Language.Resource_data1.PublicOrganizationType</label>
+                                        @Html.DropDownList("orgTypes", new SelectList(ViewBag.PublicOrgTypesList, "Value", "DisplayText"), new { @class = "form-control", @id = "orgTypesLst" })
+                                    </div>
+                                    <div class="col-lg-3 col-md-5 ta1">
+                                        <label for="Company_ID" class="control-label">@PlantQuar.WEB.Language.Resource_data1.PublicOrganization</label>
+                                        @Html.DropDownListFor(m => m.ownerData.Org_ID, new SelectList(ViewBag.PublicOrgList, "Value", "DisplayText"), new { @class = "form-control", @id = "publicOrgLst" })
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        <div class="col-lg-5 col-md-5 ta1">
+                                            <label for="orgAddress" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Address</label>
+                                            @Html.TextAreaFor(m => m.ownerData.orgData.orgAddress, new { @class = "form-control", @readonly = "readonly", @id = "orgAddress" })
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-5 ta1">
+                                        @Html.CheckBoxFor(m => m.ownerData.IsAcive, new { @class = "form-control" })
+                                        <label for="IsActive" class="control-label">الهيئة فعال علي المزرعة</label>
+                                    </div>
+                                    <div class="col-lg-2 col-md-5 ta1">
+                                        @Html.CheckBoxFor(m => m.ownerData.orgData.IsNational, new { @class = "form-control", @id = "chkIsNational", @readonly = "readonly" })
+                                        <label for="IsNational" class="control-label">@PlantQuar.WEB.Language.Resource_data1.National</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="personDiv" hidden>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-lg-3 col-md-5 ta1">
+                                        <label for="Company_ID" class="control-label">@PlantQuar.WEB.Language.Resource_data1.FullName</label>
+                                        @Html.DropDownListFor(m => m.ownerData.Person_ID, new SelectList(ViewBag.PersonLst, "Value", "DisplayText"), new { @class = "form-control", @id = "personName" })
+                                    </div>
+                                    <div class="col-lg-3 col-md-5 ta1">
+                                        <label for="searchByIdNum" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Search / @PlantQuar.WEB.Language.Resource_data1.IdentityNumber</label>
+                                        @Html.TextBox("searchByIdNum", "", new { @class = "form-control", @id = "searchByIdNum" })
+                                    </div>
+                                    <div class="col-lg-3 col-md-5 ta1">
+                                        <input type="button" class="btn btn-primary" style="margin-top: 25px;" value="@PlantQuar.WEB.Language.Resource_data1.Search" id="btnSearchByIdNum" />
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-lg-3 col-md-5 ta1">
+                                        <label for="nationality" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Nationality</label>
+                                        @Html.TextBoxFor(m => m.ownerData.personData.nationality, new { @class = "form-control", @readonly = "readonly", @id = "personNationlity" })
+                                    </div>
+                                    <div class="col-lg-3 col-md-5 ta1">
+                                        <label for="personIdType_Name" class="control-label">@PlantQuar.WEB.Language.Resource_data1.IdentityType</label>
+                                        @Html.TextBoxFor(m => m.ownerData.personData.personIdType_Name, new { @class = "form-control", @id = "IdentityType", @readonly = "readonly" })
+                                    </div>
+                                    <div class="col-lg-3 col-md-5 ta1">
+                                        <label for="IDNumber" class="control-label">@PlantQuar.WEB.Language.Resource_data1.IdentityNumber</label>
+                                        @Html.TextBoxFor(m => m.ownerData.personData.IDNumber, new { @class = "form-control", @readonly = "readonly", @id = "IdentityTypeNumber" })
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-lg-3 col-md-5 ta1">
+                                        <label for="Phone" class="control-label">@PlantQuar.WEB.Language.Resource_data1.PhoneNumber</label>
+                                        @Html.TextBoxFor(m => m.ownerData.personData.Phone, new { @class = "form-control", @readonly = "readonly", @id = "personPhone" })
+                                    </div>
+                                    <div class="col-lg-3 col-md-5 ta1">
+                                        <label for="Job" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Job</label>
+                                        @Html.TextBoxFor(m => m.ownerData.personData.Job, new { @class = "form-control", @readonly = "readonly", @id = "personJob" })
+                                    </div>
+                                    <div class="col-lg-3 col-md-5 ta1">
+                                        <label for="Email" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Email</label>
+                                        @Html.TextBoxFor(m => m.ownerData.personData.Email, new { @class = "form-control", @readonly = "readonly", @id = "personEmail" })
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-lg-5 col-md-5 ta1">
+                                        <label for="Address" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Address</label>
+                                        @Html.TextAreaFor(m => m.ownerData.personData.Address, new { @class = "form-control", @readonly = "readonly", @id = "personAddress" })
+                                    </div>
+                                    <div class="col-lg-3 col-md-5 ta1">
+                                        @Html.CheckBoxFor(m => m.ownerData.IsAcive, new { @class = "form-control" })
+                                        <label for="IsActive" class="control-label">الشخص فعال علي المزرعة</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="row">
+                        <div class="col-lg-1"></div>
+                        <div class="col-md-10 dataTables_wrapper form-inline dt-bootstrap">
+                            <table id="farmsTable" class="table table-bordered table-striped dataTable" role="grid" style="margin: 15px;width: 97%;background-color: lightgray; ">
+                                <thead>
+                                    <tr>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.ContactType</th>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.ContactData</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model.ownerData.Contact_Data)
+                                    {
+                                        <tr>
+                                            <td>@item.Name_Ar</td>
+                                            <td>@item.Value</td>
+                                        </tr>
+
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade in" id="BasicTab" style="height:600px;">
+                @Html.HiddenFor(m => m.ID, new { @id = "hiddenFarmId" })
+                <div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-lg-3 col-md-5 ta1">
+                                <label for="FarmCode_14" class="control-label">@PlantQuar.WEB.Language.Resource_data1.FarmCode</label>
+                                @{
+                                    if (!String.IsNullOrEmpty(Model.FarmCode_14))
+                                    {
+                                        @Html.TextBoxFor(m => m.FarmCode_14, new { @class = "form-control", @id = "txtFarmCode_14", @readonly = "readonly" });
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(m => m.FarmCode_14, new { @class = "form-control", @id = "txtFarmCode_14" });
+                                    }
+                                }
+                            </div>
+                            <div class="col-lg-3 col-md-5 ta1">
+                                <label for="Name_Ar" class="control-label">@PlantQuar.WEB.Language.Resource_data1.ArabicName</label>
+                                @Html.TextBoxFor(m => m.Name_Ar, new { @class = "form-control", @id = "txtName_Ar" })
+                            </div>
+                            <div class="col-lg-3 col-md-5 ta1">
+                                <label for="Name_En" class="control-label">@PlantQuar.WEB.Language.Resource_data1.EnglishName</label>
+                                @Html.TextBoxFor(m => m.Name_En, new { @class = "form-control", @id = "txtName_En" })
+                                @Html.HiddenFor(m => m.IS_OnlineOffline, new { @class = "form-control", @readonly = "readonly", @id = "IS_OnlineOffline" })
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-lg-3 col-md-5 ta1">
+                                <label for="GoveName" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Governate</label>
+                                @Html.DropDownListFor(m => m.Govern_ID, new SelectList(ViewBag.GovList, "Value", "DisplayText"), new { @class = "form-control", @id = "govLst" })
+                            </div>
+                            <div class="col-lg-3 col-md-5 ta1">
+                                <label for="CenterName" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Center</label>
+                                @Html.DropDownListFor(m => m.Center_Id, new SelectList(ViewBag.CenterList, "Value", "DisplayText"), new { @class = "form-control", @id = "centerLst" })
+                            </div>
+                            <div class="col-lg-3 col-md-5 ta1">
+                                <label for="VillageName" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Village</label>
+                                @Html.DropDownListFor(m => m.Village_ID, new SelectList(ViewBag.VillageList, "Value", "DisplayText"), new { @class = "form-control", @id = "villageLst" })
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-lg-5 col-md-5 ta1">
+                                <label for="Address_Ar" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Address_Ar</label>
+                                @Html.TextAreaFor(m => m.Address_Ar, new { @class = "form-control", @id = "txtAddress_Ar" })
+                            </div>
+                            <div class="col-lg-5 col-md-5 ta1">
+                                <label for="Address_En" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Address_En</label>
+                                @Html.TextAreaFor(m => m.Address_En, new { @class = "form-control", @id = "txtAddress_En" })
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-lg-5 col-md-5 ta1">
+                                <label for="GPSRead" class="control-label">GPSRead</label>
+                                @Html.TextAreaFor(m => m.GPSRead, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                            <div class="col-lg-5 col-md-5 ta1">
+                                <label for="ThePivot" class="control-label">ThePivot</label>
+                                @Html.TextAreaFor(m => m.ThePivot, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-lg-2 col-md-5 ta1">
+                                @{
+                                    var _IsApproved = true;
+                                    if (Model.IsApproved == null)
+                                    {
+                                                                <input type="checkbox" name="name" value="" id="chkFarmApproved" />
+                                       
+                                    }
+                                    else
+                                    {
+                                        if (Model.IsApproved == false)
+                                        {
+                                            _IsApproved = false;
+                                        }
+                                        @Html.CheckBoxFor(m => _IsApproved, new { @class = "form-control", @id = "chkFarmApproved" })
+                                    }
+
+                                    @*@Html.CheckBoxFor(m => _IsApproved, new { @class = "form-control", @id = "chkFarmApproved" })*@
+                                }
+                                <label for="IsApproved" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Approved</label>
+                            </div>
+                            <div class="col-lg-2 col-md-5 ta1">
+                                @{
+                                    var _IsActive = true;
+                                    if (Model.IsActive == null)
+                                    {
+                                        <input type="checkbox" name="name" value="" id="IsActive" />
+
+                                    }
+                                    else
+                                    {
+                                        if (Model.IsActive == false)
+                                        {
+                                            _IsActive = false;
+                                        }
+                                        @Html.CheckBoxFor(m => _IsActive, new { @class = "form-control", @id = "chkFarmApproved" })
+                                    }                                   
+                                }                               
+                                @*@Html.CheckBoxFor(m => m.IsActive == null ? false : true, new { @class = "form-control" })*@
+                                <label for="IsActive" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Active</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-10"></div>
+                            <div class="col-md-2">
+                                <input type="submit" class="btn btn-primary" style="width:100%" value="@PlantQuar.WEB.Language.Resource_data1.Save" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade in" id="countryTab" style="height:600px;">
+                <div class="row">
+                    <div class="col-md-12" id="countryFarmList" style="height:500px;">
+                        @* jTable *@
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade in" id="plantTab" style="height:600px;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-lg-3 col-md-5 ta1">
+                            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.MainCalssification</label>
+                            @Html.DropDownListFor(m => m.mainClass_Id, new SelectList(ViewBag.MainClassification, "Value", "DisplayText"),
+                           new { @class = "form-control", @id = "mainClassLst" })
+                        </div>
+                        <div class="col-lg-3 col-md-5 ta1">
+                            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.SecondaryClassification</label>
+                            @Html.DropDownListFor(m => m.secClass_Id, new SelectList(ViewBag.SecondaryClassification, "Value", "DisplayText"),
+                         new { @class = "form-control", @id = "secClassLst" })
+                        </div>
+                        <div class="col-lg-3 col-md-5 ta1">
+                            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.PlantGroup</label>
+                            @Html.DropDownListFor(m => m.group_Id, new SelectList(ViewBag.GroupLst, "Value", "DisplayText"),
+                        new { @class = "form-control", @id = "groupLst" })
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-lg-3 col-md-5 ta1" style="margin-top: 22px;">
+                            @Html.CheckBoxFor(m => m.isKnown, new { @class = "form-control", @id = "chkIsKNown" })
+                            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Isknown</label>
+                        </div>
+                        <div class="col-lg-3 col-md-5 ta1">
+                            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Items</label>
+                            @Html.DropDownListFor(m => m.Item_ID, new SelectList(ViewBag.ItemsLst, "Value", "DisplayText"),
+                        new { @class = "form-control", @id = "itemsLst" })
+                        </div>
+                        <div class="col-lg-3 col-md-5 ta1">
+                            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.ScientificName</label>
+                            @Html.TextBoxFor(m => m.ScientificName, new { @class = "form-control", @readonly = "readonly", @id = "txtScientificName" })
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-12" id="plantsFarmList" style="height:500px;">
+                        @* jTable *@
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade in" id="attachmentTab" style="height:600px;">
+                <div class="row">
+                    <div class="col-md-12 attach" id="fileAttach">
+                        @* jTable *@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+<script>
+
+    $(document).ready(function () {
+        var type = $('#exporterTypeLst').val();
+        if (type == null || type == 0) {
+            $('#exporterTypeLst').val(6);
+            type = 6;
+        }
+
+        if (type == 6) {
+            $('#companyDiv').show();
+            $('#generalOrgDiv').hide();
+            $('#personDiv').hide();
+        }
+        else if (type == 7) {
+
+            $('#companyDiv').hide();
+            $('#generalOrgDiv').show();
+            $('#personDiv').hide();
+        }
+        else if (type == 8) {
+
+            $('#companyDiv').hide();
+            $('#generalOrgDiv').hide();
+            $('#personDiv').show();
+        }
+
+        //check plant
+        var plantId = $('#itemsLst').val();
+
+        if (plantId > 0) {
+            $('#exporterTypeLst').attr("disabled", true);
+               $('#companyLst').attr("disabled", true);
+            $('#mainClassLst').attr("disabled", true);
+            $('#secClassLst').attr("disabled", true);
+            $('#groupLst').attr("disabled", true);
+            $('#itemsLst').attr("disabled", true);
+
+            $('#chkIsKNown').attr("disabled", true);
+
+            setPlantSession();
+        }
+    });
+
+    $('#farmForm').submit(function () {
+        var valid = true;
+
+        if ($('#txtName_Ar').length <= 0) {
+            alertify.error("يجب إدخال اسم المزرعة باللغة العربية");
+            valid = false;
+        }
+        if ($('#txtName_En').length <= 0) {
+            alertify.error("يجب إدخال اسم المزرعة باللغة الإنجليزية");
+            valid = false;
+        }
+        if ($('#txtFarmCode_14').length <= 0) {
+            alertify.error("يجب إدخال كود المزرعة");
+            valid = false;
+        }
+
+        if ($('#exporterTypeLst').val() > 0) {
+            var type = $('#exporterTypeLst').val();
+
+            if (type == 6) {//company
+                var comp = $('#companyLst').val();
+                if (!(comp > 0)) {
+                    alertify.error("يجب تحديد الجهة التابع لها المزرعة");
+                    valid = false;
+                }
+            }
+            else if (type == 7) {//public org
+                var org = $('#publicOrgLst').val();
+                if (!(org > 0)) {
+                    alertify.error("يجب تحديد الجهة التابع لها المزرعة");
+                    valid = false;
+                }
+            }
+            else if (type == 8) {//person
+                if ($('#personName').length <= 0 && $('#personIdentity').length <= 0) {
+                    alertify.error("يجب تحديد الجهة التابع لها المزرعة");
+                    valid = false;
+                }
+            }
+        }
+        else {
+            alertify.error("يجب تحديد الجهة التابع لها المزرعة");
+            valid = false;
+        }
+
+         //check farm code exist
+        if ($('#txtFarmCode_14').length > 0) {
+            $.ajax(
+                {
+                    url: '@Url.Action("CheckFarmCode", "FarmData", new { area = "FA_Farm" })',
+                    data: {
+                        FarmCode_14: $('#txtFarmCode_14').val(),
+                        FarmId: $('#hiddenFarmId').val()
+                    },
+                    success: function (data) {
+                        var found = data.codeFound;
+
+                        if (found == true) {
+
+                            alertify.error('كود المزرعة موجود مسبقا');
+                            return false;
+                        }
+                    }
+                }
+            );
+        }
+
+        return valid;
+    });
+
+    // Arabic + spaces + numeric
+    $("#txtName_Ar, #txtAddress_Ar").keypress(function (e) {
+
+        var unicode = e.charCode ? e.charCode : e.keyCode
+        if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+            if (unicode == 32)
+                return true;
+            else {
+                if ((unicode < 48 || unicode > 57) && (unicode < 0x0600 || unicode > 0x06FF)) //if not a number or arabic
+                    return false; //disable key press
+            }
+        }
+    });
+
+    // English + spaces + numeric
+    $("#txtName_En, #txtAddress_En").keypress(function (e) {
+
+        var unicode = e.charCode ? e.charCode : e.keyCode
+        if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+            if (unicode == 32)
+                return true;
+            else {
+                if (!(unicode < 0x0600 || unicode > 0x06FF)) //if not english
+                    return false; //
+            }
+        }
+    });
+    //*********************************//
+    $('#govLst').on("change", function () {
+        $.ajax(
+            {
+                url: '@Url.Action("CenterList_ByGov", "FarmData", new { area = "FA_Farm" })',
+                data: {
+                    Govern_ID: $('#govLst').val()
+                },
+                success: function (data) {
+                    $('#centerLst').empty();
+                    $.each(data.Options, function (i, index) {
+                        $('#centerLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                    }); //each
+                } //success
+            });//ajax
+    });
+    $('#centerLst').on("change", function () {
+        $.ajax(
+            {
+                url: '@Url.Action("VillageList_ByCenter", "FarmData", new { area = "FA_Farm" })',
+                data: {
+                    Center_ID: $('#centerLst').val()
+                },
+                success: function (data) {
+                    $('#villageLst').empty();
+                    $.each(data.Options, function (i, index) {
+                        $('#villageLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                    }); //each
+                } //success
+            });//ajax
+    });
+    //*********************************//
+    $('#exporterTypeLst').on('change', function () {
+        var type = $('#exporterTypeLst').val();
+        if (type == 6) {
+
+            $('#companyDiv').show();
+            $('#generalOrgDiv').hide();
+            $('#personDiv').hide();
+        }
+        else if (type == 7) {
+
+            $('#companyDiv').hide();
+            $('#generalOrgDiv').show();
+            $('#personDiv').hide();
+        }
+        else if (type == 8) {
+
+            $('#companyDiv').hide();
+            $('#generalOrgDiv').hide();
+            $('#personDiv').show();
+        }
+    });
+    $('#companyLst').on('change', function () {
+         $.ajax(
+            {
+                url: '@Url.Action("GetCompanyData", "FarmData", new { area = "FA_Farm" })',
+                data: {
+                    compId: $('#companyLst').val()
+                },
+                 success: function (data) {
+                      //$('#exporterTypeLst').val(data.exporterTypeLst);
+                    $('#compOwnerName').val(data.compOwnerName);
+                    $('#companyGoveName').val(data.companyGoveName);
+                    $('#companyCenterName').val(data.companyCenterName);
+                    $('#companyVillageName').val(data.companyVillageName);
+                    $('#companyAddress').val(data.companyAddress);
+                } //success
+            });//ajax
+    });
+    //*************************************//
+    $('#orgTypesLst').on('change', function () {
+         $.ajax(
+            {
+                url: '@Url.Action("PublicOrg_ByTypes", "FarmData", new { area = "FA_Farm" })',
+                data: {
+                    orgTypeId: $('#orgTypesLst').val()
+                },
+                success: function (data) {
+                    $('#publicOrgLst').empty();
+                    $.each(data.Options, function (i, index) {
+                        $('#publicOrgLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                    }); //each
+                } //success
+            });//ajax
+    });
+    $('#publicOrgLst').on('change', function () {
+          $.ajax(
+            {
+                url: '@Url.Action("GetPublicOrgData", "FarmData", new { area = "FA_Farm" })',
+                data: {
+                    publicOrgId: $('#publicOrgLst').val()
+                },
+                success: function (data) {
+                    $('#orgAddress').val(data.Address);
+                    //chkIsNational
+
+                    if(data.IsNational == true)
+                        $('#chkIsNational:checked').length = 1;
+                    else
+                        $('#chkIsNational:checked').length = 0;
+                } //success
+            });//ajax
+    });
+     //*************************************//
+    $('#personName').on('change', function () {
+        getPersonData();
+    });
+
+    $('#searchByIdNum').on('blur', function () {
+        getPersonData();
+    });
+
+    $('#btnSearchByIdNum').on('click', function () {
+        getPersonData();
+    });
+
+    function getPersonData() {
+        var id = 0;
+        var idNum = '';
+
+        if ($('#personName').val() > 0)
+            id = $('#personName').val();
+        else if ($('#searchByIdNum').val().trim().length > 0) {
+            idNum = $('#searchByIdNum').val();
+        }
+
+        $.ajax(
+            {
+                url: '@Url.Action("GetPersonData", "FarmData", new { area = "FA_Farm" })',
+                data: {
+                    personId: id,
+                    personIdNum: idNum,
+                },
+                success: function (data) {
+                    $('#personName').val(data.ID);
+                    $('#personNationlity').val(data.nationality);
+                    $('#IdentityType').val(data.personIdType_Name);
+                    $('#IdentityTypeNumber').val(data.IDNumber);
+
+                    $('#personPhone').val(data.Phone);
+                    $('#personJob').val(data.Job);
+                    $('#personEmail').val(data.Email);
+                    $('#personAddress').val(data.Address);
+
+                } //success
+            });//ajax
+    }
+    //************Country jTable**************//
+    $(function () {
+        $('#countryFarmList').jtable({
+            title: '@PlantQuar.WEB.Language.Resource_data1.Farm @PlantQuar.WEB.Language.Resource_data1.Country',
+            paging: true,
+            pageSize: 10,
+            sorting: true,
+            columnResizable: true,
+            columnSelectable: true,
+            saveUserPreferences: true,
+            actions: {
+                listAction: 'listFarmCountry',
+                //createAction: 'CreateFarmCountry',
+                updateAction: 'UpdateFarmCountry',
+                deleteAction: 'DeleteFarmCountry',
+            },
+            fields: {
+                ID: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                Farm_Request_ID: {
+                    type:'text',
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                UnionId: {
+                     title: '@PlantQuar.WEB.Language.Resource_data1.Union',
+                    inputClass: 'validate[notrequired]',
+                    options: function (data) {
+                            return '../../CommonActions/Country_Union/Union_AddEDIT';
+                    },
+                    list: false,
+                },
+                Country_ID: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.Country',
+                    inputClass: 'validate[notrequired]',
+                    dependsOn: 'UnionId',
+                    options: function (data) {
+                        if (data.source == 'list') {
+                            return '../../CommonActions/Country_Union/Country_List';
+                        }
+                        // ADD OR EDIT
+                        else {
+                            if (data.dependedValues.UnionId > 0) {
+                                return '../../FA_Farm/FarmData/GetUnionCountries?unionId=' + data.dependedValues.UnionId;
+                            }
+                            else {
+                                return '../../FA_Farm/FarmData/GetAllCountries';
+                            }
+                        }
+                    },
+                },
+                IsActive: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.Status',
+                    type: 'checkbox',
+                    values: {
+                        'false': ' @PlantQuar.WEB.Language.Resource_data1.NotActive',
+                        'true': '@PlantQuar.WEB.Language.Resource_data1.Active '
+                    },
+                    defaultValue: 'true',
+                },
+                IsAcceppted: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.Accept',
+                    type: 'checkbox',
+                    values: {
+                        'false': ' @PlantQuar.WEB.Language.Resource_data1.notAccept ',
+                        'true': '@PlantQuar.WEB.Language.Resource_data1.Accept '
+                    },
+                    defaultValue: 'true',
+                },
+                Start_Date: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.Startdate',
+                    //width: '60%',
+                    type: 'date',
+                },
+                End_Date: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.enddate',
+                    //width: '60%',
+                    type: 'date',
+                },
+            },
+            formCreated: function (event, data) {
+                if (data.formType == "create") {
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Add");
+                }
+                else {
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Edit");
+                }
+            },
+            formSubmitting: function (event, data) {
+
+                return data.form.validationEngine('validate');
+            },
+            formClosed: function (event, data) {
+                data.form.validationEngine('hide');
+                data.form.validationEngine('detach');
+                $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Delete");
+            },
+            recordAdded: function (event, data) {
+                //Mah+Ag 17-4-2019 change display message
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+            },
+            recordUpdated: function (event, data) {
+                //Mah+Ag 17-4-2019 change display message
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Update");
+            },
+            recordDeleted: function (event, data) {
+                //Mah+Ag 17-4-2019 change display message
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Delete");
+            },
+        });
+        $('#countryFarmList').jtable('load');
+
+        $(".jtable-toolbar-item-add-record .jtable-toolbar-item-text").text("@PlantQuar.WEB.Language.Resource_data1.Add");
+    });
+    //**********************************************//
+    $('#mainClassLst').on("change", function () {
+        $.ajax(
+            {
+                url: '@Url.Action("SecondaryClassification_AddEDIT", "FarmData", new { area = "FA_Farm" })',
+                type: 'Post',
+                data: { MainClass_ID: $('#mainClassLst').val() },
+                success: function (data) {
+                    $('#secClassLst').empty();
+                    $.each(data.Options, function (i, index) {
+                        $('#secClassLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                    }); //each
+                } //success
+            });//ajax
+    });
+    $('#secClassLst').on("change", function () {
+        $.ajax(
+            {
+                url: '@Url.Action("ItemGroup_AddEDIT", "FarmData", new { area = "FA_Farm" })',
+                type: 'Post',
+                data: { SecClass_ID: $('#secClassLst').val() },
+                success: function (data) {
+                    $('#groupLst').empty();
+                    $.each(data.Options, function (i, index) {
+                        $('#groupLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                    }); //each
+                } //success
+            });//ajax
+    });
+    $('#groupLst').on("change", function () {
+        getItems();
+    });
+    $('#chkIsKNown').on('click', function () {
+        getItems();
+    });
+
+    function getItems() {
+        var known = '';
+
+        if ($('#chkIsKNown:checked').length == 0) known = false;
+        else known = true;
+
+        if ($('#groupLst').val() > 0) {
+            $.ajax(
+                {
+                    url: '@Url.Action("ItemData_AddEDIT_Known", "FarmData", new { area = "FA_Farm" })',
+                    type: 'Post',
+                    data: {
+                        Group_ID: $('#groupLst').val(),
+                        IsKnown: known
+                    },
+                    success: function (data) {
+                        $('#itemsLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#itemsLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+            $('#itemsLst').val(0);
+            $('#txtScientificName').val('-------');
+        }
+    }
+
+    $('#itemsLst').on('change', function () {
+        setPlantSession();
+
+        $('#plantsFarmList').jtable('load');
+    });
+
+    function setPlantSession() {
+         $.ajax(
+            {
+                url: '@Url.Action("setPlantIDSession", "FarmData", new { area = "FA_Farm" })',
+                type: 'Post',
+                data: { PlantId: $('#itemsLst').val() },
+                success: function () {
+                } //success
+            });//ajax
+         $.ajax(
+            {
+                url: '@Url.Action("getScientificName", "FarmData", new { area = "FA_Farm" })',
+                type: 'Post',
+                data: { PlantId: $('#itemsLst').val() },
+                 success: function (data) {
+                     //ScientificName
+                     $('#txtScientificName').val(data.ScientificName);
+                } //success
+            });//ajax
+    }
+    //************PlantCategory jTable**************//
+    //plantsFarmList
+    $(function () {
+        $('#plantsFarmList').jtable({
+            title: '@PlantQuar.WEB.Language.Resource_data1.Farm @PlantQuar.WEB.Language.Resource_data1.PlantCategory',
+            paging: true,
+            pageSize: 10,
+            sorting: true,
+            columnResizable: true,
+            columnSelectable: true,
+            saveUserPreferences: true,
+           
+            actions: {
+                listAction: 'listFarmPlantCategories',
+                //createAction: 'CreateFarmPlantCategories',
+                //updateAction: 'UpdateFarmPlantCategories',
+                //deleteAction: 'DeleteFarmPlantCategories',
+            },
+            fields: {
+                ID: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                 ItemCategories_Group_ID: {
+                     title: '@PlantQuar.WEB.Language.Resource_data1.ItemsCategoryGrp',
+                     inputClass: 'validate[notrequired]',
+                    list: false,
+                    options: function (data) {
+                        return '../../CommonActions/ItemList/ItemCategoriesGrp_ByItem?ItemId=' + $('#itemsLst').val();
+                    },
+                },
+                ItemCategories_ID: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.PlantCategory',
+                    dependsOn: 'ItemCategories_Group_ID',
+                    inputClass: 'validate[required]',
+                    list: false,
+                    options: function (data) {
+                        if (data.dependedValues.ItemCategories_Group_ID > 0) {
+                            return '../../FA_Farm/FarmData/PlantCategoryListByGrp?catGroupId=' + data.dependedValues.ItemCategories_Group_ID + '&ItemId=' + $('#itemsLst').val();
+                        } else {
+                            return '../../FA_Farm/FarmData/PlantCategoryList?ItemId=' + $('#itemsLst').val();
+                        }
+                    },
+                },
+                categoryName: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.PlantCategory',
+                    type: 'text',
+                    inputClass: 'validate[required]',
+                },
+                Area_Acres: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.Area_Acres',
+                    type: 'text',
+                    inputClass: 'validate[required]',
+                },
+                Quantity_Ton: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.QuantitySize / @PlantQuar.WEB.Language.Resource_data1.Ton',
+                    type: 'text',
+                    inputClass: 'validate[required]',
+                },
+                IsActive: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.Status',
+                    type: 'checkbox',
+                    values: {
+                        'false': ' @PlantQuar.WEB.Language.Resource_data1.notAccept',
+                        'true': '@PlantQuar.WEB.Language.Resource_data1.Accept '
+                    },
+                    defaultValue: 'true',
+                    display: function (data) {
+                        if (data.record.IsActive == null) {
+                            return '<span>لم يتم العمل عليها</span>'
+                        }
+                        else if (data.record.IsActive == true) {
+                            return '<span>مقبول</span>'
+                        }
+                        else if (data.record.IsActive == false) {
+                            return '<span>مرفوض</span>'
+                        }
+                    }
+                },
+                StartDate: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.Startdate',
+                    //width: '60%',
+                    type: 'date',
+                    list: false
+                },
+                EndDate: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.enddate',
+                    //width: '60%',
+                    type: 'date',
+                    list: false
+                },
+            },
+            formCreated: function (event, data) {
+                if (data.formType == "create") {
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Add");
+                }
+                else {
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Edit");
+                }
+            },
+            formSubmitting: function (event, data) {
+                return data.form.validationEngine('validate');
+            },
+            formClosed: function (event, data) {
+                data.form.validationEngine('hide');
+                data.form.validationEngine('detach');
+                $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Delete");
+            },
+            recordAdded: function (event, data) {
+                //Mah+Ag 17-4-2019 change display message
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+
+                var plantId = $('#itemsLst').val();
+
+                if (plantId > 0) {
+                    $('#mainClassLst').attr("disabled", true);
+                    $('#secClassLst').attr("disabled", true);
+                    $('#groupLst').attr("disabled", true);
+                    $('#itemsLst').attr("disabled", true);
+
+                    $('#chkIsKNown').attr("disabled", true);
+
+                    setPlantSession();
+                }
+            },
+            recordUpdated: function (event, data) {
+                //Mah+Ag 17-4-2019 change display message
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Update");
+            },
+            recordDeleted: function (event, data) {
+                //Mah+Ag 17-4-2019 change display message
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Delete");
+            },
+        });
+        $('#plantsFarmList').jtable('load');
+
+        $(".jtable-toolbar-item-add-record .jtable-toolbar-item-text").text("@PlantQuar.WEB.Language.Resource_data1.Add");
+    });
+    //************ATTACHMENT jTable**************//
+    $(function () {
+            $('#fileAttach').jtable({
+                title: '@PlantQuar.WEB.Language.Resource_data1.Attachments',
+                paging: true,
+                pageSize: 10,
+                sorting: true,
+                //defaultSorting: 'CourseName ASC',
+                columnResizable: true,
+                columnSelectable: true,
+                saveUserPreferences: true,
+                actions: {
+                    listAction: '/FA_Farm/FarmData/listFileAttachments',
+                    createAction: function (data) {
+                        var deferred = $.Deferred();
+                        // Capture form submit result from the hidden iframe
+                        $("#postiframe").load(function () {
+                            iframeContents = $("#postiframe").contents().find("body").text();
+                            var result = $.parseJSON(iframeContents);
+                            deferred.resolve(result);
+                        });
+                        var form = $('#jtable-create-form');
+                        form.unbind("submit");
+                        form.attr("action", "/FA_Farm/FarmData/CreateFileAttachments");
+                        form.attr("method", "post");
+                        form.attr("enctype", "multipart/form-data");
+                        form.attr("encoding", "multipart/form-data");
+                        form.attr("target", "postiframe");
+                        form.submit();
+                        return deferred;
+                    },
+                    updateAction: function (data) {
+                        var deferred = $.Deferred();
+                        // Capture form submit result from the hidden iframe
+                        $("#postiframe").load(function () {
+                            iframeContents = $("#postiframe").contents().find("body").text();
+                            var result = $.parseJSON(iframeContents);
+                            deferred.resolve(result);
+                        });
+                        var form = $('#jtable-create-form');
+                        form.unbind("submit");
+                        form.attr("action", "/FA_Farm/FarmData/UpdateFileAttachments");
+                        form.attr("method", "post");
+                        form.attr("enctype", "multipart/form-data");
+                        form.attr("encoding", "multipart/form-data");
+                        form.attr("target", "postiframe");
+                        form.submit();
+                        return deferred;
+                    },
+                    deleteAction: '/FA_Farm/FarmData/DeleteFileAttachments'
+                },
+                fields: {
+                    Id: {
+                        key: true,
+                        create: false,
+                        edit: false,
+                        list: false
+                    },
+                    Attachment_TypeName: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.AttachmentName',
+                        inputClass: 'validate[required]'
+                    },
+                    Attachment_Number: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.AttachmentNumber',
+                        inputClass: 'validate[required]'
+                    },
+                    StartDate: {
+                         type:'date',
+                         title: '@PlantQuar.WEB.Language.Resource_data1.DateStart',
+                        inputClass: 'validate[required]'
+                    },
+                    EndDate: {
+                        type:'date',
+                        title: '@PlantQuar.WEB.Language.Resource_data1.DateEnd',
+                        inputClass: 'validate[required]'
+                    },
+                     AttachmentPath: {
+                        title: ' @PlantQuar.WEB.Language.Resource_data1.Attachment',
+                        input: function (data) {
+                            try {
+                                if (data.record.AttachmentPath != null) {
+
+                                    return '<input type ="file" id="Picture1" name="Picture1" class="input-type-file"/>'
+                                        + '<iframe name="postiframe" id="postiframe" style="display: none" /><br/>'
+                                        + '<input type="text" readonly value="' + data.record.AttachmentPath + '" />';
+                                }
+                                else {
+                                    return '<input type ="file" id="Picture1" name="Picture1" class="input-type-file"/>'
+                                        + '<iframe name="postiframe" id="postiframe" style="display: none" /><br/>'
+                                        + '<input type="text" readonly value="" />';
+                                }
+                            } catch (e) {
+                                return '<input type ="file" id="Picture1" name="Picture1" class="input-type-file"/>'
+                                    + '<iframe name="postiframe" id="postiframe" style="display: none" /><br/>'
+                                    + '<input type="text" readonly value="" />';
+                            }
+
+
+                        },
+                        display: function (data) {
+                            if (data.record.AttachmentPath != null) {
+                                return '<input type="button" value="عرض الملف" class=" btn btn - info" onclick=btndownload_click(this)  data-assigned-id="' + data.record.AttachmentPath + '" />';
+                                //return ' <a href="../../../' + data.record.AttachmentPath
+                                //    + '" download width="30" height="30"><span>@PlantQuar.WEB.Language.Resource_data1.FileUpload</span></a>'
+                            }
+                            else {
+                                return '<span>@PlantQuar.WEB.Language.Resource_data1.FileNotFound</span>'
+                            }
+                        }
+                    },
+                },
+                formCreated: function (event, data) {
+                    $(".jtable-dialog-form").height(250);
+                    $(".jtable-dialog-form").width(380);
+                    $(".jtable-dialog-form").addClass('attach');
+
+                    $("#Edit-Attachment_TypeName, #Edit-Attachment_Number").attr('autocomplete', 'off');
+                    $("#Edit-Attachment_Number").attr('type', 'number');
+
+                    if (data.formType == "create") {
+                        $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Add");
+                    }
+                    else {
+                        $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Edit");
+                    }
+                },
+                formSubmitting: function (event, data) {
+                    return data.form.validationEngine('validate');
+                },
+                formClosed: function (event, data) {
+                    data.form.validationEngine('hide');
+                    data.form.validationEngine('detach');
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Delete");
+                },
+              recordAdded: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+                },
+                recordUpdated: function (event, data) {
+                                        //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Update");
+                },
+                recordDeleted: function (event, data) {
+                                        //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Delete");
+                },
+            });
+            $('#fileAttach').jtable('load');
+
+            $(".jtable-toolbar-item-add-record .jtable-toolbar-item-text").text("@PlantQuar.WEB.Language.Resource_data1.Add");
+    });
+    function btndownload_click(elem) {
+
+        var path = $(elem).data('assigned-id');
+
+
+
+        window.open('/FarmData/GetReport?path1=' + path + '', "_blank");
+
+
+
+    }
+</script>
+
+<style>
+    .attach .jtable-input-field-container:nth-of-type(1),
+    .attach .jtable-input-field-container:nth-of-type(2),
+    .attach .jtable-input-field-container:nth-of-type(3),
+    .attach .jtable-input-field-container:nth-of-type(4) {
+        margin-bottom: 2px;
+        float: right;
+        width: 48% !important;
+    }
+
+    .attach .jtable-input-field-container:nth-of-type(5) {
+        margin-bottom: 2px;
+        float: right;
+        width: 98% !important;
+    }
+</style>

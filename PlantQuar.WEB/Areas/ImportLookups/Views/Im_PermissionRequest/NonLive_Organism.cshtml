@@ -1,0 +1,103 @@
+﻿
+<div id="NonLive_Organism">
+</div>
+
+
+<script type="text/javascript">
+        $(function () {
+            $('#NonLive_Organism').jtable({
+                title: 'كائن غير حى',
+                paging: true,
+                pageSize: 10,
+                sorting: true,
+                //defaultSorting: 'CourseName ASC',
+                columnResizable: true,
+                columnSelectable: true,
+                saveUserPreferences: true,
+                actions: {
+
+                    listAction: '/ImportLookups/NonLive_Organism/listLive_Organism',
+                    createAction: '/ImportLookups/NonLive_Organism/CreateLive_Organism',
+                    updateAction: '/ImportLookups/NonLive_Organism/UpdateLive_Organism',
+                    deleteAction: '/ImportLookups/NonLive_Organism/DeleteLive_Organism'
+                },
+                fields: {
+                    ID: {
+                        key: true,
+                        create: false,
+                        edit: false,
+                        list: false
+                    },
+                    ImPermissionItem_ID: {
+
+                        title: 'اذن الاستيراد',
+                        inputClass: 'validate[required]',
+                        options:'/ImportLookups/Im_Plant/List_PermissionItem'
+
+                    },
+
+                    LiableStatus_ID: {
+                        title: 'حاله الكائن',
+                        inputClass: 'validate[required]',
+                        options: '/ImportLookups/Live_Organism/List_LiableStatus'
+
+                    },
+                    BiologicalPhase_ID: {
+                        title: 'المرحلة البيولوجية',
+                        inputClass: 'validate[required]',
+                        options: '/ImportLookups/Live_Organism/List_BiologicalPhase'
+
+                    },
+
+
+                },
+                formCreated: function (event, data) {
+
+                    if (data.formType == "create") {
+                        $(".ui-dialog-title").text("@PlantQuar.Web.Language.Resource_data1.Add");
+                    }
+                    else {
+                        $(".ui-dialog-title").text("@PlantQuar.Web.Language.Resource_data1.Edit");
+
+                    }
+                    $('#Edit-Short_Name').prop('readonly', true);
+                    $('#Edit-Short_Name').addClass('jtable-input-readonly');
+                    $('#Edit-Short_Name').css("background-color", "rgb(187, 183, 183)");
+                    $("#Edit-Name_Ar, #Edit-Name_En, #txt_AR_BTNSearch, #txt_EN_BTNSearch").attr('autocomplete', 'off');
+
+
+
+
+                },
+                formSubmitting: function (event, data) {
+                    return data.form.validationEngine('validate');
+                },
+                formClosed: function (event, data) {
+                    data.form.validationEngine('hide');
+                    data.form.validationEngine('detach');
+                    $(".ui-dialog-title").text("@PlantQuar.Web.Language.Resource_data1.Delete");
+                },
+                recordAdded: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Insert");
+                },
+                recordUpdated: function (event, data) {
+                                        //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Update");
+                },recordDeleted: function (event, data) {
+                                        //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Delete");
+                },
+            });
+            $('#NonLive_Organism').jtable('load');
+
+
+
+
+            $(".jtable-toolbar-item-add-record .jtable-toolbar-item-text").text("@PlantQuar.Web.Language.Resource_data1.Add");
+
+
+
+
+        });
+</script>

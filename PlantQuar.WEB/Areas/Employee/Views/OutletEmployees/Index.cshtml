@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+
+}
+@section Title{
+    <h2 class="ls-top-header">الموظفين داخل المنفذ</h2>
+}
+
+<style>
+   #Print {
+        background-color: #1e7c80 !important;
+        border: 2px solid #1e8084 !important;
+        box-shadow: 0 4px #1d9fa5 !important;
+        outline: none;
+        color: white;
+        margin-bottom: 10px;
+        width: 50%;
+    }
+
+    .tbl-report th, td {
+        border: 1px solid black;
+        padding: 5px;
+    }
+
+    th {
+        background: #1f6c6f;
+        color: white;
+    }
+
+    #Farm_Constrain_TextTable {
+        font-size: 16px;
+    }
+</style>
+<div class="row">
+    <div class="col-md-4">
+        <label>@PlantQuar.WEB.Language.Resource_data1.Outlet</label>
+        @Html.DropDownList("CustomerDropDown", new SelectList(ViewBag.ddd, "Value", "DisplayText"), new { @class = "form-control", @onchange = "MyFunction()" })
+
+    </div>
+</div>
+
+<br />
+<div class="row tbl-report" id="listFarm_Constrain_Text">
+    <table width="100%" id="Farm_Constrain_TextTable">
+        <thead>
+            <tr>
+                <th>@PlantQuar.WEB.Language.Resource_data1.EmpolyeeNumber</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.EmpolyeeName</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                
+                <td></td>
+                <td></td>
+
+
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<br />
+
+<div class="row">
+    <div class="col-md-5">
+    </div>
+    <div class="col-md-3">
+        <button id="Print" value='Print' onclick='printtab("listFarm_Constrain_Text")'>@PlantQuar.WEB.Language.Resource_data1.Print</button>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+@section scripts{
+
+    <script>
+
+
+        function MyFunction() {
+            $("#Farm_Constrain_TextTable tbody").empty();
+
+           var Outlet_ID = document.getElementById("CustomerDropDown").value;
+              $.ajax({
+                        url: '@Url.Action("UsersOutlet", "OutletEmployees")',
+                        type: "POST",
+                  data: { outletID: Outlet_ID},
+                  success: function (result) {
+
+                            for (var i = 1; i < result.length; i++) {
+                                var item = result[i];
+                                $("#Farm_Constrain_TextTable tbody").append("<tr>" +
+
+
+                                    "<td>" + item.EmpId + "</td>"+
+                                    "<td>" + item.FullName + "</td>"
+                                    + "<td>  " + item.Adress + "  </td>" + "</tr>");
+
+                            }
+
+
+
+                    },
+                        error: function (xhr, status, error) {
+
+                    }
+                });
+        }
+
+        function printtab(mm) {
+            var restorepage2 = document.body.innerHTML;
+            var printcontent2 = $('#' + mm).html();
+            document.body.innerHTML = printcontent2;
+            var css = `table{border-collapse: collapse;}#Farm_Constrain_TextTable thead tr th{border: 1px solid black!important;padding: 5px;} #Farm_Constrain_TextTable tbody tr td{border: 1px solid black!important;padding: 5px;}@@page{margin:.5cm .5cm .5cm .5cm!important;}.col-md-4 {width: 33.33333333%;}.col-md-8 {width: 66.66666667%;}.col-md-6 {width: 50%;}.col-md-7 {width: 58.33333333%;}.col-md-5 {width: 41.66666667%;}.col-md-3 {width: 25%;}`,
+                head = document.head || document.getElementsByTagName('head')[0],
+                style = document.createElement('style');
+            style.type = 'text/css';
+            style.media = 'print';
+
+            if (style.styleSheet) {
+                style.styleSheet.cssText = css;
+            }
+            else {
+                style.appendChild(document.createTextNode(css));
+            }
+            head.appendChild(style);
+            window.print();
+            history.go(0);
+            document.body.innerHTML = restorepage2;
+        }
+    </script>
+
+}

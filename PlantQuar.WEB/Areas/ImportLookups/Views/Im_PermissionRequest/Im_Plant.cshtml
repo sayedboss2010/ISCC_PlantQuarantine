@@ -1,0 +1,113 @@
+﻿
+<div id="Im_Plant">
+</div>
+
+
+<script type="text/javascript">
+        $(function () {
+            $('#Im_Plant').jtable({
+                title: 'النبات',
+                paging: true,
+                pageSize: 10,
+                sorting: true,
+                //defaultSorting: 'CourseName ASC',
+                columnResizable: true,
+                columnSelectable: true,
+                saveUserPreferences: true,
+                actions: {
+
+                    listAction: '/ImportLookups/Im_Plant/listIm_Plants',
+                    createAction: '/ImportLookups/Im_Plant/CreateIm_Plants',
+                    updateAction: '/ImportLookups/Im_Plant/UpdateIm_Plants',
+                    deleteAction: '/ImportLookups/Im_Plant/DeleteIm_Plants'
+                },
+                fields: {
+                    ID: {
+                        key: true,
+                        create: false,
+                        edit: false,
+                        list: false
+                    },
+                    //ImPermissionItem_ID: {
+
+                    //    title: 'اذن الاستيراد',
+                    //    inputClass: 'validate[required]',
+                    //    options:'/ImportLookups/Im_Plant/List_PermissionItem'
+
+                    //},
+                    //PlantCat_ID: {
+                    //    title: 'قسم النبات',
+                    //    inputClass: 'validate[required]',
+                    //    options: '/ImportLookups/Im_Plant/List_PlantCategories'
+                    //},
+                    //PlantPartType_ID: {
+                    //    title: 'نوع النبات',
+                    //    inputClass: 'validate[required]',
+                    //    options: '/ImportLookups/Im_Plant/List_PlantPartType'
+
+                    //},
+                    //ProductStatus_ID: {
+                    //    title: 'حاله النبات',
+                    //    inputClass: 'validate[required]',
+                    //    options: '/ImportLookups/Im_Plant/List_ProductStatus'
+
+                    //},
+                    //Purpose_ID: {
+                    //    title: 'الغرض من النبات',
+                    //    inputClass: 'validate[required]',
+                    //    options: '/ImportLookups/Im_Plant/List_PlantPrupose'
+
+                    //},
+                   
+
+                },
+                formCreated: function (event, data) {
+
+                    if (data.formType == "create") {
+                        $(".ui-dialog-title").text("@PlantQuar.Web.Language.Resource_data1.Add");
+                    }
+                    else {
+                        $(".ui-dialog-title").text("@PlantQuar.Web.Language.Resource_data1.Edit");
+
+                    }
+                    $('#Edit-Short_Name').prop('readonly', true);
+                    $('#Edit-Short_Name').addClass('jtable-input-readonly');
+                    $('#Edit-Short_Name').css("background-color", "rgb(187, 183, 183)");
+                    $("#Edit-Name_Ar, #Edit-Name_En, #txt_AR_BTNSearch, #txt_EN_BTNSearch").attr('autocomplete', 'off');
+
+                  
+                 
+
+                },
+                formSubmitting: function (event, data) {
+                    return data.form.validationEngine('validate');
+                },
+                formClosed: function (event, data) {
+                    data.form.validationEngine('hide');
+                    data.form.validationEngine('detach');
+                    $(".ui-dialog-title").text("@PlantQuar.Web.Language.Resource_data1.Delete");
+                },
+                recordAdded: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Insert");
+                },
+                recordUpdated: function (event, data) {
+                                        //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Update");
+                },recordDeleted: function (event, data) {
+                                        //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Delete");
+                },
+            });
+            $('#Im_Plant').jtable('load');
+
+
+           
+
+            $(".jtable-toolbar-item-add-record .jtable-toolbar-item-text").text("@PlantQuar.Web.Language.Resource_data1.Add");
+
+           
+           
+
+        });
+</script>

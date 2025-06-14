@@ -1,0 +1,167 @@
+﻿
+@model List<PlantQuar.DTO.DTO.Import.Constrains.Im_CountryConstrain_TextDTO>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.Import_CountryConstrain</h2>
+}
+
+@section Path{
+    <li>@PlantQuar.WEB.Language.Resource_data1.Constrains</li>
+    <li class="active">@PlantQuar.WEB.Language.Resource_data1.Import_CountryConstrain</li>
+}
+
+@section filter{
+    <div class="row">
+        <label class="col-lg-2 col-md-12 col-sm-12">@PlantQuar.WEB.Language.Resource_data1.ArabicName</label>
+        <input type="text" class="form-inline col-lg-3  col-md-12 col-sm-12" autocomplete="off" name="txt_AR_BTNSearch" id="txt_AR_BTNSearch" />
+        <label class="col-lg-2 col-md-12 col-sm-12">@PlantQuar.WEB.Language.Resource_data1.EnglishName</label>
+        <input type="text" class="form-inline col-lg-3  col-md-12 col-sm-12" autocomplete="off" name="txt_EN_BTNSearch" id="txt_EN_BTNSearch" />
+        <input type="button" class="col-lg-1 col-md-2 btn btn-primary" id="LoadRecordsButton" value="@PlantQuar.WEB.Language.Resource_data1.Search">
+    </div>
+}
+
+<link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/scripts/DataTables/jquery.dataTables.min.js"></script>
+<link href="~/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
+
+<style>
+    th {
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    td {
+        font-size: 12px;
+        text-align: center;
+    }
+    .dataTables_length, .dataTables_info, .pagination {
+        display: none;
+    }
+    #Im_CountryConstrainTable thead{
+        background-color: #1f6c6f;
+        color: white;
+    }
+</style>
+
+<br /><br />
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-10"></div>
+        <div class="col-md-2">
+            @Html.ActionLink(PlantQuar.WEB.Language.Resource_data1.Add, "Im_CountryConstrainAddEdit", "Im_CountryConstrain", new { area = "Im_Constrains" }, new { @class = "btn btn-primary", @style = "width:100%" })
+        </div>
+    </div>
+</div>
+<form style="padding: 10px; background-color: whitesmoke">
+    <div id="listIm_CountryConstrains" class="row">
+        <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap">
+            <table id="Im_CountryConstrainTable" class="table table-bordered table-striped dataTable" role="grid" style="padding:5px; width:100%">
+                <thead>
+                    <tr>
+                        <th hidden>ID</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.ArabicName</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.EnglishName</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.ArabicDescription</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.EnglishDescription</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Active</th>
+                        
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Edit</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        if (Model.Count > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td hidden>@item.ID</td>
+                                    <td>@item.ConstrainText_Ar</td>
+                                    <td>@item.ConstrainText_En</td>
+                                    <td>@item.InSide_Certificate_Ar</td>
+                                    <td>@item.InSide_Certificate_En</td>
+                                    <td>@item.IsActive</td>
+                                    
+                                    
+                                    <td>
+                                        @Html.ActionLink(PlantQuar.WEB.Language.Resource_data1.Edit, "Im_CountryConstrainAddEdit", "Im_CountryConstrain", new { area = "Im_Constrains", id = item.ID }, null)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink(PlantQuar.WEB.Language.Resource_data1.Delete, "Delete", "FarmData", new { area = "FA_Farm", FarmId = item.ID }, null)
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        if ('@ViewBag.message' != "") {
+            alert('@ViewBag.message')
+        }
+        $("#Im_CountryConstrainTable").DataTable({
+            paging: true,
+            lengthChange: true,
+            pageLength: 10,
+            searching: false,
+            ordering: false
+        });
+        FillTable();
+    });
+
+    function FillTable() {
+        $.ajax({
+            url: '/Im_Constrains/Im_CountryConstrain/listIm_CountryConstrains',
+            data: {
+                txt_AR_BTNSearch: $('#txt_AR_BTNSearch').val(),
+                txt_EN_BTNSearch: $('#txt_EN_BTNSearch').val(),
+            },
+            success: function (listIm_CountryConstrains) {
+                $("#Im_CountryConstrainTable tbody").empty();
+                $.each(listIm_CountryConstrains.Records, function (index, item) {
+
+                    var hrefDetails = "@Url.Action("FarmDetails", "FarmData", new { area = "FA_Farm", FarmId = "__id__" })";
+                    hrefDetails = hrefDetails.replace("__id__", item.ID);
+
+                    var hrefEdit = "@Url.Action("Im_CountryConstrainAddEdit", "Im_CountryConstrain", new { area = "Im_Constrains", id = "__id__" })";
+                    hrefEdit = hrefEdit.replace("__id__", item.ID);
+
+                    var hrefDel = "@Url.Action("DeleteIm_CountryConstrains", "Im_CountryConstrain", new {  area = "Im_Constrains", id = "__id__" })";
+                    hrefDel = hrefDel.replace("__id__", item.ID);
+
+                    $("#Im_CountryConstrainTable tbody").append("<tr>" +
+                        "<td hidden>" + item.ID + "</td>" +
+                        "<td>" + item.ConstrainText_Ar + "</td>" +
+                        "<td>" + item.ConstrainText_En + "</td>" +
+                        "<td>" + item.InSide_Certificate_Ar + "</td>" +
+                        "<td>" + item.InSide_Certificate_En + "</td>" +
+                        "<td>" + item.IsActive + "</td>" +
+                       // "<td>" + item.IsAcceppted + "</td>" +
+                        
+                        "<td><a href=" + hrefEdit + ">@PlantQuar.WEB.Language.Resource_data1.Edit</a></td>" +
+                        "<td><a href=" + hrefDel + ">@PlantQuar.WEB.Language.Resource_data1.Delete</a></td>" +
+                        "</tr>");
+                });//each
+            }
+        });
+    }
+
+    $('#LoadRecordsButton').click(function (e) {
+        FillTable();
+    });
+</script>

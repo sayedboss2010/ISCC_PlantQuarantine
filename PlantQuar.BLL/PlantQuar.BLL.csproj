@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E0664A3A-8480-43B9-81F0-79C6FD724035}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PlantQuar.BLL</RootNamespace>
+    <AssemblyName>PlantQuar.BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppStart\ApplicationProfile.cs" />
+    <Compile Include="BLL\Admin\AcceptAggreementBackBLL.cs" />
+    <Compile Include="BLL\Admin\AddUserBLL.cs" />
+    <Compile Include="BLL\Admin\ErrorDisplayBLL.cs" />
+    <Compile Include="BLL\Admin\PR_MissionBLL.cs" />
+    <Compile Include="BLL\Admin\Table_Action_LogBLL.cs" />
+    <Compile Include="BLL\Admin\Total_Fees_Type_BLL.cs" />
+    <Compile Include="BLL\Admin\Transation_LogsBLL.cs" />
+    <Compile Include="BLL\Admin\userPriviledgeBLL.cs" />
+    <Compile Include="BLL\Admin\User_PrivilageBLL.cs" />
+    <Compile Include="BLL\Committee\Ex_Committee_Quick_BLL.cs" />
+    <Compile Include="BLL\Committee\Ex_Committee_BLL.cs" />
+    <Compile Include="BLL\Committee\Committee_Station_BLL.cs" />
+    <Compile Include="BLL\Committee\Committee_Farm_BLL.cs" />
+    <Compile Include="BLL\Committee\Committee_Im_BLL.cs" />
+    <Compile Include="BLL\Company\CompanyAccreditationBLL.cs" />
+    <Compile Include="BLL\Company\CompanyActivityBLL.cs" />
+    <Compile Include="BLL\Company\CompanyActivityTypeBLL.cs" />
+    <Compile Include="BLL\Company\Company_NationalBLL.cs" />
+    <Compile Include="BLL\Company\Enrollment_typeBLL.cs" />
+    <Compile Include="BLL\Company\Ex_ContactDataBLL.cs" />
+    <Compile Include="BLL\Company\GetCompaniesNumbersBLL.cs" />
+    <Compile Include="BLL\Company\PersonBLL.cs" />
+    <Compile Include="BLL\Company\PublicOrganizationTypeBLL.cs" />
+    <Compile Include="BLL\Company\Public_OrganizationBLL.cs" />
+    <Compile Include="BLL\DataEntry\Analysis\AnalysisLabTypeBLL.cs" />
+    <Compile Include="BLL\DataEntry\AttachmentTable_BLL.cs" />
+    <Compile Include="BLL\DataEntry\Fees\Im_Fees_ActionsBLL.cs" />
+    <Compile Include="BLL\DataEntry\Treatments\TreatmentMaterialBLL.cs" />
+    <Compile Include="BLL\Employee\ChangePasswordBLL.cs" />
+    <Compile Include="BLL\Employee\Employee_TrackBLL.cs" />
+    <Compile Include="BLL\ExportRequest\CheckRequestStoppingBLL.cs" />
+    <Compile Include="BLL\Export_Certificate\CertificateBLL.cs" />
+    <Compile Include="BLL\Export_Certificate\CertificateDetailsBLL.cs" />
+    <Compile Include="BLL\Export_Certificate\CertificateListBLL.cs" />
+    <Compile Include="BLL\Export_Certificate\ChangeCountryCertificateBLL.cs" />
+    <Compile Include="BLL\Export_CheckRequest\CheckRequestChangeLot_BLL.cs" />
+    <Compile Include="BLL\Export_CheckRequest\Committee_Ex_BLL.cs" />
+    <Compile Include="BLL\Export_CheckRequest\EX_CheckRequestCertificatesBLL.cs" />
+    <Compile Include="BLL\Export_CheckRequest\ExCommittee_Final_ResultBLL.cs" />
+    <Compile Include="BLL\Export_CheckRequest\EX_CheckRequestDetailsBLL.cs" />
+    <Compile Include="BLL\Export_CheckRequest\EX_QuickCheckRequestDetailsBLL.cs" />
+    <Compile Include="BLL\Export_CheckRequest\List_CheckRequestGeshni_BLL.cs" />
+    <Compile Include="BLL\Export_CheckRequest\List_EXCheckRequestNew_BLL.cs" />
+    <Compile Include="BLL\Export_CheckRequest\List_EXCheckRequest_BLLCopy.cs" />
+    <Compile Include="BLL\Export_CheckRequest\List_EXCheckRequest_BLL.cs" />
+    <Compile Include="BLL\Export_CheckRequest\Ex_Change_OutlitBLL.cs" />
+    <Compile Include="BLL\Export_CheckRequest\QuickRequestDetails_BLL.cs" />
+    <Compile Include="BLL\Export_CheckRequest_New\EX_Committee_Final_ResultBLL.cs" />
+    <Compile Include="BLL\Export_CheckRequest_New\EX_Committee_Final_Result_QuickBLL.cs" />
+    <Compile Include="BLL\Export_Constrains\Ex_ConstrainActivationBLL.cs" />
+    <Compile Include="BLL\Export_Constrains\EX_Constrain_TypeBLL.cs" />
+    <Compile Include="BLL\Export_Constrains\EX_Constrain_Country_ItemBLL.cs" />
+    <Compile Include="BLL\Export_Constrains\EX_Constrain_TextBLL.cs" />
+    <Compile Include="BLL\Export_Constrains\Ex_CountryConstrain_BLL.cs" />
+    <Compile Include="BLL\Farm\FarmCommittee\Farm_Committee_DeleteBLL.cs" />
+    <Compile Include="BLL\Farm\FarmConstrains\Farm_CheckList_ConstrainBLL.cs" />
+    <Compile Include="BLL\Farm\FarmRequest\Farm_Final_Result_BLL.cs" />
+    <Compile Include="BLL\Farm\FarmsDistribution\Farms_Organization_DistributionBLL.cs" />
+    <Compile Include="BLL\General_PermissionBLL\GeneralIm_PermissionDetailBLL.cs" />
+    <Compile Include="BLL\General_PermissionBLL\General_Im_PermissionRequestPrintBLL.cs" />
+    <Compile Include="BLL\General_PermissionBLL\General_List_ImPermissions_NewBLL.cs" />
+    <Compile Include="BLL\General_PermissionBLL\General_Stopping_PermissionBLL.cs" />
+    <Compile Include="BLL\Import\checkRequests\Change_request_StatusBLL.cs" />
+    <Compile Include="BLL\Import\checkRequests\Im_CheckRequestDetails_NewBLL.cs" />
+    <Compile Include="BLL\Import\checkRequests\Im_CheckRequest_ShowDataBLL.cs" />
+    <Compile Include="BLL\Import\checkRequests\Im_checkRequest_Update_PortBLL.cs" />
+    <Compile Include="BLL\Import\checkRequests\List_Im_checkRequestsOutletBLL.cs" />
+    <Compile Include="BLL\Import\Committee\ImCommittee_Final_ResultBLL.cs" />
+    <Compile Include="BLL\Import\Committee\ImRequestCommitteeBLL.cs" />
+    <Compile Include="BLL\Import\Committee\Im_Check_ComitteBLL.cs" />
+    <Compile Include="BLL\Import\Committee\Im_RequestCommittee_ShiftBLL.cs" />
+    <Compile Include="BLL\Import\DataEntry\Im_FinalResult_DataBLL.cs" />
+    <Compile Include="BLL\Import\DataEntry\Im_Visa_DataBLL.cs" />
+    <Compile Include="BLL\Import\Permissions\List_ImPermissions_NewBLL.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="BLL\Import\Permissions\Stopping_PermissionsBLL.cs" />
+    <Compile Include="BLL\Import_Custody\Im_CustodyPlace_BLL.cs" />
+    <Compile Include="BLL\Im_CheckRequest_General\Committee_Im_General_BLL.cs" />
+    <Compile Include="BLL\Im_CheckRequest_General\Genaral_List_Im_checkRequestsBLL.cs" />
+    <Compile Include="BLL\Im_CheckRequest_General\General_ImCommittee_Final_ResultBLL.cs" />
+    <Compile Include="BLL\Im_CheckRequest_General\RequestDetailsGeneralBLL.cs" />
+    <Compile Include="BLL\IM_Check_Requst_Report\Check_Requst_Accepted_AllBLL.cs" />
+    <Compile Include="BLL\Log\Log_CheckRequest_BLL.cs" />
+    <Compile Include="BLL\Pallet_Export_CheckRequest\Pallet_EX_CheckRequestDetailsBLL.cs" />
+    <Compile Include="BLL\Pallet_Export_CheckRequest\Pallet_Ex_Committee_BLL.cs" />
+    <Compile Include="BLL\Pallet_Export_CheckRequest\Pallet_EX_Committee_Final_ResultBLL.cs" />
+    <Compile Include="BLL\Pallet_Export_CheckRequest\Pallet_List_EXCheckRequest_BLL.cs" />
+    <Compile Include="BLL\Path_NetworkShare\Image_Path_NetworkShare.cs" />
+    <Compile Include="BLL\Shipping\InternationalTransportationBLL.cs" />
+    <Compile Include="BLL\Shipping\ShippingAgencyBLL.cs" />
+    <Compile Include="BLL\Shipping\ShippingCompanyBLL.cs" />
+    <Compile Include="BLL\DataEntry\Analysis\AnalysisLabBLL.cs" />
+    <Compile Include="BLL\DataEntry\Analysis\AnalysisTypeBLL.cs" />
+    <Compile Include="BLL\DataEntry\Committees\CommitteeTypeBLL.cs" />
+    <Compile Include="BLL\DataEntry\Countries\ContinentBLL.cs" />
+    <Compile Include="BLL\DataEntry\Countries\CountryBLL.cs" />
+    <Compile Include="BLL\DataEntry\Countries\RegionAreaBLL.cs" />
+    <Compile Include="BLL\DataEntry\Countries\RegionBLL.cs" />
+    <Compile Include="BLL\DataEntry\Countries\UnionBLL.cs" />
+    <Compile Include="BLL\DataEntry\Countries\Union_CountryBLL.cs" />
+    <Compile Include="BLL\DataEntry\Fees\FeesActionBLL.cs" />
+    <Compile Include="BLL\DataEntry\Fees\Fees_Type_ActionBLL.cs" />
+    <Compile Include="BLL\DataEntry\Fees\ShiftTimingBLL.cs" />
+    <Compile Include="BLL\DataEntry\GovToVillage\CentersBLL.cs" />
+    <Compile Include="BLL\DataEntry\GovToVillage\GovernateBLL.cs" />
+    <Compile Include="BLL\DataEntry\GovToVillage\VillageBLL.cs" />
+    <Compile Include="BLL\DataEntry\Items\Agriculture_Classfication\GroupBLL.cs" />
+    <Compile Include="BLL\DataEntry\Items\Agriculture_Classfication\Item_TypeBLL.cs" />
+    <Compile Include="BLL\DataEntry\Items\Agriculture_Classfication\MainCalssificationBLL.cs" />
+    <Compile Include="BLL\DataEntry\Items\Agriculture_Classfication\SecondaryClassificationBLL.cs" />
+    <Compile Include="BLL\DataEntry\Items\ItemData\ItemBLL.cs" />
+    <Compile Include="BLL\DataEntry\Items\ItemData\ItemCategories_GroupBLL.cs" />
+    <Compile Include="BLL\DataEntry\Items\ItemData\ItemCategoryBLL.cs" />
+    <Compile Include="BLL\DataEntry\Items\ItemData\Item_ShortNameBLL.cs" />
+    <Compile Include="BLL\DataEntry\Items\ItemType\ItemType.cs" />
+    <Compile Include="BLL\DataEntry\Items\Item_Descriptions\ItemPartBLL.cs" />
+    <Compile Include="BLL\DataEntry\Items\Item_Descriptions\ItemCategories_TypeBLL.cs" />
+    <Compile Include="BLL\DataEntry\Items\Item_Descriptions\Item_PurposeBLL.cs" />
+    <Compile Include="BLL\DataEntry\Items\Item_Descriptions\Item_StatusBLL.cs" />
+    <Compile Include="BLL\DataEntry\Items\Item_Descriptions\QualitativeGroupBLL.cs" />
+    <Compile Include="BLL\DataEntry\Items\Item_Descriptions\SubPart_TypeBLL.cs" />
+    <Compile Include="BLL\DataEntry\Items\Item_Descriptions\SubPartBLL.cs" />
+    <Compile Include="BLL\DataEntry\Items\Scientific Classfication\FamilyBLL.cs" />
+    <Compile Include="BLL\DataEntry\Items\Scientific Classfication\KingdomBLL.cs" />
+    <Compile Include="BLL\DataEntry\Items\Scientific Classfication\LevelBLL.cs" />
+    <Compile Include="BLL\DataEntry\Items\Scientific Classfication\OrderBLL.cs" />
+    <Compile Include="BLL\DataEntry\Items\Scientific Classfication\PhylumSubphylumBLL.cs" />
+    <Compile Include="BLL\DataEntry\LookUp\ContactTypeBLL.cs" />
+    <Compile Include="BLL\DataEntry\LookUp\ShipmentMeanBLL.cs" />
+    <Compile Include="BLL\DataEntry\LookUp\TransportMeanBLL.cs" />
+    <Compile Include="BLL\DataEntry\Outlets\GeneralAdminBLL.cs" />
+    <Compile Include="BLL\DataEntry\Outlets\HagrContactBLL.cs" />
+    <Compile Include="BLL\DataEntry\Outlets\OutletBLL.cs" />
+    <Compile Include="BLL\DataEntry\Packages\PackageMaterialBLL.cs" />
+    <Compile Include="BLL\DataEntry\Packages\PackageTypeBLL.cs" />
+    <Compile Include="BLL\DataEntry\Port\PortInternationalBLL.cs" />
+    <Compile Include="BLL\DataEntry\Port\PortNationalBLL.cs" />
+    <Compile Include="BLL\DataEntry\Port\PortOrganizationBLL.cs" />
+    <Compile Include="BLL\DataEntry\Port\PortTypeBLL.cs" />
+    <Compile Include="BLL\DataEntry\Treatments\TreatmentMainTypeBLL.cs" />
+    <Compile Include="BLL\DataEntry\Treatments\TreatmentMaterialsBLL.cs" />
+    <Compile Include="BLL\DataEntry\Treatments\TreatmentMethodBLL.cs" />
+    <Compile Include="BLL\DataEntry\Treatments\TreatmentTypeBLL.cs" />
+    <Compile Include="BLL\Employee\AddEmployeeBLL.cs" />
+    <Compile Include="BLL\Employee\MissionBLL.cs" />
+    <Compile Include="BLL\Farm\FarmCommittee\FarmRequestItem_CategoriesBLL.cs" />
+    <Compile Include="BLL\Farm\FarmCommittee\Farm_Committee_ExaminationBLL.cs" />
+    <Compile Include="BLL\Farm\FarmCommittee\Farm_Committee_ShiftBLL.cs" />
+    <Compile Include="BLL\Farm\FarmCommittee\Farm_CountryBLL.cs" />
+    <Compile Include="BLL\Farm\FarmCommittee\Farm_RequestBLL.cs" />
+    <Compile Include="BLL\Farm\FarmCommittee\Farm_SampleDataBLL.cs" />
+    <Compile Include="BLL\Farm\FarmConstrains\Farm_ConstrainBLL.cs" />
+    <Compile Include="BLL\Farm\FarmConstrains\Farm_Constrain_TextBLL.cs" />
+    <Compile Include="BLL\Farm\FarmConstrains\SearchFarm.cs" />
+    <Compile Include="BLL\Farm\FarmData\FarmDataBLL.cs" />
+    <Compile Include="BLL\Farm\FarmData\FarmPlantBLL.cs" />
+    <Compile Include="BLL\Farm\FarmData\Farm_CompanyBLL.cs" />
+    <Compile Include="BLL\Farm\FarmRequest\Andriod_LocationBLL.cs" />
+    <Compile Include="BLL\Farm\FarmRequest\CommitteeBLL.cs" />
+    <Compile Include="BLL\Farm\FarmRequest\CommitteeEmployeeBLL.cs" />
+    <Compile Include="BLL\Farm\FarmRequest\EmployeeBLL.cs" />
+    <Compile Include="BLL\Farm\FarmRequest\FarmCommitteeBLL.cs" />
+    <Compile Include="BLL\Farm\FarmRequest\FarmDetailsBLL.cs" />
+    <Compile Include="BLL\Farm\FarmRequest\FarmRequestBLL.cs" />
+    <Compile Include="BLL\Farm\Print\Farm_PrintBLL.cs" />
+    <Compile Include="BLL\Import\checkRequests\Im_CheckRequestDetailsBLL.cs" />
+    <Compile Include="BLL\Import\checkRequests\List_Im_checkRequestsBLL.cs" />
+    <Compile Include="BLL\Import\Committee\farmReqAnalysisTypeBLL.cs" />
+    <Compile Include="BLL\Import\Committee\Im_CommitteeBLL.cs" />
+    <Compile Include="BLL\Import\Constrains\Im_ConstrainBLL.cs" />
+    <Compile Include="BLL\Import\Constrains\Im_Constrain_TypeBLL.cs" />
+    <Compile Include="BLL\Import\Constrains\Im_CountryConstrainBLL.cs" />
+    <Compile Include="BLL\Import\DataEntry\FreeZoneBLL.cs" />
+    <Compile Include="BLL\Import\DataEntry\Im_CustodyPlaceTypeBLL.cs" />
+    <Compile Include="BLL\Import\DataEntry\Im_InitiatorBLL.cs" />
+    <Compile Include="BLL\Import\DataEntry\Im_ManafestBLL.cs" />
+    <Compile Include="BLL\Import\DataEntry\Im_ProcedureTypeBLL.cs" />
+    <Compile Include="BLL\Import\DataEntry\Im_StoresBLL.cs" />
+    <Compile Include="BLL\Import\DataEntry\Im_TransUnderCustodyReasonBLL.cs" />
+    <Compile Include="BLL\Import\DataEntry\Im_WarehousesBLL.cs" />
+    <Compile Include="BLL\Import\Permissions\Im_PermissionDetailBLL.cs" />
+    <Compile Include="BLL\Import\Permissions\Im_PermissionRequestPrintBLL.cs" />
+    <Compile Include="BLL\Import\Permissions\List_ImPermissionsBLL.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="BLL\LaboratoryResult\LaboratoryResult_ReportBLL.cs" />
+    <Compile Include="BLL\LaboratoryResult\SampleLABResultBLL.cs" />
+    <Compile Include="BLL\Log\Login_outBLL.cs" />
+    <Compile Include="BLL\Log\OffLineSavingBLL.cs" />
+    <Compile Include="BLL\Reports\Engineers\EngineersReportBLL.cs" />
+    <Compile Include="BLL\Station1\Station_Constrain_Country_ItemBLL.cs" />
+    <Compile Include="BLL\Station1\Station_Constrain_TypeBLL.cs" />
+    <Compile Include="BLL\Station1\StationAccrediationCommitteeBLL.cs" />
+    <Compile Include="BLL\Station1\StationAccreditionDataBLL.cs" />
+    <Compile Include="BLL\Station1\StationBLL.cs" />
+    <Compile Include="BLL\Station1\Station_CheckListBLL.cs" />
+    <Compile Include="BLL\Stations\Station_CheckList_ConstrainBLL.cs" />
+    <Compile Include="BLL\Stations\StationActivityTypeBLL.cs" />
+    <Compile Include="BLL\Station_Pages\AcceptedStation_Company_BLL.cs" />
+    <Compile Include="BLL\Station_Pages\Station_Committee_Delete_BLL.cs" />
+    <Compile Include="BLL\Station_Pages\Station_Final_Result_BLL.cs" />
+    <Compile Include="BLL\Station_Pages\StationDetails_BLL.cs" />
+    <Compile Include="BLL\Station_Pages\Station_Accreditation_Data_Entry_BLL.cs" />
+    <Compile Include="BLL\Station_Pages\Station_Accreditation_Data_Entry_ListBLL.cs" />
+    <Compile Include="BLL\Station_Pages\Station_Fees_Type_BLL.cs" />
+    <Compile Include="BLL\Station_Pages\Station_Sample_Result_BLL.cs" />
+    <Compile Include="BLL\SystemCodes\A_SystemCodeBLL.cs" />
+    <Compile Include="IBLL\IGenericBLL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PlantQuar.DAL\PlantQuar.DAL.csproj">
+      <Project>{BC477233-24CC-4B70-9E19-AC7920CB3B07}</Project>
+      <Name>PlantQuar.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantQuar.DTO\PlantQuar.DTO.csproj">
+      <Project>{1be918a5-165c-4095-8634-19717cec27d4}</Project>
+      <Name>PlantQuar.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantQuar.UOW\PlantQuar.UOW.csproj">
+      <Project>{8cb9fed1-6359-4ab5-8b16-8268f278d610}</Project>
+      <Name>PlantQuar.UOW</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantQuar.WEB\PlantQuar.WEB.csproj">
+      <Project>{9FB74E8F-5C88-4948-B6F5-4C48C76861FC}</Project>
+      <Name>PlantQuar.WEB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Privilages.DAL\Privilages.DAL.csproj">
+      <Project>{dc180a5a-01d3-484f-bb09-88e53e4a72f4}</Project>
+      <Name>Privilages.DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BLL\Export\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

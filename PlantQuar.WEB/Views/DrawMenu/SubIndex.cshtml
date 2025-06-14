@@ -1,0 +1,40 @@
+﻿
+@*@model List<Privilages.DAL.SP_PR_GetAllMenuSuperPrivilageBy_AppCatId_ModuleId_UserId_Result>*@
+@model List<Privilages.DAL.GetMenuUser_Result>
+
+
+@foreach (var item in Model)
+{
+    <li><a href="~/@item.MenuURL" id="@item.Id" onclick="getIdMenu('@item.Id')">@item.MenuTitle</a></li>
+}
+
+
+<script>
+    function getIdMenu(Element) {
+        var MenuID = parseInt(Element);
+
+        $.ajax({
+                        url: '@Url.Action("SetMenuID", "DrawMenu")',
+                        type: "POST",
+
+
+            data: { Id: MenuID},
+
+                  success: function (result) {
+
+
+
+                            }
+
+
+
+                    ,
+                        error: function (xhr, status, error) {
+
+                    }
+        });
+
+
+    }
+
+</script>

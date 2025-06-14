@@ -1,0 +1,458 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">تعديل الميناء المسجلة لطلب</h2>
+
+
+
+}
+<style>
+
+    .color-white {
+        color: #fff !important;
+    }
+
+    .lbl {
+        border: none;
+        box-shadow: 0px 5px #beb3a0;
+        background: #5c0000 !important;
+        font-weight: 600;
+        color: #fafbd3 !important;
+        border-radius: 16px 55px;
+        padding: 10px 15px;
+    }
+
+    .font-bold {
+        font-weight: bold;
+    }
+</style>
+
+
+
+
+<div class="row mar-bottom-15">
+    <div class="col-md-6 flex-align">
+        <label class="col-md-4" style="margin-top:10px">رقم الطلب</label>
+        <div class="col-md-8">
+            <input type="text" class="form-control" id="CheckNumber" />
+        </div>
+    </div>
+
+
+
+    <div class="col-md-2 ">
+        <input type="button" value='عرض' class="form-control color-white" id="show_data" onclick="show_data()" />
+    </div>
+
+
+</div>
+<br />
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <label class="lbl">بيانات الميناء</label>
+    </div>
+</div>
+<br />
+
+<div id="divcheck">
+    <table id="table_List_Im_Check" class="table table-bordered table-striped dataTable">
+        <thead>
+            <tr class="label-primary">
+
+                <th class="font-weight-bold">نوع العملية</th>
+                <th>الميناء المسجلة</th>
+                <th>الدولة</th>
+                <th>الميناء الجديدة</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-10"></div>
+    <div class="col-md-2 ">
+        <input type="button" value='حفظ' class="form-control color-white" onclick="save_change()" />
+    </div>
+</div>
+<script>
+
+    var CheckRequest_Port_ID_Arrive =null;
+    var CheckRequest_Port_ID_Passage = null ;
+    var CheckRequest_Port_ID_Shipping = null;
+
+    var Old_NationalArrive_CheckRequest_Port_ID = null;
+    var Old_InternationalPassage_CheckRequest_Port_ID = null;
+    var Old_InternationalShipping_CheckRequest_Port_ID = null;
+
+
+    var New_NationalPortvalue = null;
+    var New_InternationalPassagePortvalue = null;
+    var New_InternationalShippingPortvalue = null;
+
+    var National_CheckRequest_Port_ID = null;
+    var InternationalPassage_CheckRequest_Port_ID = null;
+    var InternationalShipping_CheckRequest_Port_ID = null;
+
+    var arrive_status=null;
+    var shipping_status = null;
+    var passage_status = null;
+
+
+    function show_data()
+    {
+        var CheckNumber = document.getElementById("CheckNumber").value;
+        if (CheckNumber == "") {
+            alert("يجب ادخال رقم الطلب أولا")
+        }
+        // alert(CheckNumber);
+        else {
+        $.ajax({
+
+          url: '@Url.Action("Port_List", "Im_checkRequest_Update_Port", new { area = "Im_CheckRequests" })',
+          type: 'Post',
+            data: { CheckNumber: CheckNumber },
+
+           success: function (data) {
+               $("#table_List_Im_Check tbody").empty();
+           // alert(data.Result.Message);
+               if (data.Result == 0) {
+                   //alert(1);
+                   $.each(data.Records, function (index, item) {
+
+                       var table_body;
+                       table_body = "<tr>" + "<td hidden >" + item.ReqPortType_ID + "</td>"  + "<td >" + item.PortTypeName + "</td>";
+                       //
+                       //عبور
+                       if (item.ReqPortType_ID == 11) {
+                           CheckRequest_Port_ID_Passage = item.CheckRequest_Port_ID;
+                           Old_InternationalPassage_CheckRequest_Port_ID = item.Port_ID;
+                         //  alert("------- عبور------" + Old_InternationalPassage_CheckRequest_Port_ID);
+                           table_body += "<td hidden >" + item.CheckRequest_Port_ID + "</td>" + "<td>" + item.Countery_Ar_Name + "  ---->  " + item.PortName_Ar + "</td>"+"<td > <select id='passageCountry_" + item.CheckRequest_Port_ID + "' name='passageCountry'  onchange='show_passagePorts(this)' ></select></td>";
+                           $.ajax(
+                               {
+                                   url: '@Url.Action("country_ID", "Im_checkRequest_Update_Port", new { area = "Im_CheckRequests" })',
+                                   type: 'Post',
+
+                                   success: function (data) {
+
+                                       $.each(data.Options, function (i, index) {
+                                           $('#passageCountry_' + item.CheckRequest_Port_ID).append($('<option />').val(index.Value).text(index.DisplayText));
+
+                                       });
+                                   }
+                               });
+                           table_body += "<td > <select id='InternationalPassagePorts_" + item.CheckRequest_Port_ID + "' name='InternationalPassagePorts'  onchange='show_InternationalPassagePort(this)'></select></td>";
+                       }
+                       //وصول
+                       if (item.ReqPortType_ID == 10) {
+                           CheckRequest_Port_ID_Arrive = item.CheckRequest_Port_ID;
+                           Old_NationalArrive_CheckRequest_Port_ID = item.Port_ID;
+                          // alert("------ وصول ------" + Old_NationalArrive_CheckRequest_Port_ID);
+                           table_body += "<td>" + "مصر" + "  ---->  " + item.Govern_Name + "  ---->  " + item.PortName_Ar + "</td>" + "<td > <select id='governments_" + item.CheckRequest_Port_ID + "' name='governments'  onchange='show_goverments(this)' ></select></td>";
+                           $.ajax(
+                               {
+                                   url: '@Url.Action("Government_ID", "Im_checkRequest_Update_Port", new { area = "Im_CheckRequests" })',
+                                   type: 'Post',
+
+                                   success: function (data) {
+
+                                       $.each(data.Options, function (i, index) {
+                                           $('#governments_' + item.CheckRequest_Port_ID).append($('<option />').val(index.Value).text(index.DisplayText));
+                                           //  table_body += "<td >" + $('<option />').val(index.Value).text(index.DisplayText) + "</td>";
+                                       });
+                                   }
+                               });
+                           table_body += "<td > <select id='NationalPorts_" + item.CheckRequest_Port_ID + "' name='NationalPorts' onchange='show_NationalPort(this)' ></select></td>";
+                       }
+                       //شحن
+                       if (item.ReqPortType_ID == 9) {
+                           CheckRequest_Port_ID_Shipping = item.CheckRequest_Port_ID;
+                           Old_InternationalShipping_CheckRequest_Port_ID = item.Port_ID;
+                          // alert("---- شحن ------" + Old_InternationalShipping_CheckRequest_Port_ID);
+                           table_body +=  "<td>" + item.Countery_Ar_Name + "  ---->  " + item.PortName_Ar + "</td>" + "<td > <select id='shippingCountry_" + item.CheckRequest_Port_ID + "'  name='shippingCountry'  onchange='show_shippingPorts(this)' > </select></td>";
+                           $.ajax(
+                               {
+                                   url: '@Url.Action("country_ID", "Im_checkRequest_Update_Port", new { area = "Im_CheckRequests" })',
+                                   type: 'Post',
+
+                                   success: function (data) {
+
+                                       $.each(data.Options, function (i, index) {
+                                           $('#shippingCountry_' + item.CheckRequest_Port_ID).append($('<option />').val(index.Value).text(index.DisplayText));
+
+                                       });
+                                   }
+                               });
+                           table_body += "<td > <select id='InternationalShippingPorts_" + item.CheckRequest_Port_ID + "' name='InternationalShippingPorts' onchange='show_InternationalShippingPort(this)' ></select></td>";
+
+                       }
+
+                       $("#table_List_Im_Check tbody").append(table_body + "</tr>");
+                   });
+               }
+               if (data.Result == 1) {
+                   alert("تم تشكيل لجنة ولا يمكن تعديل الميناء");
+               }
+               if (data.Result == 2) {
+                   alert("لا يوجد طلب بهذاالرقم");
+               }
+            }
+        });
+        }
+    }
+
+    function show_passagePorts(element) {
+        var _CheckRequest_Port_ID = element.id.split('_')[1];
+     //   alert(_CheckRequest_Port_ID);
+        $("#InternationalPassagePorts_" + _CheckRequest_Port_ID).empty();
+        $.ajax(
+            {
+                url: '@Url.Action("InternationalPort_ID", "Im_checkRequest_Update_Port", new { area = "Im_CheckRequests" })',
+                type: 'Post',
+                data: { country_ID: $("#passageCountry_" + _CheckRequest_Port_ID).val() },
+                success: function (data) {
+
+                    $.each(data.Options, function (i, index) {
+                        $("#InternationalPassagePorts_" + _CheckRequest_Port_ID).append($('<option />').val(index.Value).text(index.DisplayText));
+                        /*table_body += "<td >" + $('<option />').val(index.Value).text(index.DisplayText) + "</td>";*/
+                    });
+                }
+            });
+
+    }
+
+    function show_shippingPorts(element) {
+        var _CheckRequest_Port_ID = element.id.split('_')[1];
+      //  alert(_CheckRequest_Port_ID);
+        $("#InternationalShippingPorts_" + _CheckRequest_Port_ID).empty();
+        $.ajax(
+            {
+                url: '@Url.Action("InternationalPort_ID", "Im_checkRequest_Update_Port", new { area = "Im_CheckRequests" })',
+                type: 'Post',
+                data: {
+                    country_ID: $("#shippingCountry_" + _CheckRequest_Port_ID).val() },
+                success: function (data) {
+
+                    $.each(data.Options, function (i, index) {
+                        $("#InternationalShippingPorts_" + _CheckRequest_Port_ID).append($('<option />').val(index.Value).text(index.DisplayText));
+                        /*table_body += "<td >" + $('<option />').val(index.Value).text(index.DisplayText) + "</td>";*/
+                    });
+                }
+            });
+
+    }
+
+    function show_goverments(element) {
+        var _CheckRequest_Port_ID = element.id.split('_')[1];
+      //  alert(_CheckRequest_Port_ID);
+        $("#NationalPorts_" + _CheckRequest_Port_ID).empty();
+        $.ajax(
+            {
+                url: '@Url.Action("Port_ID", "Im_checkRequest_Update_Port", new { area = "Im_CheckRequests" })',
+                type: 'Post',
+                data: {
+                    government_ID: $("#governments_" + _CheckRequest_Port_ID ).val() },
+                success: function (data) {
+
+                    $.each(data.Options, function (i, index) {
+                        $("#NationalPorts_" + _CheckRequest_Port_ID).append($('<option />').val(index.Value).text(index.DisplayText));
+                        /*table_body += "<td >" + $('<option />').val(index.Value).text(index.DisplayText) + "</td>";*/
+                    });
+                }
+            });
+
+    }
+
+    function show_NationalPort(element)
+    {
+        var _CheckRequest_Port_ID = element.id.split('_')[1];
+       // alert(_CheckRequest_Port_ID);
+        National_CheckRequest_Port_ID = _CheckRequest_Port_ID;
+        New_NationalPortvalue = $('#NationalPorts_' + _CheckRequest_Port_ID).val();
+
+    }
+
+    function show_InternationalShippingPort(element) {
+        var _CheckRequest_Port_ID = element.id.split('_')[1];
+     //   alert(_CheckRequest_Port_ID);
+        InternationalShipping_CheckRequest_Port_ID = _CheckRequest_Port_ID;
+        New_InternationalShippingPortvalue = $('#InternationalShippingPorts_' + _CheckRequest_Port_ID).val();
+      //  alert(InternationalShippingPortvalue);
+    }
+
+    function show_InternationalPassagePort(element)
+    {
+        var _CheckRequest_Port_ID = element.id.split('_')[1];
+    //    alert(_CheckRequest_Port_ID);
+        InternationalPassage_CheckRequest_Port_ID = _CheckRequest_Port_ID;
+        New_InternationalPassagePortvalue = $('#InternationalPassagePorts_' + _CheckRequest_Port_ID).val();
+     //   alert(InternationalPassagePortvalue);
+    }
+
+    function save_change() {
+        var list_of_values = [];
+        if (Old_NationalArrive_CheckRequest_Port_ID == New_NationalPortvalue || New_NationalPortvalue == null) { arrive_status = 0; }
+        else {
+            arrive_status = 1;
+            list_of_values.push({
+                Im_CheckRequest_Port_ID: CheckRequest_Port_ID_Arrive,
+                Port_ID: New_NationalPortvalue,
+                status: 1
+            });
+        }
+
+        if (Old_InternationalShipping_CheckRequest_Port_ID == New_InternationalShippingPortvalue || New_InternationalShippingPortvalue == null) { shipping_status = 0; }
+        else {
+            shipping_status = 1;
+            list_of_values.push({
+                Im_CheckRequest_Port_ID: CheckRequest_Port_ID_Shipping,
+                Port_ID: New_InternationalShippingPortvalue,
+                status: 1
+            });
+        }
+
+        if (Old_InternationalPassage_CheckRequest_Port_ID == New_InternationalPassagePortvalue) { passage_status = 0; }
+        else if (New_InternationalPassagePortvalue == null) { passage_status = 2; }
+        else {
+            passage_status = 1;
+            list_of_values.push({
+                Im_CheckRequest_Port_ID: CheckRequest_Port_ID_Passage,
+                Port_ID: New_InternationalPassagePortvalue,
+                status: 1
+            });
+        }
+        console.log(list_of_values);
+        if (arrive_status == 1 || shipping_status == 1 || passage_status == 1) {
+            var CheckNumber = document.getElementById("CheckNumber").value;
+             $.ajax(
+            {
+                url: '@Url.Action("update_port", "Im_checkRequest_Update_Port", new { area = "Im_CheckRequests" })',
+                type: 'Post',
+                data: {
+                    list_of_values: list_of_values,
+                    CheckNumber: CheckNumber,
+                },
+                success: function (res) {
+
+                      $.ajax({
+
+          url: '@Url.Action("Port_List", "Im_checkRequest_Update_Port", new { area = "Im_CheckRequests" })',
+          type: 'Post',
+            data: { CheckNumber: CheckNumber },
+
+           success: function (data) {
+               $("#table_List_Im_Check tbody").empty();
+           // alert(data.Result.Message);
+               if (data.Result == 0) {
+                   //alert(1);
+                   $.each(data.Records, function (index, item) {
+
+                       var table_body;
+                       table_body = "<tr>" + "<td hidden >" + item.ReqPortType_ID + "</td>"  + "<td >" + item.PortTypeName + "</td>";
+                       //
+                       //عبور
+                       if (item.ReqPortType_ID == 11) {
+                           CheckRequest_Port_ID_Passage = item.CheckRequest_Port_ID;
+                           Old_InternationalPassage_CheckRequest_Port_ID = item.Port_ID;
+                         //  alert("------- عبور------" + Old_InternationalPassage_CheckRequest_Port_ID);
+                           table_body += "<td hidden >" + item.CheckRequest_Port_ID + "</td>" + "<td>" + item.Countery_Ar_Name + "  ---->  " + item.PortName_Ar + "</td>"+"<td > <select id='passageCountry_" + item.CheckRequest_Port_ID + "' name='passageCountry'  onchange='show_passagePorts(this)' ></select></td>";
+                           $.ajax(
+                               {
+                                   url: '@Url.Action("country_ID", "Im_checkRequest_Update_Port", new { area = "Im_CheckRequests" })',
+                                   type: 'Post',
+
+                                   success: function (data) {
+
+                                       $.each(data.Options, function (i, index) {
+                                           $('#passageCountry_' + item.CheckRequest_Port_ID).append($('<option />').val(index.Value).text(index.DisplayText));
+
+                                       });
+                                   }
+                               });
+                           table_body += "<td > <select id='InternationalPassagePorts_" + item.CheckRequest_Port_ID + "' name='InternationalPassagePorts'  onchange='show_InternationalPassagePort(this)'></select></td>";
+                       }
+                       //وصول
+                       if (item.ReqPortType_ID == 10) {
+                           CheckRequest_Port_ID_Arrive = item.CheckRequest_Port_ID;
+                           Old_NationalArrive_CheckRequest_Port_ID = item.Port_ID;
+                           // alert("------ وصول ------" + Old_NationalArrive_CheckRequest_Port_ID);
+                           table_body += "<td>" + "مصر" + "  ---->  " + item.Govern_Name + "  ---->  " + item.PortName_Ar + "</td>" + "<td > <select id='governments_" + item.CheckRequest_Port_ID + "' name='governments'  onchange='show_goverments(this)' ></select></td>";
+                           $.ajax(
+                               {
+                                   url: '@Url.Action("Government_ID", "Im_checkRequest_Update_Port", new { area = "Im_CheckRequests" })',
+                                   type: 'Post',
+
+                                   success: function (data) {
+
+                                       $.each(data.Options, function (i, index) {
+                                           $('#governments_' + item.CheckRequest_Port_ID).append($('<option />').val(index.Value).text(index.DisplayText));
+                                           //  table_body += "<td >" + $('<option />').val(index.Value).text(index.DisplayText) + "</td>";
+                                       });
+                                   }
+                               });
+                           table_body += "<td > <select id='NationalPorts_" + item.CheckRequest_Port_ID + "' name='NationalPorts' onchange='show_NationalPort(this)' ></select></td>";
+                       }
+                       //شحن
+                       if (item.ReqPortType_ID == 9) {
+                           CheckRequest_Port_ID_Shipping = item.CheckRequest_Port_ID;
+                           Old_InternationalShipping_CheckRequest_Port_ID = item.Port_ID;
+                          // alert("---- شحن ------" + Old_InternationalShipping_CheckRequest_Port_ID);
+                           table_body +=  "<td>" + item.Countery_Ar_Name + "  ---->  " + item.PortName_Ar + "</td>" + "<td > <select id='shippingCountry_" + item.CheckRequest_Port_ID + "'  name='shippingCountry'  onchange='show_shippingPorts(this)' > </select></td>";
+                           $.ajax(
+                               {
+                                   url: '@Url.Action("country_ID", "Im_checkRequest_Update_Port", new { area = "Im_CheckRequests" })',
+                                   type: 'Post',
+
+                                   success: function (data) {
+
+                                       $.each(data.Options, function (i, index) {
+                                           $('#shippingCountry_' + item.CheckRequest_Port_ID).append($('<option />').val(index.Value).text(index.DisplayText));
+
+                                       });
+                                   }
+                               });
+                           table_body += "<td > <select id='InternationalShippingPorts_" + item.CheckRequest_Port_ID + "' name='InternationalShippingPorts' onchange='show_InternationalShippingPort(this)' ></select></td>";
+
+                       }
+
+                       $("#table_List_Im_Check tbody").append(table_body + "</tr>");
+
+                   });
+                   alertify.success("تم تعديل الميناء بنجاح");
+               }
+               if (data.Result == 1) {
+                   alert("تم تشكيل لجنةولا يمكن تعديل الميناء");
+               }
+               if (data.Result == 2) {
+                   alert("لا يوجد طلب بهذاالرقم");
+               }
+            }
+        });
+
+
+                }
+            });
+
+        }
+
+        alertify.success("تم تعديل الميناء بنجاح");
+        window.location = '/Im_CheckRequests/Im_checkRequest_Update_Port/Index';
+
+
+    }
+
+</script>
+
+
+
+
+

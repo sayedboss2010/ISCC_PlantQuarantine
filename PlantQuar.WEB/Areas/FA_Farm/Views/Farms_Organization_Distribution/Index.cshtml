@@ -1,0 +1,119 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+
+}
+
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>*@
+@section Title{
+    <h2 class="ls-top-header">Farms_Organization_Distribution</h2>
+}
+<link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
+<div class="row">
+    @*<div class="col-md-4">
+            <label>المزرعه</label>
+            @Html.DropDownList("FarmDropDown1", new SelectList(ViewBag.Farms, "Value", "DisplayText"), new { @class = "form-control", @id = "Farm_ID" })
+
+
+        </div>*@
+
+    <div class="col-md-4 ta1">
+        <label class="control-label">أختــار المزرعة</label>
+        <select id="Farm_ID" class="form-control"></select>
+    </div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4"></div>
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-2">
+        <input type="submit" id="Search_data" class="btn btn-primary" style="width:100%" value="بـــــحث" autocomplete="off">
+    </div>
+    <div class="col-md-5"></div>
+</div>
+<br />
+<div id="Farm_lst" class="table-responsive" hidden>
+    <table class="table table-bordered" id="tblFarmLst">
+        <thead>
+            <tr class="label-primary">
+
+                <th>@PlantQuar.WEB.Language.Resource_data1.FarmName</th>
+                <th>أسم الشركة</th>
+                <th>نوع المنشأه</th>
+                <th>الصنف</th>
+                <th>ItemCatgoryName</th>
+                
+                <th>الكمية</th>
+
+
+            </tr>
+        </thead>
+        <tbody id="mytbody_list_Recoust">
+
+    </table>
+    <br />
+
+</div><script src="~/assets/js/bootstrap-select1.min.js"></script>
+<script>
+
+
+       $(function () {
+           
+           });
+     
+    $(document).ready(function () {
+           //*********************//
+        $.ajax(
+            {
+                url: '@Url.Action("GetFarms", "Farms_Organization_Distribution", new { area = "FA_Farm" })',
+               
+                success: function (data) {
+                    $('#Farm_ID').empty();
+                    $.each(data.Options, function (i, index) {
+                        $('#Farm_ID').append($('<option />').val(index.Value).text(index.DisplayText));
+                    }); //each
+                      $('#Farm_ID').selectpicker('refresh');
+                } //success
+            });//ajax
+        //*******************//
+        $("#Farm_ID").selectpicker({
+           liveSearch: true
+        });
+        $('#Farm_ID').selectpicker('refresh');
+        //App.init();
+      });
+       
+    $('#Search_data').click(function (e) {
+        var _Farm_ID = $("#Farm_ID").val();
+
+        //alert(_Farm_ID)
+        if (_Farm_ID > 0) {
+            $("#Farm_lst").show();
+            var html = '';
+            $.getJSON('/FA_Farm/Farms_Organization_Distribution/getFarmList', { Farm_ID: _Farm_ID }, function (data, succ) {
+                //console.log(data)
+                $.each(data, function (i, item) {
+                    html += "<tr>";
+
+
+
+
+                    html += "<td>" + data[i].Farm_Name_Ar + "</td><td>" + data[i].ImporterName + "</td><td>" + data[i].ImporterTypeName + "</td><td>" + data[i].ItemName + "</td><td>" + data[i].ItemCatgoryName + "</td><td>"
+                        + data[i].Qauntity + "</td>";
+
+
+                    html += "</tr>";
+                });
+                $("#tblFarmLst tbody").empty();
+                $("#tblFarmLst tbody").append(html);
+            });
+        } else {
+            alertify.error("PLEASE SELECT FARM")
+        }
+    });
+
+ 
+</script>

@@ -1,0 +1,140 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@section Title
+        {
+    <h2 class="ls-top-header"> موظفين وطلبات</h2>
+
+}
+<div class="row">
+    <div class="col-md-2"> <label for="CenterName" class="control-label">نوع العملية</label></div>
+    <div class="col-md-4">
+        <select class="form-control" data-val="true" data-val-number="The field Center_Id must be a number." data-val-required="The Center_Id field is required." id="Operation_Type_ID" name="Accreditation_Type_ID" autocomplete="off">
+            <option value="0">----------</option>
+            <option value="1">اذن استيراد</option>
+            <option value="2">طلب فحص الوارد</option>
+            <option value="4">طلب فحص الصادر</option>
+            <option value="3">محطات</option>
+        </select>
+    </div>
+    <div class="col-md-6">
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-2">
+        <label for="CenterName" class="control-label">رقم الطلب </label>
+    </div>
+    <div class="col-md-4">
+        <input type="number" id="Order_Permission_Number" class="form-control" />
+
+    </div>
+    <div class="col-md-6">
+    </div>
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-6"></div>
+    <div class="col-md-3">
+        <input type="button" class="form-control" id="SearchButton" value="بحث" />
+    </div>
+
+    <div class="col-md-3">
+
+    </div>
+</div>
+
+
+<br />
+<div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap" style="padding:20px;">
+    <table id="Employee_Transation_Logs" class="table table-bordered table-striped dataTable" role="grid">
+        <thead>
+            <tr>
+                <th hidden>ID</th>
+                <th>م</th>
+                <th>  الطلب </th>
+
+                <th>الحالة</th>
+                <th>التاريخ</th>
+                <th>الوقت</th>
+                <th>الموظف</th>
+                <th>ملاحظات</th>
+            </tr>
+        </thead>
+        <tbody id="Employee_Transation_Logs_tbody"></tbody>
+    </table><br /><br />`                                                           
+</div>
+<script>
+    $("#Operation_Type_ID").change(function () {
+
+        $('#Order_Permission_Number').val('empty');
+        $("#Employee_Transation_Logs tbody").empty();
+        //Order_Permission_Number
+    });
+    $("#SearchButton").click(function (e) {
+        var Operation_Type_ID = document.getElementById("Operation_Type_ID").value;
+        //alert(Operation_Type_ID);
+        $("#Employee_Transation_Logs tbody").empty();
+        var Order_Permission_Number = document.getElementById("Order_Permission_Number").value;
+        // alert(Order_Permission_Number);
+        if (Operation_Type_ID > 0) {
+
+
+            if (Order_Permission_Number > 0) {
+                $.ajax({
+                    url: '/Admin/Transation_Logs/Get_Employee_Data_List',
+                    type: "POST",
+                    data: {
+                        Operation_Type_ID: Operation_Type_ID,
+                        Order_Permission_Number: Order_Permission_Number
+                    },
+
+                    success: function (result) {
+                        //alert(result.Options.length);
+                        //var arr = JSON.parse(result);
+                        //console.log(arr);
+                        //console.log(arr.length);
+                        if (result.Options.length > 0) {
+                            var Count = 0;
+                            for (var i = 0; i < result.Options.length; i++) {
+                                Count++;
+                                item = result.Options[i];
+                                var Creation_Date = new Date(parseInt(item.Action_Date.substr(6, 13)));
+                                //row.insertCell(i).innerHTML = item.Description_Ar;
+                                var Table_Static = "<tr>"
+                                    + "<td hidden>" + item.ID + "</td>"
+                                    + "<td>  " + Count + "  </td>"
+                                    + "<td>" + item.User_Type_Name + "</td>"
+
+                                    + "<td>" + item.Staus_Name + "</td>"
+                                    + "<td>  " + Creation_Date.toLocaleDateString('en-GB') + "</td>"
+                                    + "<td>  " + Creation_Date.toLocaleTimeString('en-GB') + "</td>"
+                                    + "<td>" + item.User_Name + "</td>"
+                                    + "<td>" + item.Notes + "</td>"
+                                    + "</tr>";
+                                $("#Employee_Transation_Logs tbody").append(Table_Static);
+                            }
+                        }
+                        else {
+                            $('#Employee_Transation_Logs').hide();
+
+
+                            alertify.alert('لا يوجد بيانات لهذا الطلب او الرقم غير صحيح');
+                        }
+                    },
+                    error: function (ex) {
+                        alertify.alert('لا يوجد بيانات لهذا الطلب او الرقم غير صحيح');
+                    }
+                });
+
+            }
+            else { alertify.alert('برجاء أدخال  رقم الطلب'); }
+        }
+        else { alertify.alert('برجاء اختيار نوع العملية'); }
+    });
+</script>
+
+

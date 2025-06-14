@@ -1,0 +1,65 @@
+﻿@model IEnumerable<PlantQuar.DTO.DTO.Station_Pages.Station_Emp_DTO>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<link href="~/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
+
+@*<style>
+    .dataTables_wrapper .dataTables_length {
+        float: left;
+    }
+
+    .dataTables_wrapper .dataTables_filter {
+        float: right;
+        width: auto;
+    }
+
+    #personTable_wrapper .row {
+        direction: ltr;
+    }
+</style>*@
+
+<table id="personTable" class="table table-bordered table-striped dataTable" role="grid" style="padding:5px; width:100%">
+    <thead>
+        <tr>
+            <th>اسم الشركة</th>
+            <th>اسم المحطة</th>
+            <th> كود المحطة</th>
+            <th>المحافظة</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Company_Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Station_Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Station_Code)</td>
+                <td>@Html.DisplayFor(modelItem => item.Govern_Name)</td>
+
+                <td>
+                    @Html.ActionLink("تعديل", "Edit", new { id = item.Id })
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#personTable").DataTable();
+
+
+    });
+
+</script>

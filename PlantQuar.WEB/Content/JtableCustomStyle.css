@@ -1,0 +1,207 @@
+﻿/*Jtable Main title*/
+div.jtable-main-container > div.jtable-title {
+    background-color: #1e7c80 !important;
+}
+
+    div.jtable-main-container > div.jtable-title div.jtable-toolbar span.jtable-toolbar-item {
+        background-color: #054042 !important;
+        margin-bottom: 5px !important;
+    }
+
+div.jtable-main-container > table.jtable > thead {
+    background-color: #248286 !important;
+}
+
+div.jtable-main-container > div.jtable-bottom-panel {
+    background-color: #1e7c80 !important;
+    color: #fff !important;
+    border: 2px solid #efe7da !important;
+    font-size: 10px !important;
+}
+
+/*create/edit title background color*/
+.ui-widget-header {
+    background-color: #3b818e !important;
+    background-color: #3b818e !important;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: fantasy;
+}
+
+div.jtable-main-container > table.jtable {
+    border: 2px solid #efe7da !important;
+}
+
+.jtable-column-header {
+    text-align: center !important;
+    font-size: 13px !important;
+}
+
+.jtable-title-text {
+    font-size: 20px !important;
+    /*font-weight: bold !important;*/
+    /*font-family: fantasy !important;*/
+}
+
+.jtable-row-even {
+    background-color: #f1f0f0 !important;
+}
+
+div.jtable-main-container > table.jtable > tbody > tr:hover {
+    background-color: #dad7d2 !important;
+}
+
+div.jtable-main-container > table.jtable > tbody > tr > td {
+    border: 1px solid #ddd;
+    padding: 2px !important;
+    font-size: 12px;
+}
+
+    div.jtable-main-container > table.jtable > tbody > tr > td > input {
+        color: #fff !important;
+ 
+    }
+
+.jtable-dialog-form {
+    background-color: #fbf9f5;
+    padding: 5px;
+    border: 1px solid #e2dfd8 !important;
+    border-radius: 4px;
+}
+
+.jtable-dropdown-input {
+    width:95%;
+}
+
+    .jtable-dropdown-input select,
+    .jtable-dropdown-input .chosen-choices {
+        padding: 3px !important;
+        margin-right: 3px !important;
+        font-size: 13px !important;
+        border: 1px solid #cccccc !important;
+        border-radius: 5px !important;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075) !important;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075) !important;
+        -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s !important;
+        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s !important;
+    }    
+
+    .jtable-input-label {
+        font-weight: bold !important;
+        font-size: 15px !important;
+        display: inline-block;
+        max-width: 100%;
+        margin-bottom: 5px;
+        font-family: fantasy !important;
+    }
+
+.jtable-text-input input {
+    padding: 3px !important;
+    margin-right: 3px !important;
+    font-size: 13px !important;
+    border: 1px solid #cccccc !important;
+    border-radius: 5px !important;
+}
+
+.jtable-custom-input label {
+    padding: 1px !important;
+    margin-right: 3px !important;
+    font-size: 13px !important;   
+}
+
+.jtable-textarea-input textarea {
+    padding: 3px !important;
+    margin-right: 3px !important;
+    font-size: 13px !important;
+    border: 1px solid #cccccc !important;
+    border-radius: 5px !important;
+}
+
+form.jtable-dialog-form div.jtable-input-field-container:last-child {
+    border-bottom: 1px solid #ddd !important;
+}
+
+form.jtable-dialog-form div.jtable-checkbox-input {
+    font-size: 13px;
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+    background-color: #efebe5;
+    margin: 0px;
+    padding: 0px 0px 0px 20px;
+}
+
+.ui-dialog-buttonset {
+    float: left !important;
+}
+
+    .ui-dialog-buttonset button {
+        width: 60px;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 15px;
+        font-weight: normal;
+        text-align: center;
+        vertical-align: middle;
+        cursor: pointer;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        background-color: #5c8d96;
+    }
+.ui-dialog .ui-dialog-buttonpane button {
+    color: white !important;
+}
+
+.jtable-delete-confirm-message {
+    font-size: 18px;
+    font-family: serif !important;
+}
+
+/*CHILD TABLE*/
+div.jtable-child-table-container > div.jtable-main-container {
+    margin: 1px;
+    border: 10px solid #756c6c !important;
+    top:0px !important;
+}
+
+    div.jtable-child-table-container > div.jtable-main-container > div.jtable-title {
+        background-color: #ccc !important;
+    }
+
+        div.jtable-child-table-container > div.jtable-main-container > div.jtable-title div.jtable-toolbar span.jtable-toolbar-item {
+            background-color: #843333 !important;
+        }
+
+    div.jtable-child-table-container > div.jtable-main-container > table.jtable > thead {
+        background-color: #2e8884 !important;
+    }
+
+    div.jtable-child-table-container > div.jtable-main-container > div.jtable-bottom-panel {
+        background-color: #ccc !important;
+        color: #352e2e !important;
+        border: 2px solid #efe7da !important;
+        font-size: 10px !important;
+    }
+
+    div.jtable-child-table-container > div.jtable-main-container > table.jtable {
+        border: 2px solid #f1f0f0 !important;
+    }
+
+div.jtable-child-table-container > .jtable-row-even {
+    background-color: #ffffff !important;
+}
+
+div.jtable-child-table-container > div.jtable-main-container > table.jtable > tbody > tr:hover {
+    background-color: #f4fffa !important;
+}
+
+div.jtable-child-table-container > div.jtable-main-container > table.jtable > tbody > tr > td {
+    border: 1px solid #cccccc;
+    padding: 2px !important;
+    font-size: 12px;
+}
+
+div.jtable-child-table-container > div.jtable-main-container > div.jtable-title div.jtable-title-text {
+    color: #843333;
+}

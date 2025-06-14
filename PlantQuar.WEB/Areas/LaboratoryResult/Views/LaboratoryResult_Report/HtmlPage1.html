@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        #PrintResultButton {
+            background-color: #1e7c80 !important;
+            border: 2px solid #1e8084 !important;
+            box-shadow: 0 4px #1d9fa5 !important;
+            outline: none;
+            color: white;
+            margin-bottom: 10px;
+            width: 50%;
+        }
+
+        .demo-blockquote {
+            margin-bottom: 70px !important;
+        }
+
+        body {
+            max-width: 100%;
+            font-family: Arial;
+        }
+
+        .frmContact {
+            border-top: #c9e0dc 2px solid;
+            background: #c9e0dc;
+            padding: 25px;
+            width: 270px;
+            text-align: justify;
+        }
+
+            .frmContact .field-row {
+                margin-bottom: 20px;
+            }
+
+            .frmContact div label {
+                margin: 5px 0px 0px 5px;
+                color: #49615d;
+            }
+
+        .input_box {
+            padding: 10px;
+            border: #a5d2ca 1px solid;
+            border-radius: 4px;
+            background-color: #FFF;
+            width: 100%;
+            margin-top: 5px;
+        }
+
+        .select_box {
+            padding: 10px;
+            border: #a5d2ca 1px solid;
+            border-radius: 4px;
+            background-color: #FFF;
+            margin-top: 5px;
+        }
+
+        select.select_box {
+            height: 37px;
+            margin-right: 10px;
+        }
+
+        .error {
+            background-color: #FF6600;
+            padding: 8px 10px;
+            color: #FFFFFF;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        .success {
+            background-color: #c3c791;
+            padding: 8px 10px;
+            color: #FFFFFF;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        .info {
+            font-size: .8em;
+            color: #FF6600;
+            letter-spacing: 2px;
+            padding-left: 5px;
+        }
+
+        .btnAction {
+            background-color: #82a9a2;
+            padding: 10px 40px;
+            color: #FFF;
+            border: #739690 1px solid;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+            .btnAction:focus {
+                outline: none;
+            }
+
+        .column-right {
+            margin-right: 6px;
+        }
+
+        .contact-row {
+            display: inline-block;
+        }
+
+        .cvv-input {
+            width: 60px;
+        }
+
+        #error-message {
+            margin: 20px 0px 0px;
+            background: #DD0000;
+            padding: 10px;
+            border-radius: 4px;
+            line-height: 25px;
+            font-size: 0.9em;
+            color: #FFF;
+            display: none;
+        }
+    </style>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="~/assets/js/jquery-barcode.min.js"></script>
+    <script src="~/assets/js/jquery-barcode.js"></script>
+</head>
+<body>
+    <div align="center">
+        <h2>jQuery Barcode Generator Example</h2>
+        <div class="frmContact">
+            <div class="field-row">
+                <label>Fill The Code</label> <span class="info"></span>
+                <br />
+                <input type="text" id="barcodeValue" value="19851106" class="input_box">
+            </div>
+            <div class="field-row">
+                <div class="contact-row column-right">
+                    <label>Barcode Type</label>
+                    <span class="info"></span>
+                    <br />
+                    <select name="btype" class="select_box">
+                        <option value="ean8">EAN 8</option>
+                        <option value="ean13">EAN 13</option>
+                        <option value="upc">UPC</option>
+                        <option value="std25">standard 2 of 5 (industrial)</option>
+                        <option value="int25">interleaved 2 of 5</option>
+                        <option value="code11">code 11</option>
+                        <option value="code39">Code 39</option>
+                        <option value="code93">code 93</option>
+                        <option value="code93">code 93</option>
+                        <option value="code128">code 128</option>
+                        <option value="codabar">codabar</option>
+                        <option value="msi">MSI</option>
+                        <option value="datamatrix">Data Matrix</option>
+                    </select>
+
+
+                </div>
+                <div class="contact-row cvv-box">
+                    <label>Format</label> <span class="info"></span><br />
+                    <select name="renderer" class="select_box">
+                        <option value="css">CSS</option>
+                        <option value="bmp">BMP (not usable in IE)</option>
+                        <option value="svg">SVG (not usable in IE)</option>
+                        <option value="canvas">Canvas (not usable in IE)</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div>
+                <input type="button" onclick="generateBarcode();" value="Generate the barcode" class="btnAction">
+            </div>
+            <div id="barcodeTarget" class="barcodeTarget"></div>
+            <canvas id="canvasTarget" width="150" height="150"></canvas>
+
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,340 @@
+﻿
+@{
+    ViewBag.Title = "بيانات سجل الاحتجاز";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@section Title{
+    <h2 class="ls-top-header"> بيانات سجل الاحتجاز </h2>
+}
+<br />
+
+
+<style>
+    #jtable-create-form, #jtable-edit-form {
+        width: 602px !important;
+        height: 450px !important;
+        /*cursor: move;*/
+        /*display: block;
+        width: 450px;
+        overflow: hidden !important;
+        height: 550px;*/
+    }
+
+    .jtable-input-field-container:nth-of-type(1), .jtable-input-field-container:nth-of-type(4),
+    .jtable-input-field-container:nth-of-type(6), .jtable-input-field-container:nth-of-type(7),
+    .jtable-input-field-container:nth-of-type(8), .jtable-input-field-container:nth-of-type(10),
+    .jtable-input-field-container:nth-of-type(12) {
+        margin-bottom: 2px;
+        width: 33% !important;
+        float: right;
+    }
+
+    .jtable-input-field-container:nth-of-type(3), .jtable-input-field-container:nth-of-type(9),
+    .jtable-input-field-container:nth-of-type(14), .jtable-input-field-container:nth-of-type(15),
+    .jtable-input-field-container:nth-of-type(16) {
+        margin-bottom: 2px;
+        width: 98% !important;
+        float: right;
+    }
+
+    .jtable-input-field-container:nth-of-type(2), .jtable-input-field-container:nth-of-type(5),
+    .jtable-input-field-container:nth-of-type(11), .jtable-input-field-container:nth-of-type(13) {
+        margin-bottom: 2px;
+        width: 65% !important;
+        float: right;
+    }
+
+    /*.jtable-input-field-container:nth-of-type(14)
+    {
+        margin-bottom: 2px;
+        float: right;
+        margin-right:15px;
+        width: 65% !important;
+    }*/
+
+    /*.jtable-input-field-container:nth-of-type(4), .jtable-input-field-container:nth-of-type(8),
+     .jtable-input-field-container:nth-of-type(12){
+        margin-bottom: 2px;
+        float: right;
+        width: 23% !important;
+        margin-right:15px;
+    }*/
+</style>
+
+
+
+
+@section Path{
+    <li>بيانات سجل الاحتجاز</li>
+
+}
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+
+            $('#LogData').jtable({
+                title: 'بيانات السجل',
+                paging: true,
+                pageSize: 10,
+                sorting: true,
+                //defaultSorting: 'CourseName ASC',
+                columnResizable: true,
+                columnSelectable: true,
+                saveUserPreferences: true,
+                actions: {
+                    listAction: function (data, jprams) {
+                        return {
+                            "Result": "OK",
+                            "Records": [
+                                { "ReservationReport_Num": ' 231 ', "ReservationDate": '2015-03-10', "CustomsLicense_Num": '1011' },
+                                { "ReservationReport_Num": '948', "ReservationDate": '2013-09-05', "CustomsLicense_Num": '1023' },
+                             { "ReservationReport_Num": ' 205 ', "ReservationDate": '2016-04-19', "CustomsLicense_Num": '1570' }],
+                            "TotalRecordCount":'3'
+                        };
+                    },
+                    createAction: 'CreateLogData',
+                    updateAction: 'UpdateLogData',
+                    deleteAction: 'DeleteLogData'
+                },
+                fields: {
+                    ID: {
+                        key: true,
+                        create: false,
+                        edit: false,
+                        list: false
+                    },
+                    ReservationReport_Num: {
+                        title: 'رقم محضر الحجز',
+                        inputClass: 'validate[required]'
+                    },
+                    ReservationDate: {
+                        title: 'تاريخ الحجز',
+                        inputClass: 'validate[required]',
+                        type: 'date'
+                    },
+                    CustomsLicense_Num: {
+                        title: ' رقم الشهاده الجمركية',
+                        inputClass: 'validate[required]'
+
+                    },
+                    Product_: {
+                        title: ' الصنف',
+                        inputClass: 'validate[required]',
+                        options: { '1': ' صنف 1', '2': '2 صنف ', '3': 'صنف 3' },
+                        list: false
+                    },
+                    Origin_: {
+                        title: 'المنشأ',
+                        inputClass: 'validate[required]',
+                        options: { '1': ' منشأ 1', '2': '2 منشأ ', '3': 'منشأ 3' },
+                        list: false
+                    },
+                   Number_: {
+                        title: 'العدد',
+                        inputClass: 'validate[required]',
+                        list: false
+                   },
+                   Unit_: {
+                       title: 'الوحدة',
+                       inputClass: 'validate[required]',
+                       list: false
+                   },
+                   Weight_: {
+                       title: 'الوزن',
+                       inputClass: 'validate[required]',
+                       list: false
+                   },
+                   ShipName: {
+                       title: 'اسم الباخرة',
+                       inputClass: 'validate[required]',
+                       list: false
+                   },
+                   PolicyDate: {
+                       title: 'تاريخ البوليصة',
+                       inputClass: 'validate[required]',
+                       list: false,
+                       type: 'date'
+                   },
+                   PolicyNumber: {
+                       title: 'رقم البوليصة',
+                       inputClass: 'validate[required]',
+                       list: false
+                   },
+                   ImporterName: {
+                       title: 'اسم المستورد',
+                       inputClass: 'validate[required]',
+                       list: false
+                   },
+                   ImporterAdd: {
+                       title: 'عنوان المستورد',
+                       inputClass: 'validate[required]',
+                       list: false
+                   },
+                   ReservationReason: {
+                       title: 'سبب الحجز',
+                       inputClass: 'validate[required]',
+                       type: 'textarea',
+                       list: false
+                   },
+                   FinalMeasures: {
+                       title: 'الإجراءات النهائية',
+                       inputClass: 'validate[required]',
+                       type: 'textarea',
+                       list: false
+                   },
+                   MeasuresCompletionDate: {
+                       title: 'تاريخ إتمام الإجراءات',
+                       inputClass: 'validate[required]',
+                       list: false,
+                       type: 'date'
+                   },
+
+                },
+                formCreated: function (event, data) {
+                    $('#Edit-ImporterAdd').css('width', '300px');
+                    if (data.formType == "create") {
+                        $(".ui-dialog-title").text("@PlantQuar.Web.Language.Resource_data1.Add");
+                    }
+                    else {
+                        $(".ui-dialog-title").text("@PlantQuar.Web.Language.Resource_data1.Edit");
+                    }
+
+
+                    $("#Edit-ReservationReport_Num, #Edit-ReservationDate, #Edit-CustomsLicense_Num ,#Edit-Product_,#Edit-Origin_,#Edit-Number_,#Edit-Unit_,#Edit-Weight_,#Eidt-ShipName,#Edit-PolicyDate,#Edit-PolicyNumber,#Edit-ImporterName,#Edit-ImporterAdd,#Edit-ReservationReason,#Edit-FinalMeasures,#Edit-MeasuresCompletionDate").attr('autocomplete', 'off');
+                    //$("#Edit-License_Num, #Edit-Country_,#Edit-Release_Date").css('margin-right', '45px');
+                    //$("#Edit-Release_Date").datepicker();
+
+                },
+                formSubmitting: function (event, data) {
+                    return data.form.validationEngine('validate');
+                },
+                formClosed: function (event, data) {
+                    data.form.validationEngine('hide');
+                    data.form.validationEngine('detach');
+                    $(".ui-dialog-title").text("@PlantQuar.Web.Language.Resource_data1.Delete");
+                },
+               recordAdded: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Insert");
+                },
+                recordUpdated: function (event, data) {
+                                        //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Update");
+                },recordDeleted: function (event, data) {
+                                        //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Delete");
+                },
+            });
+            $('#LogData').jtable('load');
+
+
+            $('#LoadRecordsButton').click(function (e) {
+
+                e.preventDefault();
+                $('#LogData').jtable('load', {
+
+                   // txt_AR_BTNSearch: $('#txt_AR_BTNSearch').val(),
+                   // txt_EN_BTNSearch: $('#txt_EN_BTNSearch').val()
+                });
+            });
+
+            $(".jtable-toolbar-item-add-record .jtable-toolbar-item-text").text("إضافة");
+            $(".ui-dialog .ui-widget .ui-widget-content .ui-corner-all .ui-draggable .ui-resizable .ui-dialog-buttons").css("left", "263px","z-index","15");
+           // $(".jtable-input-field-container:nth-of-type(13)").css("background-color","red");
+            // $("#datepicker").datepicker();
+           // $("#ui-id-2").text("إضافة بيانات سجل");
+          //  $('.addfiles').on('click', function () { $('#fileupload').click(); return false; });
+        });
+    </script>
+    <script type="text/javascript">
+
+
+    $("#tableExcell").click(function () {
+        var html = "";
+        $.getJSON('/AnalysisLab/AllLogData', {}, function (data, succ) {
+           // console.log(data)
+            $.each(data, function (i, item) {
+
+                html += "<tr><td>" + data[i].Name_Ar + "</td><td>" + data[i].Name_En + "</td>"
+
+                html += "</tr>";
+            });
+            $("#tbl tbody").empty();
+            $("#tbl tbody").append(html);
+            tableToExcel('all analysis lab', 'Table');
+        });
+
+
+    });
+
+    var tableToExcel = (function () {
+        var uri = 'data:application/vnd.ms-excel;base64,'
+            , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta charset="UTF-8"></head><body><table>{table}</table></body></html>'
+            , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+            , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+        return function (table, name) {
+            if (!table.nodeType) table = document.getElementById('tbl')
+            var ctx = { worksheet: '@PlantQuar.Web.Language.Resource_data1.AnalysisLab', table: table.innerHTML }
+            window.location.href = uri + base64(format(template, ctx))
+        }
+    })()
+    </script>
+
+}
+
+<div id="LogData">
+</div>
+
+
+
+
+<br />
+<br />
+<br />
+<div class="row">
+    <iframe id="txtArea1" style="display:none"></iframe>
+   <input type="button" value="@PlantQuar.Web.Language.Resource_data1.Export_to_Excel" id="tableExcell">
+    <br>
+    <br>
+    <div class="col-md-12" style="display:none;">
+        <br>
+        <br>
+        <table id="tbl">
+            <thead>
+                <tr style="background-color:aqua;">
+                    <th>Arabic Name</th>
+                    <th>English Name</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+    </div>
+
+</div>
+
+<style>
+    #tableExcell {
+        float: right;
+        height: 37px;
+        width: 133px;
+        background-color: #1e7c80;
+        border: 2px solid #1e8084;
+        box-shadow: 0 4px #1d9fa5;
+        outline: none;
+        color: white;
+    }
+
+        #tableExcell:hover {
+            background-color: #1a8488;
+            border: 1px solid #1a8488;
+        }
+</style>
+
+
+
+
+
+
+
+

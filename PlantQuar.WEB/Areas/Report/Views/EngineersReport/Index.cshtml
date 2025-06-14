@@ -1,0 +1,261 @@
+﻿
+@{
+
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">تقرير المهندسين</h2>
+}
+
+
+
+<style>
+    .tbl-report th, td {
+        border: 1px solid black;
+        padding: 5px;
+    }
+
+    th {
+        background: #1f6c6f;
+        color: white;
+    }
+    #srch, #Print {
+        background-color: #1e7c80 !important;
+        border: 2px solid #1e8084 !important;
+        box-shadow: 0 4px #1d9fa5 !important;
+        outline: none;
+        color: white;
+        margin-bottom: 10px;
+        width: 50%;
+    }
+    #tblCheckLst{
+        font-size:16px;
+    }
+</style>
+<div class="row">
+    <div class="col-md-4">
+        <label>@PlantQuar.WEB.Language.Resource_data1.DateFrom</label>
+        <input class="form-control" id="report" />
+    </div>
+    <div class="col-md-4">
+        <label>@PlantQuar.WEB.Language.Resource_data1.To</label>
+        <input class="form-control" id="to-report">
+    </div>
+    <div class="col-md-4"></div>
+
+</div>
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <label>@PlantQuar.WEB.Language.Resource_data1.Types</label>
+      <select id="operationType" class="form-control">
+          @foreach (var op in ViewBag.operationTypes)
+          {
+              <option value="@op.Value">@op.DisplayText</option>
+          }
+      </select>
+    </div>
+    <div class="col-md-4">
+        <label>@PlantQuar.WEB.Language.Resource_data1.EngineerName</label>
+        <select id="empId" class="form-control">
+            @foreach (var emp in ViewBag.lstemp)
+            {
+                <option value="@emp.Id">@emp.FullName</option>
+            }
+        </select>
+    </div>
+
+    <div class="col-md-4"></div>
+
+</div>
+<br />
+<div class="row">
+    
+        <div class="col-md-4 ta1">
+            <label for="GoveName" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Governate</label>
+            <select id="govLst" class="form-control">
+                @foreach (var gov in ViewBag.GovList)
+                {
+                    <option value="@gov.Value">@gov.DisplayText</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-4 ta1">
+            <label for="CenterName" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Center</label>
+            <select id="centerLst" class="form-control"></select>
+        </div>
+        <div class="col-md-4 ta1">
+            <label for="VillageName" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Village</label>
+            <select id="villageLst" class="form-control"></select>
+        </div>
+    
+</div>
+<br />
+<div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-3"> <button id="srch">@PlantQuar.WEB.Language.Resource_data1.Search</button></div>
+    <div class="col-md-4"></div>
+   
+</div>
+<br />
+<br />
+<div class="row tbl-report"id="tbl-report">
+    <table width="100%" id="tblCheckLst">
+        <thead>
+            <tr>
+                <th>@PlantQuar.WEB.Language.Resource_data1.Name</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.isadmin</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.Number</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.Date</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.Time</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.OperationType</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.CommitteeType</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.Governate</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.Center</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.Village</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.Company</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.RequestNumber</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-5">
+    </div>
+    <div class="col-md-3">
+        <button id="Print" value='Print' onclick='printtab("tbl-report")'>@PlantQuar.WEB.Language.Resource_data1.Print</button>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+<script>
+    $(document).ready(function () {
+         $('#govLst').on("change", function () {
+        $.ajax(
+            {
+                url: '@Url.Action("CenterList_ByGov", "FarmData", new { area = "FA_Farm" })',
+                data: {
+                    Govern_ID: $('#govLst').val()
+                },
+                success: function (data) {
+                    $('#centerLst').empty();
+                    $.each(data.Options, function (i, index) {
+                        $('#centerLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                    }); //each
+                } //success
+            });//ajax
+    });
+    $('#centerLst').on("change", function () {
+        $.ajax(
+            {
+                url: '@Url.Action("VillageList_ByCenter", "FarmData", new { area = "FA_Farm" })',
+                data: {
+                    Center_ID: $('#centerLst').val()
+                },
+                success: function (data) {
+                    $('#villageLst').empty();
+                    $.each(data.Options, function (i, index) {
+                        $('#villageLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                    }); //each
+                } //success
+            });//ajax
+    });
+        $("#report").datepicker({ dateFormat: 'yy-mm-dd' });
+        $("#to-report").datepicker({ dateFormat: 'yy-mm-dd' });
+        //operationType
+        $("#operationType,#villageLst,#empId").change(function () {
+            GetList();
+
+        });
+        $("#srch").click(function () {
+            GetList();
+        });
+        function GetList() {
+            var from = $('#report').val();
+            var to = $('#to-report').val();
+            var operationType = $('#operationType').val();
+            var empId = $("#empId").val();
+            var govLst = $("#govLst").val();
+            var centerLst = $("#centerLst").val();
+            var villageLst = $("#villageLst").val();
+            if (from != null && to != null && from != "" && to != "") {
+                $.ajax(
+                    {
+                        url: '/Report/EngineersReport/GetEngineers?from=' + from
+                            + '&to=' + to + '&operationType=' + operationType + '&empId=' + empId + '&govID=' + govLst+'&centerID=' + centerLst+'&villageId=' + villageLst,
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (data) {
+                            var html = '';
+                            var time = '';
+                            console.log(data)
+                            $.each(data, function (index, row) {
+                                if (row.startTime != null) {
+
+
+                                    time = row.startTime.Hours + ":" + row.startTime.Minutes;
+                                }
+                                var admin = "";
+                                if (row.isAdmin == true) {
+                                    admin = "ادمن";
+                                } else {
+                                    admin = "مساعد";
+                                }
+                                html += "<tr><td>" + row.EngineerName + "</td><td>" +admin+ "</td><td>" + row.EmpId + "</td> <td>" + $.datepicker.formatDate('yy-mm-dd', (new Date(parseInt(row.Date.substr(6))))) + "</td><td>" + time + "</td>"
+
+                                html += "<td>" + row.operationTypeName + "</td><td>" + row.committeeTypeName + "</td><td>" + row.governate + "</td><td>" + row.center + "</td>"
+                                    + "<td>" + row.village + "</td><td>" + row.company + "</td><td>" + row.requestNumber + "</td>"
+
+
+                            })
+                            $("#tblCheckLst tbody").empty();
+                            $("#tblCheckLst tbody").append(html);
+                        }
+                    });
+            } else {
+                alert("must enter start date and end date")
+            }
+
+        }
+
+    });
+    function printtab(mm) {
+        var restorepage2 = document.body.innerHTML;
+        var printcontent2 = $('#' + mm).html();
+        document.body.innerHTML = printcontent2;
+        var css = `table{border-collapse: collapse;}#tblCheckLst thead tr th{border: 1px solid black!important;padding: 5px;}#tblCheckLst tbody tr td{border: 1px solid black!important;padding: 5px;}@@page{margin:.5cm .5cm .5cm .5cm!important;}.col-md-4 {width: 33.33333333%;}.col-md-8 {width: 66.66666667%;}.col-md-6 {width: 50%;}.col-md-7 {width: 58.33333333%;}.col-md-5 {width: 41.66666667%;}.col-md-3 {width: 25%;}`,
+            head = document.head || document.getElementsByTagName('head')[0],
+            style = document.createElement('style');
+        style.type = 'text/css';
+        style.media = 'print';
+
+        if (style.styleSheet) {
+            style.styleSheet.cssText = css;
+        }
+        else {
+            style.appendChild(document.createTextNode(css));
+        }
+        head.appendChild(style);
+        window.print();
+        history.go(0);
+        document.body.innerHTML = restorepage2;
+    }
+</script>

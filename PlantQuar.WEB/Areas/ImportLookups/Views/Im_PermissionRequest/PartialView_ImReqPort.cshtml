@@ -1,0 +1,45 @@
+﻿<h3>مسار الرسالة</h3>
+@*<div id="div_Path" class="form-box">*@
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <label class="control-label">الدولة المستوردة</label>
+                @Html.DropDownList("ExportCountry_Id", (IEnumerable<SelectListItem>)ViewBag.ExportCountry_Id as SelectList, new { @class = "form-control", @id = "lst_ImportCountry" })
+            </div>
+            <div class="col-md-4">
+                <label class="control-label">ميناء الشحن</label>
+                @Html.DropDownList("PortInternational", (IEnumerable<SelectListItem>)ViewBag.PortInternational as SelectList, new { @class = "form-control", @id = "lst_ArrivalPort" })
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <label class="control-label">ميناء العبور</label>
+                @Html.DropDownList("PortInternational_T", (IEnumerable<SelectListItem>)ViewBag.PortInternational_T as SelectList, new { @class = "form-control", @id = "PortInternational_T" })
+            </div>
+            <div class="col-md-4">
+                <label class="control-label">ميناء الوصول </label>
+                @Html.DropDownList("PortNational", (IEnumerable<SelectListItem>)ViewBag.PortNational as SelectList, new { @class = "form-control", @id = "PortNational" })
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <label class="control-label">وسيلة الشحن</label>
+                @Html.DropDownList("Shipment_Mean_Id", (IEnumerable<SelectListItem>)ViewBag.Shipment_Mean_Id as SelectList, new { @class = "form-control", @id = "lst_ShipmentMean" })
+            </div>
+            <div class="col-md-4">
+                <label class="control-label">وسيلة النقل </label>
+                @Html.DropDownList("Transport_Mean_Id", (IEnumerable<SelectListItem>)ViewBag.Transport_Mean_Id as SelectList, new { @class = "form-control", @id = "lst_TransportationMean" })
+            </div>
+            <div class="col-md-4">
+                <label class="control-label">إسم الباخرة </label>
+                @Html.TextBox("shipName", null, new { @class = "form-control input-sm", @id = "txtShipName" })
+            </div>
+        </div>
+    </div>
+@*</div>*@

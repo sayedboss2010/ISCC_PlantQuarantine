@@ -1,0 +1,124 @@
+﻿@model IEnumerable<PlantQuar.DAL.Outlet>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Ar_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.En_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address_Ar)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address_En)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Supervisor_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User_Updation_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User_Updation_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User_Deletion_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User_Deletion_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User_Creation_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User_Creation_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ID_HR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.A_SystemCode.ValueName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.General_Admin.Ar_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PortNational.Name_Ar)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ar_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.En_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address_Ar)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address_En)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Supervisor_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User_Updation_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User_Updation_Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User_Deletion_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User_Deletion_Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User_Creation_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User_Creation_Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ID_HR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.A_SystemCode.ValueName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.General_Admin.Ar_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PortNational.Name_Ar)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,148 @@
+﻿@model PlantQuar.DTO.DTO.Custom_ImPermissionRequest
+
+
+<div id="div_Exporter" class="form-box">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <label id="Lbl_Name_Type" class="control-label">نوع الجهة المستورده</label>
+                @Html.DropDownList("ImporterType_Id", (IEnumerable<SelectListItem>)ViewBag.ImporterType_Id, new { @class = "form-control", @id = "ImporterTypeId" })
+            </div>
+        </div>
+        <br />
+    </div>
+   
+    <div id="div_ExportCompany" class="form-box">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <label class="control-label">الشركة المستورده</label>
+                    @Html.DropDownList("company_List", (IEnumerable<SelectListItem>)ViewBag.company_List, new { @class = "form-control input-sm", @id = "company_List" })
+                </div>
+                <div class="col-md-8">
+                    <label class="control-label">عنوان الشركة</label>
+                    @Html.TextBox("lblCompanyAddress", "", new { @class = "form-control input-sm", @readonly = "true", @id = "lblCompanyAddress" })
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <label class="control-label">صاحب الرسالة</label>
+                    @Html.TextBoxFor(m => m.ownerName_company, new { @class = "form-control input-sm", @id = "txtOwner_Company" })
+                </div>
+                <div class="col-md-8">
+                    <label class="control-label">عنوان صاحب الرسالة</label>
+                    @Html.TextBoxFor(m => m.ownerAddress_company, new { @class = "form-control input-sm", @id = "txtOwnerAddress_Company" })
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <label class="control-label">مندوب صاحب الرسالة</label>
+                    @Html.TextBoxFor(m => m.delegateName_company, new { @class = "form-control input-sm", @id = "txtOwnerdelegate_Company" })
+                </div>
+                <div class="col-md-8">
+                    <label class="control-label">عنوان مندوب صاحب الرسالة</label>
+                    @Html.TextBoxFor(m => m.delegateAddress_company, new { @class = "form-control input-sm", @id = "txtOwnerdelegateAddress_Company" })
+                </div>
+            </div>
+        </div>
+        <br />
+    </div>
+   
+    <div id="div_publicOrg" hidden>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <label class="control-label">الهيئة العامة</label>
+                    @Html.DropDownList("PublicOrg_List", ViewBag.PublicOrg_List as SelectList, new { @class = "form-control", @id = "publicOrg_List" })
+                </div>
+                <div class="col-md-8">
+                    <label class="control-label">عنوان الهيئة</label>
+                    @Html.TextBox("lblPublic_OrgAddress", "", new { @class = "form-control input-sm", @readonly = "true", @id = "lblPublic_OrgAddress" })
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <label class="control-label">صاحب الرسالة</label>
+                    @Html.TextBoxFor(m => m.ownerName_publicOrg, new { @class = "form-control input-sm", @id = "txtOwner_PublicOrg" })
+                </div>
+                <div class="col-md-8">
+                    <label class="control-label">عنوان صاحب الرسالة</label>
+                    @Html.TextBoxFor(m => m.ownerAddress_publicOrg, new { @class = "form-control input-sm", @id = "txtOwnerAddress_PublicOrg" })
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <label class="control-label">مندوب صاحب الرسالة</label>
+                    @Html.TextBoxFor(m => m.delegateName_publicOrg, new { @class = "form-control input-sm", @id = "txtOwnerdelegate_PublicOrg" })
+                </div>
+                <div class="col-md-8">
+                    <label class="control-label">عنوان مندوب صاحب الرسالة</label>
+                    @Html.TextBoxFor(m => m.delegateAddress_publicOrg, new { @class = "form-control input-sm", @id = "txtOwnerdelegateAddress_PublicOrg" })
+                </div>
+            </div>
+        </div>
+        <br />
+    </div>  
+    <div id="div_Person" hidden>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <label class="control-label">اسم الشخص المصدر</label>
+                    @Html.TextBoxFor(m => m.personName, new { @class = "form-control input-sm", @id = "txtPersonName" })
+                </div>
+                <div class="col-md-8">
+                    <label class="control-label">العنوان</label>
+                    @Html.TextBoxFor(m => m.personAddress, new { @class = "form-control input-sm", @id = "txtPersonAddress" })
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <label class="control-label">الجنسية</label>
+                    @Html.DropDownList("country_List", (IEnumerable<SelectListItem>)ViewBag.country_List, new { @class = "form-control", @id = "lst_PersonNationality" })
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label">نوع الهوية</label>
+                    @Html.DropDownList("personIdType_List", (IEnumerable<SelectListItem>)ViewBag.personIdType_List, new { @class = "form-control", @id = "personIdType_List" })
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label">رقم الهوية</label>
+                    @Html.TextBoxFor(m => m.personIDNum, new { @class = "form-control input-sm", @type = "number", @id = "txtPersonIdNumber" })
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <label class="control-label">الوظيفة</label>
+                    @Html.TextBoxFor(m => m.personJob, new { @class = "form-control input-sm", @id = "txtJob" })
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label">رقم التليفون</label>
+                    @Html.TextBoxFor(m => m.personPhone, new { @class = "form-control input-sm", @type = "number", @id = "txtPhoneNumber" })
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label">البريد الإلكتروني</label>
+                    @Html.TextBoxFor(m => m.personMail, new { @class = "form-control input-sm", @id = "txtEmailAddress" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

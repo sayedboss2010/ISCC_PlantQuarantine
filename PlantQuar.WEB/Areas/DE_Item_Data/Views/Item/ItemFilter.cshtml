@@ -1,0 +1,268 @@
+﻿<div class="tab-content tabs">
+    <div class="row">
+
+        <div class="col-md-4 ta1">
+            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Item_Type</label>
+            <select id="itemTypeLst" class="form-control"></select>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-4 ta1">
+            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.MainCalssification</label>
+            <select id="mainClassLst" class="form-control"></select>
+        </div>
+
+        <div class="col-md-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 ta1">
+            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.SecondaryClassification</label>
+            <select id="secClassLst" class="form-control"></select>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-4 ta1">
+            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.PlantGroup</label>
+            <select id="groupLst" class="form-control"></select>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 ta1">
+            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.PlantKingdom</label>
+            <select id="KingdomLst" class="form-control"></select>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-4 ta1">
+            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.PhylumSubphylum</label>
+            <select id="PhylumLst" class="form-control"></select>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 ta1">
+            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.PlantOrder</label>
+            <select id="orderLst" class="form-control"></select>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-4 ta1">
+            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.PlantFamily</label>
+            <select id="FamilyLst" class="form-control"></select>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    @if (@ViewBag.id != "noIsKnown")
+    {
+<div class="row">
+    <div class="col-md-4 ta1" id="isknownId">
+        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.IsKnownItem</label>
+        <select id="isKnown" class="form-control">
+            <option value="1"> معروف</option>
+            <option value="0">غير معروف</option>
+        </select>
+    </div>
+    <div class="col-md-2"></div>
+    @*<div class="col-md-4 ta1" id="ItemsId">
+            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Items</label>
+            <select id="Liset_Item" class="form-control"></select>
+        </div>*@
+
+
+    <div class="col-md-4 ta1">
+        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Items</label>
+        <select id="Liset_Item" class="form-control"></select>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+    }
+
+    <div id="Item_ShortNameList">
+    </div>
+</div>
+
+<script type="text/javascript">
+        $(document).ready(function () {
+
+
+             $.ajax(
+                {
+                    url: '@Url.Action("ItemType_AddEDIT", "ItemList", new { area = "CommonActions" })',
+                    type: 'Post',
+                    success: function (data) {
+                        $('#itemTypeLst').empty();
+
+                        $.each(data.Options, function (i, index) {
+                            $('#itemTypeLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                 });//ajax
+
+            //CommonActions/ItemList/Kingdom_AddEDIT
+            $.ajax(
+                {
+                    url: '@Url.Action("Kingdom_AddEDIT", "ItemList", new { area = "CommonActions" })',
+                    type: 'Post',
+                    success: function (data) {
+                        $('#KingdomLst').empty();
+
+                        $.each(data.Options, function (i, index) {
+                            $('#KingdomLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+
+        });
+
+        $('#itemTypeLst').on("change", function () {
+            $.ajax(
+                {
+                    url: '@Url.Action("MainClassification_AddEDIT", "ItemList", new { area = "CommonActions" })',
+                    type: 'Post',
+                    data: { ItemType_ID: $('#itemTypeLst').val() },
+                    success: function (data) {
+                        $('#mainClassLst').empty();
+                        $('#secClassLst').empty();
+                        $('#groupLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#mainClassLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+        });
+        $('#mainClassLst').on("change", function () {
+            $.ajax(
+                {
+                    url: '@Url.Action("SecondaryClassification_AddEDIT", "ItemList", new { area = "CommonActions" })',
+                    type: 'Post',
+                    data: { MainClass_ID: $('#mainClassLst').val() },
+                    success: function (data) {
+                        $('#secClassLst').empty();
+                        $('#groupLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#secClassLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+        });
+        $('#secClassLst').on("change", function () {
+            $.ajax(
+                {
+                    url: '@Url.Action("ItemGroup_AddEDIT", "ItemList", new { area = "CommonActions" })',
+                    type: 'Post',
+                    data: { SecClass_ID: $('#secClassLst').val() },
+                    success: function (data) {
+                        $('#groupLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#groupLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+        });
+        //
+
+
+        //CommonActions/ItemList/PhylumSubphylum_AddEDIT?Kingdom_ID
+        $('#KingdomLst').on("change", function () {
+            $.ajax(
+                {
+                    url: '@Url.Action("PhylumSubphylum_AddEDIT", "ItemList", new { area = "CommonActions" })',
+                    type: 'Post',
+                    data: { Kingdom_ID: $('#KingdomLst').val() },
+                    success: function (data) {
+                        $('#PhylumLst').empty();
+                        $('#orderLst').empty();
+                        $('#FamilyLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#PhylumLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+        });
+        //CommonActions/ItemList/Order_AddEDIT?Phylum_ID
+        $('#PhylumLst').on("change", function () {
+            $.ajax(
+                {
+                    url: '@Url.Action("Order_AddEDIT", "ItemList", new { area = "CommonActions" })',
+                    type: 'Post',
+                    data: { Phylum_ID: $('#PhylumLst').val() },
+                    success: function (data) {
+                        $('#orderLst').empty();
+                        $('#FamilyLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#orderLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+        });
+    
+        //CommonActions/ItemList/Family_AddEDIT?Order_ID
+        $('#orderLst').on("change", function () {
+            $.ajax(
+                {
+                    url: '@Url.Action("Family_AddEDIT", "ItemList", new { area = "CommonActions" })',
+                    type: 'Post',
+                    data: { Order_ID: $('#orderLst').val() },
+                    success: function (data) {
+                        $('#FamilyLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#FamilyLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+        });
+    //$('#isKnown').on("change", function () {
+    //    getItem();
+
+
+
+    //    });
+    //$('#groupLst').on("change", function () {
+    //    getItem();
+
+    //    });
+    //$('#FamilyLst').on("change", function () {
+    //    getItem();
+    //    });
+    @*function getItem() {
+
+          
+          var isKnown = $("#isKnown").val() == 1 ? true : false;
+            $.ajax(
+                {
+                    url: '@Url.Action("ItemData_AddEDIT_Known", "ItemList", new { area = "CommonActions" })',
+                    type: 'Post',
+                    data: { Group_ID: $('#groupLst').val(), Family_ID: $('#FamilyLst').val(), IsKnown: isKnown },
+                    success: function (data) {
+                       // $('#orderLst').empty();
+                       // $('#FamilyLst').empty();
+                        console.log(data.Options);
+                         $('#Liset_Item').empty();
+                  $.each(data.Options, function (i, index) {
+                            $('#Liset_Item').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                       // console.log(data.Options);
+                        //var mySelect = $('#Liset_Item');
+
+
+
+                        //for (i = 0; i < data.Options.length; i++) {
+                        //    var index = data.Options[i];
+                        //  //  alert(data.Options[i].DisplayText);
+                        //  //  $('#Liset_Item').append($('<option />').val(index.Value).text(index.DisplayText));
+                        //    mySelect.append(
+                        //        $('<option></option>').val(data.Options[i].Value).html(data.Options[i].DisplayText)
+                        //    );
+                        //}
+
+
+
+                        //console.log(data.Options.length);
+                        //$.each(data.Options, function (i, index) {
+                        //   // console.log(index);
+                        //}); //each
+                    } //success
+                });//ajax
+    }*@
+</script>
+
+
+

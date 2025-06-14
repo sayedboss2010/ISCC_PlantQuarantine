@@ -1,0 +1,710 @@
+﻿
+@{
+    ViewBag.Title = PlantQuar.WEB.Language.Resource_data1.Outlet;
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    PlantQuar.WEB.App_Start.User_Session Current = PlantQuar.WEB.App_Start.User_Session.GetInstance;
+    var Language_IsAr = HttpContext.Current.Session["Language"].ToString();
+}
+
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.Outlet</h2>
+}
+<br />
+
+
+@*3/6/2020*@
+
+@section filter{
+    <div class="row">
+        <label class="col-lg-2 col-md-12 col-sm-12">@PlantQuar.WEB.Language.Resource_data1.ArabicName</label>
+        <input type="text" class="form-inline col-lg-3 col-md-12 col-sm-12" autocomplete="off" name="txt_AR_BTNSearch" id="txt_AR_BTNSearch" />&nbsp;
+        <label class="col-lg-2 col-md-12 col-sm-12">@PlantQuar.WEB.Language.Resource_data1.EnglishName</label>
+        <input type="text" class="form-inline col-lg-3 col-md-12 col-sm-12" autocomplete="off" name="txt_EN_BTNSearch" id="txt_EN_BTNSearch" />
+        <input type="button" class="col-lg-1 col-md-2 btn btn-primary" id="LoadRecordsButton" value="@PlantQuar.WEB.Language.Resource_data1.Search">
+    </div>
+}
+
+@section Path{
+    <li>@PlantQuar.WEB.Language.Resource_data1.HagerData </li>
+    <li class="active">@PlantQuar.WEB.Language.Resource_data1.Outlet</li>
+}
+<style>
+    .chzn-container .chzn-results {
+        clear: both;
+    }
+</style>
+<br />
+
+<div id="OutletList">
+</div>
+<style>
+    #jtable-create-form, #jtable-edit-form {
+        /*width: 665px !important;*/
+        overflow: auto !important;
+        height: auto !important;
+        width: 600px !important;
+    }
+
+    .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+        margin-left: 5px !important;
+    }
+
+    .jtable-input-field-container:nth-of-type(1), .jtable-input-field-container:nth-of-type(2),
+    .jtable-input-field-container:nth-of-type(3), .jtable-input-field-container:nth-of-type(4),
+    .jtable-input-field-container:nth-of-type(5), .jtable-input-field-container:nth-of-type(6),
+    .jtable-input-field-container:nth-of-type(7), .jtable-input-field-container:nth-of-type(8),
+    .jtable-input-field-container:nth-of-type(9) {
+        margin-bottom: 2px;
+        float: right;
+        width: 48% !important;
+    }
+
+    .jtable-input-field-container:nth-of-type(9) {
+        margin-bottom: 2px;
+        float: right;
+        width: 98% !important;
+        background-color: #87e887;
+    }
+
+    .jtable-input-field-container:nth-of-type(11), .jtable-input-field-container:nth-of-type(12) {
+        margin-bottom: 2px;
+        float: right;
+        width: 98% !important;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+</style>
+@section scripts{
+    <script type="text/javascript">
+        var counter = 0;
+        var counterContactType_ID = 0;
+        var phoneNum = 0;
+        var counter = 0;
+        var Get_dir =('@Language_IsAr'=='ar-Eg')? 'rtl' : 'ltr';
+        $(function () {
+            $('#OutletList').jtable({
+                title: '@PlantQuar.WEB.Language.Resource_data1.Outlet',
+                paging: true,
+                pageSize: 10,
+                sorting: true,
+                //defaultSorting: 'CourseName ASC',
+                columnResizable: true,
+                columnSelectable: true,
+                saveUserPreferences: true,
+                actions: {
+                    listAction: '/Outlet/listOutlet',
+                    /*createAction: '/Outlet/CreateOutlet',*/
+                    updateAction: '/Outlet/UpdateOutlet',
+                  /*  deleteAction: '/Outlet/DeleteOutlet'*/
+                },
+                fields: {
+                    ID: {
+                        key: true,
+                        create: false,
+                        edit: false,
+                        list: false
+                    },
+                    Ar_Name: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.ArabicName',
+                        create: false,
+                       // edit: false,
+                        list: true,
+                        inputClass: 'display[block]',
+
+
+                    },
+                    En_Name: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.EnglishName',
+                        inputClass: 'validate[disabled]'
+                    },
+                    Address_Ar: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.Address_Ar',
+                        inputClass: 'validate[required]',
+                        list: false,
+                    },
+                    Address_En: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.Address_En',
+                        inputClass: 'validate[required]',
+                        list: false,
+                    },
+                     PortType_ID: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.PortType',
+                    options: function (data) {
+                        return '/CommonActions/PortData/PortType_List';
+                    },
+                    list: true,
+                    //inputClass: 'validate[required]'
+                },
+                    PortNational_ID: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.PortNational',
+                        dependsOn: 'PortType_ID',
+                        options: function (data) {
+                            return '/CommonActions/PortData/Portnational?IsJtable=true&portType=' + data.dependedValues.PortType_ID;
+                        },
+                        list: true,
+                        //inputClass: 'validate[required]'
+                    },
+
+
+               Center_List: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.addCenter',
+                        width: '5%',
+                        sorting: false,
+                        edit: false,
+                        create: false,
+                        width: '4.3759%',
+                        display: function (CenterData) {
+                            //Create an image that will be used to open child table
+                            var $img = $('<img src="/assets/images/Activity.png" title="Add Centers"  width="35px"/>');
+                            //Open child table when user clicks the image
+                            $img.click(function () {
+
+                                $('#OutletList').jtable('openChildTable',
+                                $img.closest('tr'), //Parent row
+                                {
+                                    title: "@PlantQuar.WEB.Language.Resource_data1.ActivityData",
+                                    paging: true,
+                                    pageSize: 10,
+                                    sorting: true,
+                                    columnResizable: true,
+                                    columnSelectable: true,
+
+                                    actions: {
+                                        listAction: '/Outlet/listOutletCenters?outlet_ID=' + CenterData.record.ID,
+                                        createAction: '/Outlet/CreateCenterOutlet?outlet_ID=' + CenterData.record.ID,
+
+                                        deleteAction: '/Outlet/DeleteCenterOutlet'
+                                    },
+                                    fields: {
+                                        ID: {
+                                            key: true,
+                                            create: false,
+                                            edit: false,
+                                            list: false
+                                        },
+
+                                        GovID: {
+                                            title: '@PlantQuar.WEB.Language.Resource_data1.Governate',
+                                            options: '../../CommonActions/GovToVillage/GetGovOptions',
+                                            list: true,
+                                            inputClass: 'validate[required]'
+                                        },
+
+
+
+                                        Center_ID: {
+                                            title: '@PlantQuar.WEB.Language.Resource_data1.Center',
+                                            inputClass: 'validate[required]',
+                                            dependsOn: 'GovID',
+
+                                            //options: [{"DisplayText":"---","Value":"2"}],
+                                            options: function (data) {
+                                                if (data.source == 'list') {
+
+                                                    return '/CommonActions/GovToVillage/Center_ListAll';
+
+                                                }
+                                                else if (data.source == 'edit') {
+
+                                                    return '/CommonActions/GovToVillage/GetCenterOptionsOutlet?Govern_ID=' + data.dependedValues.GovID + '&outletId=' + CenterData.record.ID ;
+
+                                                }
+
+                                                else {
+                                                    return '/CommonActions/GovToVillage/GetCenterOptionsOutlet?Govern_ID=' + data.dependedValues.GovID+ '&outletId=-1';
+
+                                                }
+                                            },
+
+
+
+                                        },
+
+
+                                    },
+                                    formCreated: function (event, data) {
+
+                                        if (data.formType == "create") {
+                                            $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Add");
+
+
+
+                                        }
+                                        else {
+                                            $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Edit");
+
+
+
+
+                                        }
+
+
+                                    }, //created
+                                    formSubmitting: function (event, data) {
+                                        return data.form.validationEngine('validate');
+                                    },
+                                    formClosed: function (event, data) {
+                                        data.form.validationEngine('hide');
+                                        data.form.validationEngine('detach');
+                                        $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Delete");
+                                        counter = 0;
+                                        // $("#Edit-CenterID").chosen('destroy');
+                                    },
+                                    recordAdded: function (event, data) {
+                                        //Mah+Ag 17-4-2019 change display message
+                                        alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+                                    },
+                                    recordUpdated: function (event, data) {
+                                        //Mah+Ag 17-4-2019 change display message
+                                        alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Update");
+                                    },
+                                    recordDeleted: function (event, data) {
+                                        //Mah+Ag 17-4-2019 change display message
+                                        alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Delete");
+                                    },
+
+                                }, function (data) { //opened handler
+                                    data.childTable.jtable('load');
+                                });
+                            });// close it
+                            //Return image to show on the person row
+                            return $img;
+                        }//
+                    },
+
+
+
+                    Supervisor_ID: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.supervisorName',
+                        options: function (data) {
+                            return '/Committees/Committee/ListEmployee_AddEDIT';
+                        },
+
+                        list: false,
+                        inputClass: 'validate[required]'
+                    },
+
+                    GrAdmin_ID: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.GeneralAdmin',
+                        options: function (data) {
+                            return '../../CommonActions/VariousTypes/GeneralAdmin_AddEDIT';
+                        },
+                        list:false,
+                        inputClass: 'validate[required]'
+                    },
+                    IsExport: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.IsExport',
+                        options: '../../CommonActions/VariousTypes/A_SystemCode_AddEDIT?Syscodenum=21&IsJtable = true',
+                        list: false,
+                        inputClass: 'validate[required]'
+                    },
+                    ID_HR: {
+                       title: '@PlantQuar.WEB.Language.Resource_data1.HumanResource',
+                        inputClass: 'validate[required]',
+                        list: false,
+                    },
+                    IsActive: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.Status',
+                        type: 'checkbox',
+                        values: { 'false': ' @PlantQuar.WEB.Language.Resource_data1.NotActive ', 'true': '@PlantQuar.WEB.Language.Resource_data1.Active ' },
+                        defaultValue: 'true',
+                    },
+                    IsDisplay: {
+
+                        title: 'يظهر ولا يظهر',
+
+                        type: 'checkbox',
+                        values: { 0: 'لا يظهر', 1: 'يظهر' },
+
+                       defaultValue: 1,
+
+                    },
+                    TitleContacts: {
+                        input: function () {
+                            return '<label >@PlantQuar.WEB.Language.Resource_data1.ContactData</label>';
+                        },
+                        list: false
+                    },
+
+                    AddContactBtn: {
+                        input: function () {
+                            return '<button type="button" class="btn btn-primary" style="margin-top: 11px;color:  green;background-color: #d5ead3;">@PlantQuar.WEB.Language.Resource_data1.AddContactData</button>';
+                        },
+                        list: false
+                    },
+                    Contacts: {
+                        input: function () {
+                            return '<div id="dialog-modal" ></div>';
+                        },
+                        list: false
+                    },
+                },
+                formCreated: function (event, data) {
+
+                    // make Center multiple choices
+
+                    if (data.formType == "create") {
+                        $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Add");
+                    }
+                    else {
+                        $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Edit");
+                    }
+
+
+                    var DDL="";
+                    var contactTypelst = @Html.Raw(Json.Encode(@ViewBag.ContactTypelst));
+                    for(var i = 0; i < contactTypelst.length; i++) {
+                        DDL+= "<option value='"+contactTypelst[i].Value+"'>"+contactTypelst[i].DisplayText+"</option>";
+                    }
+                    DDL+="</select>";
+                    if (data.formType == "edit")
+                    {
+
+                        var ss = $("#Edit-ID").val();
+                        //set
+                        $.ajax({
+                            url: "/GeneralAdmin/GetContactList?ContactOwnerID=" + ss,
+                            type: "GET",
+                            success: function (data) {
+                                $.each(data, function (index, item) {
+                                    var ContactType_ID = parseInt(item.ContactType_ID);
+                                    var div = "<div class='" + index + "' dir=" + Get_dir +">";
+                                    var id_hagrcontact = "<input type='hidden' name='Contacts[" + index + "].ID' value='" + item.ID + "' >";
+                                    var dropdown = "@PlantQuar.WEB.Language.Resource_data1.ContactType : <select class='validate[required]' style='width:110px!important' id='s" + index + "' name='Contacts[" + index + "].ContactType_ID' >" + DDL;
+                                    var deletecheck = "<div id='" + index + "'>";
+                                    var txtbox = "@PlantQuar.WEB.Language.Resource_data1.ContactData : <input id='txt" + index + "' class='validate[required]' type='text' name='Contacts[" + index + "].Value' value='" + item.Value + "'/>";
+                                    var btn = "<button type='button' class='btn btn-primary' onclick='Remove(" + index + ");' style='margin-right: 5px;color:  green;background-color: #ea6464;'>@PlantQuar.WEB.Language.Resource_data1.Delete</button><br/><br/>";
+                                    $("#dialog-modal").append(div + id_hagrcontact + dropdown + txtbox + btn + deletecheck + "</div>");
+
+                                    $("#s" + index + " option[value=" + ContactType_ID + "]").prop('selected', 'selected');
+                                    $("#s" + index + " option[value='null']").attr('value', '');
+                                    // Start Validations
+                                    var abc = "#s" + index;
+
+                                    if ($(abc).val() == '3') {
+                                        $("#txt" + index).prop('type', 'email');
+                                    }
+                                    else if ($(abc).val() == '10') {
+                                        $("#txt" + index).prop('type', 'number');
+                                        $("#txt" + index).addClass('tel');
+                                    }
+                                    else if ($(abc).val() == '1') {
+                                        $("#txt" + index).prop('type', 'number');
+                                        $("#txt" + index).addClass('phone');
+                                        $("#txt" + index).on('change', function () {
+                                            if ($('.phone').val() != undefined) {
+                                                var phone = $('.phone').val();
+
+                                                phone = phone.replace(/[^0-9]/g, '');
+                                                if (phone.length != 11) {
+                                                    $('.phone').val('');
+                                                    $('.phone').focus();
+                                                    alertify.error("@PlantQuar.WEB.Language.Resource_data1.MobileNumber_Must_be11digits");
+                                                    phoneNum = 1;
+                                                }
+                                            }
+                                        });
+                                    }
+                                    else {
+                                        $("#txt" + index).prop('type', 'number');
+                                    }
+
+                                    $("#s" + index).change(function () {
+                                        var abc = "#s" + index;
+                                        if ($(abc).val() == 3) {
+                                            $("#txt" + index).prop('type', 'email');
+                                        }
+                                        else {
+                                            $("#txt" + index).prop('type', 'number');
+                                        }
+                                    });
+                                    // End Validations
+                                });
+
+                                counter=data.length;
+                                //  $("#dialog-modal").append("نوع وسيلة الإتصال : <select name='Contact_Type[" + index + "].ContactType_ID'><option value="+'1'>تليفون</option><option value='2'>ميل</option><option value='3'>فاكس</option></select> وسيلة الإتصال :<input type='text' name='Contact_Type[" + index + "].Contacts' /> <button type='button' class='btn btn-primary' style='margin-right: 8px;color:  green;background-color: #ea6464;'>حذف</button><br/><br/>");
+                            }});
+                    }
+
+
+                    $("#Edit-AddContactBtn").click(function () {
+                        var div = "<div class='" + counter + "' dir=" + Get_dir + ">";
+                        var deletecheck="<div id='"+counter+"'>";
+                        var dropdown ="@PlantQuar.WEB.Language.Resource_data1.ContactType : <select class='validate[required]' style='width:110px!important ' id='s"+counter+"' name='Contacts["+counter+"].ContactType_ID' >"+DDL;
+                        var txtbox="@PlantQuar.WEB.Language.Resource_data1.ContactData : <input id='txt"+counter+"' class='validate[required]' type='text' name='Contacts[" + counter + "].Value' />";
+                        var btn="<button type='button' class='btn btn-primary' onclick='Remove("+counter+");' style='margin-right: 5px;color:  green;background-color: #ea6464;'>@PlantQuar.WEB.Language.Resource_data1.Delete</button><br/><br/>";
+                        $("#dialog-modal").append(div+dropdown+txtbox+btn+deletecheck+"</div>");
+                        $("#s"+counter+" option[value='null']").attr('value', '');
+                        // Start Validations
+                        $("#s"+counter).change(function(){
+                            var abc = "#s"+counter;
+                            if($(this).val()=='3')
+                            {
+                                $($(this).next()).prop('type', 'email');
+
+                            }
+                            if($(this).val()=='10')
+                            {
+                                $($(this).next()).prop('type','number');
+                                $($(this).next()).addClass('tel');
+                            }
+                            if($(this).val()=='1')
+                            {
+                                $($(this).next()).prop('type','number');
+                                $($(this).next()).addClass('phone');
+                                $($(this).next()).on('change', function () {
+                                    if ($('.phone').val() != undefined) {
+                                        var phone = $('.phone').val();
+
+                                        phone = phone.replace(/[^0-9]/g, '');
+                                        if (phone.length != 11) {
+                                            $('.phone').val('');
+                                            $('.phone').focus();
+                                            alertify.error("@PlantQuar.WEB.Language.Resource_data1.MobileNumber_Must_be11digits");
+                                            phoneNum = 1;
+                                        }
+                                    }
+                                });
+                            }
+                            if($(this).val()=='4'){
+                                $($(this).next()).prop('type','number');
+                            }
+
+
+                        });
+
+                        counter++;
+                        @{
+                          Model.Contacts.Add(new PlantQuar.DTO.DTO.DataEntry.Outlets.HagrContactDTO());
+
+                      }
+                    });
+
+
+
+                    $("#Edit-Ar_Name, #Edit-En_Name, #txt_AR_BTNSearch, #txt_EN_BTNSearch").attr('autocomplete', 'off');
+
+                    // Arabic + spaces + numeric
+                    $("#Edit-Ar_Name, #Edit-Address_Ar").keypress(function (e) {
+
+                        var unicode = e.charCode ? e.charCode : e.keyCode
+                        if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+                            if (unicode == 32)
+                                return true;
+                            else {
+                                if ((unicode < 48 || unicode > 57) && (unicode < 0x0600 || unicode > 0x06FF)) //if not a number or arabic
+                                    return false; //disable key press
+                            }
+                        }
+                    });
+                    // English + spaces + numeric
+                    $("#Edit-En_Name, #Edit-Address_En").keypress(function (e) {
+
+                        var unicode = e.charCode ? e.charCode : e.keyCode
+                        if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+                            if (unicode == 32)
+                                return true;
+                            else {
+                                if (!(unicode < 0x0600 || unicode > 0x06FF)) //if not english
+                                    return false; //
+                            }
+                        }
+                    });
+                },
+
+
+                formSubmitting: function (event, data) {
+                    var count = counter - 1;
+                    var email = $("#txt" + count).val();
+
+                    if ($("#s" + count).val() == '3') {
+                        var regex = /^\b[A-Z0-9._%-]+@@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
+                        if (!regex.test(email)) {
+                            alert('not a valid e-mail address');
+                            phoneNum = 1;
+
+                        }
+                    }
+
+
+                    if (phoneNum > 0) {
+                        phoneNum = 0;
+                        return false;
+                    }
+                    else {
+                        return data.form.validationEngine('validate');
+                    }
+                },
+                formClosed: function (event, data) {
+                    data.form.validationEngine('hide');
+                    data.form.validationEngine('detach');
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Delete");
+                    counter = 0;
+                    // $("#Edit-CenterID").chosen('destroy');
+                },
+                recordAdded: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+                },
+                recordUpdated: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Update");
+                },
+                recordDeleted: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Delete");
+                },
+            });
+            $('#OutletList').jtable('load');
+
+            $('#LoadRecordsButton').click(function (e) {
+
+                e.preventDefault();
+                $('#OutletList').jtable('load', {
+
+                    txt_AR_BTNSearch: $('#txt_AR_BTNSearch').val().trim(),
+                    txt_EN_BTNSearch: $('#txt_EN_BTNSearch').val().trim()
+                });
+            });
+
+            $(".jtable-toolbar-item-add-record .jtable-toolbar-item-text").text("@PlantQuar.WEB.Language.Resource_data1.Add");
+
+            $("#txt_AR_BTNSearch").keypress(function (e) {
+                var unicode = e.charCode ? e.charCode : e.keyCode
+                if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+                    if (unicode == 32) { }// return data.form.validationEngine('validate');
+                    else {
+                        if (((unicode < 48 || unicode > 57) && unicode != 13) && (unicode < 0x0600 || unicode > 0x06FF)) //if not a number or arabic
+
+                        {
+                            return false; //disable key press
+                        } else {
+                            if (unicode == 13) {
+                                $('#LoadRecordsButton').click();
+                            }
+
+                        }
+
+
+                    }
+                }
+            });
+            $("#txt_EN_BTNSearch").keypress(function (e) {
+
+                var unicode = e.charCode ? e.charCode : e.keyCode
+                if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+                    if (unicode == 32)
+                        return true;
+                    else {
+                        if (!(unicode < 0x0600 || unicode > 0x06FF)) //if not english
+                        {
+                            return false; //disable key press
+                        } else {
+                            if (unicode == 13) {
+                                $('#LoadRecordsButton').click();
+                            }
+
+                        }
+                    }
+                }
+            });
+
+            $("#dialog-modal").dialog({ modal: true });
+        });
+        function Remove(id)
+        {
+            // we=id;
+            var idd=id.toString();
+            $("#"+idd).append("<input type='hidden' name='Contacts["+id+"].DeleteCheck' value='1'>");
+            $("."+idd).attr("hidden","true");
+
+        }
+
+    </script>
+    <script type="text/javascript">
+
+
+        $("#tableExcell").click(function () {
+            var html = "";
+            $.getJSON('/DE_Outlets/Outlet/AllOutletExcell', {}, function (data, succ) {
+                // console.log(data)
+                $.each(data, function (i, item) {
+
+                    html += "<tr><td>" + data[i].Ar_Name + "</td><td>" + data[i].En_Name + "</td><td>" + data[i].IsActive + "</td><td>" + data[i].IsDisplay + "</td>"
+
+                    html += "</tr>";
+                });
+                $("#tbl tbody").empty();
+                $("#tbl tbody").append(html);
+                tableToExcel('all analysis lab', 'Table');
+            });
+
+
+        });
+
+        var tableToExcel = (function () {
+            var uri = 'data:application/vnd.ms-excel;base64,'
+                , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta charset="UTF-8"></head><body><table>{table}</table></body></html>'
+                , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+                , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+            return function (table, name) {
+                if (!table.nodeType) table = document.getElementById('tbl')
+                var ctx = { worksheet: '@PlantQuar.WEB.Language.Resource_data1.AnalysisLab', table: table.innerHTML }
+                window.location.href = uri + base64(format(template, ctx))
+            }
+        })()
+    </script>
+
+}
+
+
+
+
+<br />
+<br />
+<br />
+<div class="row">
+    <iframe id="txtArea1" style="display:none"></iframe>
+    <input type="button" value="@PlantQuar.WEB.Language.Resource_data1.Export_to_Excel" id="tableExcell">
+    <br>
+    <br>
+    <div class="col-md-12" style="display:none;">
+        <br>
+        <br>
+        <table id="tbl">
+            <thead>
+                <tr style="background-color:aqua;">
+                    <th>@PlantQuar.WEB.Language.Resource_data1.ArabicName</th>
+                    <th>@PlantQuar.WEB.Language.Resource_data1.EnglishName</th>
+                    <th>@PlantQuar.WEB.Language.Resource_data1.IsActive</th>
+                    <th>Is Display?</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+    </div>
+
+</div>
+
+<style>
+    #tableExcell {
+        float: right;
+        height: 37px;
+        width: 133px;
+        background-color: #1e7c80;
+        border: 2px solid #1e8084;
+        box-shadow: 0 4px #1d9fa5;
+        outline: none;
+        color: white;
+    }
+
+        #tableExcell:hover {
+            background-color: #1a8488;
+            border: 1px solid #1a8488;
+        }
+</style>

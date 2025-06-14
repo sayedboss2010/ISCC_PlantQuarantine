@@ -1,0 +1,367 @@
+﻿@model List<PlantQuar.DTO.DTO.Station_Pages.Station_Final_Result_DTO>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+
+<style>
+    .display-none {
+        display: none
+    }
+
+    .tapp-title {
+        padding: 10px 30px;
+    }
+</style>
+
+<div class="row">
+
+    <label class="tapp-title">
+        بيانات المحطة
+    </label>
+
+</div>
+<br />
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-3">
+                <label>
+                    اسم المحطة
+                </label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" value="@Model.FirstOrDefault().Station_Name" readonly="" class="form-control " width="100">
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-3">
+                <label> كود المحطة</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" value="@Model.FirstOrDefault().StationCode" readonly="" class="form-control " width="100">
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-3">
+                <label>
+                    المحافظة
+                </label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" value="@Model.FirstOrDefault().Governate_Name" readonly="" class="form-control " width="100">
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-3">
+                <label> المركز</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" value="@Model.FirstOrDefault().Center_Name" readonly="" class="form-control " width="100">
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<br />
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-3">
+                <label> القرية</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" value="@Model.FirstOrDefault().Village_name" readonly="" class="form-control " width="100">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-3">
+                <label> لينك التفاصيل</label>
+            </div>
+            <div class="col-md-9">
+                <a href="../../Station_Pages/StationDetails/Index?stationId=@ViewBag.stationId">عرض التفاصيل</a>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="row">
+
+    <label class="tapp-title">
+        بيانات المسمي
+    </label>
+
+</div>
+<br />
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-3">
+                <label>
+                    الاسم بالعربية
+                </label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" value="@Model.FirstOrDefault().Station_Accreditation_Data_Name" readonly="" class="form-control " width="100">
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-3">
+                <label> تفاصيل المسمى </label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" value="@Model.FirstOrDefault().Station_Accreditation_Data_Description" readonly="" class="form-control " width="100">
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+<div class="row">
+
+    <label class="tapp-title">
+        بيانات اللجان
+    </label>
+
+</div>
+<br />
+<br />
+<br />
+<div class="row">
+    @{
+        var Station_Accreditation_Data_ALL = Model.GroupBy(d =>
+        new
+        {
+            Station_Accreditation_Data_Name = d.Station_Accreditation_Data_Name,
+            Station_Accreditation_Data_ID = d.Station_Accreditation_Data_ID,
+        //contactValue = d.contactValue,
+
+    }).Select(a => new  {
+        Station_Accreditation_Data_Name = a.Key.Station_Accreditation_Data_Name,
+        Station_Accreditation_Data_ID = a.Key.Station_Accreditation_Data_ID,
+        //contactValue = a.Key.contactValue,
+    });
+    }
+    @foreach (var item in Station_Accreditation_Data_ALL)
+    {
+
+
+        <table id="itemTable" class="table " style="border: 5px solid #1f6c6f !important;">
+            <tbody>
+                <tr style=" background-color: rgb(77 ,158 ,151); color: #fff; font-weight: bold; font-size: 16px;" class="toggle-div-@item.Station_Accreditation_Data_ID">
+                    <td colspan="12" style="font-size:inherit">
+                        <input id="@item.Station_Accreditation_Data_ID" class="style-but" onClick="reply_click2(this)" type="button"
+                               value="@item.Station_Accreditation_Data_Name" style="background-color: #CE9461 !important;">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        var Station_Accreditation_Request_Type = Model.Where(a => a.Station_Accreditation_Data_ID == item.Station_Accreditation_Data_ID).GroupBy(d =>
+        new
+        {
+            Station_Accreditation_Request_ID = d.Station_Accreditation_Request_ID,
+            Station_Accreditation_Request_Type_Name = d.Station_Accreditation_Request_Type_Name,
+            Station_Accreditation_Data_ID = d.Station_Accreditation_Data_ID,
+        }).Select(a => new
+        {
+            Station_Accreditation_Request_ID = a.Key.Station_Accreditation_Request_ID,
+            Station_Accreditation_Request_Type_Name = a.Key.Station_Accreditation_Request_Type_Name,
+            Station_Accreditation_Data_ID = a.Key.Station_Accreditation_Data_ID,
+        }).OrderBy(a => a.Station_Accreditation_Request_ID);
+
+<table id="itemTable" class="table display-none  toggle-div2_@item.Station_Accreditation_Data_ID" style="border: 3px solid #606f49 !important">
+    <tbody>
+        @foreach (var Request_Type in Station_Accreditation_Request_Type)
+        {
+            <tr class="background-606f49">
+                @*<td colspan="12" style="font-size:inherit">@Request_Type.Station_Accreditation_Request_Type_Name</td>*@
+                <th colspan="12" style="font-size:inherit">
+                    <input id="@Request_Type.Station_Accreditation_Request_ID"
+                           class="style-but" onClick="reply_click3(this)" type="button"
+                           value="@Request_Type.Station_Accreditation_Request_Type_Name" style="background-color: #CE9461 !important;">
+                </th>
+            </tr>
+            <tr class="display-none  toggle-div3_@Request_Type.Station_Accreditation_Request_ID">
+                <th>
+                    <input id="Admin_@Request_Type.Station_Accreditation_Request_ID"
+                           class="style-but" onClick="reply_click3(this)" type="button"
+                           value="موقف الادمن" style="background-color: #CE9461 !important;">
+                </th>
+
+                <th colspan="3" style="background-color: rgb(77, 158, 151) !important;">
+                    <input id="Confirm_@Request_Type.Station_Accreditation_Request_ID"
+                           class="style-but" onClick="reply_click3(this)" type="button"
+                           value="موقف المساعد" style="background-color: #CE9461 !important;">
+                </th>
+                <th colspan="3" style="background-color: rgb(77, 158, 151) !important;">
+                    <input id="Quarantine_@Request_Type.Station_Accreditation_Request_ID"
+                           class="style-but" onClick="reply_click3(this)" type="button"
+                           value="موقف الحجر" style="background-color: #CE9461 !important;">
+                </th>
+            </tr>
+            <tr class="display-none  toggle-div3_Admin_@Request_Type.Station_Accreditation_Request_ID">
+                <th class="background-c99b6d">  IDبند</th>
+                <th class="background-c99b6d">  بنود</th>
+                <th class="background-c99b6d">اسم  الادمن</th>
+                <th class="background-c99b6d">موقف الادمن</th>
+                <th class="background-c99b6d">ملاحظات الادمن</th>
+            </tr>
+
+            @* الادمن *@
+        var Station_Check_Admin = Model.
+        Where(a => a.Station_Accreditation_Request_Type_Name == Request_Type.Station_Accreditation_Request_Type_Name
+        && a.ISAdmin == true).GroupBy(d =>
+        new
+        {
+            Station_CheckList_ID = d.Station_CheckList_ID,
+            Station_CheckList_name = d.Station_CheckList_name,
+            IsAccepted_Band_Admin = d.IsAccepted_Band_Admin,
+            Notes_Ar_Band_Admin = d.Notes_Ar_Band_Admin,
+            FullName = d.FullName,
+        }).Select(a => new
+        {
+            Station_CheckList_ID = a.Key.Station_CheckList_ID,
+            Station_CheckList_name = a.Key.Station_CheckList_name,
+            IsAccepted_Band_Admin = a.Key.IsAccepted_Band_Admin,
+            Notes_Ar_Band_Admin = a.Key.Notes_Ar_Band_Admin,
+            FullName = a.Key.FullName,
+        });
+            @* بنودالادمن *@
+        foreach (var Station_CheckList_Item in Station_Check_Admin)
+        {
+                <tr class="display-none  toggle-div3_Admin_@Request_Type.Station_Accreditation_Request_ID">
+                    <td>@Station_CheckList_Item.Station_CheckList_ID</td>
+                    <td>@Station_CheckList_Item.Station_CheckList_name</td>
+                    <td>@Station_CheckList_Item.FullName</td>
+                    <td>@Station_CheckList_Item.IsAccepted_Band_Admin</td>
+                    <td>@Station_CheckList_Item.Notes_Ar_Band_Admin</td>
+                </tr>
+        }
+
+        var Station_Check_final_Admin = Model.
+        Where(a => a.Station_Accreditation_Request_Type_Name == Request_Type.Station_Accreditation_Request_Type_Name
+        && a.ISAdmin == true && a.IsAccepted_final_Admin != null).GroupBy(d =>
+          new
+          {
+              IsAccepted_final_Admin = d.IsAccepted_final_Admin,
+              Notes_Ar_final_Admin = d.Notes_Ar_final_Admin,
+          }).Select(a => new
+          {
+              IsAccepted_final_Admin = a.Key.IsAccepted_final_Admin,
+              Notes_Ar_final_Admin = a.Key.Notes_Ar_final_Admin,
+          });
+            @* بنودالادمن العام *@
+            <tr class="display-none  toggle-div3_Admin_@Request_Type.Station_Accreditation_Request_ID">
+                <th class="background-c99b6d">موقف الادمن العام</th>
+                <th class="background-c99b6d">ملاحظات الادمن العام</th>
+            </tr>
+
+            <tr class="display-none  toggle-div3_Admin_@Request_Type.Station_Accreditation_Request_ID">
+                <td>@Station_Check_final_Admin.FirstOrDefault().IsAccepted_final_Admin</td>
+                <td>@Station_Check_final_Admin.FirstOrDefault().Notes_Ar_final_Admin</td>
+            </tr>
+
+
+            @* المساعدين *@
+            <tr class="display-none  toggle-div3_Confirm_@Request_Type.Station_Accreditation_Request_ID">
+                <th class="background-c99b6d">الاسم المساعد</th>
+                <th class="background-c99b6d">موقف المساعد</th>
+                <th class="background-c99b6d">ملاحظات المساعد </th>
+
+            </tr>
+            <tr class="display-none  toggle-div3_Confirm_@Request_Type.Station_Accreditation_Request_ID">
+                @{
+                    var Station_Confirm = Model.
+                    Where(a => a.Station_Accreditation_Request_Type_Name == Request_Type.Station_Accreditation_Request_Type_Name
+                    && a.ISAdmin == false).GroupBy(d =>
+                      new
+                      {
+                          IsAccepted_Confirm = d.IsAccepted_Confirm,
+                          Notes_Confirm = d.Notes_Confirm,
+                          FullName = d.FullName
+                      }).Select(a => new
+                      {
+                          IsAccepted_Confirm = a.Key.IsAccepted_Confirm,
+                          Notes_Confirm = a.Key.Notes_Confirm,
+                          FullName = a.Key.FullName,
+                      });
+                    foreach (var item_Station_Confirm in Station_Confirm)
+                    {
+                        <td>@item_Station_Confirm.FullName</td>
+                        <td>@item_Station_Confirm.IsAccepted_Confirm</td>
+                        <td>@item_Station_Confirm.Notes_Confirm</td>
+                    }
+                }
+
+            </tr>
+
+            @* موقف الحجر *@
+            <tr class="display-none  toggle-div3_Quarantine_@Request_Type.Station_Accreditation_Request_ID">
+                <th colspan="3" class="background-c99b6d">موقف الحجر</th>
+                @*<th class="background-c99b6d">الاشتراطات</th>*@
+            </tr>
+            <tr class="display-none  toggle-div3_Quarantine_@Request_Type.Station_Accreditation_Request_ID">
+                @{
+                    var Station_Check_Quarantine = Model.
+                    Where(a => a.Station_Accreditation_Request_Type_Name == Request_Type.Station_Accreditation_Request_Type_Name
+                    && a.ISAdmin == true).GroupBy(d =>
+                    new
+                    {
+                        Station_CheckList_ID = d.Station_CheckList_ID,
+                        IsAccepted_Quarantine = d.IsAccepted_Quarantine,
+                        Notes_Quarantine = d.Notes_Quarantine,
+                    }).Select(a => new
+                    {
+                        Station_CheckList_ID = a.Key.Station_CheckList_ID,
+                        IsAccepted_Quarantine = a.Key.IsAccepted_Quarantine,
+                        Notes_Quarantine = a.Key.Notes_Quarantine,
+                    });
+                }
+                <td><input type="text" name="@Station_Check_Quarantine.FirstOrDefault().Station_CheckList_ID" id="name_text @Station_Check_Quarantine.FirstOrDefault().Station_CheckList_ID" value="@Station_Check_Quarantine.FirstOrDefault().Station_CheckList_ID" /></td>
+
+                <td>مقبول<input type="radio" name="@Station_Check_Quarantine.FirstOrDefault().IsAccepted_Quarantine" id="name_reject_ @Station_Check_Quarantine.FirstOrDefault().IsAccepted_Quarantine" value="مقبول" checked="@Station_Check_Quarantine.FirstOrDefault().IsAccepted_Quarantine" /></td>
+                <td>مرفوض<input type="radio" name="@Station_Check_Quarantine.FirstOrDefault().Notes_Quarantine" id="name_noreject_ @Station_Check_Quarantine.FirstOrDefault().Notes_Quarantine" value="مرفوض " checked="@Station_Check_Quarantine.FirstOrDefault().Notes_Quarantine" /></td>
+            </tr>
+
+                    }
+        }
+    </tbody>
+    </table>
+                    }
+    </div>
+
+
+
+
+<script>
+    function reply_click2(element) {
+        $(".toggle-div2_" + element.id + "").toggle('fast', "linear");
+    }
+    function reply_click3(element) {
+        $(".toggle-div3_" + element.id + "").toggle('fast', "linear");
+    }
+</script>

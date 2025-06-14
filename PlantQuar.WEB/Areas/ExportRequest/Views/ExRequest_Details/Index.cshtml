@@ -1,0 +1,1580 @@
+﻿
+
+@model PlantQuar.DTO.DTO.ExportRequest.CheckRequest_GetData_ResultDTO
+
+@{
+    ViewBag.Title = @PlantQuar.WEB.Language.Resource_data1.ExaminationRequestNumber;
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    var local = 1; var country = 1; var transit = 1; var union = 1;
+    var product_flag = false;
+    var plant_flag = false;
+    var liable_flag = false;
+    var notliable_flag = false;
+    var indexx = 0;
+}
+
+@section Title{
+    <h2 class="ls-top-header"> </h2>
+}
+
+@section Path{
+    <li style="position: relative;right: 28px;">@PlantQuar.WEB.Language.Resource_data1.check</li>
+    <li class="active" style="right: 43px; position: relative;">@PlantQuar.WEB.Language.Resource_data1.ExaminationRequestNumber</li>
+}
+@*17/6*@
+<style>
+    table th, table td {
+        border: 1px solid black !important;
+        /*border-collapse:collapse;*/
+    }
+
+    .dashedline {
+        height: 1px;
+        border: 1px dashed #1e7c80;
+        width: 100%;
+        margin: 25px auto;
+    }
+
+    .heading {
+        color: #1e7c80;
+        font-size: 24px;
+    }
+
+    .listDiv {
+        margin: 10px auto;
+        width: 70%;
+        background-color: #c4e1e2;
+        padding: 3px;
+        border-radius: 10px;
+    }
+
+    .ul_inline {
+        display: flex;
+    }
+
+        .ul_inline li {
+            width: 30%;
+        }
+
+    .hrln {
+        /* background-color: black; */
+        height: 1px;
+        /* width: 75%; */
+        margin: auto;
+        margin-bottom: 10px;
+        border: 1px dashed;
+    }
+
+    table, table td, table th {
+        border: 1px solid black !important;
+        border-collapse: collapse;
+    }
+
+    .hrln2 {
+        background-color: #1e7c80;
+        height: 3px;
+        width: 50%;
+        margin: 15px auto;
+    }
+
+    .modal-header .close {
+        color: white !important;
+    }
+
+    .modal-header {
+        background-color: #1e7c80;
+        color: white;
+    }
+
+    #saverejectreason {
+        background-color: #1e7c80;
+        border: 2px solid #1e8084;
+        box-shadow: 0 4px #1d9fa5;
+        outline: none;
+        width: 20%;
+        margin: auto;
+        font-size: 22px;
+    }
+
+    .modal-dialog {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 70%;
+    }
+
+    .modal-content {
+        /* position: absolute;
+            top: 50%;*/
+        width: 100%;
+    }
+
+    .form-rowr {
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px dashed #cbc5ba;
+    }
+
+    .control-label {
+        font-size: 14px;
+    }
+
+    .form-control {
+        font-size: 13px;
+    }
+
+    .label-info {
+        font-size: 16px;
+        text-align: center;
+        padding: 6px;
+        border-radius: 6px 20px;
+    }
+
+    th, tr, td {
+        text-align: center;
+    }
+
+    button, html input[type="button"], input[type="reset"], input[type="submit"] {
+        margin-right: 0px;
+    }
+
+
+
+    #btnSave, #btnReject, #btnReject, #PrintResultButton {
+        background-color: #1e7c80 !important;
+        border: 2px solid #1e8084 !important;
+        box-shadow: 0 4px #1d9fa5 !important;
+        outline: none;
+        color: white;
+        margin-bottom: 10px;
+    }
+
+        #btnSave, #btnReject, #btnReject, #PrintResultButton:hover {
+            background-color: #1a8488 !important;
+            border: 1px solid #1a8488 !important;
+        }
+
+    blockquote {
+        margin-bottom: 70px !important;
+        padding: 50px 25px !important;
+    }
+
+    .jtable thead tr {
+        height: 50px;
+    }
+
+    div.jtable-main-container > table.jtable > thead th.jtable-column-header div.jtable-column-header-container {
+        bottom: 12px !important;
+    }
+
+    .spanlabel {
+        color: black;
+        font-weight: 300;
+    }
+
+    #print {
+        width: 91%;
+        background-color: #1a8488 !important;
+        border: 1px solid #1a8488 !important;
+        box-shadow: 0 4px #1d9fa5 !important;
+        outline: none;
+        color: white;
+        margin-bottom: 10px;
+        height: 40px;
+        font-size: 18px;
+    }
+
+    a, td {
+        word-break: break-all !important;
+    }
+
+    .plant1 {
+        display: block;
+        font-weight: bold;
+        font-size: 18px;
+        color: #368e86;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    .parplant {
+        display: inline-block;
+    }
+
+    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+        word-break: unset !important;
+    }
+</style>
+
+@using (Html.BeginForm("acceptRequest", "ExRequest_Details", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "submform" }))
+{
+    @Html.HiddenFor(m => m.CheckRequest_Id)
+    <div class="tab" id="modall_content2" role="tabpanel" style="min-height:80% !important;">
+        <input type="hidden" id="checkReqId" value="@Model.CheckRequest_Id">
+        <input type="hidden" id="TransitCountry" value="@Model.TransitCountry">
+        <input type="hidden" id="ImportCountry" value="@Model.ImportCountry">
+        <ul class="nav nav-tabs" role="tablist" style="">
+            <li role="presentation" class="active">
+                <a href="#ReqDataTab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.requestInfos</a>
+            </li>
+            <li role="presentation">
+                <a href="#ImportCompaniiesTab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.importedCompanies</a>
+            </li>
+            <li role="presentation">
+                <a href="#DetailsTab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.messageDetails</a>
+            </li>
+            <li role="presentation">
+                <a href="#filesTab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Attachments </a>
+            </li>
+            @*
+                <li role="presentation">
+                    <a href="#filesTab2" aria-controls="profile" role="tab" data-toggle="tab">ÇÖÇÝÉ ãÑÝÞÇÊ </a>
+                </li>*@
+            <li role="presentation">
+                <a href="#constrainss" aria-controls="messages" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Constrains</a>
+            </li>
+            <li role="presentation">
+                <a href="#Fees" aria-controls="messages" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Fees</a>
+            </li>
+            <li role="presentation">
+                <a href="#barcode" aria-controls="messages" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.BarCode</a>
+            </li>
+            <li role="presentation">
+                <a href="#committeeresult" aria-controls="messages" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Consignmentresults</a>
+            </li>
+        </ul>
+        <div class="tab-content tabs" style="background-color:whitesmoke !important;">
+            <div role="tabpanel" class="tab-pane fade in active" id="ReqDataTab">
+                <div class="form-group" style="min-height:400px;padding:10px;">
+                    <div class="form-box">
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.CheckrequestNamber</label>
+                                @Html.TextBoxFor(m => m.CheckRequest_Number, new { @class = "form-control", @readonly = "true" })
+                            </div>
+
+                        </div>
+                    </div>
+                    <label class="label-info" style="text-align:center;">@PlantQuar.WEB.Language.Resource_data1.exportedSidesInformations</label>
+                    <div class="form-row form-rowr">
+                        <div class="form-group col-sm-3 bmd-form-group">
+                            <label class="bmd-label-static">@PlantQuar.WEB.Language.Resource_data1.TypeOfIssuer</label>
+                            @Html.TextBoxFor(m => m.ExporterType_Name, new { @class = "demo-default form-control", @readonly = "true" })
+                        </div>
+                        <div class="form-group col-sm-4 bmd-form-group">
+                            <label class="bmd-label-static">@PlantQuar.WEB.Language.Resource_data1.issuerName</label>
+                            @Html.TextBoxFor(m => m.Exporter_Name, new { @class = "demo-default  form-control", @readonly = "true" })
+                        </div>
+                        <div class="form-group col-sm-5 bmd-form-group">
+                            <label class="bmd-label-static">@PlantQuar.WEB.Language.Resource_data1.issuerAddress</label>
+                            @Html.TextBoxFor(m => m.Exporter_Address, new { @class = "demo-default  form-control", @readonly = "true" })
+                        </div>
+                    </div>
+
+
+                    @*<div class="form-box">
+                            <label class="label-info">ÈíÇäÇÊ ÇáÌåÉ ÇáãÕÏÑÉ</label>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label class="control-label">äæÚ ÇáÌåÉ ÇáãÕÏÑÉ</label>
+                                    @Html.TextBoxFor(m => m.ExporterType_Name, new { @class = "form-control", @readonly = "true" })
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="control-label">ÇÓã ÇáÌåÉ ÇáãÕÏÑÉ</label>
+                                    @Html.TextBoxFor(m => m.Exporter_Name, new { @class = "form-control", @readonly = "true" })
+                                </div>
+                                <div class="col-md-5">
+                                    <label class="control-label">ÚäæÇä ÇáÌåÉ ÇáãÕÏÑÉ</label>
+                                    @Html.TextBoxFor(m => m.Exporter_Address, new { @class = "form-control", @readonly = "true" })
+                                </div>
+
+                            </div>
+                        </div>*@
+                    <div class="form-box">
+                        <label class="label-info">@PlantQuar.WEB.Language.Resource_data1.checkPlace</label>
+                        <br />
+                        <div class="row">
+
+                            @if (Model.Request_ApprovedUnapproved_StationName != null)
+                            {
+                                <div class="col-md-4">
+                                    <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.StationName</label>
+                                    @Html.TextBoxFor(m => m.Request_ApprovedUnapproved_StationName, new { @class = "form-control", @readonly = "true" })
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-md-6">
+                                    <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.placeAddress</label>
+                                    @Html.TextBoxFor(m => m.Request_ApprovedUnapproved_Place_Address_Ar, new { @class = "form-control", @readonly = "true" })
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+
+
+                    <label class="label-info" style="text-align:center;">@PlantQuar.WEB.Language.Resource_data1.OutletData</label>
+                    <div class="form-row form-rowr">
+                        <div class="form-group col-md-3 col-sm-12 bmd-form-group">
+                            <label class="bmd-label-static">@PlantQuar.WEB.Language.Resource_data1.higherManagement</label>
+                            @Html.TextBoxFor(m => m.General_Admin_Name, new { @class = "demo-default  form-control", @readonly = "true" })
+                        </div>
+
+                        <div class="form-group col-md-3 col-sm-12 bmd-form-group">
+                            <label class="bmd-label-static">@PlantQuar.WEB.Language.Resource_data1.Outlet</label>
+                            @Html.TextBoxFor(m => m.Outlet_Name, new { @class = "demo-default  form-control", @readonly = "true" })
+                        </div>
+                    </div>
+                    <div class="form-box lastdiv">
+                        <label class="label-info">@PlantQuar.WEB.Language.Resource_data1.MessagePath</label>
+                        <br />
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.ShipmentPort</label>
+                                @Html.TextBoxFor(m => m.PortNational_Shippment_Name, new { @class = "form-control", @readonly = "true" })
+                            </div>
+
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-3 col-sm-12 bmd-form-group">
+                                <label class="bmd-label-static">@PlantQuar.WEB.Language.Resource_data1.CountryExport</label>
+                                @Html.TextBoxFor(m => m.ImportCountry_Name, new { @class = "demo-default  form-control", @readonly = "true" })
+                            </div>
+
+                            <div class="form-group col-md-3 col-sm-12 bmd-form-group">
+                                <label class="bmd-label-static">@PlantQuar.WEB.Language.Resource_data1.ArrivalPort</label>
+                                @Html.TextBoxFor(m => m.port_arrive_Name, new { @class = "demo-default  form-control", @readonly = "true" })
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-3 col-sm-12 bmd-form-group">
+                                <label class="bmd-label-static">@PlantQuar.WEB.Language.Resource_data1.TransitCountry</label>
+                                @Html.TextBoxFor(m => m.c_transite_country_Name, new { @class = "demo-default  form-control", @readonly = "true" })
+                            </div>
+
+                            <div class="form-group col-md-3 col-sm-12 bmd-form-group">
+                                <label class="bmd-label-static">@PlantQuar.WEB.Language.Resource_data1.TransitPort</label>
+                                @Html.TextBoxFor(m => m.port_transite_Name, new { @class = "demo-default  form-control", @readonly = "true" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-3 col-sm-12 bmd-form-group">
+                                <label class="bmd-label-static">@PlantQuar.WEB.Language.Resource_data1.TransitPort</label>
+                                @Html.TextBoxFor(m => m.Shipment_Mean_Name, new { @class = "demo-default  form-control", @readonly = "true" })
+                            </div>
+
+                            <div class="form-group col-md-3 col-sm-12 bmd-form-group">
+                                <label class="bmd-label-static">@PlantQuar.WEB.Language.Resource_data1.TransportMeanName</label>
+                                @Html.TextBoxFor(m => m.Transport_Mean_Name, new { @class = "demo-default  form-control", @readonly = "true" })
+                            </div>
+                            <div class="form-group col-md-3 col-sm-12 bmd-form-group">
+                                <label class="bmd-label-static">@PlantQuar.WEB.Language.Resource_data1.TransportMeanName</label>
+                                @Html.TextBoxFor(m => m.Ship_Name, new { @class = "demo-default  form-control", @readonly = "true" })
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="ImportCompaniiesTab">
+                <div style="min-height:400px;padding:10px;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table ">
+                                <thead style="background-color:#4d9e97 !important;">
+                                    <tr>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.CompanyName</th>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.Address</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.ImportCompany_xml != null)
+                                    {
+                                        for (int i = 0; i < Model.ImportCompany_xml.Ex_Request_ImportCompany.Count(); i++)
+                                        {
+                                            <tr>
+                                                <td class="ModelxmlItem_Data@(i)">@Model.ImportCompany_xml.Ex_Request_ImportCompany[i].ImportCompany</td>
+                                                <td class="ModelxmlItem_Data@(i)">@Model.ImportCompany_xml.Ex_Request_ImportCompany[i].ImporeterCompanyAddress</td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="DetailsTab">
+                <div class="row" style="min-height:400px;padding:10px;">
+                    <div class="col-md-12">
+
+                       
+                        <div class="tab-content tabs">
+                            <div role="tabpanel" class="tab-pane fade in active" id="PlantTab">
+                                @Html.Partial("~/Areas/ExportRequest/Views/Ex_Plants/Ex_Plants2.cshtml")
+                            </div>
+                            @*<div role="tabpanel" class="tab-pane fade" id="ProductTab">
+                                @Html.Partial("~/Areas/ExportRequest/Views/Ex_Products/Ex_Products2.cshtml")
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="AliveLiableItemsTab">
+                                @Html.Partial("~/Areas/ExportRequest/Views/Ex_AliveLiable/Ex_AliveLiable2.cshtml")
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="NotAliveLiableItemsTab">
+                                @Html.Partial("~/Areas/ExportRequest/Views/Ex_NotAliveLiable/Ex_NotAliveLiable2.cshtml")
+
+                            </div>*@
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="filesTab">
+                <div style="min-height:400px;padding:10px;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table">
+                                <thead style="background-color:#4d9e97 !important;">
+                                    <tr>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.AttachmentName</th>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.AttachmentNumber</th>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.DateStart</th>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.ExpireDate</th>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.Attachment</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.AttachmentData_Xml != null)
+                                    {
+                                        for (int i = 0; i < Model.AttachmentData_Xml.A_AttachmentData.Count(); i++)
+                                        {
+                                            <tr>
+                                                <td class="ModelxmlItem_Data@(i)">
+                                                    @Model.AttachmentData_Xml.A_AttachmentData[i].Attachment_TypeName
+                                                </td>
+                                                <td class="ModelxmlItem_Data@(i)">
+                                                    @Model.AttachmentData_Xml.A_AttachmentData[i].Attachment_Number
+                                                </td>
+                                                <td class="ModelxmlItem_Data@(i)">
+                                                    @Model.AttachmentData_Xml.A_AttachmentData[i].StartDate
+                                                </td>
+                                                <td class="ModelxmlItem_Data@(i)">
+                                                    @Model.AttachmentData_Xml.A_AttachmentData[i].EndDate
+                                                </td>
+                                                <td class="ModelxmlItem_Data@(i)">
+                                                    <a href="../../@Model.AttachmentData_Xml.A_AttachmentData[i].AttachmentPath">File</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div style="min-height:400px;padding:10px;">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <label>@PlantQuar.WEB.Language.Resource_data1.addAttachments</label>
+                                <div id="div_FilesUpload" style="min-height:400px;padding:20px;">
+                                    <div id="fileAttach">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="constrainss">
+                @if (Model.Item_Data_xml != null)
+                {
+                    if (Model.Item_Data_xml.Item_Data != null)
+                    {
+                        var plants = Model.Item_Data_xml.Item_Data.Where(d => d.Item_Type == 4);
+                        var products = Model.Item_Data_xml.Item_Data.Where(d => d.Item_Type == 5);
+                        var liables = Model.Item_Data_xml.Item_Data.Where(d => d.Item_Type == 16);
+                        var notliables = Model.Item_Data_xml.Item_Data.Where(d => d.Item_Type == 33);
+                        if (plants.Count() != 0)
+                        {
+                            <h3 style="text-align:center">@PlantQuar.WEB.Language.Resource_data1.Plant</h3>
+                            <table class="table" style="width:100%;">
+                                <thead style="background-color: #94c5c7;">
+                                    <tr>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.Index</th>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.itemName</th>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.veganPart</th>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.Status</th>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.ExeportPurpose</th>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.ShortName</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var plant in plants)
+                                    {
+                                        indexx++;
+                                        <tr>
+                                            <td>@indexx</td>
+                                            <td>@plant.Item_Name</td>
+                                            <td>@plant.ItemPartTypeName</td>
+                                            <td>@plant.ItemStatus</td>
+                                            <td>@plant.ItemPurpose</td>
+                                            <td>@plant.Item_ShortName</td>
+                                        </tr>
+
+
+                                        <tr style="background-color: #94c5c7;">
+                                            <td colspan="6">@PlantQuar.WEB.Language.Resource_data1.Constrains</td>
+                                        </tr>
+                                        if (plant.Constrain_Data != null)
+                                        {
+                                            var Constrain_Data_Local = plant.Constrain_Data.Where(a => a.CountryConstrain_Type == "1");
+                                            var Constrain_Data_Import_Country = plant.Constrain_Data.Where(a => a.CountryConstrain_Type == "2" && a.ConstrainOwner_ID == Model.ImportCountry);
+                                            var Constrain_Data_transit_Country = plant.Constrain_Data.Where(a => a.CountryConstrain_Type == "2" && a.ConstrainOwner_ID == Model.TransitCountry);
+                                            var Constrain_Data_union = plant.Constrain_Data.Where(a => a.CountryConstrain_Type == "3");
+
+                                            if (Constrain_Data_Local.Count() > 0)
+                                            {
+                                                <tr>
+                                                    <td>@PlantQuar.WEB.Language.Resource_data1.local</td>
+                                                    <td colspan="5" style="width:80%">
+                                                        @foreach (var loc in Constrain_Data_Local)
+                                                        {
+
+                                                            <div style="padding:5px;word-break: normal;text-align: right;">
+                                                                <label class='label label-dark'> @local</label>
+                                                                <p class="parplant"> @loc.ConstrainText_Ar</p>
+                                                            </div>
+                                                            local = local + 1;
+                                                        }
+                                                    </td>
+                                                </tr>
+
+                                            }
+
+                                            if (Constrain_Data_Import_Country.Count() > 0)
+                                            {
+
+                                                <tr>
+                                                    <td>@PlantQuar.WEB.Language.Resource_data1.ImportCountry </td>
+                                                    <td colspan="5">
+
+                                                        @foreach (var countr in Constrain_Data_Import_Country)
+                                                        {
+                                                            <div style="padding:5px;word-break: normal;text-align: right;">
+                                                                <label class='label label-dark'>@country </label>
+                                                                <p class="parplant" style="padding-right:5px;">@countr.ConstrainText_Ar</p>
+                                                            </div>
+                                                            country = country + 1;
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
+                                            if (Constrain_Data_transit_Country.Count() > 0)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @PlantQuar.WEB.Language.Resource_data1.TransitCountry
+                                                    </td>
+                                                    <td colspan="5">
+                                                        @Model.c_transite_country_Name
+                                                        @foreach (var trans in Constrain_Data_transit_Country)
+                                                        {
+                                                            <div style="padding:5px;word-break: normal;text-align: right;">
+                                                                <label class='label label-dark'>@transit </label>
+                                                                <p class="parplant" style="padding-right:5px;">@trans.ConstrainText_Ar</p>
+                                                            </div>
+                                                            transit = transit + 1;
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
+                                            if (Constrain_Data_union.Count() > 0)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @PlantQuar.WEB.Language.Resource_data1.Union
+                                                    </td>
+                                                    <td colspan="5">
+                                                        @foreach (var unio in Constrain_Data_union)
+                                                        {
+                                                            <div style="padding:5px;word-break: normal;text-align: right;">
+                                                                <label class='label label-dark'> @union </label>
+                                                                <p class="parplant" style="padding-right:5px;"> @unio.ConstrainText_Ar  </p>
+                                                            </div>
+                                                            union = union + 1;
+                                                        }
+                                                    </td>
+                                                </tr>
+
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            <tr><td colspan="6">@PlantQuar.WEB.Language.Resource_data1.notConstrain</td></tr>
+
+                                        }
+                                        plant_flag = true;
+                                    }
+                                </tbody>
+                            </table>
+                            if (plant_flag)
+                            {
+                                <div class="hrln"></div>
+
+                            }
+                        }
+                        if (products.Count() != 0)
+                        {
+                            <h3 style="text-align:center">@PlantQuar.WEB.Language.Resource_data1.Product</h3>
+                            <table class="table " style="width:100%;">
+                                <thead style="background-color: #94c5c7;">
+                                    <tr>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.Plant</th>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.Product</th>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.Status</th>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.ExeportPurpose</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var product in products)
+                                    {
+                                        <tr>
+                                            <td>@product.Item_Cat_Name</td>
+                                            <td>@product.Item_Name</td>
+                                            <td>@product.ItemStatus</td>
+                                            <td>@product.ItemPurpose</td>
+                                        </tr>
+                                        <tr style="background-color: #94c5c7;">
+                                            <td colspan="5">@PlantQuar.WEB.Language.Resource_data1.Constrains</td>
+                                        </tr>
+                                        if (product.Constrain_Data != null)
+                                        {
+                                            var Constrain_Data_Local = product.Constrain_Data.Where(a => a.CountryConstrain_Type == "1");
+                                            var Constrain_Data_Import_Country = product.Constrain_Data.Where(a => a.CountryConstrain_Type == "2" && a.ConstrainOwner_ID == Model.ImportCountry);
+                                            var Constrain_Data_transit_Country = product.Constrain_Data.Where(a => a.CountryConstrain_Type == "2" && a.ConstrainOwner_ID == Model.TransitCountry);
+                                            var Constrain_Data_union = product.Constrain_Data.Where(a => a.CountryConstrain_Type == "3");
+
+
+                                            if (Constrain_Data_Local.Count() > 0)
+                                            {
+
+                                                <tr>
+                                                    <td>@PlantQuar.WEB.Language.Resource_data1.local</td>
+                                                    <td colspan="4">
+
+                                                        @foreach (var loc in Constrain_Data_Local)
+                                                        {
+                                                            <div style="padding:5px;word-break: normal;text-align: right;">
+                                                                <label class='label label-dark'> @local </label>
+                                                                <p class="parplant"> @loc.ConstrainText_Ar  </p>
+                                                            </div>
+
+                                                            local = local + 1;
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
+                                            if (Constrain_Data_Import_Country.Count() > 0)
+                                            {
+                                                <tr>
+                                                    <td>@PlantQuar.WEB.Language.Resource_data1.ImportCountry</td>
+                                                    <td colspan="4">
+                                                        @Model.ImportCountry_Name
+                                                        @foreach (var countr in Constrain_Data_Import_Country)
+                                                        {
+
+                                                            <div style="padding:5px;word-break: normal;text-align: right;">
+                                                                <label class='label label-dark'>@country </label>
+                                                                <p class="parplant">@countr.ConstrainText_Ar</p>
+                                                            </div>
+                                                            country = country + 1;
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
+                                            if (Constrain_Data_transit_Country.Count() > 0)
+                                            {
+                                                <tr>
+                                                    <td>@PlantQuar.WEB.Language.Resource_data1.TransitCountry</td>
+
+                                                    @Model.c_transite_country_Name
+                                                    <td colspan="4">
+                                                        @foreach (var trans in Constrain_Data_transit_Country)
+                                                        {
+                                                            <div style="padding:5px;word-break: normal;text-align: right;">
+
+
+                                                                <label class='label label-dark'>@transit </label>
+                                                                <p class="parplant">@trans.ConstrainText_Ar</p>
+                                                            </div>
+                                                            transit = transit + 1;
+
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
+                                            if (Constrain_Data_union.Count() > 0)
+                                            {
+                                                <tr>
+                                                    <td>@PlantQuar.WEB.Language.Resource_data1.Union</td>
+                                                    <td colspan="4">
+                                                        @foreach (var unio in Constrain_Data_union)
+                                                        {
+                                                            <div style="padding:5px;word-break: normal;text-align: right;">
+                                                                <label class='label label-dark'> @union </label>
+                                                                <p class="parplant">@unio.ConstrainText_Ar  </p>
+                                                            </div>
+                                                            union = union + 1;
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <tr><td colspan="5">@PlantQuar.WEB.Language.Resource_data1.notConstrain</td></tr>
+
+                                        }
+
+                                        product_flag = true;
+                                    }
+
+                                </tbody>
+
+                            </table>
+                            if (product_flag)
+                            {
+                                <div class="hrln"></div>
+
+                            }
+                        }
+                        if (liables.Count() != 0)
+                        {
+                            <h3 style="text-align:center">@PlantQuar.WEB.Language.Resource_data1.LiableAlive</h3>
+                            <table class="table" style="width:100%;">
+                                <thead style="background-color:#94c5c7;">
+                                    <tr>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.LiableItems</th>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.ExeportPurpose</th>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.Status</th>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.Biological_Phase</th>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.LiableItems_Strain</th>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.ShortName</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var liable in liables)
+                                    {
+                                        <tr>
+                                            <td>@liable.Item_Name</td>
+                                            <td>@liable.ItemPurpose</td>
+                                            <td>@liable.ItemStatus</td>
+                                            <td>@liable.Item_Cat_Name</td>
+                                            <td>@liable.Item_Strain</td>
+                                            <td>@liable.Item_ShortName</td>
+                                        </tr>
+                                        <tr style="background-color: #94c5c7;">
+                                            <td colspan="6">@PlantQuar.WEB.Language.Resource_data1.Constrains</td>
+                                        </tr>
+                                        if (liable.Constrain_Data != null)
+                                        {
+                                            var Constrain_Data_Local = liable.Constrain_Data.Where(a => a.CountryConstrain_Type == "1");
+                                            var Constrain_Data_Import_Country = liable.Constrain_Data.Where(a => a.CountryConstrain_Type == "2" && a.ConstrainOwner_ID == Model.ImportCountry);
+                                            var Constrain_Data_transit_Country = liable.Constrain_Data.Where(a => a.CountryConstrain_Type == "2" && a.ConstrainOwner_ID == Model.TransitCountry);
+                                            var Constrain_Data_union = liable.Constrain_Data.Where(a => a.CountryConstrain_Type == "3");
+
+
+                                            if (Constrain_Data_Local.Count() > 0)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @PlantQuar.WEB.Language.Resource_data1.local
+                                                    </td>
+
+                                                    @*
+                                                        <label class="plant1"></label>*@
+
+                                                    <td colspan="5">
+                                                        @foreach (var loc in Constrain_Data_Local)
+                                                        {
+                                                            <div style="padding:5px;word-break: normal;text-align: right;">
+                                                                <label class='label label-dark'> @local </label>
+                                                                <p class="parplant"> @loc.ConstrainText_Ar  </p>
+                                                                local = local + 1;
+                                                            </div>
+                                                        }
+                                                    </td>
+                                                </tr>
+
+                                            }
+                                            if (Constrain_Data_Import_Country.Count() > 0)
+                                            {
+                                                <tr>
+                                                    <td>@PlantQuar.WEB.Language.Resource_data1.ImportCountry</td>
+
+                                                    @*
+                                                        <label class="plant1">ÇáÏæáÉ ÇáãÓÊæÑÏÉ:</label>*@
+
+
+                                                    <td colspan="5">
+                                                        @Model.ImportCountry_Name
+                                                        @foreach (var countr in Constrain_Data_Import_Country)
+                                                        {
+                                                            <div style="padding:5px;word-break: normal;text-align: right;">
+                                                                <label class='label label-dark'>@country </label>
+                                                                <p class="parplant">@countr.ConstrainText_Ar</p>
+                                                            </div>
+                                                            country = country + 1;
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
+                                            if (Constrain_Data_transit_Country.Count() > 0)
+                                            {
+                                                <tr>
+                                                    <td>@PlantQuar.WEB.Language.Resource_data1.TransitCountry</td>
+                                                    <td colspan="5">
+                                                        @*<label class="plant1"> ÏæáÉ ÇáÚÈæÑ: </label>*@
+                                                        @Model.c_transite_country_Name
+                                                        @foreach (var trans in Constrain_Data_transit_Country)
+                                                        {
+                                                            <div style="padding:5px;word-break: normal;text-align: right;">
+                                                                <label class='label label-dark'>@transit </label>
+                                                                <p class="parplant">@trans.ConstrainText_Ar</p>
+                                                            </div>
+                                                            transit = transit + 1;
+
+                                                        }
+
+                                                    </td>
+                                                </tr>
+                                            }
+                                            if (Constrain_Data_union.Count() > 0)
+                                            {
+                                                <tr>
+                                                    <td>@PlantQuar.WEB.Language.Resource_data1.Union</td>
+                                                    <td colspan="5">
+                                                        @foreach (var unio in Constrain_Data_union)
+                                                        {
+                                                            <div style="padding:5px;word-break: normal;text-align: right;">
+
+                                                                <label class='label label-dark'> @union </label>
+                                                                <p class="parplant">@unio.ConstrainText_Ar  </p>
+                                                            </div>
+                                                            union = union + 1;
+                                                        }
+                                                    </td>
+                                                </tr>
+
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <tr><td colspan="6">@PlantQuar.WEB.Language.Resource_data1.notConstrain</td></tr>
+
+                                        }
+
+                                        liable_flag = true;
+                                    }
+
+                                </tbody>
+                            </table>
+                            if (liable_flag)
+                            {
+                                <div class="hrln"></div>
+
+                            }
+                        }
+                        if (notliables.Count() != 0)
+                        {
+                            <h3 style="text-align:center">@PlantQuar.WEB.Language.Resource_data1.LiableAliveNot</h3>
+                            <table class="table table-bordered" style="width:100%;">
+                                <thead style="background-color:#94c5c7;">
+                                    <tr>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.LiableItems</th>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.ExeportPurpose</th>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.Status</th>
+                                        <th>@PlantQuar.WEB.Language.Resource_data1.ShortName </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+                                    @foreach (var notliable in notliables)
+                                    {
+                                        <tr>
+                                            <td>@notliable.Item_Name</td>
+                                            <td>@notliable.ItemPurpose</td>
+                                            <td>@notliable.ItemStatus</td>
+                                            <td>@notliable.Item_ShortName</td>
+                                        </tr>
+                                        <tr style="background-color: #94c5c7;">
+                                            <td colspan="6">@PlantQuar.WEB.Language.Resource_data1.Constrains</td>
+                                        </tr>
+                                        if (notliable.Constrain_Data != null)
+                                        {
+                                            var Constrain_Data_Local = notliable.Constrain_Data.Where(a => a.CountryConstrain_Type == "1");
+                                            var Constrain_Data_Import_Country = notliable.Constrain_Data.Where(a => a.CountryConstrain_Type == "2" && a.ConstrainOwner_ID == Model.ImportCountry);
+                                            var Constrain_Data_transit_Country = notliable.Constrain_Data.Where(a => a.CountryConstrain_Type == "2" && a.ConstrainOwner_ID == Model.TransitCountry);
+                                            var Constrain_Data_union = notliable.Constrain_Data.Where(a => a.CountryConstrain_Type == "3");
+
+                                            if (Constrain_Data_Local.Count() > 0)
+                                            {
+                                                <tr>
+                                                    <td>@PlantQuar.WEB.Language.Resource_data1.local</td>
+
+                                                    @*
+                                                        <label class="plant1"></label>*@
+
+
+                                                    <td colspan="5">
+                                                        @foreach (var loc in Constrain_Data_Local)
+                                                        {
+                                                            <div style="padding:5px;word-break: normal;text-align: right;">
+                                                                <label class='label label-dark'> @local </label>
+                                                                <p class="parplant"> @loc.ConstrainText_Ar  </p>
+                                                            </div>
+                                                            local = local + 1;
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
+                                            if (Constrain_Data_Import_Country.Count() > 0)
+                                            {
+                                                <tr>
+                                                    <td>@PlantQuar.WEB.Language.Resource_data1.ImportCountry</td>
+                                                    <td colspan="5">
+                                                        @*<label class="plant1">  : </label>*@
+                                                        @Model.ImportCountry_Name
+                                                        @foreach (var countr in Constrain_Data_Import_Country)
+                                                        {
+                                                            <div style="padding:5px;word-break: normal;text-align: right;">
+                                                                <label class='label label-dark'>@country </label>
+                                                                <p class="parplant">@countr.ConstrainText_Ar</p>
+                                                            </div>
+                                                            country = country + 1;
+                                                        }
+
+                                                    </td>
+                                                </tr>
+                                            }
+                                            if (Constrain_Data_transit_Country.Count() > 0)
+                                            {
+                                                <tr>
+                                                    <td>@PlantQuar.WEB.Language.Resource_data1.TransitCountry</td>
+                                                    <td colspan="5">
+                                                        @Model.c_transite_country_Name
+                                                        @*<label class="plant1"> :</label>*@
+                                                        @foreach (var trans in Constrain_Data_transit_Country)
+                                                        {
+                                                            <div style="padding:5px;word-break: normal;text-align: right;">
+                                                                <label class='label label-dark'>@transit </label>
+                                                                <p class="parplant">@trans.ConstrainText_Ar</p>
+                                                            </div>
+                                                            transit = transit + 1;
+
+                                                        }
+
+                                                    </td>
+                                                </tr>
+                                            }
+                                            if (Constrain_Data_union.Count() > 0)
+                                            {
+                                                <tr>
+                                                    <td>@PlantQuar.WEB.Language.Resource_data1.Union</td>
+                                                    <td colspan="5">
+
+                                                        @*<label class="plant1"></label>*@
+
+                                                        @foreach (var unio in Constrain_Data_union)
+                                                        {
+                                                            <div style="padding:5px;word-break: normal;text-align: right;">
+                                                                <label class='label label-dark'> @union </label>
+                                                                <p class="parplant"> @unio.ConstrainText_Ar  </p>
+                                                            </div>
+                                                            union = union + 1;
+                                                        }
+
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <tr><td colspan="6">@PlantQuar.WEB.Language.Resource_data1.notConstrain</td></tr>
+
+                                        }
+
+                                        notliable_flag = true;
+                                    }
+
+                                </tbody>
+                            </table>
+                            if (notliable_flag)
+                            {
+                                <div class="hrln"></div>
+                            }
+                        }
+                    }
+                }
+            </div>
+
+
+
+            <div role="tabpanel" class="tab-pane fade" id="Fees">
+                @if (Model.Request_Fees_xml != null)
+
+                {
+                    <table class="table-bordered" style="width:50%;margin:auto;">
+                        <thead style="background-color:#c4e1e2;">
+                            <tr>
+                                <th>@PlantQuar.WEB.Language.Resource_data1.Fees</th>
+                                <th>@PlantQuar.WEB.Language.Resource_data1.Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.Request_Fees_xml.fn_GetRequest_Fees.Count(); i++)
+                            {
+                                <tr>
+                                    <td><label>@Model.Request_Fees_xml.fn_GetRequest_Fees[i].feesType </label></td>
+                                    <td><label>@Model.Request_Fees_xml.fn_GetRequest_Fees[i].Amount  </label> @PlantQuar.WEB.Language.Resource_data1.Pound</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                <br /> <br />
+                @if (Model.Item_Data_xml != null)
+                {<table class="table-bordered" style="width:50%;margin:auto;">
+                        <thead style="background-color:#c4e1e2;">
+                            <tr>
+                                <th>@PlantQuar.WEB.Language.Resource_data1.NameOFProductand</th>
+                                <th>@PlantQuar.WEB.Language.Resource_data1.Weight</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.Item_Data_xml.Item_Data.Count(); i++)
+                            {
+                                <tr>
+                                    <td>   <label>@Model.Item_Data_xml.Item_Data[i].Item_Name</label></td>
+                                    <td> <label>@Model.Item_Data_xml.Item_Data[i].grossWeight</label></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="barcode">
+                @{
+                    if (Model.Item_Data_xml != null)
+                    {
+                        if (Model.Item_Data_xml.Item_Data != null)
+                        {
+                            if (Model.Item_Data_xml.Item_Data.Count() > 0)
+                            {
+                                //var plants_bar = Model.Item_Data_xml.Item_Data.Where(d => d.Lot_Data.Any(plp => plp.sampleBarcode != null)).ToList();
+                                string Outlet_Name = Model.Outlet_Name;
+                                string ImportCountry_Name = Model.ImportCountry_Name;
+                                var plants_bar = ViewBag.committeeResult.withdrowSample;
+
+                                foreach (var bar in plants_bar)
+                                {
+                                    var plants_bar_data = Model.Item_Data_xml.Item_Data.Where(d => d.Lot_Data.Any(plp => plp.Lot_Number != bar.lotNumber)).FirstOrDefault();
+
+                                    {
+                                        <table class="table-bordered" style="width:70%; margin:auto">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="4" style="padding:13px;">
+                                                        <div style="width:40%; float:right">
+                                                            <img src="~/assets/images/capq/logo-capq-72.png" />
+                                                        </div>
+                                                        <div style="width:60%; float:right; text-align:center">
+                                                            <p>
+                                                                @PlantQuar.WEB.Language.Resource_data1.Outlet
+                                                                <br /> @Outlet_Name
+                                                            </p>
+                                                            <p>@PlantQuar.WEB.Language.Resource_data1.Dateofissue1</p>
+                                                        </div>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>@PlantQuar.WEB.Language.Resource_data1.PlantName<br /> @plants_bar_data.Item_Name </td>
+                                                    <td>@PlantQuar.WEB.Language.Resource_data1.PlantPart <br /> @plants_bar_data.ItemPartTypeName</td>
+                                                    <td>
+                                                        @PlantQuar.WEB.Language.Resource_data1.Status
+                                                        <br /> @plants_bar_data.ItemStatus
+                                                    </td>
+                                                    <td>
+                                                        @PlantQuar.WEB.Language.Resource_data1.Purpose
+                                                        <br /> @plants_bar_data.ItemPurpose
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        @PlantQuar.WEB.Language.Resource_data1.AgriculturalCategory
+                                                        <br /> @plants_bar_data.Item_Cat_Name
+                                                    </td>
+                                                    <td>
+                                                        @PlantQuar.WEB.Language.Resource_data1.FarmNoAgriculturalDistrict
+                                                        <br />farm code !!
+                                                    </td>
+                                                    <td>
+                                                        @PlantQuar.WEB.Language.Resource_data1.Degree
+                                                        <br /> degree!!
+                                                    </td>
+                                                    <td>@PlantQuar.WEB.Language.Resource_data1.CountryExport  <br />@ImportCountry_Name </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        @PlantQuar.WEB.Language.Resource_data1.SampleSize
+                                                        <br />@bar.SampleSize
+                                                    </td>
+                                                    <td></td>
+                                                    <td>
+                                                        @PlantQuar.WEB.Language.Resource_data1.Lab
+                                                        <br /> @bar.AnalysisLab_Name
+                                                    </td>
+                                                    <td>
+                                                        @PlantQuar.WEB.Language.Resource_data1.Analysis
+                                                        <br />  @bar.AnalysisType_Name
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <p style="font-family: reqbarcode!important;padding: 10px;font-size: 25px;">@bar.SampleBarCode</p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <div class="dashedline"></div>
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
+
+                }
+
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="committeeresult">
+
+                @Html.Partial("~/Areas/ExportRequest/Views/exportRequestCommitteeResult/Ex_committeeResult.cshtml")
+
+            </div>
+
+        </div>
+    </div>
+    <br />
+    <div id="dialog-modal" title="" style="display:none !important">
+        <div class="tab" role="tabpanel">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation">
+                    <a href="#EgyptTab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Egypt</a>
+                </li>
+                <li role="presentation">
+                    <a href="#ImportCountryy" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.ImportCountry</a>
+                </li>
+                <li role="presentation" class="active">
+                    <a href="#TransitCountryy" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.TransitCountry</a>
+                </li>
+                <li role="presentation">
+                    <a href="#UnionTab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Union</a>
+                </li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content tabs" style="height: 470px;">
+                <div role="tab" class="tab-pane fade in active" id="EgyptTab">
+                    <div id="div_egyptConstrain">
+                    </div>
+                </div>
+                <div role="tab" class="tab-pane fade" id="ImportCountryy">
+                    <div id="div_CountryConstrain">
+                    </div>
+                </div>
+                <div role="tab" class="tab-pane fade" id="TransitCountryy">
+                    <div id="div_TransitConstrain">
+                    </div>
+                </div>
+                <div role="tab" class="tab-pane fade" id="UnionTab">
+
+                    <label id="unionName" class="label-primary"></label>
+                    <div id="div_UnionConstrain">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div id="Modal-refuse" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">@PlantQuar.WEB.Language.Resource_data1.ChooseReasons</h4>
+                    </div>
+                    <div class="modal-body">
+                        <select id="rejreasons" multiple>
+                            @foreach (var c in ViewBag.ListReasons)
+                            {
+                                <option value="@c.Value">@c.DisplayText</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="saverejectreason">@PlantQuar.WEB.Language.Resource_data1.Save</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    @* *****************************  SAVE  ************************* *@
+    if (Model.IsAccepted == null)
+    {
+        @Html.HiddenFor(m => m.IsAccepted, new { @id = "txtIsAccepted" })
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                    @{
+                        //var txt = "ÇáãæÇÝÞÉ Úáí ÇáØáÈ";
+                        var Disabled = Model.IsPaid == false ? "disabled" : "";
+
+                        Disabled = Model.IsAcceppted == true ? "disabled" : Disabled;
+
+                        Disabled = Model.IsAcceppted == false ? "disabled" : Disabled;
+                        var t = @PlantQuar.WEB.Language.Resource_data1.approvalOfRequest;
+                        var t1 = @PlantQuar.WEB.Language.Resource_data1.requestApproval;
+
+                        var txt = Model.IsAcceppted == true ? t1 : t;
+                        var temp = @PlantQuar.WEB.Language.Resource_data1.expensesNotPaid;
+
+
+                        txt = Model.IsPaid == false ? temp : txt;
+
+                        <input type="submit" id="btnSave" value="@txt"
+                               @Disabled
+                               class="btn ls-light-green-btn btn-round" style="width:90%;" />
+                    }
+                </div>
+
+
+
+                <div class="col-md-3">
+                    @*eman*@
+                    <input type="button" id="btnReject" value="@PlantQuar.WEB.Language.Resource_data1.requestrejected"
+                           @Disabled
+                           class="btn ls-light-green-btn btn-round" data-toggle="modal" data-target="#Modal-refuse"
+                           style="width:90%;" />
+                    @*<button type="button" id="btnReject" value="ÑÝÖ ÇáØáÈ"
+                                  @Disabled
+                                  class="btn btn-info btn-lg"
+                                  data-toggle="modal" data-target="#myModal">
+                            ÑÝÖ ÇáØáÈ
+                        </button>*@
+
+                </div>
+                <div class="col-md-3">
+                    @*<button id="PrintResultButton" class="btn ls-light-green-btn btn-round" value='Print' onclick='printContent2("modall_content2")' style="width:90%;background-color: #3b818e;border: 2px solid #1e8084;">
+                            <span class="spann">Print</span>  <i class="fas fa-print"></i>
+                        </button>*@
+                    <a id="print" class="btn ls-light-green-btn btn-round" href="/ExportRequest/ExRequest_Details/Index2?requestId=@Model.CheckRequest_Id">print</a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Modal -->
+    }
+
+
+}
+
+<script>
+    $(document).ready(function () {
+        $("#rejreasons").addClass("chosen-select").prop("multiple", true);
+
+        $('#rejreasons_chosen option').prop('selected', true);
+
+
+        $("#rejreasons option[value=]").remove();
+        $("#rejreasons").chosen({
+            // disable_search_threshold: 10,
+            no_results_text: "@PlantQuar.WEB.Language.Resource_data1.no_results : ",
+            placeholder_text_multiple: "@PlantQuar.WEB.Language.Resource_data1.Select_One_More",
+            //placeholder_text_single: "ÍÏÏ @PlantQuar.WEB.Language.Resource_data1.Governate",
+            width: "95%",
+            rtl: true,
+            search_contains: true,
+        });
+
+    });
+    $("#btnSave").click(function () {
+        $("#txtIsAccepted").val(true);
+    });
+
+    //$("#btnReject").click(function () {
+    //    $("#txtIsAccepted").val(false);
+    //    $("#submform").submit();
+    //});
+    $("#saverejectreason").click(function () {
+        $("#txtIsAccepted").val(false);
+        var list = $("#rejreasons").val();
+        var checkReqId = $("#checkReqId").val();
+        $.post('/ExportRequest/ExRequest_Details/saveReasons', { listIDs: list, checkReqId: checkReqId }, function (data, succ) {
+
+            $("#submform").submit();
+        });
+    });
+    function printContent2(el2) {
+        var restorepage2 = document.body.innerHTML;
+        //var radioValue = $("input[name='openVisitor']:checked").val();
+        //if (radioValue == 0) {
+        //    $("#yes_radio").hide();
+        //}
+        //else {
+        //    $("#no_radio").hide();
+        //}
+        $(".form-control").css("width", "25%");
+        //$(".form-control").css("display", "inline-block");
+        $(".nav-tabs").css("display", "none");
+        $(".tab-pane").css("border", "2px solid black");
+        $(".tab-pane").css("border-radius", "20px");
+        var txt1 = "<h3 style='text-align:center'> @PlantQuar.WEB.Language.Resource_data1.requestInfos</h3>";
+        $("#ReqDataTab").before(txt1);
+        var txt2 = "<h3 style='text-align:center'>@PlantQuar.WEB.Language.Resource_data1.importedCompanies</h3>";
+        $("#ImportCompaniiesTab").before(txt2);
+        var txt3 = "<h3 style='text-align:center'>  @PlantQuar.WEB.Language.Resource_data1.messageDetails</h3>";
+        $("#DetailsTab").before(txt3);
+        var txt4 = "<h3 style='text-align:center'> @PlantQuar.WEB.Language.Resource_data1.Attachments</h3>";
+        $("#filesTab").before(txt4);
+
+        $(".form-rowr").css("margin-bottom", "7px");
+        $(".form-rowr").css("padding-bottom", "7px");
+        $(".form-box").css("margin-bottom", "7px");
+        $(".form-box").css("padding-bottom", "7px");
+        $(".form-rowr").css("border-bottom", "1px dashed #cbc5ba");
+        $(".demo-default").css("width", "100%");
+        //$(".label-info").css("text-decoration", "underline");
+        $(".label-info").css("border", "1px solid #cbc5ba");
+        $(".label-info").css("padding", "5px");
+        $(".label-info").css("border-radius", "6px 20px");
+        $(".lastdiv").css("border-bottom", "none")
+        $("#ReqDataTab").removeAttr("class");
+        $("#ReqDataTab").addClass("tab-pane fade active in");
+        $("#ImportCompaniiesTab").removeAttr("class");
+        $("#ImportCompaniiesTab").addClass("tab-pane fade active in");
+        $("#DetailsTab").removeAttr("class");
+        $("#DetailsTab").addClass("tab-pane fade active in");
+        $("#filesTab").removeAttr("class");
+        $("#filesTab").addClass("tab-pane fade active in");
+        var printcontent2 = $('#' + el2).html();
+        document.body.innerHTML = printcontent2;
+        window.print();
+        history.go(0);
+        document.body.innerHTML = restorepage2;
+    }
+</script>
+<style>
+    .jtable-input-field-container:nth-of-type(1) {
+        margin-bottom: 2px;
+        float: right;
+        width: 98% !important;
+    }
+
+    .jtable-input-field-container:nth-of-type(2),
+    .jtable-input-field-container:nth-of-type(3),
+    .jtable-input-field-container:nth-of-type(4),
+    .jtable-input-field-container:nth-of-type(5) {
+        margin-bottom: 2px;
+        float: right;
+        width: 48% !important;
+    }
+</style>
+
+<script type="text/javascript">
+    $(function () {
+        $('#fileAttach').jtable({
+            title: '@PlantQuar.WEB.Language.Resource_data1.Attachments',
+            paging: true,
+            pageSize: 10,
+            sorting: true,
+            //defaultSorting: 'CourseName ASC',
+            columnResizable: true,
+            columnSelectable: true,
+            saveUserPreferences: true,
+            actions: {
+                listAction: '/ExportRequest/ExRequest_Details/listFileAttachments?reqId=' + $("#checkReqId").val(),
+                createAction: function (data) {
+                    var deferred = $.Deferred();
+                    // Capture form submit result from the hidden iframe
+                    $("#postiframe").load(function () {
+                        iframeContents = $("#postiframe").contents().find("body").text();
+                        var result = $.parseJSON(iframeContents);
+                        deferred.resolve(result);
+                    });
+                    var form = $('#jtable-create-form');
+                    form.unbind("submit");
+                    form.attr("action", "/ExportRequest/ExRequest_Details/CreateFileAttachments?reqId=" + $("#checkReqId").val());
+                    form.attr("method", "post");
+                    form.attr("enctype", "multipart/form-data");
+                    form.attr("encoding", "multipart/form-data");
+                    form.attr("target", "postiframe");
+                    form.submit();
+                    return deferred;
+                },
+                updateAction: function (data) {
+                    var deferred = $.Deferred();
+                    // Capture form submit result from the hidden iframe
+                    //$("#postiframe").load(function () {
+                    //    iframeContents = $("#postiframe").contents().find("body").text();
+                    //    var result = $.parseJSON(iframeContents);
+                    //    deferred.resolve(result);
+                    //});
+                    //debugger;
+                    //var form = $('#jtable-create-form');
+                    //form.unbind("submit");
+                    //form.attr("action", "/ExportRequest/ExRequest_Details/UpdateFileAttachments?reqId=" + $("#checkReqId").val());
+                    //form.attr("method", "post");
+                    //form.attr("enctype", "multipart/form-data");
+                    //form.attr("encoding", "multipart/form-data");
+                    //form.attr("target", "postiframe");
+                    //form.submit();
+                    var deferred = $.Deferred();
+                    $("#postiframe").load(function () {
+                        iframeContents = $("#postiframe").contents().find("body").text();
+                        var result = $.parseJSON(iframeContents);
+                        deferred.resolve(result);
+                    });
+
+                    // Submit form with file upload settings
+                    var form = $('#jtable-edit-form');
+                    form.unbind("submit");
+                    form.attr("action", "/ExportRequest/ExRequest_Details/UpdateFileAttachments?reqId=" + $("#checkReqId").val());
+                    form.attr("method", "post");
+                    form.attr("enctype", "multipart/form-data");
+                    form.attr("encoding", "multipart/form-data");
+                    form.attr("target", "postiframe");
+                    form.submit();
+                    return deferred;
+                },
+                deleteAction: '/ExportRequest/ExRequest_Details/DeleteFileAttachments'
+            },
+            fields: {
+                Id: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                RowId: {
+
+                    create: false,
+                    edit: false,
+                    list: false,
+                    input: function (data) {
+                        return '<input type ="hidden" value="' + $("#checkReqId").val() + '"/>';
+                    }
+                },
+                AttachmentPath: {
+                    title: ' @PlantQuar.WEB.Language.Resource_data1.Attachment',
+                    input: function (data) {
+                        return '<input type ="file" id="Picture1" name="Picture1" class="input-type-file" accept="image/gif, image/jpeg, image/png"/><iframe name="postiframe" id="postiframe" style="display: none"/>';
+                    },
+                    display: function (data) {
+
+                        return (data.record.AttachmentPath != null) ? data.record.AttachmentPath : "---";
+                    }
+                },
+                Attachment_TypeName: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.AttachmentName',
+                    inputClass: 'validate[required]'
+                },
+
+                Attachment_Number: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.AttachmentNumber',
+                    inputClass: 'validate[required]'
+                },
+                StartDate: {
+                    type: 'date',
+                    title: '@PlantQuar.WEB.Language.Resource_data1.DateStart',
+                    inputClass: 'validate[required]'
+                },
+                EndDate: {
+                    type: 'date',
+                    title: '@PlantQuar.WEB.Language.Resource_data1.DateEnd',
+                    inputClass: 'validate[required]'
+                },
+            },
+            formCreated: function (event, data) {
+                $(".jtable-dialog-form").height(230);
+                $(".jtable-dialog-form").width(380);
+
+                $("#Edit-Attachment_TypeName, #Edit-Attachment_Number").attr('autocomplete', 'off');
+                $("#Edit-Attachment_Number").attr('type', 'number');
+
+                if (data.formType == "create") {
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Add");
+                }
+                else {
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Edit");
+                }
+            },
+            formSubmitting: function (event, data) {
+                return data.form.validationEngine('validate');
+            },
+
+            formClosed: function (event, data) {
+                data.form.validationEngine('hide');
+                data.form.validationEngine('detach');
+                $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Delete");
+            },
+            recordAdded: function (event, data) {
+                //Mah+Ag 17-4-2019 change display message
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+            },
+            recordUpdated: function (event, data) {
+                //Mah+Ag 17-4-2019 change display message
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Update");
+            },
+            recordDeleted: function (event, data) {
+                //Mah+Ag 17-4-2019 change display message
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Delete");
+            },
+        });
+        $('#fileAttach').jtable('load');
+
+        $(".jtable-toolbar-item-add-record .jtable-toolbar-item-text").text("@PlantQuar.WEB.Language.Resource_data1.Add");
+    });
+</script>
+

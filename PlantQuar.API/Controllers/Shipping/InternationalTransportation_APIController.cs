@@ -1,0 +1,92 @@
+﻿
+using PlantQuar.BLL.BLL.Shipping;
+using PlantQuar.DTO.DTO.Shipping;
+using PlantQuar.DTO.HelperClasses;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using System.Web.Http.Cors;
+
+namespace PlantQuar.API.Controllers.Shipping
+{
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    public class InternationalTransportation_APIController : ApiController
+    {
+        // GET: InternationalTransportation_API
+        InternationalTransportationBLL cBLL = new InternationalTransportationBLL();
+
+   
+        public HttpResponseMessage GetInternationalTransportationList(int pageSize, int index)
+        {
+            try
+            {
+                Dictionary<string, object> dic = cBLL.GetAll(pageSize, index, API_HelperFunctions.Get_DeviceInfo());
+                return Request.CreateResponse(API_HelperFunctions.getStatusCode(int.Parse(dic["state_Code"].ToString())), dic["obj"]);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        public HttpResponseMessage GetInternationalTransportation(string arName, string enName, int pageSize, int index, string jtSorting)
+        {
+            try
+            {
+                Dictionary<string, object> dic = cBLL.GetAll(arName, enName, pageSize, index, jtSorting, API_HelperFunctions.Get_DeviceInfo());
+                return Request.CreateResponse(API_HelperFunctions.getStatusCode(int.Parse(dic["state_Code"].ToString())), dic);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        //GET Insert A: api/InternationalTransportation/PostCreateInternationalTransportation
+        public HttpResponseMessage PostCreateInternationalTransportation(InternationalTransportationDTO Dto)
+        {
+            //Create
+            try
+            {
+                Dictionary<string, object> dic = cBLL.Insert(Dto, API_HelperFunctions.Get_DeviceInfo());
+                return Request.CreateResponse(API_HelperFunctions.getStatusCode(int.Parse(dic["state_Code"].ToString())), dic["obj"]);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        public HttpResponseMessage PutUpdateInternationalTransportation(InternationalTransportationDTO Dto)
+        {
+            //EDIT
+            try
+            {
+                Dictionary<string, object> dic = cBLL.Update(Dto, API_HelperFunctions.Get_DeviceInfo());
+                return Request.CreateResponse(API_HelperFunctions.getStatusCode(int.Parse(dic["state_Code"].ToString())), dic["obj"]);
+            }
+
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        public HttpResponseMessage PutDeleteInternationalTransportation(int delete, DeleteParameters Dto)
+        {
+            //Delete            
+            try
+            {
+                Dictionary<string, object> dic = cBLL.Delete(Dto, API_HelperFunctions.Get_DeviceInfo());
+                return Request.CreateResponse(API_HelperFunctions.getStatusCode(int.Parse(dic["state_Code"].ToString())), "");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+    }
+}

@@ -1,0 +1,177 @@
+﻿
+@model PlantQuar.DTO.DTO.StationNew.Station_CheckList_Constrain_DTO
+
+@{  var model = Model;
+    ViewBag.Title = "FarmAddEdit";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.Import_CountryConstrain</h2>
+}
+
+@section Path{
+    <li>@PlantQuar.WEB.Language.Resource_data1.Constrains</li>
+    <li class="active">@PlantQuar.WEB.Language.Resource_data1.Import_CountryConstrain</li>
+}
+
+<style>
+    textarea {
+        resize: none;
+    }
+
+    .tab .tab-content {
+        padding: 30px !important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-10"></div>
+        <div class="col-md-2">
+            @Html.ActionLink(PlantQuar.WEB.Language.Resource_data1.Back, "Index", "Station_CheckList_Constrain", new { area = "ST_Station" }, new { @class = "btn btn-primary", @style = "width:100%" })
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm("SaveStation_CheckList_Constrain", "Station_CheckList_Constrain", FormMethod.Post, new { area = "ST_Station" }))
+{
+    @Html.HiddenFor(m => m.ID)
+    <div>
+        <div class="tab" role="tabpanel" style="min-height:80% !important;">
+            <div class="tab-content tabs" style="background-color:whitesmoke  !important;">
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <label for="Im_Constrain_Type" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Constrain_Type</label>
+                        @*<select id="Station_Constrain_Type"  name="Station_Constrain_Type" required class="form-control"></select>*@
+
+                        @Html.DropDownListFor(m => m.Constrain_Type_Name, new SelectList( "Value", "DisplayText"), new { @class = "form-control", @id = "Station_Constrain_Type_List", @required = "required" })
+                        
+                    </div>
+                    <div class="col-md-6">
+
+                        <label for="Im_Constrain_Type" class="control-label"> الاشتراطات منتج /دولة</label>
+
+                        @*<select id="Station_Constrain_Country_Item_ID" name="Station_Constrain_Country_Item_ID" required class="form-control"></select>*@
+                        @Html.DropDownListFor(m => m.Station_Constrain_Country_Item_ID, new SelectList("Value", "DisplayText"), new { @class = "form-control", @id = "Station_Constrain_Country_Item_ID", @required = "required" })
+
+                    </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="ConstrainText_Ar" class="control-label">عنوان الاشتراط بالعربية </label>
+                                @Html.TextAreaFor(m => m.ConstrainText_Ar, new { @class = "form-control", @id = "ConstrainText_Ar", @cols = 3, @rows = 3, @required = "required" })
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="ConstrainText_En" class="control-label">condition titlle</label>
+                                @Html.TextAreaFor(m => m.ConstrainText_En, new { @class = "form-control", @id = "ConstrainText_En", @cols = 3, @rows = 3, @required = "required" })
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="InSide_Certificate_Ar" class="control-label">نص الاشتراط /الاضافة  </label>
+                                @Html.TextAreaFor(m => m.Description_Ar, new { @class = "form-control", @id = "InSide_Certificate_Ar", @cols = 3, @rows = 3 })
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="InSide_Certificate_En" class="control-label">condition /Addition</label>
+                                @Html.TextAreaFor(m => m.Description_En, new { @class = "form-control", @id = "InSide_Certificate_En", @cols = 3, @rows = 3 })
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-6 ta1">
+
+                                <label for="IsActive" class="control-label">@PlantQuar.WEB.Language.Resource_data1.IsActive</label>
+                                @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-control", @id = "IsActive" })
+
+                            </div>
+                            <div class="col-md-4">
+                                <label for="Number_Check" class="control-label">Number_Check</label>
+
+                                <input type="number" name="Number_Check" value="@Model.Number_Check" class="form-control" cols=3 />
+                            </div>
+
+                            <div class="col-md-6 ta1">
+
+                                <label for="IsCertificate_Addtion" class="control-label">متضمن فى الاندريد</label>
+                                @Html.CheckBoxFor(m => m.Is_Androud, new { @class = "form-control", @id = "IsCertificate_Addtion" })
+
+                            </div>
+
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4">
+                                <input type="submit" class="btn btn-primary" style="width:100%" value="@PlantQuar.WEB.Language.Resource_data1.Save" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+
+        <style>
+            .attach .jtable-input-field-container:nth-of-type(1),
+            .attach .jtable-input-field-container:nth-of-type(2),
+            .attach .jtable-input-field-container:nth-of-type(3),
+            .attach .jtable-input-field-container:nth-of-type(4) {
+                margin-bottom: 2px;
+                float: right;
+                width: 48% !important;
+            }
+
+
+            .attach .jtable-input-field-container:nth-of-type(5) {
+                margin-bottom: 2px;
+                float: right;
+                width: 98% !important;
+            }
+        </style>
+        <script>
+             $(function () {
+                 $.ajax(
+                     {
+                            url: '@Url.Action("Station_Constrain_Type_List", "Station_Constrain_Type", new { area = "ST_Station" })',
+                            type: 'Post',
+                            success: function (data) {
+                                $('#Station_Constrain_Type_List').empty();
+                                $.each(data.Options, function (i, index) {
+                                    $('#Station_Constrain_Type_List').append($('<option />').val(index.Value).text(index.DisplayText));
+                                }); //each
+                            } //success
+                        });//ajax
+             });
+
+            $('#Station_Constrain_Type_List').on("change", function () {
+                //$("#Station_Constrain_Country_Item_ID").empty();
+                var Station_Constrain_Type = $('#Station_Constrain_Type_List').val();
+               // alert(Station_Constrain_Type)
+                    $.ajax(
+                        {
+                                 url: '@Url.Action("Station_Constrain_Country_Item_List", "Station_Constrain_Country_Item", new { area = "ST_Station" })',
+
+                           
+                            //url: "ST_Station/EX_Constrain_Country_Item/EX_Constrain_Country_Item_List",
+                            type: 'Post',
+                            data: { List: Station_Constrain_Type  },
+                            success: function (data) {
+
+                                $('#Station_Constrain_Country_Item_ID').empty();
+                                $.each(data.Options, function (i, index) {
+                                    $('#Station_Constrain_Country_Item_ID').append($('<option />').val(index.Value).text(index.DisplayText));
+                                }); //each
+                            } //success
+                        });//ajax
+            });
+            //alert(@ViewBag.message);;
+            if ('@ViewBag.message' != "") {
+                    alert('@ViewBag.message')
+                }
+        </script>

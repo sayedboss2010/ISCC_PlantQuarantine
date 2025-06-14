@@ -1,0 +1,434 @@
+﻿@{
+    ViewBag.Title = "Company_National";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">لجنة الاستلام </h2>
+}
+
+<br />
+
+@section filter{
+    <div class="row">
+
+        <label class="col-md-2">رقم اذن الاستيراد</label>
+        <input type="text" class="form-inline col-md-3" autocomplete="off" name="txt_AR_BTNSearch" id="txt_AR_BTNSearch" />
+
+        <input type="button" class="btn btn-primary" id="LoadRecordsButton" value="بحث">
+    </div>
+}
+
+@section Path{
+    <li>لجنة الاستلام</li>
+    <li class="active">لجنة الاستلام</li>
+}
+<style>
+    .Disabled {
+        pointer-events: none !important;
+        background: #c5c5c5 !important;
+    }
+
+    .ribbon {
+        font-size: 18pt;
+    }
+</style>
+
+
+@section scripts{
+    <script type="text/javascript">
+        //var counterContacts = 0;
+        //var counterContactType_ID = 0;
+        //var counterAct_CompActivityType_ID = 0;
+        $(function () {
+            $('#ReceivingCommitteeDiv').jtable({
+                title: 'لجنه الصرف',
+                paging: true,
+                pageSize: 10,
+                sorting: true,
+                //defaultSorting: 'CourseName ASC',
+                columnResizable: true,
+                columnSelectable: true,
+                saveUserPreferences: true,
+                actions: {
+                     listAction: function (postData, jtParams) {
+                        return {
+                            "Result": "OK",
+                            "Records": [
+                                { "ID": '1', "Placeofreservation": 'place1', "ReceivedQuantity": '5', "ExportDate": '1-1-2018', "Time": '5', "Done": 'false', "Data_List": '' },
+                                { "ID": '2', "Placeofreservation": 'place2', "ReceivedQuantity": '6', "ExportDate": '2-5-2018', "Time": '6', "Done": 'true', "Data_List": '' }],
+                            "TotalRecordCount": 2
+                        };
+                    },
+
+                    updateAction: '/UpdateTBLRows',
+                    deleteAction: '/DeletelistTBLRows'
+                },
+                fields: {
+                    ID: {
+                        key: true,
+                        create: false,
+                        edit: false,
+                        list: false
+                    },
+
+                    Placeofreservation: {
+                        title: 'مكان التحفظ',
+                        edit: false,
+                    },
+                    ReceivedQuantity: {
+                        title: ' الكميه المستلمة بالفعل',
+                        //edit: false,
+                    },
+                    ExportDate: {
+                        title: 'تاريخ ',
+                        //type: 'date',
+
+
+                    },
+                    Time: {
+                        title: 'االوقت',
+
+                        inputClass: 'validate[required]'
+                    },
+                    Done: {
+                        title: 'تم وصول الشحنة كاملة',
+                        type: 'checkbox',
+                        values: { 'false': ' غير فعال ', 'true': 'فعال ' },
+                        defaultValue: 'true',
+                    },
+
+
+                    Data_List: {
+                        title: 'وسيله النقل',
+                        width: '5%',
+                        sorting: false,
+                        edit: false,
+                        create: false,
+
+                        display: function (ListData) {
+                            //Create an image that will be used to open child table
+                            var $img = $('<img src="/assets/images/test/Activity-Gold.png" title="Add ActivityData"  width="30px"/>');
+                            //Open child table when user clicks the image
+                            $img.click(function () {
+
+                                $('#ReceivingCommitteeDiv').jtable('openChildTable',
+                                $img.closest('tr'), //Parent row
+                                {
+                                    title: "وسيله النقل",
+                                    sorting: true,
+                                    columnResizable: true,
+                                    columnSelectable: true,
+                                    //  selecting: true, //Enable selecting
+                                    // multiselect: true, //Allow multiple selecting
+                                    //selectingCheckboxes: true, //Show checkboxes on first column
+
+                                    actions: {
+                                        listAction: function (postData, jtParams) {
+                                            return {
+                                                "Result": "OK",
+                                                "Records": [
+                                                    { "ID": '1', "MeansofTransportation": 'نقل1', "Driver": 'سائق1', "NumberofMeans": '123123', "Driver_Number": '5234', "Seal_Number": '2020', "_In": 'false' },
+                                                    { "ID": '2', "MeansofTransportation": 'نقل2', "Driver": 'سائق2', "NumberofMeans": '124321', "Driver_Number": '6123',"Seal_Number": '2020', "_In": 'true' }],
+                                                "TotalRecordCount": 2
+                                            };
+                                        },
+
+                                        updateAction: 'UpdateCompanyActivity',
+                                        deleteAction: 'DeleteCompanyActivity'
+                                    },
+                                    fields: {
+
+                                        ID: {
+                                            key: true,
+                                            create: false,
+                                            edit: false,
+                                            list: false
+                                        },
+                                        MeansofTransportation: {
+                                            title: 'وسيله النقل',
+                                            //visibility: 'hidden',
+                                            inputClass: 'Disabled',
+
+                                            edit: false,
+                                        },
+                                        Driver: {
+                                            title: 'السائق',
+                                            edit: false,
+
+
+                                            },
+                                        NumberofMeans: {
+                                            title: 'رقم الوسيله',
+                                            edit: false,
+                                        },
+                                        Driver_Number: {
+                                            title: 'رقم السائق',
+
+                                            edit: false,
+
+                                        },
+                                        Seal_Number: {
+                                            title: 'رقم الختم',
+
+                                        },
+                                       _In: {
+                                            title: 'IN',
+                                            type: 'checkbox',
+                                            values: { 'false': ' غير فعال ', 'true': 'فعال ' },
+                                            defaultValue: 'true',
+                                        },
+                                       Not_receivingReason: {
+                                           title: 'سبب عدم الاستلام',
+
+                                       },
+
+                                    },
+                                    formCreated: function (event, data) {
+                                        // $("#Edit-Plant_Name").hide();
+                                        if (data.formType == "create") {
+                                            $(".ui-dialog-title").text("إضافة وسيله نقل");
+                                        }
+                                        else {
+                                            $(".ui-dialog-title").text("تعديل وسيله نقل");
+                                        }
+
+                                        // Arabic + spaces + numeric
+                                        $("#Edit-Enrollment_Name").keypress(function (e) {
+
+                                            var unicode = e.charCode ? e.charCode : e.keyCode
+                                            if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+                                                if (unicode == 32)
+                                                    return true;
+                                                else {
+                                                    if ((unicode < 48 || unicode > 57) && (unicode < 0x0600 || unicode > 0x06FF)) //if not a number or arabic
+                                                        return false; //disable key press
+                                                }
+                                            }
+                                        });
+                                        //Number Only
+                                        $("#Edit-Enrollment_Number").keydown(function (e) {
+                                            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+                                                (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                                                (e.keyCode >= 35 && e.keyCode <= 40)) {
+                                                return;
+                                            }
+                                            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                                                e.preventDefault();
+                                            }
+                                        });
+                                    },
+                                    formSubmitting: function (event, data) {
+                                        return data.form.validationEngine('validate');
+                                    },
+                                    formClosed: function (event, data) {
+                                        data.form.validationEngine('hide');
+                                        data.form.validationEngine('detach');
+                                        $(".ui-dialog-title").text("حذف لجنة");
+                                    },
+                                    recordAdded: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Insert");
+                },
+                recordUpdated: function (event, data) {
+                                        //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Update");
+                },
+                recordDeleted: function (event, data) {
+                                        //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Delete");
+                },
+                                    }, function (data) { //opened handler
+                                        data.childTable.jtable('load');
+                                    //}
+                                });
+                           });
+                            //Return image to show on the person row
+                            return $img;
+                        }
+                    },
+
+
+                },
+                formCreated: function (event, data) {
+
+
+
+                    $("#Edit-TitleCompany").attr('hidden', true);
+                    $("#Edit-TitleAccr").attr('hidden', true);
+                    $("#Edit-TitleActivity").attr('hidden', true);
+
+                    if (data.formType == "create") {
+                        $(".ui-dialog-title").text("اضافه لجنه استلام");
+                    }
+                    else {
+                        $(".ui-dialog-title").text("تعديل لجنه استلام");
+                    }
+
+                    $("#Edit-Ar_Name, #Edit-En_Name, #Edit-Address_Ar, #Edit-Address_En, #Edit-CommertialRecord, #Edit-CommertialRecord,#txt_AR_BTNSearch, #txt_EN_BTNSearch").attr('autocomplete', 'off');
+
+                    // Arabic + spaces + numeric
+                    $("#Edit-Ar_Name,#Edit-Address_Ar").keypress(function (e) {
+
+                        var unicode = e.charCode ? e.charCode : e.keyCode
+                        if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+                            if (unicode == 32)
+                                return true;
+                            else {
+                                if ((unicode < 48 || unicode > 57) && (unicode < 0x0600 || unicode > 0x06FF)) //if not a number or arabic
+                                    return false; //disable key press
+                            }
+                        }
+                    });
+
+                },
+                formSubmitting: function (event, data) {
+                    return data.form.validationEngine('validate');
+                },
+                formClosed: function (event, data) {
+                    data.form.validationEngine('hide');
+                    data.form.validationEngine('detach');
+                    $(".ui-dialog-title").text("حذف لجنه صرف");
+                },
+                recordAdded: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Insert");
+                },
+                recordUpdated: function (event, data) {
+                                        //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Update");
+                },
+                recordDeleted: function (event, data) {
+                                        //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.Web.Language.Resource_data1.Save_Delete");
+                },
+
+            });
+            $('#ReceivingCommitteeDiv').jtable('load');
+
+
+            $('#LoadRecordsButton').click(function (e) {
+
+                e.preventDefault();
+                $('#ReceivingCommitteeDiv').jtable('load', {
+
+                    txt_AR_BTNSearch: $('#txt_AR_BTNSearch').val()
+
+                });
+            });
+            $("#txt_AR_BTNSearch").keypress(function (e) {
+                var unicode = e.charCode ? e.charCode : e.keyCode
+                if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+                    if (unicode == 32) { }// return data.form.validationEngine('validate');
+                    else {
+                        if (((unicode < 48 || unicode > 57) && unicode != 13) && (unicode < 0x0600 || unicode > 0x06FF)) //if not a number or arabic
+
+                        {
+                            return false; //disable key press
+                        } else {
+                            if (unicode == 13) {
+                                $('#LoadRecordsButton').click();
+                            }
+
+                        }
+
+
+                    }
+                }
+            });
+
+            $(".jtable-toolbar-item-add-record .jtable-toolbar-item-text").text("إضافة لجنه صرف");
+        });
+    </script>
+    <script type="text/javascript">
+
+
+    $("#tableExcell").click(function () {
+        var html = "";
+        $.getJSON('/AnalysisLab/AllAnalysisLabs', {}, function (data, succ) {
+           // console.log(data)
+            $.each(data, function (i, item) {
+
+                html += "<tr><td>" + data[i].Name_Ar + "</td><td>" + data[i].Name_En + "</td>"
+
+                html += "</tr>";
+            });
+            $("#tbl tbody").empty();
+            $("#tbl tbody").append(html);
+            tableToExcel('all analysis lab', 'Table');
+        });
+
+
+    });
+
+    var tableToExcel = (function () {
+        var uri = 'data:application/vnd.ms-excel;base64,'
+            , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta charset="UTF-8"></head><body><table>{table}</table></body></html>'
+            , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+            , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+        return function (table, name) {
+            if (!table.nodeType) table = document.getElementById('tbl')
+            var ctx = { worksheet: '@PlantQuar.Web.Language.Resource_data1.AnalysisLab', table: table.innerHTML }
+            window.location.href = uri + base64(format(template, ctx))
+        }
+    })()
+    </script>
+
+}
+<br />
+<div id="ReceivingCommitteeDiv">
+</div>
+
+
+
+
+<br />
+<br />
+<br />
+<div class="row">
+    <iframe id="txtArea1" style="display:none"></iframe>
+   <input type="button" value="@PlantQuar.Web.Language.Resource_data1.Export_to_Excel" id="tableExcell">
+    <br>
+    <br>
+    <div class="col-md-12" style="display:none;">
+        <br>
+        <br>
+        <table id="tbl">
+            <thead>
+                <tr style="background-color:aqua;">
+                    <th>Arabic Name</th>
+                    <th>English Name</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+    </div>
+
+</div>
+
+<style>
+    #tableExcell {
+        float: right;
+        height: 37px;
+        width: 133px;
+        background-color: #1e7c80;
+        border: 2px solid #1e8084;
+        box-shadow: 0 4px #1d9fa5;
+        outline: none;
+        color: white;
+    }
+
+        #tableExcell:hover {
+            background-color: #1a8488;
+            border: 1px solid #1a8488;
+        }
+</style>
+
+
+
+
+
+
+
+

@@ -1,0 +1,563 @@
+﻿@{
+    ViewBag.Title = "@PlantQuar.Web.Language.Resource_data1.Committee";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    var Dissablle = "";
+    if (ViewBag.CommitteeTypeId == 2)
+    {
+        Dissablle = "disabled";
+    }
+}
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.Committee</h2>
+}
+@section Path{
+    <li style="position: relative;right: 28px;">@PlantQuar.WEB.Language.Resource_data1.Committee</li>
+    <li class="active" style="right: 43px; position: relative;">@PlantQuar.WEB.Language.Resource_data1.Committee</li>
+}
+<link href="~/Content/jquery.timepicker.css" rel="stylesheet" />
+<script src="~/scripts/jquery.timepicker.min.js"></script>
+<style>
+    /*.deep-blue-color #min-wrapper {
+        margin-top: -45px;
+    }
+
+    .row {
+        display: block !important;
+        font-size: 14px;
+    }
+    .form-control{
+         font-size: 12px;
+         height:34px !important;
+    }*/
+    #CommitteeType_ID {
+        height: 3.573rem;
+    }
+
+    div.jtable-main-container > table.jtable > tbody > tr > td {
+        font-size: 20px
+    }
+
+    .table-striped {
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    #ui-datepicker-div {
+        z-index: 24 !important;
+    }
+
+    #Employee_AddEDIT {
+        margin-bottom: 25px;
+    }
+</style>
+
+
+
+@using (Html.BeginForm("CreateCommittee", "EX_Committee", FormMethod.Post))
+{
+
+<div class="form-box" id="lagnaDiv">
+
+    <div class="row" style="width:100%">
+        <div class="col-md-4 col-sm-12">
+            @if (ViewBag.CommitteeType_ID != null)
+            {
+                <div class="col-md-12">
+                    <label>@PlantQuar.WEB.Language.Resource_data1.CommitteeType </label>
+                    @*@Html.DropDownList("CommitteeType_ID", "_")*@
+                    <select id="CommitteeType_ID" @Dissablle>
+
+                        @if (ViewBag.CommitteeTypeId == 2)
+                        {
+                            <option value="2">@PlantQuar.WEB.Language.Resource_data1.GeshneyCommittee</option>
+
+                        }
+                        else
+                        {
+                            if (ViewBag.CommitteeTypeId == 1)
+                            {
+                                <option value="1" selected>@PlantQuar.WEB.Language.Resource_data1.CheckCommittee</option>
+                            }
+                            else
+                            {
+                                <option value="1">@PlantQuar.WEB.Language.Resource_data1.CheckCommittee</option>
+                            }
+                            if (ViewBag.CommitteeTypeId == 3)
+                            {
+                                <option value="3" selected>@PlantQuar.WEB.Language.Resource_data1.CommitteeSampleData</option>
+                            }
+                            else
+                            {
+                                <option value="3">@PlantQuar.WEB.Language.Resource_data1.CommitteeSampleData</option>
+                            }
+
+                            if (ViewBag.CommitteeTypeId == 6)
+                            {
+                                <option value="6" selected>@PlantQuar.WEB.Language.Resource_data1.CommitteeTreatment</option>
+                            }
+                            else
+                            {
+                                <option value="6">@PlantQuar.WEB.Language.Resource_data1.CommitteeTreatment</option>
+                            }
+
+
+
+                        }
+
+                    </select>
+                </div>
+            }
+            else
+            {
+                <div class="col-md-12">
+                    <label>@PlantQuar.WEB.Language.Resource_data1.CommitteeType </label>
+                    @*@Html.DropDownList("CommitteeType_ID", "_")*@
+                    <select id="CommitteeType_ID">
+
+                        @if (ViewBag.type == 2)
+                        {
+                            <option value="5">لجنة اعتماد مزرعة</option>
+
+                        }
+                        else if (ViewBag.type == 3)
+                        {
+
+                            <option value="4">لجنة اعتماد محطة</option>
+
+
+                        }
+
+                    </select>
+                </div>
+
+            }
+
+
+            <div class="col-md-12">
+
+                @{
+                    if (ViewBag.type == 1)
+                    {
+                        <label> @PlantQuar.WEB.Language.Resource_data1.Date_of_registration_request  </label>
+                        <input type="text" name="Check_Date" id="Check_Date" class="form-control" readonly value="@ViewBag.creationDate" />
+                    }
+                    else if (ViewBag.type == 2)
+                    {
+                        <label> @PlantQuar.WEB.Language.Resource_data1.FarmAccreditatRequestRegistrationDate  </label>
+                        <input type="text" name="Check_Date" id="Check_Date" class="form-control" readonly value="@ViewBag.creationDate" />
+                    }
+                    else
+                    {
+                        <label> @PlantQuar.WEB.Language.Resource_data1.StationAccreditatRequestRegistrationDate  </label>
+                        <input type="text" name="Check_Date" id="Check_Date" class="form-control" readonly value="@ViewBag.creationDate" />
+                    }
+                }
+
+
+            </div>
+            <div class="col-md-12">
+                <label> @PlantQuar.WEB.Language.Resource_data1.Time_of_ActionFrom</label>
+                <input type="time" name="StartTime" id="StartTime" class="form-control" required />
+            </div>         
+        </div>
+        <div class="col-md-4 col-sm-12">
+            <div class="col-md-12">
+                @{
+                    if (ViewBag.type == 1)
+                    {
+                        <label>@PlantQuar.WEB.Language.Resource_data1.ExportRequestNumber</label>
+                    }
+                    else if (ViewBag.type == 2)
+                    {
+                        <label>@PlantQuar.WEB.Language.Resource_data1.FarmNumber</label>
+                    }
+                    else
+                    {
+                        <label>@PlantQuar.WEB.Language.Resource_data1.stationCode</label>
+                    }
+                }
+
+                <input type="text" name="CheckRequest_Number" id="CheckRequest_Number" value="@ViewBag.data" class="form-control" readonly />
+
+            </div>
+            <div class="col-md-12">
+                <label> @PlantQuar.WEB.Language.Resource_data1.Date_of_committee</label>
+                <input type="text" name="Delegation_Date" id="Delegation_Date" class="form-control" required />
+            </div>
+            <div class="col-md-12">
+                <label>  @PlantQuar.WEB.Language.Resource_data1.To</label>
+                <input type="time" name="EndTime" id="EndTime" class="form-control" required />
+            </div>
+            @*<div class="col-md-12">
+                    <label>  @PlantQuar.WEB.Language.Resource_data1.EmpolyeeNumber</label>
+                    <input type="text" name="Employee_No" id="Employee_No" class="form-control" />
+                </div>*@
+        </div>
+        
+
+    </div>
+   
+    @*السيد*@
+    <input type="hidden" id="Committe_Id" value="@ViewBag.CommitteeId" />
+    <input type="hidden" id="sId" value="@ViewBag.sId" />
+    <input type="hidden" id="CheckRequest_Id" value="@ViewBag.checkRequestId" />
+    <input type="hidden" id="CommitteeType_ID" value="@ViewBag.CommitteeTypeId" />
+    <div id="empploy">
+        <div class="col-md-4">
+            <label>@PlantQuar.WEB.Language.Resource_data1.Outlet</label>
+            @Html.DropDownList("CustomerDropDown", new SelectList(ViewBag.ddd, "Value", "DisplayText"), new { @class = "form-control", @onchange = "MyFunction()" })
+
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label> @PlantQuar.WEB.Language.Resource_data1.EmpolyeeName</label>
+                <input type="text" id="Employee_name" placeholder="enter emp name" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <label>  @PlantQuar.WEB.Language.Resource_data1.EmpolyeeNumber</label>
+                <input type="text" name="Employee_No" id="Employee_No" class="form-control" />
+            </div>
+            <div class="col-md-4" style="text-align:center">
+                <input type="button" id="search" onclick="MyFunction()" value="بحث بالموظف" />
+
+
+                <input type="hidden" id="CheckRequest_Id" value="@ViewBag.requestId" />
+
+
+                <input type="hidden" id="shiftId" />
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <table id="Farm_Constrain_TextTable" class="table table-bordered table-striped dataTable" role="grid"
+                   style="padding:5px; width:100%">
+                <thead>
+                    <tr>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.EmpolyeeNumber </th>
+                        <th>اسم الموظف </th>
+                        <th>محافظة الموظف </th>
+                        <th>منفذ الموظف </th>
+                        <th hidden>ادمن</th>
+                        <th>تسجيل</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <table id="myTable" border="1" name="gh" class="table table-bordered table-striped dataTable">
+                <thead>
+                    <tr>
+                        <th>اسم المهندس </th>
+                        <th>كود المهندس </th>
+                        <th>ادمن</th>
+                        <th>حذف</th>
+
+                    </tr>
+                </thead>
+                <tbody id="myTable2">
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+    <input type="button" class="btn btn-primary pull-right" id="submitValue" value="@PlantQuar.WEB.Language.Resource_data1.Save">
+
+
+    @section scripts{
+        <script type="text/javascript">
+                $(document).ready(function () {
+                    $("#CommitteeType_ID").attr("class", "form-control");                
+                })
+            $(function () {
+                //Date&Time Form
+                $("#Delegation_Date").datepicker(
+                    {
+                        dateFormat: 'yy-mm-dd',
+                        changeYear: true,
+                    }
+                );
+            });
+
+        String.prototype.compose = (function () {
+            var re = /\{{(.+?)\}}/g;
+            return function (o) {
+                return this.replace(re, function (_, k) {
+                    return typeof o[k] != 'undefined' ? o[k] : '';
+                });
+            }
+                }());
+
+                $("#CommitteeType_ID").change(function () {
+                    GetCheckRequest_Number_Data(true);
+                });
+        //CheckRequest_Number
+                function GetCheckRequest_Number_Data(isChange=false) {
+                    //debugger;
+
+            CommitteeType_ID = $("#CommitteeType_ID").val()
+                if ( CommitteeType_ID == "")
+            {
+                alert("يجب اختيار نوع اللجنة");
+                return false;
+            }
+            $.ajax(
+                {
+                    url: "/EX_Committee/GetCommittee",
+                    type: "POST",
+                    data: {
+                        CheckRequest_Number: $("#CheckRequest_Number").val(),
+                        CommitteeType_ID: CommitteeType_ID
+                    },
+                    success: function (res) {
+                        //reset data
+                        //   $("#CommitteeType_ID").val(null);
+                        $("#Check_Date").val(null);
+                        $("#Delegation_Date").val(null);
+                        $("#StartTime").val(null);
+                        $("#EndTime").val(null);
+                        $("#Employee_AddEDIT").hide();
+                        $("#CheckRequest_Id").val(0);
+                        if (res.Result == 1) {
+                            //set data found
+                            var Request_committe = res.Request_committe;
+
+                            if (Request_committe.Check_Date != null) {
+                                $("#Check_Date").val($.datepicker.formatDate('yy-mm-dd', (new Date(parseInt(Request_committe.Check_Date.substr(6))))));
+                            } if (Request_committe.Delegation_Date != null) {
+                                $("#Delegation_Date").val($.datepicker.formatDate('yy-mm-dd', (new Date(parseInt(Request_committe.Delegation_Date.substr(6))))));
+                            }$("#StartTime").val(Request_committe.StartTime);
+                            $("#EndTime").val(Request_committe.EndTime);
+                            $("#Employee_AddEDIT").show();
+                            $("#submitValue").removeAttr("disabled");
+                            //get check_request id
+                            $("#CheckRequest_Id").val(Request_committe.CheckRequest_Id);
+                            var Committe_Id = Request_committe.Committe_Id ;
+                            $("#Committe_Id").val(Request_committe.Committe_Id);
+                        if (Committe_Id == -1)
+                            {
+                            //no committe is found
+                            }
+                        else if (Committe_Id >0) {
+                                    //there is a committe for the current request
+                            //edit data and display employee data
+                            var Employee_list = Request_committe.Employee_list;
+                            //Value    Employee_name    Employee_Id
+
+                            var tbody = $('#Employee_AddEDIT').children('tbody');
+                            var table = tbody.length ? tbody : $('#Employee_AddEDIT').children('tbody');
+                            //19-3-2020 fz clear table body
+                                $('#Employee_List  tbody').empty();
+                            $.each(Employee_list, function (index, r) {
+                            //     var row = '<tr class="jtable-data-row jtable-row-even jtable-row-selected"><td class="jtable-selecting-column"><input type="checkbox" checked></td><td>' + r.Employee_name + '</td><td>' + r.Employee_Id + '</td></tr>';
+                                var row = ' <tr class="jtable-data-row-selected"><td class="jtable-selecting-column"><input type="checkbox" checked></td><td>' + r.Employee_Id + '</td><td>' + r.Employee_name + '</td><td>' + r.Employee_Id + '</td></tr>';
+                                $("#Employee_AddEDIT tbody").append(row);
+                            });
+                                }
+                        }
+                        else {
+
+                            $("#submitValue").attr("disabled", true);
+                            alert("خطأ فى رقم طلب الفحص");
+                        }
+                    }
+                });
+        }       
+        </script>
+
+        <script>
+             var list = [];
+        function MyFunction() {
+           // $(search).prop('disabled', true); // Unchecks it
+            $("#Farm_Constrain_TextTable tbody").empty();
+            var EmplyeeName = document.getElementById("Employee_name").value;
+            var Emplyee_No = $('#Employee_No').val();
+            var OutletID = document.getElementById("CustomerDropDown").value;
+            var EmplyeeNo;            
+            if (Emplyee_No === "") {
+                 EmplyeeNo = 0;
+            }
+            else {
+                 EmplyeeNo = parseInt($('#Employee_No').val());
+            }
+            //alert(2);
+              $.ajax({
+                        url: '@Url.Action("GetPR_User_Id", "EX_Committee")',
+                        type: "POST",
+                  data: { FullName: EmplyeeName, EmplyeeNo: EmplyeeNo, OutLet_ID:OutletID},
+                  success: function (data) {
+                            for (var i = 0; i < data.length; i++) {
+                                var item = data[i];
+                                carName = 1;
+                                $("#Farm_Constrain_TextTable tbody").append("<tr>" +
+
+                                    "<td>  " + item.EmpId + "  </td>"
+                                    +"<td>" + item.DisplayText + "</td>" +
+                                    "<td>  " + item.Adress + "  </td>"
+                                    + "<td>" + item.JobTitleName + "</td>"
+                                    + '<td><input type="checkbox" id="chckBox_' + data[i].Value+'" class="chckClass_' + i + '" value="' + data[i].Value + '" Name="' + data[i].DisplayText + '"  onchange="helloo(this)" " /></td>'
+                                    + "</tr>");
+                            }
+                    },
+                        error: function (xhr, status, error) {
+                   }
+              });
+
+            let checkboxes = $("input[type='checkbox']");
+            selectedCboxes = Array.prototype.slice.call(checkboxes).filter(ch => ch.checked == true);
+            //console.log(checkboxes);
+            }
+
+        function helloo(element) {
+                if (element.checked) {
+
+                    var table = document.getElementById("myTable2");
+
+                    var rowCount = table.rows.length;
+                    var row = table.insertRow(rowCount);
+                    row.id = 'id' + element.value;
+                    row.insertCell(0).innerHTML = element.name;
+                    row.insertCell(1).innerHTML = element.value;
+                    row.insertCell(2).innerHTML =
+                        '<td><input type="radio" id="chckBox_' + element.value + '" class="change-selector" value="' + element.value + '" name="hello"   )"/></td>';
+                    row.insertCell(3).innerHTML =
+                        '<td><a href="#" onclick="DeleteRow(this)" name="' + element.value + '">Delete</a></td>';
+                }
+                else {
+                    var c = '#id' + element.value + '';
+                    $(c).remove();
+
+                }
+            }
+
+        function DeleteRow(element) {
+                ////alert(element.name);
+                //console.log(element);
+                var table = document.getElementById("myTable");
+
+                var c = '#id' + element.name + '';
+                $(c).remove();
+                //remove the checked employee chckBox_729
+                var ch = '#chckBox_' + element.name + '';
+                $(ch).prop('checked', false); // Unchecks it
+            }
+         ////////////////////////////////////////////Save
+             var CheckedAnalysisList = [];
+            $('#submitValue').click(function (e) {
+
+               
+            //var rad_cls = document.querySelectorAll('input[class=myRadios]:checked');
+         
+                        
+            //    var checkboxes = document.querySelectorAll('input[name=fav]:checked');                                  
+                        //حفظ اللجنة
+                        var CommitteeType_ID = $("#CommitteeType_ID").val();
+
+                        if (CommitteeType_ID == 0) {
+                            alertify.error("يجب أختيار لجنة ");
+                        }
+                        Delegation_Date = $("#Delegation_Date").val();
+                        StartTime = $("#StartTime").val();
+                        EndTime = $("#EndTime").val();
+                        if (Delegation_Date == ""
+                            || StartTime == "" || EndTime == "") {
+                            alertify.error("يجب استكمال البيانات ");
+                            return false;
+                        }
+                        if (StartTime > EndTime) {
+
+                            alertify.error(" يجب ان يكون توقيت النهاية اكبر من توقيت البداية ");
+                            return false;
+                        }
+
+                        //نهاية حفظ اللجنة
+                        // الموظفين
+                        //$('#Employee_List  tbody').empty();
+                        var employees = Ex_saveList();
+                        //alert(employees);
+                        if (employees == null) {
+                            alertify.error("يجب اختيار  ادمن ");
+                            return false;
+                        }
+
+                        var Contnue = true;
+                        /* $('#Employee_List  tbody').empty();*/
+                        //نهاية حفظ الموظفين          
+               
+               
+                            //save committe
+                            $.ajax({
+                                type: "POST",
+                                url: "/EX_Committee/Save_Committe",
+                                dataType: "json",
+                                //data: dataToSend,
+                                data: JSON.stringify(
+                                    {                                        
+                                        Ex_CheckRequest_Id: $("#CheckRequest_Id").val(),
+                                        CommitteeType_ID: CommitteeType_ID,
+                                        Committe_Id: $("#Committe_Id").val(),
+                                        Check_Date: $("#Check_Date").val(),
+                                        Delegation_Date: $("#Delegation_Date").val(),
+                                        StartTime: $("#StartTime").val(),
+                                        EndTime: $("#EndTime").val(),
+                                        // employees
+                                        emp_Dto: employees,
+                                    }),
+
+                                contentType: "application/json; charset=utf-8",
+                                success: function (data) {
+                                    /*if (data == "OK") {*/
+                                        //alert("Committee Inserted before");
+
+                                        //  $('.nav-tabs > .active').next('li').find('a').trigger('click');
+                                        alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+                                        location.href = "/ExportRequest/List_ExportRequests/Index"
+                                    //}
+
+                                    //else {
+
+
+                                    //    $("#Check_Date").val(null);
+                                    //    $("#Delegation_Date").val(null);
+                                    //    $("#StartTime").val(null);
+                                    //    $("#EndTime").val(null);
+
+                                    //    $("#CheckRequest_Id").val(0);
+
+                                    //    //  $("#CheckRequest_Id").val(0);
+                                    //    //$("#Committe_Id").val(data),
+
+                                    //}
+                                }
+                            });                        
+                       });
+        function Ex_saveList() {
+                var selectedOption = $("input:radio[name=hello]:checked").val()               
+                if (typeof selectedOption !== "undefined") {
+                    var rows = document.getElementById("myTable2").rows;
+                    for (var i = 0, ceiling = rows.length; i < ceiling; i++) {
+                        cells = rows[i].getElementsByTagName('td');
+                        Employee_name = cells[0].innerHTML;
+                        Employee_Id = cells[1].innerHTML;
+                        var id = parseInt(Employee_Id);
+                        if (id == selectedOption) {
+                            ISAdmin = true;
+                            ////alert('d');
+                            //console.log(selectedOption + ',,,,' + Employee_Id);
+                        }
+                        else {
+                            ISAdmin = false;
+                        }
+                        list.push({ Employee_name: Employee_name, Employee_Id: Employee_Id, ISAdmin: ISAdmin });
+
+                    }
+                    return list;
+                }
+                else {
+                    return null;
+                }                
+            }
+        </script>
+    }
+}

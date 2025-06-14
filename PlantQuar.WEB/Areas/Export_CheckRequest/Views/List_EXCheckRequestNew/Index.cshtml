@@ -1,0 +1,288 @@
+﻿@*@model PagedList.IPagedList<PlantQuar.DTO.DTO.ImPermissionsListDTO>*@
+@model List<PlantQuar.DTO.DTO.Export_CheckRequest.EXCheckRequestListDTO>
+
+@*@using PagedList.Mvc;*@
+
+<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<link href="~/assets/css/jquery.dataTables.min.css" rel="stylesheet" />
+<style>
+    .bootstrap-select .dropdown-menu.inner {
+        margin-right: 0px !important;
+    }
+</style>
+<link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
+
+
+
+@{
+    ViewBag.Title = "طلبات فحص الصادر";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    var model = Model;
+}
+
+@section Title{
+    <h2 class="ls-top-header">قائمة طلبات الفحص الصادر</h2>
+}
+
+@section Path{
+    <li style="position: relative;right: 28px;">فحص</li>
+    <li class="active" style="right: 29px; position: relative;">Im Check Request List</li>
+}
+
+
+<div class="row">
+
+    <div class="col-md-6 flex-align" id="Start_Date">
+        <label class="col-md-4" style="margin-top:10px">بداية البحث</label>
+        <input class="form-control col-md-8" id="dateFrom" name="date" value="@ViewBag.DateFrom.Date.ToString("yyyy-MM-dd")" placeholder="DD/MM/YYY" type="date" />
+    </div>
+    <div class="col-md-6 flex-align" id="End_Date">
+        <label class="col-md-4" style="margin-top:10px">نهاية البحث</label>
+        <input class="form-control col-md-8" id="dateEnd" name="date" placeholder="DD/MM/YYY" value="@ViewBag.DateTo.Date.ToString("yyyy-MM-dd")" type="date" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2  col-sm-12">
+
+        <p style="font-weight:bold;margin-top:15px;">موقف الطلب</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div style="margin-right: 60px;">
+            <input type="radio" id="requestid" name="gender" value="2">
+            <label for="female"> التي تمت الموافقه عليها</label>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div style="margin-right: 60px;">
+            <input type="radio" id="requestidxx" name="gender" value="3">
+            <label for="femalexx"> لم يتخذ اجراء علي الطلب</label>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div style="margin-right: 60px;">
+            <input type="radio" id="requestidx" name="gender" value="4">
+            <label for="femalex"> المرفوضة</label>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div style="margin-right: 60px;">
+            <input type="radio" id="requestidx" name="gender" value="5">
+            <label for="femalex"> الطلب مغلق</label>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2  col-sm-12">
+
+        <p style="font-weight:bold;margin-top:15px;">موقف الحجر</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div style="margin-right: 60px;">
+            <input type="radio" id="requestidx" name="gender" value="6">
+            <label for="femalex"> موقف الحجر الطلب يعمل</label>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div style="margin-right: 60px;">
+            <input type="radio" id="requestidx" name="gender" value="7">
+            <label for="femalex"> موقف الحجر الطلب لا يعمل</label>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+<br />
+<hr />
+<div class="row">
+    <div class="col-md-6 ta1">
+        <label for="Constrain_Country" class="control-label col-md-4">الدولة </label>
+        <select id="Country_List" class="form-control col-md-8 Country_List"></select>
+    </div>
+
+    <div class="col-md-6 ta1">
+        <label class="control-label col-md-4">اسم الشركة</label>
+        <select id="Company_List" class="form-control col-md-8  Company_List"></select>
+    </div>
+</div>
+<br />
+<div class="row">
+
+    <div class="col-md-6 ta1">
+        <label class="control-label col-md-4">اسم المحطة</label>
+        <select id="NewGeshniNameStation" class="form-control col-md-8 NewGeshniNameStation  ">
+        </select>
+    </div>
+    <div class="col-md-6 ta1">
+        <label class="control-label col-md-4">رقم الطلب</label>
+        <input type="text" name="Txt_Im_PermissionRequest" id="Txt_Im_PermissionRequest" class="form-control col-md-8" value="" />
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-2">
+        <input type="submit" id="messagedata" class="btn btn-primary" style="width:100%" value="بـــــحث" autocomplete="off">
+    </div>
+    <div class="col-md-5"></div>
+</div>
+
+
+
+
+
+
+<script>
+
+      $(function () {
+        //Country_List
+        $.ajax(
+            {
+                url: '@Url.Action("Country_List", "List_EXCheckRequestNew", new { area = "Export_CheckRequest" })',
+                type: 'Post',
+                success: function (data) {
+                    $('#Country_List').empty();
+                    $.each(data.Options, function (i, index) {
+                        $('#Country_List').append($('<option />').val(index.Value).text(index.DisplayText));
+
+                    }); //each
+                    $('#Country_List').selectpicker('refresh');
+                } //success
+            });//ajax
+        //Company_List
+        $.ajax(
+            {
+                url: '@Url.Action("Company_List", "List_EXCheckRequestNew", new { area = "Export_CheckRequest" })',
+                type: 'Post',
+                success: function (data) {
+                    $('#Company_List').empty();
+                    $.each(data.Options, function (i, index) {
+                        $('#Company_List').append($('<option />').val(index.Value).text(index.DisplayText));
+                    }); //each
+                    $('#Company_List').selectpicker('refresh');
+                } //success
+            });//ajax
+          //Station_List
+               $.ajax({
+         url: '@Url.Action("GetStation", "List_EXCheckRequestNew")',
+         type: "POST",
+         success: function (data) {
+            // console.log(data);
+
+             $('#NewGeshniNameStation').empty();
+             /*  $('#LotStatusLst').append($('<option />').val(0).text(" أختار"));*/
+             $.each(data.Options, function (i, index) {
+
+                 $('#NewGeshniNameStation').append($('<option />').val(index.Value).text(index.DisplayText));
+             }); //each
+             $('#NewGeshniNameStation').selectpicker('refresh');
+         }
+
+     });
+
+      });
+
+      $(document).ready(function () {
+          $("#Country_List, #Company_List,#NewGeshniNameStation").selectpicker({
+           liveSearch: true
+        });
+       // App.init();
+  });
+
+        $('#messagedata').click(function (e) {
+
+        //var c1Value ='@ViewBag.OperationCode';// @*"@Html.Raw(ViewBag.OperationCode)";*@
+       // console.log(c1Value);
+        //alert(c1Value);
+        var radio_ID = 0;
+        var radios = document.getElementsByName('gender');
+        for (var i = 0, length = radios.length; i < length; i++) {
+            if (radios[i].checked) {
+                // do whatever you want with the checked radio
+                radio_ID=radios[i].value;
+                // only one radio can be logically checked, don't check the rest
+                break;
+            }
+            }
+
+        Check_Data = 0;
+            var Country_ID = $('#Country_List').val();
+            var dateFrom = $('#dateFrom').val();
+            var dateEnd = $('#dateEnd').val();
+            //alert(dateFrom);
+          //  alert(dateFrom-dateEnd);
+        var Company_List = $('#Company_List').val();
+        //var select_Company_Text = $("#Company_List Option:selected").text().split('_')[1];
+
+            var NameStation = $('#NewGeshniNameStation').val();
+        var ExChechRequest_Num = $('#Txt_Im_PermissionRequest').val();
+       // var select_ShortName_Text = $("#ShortName_Lst Option:selected").text().split('_')[1];
+
+        if (radio_ID == 0) {
+            alertify.error("يجب اختيار نوع الطلب");
+        }
+        else {
+            if (Country_ID > 0 || Company_List > 0 || NameStation > 0 || ExChechRequest_Num>0) {
+                Check_Data = 1;
+              //  alert(NameStation);
+            }
+            else {
+                alertify.error("يجب اختيار الدولة او الشركة اوالمحطة او رقم الفحص  ");
+            }
+        }
+     /*  Check_Data = 0;*/
+            if (Check_Data == 1) {
+
+                window.open("/Export_CheckRequest/List_EXCheckRequestNew/EX_CheckRequest_List?radio_ID=" + radio_ID
+                    + "&Company_ID=" + Company_List
+                    + "&Country_ID=" + Country_ID
+                    + "&StationId=" + NameStation
+                    + "&ExChechRequest_Num=" + ExChechRequest_Num
+                    + "&dateFrom=" + dateFrom
+                    + "&dateEnd=" + dateEnd);
+
+
+
+     //            window.open("/Im_CheckRequests/List_ImCheckRequest/Im_CheckRequest_List?DateFrom=" + DateFrom
+     //+ "&DateEnd=" +DateEnd
+     //+ "&selectApproveId=" + selectApproveId
+     //+ "&FinalResultListId=" + FinalResultListId
+     //+ "&CheckRequest_Number=" + CheckRequest_Number
+     //+ "&Company_ID=" + _Company_ID);   
+            @*$.ajax({
+                url: '@Url.Action("GetListOFCheckRequests", "List_EXCheckRequestNew", new { area = "Export_CheckRequest" })',
+                type: 'Post',//dateFrom-dateEnd
+                data: {
+                    radio_ID: radio_ID,
+                    Company_ID: Company_List,
+                    Country_ID: Country_ID,
+                    StationId: NameStation,
+                    ExChechRequest_Num: ExChechRequest_Num,
+                    dateFrom: dateFrom,
+                    dateEnd: dateEnd
+                },
+                success: function (message) {
+                    //console.log(message);
+
+                    //window.location.href = '/Export_CheckRequest/List_ImCheckRequest/INDEX?radio_ID=' + radio_ID + '&Company_ID=' + Company_List
+                    ///   + '&Country_ID=' + Country_ID +
+                    //   '&ExChechRequest_Num=' + ExChechRequest_Num + '&OperationCode=' + Number(c1Value);
+                    window.location.href = '/Export_CheckRequest/List_EXCheckRequestNew/GetListOFCheckRequests?radio_ID=' + radio_ID + '&Company_ID=' + Company_List + '&Country_ID=' + Country_ID + '&StationId=' + NameStation + '&ExChechRequest_Num=' + ExChechRequest_Num + '&dateFrom=' + dateFrom + '&dateEnd=' + dateEnd ;
+
+
+
+                }
+            });*@
+        }
+    });
+</script>
+<script src="~/scripts/jquery.dataTables.min.js"></script>
+<script src="~/assets/js/bootstrap-select1.min.js"></script>

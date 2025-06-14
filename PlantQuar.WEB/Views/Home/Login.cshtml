@@ -1,0 +1,131 @@
+﻿
+@model PlantQuar.WEB.Models.CustomUserLogin
+@{
+    Layout = null;   
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>تسجيل دخول</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @* ****************MENNA ******************** *@
+    <script src="~/scripts/jquery-1.10.2.min.js"></script>
+    <link rel="icon" type="image/png" href="~/Content/login/images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/login/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/login/fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/login/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/login/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/login/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/login/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/login/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/login/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/login/css/ma.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/login/css/main.css">
+    @*<link href="~/Content/login/css/Styles.css" rel="stylesheet" />*@
+    @*<link href="~/Content/login/materialize/css/materialize.css" rel="stylesheet" />*@
+    @*<link href="~/Content/login/materialize/css/materialize.min.css" rel="stylesheet" />*@
+    <!-- Compiled and minified JavaScript -->
+    <script src="~/Content/login/js/materialize.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/color.js"></script>
+    <script type="text/javascript" src="~/assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/multipleAccordion.js"></script>
+
+    @Scripts.Render("~/bundles/alertify")
+    @Scripts.Render("~/bundles/ajax")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    @*<script src="~/Content/login/materialize/js/materialize.js"></script>
+        <script src="~/Content/login/materialize/js/materialize.min.js"></script>*@
+
+    <!--===============================================================================================-->
+    <link href="~/Content/login/css/Material_Icons.css" rel="stylesheet" />
+    <script>
+        $(function () {
+            //sessionStorage.clear();
+            //localStorage.clear();
+
+            //$('#LoginName').attr("autocomplete", "off");
+            //setTimeout('$("#LoginName").val("");', 2000);
+            //$('#Password').attr("autocomplete", "off");
+            //setTimeout('$("#Password").val("");', 2000);
+        });
+    </script>
+    <style>
+        .alertify .ajs-dialog {
+            top: 50%;
+            transform: translateY(-50%);
+            margin: auto;
+            color: red;
+        }
+        label.right-175 {
+            right: 1.75rem !important;
+        }
+    </style>
+
+
+
+</head>
+
+<body>
+    <div class="container-login100" style="background-image:
+    url('../../Content/login/images/bg-01.jpg');">
+        <div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30">
+            @using (Html.BeginForm("Login", "Home",
+                FormMethod.Post,
+                new { @class = "login100-form validate-form" }))
+            {
+
+                <form class="col s12">
+                    <span class="login100-form-title p-b-37">
+                        <strong> اهلا بكم في منظومة الحجر الزراعي</strong>
+                        <br>
+                        تسجيل دخول
+                    </span>
+                    <div class="row">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                @Html.TextBoxFor(a => a.LoginName, new { @class = "validate", required = "required", autocomplete = "off", autofocus = "autofocus", @style = "float: right; text-align: right!important;" })
+                                <label for="LoginName" style="float: right;text-align: right!important;margin-left: -37px;color:#34507c;top: -11px;font-size:17px">  اسم المستخدم </label>
+                                <i class="material-icons prefix" style="color:#34507c;">account_circle</i>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input type="password" id="Password" name="Password" autocomplete="off" readonly
+                                       onfocus="this.removeAttribute('readonly');" class="form-control" style = "float: right; text-align: right !important;" />
+                                @*@Html.PasswordFor(a => a.Password, new { @class = "validate", required = "required", autocomplete = "off", onfocus = "this.removeAttribute('readonly');", @style = "float: right; text-align: right !important;" })*@
+                                <label for="Password" class="right-175" style="float: right;text-align: right !important;margin-left: -48px;color:#34507c;top: -11px;font-size:17px">كلمه المرور</label>
+                                <i class="material-icons prefix" style="color:#34507c;">https</i>
+                            </div>
+                        </div>
+                        <div class="container-login100-form-btn">
+                            <button type="submit" class="button login100-form-btn"><span>تسجيل <i class='fa fa-sign-in'></i></span></button>
+                        </div>
+                    </div>
+                </form>
+            }
+        </div>
+    </div>
+    @if (ViewBag.msg != null)
+    {
+        <text>
+            <script>
+                alertify.error('@ViewBag.msg');
+              // alert('@ViewBag.msg');
+              //  return false;
+            </script>
+        </text>
+    }
+</body>
+</html>

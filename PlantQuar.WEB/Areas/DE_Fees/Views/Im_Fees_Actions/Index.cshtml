@@ -1,0 +1,243 @@
+﻿
+@model  List<PlantQuar.DTO.DTO.DataEntry.Fees.Im_Fees_ActionsDTO>
+
+
+
+
+@{
+    ViewBag.Title = "رسوم المنتجات الواردة";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@section Title{
+    <h2 class="ls-top-header">@ViewBag.Title</h2>
+}
+
+@section Path{
+    <li style="position: relative;right: 28px;">فحص</li>
+    <li class="active" style="right: 29px; position: relative;">Im Check Request List</li>
+}
+
+<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<link href="~/assets/css/jquery.dataTables.min.css" rel="stylesheet" />
+<style>
+    .bootstrap-select .dropdown-menu.inner {
+        margin-right: 0px !important;
+    }
+</style>
+<link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
+
+<div class="row" style="display:block" id="#dvData">
+    <table class="table table-bordered col-md-12" id="TestLoop">
+        <thead>
+            <tr>
+                <th>اسم النبات بالعربى</th>
+                <th>المسمى المختصر</th>
+                <th>المحموعة النوعية</th>
+                <th>معفي من اذن الاستيراد  </th>
+                <th hidden>ID</th>
+                <th>الوارد</th>
+                <th>قيمة الوارد القديمة</th>
+                <th>ترانزيت</th>
+                <th>قيمة الترانزيت القديمة</th>
+
+            </tr>
+        </thead>
+        <tbody id="mybody">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.item_Name_Ar</td>
+                    <td>@item.ShortName_Ar</td>
+                    <td>@item.QualitativeGroup</td>
+                    <td>@item.Is_ImportTaxFree</td>
+                    <td hidden>@item.Id</td>
+                    <td id="ImportIdtd_@item.Id">
+                        @*//should change with @item.id*@
+                        <select id="@item.Id" name="ImportId">
+                            <option value="0">أختر</option>
+                            @foreach (var type in ViewBag.Fees_Money_List)
+                            {
+                                if (@type.Type == 1)
+                                {
+                                    <option id="@item.Id" value="@type.Id_Check">@type.Fees_Import</option>
+                                }
+                            }
+                        </select>
+
+                    </td>
+
+
+                    @if (@item.Fees_Import != 0)
+                    {
+                        <td>@item.Fees_Import جنيه مصرى</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                    <td id="TransitIdtd_@item.Id">
+                        <select id="@item.Id" name="TransitId">
+                            <option value="0">أختر</option>
+                            @foreach (var type in ViewBag.Fees_Money_List)
+                            {
+                                if (@type.Type == 2)
+                                {
+                                    <option id="@item.Id" value="@type.Id_Check">@type.Fees_Tranzet</option>
+                                }
+                            }
+                        </select>
+                    </td>
+                    @if (@item.Fees_Tranzet != 0)
+                    {
+                        <td>@item.Fees_Tranzet جنيه مصرى</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                </tr>
+
+            }
+        </tbody>
+        @*<tfoot>
+                <tr>
+                    <th>اسم النبات بالعربى</th>
+                    <th>المسمى المختصر</th>
+                    <th>المحموعة النوعية</th>
+                    <th>معفي من اذن الاستيراد  </th>
+                    <th hidden>ID</th>
+                    <th>الوارد</th>
+                    <th>قيمة الوارد القديمة</th>
+                    <th>ترانزيت</th>
+                    <th>قيمة الترانزيت القديمة</th>
+                </tr>
+            </tfoot>*@
+    </table>
+</div>
+
+<br />
+<br />
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-4">
+        <input type="button" id="btnExport" class="button but-style pull-right" value=" حفظ الاكسل " />
+    </div>
+    @*<div class="col-md-4">  <button class="btn btn-block btn-style" onclick="ExportToExcel('xlsx')">Export to excel</button></div>*@
+    @*<button type="button" id="export_button" onclick="html_table_to_excel()" class="btn btn-default">Export</button>
+        <button class="dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="example" type="button">
+        <span>Excellllllll</span></button>*@
+    <div class="col-md-4 text-align-center">
+        <button onclick='updateUserPass()' class="button but-style pull-left">حفظ</button>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    //function ExportToExcel(type, fn, dl) {
+    //    var elt = document.getElementById('TestLoop');
+    //    var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+    //    return dl ?
+    //        XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
+    //        XLSX.writeFile(wb, fn || ('ItemFEES.' + (type || 'xlsx')));
+    //}
+
+    //new DataTable('#TestLoop', {
+    //    layout: {
+    //        topStart: {
+    //            buttons: [
+    //                'copy',
+    //                'csv',
+    //                'excel',
+    //                'pdf',
+    //                {
+    //                    extend: 'print',
+    //                    text: 'Print all (not just selected)',
+    //                    exportOptions: {
+    //                        modifier: {
+    //                            selected: null
+    //                        }
+    //                    }
+    //                }
+    //            ]
+    //        }
+    //    },
+    //    select: true
+    //});
+
+
+    //function html_table_to_excel(type) {
+
+    //    //document.getElementsByClassName('Excel_Hidn').style.visibility = 'hidden';
+    //    //var divsToHide = document.getElementsByClassName("Excel_Hidn"); //divsToHide is an array
+    //    /*for (var i = 0; i < divsToHide.length; i++) {*/
+    //    //divsToHide[i].style.visibility = "hidden"; // or
+    //    //divsToHide.style.display = "none"; // depending on what you're doing
+    //    /* }*/
+    //    //$('.Excel_Hidn').css("display", "none");
+    //    var data = document.getElementById('TestLoop');
+    //    var file = XLSX.utils.table_to_book(data, { sheet: "sheet1" });
+    //    XLSX.write(file, { bookType: type, bookSST: true, type: 'base64' });
+    //    XLSX.writeFile(file, 'ITEM_FEES.' + type);
+    //}
+    //const export_button = document.getElementById('export_button');
+    //export_button.addEventListener('click', () => {
+    //    html_table_to_excel('xlsx');
+    //});
+    var list = [];
+    var CheckedItemsList = [];
+    function updateUserPass() {
+
+        var rows = document.getElementById("mybody").rows;
+        //alert(rows.length);
+
+            for (var i = 0, ceiling = rows.length; i < ceiling; i++) {
+                cells = rows[i].getElementsByTagName('td');
+                var id = cells[2].innerHTML;
+                var Import_selected = $("#ImportIdtd_" + id + " option:selected").val();
+                if (Import_selected > 0) {
+                    Selected_Import_Item = $("#ImportIdtd_" + id + " option:selected").text();
+                    CheckedItemsList.push({ FeesType_Id: 6, Item_Shift_Treatment_ID: id, Feer_Type_Action_ID: 9, Amount: Selected_Import_Item });
+
+                }
+
+                var Transit_selected = $("#TransitIdtd_" + id + " option:selected").val();
+                if (Transit_selected > 0) {
+                    Selected_Transit_Item = $("#TransitIdtd_" + id + " option:selected").text();
+                    CheckedItemsList.push({ FeesType_Id: 6, Item_Shift_Treatment_ID: id, Feer_Type_Action_ID: 8, Amount: Selected_Transit_Item });
+                }
+
+        }
+             $.ajax({
+                 url: '@Url.Action("InsertFeesMoney", "Im_Fees_Actions")',
+                 type: "POST",
+                 data: "{CheckedItemsList:" + JSON.stringify(CheckedItemsList) + "}",
+                 contentType: "application/json; charset=utf-8",
+                 dataType: "json",
+                 success: function (response) {
+alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+alertify.success("تم الحفظ بنجاح");
+                     location.href = "/DE_Fees/Im_Fees_Actions/Index"
+                     //location.href = "/Im_CheckRequests/List_ImCheckRequest/Index"
+                        },
+                        error: function (xhr, status, error) {
+                            alertify.error("خطأ فى اضافه اللوطات");
+                        }
+                    });
+    }
+
+
+    $(document).ready(function () {
+        $('#TestLoop').DataTable();
+    });
+
+    $("#btnExport").click(function (e) {
+        window.open('data:application/vnd.ms-excel,' +
+            '<table>' + $('#dvData > table').html() + '</table>');
+        e.preventDefault();
+
+
+    });
+</script>
+
+<script src="~/scripts/jquery.dataTables.min.js"></script>

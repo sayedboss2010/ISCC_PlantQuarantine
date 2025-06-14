@@ -1,0 +1,294 @@
+﻿
+@model List<PlantQuar.DTO.DTO.StationNew.Station_CheckList_Constrain_DTO>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">قائمة اشتراطات المحطة</h2>
+}
+
+@section Path{
+    <li>@PlantQuar.WEB.Language.Resource_data1.Constrains</li>
+    <li class="active">@PlantQuar.WEB.Language.Resource_data1.Import_CountryConstrain</li>
+}
+<script src="~/scripts/jquery.dataTables.min.js"></script>
+<link href="~/assets/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/scripts/DataTables/jquery.dataTables.min.js"></script>
+
+<div class="row mar-bottom-15" hidden>
+    <div class="col-md-6 flex-align" id="Start_Date">
+        <label class="col-md-4" style="margin-top:10px">بداية البحث</label>
+        <input class="form-control col-md-8" id="dateFrom" name="date" value="@ViewBag.DateFrom.Date.ToString("yyyy-MM-dd")" placeholder="DD/MM/YYY" type="date" />
+    </div>
+    <div class="col-md-6 flex-align" id="End_Date">
+        <label class="col-md-4" style="margin-top:10px">نهاية البحث</label>
+        <input class="form-control col-md-8" id="dateEnd" name="date" placeholder="DD/MM/YYY" value="@ViewBag.DateTo.Date.ToString("yyyy-MM-dd")" type="date" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3 col-md-5 ta1">
+        <label for="CenterName" class="control-label">نوع الاعتماد</label>
+        <select class="form-control" data-val="true" data-val-number="The field Center_Id must be a number." data-val-required="The Center_Id field is required." id="Accreditation_Type_ID" name="Accreditation_Type_ID" autocomplete="off">
+            <option value="">----------</option>
+            <option value="80">صادر</option>
+            <option value="81">وارد</option>
+        </select>
+    </div>
+
+    <div class="col-lg-3 col-md-5 ta1">
+        <label for="ActivityType" class="control-label">@PlantQuar.WEB.Language.Resource_data1.ActivityType</label>
+        <select id="ActivityType_List" class="form-control"></select>
+    </div>
+    <div class="col-lg-3 col-md-5 ta1">
+        <label for="Lbl_Station_Accreditation_Data_Name" class="control-label">مسمى الاعتماد</label>
+        <select id="Station_Accreditation_Data_Name_List" class="form-control"></select>
+    </div>
+    <div class="col-lg-3 col-md-5 ta1">
+
+    </div>
+</div>
+<br />
+<br />
+<div class="row">
+
+
+    <div class="col-md-4">
+    </div>
+
+    <div class="col-md-2">
+
+
+        <a class="btn " id="SearchButton" style="width: 50%; background-color: #3b818e; border: 2px solid #1e8084; box-shadow: 0 4px #0aa6c3; color: #fff;float:left;">بحث  </a>
+
+    </div>
+    <div class="col-md-2">
+        @Html.ActionLink(PlantQuar.WEB.Language.Resource_data1.Add, "", "Station_Accreditation_Data_Entry", new { area = "Station_Pages" }, new { @id = "MoveToController", @class = "btn ", @style = "width:50%;background-color:#3b818e;border:2px solid #1e8084;box-shadow:0 4px #0aa6c3;color:#fff;" })
+    </div>
+    <div class="col-md-4">
+    </div>
+</div>
+
+
+
+
+<br />
+<form style="padding: 10px; background-color: whitesmoke">
+    <div id="listStation_CheckList_Constrain" class="row">
+        <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap" style="padding:20px;">
+            <table id="Station_CheckList_ConstrainTable" class="table table-bordered table-striped dataTable" role="grid">
+                <thead>
+                    <tr>
+                        <th hidden>ID</th>
+                        <th>م</th>
+                        <th>نوع الاعتماد</th>
+                        <th>نوع النشاط</th>
+                        <th>عنوان الاشتراط بالعربية</th>
+                        <th>نص الاشتراط /الاضافة</th>
+                        <th>عرض</th>
+                    </tr>
+                </thead>
+                <tbody id="Station_CheckList_Constrain_tbody"></tbody>
+            </table>
+        </div>
+    </div>
+</form>
+
+<br />
+<div class="row">
+    <div class="col-md-5">
+    </div>
+
+    <div class="col-md-2">
+        <center>
+            <button onclick="exportTableToExcel('Station_CheckList_ConstrainTable')" style=" background-color: #3b818e; border: 2px solid #1e8084; box-shadow: 0 4px #0aa6c3; color: #fff;float:left;">حفظ في اكسل</button>
+        </center>
+
+    </div>
+    <div class="col-md-5">
+    </div>
+</div>
+
+
+<script>
+    function exportTableToExcel(tableID, filename = '') {
+        var downloadLink;
+        var dataType = 'application/vnd.ms-excel';
+        var tableSelect = document.getElementById(tableID);
+        var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+
+        // Specify file name
+        filename = filename ? filename + '.xls' : 'excel_data.xls';
+
+        // Create download link element
+        downloadLink = document.createElement("a");
+
+        document.body.appendChild(downloadLink);
+
+        if (navigator.msSaveOrOpenBlob) {
+            var blob = new Blob(['\ufeff', tableHTML], {
+                type: dataType
+            });
+            navigator.msSaveOrOpenBlob(blob, filename);
+        } else {
+            // Create a link to the file
+            downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+
+            // Setting the file name
+            downloadLink.download = filename;
+
+            //triggering the function
+            downloadLink.click();
+        }
+    }
+</script>
+<script>
+             // ActivityType_List
+          $.ajax(
+                {
+                    url: '@Url.Action("StationActivityType_List", "StationActivityType", new { area = "ST_Station" })',
+                    type: 'Post',
+                    success: function (data) {
+                        $('#ActivityType_List').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#ActivityType_List').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+              });//ajax
+    $('#ActivityType_List').on("change", function () {
+        Fill_Station_Accreditation_Data_List();
+    });
+
+    function Fill_Station_Accreditation_Data_List() {
+        // Station_Accreditation_Data_Name_List
+        $.ajax(
+            {
+                url: '@Url.Action("Station_Accreditation_Data_Name_List", "Station_Accreditation_Data_Entry", new { area = "Station_Pages" })',
+                type: 'Post',
+                data: {
+                    StationActivityType_ID: $('#ActivityType_List').val(),
+                    Accreditation_Type_ID: $('#Accreditation_Type_ID').val(),
+                },
+                success: function (data) {
+                    $('#Station_Accreditation_Data_Name_List').empty();
+                    $.each(data.Options, function (i, index) {
+                        $('#Station_Accreditation_Data_Name_List').append($('<option />').val(index.Value).text(index.DisplayText));
+                    }); //each
+                } //success
+            });//ajax
+    }
+    $('#Accreditation_Type_ID').on("change", function () {
+        var url1 = $('#MoveToController').attr('href');
+
+        $('#MoveToController').attr('href', url1 + '?Accreditation_Type_ID=' + $('#Accreditation_Type_ID').val());
+    }); $('#ActivityType_List').on("change", function () {
+        var url1 = $('#MoveToController').attr('href');
+
+        $('#MoveToController').attr('href', url1 + '&ActivityType_List=' + $('#ActivityType_List').val());
+    });
+
+            $(document).ready(function () {
+                if ('@ViewBag.message' != "") {
+                    alert('@ViewBag.message')
+                }
+                FillTable();
+            });
+
+            function FillTable() {
+                $.ajax({
+                    url: '/Station_Pages/Station_Accreditation_Data_Entry_List/listStation_CheckList_Constrain',
+                    data: {
+                        txt_AR_BTNSearch: $('#txt_AR_BTNSearch').val(),
+                        txt_EN_BTNSearch: $('#txt_EN_BTNSearch').val(),
+                    },
+                    success: function (listStation_CheckList_Constrain) {
+                        $("#Station_CheckList_ConstrainTable tbody").empty();
+                        $.each(listStation_CheckList_Constrain.Records, function (index, item) {
+
+                            var hrefDetails = "@Url.Action("FarmDetails", "FarmData", new { area = "FA_Farm", FarmId = "__id__" })";
+                            hrefDetails = hrefDetails.replace("__id__", item.ID);
+
+                            var hrefEdit = "@Url.Action("EX_ConstrainAddEdit", "Station_CheckList_Constrain", new { area = "ST_Station", id = "__id__" })";
+                            hrefEdit = hrefEdit.replace("__id__", item.ID);
+
+                            var hrefDel = "@Url.Action("DeleteStation_CheckList_Constrain", "Station_CheckList_Constrain", new {  area = "ST_Station", id = "__id__" })";
+                            hrefDel = hrefDel.replace("__id__", item.ID);
+
+                            $("#Station_CheckList_ConstrainTable tbody").append("<tr>" +
+                                "<td hidden>" + item.ID + "</td>" +
+                                "<td>" + item.ConstrainText_Ar + "</td>" +
+                                "<td>" + item.ConstrainText_En + "</td>" +
+                                "<td>" + item.InSide_Certificate_Ar + "</td>" +
+                                "<td>" + item.InSide_Certificate_En + "</td>" +
+                                "<td>" + item.IsActive + "</td>" +
+                                "<td>" + item.IsCertificate_Addtion + "</td>" +
+
+                                "<td><a href=" + hrefEdit + ">@PlantQuar.WEB.Language.Resource_data1.Edit</a></td>" +
+                                "<td><a href=" + hrefDel + ">@PlantQuar.WEB.Language.Resource_data1.Delete</a></td>" +
+                                "</tr>");
+                        });//each
+                    }
+                });
+            }
+            $('#LoadRecordsButton').click(function (e) {
+                FillTable();
+            });
+
+    /*noura*/
+
+    $("#SearchButton").click(function (e) {
+        $("#Station_CheckList_ConstrainTable tbody").empty();
+        var Accreditation_Type_ID = document.getElementById("Accreditation_Type_ID").value;
+        //alert(Accreditation_Type_ID);
+
+        var ActivityType_List = document.getElementById("ActivityType_List").value;
+        //alert(ActivityType_List);
+
+        var _Station_Accreditation_Data_Name_List = document.getElementById("Station_Accreditation_Data_Name_List").value;
+       //alert(_Station_Accreditation_Data_Name_List);
+        var DateFrom = $('#dateFrom').val();
+        //alert(DateFrom);
+        var DateEnd = $('#dateEnd').val();
+        //alert(DateEnd);
+        if (Accreditation_Type_ID != null) {
+            $.ajax({
+                url: '/Station_Pages/Station_Accreditation_Data_Entry_List/Get_Station_Accreditation_List',
+                type: "POST",
+                data: {
+                    Accreditation_Type_ID: Accreditation_Type_ID,
+                    _StationActivityType_ID: ActivityType_List,
+                    Station_Accreditation_Data_ID: _Station_Accreditation_Data_Name_List,
+                    DateFrom:DateFrom,
+                    DateEnd: DateEnd
+                },
+                success: function (result) {
+                   // console.log(result.Options);
+                    var Count = 0;
+                    for (var i = 0; i < result.Options.length; i++) {
+
+                        Count++;
+                        item = result.Options[i];
+
+                        var Table_Static = "<tr>"
+                            + "<td hidden>" + item.ID + "</td>"
+                            + "<td>  " + Count + "  </td>"
+                            + "<td>" + item.Accreditation_Type_Name + "</td>"
+                            + "<td>  " + item.StationActivityType_Name + "</td>"
+                            + "<td>" + item.Name_AR + "</td>"
+                            + "<td>" + item.Description_Ar + "</td>"
+                            + "<td><a  href ='/Station_Pages/Station_Accreditation_Data_Entry/Index?requestId=" + item.ID + "'>عرض البيانات</a></td></tr>";
+                        $("#Station_CheckList_ConstrainTable tbody").append(Table_Static);
+                    }
+                },
+                error: function (ex) {
+                    alertify.alert('لا يوجد بيانات');
+                }
+            });
+
+        }
+             });
+
+</script>

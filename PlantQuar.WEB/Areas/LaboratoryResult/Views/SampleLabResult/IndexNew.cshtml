@@ -1,0 +1,613 @@
+﻿@{
+    ViewBag.Title = "IndexNew";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<link href="~/assets/css/print.min.css" rel="stylesheet" />
+<script src="~/assets/js/print.min.js"></script>
+<style>
+    .tabelcell {
+        border: 2px solid black;
+        border-bottom: none;
+        padding: 7px;
+    }
+
+    .lastcell {
+        border-bottom: 2px solid black;
+    }
+
+    #innerDiv {
+        width: 20cm !important;
+        height: 28.5cm !important;
+        margin: auto;
+    }
+
+    input, textarea {
+        width: 100%;
+    }
+
+    .NP {
+        padding-left: 0px !important;
+    }
+
+    .NPR {
+        padding-right: 0px !important;
+    }
+</style>
+<h2>indexNew</h2>
+
+
+<div id="printDiv">
+    <div id="innerDiv">
+
+
+        <div class="row">
+            <div class="col-md-5">
+                <p>
+                    Arab Republic of Egypt<br />
+                    Ministry of Agriculture <br />
+                    Agricultural Research Center<br />
+                    Centeral Laboratory of Residue Analysis<br />
+                    of Pesticides and Heavy Metals in Food <br />
+                </p>
+
+            </div>
+            <div class="col-md-4">
+                <img src="download.png" style="width:85px;height: 80px;">
+            </div>
+            <div class="col-md-3">
+                <p style="text-align: right;">
+                    جمهورية مصر العربية <br />
+                    وزارة الزراعة<br />
+                    مركز البحوث الزراعية<br />
+                    المعمل المركزى لتحليل متبقيات المبيدات
+                    العناصر الثقيله فى الاغذية
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class=" col-md-offset-3 col-md-6">
+                <p style="font-weight: 600;font-size: 18px;"> SAMPLIG PROTOCOL (استمارة سحب العينات)</p>
+            </div>
+
+        </div>
+        <div class="row tabelcell">
+            <div class="col-md-3">
+                <label>Sample Code</label><br />
+                <label>(كود العينة)</label>
+            </div>
+            <div class="col-md-3">
+                <input type="text">
+            </div>
+            <div class="col-md-3">
+                <label>Laboratory Number</label><br />
+                <label>(الرقم المعملي)</label>
+
+            </div>
+            <div class="col-md-3">
+                <input type="text">
+            </div>
+        </div>
+
+        <div class="row tabelcell">
+            <div class="row">
+                <div class="col-md-5">
+                    <label>Company Information (معلومات خاصة بالشركة)</label>
+                </div>
+                <div class=" col-md-offset-1 col-md-2">
+                    <label>
+                        Customer ID:
+                    </label>
+                </div>
+                <div class="col-md-3"><input type="number"></div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Name and Address of the Company ( اسم الشركة والعنوان)</label>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" style="width:100%;">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Lot / Sample Owner ( صاحباللوط / العينة)</label>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" style="width:100%;">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <label>Telephone No.</label> <br />
+                    <label> (رقم الهاتف):</label>
+                </div>
+                <div class="col-md-2">
+                    <input type="text">
+                </div>
+                <div class="col-md-2">
+                    <label>Fax No.</label><br />
+                    <label>(رقم الفاكس):</label>
+                </div>
+                <div class="col-md-2">
+                    <input type="text">
+                </div>
+                <div class="col-md-2">
+                    <label>Email:</label><br />
+                    <label>(البريد الإلكترونى):</label>
+                </div>
+                <div class="col-md-2">
+                    <input type="text">
+                </div>
+
+            </div>
+
+
+
+        </div>
+        <div class="row tabelcell">
+            <div class="row">
+                <div class="col-md-12">
+                    <label>
+                        Product / Commodity Name and Description( اسم ومعلومات المنتج /
+                        السلعة)
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label>Product/Commodity(المنتج):</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text">
+                </div>
+                <div class="col-md-3">
+                    <label>Trade Name (الاسم التجارى):</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <label>Variety(ألنوع):</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text">
+                </div>
+                <div class="col-md-4">
+                    <label>Farmer Code (الرقم الكودى للمزارع):</label>
+                </div>
+                <div class="col-md-2">
+                    <input type="text">
+                </div>
+            </div>
+        </div>
+        <div class="row tabelcell">
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Sampling Information (معلومات خاصة بمكان و ظرية سحب العينة):</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Place and Reason of Sampling ( مكان وغرض سحب العينة)</label>
+                </div>
+                <div class="col-md-6">
+                    <input type="text">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Inspection Date and Time ( تاريخ ووقت سحب العينة):</label>
+                </div>
+                <div class="col-md-6">
+                    <input type="text">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+
+                    <label><span style="font-size: 18px;">&#9633;</span> Quarantine(الحجر) ;</label>
+                </div>
+                <div class="col-md-2">
+                    <label>branch (الفرع):</label>
+                </div>
+                <div class="col-md-2">
+                    <input type="text">
+                </div>
+                <div class="col-md-2">
+                    <label>stamp (رقم الختم):</label>
+                </div>
+                <div class="col-md-2">
+                    <input type="text">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2 ">
+
+                    <label><span style="font-size: 18px;">&#9633;</span> Farm(المزرعة);</label>
+                </div>
+                <div class="col-md-2 NP">
+                    <input type="text">
+                </div>
+                <div class="col-md-2 NP">
+                    <label><span style="font-size: 18px;">&#9633;</span>Packing Hous<br />(محطة فرز وتعبئة):</label>
+                </div>
+                <div class="col-md-2 NP">
+                    <input type="text">
+                </div>
+                <div class="col-md-2 NP">
+                    <label><span style="font-size: 18px;">&#9633;</span>Retail(محل تجزئة):</label>
+                </div>
+                <div class="col-md-2 NP">
+                    <input type="text">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class=" col-md-5">
+                    <label><span style="font-size: 18px;">&#9633;</span>Others,specify( بيانات اخرى تحدد):</label>
+                </div>
+                <div class=" col-md-7 NP">
+                    <input type="text">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-5 NPR">
+                    <label>County of Origin /Destination (بلد المنشأ /الوصول)</label>
+                </div>
+                <div class="col-md-4 NPR"><label>Container Code (رقم الحاوية / البراد):</label></div>
+                <div class="col-md-3 NP">
+                    <input type="text">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <label><span style="font-size: 18px;">&#9633;</span>Origin( المنشأ):</label>
+                </div>
+                <div class="col-md-2 NP">
+                    <input type="text">
+                </div>
+                <div class="col-md-4 NPR">
+                    <label>
+                        <span style="font-size: 18px;">&#9633;</span>Custom Cert. No.( رقم الشهادة
+                        الجمركية):
+                    </label>
+
+                </div>
+                <div class="col-md-3 NP">
+                    <input type="text">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <label><span style="font-size: 18px;">&#9633;</span>Destination( الوصول):</label>
+                </div>
+                <div class="col-md-2 NP">
+                    <input type="text">
+                </div>
+                <div class="col-md-4">
+                    <label><span style="font-size: 18px;">&#9633;</span>Code No.( الرقم الكودى):</label>
+
+                </div>
+                <div class="col-md-3 NP">
+                    <input type="text">
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row tabelcell">
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Lot and Sample Information (معلومات خاصة بالوط والعينة)</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label> Lot /Batch Number (رقم اللوط / التشغيلة)</label>
+                </div>
+                <div class="col-md-6">
+                    <label> Lot /Batch Number (حجم / وزن اللوط)</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="text">
+                </div>
+                <div class="col-md-6">
+                    <input type="text">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label> No. and Type of Packages (عدد ونوع العبوات)</label>
+                </div>
+                <div class="col-md-6">
+                    <label> size of Packages (حجم العبوة)</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="text">
+                </div>
+                <div class="col-md-6">
+                    <input type="text">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label> No. of Primary Samples (عدد تحت العينات)</label>
+                </div>
+                <div class="col-md-6">
+                    <label> Lap Sample Size (حجم العينة المعملية)</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="text">
+                </div>
+                <div class="col-md-6">
+                    <input type="text">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-5 NPR">
+                    <label> Shipment Package (نوع العبوة ومادة التغليف - الاستلام)</label>
+                </div>
+                <div class="col-md-5 NPR">
+                    <label> Storage Conditions as Received (التخزين - الاستلام)</label>
+                </div>
+                <div class="col-md-2 NP">
+                    <input type="text">
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-5 ">
+                    <input type="text">
+                </div>
+                <div class="col-md-2 ">
+                    <label>+5°C(مبردة)</label>
+
+                </div>
+                <div class="col-md-2 ">
+                    <label>-20°C(مجمدة)</label>
+
+                </div>
+                <div class="col-md-3 NP">
+                    <label>Normal T. (درجة الجو)</label>
+
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row tabelcell">
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Analysis Required (نوع التحليل المطلوب)</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 NPR">
+                    <label><span style="font-size: 18px;">&#9633;</span>Pesticides</label>
+                </div>
+                <div class="col-md-2 NPR">
+                    <label><span style="font-size: 18px;">&#9633;</span>Heavey metals</label>
+                </div>
+                <div class="col-md-2 NPR">
+                    <label><span style="font-size: 18px;">&#9633;</span> Mycotoxins</label>
+                </div>
+                <div class="col-md-2 NPR NP">
+                    <label><span style="font-size: 18px;">&#9633;</span> Veterinary Drugs</label>
+                </div>
+                <div class="col-md-2 NPR">
+                    <label><span style="font-size: 18px;">&#9633;</span> Dioxins</label>
+                </div>
+                <div class="col-md-2 NPR">
+                    <label><span style="font-size: 18px;">&#9633;</span> Microbiology</label>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-2 NPR">
+                    <label><span style="font-size: 18px;">&#9633;</span>(متبيقيات مبيدات)</label>
+                </div>
+                <div class="col-md-2 NPR">
+                    <label><span style="font-size: 18px;">&#9633;</span>( عناصر ثقيلة)</label>
+                </div>
+                <div class="col-md-2 NPR">
+                    <label><span style="font-size: 18px;">&#9633;</span> (ميكوتوكسينات)</label>
+                </div>
+                <div class="col-md-2 NPR NP">
+                    <label><span style="font-size: 18px;">&#9633;</span>(عقاقير بيطرية)</label>
+                </div>
+                <div class="col-md-2 NPR">
+                    <label><span style="font-size: 18px;">&#9633;</span> (دايوكسينات)</label>
+                </div>
+                <div class="col-md-2 NPR">
+                    <label><span style="font-size: 18px;">&#9633;</span> (ميكروبيولوجي)</label>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 ">
+                    <label>In Specific (تحديد نوع او طريقة التحليل):</label>
+
+                </div>
+                <div class="col-md-8 NP">
+                    <textarea></textarea>
+                </div>
+            </div>
+
+            <br />
+            <div class="row">
+                <div class="col-md-4">
+                    <label>Customer Name/Signiture</label>
+                </div>
+                <div class="col-md-3 NP">
+                    <input type="text">
+                </div>
+                <div class="col-md-2">
+                    <label>(اسم /توقيع العميل)</label>
+                </div>
+                <div class="col-md-3 NP">
+                    <input type="text">
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row tabelcell">
+            <div class="row">
+                <div class="col-md-3">
+                    <label>Date(تاريخ الاستلام):</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text">
+                </div>
+                <div class="col-md-3">
+                    <label>Time (وقت الاستلام):</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <label>Receptionist</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text">
+                </div>
+                <div class="col-md-3">
+                    <label>(اسم موظف الاستقبال):</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text">
+                </div>
+            </div>
+        </div>
+
+        <div class="row tabelcell lastcell">
+            <div class="row">
+                <div class="col-md-5">
+                    <label style="text-decoration: underline;">Review of Customer Requirements:</label>
+                </div>
+                <div class="col-md-7">
+                    <p> the lab has the capability to fulfill the customer Requirements</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-5">
+                    <label> Person in charge Name/signiture/Date:</label>
+                </div>
+                <div class="col-md-3 NP">
+                    <input type="text">
+                </div>
+                <div class="col-md-1 NP">
+                    <label><span style="font-size: 18px;">&#9633;</span> Yes</label>
+
+                </div>
+                <div class="col-md-1 NP">
+                    <label><span style="font-size: 18px;">&#9633;</span> No</label>
+
+                </div>
+
+                <div class="col-md-2 NP">
+                    <input type="text">
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top:5px;">
+            <div class="col-md-3">
+                <p>Issue Date:</p>
+            </div>
+            <div class="col-md-3">
+                <input type="text">
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-5">
+                <p>
+                    7Nadi ElSaid St. Dokki - Giza - Egypt <br />
+                    Phone:+(202)37601395-(202)37611355<br />
+                    Fax:+(202)37611216-(202)37611106<br />
+                    Email: customer.service@qcap-egypt.com
+                </p>
+            </div>
+            <div class="col-md-5" style="text-align: right;">
+                <p>
+                    7 ش نادى الصيد - الدقى - الجيزة - جمهورية مصر العربية <br />
+                    تليفون:+(202)37601395-(202)37611355<br />
+                    فاكس:+(202)37611216-(202)37611106<br />
+                    <span style="text-align: left;">Website:www.qcap-egypt.com</span>
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-offset-4 col-md-4">
+        <button id="printDivbtn" class="btn" value='Print' onclick='printar("printDiv")'> اطبع </button>
+    </div>
+</div>
+
+<script>
+    function printar(k) {
+        var restorepage2 = document.body.innerHTML;
+        var printcontent2 = $('#' + k).html();
+        document.body.innerHTML = printcontent2;
+        var css = `.tabelcell {border: 2px solid black;border-bottom: none;padding: 7px;}.col-md-6 {width: 50%;} .col-md-12{ width:100%} .col-md-8{ width:66.66666667% !important;} .col-md-4{ width:33.33333333%} .row{flex-wrap: wrap;display: flex;} .lastcell {border-bottom: 2px solid black;}#innerDiv {width: 20cm !important;height: 28.5cm !important;margin: auto;}input,textarea {width: 100%;}.NP {padding-left: 0px !important;}.NPR {padding-right: 0px !important;} @@page{margin:0.8cm 0.8cm 0.8cm 0.8cm!important;}`,
+            //var css = `.display-none {visibility: hidden!important;}.logodiv{flex-direction:row !important;}.row {flex-direction: row-reverse;}.parplant{font-size:16px;word-break:break-all;}.headingg {font-weight: 900;font-size: 27px;margin: 8px;}.parag{text-align: center;margin-top:5px !important;}.row{ margin-left: 0px!important;margin-right:-1px;!important}.col-md-6 {width: 50%;} .col-md-12{ width:100%} .col-md-8{ width:66.66666667% !important;} .col-md-4{ width:33.33333333%} .row{flex-wrap: wrap;display: flex;}.tablecellAr {border: 1px solid black;border-bottom:none;text-align: right;direction: rtl;padding: 5px;} @@page{margin:0.8cm 0.8cm 0.8cm 0.8cm!important;}`,
+
+            //var css = `.display-none {visibility: hidden!important;} .footer {position:fixed!important;}@@page{margin:10px 15px 10px 15px!important;}td{padding: 5px!important;} #tableArabic{height: 1120px !important;}`,
+            head = document.head || document.getElementsByTagName('head')[0],
+            style = document.createElement('style');
+        style.type = 'text/css';
+        style.media = 'print';
+
+        if (style.styleSheet) {
+            style.styleSheet.cssText = css;
+        }
+        else {
+            style.appendChild(document.createTextNode(css));
+        }
+        head.appendChild(style);
+        window.print();
+        //history.go(0);
+        document.body.innerHTML = restorepage2;
+    }
+
+
+</script>

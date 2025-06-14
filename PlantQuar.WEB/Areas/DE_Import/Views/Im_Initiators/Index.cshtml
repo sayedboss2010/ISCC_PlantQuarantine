@@ -1,0 +1,584 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.Initiators</h2>
+}
+
+<br />
+@section Path{
+    <li style="position: relative;right: 15px;">@PlantQuar.WEB.Language.Resource_data1.Import </li>
+    <li style="position: relative; right: 28px;">@PlantQuar.WEB.Language.Resource_data1.BasicData </li>
+    <li class="active" style="position: relative;right: 48px;">@PlantQuar.WEB.Language.Resource_data1.Initiators</li>
+}
+
+<script src="~/scripts/jtable/jquery.jtable.min.js"></script>
+<style>
+    .form-control {
+        padding: 2px 5px !important;
+    }
+         #item_Initiators {
+        background: #f5f5f5;
+        border-radius: 55px 16px;
+        padding: 20px;
+        margin-top: 2px;
+    }
+    
+</style>
+<div>
+    <div class="tab" role="tabpanel" style="min-height:80% !important;">
+        <ul class="row nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#ItemsTab" aria-controls="profile" role="tab" id="itemTab_il" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Items</a>
+            </li>
+            <li role="presentation">
+                <a href="#QualGrpTab" aria-controls="profile" role="tab" id="qualGrp_il" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.QualitativeGroup</a>
+            </li>
+        </ul>
+        <div class="tab-content tabs" style="background-color:whitesmoke  !important;">
+            <div role="tabpanel" class="tab-pane fade in active" id="ItemsTab">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-lg-3 col-md-5 ta1">
+                            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Item_Type</label>
+                            <select id="itemTypeLst" class="form-control"></select>
+                        </div>
+                        <div class="col-lg-3 col-md-5 ta1">
+                            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.MainCalssification</label>
+                            <select id="mainClassLst" class="form-control"></select>
+                        </div>
+                        <div class="col-lg-3 col-md-5 ta1">
+                            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.SecondaryClassification</label>
+                            <select id="secClassLst" class="form-control"></select>
+                        </div>
+                        <div class="col-lg-3 col-md-5 ta1">
+                            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.PlantGroup</label>
+                            <select id="groupLst" class="form-control"></select>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-12"style="align-items:center;display: flex;">
+                        <div class="col-lg-3 col-md-3 ta1">
+
+                            <input type="checkbox" class="form-control" checked id="chkIsKNown" />
+                            <label class="control-label" id="lblknown">@PlantQuar.WEB.Language.Resource_data1.Isknown</label>
+                        </div>
+                        <div class="col-lg-3 col-md-5 ta1">
+                            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Items</label>
+                            <select id="itemsLst" class="form-control"></select>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-lg-3 col-md-5 ta1">
+                            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.ShortName</label>
+                            <select id="shortNameLst" class="form-control"></select>
+                        </div>
+                        <div class="col-lg-3 col-md-5 ta1">
+                            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.PlantPartType/@PlantQuar.WEB.Language.Resource_data1.LiableItems_Strain</label>
+                            <input id="txtSubItemPart" readonly class="form-control" type="text" />
+                        </div>
+                        <div class="col-lg-3 col-md-5 ta1">
+                            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Status</label>
+                            <input class="form-control" id="txtStatus" readonly type="text">
+                        </div>
+                        <div class="col-lg-3 col-md-5 ta1">
+                            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Purpose</label>
+                            <input class="form-control" id="txtPurpose" readonly type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade in" id="QualGrpTab" style="height:220px;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-lg-3 col-md-5 ta1">
+                            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.QualitativeGroup</label>
+                            <select id="qualGrpLst" class="form-control"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row" style="margin-left: 8px; margin-right: 8px;">    
+    <div class="col-md-12" id="item_Initiators">
+    </div>    
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+
+            $.ajax(
+                {
+                    url: '@Url.Action("GetQualitiveGrp", "Im_Initiators", new { area = "DE_Import" })',
+
+                    success: function (data) {
+                        $('#qualGrpLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#qualGrpLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+
+             $.ajax(
+                {
+                    url: '@Url.Action("ItemType_AddEDIT", "ItemList", new { area = "CommonActions" })',
+                    type: 'Post',
+                    success: function (data) {
+                        $('#itemTypeLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#itemTypeLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+        });
+        //  $('#chkIsKNown').on('click', function () {
+        //    getItems();
+        //});
+
+        function getItems() {
+            var known = '';
+            if ($('#chkIsKNown:checked').length == 0) known = false;
+            else known = true;
+
+            if (known == false) {
+                $("#lblknown").text('@PlantQuar.WEB.Language.Resource_data1.un_known')
+            } else {
+                $("#lblknown").text('@PlantQuar.WEB.Language.Resource_data1.Isknown')
+            }
+            if ($('#groupLst').val() > 0) {
+                 $.ajax(
+                {
+                    url: '@Url.Action("ItemData_AddEDIT_Known", "ItemList", new { area = "CommonActions" })',
+                    type: 'Post',
+                    data: {
+                        Group_ID: $('#groupLst').val(),
+                        IsKnown: known
+                    },
+                    success: function (data) {
+                        $('#itemsLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#itemsLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+            }
+        }
+        $('#itemTypeLst').on("change", function () {
+            $.ajax(
+                {
+                    url: '@Url.Action("MainClassification_AddEDIT", "ItemList", new { area = "CommonActions" })',
+                    type: 'Post',
+                    data: { ItemType_ID: $('#itemTypeLst').val() },
+                    success: function (data) {
+                        $('#mainClassLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#mainClassLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+        });
+        $('#mainClassLst').on("change", function () {
+            $.ajax(
+                {
+                    url: '@Url.Action("SecondaryClassification_AddEDIT", "ItemList", new { area = "CommonActions" })',
+                    type: 'Post',
+                    data: { MainClass_ID: $('#mainClassLst').val() },
+                    success: function (data) {
+                        $('#secClassLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#secClassLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+        });
+        $('#secClassLst').on("change", function () {
+            $.ajax(
+                {
+                    url: '@Url.Action("ItemGroup_AddEDIT", "ItemList", new { area = "CommonActions" })',
+                    type: 'Post',
+                    data: { SecClass_ID: $('#secClassLst').val() },
+                    success: function (data) {
+                        $('#groupLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#groupLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+        });
+        $('#groupLst,#chkIsKNown').on('change', function () {
+
+            var groupId = $('#groupLst').val();
+           // console.log($('#isKnowns').val())
+              var known = '';
+            if ($('#chkIsKNown:checked').length == 0) known = false;
+            else known = true;
+
+            if (known == false) {
+                $("#lblknown").text('@PlantQuar.WEB.Language.Resource_data1.un_known')
+            } else {
+                $("#lblknown").text('@PlantQuar.WEB.Language.Resource_data1.Isknown')
+            }
+            $('#itemsLst').empty();
+
+            $('#shortNameLst').empty();
+            $.ajax(
+                {
+                    url: "/Im_Constrains/Im_Constrains/ItemsByGroupId_List",
+                    data: {
+                        groupId: groupId,
+                        known: known
+                    },
+                    success: function (data) {
+                        $('#itemsLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#itemsLst').append("<option value='" + index.Value + "'>" + index.DisplayText + "</option>");
+                        }); //each
+                    } //success
+                });//ajax
+
+            //*********************//
+        });
+        @*$('#groupLst').on("change", function () {
+            $.ajax(
+                {
+                    url: '@Url.Action("ItemData_AddEDIT", "ItemList", new { area = "CommonActions" })',
+                    type: 'Post',
+                    data: { Group_ID: $('#groupLst').val() },
+                    success: function (data) {
+                        $('#itemsLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#itemsLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+        });*@
+        $('#itemsLst').on("change", function () {
+            var product = false
+            if ($('#itemTypeLst').val() == 2) product = true;
+
+            $.ajax(
+                {
+                    url: '@Url.Action("ItemShortName_AddEDIT", "ItemList", new { area = "CommonActions" })',
+                    type: 'Post',
+                    data: {
+                        item_Id: $('#itemsLst').val(),
+                        isProduct: product
+                    },
+                    success: function (data) {
+                        $('#shortNameLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#shortNameLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+        });
+        function getDetails () {
+            if ($("#shortNameLst").val() > 0) {
+                $.ajax(
+                    {
+                        url: '@Url.Action("GetShortNameDetails", "Im_Initiators", new { area = "DE_Import" })',
+
+                        data: {
+                            ShortName: $('#shortNameLst').val(),
+                        },
+                        success: function (res) {
+                            $('#txtSubItemPart').val(res.subpart);
+                            $('#txtPurpose').val(res.purpose);
+                            $('#txtStatus').val(res.status);
+                        } //success
+                    });//ajax
+            }
+            else {
+                $('#txtSubItemPart').val('');
+                $('#txtPurpose').val('');
+                $('#txtStatus').val('');
+            }
+        }
+        //*********************************************//
+        //JTable initiators
+        $(function () {
+            $('#item_Initiators').jtable({
+                title: '@PlantQuar.WEB.Language.Resource_data1.Initiators',
+                paging: true,
+                pageSize:10,
+                sorting: true,
+                defaultSorting: 'CountryName ASC',
+                columnResizable: true,
+                columnSelectable: true,
+                saveUserPreferences: true,
+                actions: {
+                    listAction: 'ListInitiators',
+                   
+                    createAction: function (data) {
+                        var deferred = $.Deferred();
+                        // Capture form submit result from the hidden iframe
+                        $("#postiframe").load(function () {
+                            iframeContents = $("#postiframe").contents().find("body").text();
+                            var result = $.parseJSON(iframeContents);
+                            deferred.resolve(result);
+                        });
+
+                        var form = $('#jtable-create-form');
+                        form.unbind("submit");
+                        form.attr("action", "CreateInitiator");
+                        form.attr("method", "post");
+                        form.attr("enctype", "multipart/form-data");
+                        form.attr("encoding", "multipart/form-data");
+                        form.attr("target", "postiframe");
+                        form.submit();
+                        return deferred;
+                    },
+                    deleteAction: 'DeleteInitiator',
+                        updateAction: function (data) {
+                        var deferred = $.Deferred();
+                        $("#postiframe").load(function () {
+                            iframeContents = $("#postiframe").contents().find("body").text();
+                            var result = $.parseJSON(iframeContents);
+                            deferred.resolve(result);
+                        });
+                        var form = $('#jtable-edit-form');
+                        form.unbind("submit");
+                        form.attr("action", "UpdateInitiator");
+                        form.attr("method", "post");
+                        form.attr("enctype", "multipart/form-data");
+                        form.attr("encoding", "multipart/form-data");
+                        form.attr("target", "postiframe");
+                        form.submit();
+                        return deferred;
+                    },
+                },
+                fields: {
+                    ID: {
+                        key: true,
+                        create: false,
+                        edit: false,
+                        list: false
+                    },
+                    Item_ShortName_ID: {
+                        type: 'textarea',
+                        list: false
+                    },
+                    QualitativeGroup_Id: {
+                        type: 'textarea',
+                        list: false
+                    },
+                    Country_Id: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.Country',
+                        list: true,
+                        options: function (data) {
+                            if (data.source == 'list') {
+                                return '../../CommonActions/Country_Union/Country_List';
+                            }
+                            // ADD OR EDIT
+                            else {
+
+                                return '../../CommonActions/Country_Union/Country_AddEDIT';
+                            }
+                        },
+                        //inputClass: 'validate[required]'
+                    },
+                    Initiator_Status: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.Initiator @PlantQuar.WEB.Language.Resource_data1.Status ',
+                        list: true,
+                        options: function (data) {
+                            return '/DE_Import/Im_Initiators/GetInitiatorStatus';
+                        },
+                        inputClass: 'validate[required]'
+                    },
+                    ForbiddenReason: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.ForbiddenReason',
+                        list: false,
+                        type: 'textarea'
+                    },
+                        AttachmentPath: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.Attachment',
+                        //width: '7.3194%',
+
+
+
+                        input: function (data) {
+                            return '<input type ="file" id="Picture1" name="Picture1" class="input-type-file" accept=".jpg, .jpeg, .png"/><iframe name="postiframe" id="postiframe" style="display: none" />';
+                        },
+                        display: function (data) {
+                            console.log(data.record.AttachmentPath);
+                           // <button value="//10.7.7.244/plant/Item/2/8.jpg" class="fa fa-download" style="color:blue">تحميل</button>
+                           // return ' <img src="\\10.7.7.244\\plant\\Item\\2022\\2\\8.jpg"      width="30" height="30"/>'
+                            return '<input type="button" value="تحميل الملف" class=" btn btn - info" onclick=btndownload_click(this)  data-assigned-id="' + data.record.AttachmentPath + '" />';
+                            //return '<input type="button" class="Show_Imge" data-id="'+data.record.Picture+'" value="تحميل الصورة" />';
+                            //return ' <img src="../../Upload/' + data.record.Picture + '"     width="30" height="30"/>'
+
+                        },
+                        create: function (data) {
+                            console.log(data.record.AttachmentPath);
+                            //<button value="//10.7.7.244/plant/Item/2/8.jpg" class="fa fa-download" style="color:blue">تحميل</button>
+                            // return '<input type="button" class="Show_Imge" data-id="'+data.record.Picture+'" value="تحميل الصورة" />';
+                            return '<input type="button" value="تحميل الملف" class=" btn btn - info" onclick=btndownload_click(this)  data-assigned-id="' + data.record.AttachmentPath + '" />';
+                            @*<img src= "@Url.Content(data.record.Picture)" alt="Image" />*@
+                            //return ' <img src="\\10.7.7.244\\plant\\Item\\2022\\2\\8.jpg"     width="30" height="30"/>'
+
+                        },
+                        create: true,
+                        edit: true
+                    },
+
+                     @*AttachmentPath: {
+                        title: ' @PlantQuar.WEB.Language.Resource_data1.Attachment',
+
+                        input: function (data) {
+                              return '<input type ="file" id="Picture1" name="Picture1" class="input-type-file" accept=".jpg, .jpeg, .png"/><iframe name="postiframe" id="postiframe" style="display: none" />';
+                        },
+                        display: function (data) {
+                            console.log(data.record.Picture);
+                            console.log("AttachmentPath-------"+data.record.AttachmentPath);
+                            return '<input type="button" value="تحميل الملف" class=" btn btn - info" onclick=btndownload_click(this)  data-assigned-id="' + data.record.AttachmentPath + '" />';
+
+
+                        },
+                        create: function (data) {
+                            console.log(data.record.Picture);
+                            console.log("AttachmentPath-------" +data.record.AttachmentPath);
+                            return '<input type="button" value="تحميل الملف" class=" btn btn - info" onclick=btndownload_click(this)  data-assigned-id="' + data.record.AttachmentPath + '" />';
+
+                        },
+                        create: true,
+                        edit: true
+
+                    },*@
+                    @*AttachmentPath: {
+                        title: ' @PlantQuar.WEB.Language.Resource_data1.Attachment',
+                        input: function (data) {
+                            return '<input type ="file" id="Picture1" multiple name="Picture1" class="input-type-file"/><iframe name="postiframe" id="postiframe" style="display: none" />';
+                        },
+                    
+                    },*@
+                    IsActive: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.Status',
+                        type: 'checkbox',
+                        values: {
+                            'false': ' @PlantQuar.WEB.Language.Resource_data1.NotActive',
+                            'true': '@PlantQuar.WEB.Language.Resource_data1.Active '
+                        },
+                        defaultValue: 'true',
+                    },
+                },
+                formCreated: function (event, data) {
+                    $('.jtable-input-field-container:nth-of-type(1)').hide();
+                    $('.jtable-input-field-container:nth-of-type(2)').hide();
+
+                    if (data.formType == "create") {
+                        if ($('#qualGrpLst').val() > 0 || $('#shortNameLst').val() > 0) {
+                             $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Add");
+                        }
+                        else {
+                            alertify.alert("يجب تحديد الاسم المختصر او المجموعة النوعية");
+                            return;
+                        }
+                    }
+                    else {
+                        $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Edit");
+                        $('#Edit-Country_Id').prop('disabled', true);
+                    }
+                },
+                formSubmitting: function (event, data) {
+                        return data.form.validationEngine('validate');
+                },
+                formClosed: function (event, data) {
+                    data.form.validationEngine('hide');
+                    data.form.validationEngine('detach');
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Delete");
+                },
+                recordAdded: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+                },
+                recordUpdated: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Update");
+                },
+                recordDeleted: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Delete");
+                },
+            });
+
+
+            $('#item_Initiators').jtable('load');
+
+            $('#itemTab_il').click(function (e) {
+
+                $('#qualGrpLst').val(null);
+
+                e.preventDefault();
+                $('#item_Initiators').jtable('load', {
+                    shortName: 0,
+                    qualGrp: 0
+                });
+            });
+
+            $('#qualGrp_il').click(function (e) {
+                $('#shortNameLst').val(null);
+                $('#txtSubItemPart').val('');
+                $('#txtPurpose').val('');
+                $('#txtStatus').val('');
+
+                e.preventDefault();
+                $('#item_Initiators').jtable('load', {
+                    shortName: 0,
+                    qualGrp: 0
+                });
+            });
+
+            $('#shortNameLst').change(function (e) {
+
+                getDetails();
+
+                e.preventDefault();
+                $('#item_Initiators').jtable('load', {
+                    shortName: $('#shortNameLst').val(),
+                    qualGrp: 0
+                });
+            });
+
+            //#qualGrpLst
+            $('#qualGrpLst').change(function (e) {
+                e.preventDefault();
+                $('#item_Initiators').jtable('load', {
+                    shortName: 0,
+                    qualGrp: $('#qualGrpLst').val()
+                });
+            });
+
+            $(".jtable-toolbar-item-add-record .jtable-toolbar-item-text").text("@PlantQuar.WEB.Language.Resource_data1.Add");
+        });
+        //********************************************//
+
+          function btndownload_click(elem) {
+
+            var path = $(elem).data('assigned-id');
+            //var path = "/plant/Import/2022/2/roses_flowers_rose.jpg";
+            alert(path);
+            window.open('/Imges/Downlood_Imge/GetReport1?path1=' + path + '', "_blank");
+        }
+
+        
+        function btndownload_click(elem) {
+
+            var path = $(elem).data('assigned-id');            
+             window.open('/Imges/Downlood_Imge/Get_Downlood_Imge?path1=' + path + '', "_blank");           
+        }
+    </script>
+}

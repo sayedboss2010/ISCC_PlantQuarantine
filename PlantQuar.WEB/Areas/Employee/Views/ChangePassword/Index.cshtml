@@ -1,0 +1,222 @@
+﻿@model PlantQuar.WEB.Models.CustomUserLogin
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+
+}
+
+@section Title{
+    <h2 class="ls-top-header">تغير الباسورد</h2>
+}
+<style>
+    #change {
+        height: 37px;
+        width: 133px;
+        background-color: #1e7c80;
+        border: 2px solid #1e8084;
+        box-shadow: 0 4px #1d9fa5;
+        outline: none;
+        color: white;
+        float: left;
+        margin-top: 25px;
+        border-radius: 0px
+    }
+</style>
+<div class="row">
+    <div class="col-md-4"> <label>اسم المستخدم</label></div>
+    <div class="col-md-4">  <input type="text" id="username" class="form-control" autocomplete="off" /></div>
+    <div class="col-md-4">
+
+    </div>
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-4"> <label>كلمة المرور المراد تغيرها</label></div>
+    <div class="col-md-4">
+        <input type="password" id="oldPassword" class="form-control"  autocomplete="off" readonly 
+         onfocus="this.removeAttribute('readonly') "  />
+    </div>
+    <div class="col-md-4">
+
+    </div>
+</div>
+
+<br />
+
+
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <input type="button" value="تاكيد" id="change" onclick="confirmPassword() " text="confirm" />
+
+    </div>
+    <div class="col-md-4">
+
+    </div>
+</div>
+
+<br />
+<div class="row" id="newPassword" style="display:none">
+    <div class="col-md-4">
+        <label>الكلمة المرور الجديدة</label>
+
+        <input type="password" id="newPassword1" class="form-control" />
+    </div>
+    <div class="col-md-4">
+        <label>تأكيد على كلمة المرور الجديدة</label>
+
+        <input type="password" id="confirmNewPassword" class="form-control" />
+    </div>
+    <div class="col-md-4">
+        <input type="button" value="تغيير" id="change" onclick="changePassword()" text="change" />
+
+    </div>
+</div>
+
+
+
+
+
+<script>
+
+  
+    var changed = false;
+    function changePassword() {
+
+        customUserLogin.LoginName = $("#username").val();
+        customUserLogin.Password = $("#confirmNewPassword").val();
+        oldPassword = $("#oldPassword").val();
+        Password = $("#newPassword1").val();
+        console.log(oldPassword);
+        console.log(oldPassword.localeCompare(Password));
+
+
+        if (oldPassword.localeCompare(Password) == 0) {
+            alertify.error("old password matches new password");
+        }
+      else   if (customUserLogin.Password.localeCompare(Password) == 0) {
+       if (changed == 2) {
+             $.ajax({
+
+                        url: '@Url.Action("UpdateUserDatal", "ChangePassword")',
+                        type: "POST",
+
+
+                data: { Dto: customUserLogin},
+
+
+
+                  success: function (result) {
+
+
+
+
+                      console.log(result)
+                      if (result != null) {
+
+                          alertify.success("تم تغيير كلمة المرور بنجاح");
+
+
+                          var url = $("#url").text();
+                          window.location.href = url;
+
+                      }
+                      else {
+                          alertify.error("تأكد من المعلومات المدخلة");
+
+                      }
+                      //var changed = result.IS_Change_Password;
+                      //if (changed == true) {
+                      //    alert("changed before");
+                      //}
+                      //else {
+                      //    document.getElementById("newPassword").style.display = "block";
+
+                      //}
+
+
+                    },
+                        error: function (xhr, status, error) {
+
+                    }
+                });
+        }
+        }
+
+        else {
+            alertify.error("confirm Password not matched");
+        }
+
+
+
+
+    }
+    function confirmPassword() {
+
+
+        customUserLogin = {};
+        customUserLogin.LoginName = $("#username").val();
+        customUserLogin.Password = $("#oldPassword").val();
+
+
+
+            $.ajax({
+                        url: '@Url.Action("checkUserData", "ChangePassword")',
+                        type: "POST",
+                data: { data: customUserLogin},
+
+                  success: function (result) {
+
+
+
+                      changed = result;
+                      console.log(changed);
+                      if (changed == 1) {
+                          alertify.error("تم تغير كلمة المرور بنجاح");
+                      }
+                      else if (changed == 2) {
+                          document.getElementById("newPassword").style.display = "block";
+
+                      }
+                      else {
+                          alertify.error("البيانات غير موجودة");
+                      }
+
+
+                    },
+                        error: function (xhr, status, error) {
+
+                    }
+                });
+
+    // if success
+        // change hide of btn
+      //  var x = document.getElementById('confirm');
+
+
+
+        //if (x.style.display === 'none') {
+
+       // }
+
+     //   alert("changePassword");
+
+    }
+    $(document).ready(function (init) {
+       
+        $("#NavMg").hide();
+        // alert(22);
+        //$("#username, #oldPassword").attr('autocomplete', 'off');
+        //$('input:text').val('') ;
+        //$('input:Password').val('');
+       //document.getElementById('username').value = '';
+    });
+</script>
+
+
+<div style="display: none;" id="url">
+    @Url.Action("Logout", "ChangePassword")
+</div>

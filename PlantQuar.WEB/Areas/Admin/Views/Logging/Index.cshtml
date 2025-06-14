@@ -1,0 +1,116 @@
+﻿@model PagedList.IPagedList<PlantQuar.DTO.DTO.Log.User_LoginDTO>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "@PlantQuar.Web.Language.Resource_data1.LogOut";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    var model = Model;
+}
+
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.LogOut</h2>
+}
+@section Path{
+    <li style="position: relative;right: 28px;">@PlantQuar.WEB.Language.Resource_data1.Admin</li>
+    <li class="active" style="right: 43px; position: relative;">@PlantQuar.WEB.Language.Resource_data1.LogOut</li>
+}
+<div class="row" style="bottom: 40px;position: relative;">
+    <div class="col-sm-4">
+        <div>
+            <p style="font-weight:bold">@PlantQuar.WEB.Language.Resource_data1.RegisterDate</p>
+        </div>
+        <input id="Login_Date" type="date" />
+    </div>
+</div>
+<div class="table-responsive">
+    <table id="log_tbl" class="table table-bordered">
+        <thead>
+            <tr class="label-primary">
+                <th>م</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.LoginName</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.FullName</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.RegisterDate</th>
+                <th>@PlantQuar.WEB.Language.Resource_data1.LogOut</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (model != null)
+            {
+                int Row_Id = 0;
+                foreach (var item in model)
+                {
+                    Row_Id++;
+                    <tr id="RowId_@item.Id">
+                        <td>
+                            @Html.Label(Row_Id.ToString())
+                            @Html.HiddenFor(m => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.LoginName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.Login_Date)
+                        </td>
+                        <td>
+                            <a href="#" id="Delete" name="Delete" onclick="Delete(@item.Id);">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <br />
+    @if (model != null)
+    {
+        @Html.PagedListPager(model, page => Url.Action("Index", new { page }))
+    }
+</div>
+<script>
+
+    $("#Login_Date").on('change', function () {
+        btn_GetData_Click();
+    });
+    function btn_GetData_Click()
+    {
+        $.ajax(
+            {
+                url: '/Logging/Index?page=' + 0 + '&Login_Date=' + $("#Login_Date").val(),
+             //   type: 'POST',
+                dataType: 'json',
+                success: function (data) {
+                    var html = '';
+                    var CheckRequest_Id = 0;
+                    $.each(data.Records, function (index, row) {
+
+                        html += "<tr id='CheckRequest_" + CheckRequest_Id + "'><td>" + row.Row_Id + "</td><td>" + row.CheckRequest_Number + "</td> <td>" + row.ExporterType_Name + "</td><td>" + row.Exporter_Name + "</td>"
+                            + "<td>" + row.ImportCountry_Name + "</td> <td > " + row.Govern_Name + "</td><td>" + row.Outlet_Name + "</td><td>" +
+                            $.datepicker.formatDate('yy-mm-dd', (new Date(parseInt(row.Ex_Creation_Date.substr(6)))))
+
+                        html += "</td><td>" + row.Committe_TypeName + "</td><td><a href='getRequestData?reqId=" + CheckRequest_Id + "' >التفاصيل </a>";
+                        html += "</td>";
+                        html += "<td><a href='generateCertificate?reqId=" + CheckRequest_Id + "' >إصدار شهادة </a></td></tr> ";
+                    })
+                    $("#log_tbl tbody").empty();
+                    $("#log_tbl tbody").append(html);
+                }
+            });
+    }
+
+    function Delete(RowId) {
+        //debugger;
+        $.ajax(
+            {
+                url: '/Logging/Delete?RowId=' + RowId,
+                type: 'POST',
+                dataType: 'json',
+                success: function (data) {
+                    var html = '';
+                    $("#RowId_" + RowId).hide();
+                    alert("تم الحذف ");
+                }
+
+            });
+    }
+</script>

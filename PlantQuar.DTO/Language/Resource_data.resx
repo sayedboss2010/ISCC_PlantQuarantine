@@ -1,0 +1,759 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Accreditation" xml:space="preserve">
+    <value>الإعتماد</value>
+  </data>
+  <data name="AccreditationEndDate" xml:space="preserve">
+    <value>تاريخ نهاية الاعتماد</value>
+  </data>
+  <data name="AccreditationFarm" xml:space="preserve">
+    <value>معتمد</value>
+  </data>
+  <data name="AccreditationStartDate" xml:space="preserve">
+    <value>تاريخ بداية الاعتماد</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>فعال</value>
+  </data>
+  <data name="Activity" xml:space="preserve">
+    <value>النشاط</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>إضافة</value>
+  </data>
+  <data name="Address_Ar" xml:space="preserve">
+    <value>العنوان بالعربية</value>
+  </data>
+  <data name="Address_En" xml:space="preserve">
+    <value>العنوان بالإنجليزية</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>الكمية</value>
+  </data>
+  <data name="AnalysisLab" xml:space="preserve">
+    <value>معمل التحاليل</value>
+  </data>
+  <data name="AnalysisType" xml:space="preserve">
+    <value>نوع التحاليل</value>
+  </data>
+  <data name="Approved" xml:space="preserve">
+    <value>معتمد</value>
+  </data>
+  <data name="ApprovedNot" xml:space="preserve">
+    <value>غير معتمد</value>
+  </data>
+  <data name="ArabicName" xml:space="preserve">
+    <value>الاسم بالعربية</value>
+  </data>
+  <data name="Area_Acres" xml:space="preserve">
+    <value>المساحة بالفدان</value>
+  </data>
+  <data name="ArrivalPort" xml:space="preserve">
+    <value>ميناء الوصول</value>
+  </data>
+  <data name="Avaiable" xml:space="preserve">
+    <value>متاح</value>
+  </data>
+  <data name="AvaiableNot" xml:space="preserve">
+    <value>غير متاح</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>رجوع</value>
+  </data>
+  <data name="Center" xml:space="preserve">
+    <value>مركز</value>
+  </data>
+  <data name="ChemicalComposition" xml:space="preserve">
+    <value>التركيب الكيميائي</value>
+  </data>
+  <data name="CommertialRecord" xml:space="preserve">
+    <value>سجل تجارى</value>
+  </data>
+  <data name="Committee" xml:space="preserve">
+    <value>اللجان</value>
+  </data>
+  <data name="CommitteeResult" xml:space="preserve">
+    <value>نتيجة اللجنة</value>
+  </data>
+  <data name="CommitteeType" xml:space="preserve">
+    <value>نوع اللجنة</value>
+  </data>
+  <data name="CommitteMember" xml:space="preserve">
+    <value>أعضاء اللجنة</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>شركة</value>
+  </data>
+  <data name="CompanyActivity" xml:space="preserve">
+    <value>نشاط الشركة</value>
+  </data>
+  <data name="CompanyActivityType" xml:space="preserve">
+    <value>نوع نشاط الشركة</value>
+  </data>
+  <data name="CompanyExport" xml:space="preserve">
+    <value>الشركة المستوردة</value>
+  </data>
+  <data name="CompanyInternational" xml:space="preserve">
+    <value>شركات دولية</value>
+  </data>
+  <data name="CompanyNational" xml:space="preserve">
+    <value>شركات محلية</value>
+  </data>
+  <data name="Constrains" xml:space="preserve">
+    <value>الإشتراطات</value>
+  </data>
+  <data name="Constrain_Type" xml:space="preserve">
+    <value>نوع الإشتراط</value>
+  </data>
+  <data name="ContactType" xml:space="preserve">
+    <value>نوع وسائل الاتصال</value>
+  </data>
+  <data name="ContainerContent" xml:space="preserve">
+    <value>محتويات الرسالة</value>
+  </data>
+  <data name="ContainerOwner" xml:space="preserve">
+    <value>صاحب الرسالة</value>
+  </data>
+  <data name="ContainerOwnerAddress" xml:space="preserve">
+    <value>عنوان صاحب الرسالة</value>
+  </data>
+  <data name="ContainerOwnerRepresentative" xml:space="preserve">
+    <value>مندوب صاحب الرسالة</value>
+  </data>
+  <data name="ContainerOwnerRepresentativeAddress" xml:space="preserve">
+    <value>عنوان مندوب صاحب الرسالة</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>دولة</value>
+  </data>
+  <data name="CountryConstrain" xml:space="preserve">
+    <value>اشتراطات الدول</value>
+  </data>
+  <data name="CountryConstrainType" xml:space="preserve">
+    <value>أنواع الإشتراط</value>
+  </data>
+  <data name="CountryExport" xml:space="preserve">
+    <value>الدولة المستوردة</value>
+  </data>
+  <data name="CurrentStatus" xml:space="preserve">
+    <value>الموقف الحالي</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>التاريخ</value>
+  </data>
+  <data name="DateEnd" xml:space="preserve">
+    <value>تاريخ النهاية</value>
+  </data>
+  <data name="DateStart" xml:space="preserve">
+    <value>تاريخ البداية</value>
+  </data>
+  <data name="DelegationDate" xml:space="preserve">
+    <value>تاريخ الانتداب</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="Descreption_En" xml:space="preserve">
+    <value>الوصف بالأنجليزية</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>الوصف</value>
+  </data>
+  <data name="Description_Ar" xml:space="preserve">
+    <value>الوصف بالعربية</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>تعديل</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>بريد إلكترونى</value>
+  </data>
+  <data name="EngineerName" xml:space="preserve">
+    <value>اسم المهندس</value>
+  </data>
+  <data name="EngineerNumber" xml:space="preserve">
+    <value>رقم المهندس</value>
+  </data>
+  <data name="EnglishName" xml:space="preserve">
+    <value>الاسم بالإنجليزية</value>
+  </data>
+  <data name="ExpireDate" xml:space="preserve">
+    <value>تاريخ الانتهاء</value>
+  </data>
+  <data name="ExportCommitte" xml:space="preserve">
+    <value>لجنة الفحص</value>
+  </data>
+  <data name="ExportCompany" xml:space="preserve">
+    <value>الدولة المصدرة</value>
+  </data>
+  <data name="ExportCompanyAddress" xml:space="preserve">
+    <value>عنوان الولة المصدرة</value>
+  </data>
+  <data name="ExportDate" xml:space="preserve">
+    <value>تاريخ الفحص</value>
+  </data>
+  <data name="ExporterType" xml:space="preserve">
+    <value>نوع المصدر</value>
+  </data>
+  <data name="ExportRequest" xml:space="preserve">
+    <value>طلب الفحص</value>
+  </data>
+  <data name="ExportStatus" xml:space="preserve">
+    <value>الموقف من التصدير</value>
+  </data>
+  <data name="FarmCode" xml:space="preserve">
+    <value>كود المزرعة</value>
+  </data>
+  <data name="FarmData" xml:space="preserve">
+    <value>بيانات المزرعة</value>
+  </data>
+  <data name="FarmPlant" xml:space="preserve">
+    <value>بيانات نبات المزرعة</value>
+  </data>
+  <data name="FaxNumber" xml:space="preserve">
+    <value>رقم فاكس</value>
+  </data>
+  <data name="FeesType" xml:space="preserve">
+    <value>أنواع النفقات</value>
+  </data>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>لا يوجد ملف</value>
+  </data>
+  <data name="FixedFeesAmount" xml:space="preserve">
+    <value>نفقات ثابتة</value>
+  </data>
+  <data name="ForbiddenReason" xml:space="preserve">
+    <value>سبب المنع</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>من</value>
+  </data>
+  <data name="GeneralAdmin" xml:space="preserve">
+    <value>الإدارة العامة</value>
+  </data>
+  <data name="GeographicRange" xml:space="preserve">
+    <value>النطاق الجغرافى</value>
+  </data>
+  <data name="GotoPage" xml:space="preserve">
+    <value>اذهب إلى صفحة</value>
+  </data>
+  <data name="Governate" xml:space="preserve">
+    <value>المحافظة</value>
+  </data>
+  <data name="HSCode" xml:space="preserve">
+    <value>HSCode</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>صورة</value>
+  </data>
+  <data name="ImportCompany" xml:space="preserve">
+    <value>الشركة المستوردة</value>
+  </data>
+  <data name="ImportCountry" xml:space="preserve">
+    <value>الدولة المستوردة</value>
+  </data>
+  <data name="ImportStatus" xml:space="preserve">
+    <value>الموقف من الاستيراد</value>
+  </data>
+  <data name="IndustrialLicenseNumber" xml:space="preserve">
+    <value>رقم الترخيص الصناعي</value>
+  </data>
+  <data name="International" xml:space="preserve">
+    <value>دولى</value>
+  </data>
+  <data name="IPPCMember" xml:space="preserve">
+    <value>IPPC عضو في </value>
+  </data>
+  <data name="IPPCMemberNot" xml:space="preserve">
+    <value>غير عضو</value>
+  </data>
+  <data name="IPPCMembership" xml:space="preserve">
+    <value>عضوية IPPC</value>
+  </data>
+  <data name="LotData" xml:space="preserve">
+    <value>بيانات اللوط</value>
+  </data>
+  <data name="MainCalssification" xml:space="preserve">
+    <value>تصنيف الأساسى</value>
+  </data>
+  <data name="MainTreatmentType" xml:space="preserve">
+    <value>نوع المعالجة الأساسى</value>
+  </data>
+  <data name="Mandatory" xml:space="preserve">
+    <value>إجباري</value>
+  </data>
+  <data name="MinAmount" xml:space="preserve">
+    <value>القيمة الصغرى</value>
+  </data>
+  <data name="National" xml:space="preserve">
+    <value>محلى</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>لا</value>
+  </data>
+  <data name="NotActive" xml:space="preserve">
+    <value>غير فعال</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>ملاحظات</value>
+  </data>
+  <data name="no_results" xml:space="preserve">
+    <value>لا يوجد نتائج عن</value>
+  </data>
+  <data name="NumofRows" xml:space="preserve">
+    <value>عدد الصفوف</value>
+  </data>
+  <data name="Outlet" xml:space="preserve">
+    <value>المنفذ</value>
+  </data>
+  <data name="PackageMaterial" xml:space="preserve">
+    <value>مادة العبوة</value>
+  </data>
+  <data name="PackageType" xml:space="preserve">
+    <value>نوع العبوة</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>رقم هاتف</value>
+  </data>
+  <data name="PhylumSubphylum" xml:space="preserve">
+    <value>شعب النبات</value>
+  </data>
+  <data name="Plant" xml:space="preserve">
+    <value>النبات</value>
+  </data>
+  <data name="PlantCategory" xml:space="preserve">
+    <value>أصناف النبات</value>
+  </data>
+  <data name="PlantFamily" xml:space="preserve">
+    <value>عائلة النبات</value>
+  </data>
+  <data name="PlantFeesAmount" xml:space="preserve">
+    <value>رسم النبات</value>
+  </data>
+  <data name="PlantGroup" xml:space="preserve">
+    <value>المجموعة</value>
+  </data>
+  <data name="PlantKingdom" xml:space="preserve">
+    <value>الممالك الحية</value>
+  </data>
+  <data name="PlantLevel" xml:space="preserve">
+    <value>المستوى</value>
+  </data>
+  <data name="PlantOrder" xml:space="preserve">
+    <value>رتب النبات</value>
+  </data>
+  <data name="PlantPart" xml:space="preserve">
+    <value>الجزء النباتى</value>
+  </data>
+  <data name="PlantPartType" xml:space="preserve">
+    <value>أجزاء النبات</value>
+  </data>
+  <data name="PlantPurpose" xml:space="preserve">
+    <value>الغرض من التصدير/الإستيراد</value>
+  </data>
+  <data name="PlantShortName" xml:space="preserve">
+    <value>الاسم المختصر للنبات</value>
+  </data>
+  <data name="PlantType" xml:space="preserve">
+    <value>أصناف النبات</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>الميناء</value>
+  </data>
+  <data name="PortInternational" xml:space="preserve">
+    <value>ميناء دولى</value>
+  </data>
+  <data name="PortNational" xml:space="preserve">
+    <value>ميناء محلى</value>
+  </data>
+  <data name="PortOrganization" xml:space="preserve">
+    <value>هيئة الموانى</value>
+  </data>
+  <data name="PortType" xml:space="preserve">
+    <value>نوع الميناء</value>
+  </data>
+  <data name="Prevent" xml:space="preserve">
+    <value>ممنوع</value>
+  </data>
+  <data name="Prevented_Not" xml:space="preserve">
+    <value>غير ممنوع</value>
+  </data>
+  <data name="PreventReason" xml:space="preserve">
+    <value>سبب المنع</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>المنتج النباتي</value>
+  </data>
+  <data name="ProductStatus" xml:space="preserve">
+    <value>حالة النبات/المنتج</value>
+  </data>
+  <data name="PublicOrganization" xml:space="preserve">
+    <value>هيئات عامة</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>السبب</value>
+  </data>
+  <data name="Reciver" xml:space="preserve">
+    <value>المرسل إليه</value>
+  </data>
+  <data name="RegisterDate" xml:space="preserve">
+    <value>تاريخ التسجيل</value>
+  </data>
+  <data name="RegisterDate_End" xml:space="preserve">
+    <value>تاريخ الانهاء</value>
+  </data>
+  <data name="Save_Insert" xml:space="preserve">
+    <value>تم الاضافة بنجاح</value>
+  </data>
+  <data name="ScientificName" xml:space="preserve">
+    <value>الإسم العلمى</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>بحث</value>
+  </data>
+  <data name="SecondaryClassification" xml:space="preserve">
+    <value>تصنيف فرعى</value>
+  </data>
+  <data name="Select_One_More" xml:space="preserve">
+    <value>حدد واحد أو أكثر</value>
+  </data>
+  <data name="ShipmentMean" xml:space="preserve">
+    <value>وسيلة الشحن</value>
+  </data>
+  <data name="ShipmentPort" xml:space="preserve">
+    <value>ميناء الشحن</value>
+  </data>
+  <data name="ShipName" xml:space="preserve">
+    <value>إسم الباخرة</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>إظهار</value>
+  </data>
+  <data name="Station" xml:space="preserve">
+    <value>محطة</value>
+  </data>
+  <data name="StationAccreditation" xml:space="preserve">
+    <value>إعتماد المحطة</value>
+  </data>
+  <data name="StationActivity" xml:space="preserve">
+    <value>نشاط المحطة</value>
+  </data>
+  <data name="StationActivityType" xml:space="preserve">
+    <value>نوع نشاط المحطة</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
+  <data name="TaxesRecord" xml:space="preserve">
+    <value>سجل ضريبى</value>
+  </data>
+  <data name="TimeOut" xml:space="preserve">
+    <value>نهاية المهلة</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>إلى</value>
+  </data>
+  <data name="Ton" xml:space="preserve">
+    <value>طن</value>
+  </data>
+  <data name="TransitCountry" xml:space="preserve">
+    <value>دولة العبور</value>
+  </data>
+  <data name="TransitPort" xml:space="preserve">
+    <value>ميناء العبور</value>
+  </data>
+  <data name="TransportMean" xml:space="preserve">
+    <value>طريقة النقل</value>
+  </data>
+  <data name="Treatment" xml:space="preserve">
+    <value>المعالجة</value>
+  </data>
+  <data name="TreatmentMaterial" xml:space="preserve">
+    <value>مادة المعالجة</value>
+  </data>
+  <data name="TreatmentMethod" xml:space="preserve">
+    <value>طريقة المعالجة </value>
+  </data>
+  <data name="TreatmentType" xml:space="preserve">
+    <value>نوع المعالجة</value>
+  </data>
+  <data name="Union" xml:space="preserve">
+    <value>الاتحاد </value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>القيمة</value>
+  </data>
+  <data name="Village" xml:space="preserve">
+    <value>قرية</value>
+  </data>
+  <data name="Weight" xml:space="preserve">
+    <value>الوزن</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>نعم</value>
+  </data>
+  <data name="Biological_Phase" xml:space="preserve">
+    <value>الطور الحيوي</value>
+  </data>
+  <data name="LiableItems" xml:space="preserve">
+    <value>بنود خاضعة</value>
+  </data>
+  <data name="LiableItems_Status" xml:space="preserve">
+    <value>حالة البند الخاضع</value>
+  </data>
+  <data name="ExaminLocationType" xml:space="preserve">
+    <value>نوع أماكن التحفظ</value>
+  </data>
+  <data name="ImportProcedures" xml:space="preserve">
+    <value>إجراءات الوارد</value>
+  </data>
+  <data name="ReasonFortrns" xml:space="preserve">
+    <value>أسباب النقل تحت التحفظ</value>
+  </data>
+  <data name="SaveLocation" xml:space="preserve">
+    <value>أماكن التحفظ</value>
+  </data>
+  <data name="Manafest" xml:space="preserve">
+    <value>المانيفستو</value>
+  </data>
+  <data name="LiableItemsShortName" xml:space="preserve">
+    <value>LiableItemsShortName</value>
+  </data>
+  <data name="LiableItems_ShortName" xml:space="preserve">
+    <value>الاسم المختصر للبند الحيوي الخاضع</value>
+  </data>
+  <data name="Save_Update" xml:space="preserve">
+    <value>تم التعديل بنجاح</value>
+  </data>
+  <data name="Save_Delete" xml:space="preserve">
+    <value>تم الحذف بنجاح</value>
+  </data>
+  <data name="LiableItems_Strain" xml:space="preserve">
+    <value>السلالة</value>
+  </data>
+  <data name="Allowed" xml:space="preserve">
+    <value>مسموح</value>
+  </data>
+  <data name="AllowedNot" xml:space="preserve">
+    <value>ممنوع</value>
+  </data>
+  <data name="ContactData" xml:space="preserve">
+    <value>وسائل الاتصال</value>
+  </data>
+  <data name="Fees" xml:space="preserve">
+    <value>المصروفات</value>
+  </data>
+  <data name="ForbiddenStatus" xml:space="preserve">
+    <value>حالة المنع</value>
+  </data>
+  <data name="Gram" xml:space="preserve">
+    <value>جرام</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>الوارد</value>
+  </data>
+  <data name="Internal" xml:space="preserve">
+    <value>داخلى</value>
+  </data>
+  <data name="Kilo" xml:space="preserve">
+    <value>كيلو جرام</value>
+  </data>
+  <data name="LiableAlive" xml:space="preserve">
+    <value>كائنات حية</value>
+  </data>
+  <data name="LiableAliveNot" xml:space="preserve">
+    <value>مواد غير حية</value>
+  </data>
+  <data name="LiableItemType" xml:space="preserve">
+    <value>نوع البند</value>
+  </data>
+  <data name="Ports" xml:space="preserve">
+    <value>الموانى</value>
+  </data>
+  <data name="ProtectionDecision" xml:space="preserve">
+    <value>قرار الحماية</value>
+  </data>
+  <data name="PublicOrganizationType" xml:space="preserve">
+    <value>أنواع الهيئات العامة</value>
+  </data>
+  <data name="Purpose" xml:space="preserve">
+    <value>الغرض</value>
+  </data>
+  <data name="TotallyRejected" xml:space="preserve">
+    <value>مرفوض كليا</value>
+  </data>
+  <data name="UnderProtection" xml:space="preserve">
+    <value>تحت الحمايه</value>
+  </data>
+  <data name="UnderProtectionNot" xml:space="preserve">
+    <value>ليس تحت الحمايه</value>
+  </data>
+  <data name="Owner_Ar" xml:space="preserve">
+    <value>اسم المالك-عربى</value>
+  </data>
+  <data name="Owner_En" xml:space="preserve">
+    <value>اسم المالك-انجليزى</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>صادر</value>
+  </data>
+  <data name="Analysis" xml:space="preserve">
+    <value>تحاليل</value>
+  </data>
+  <data name="BasicData" xml:space="preserve">
+    <value>بيانات أساسية</value>
+  </data>
+  <data name="FarmSampleData" xml:space="preserve">
+    <value>سحب عينات مزرعة</value>
+  </data>
+  <data name="TreatmentStatment" xml:space="preserve">
+    <value>بيان المعالجة</value>
+  </data>
+  <data name="ExportSampleData" xml:space="preserve">
+    <value>استمارة سحب العينات</value>
+  </data>
+  <data name="ExportRequestsList" xml:space="preserve">
+    <value>طلبات الفحص </value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>مسئول النظام</value>
+  </data>
+  <data name="DisplayErorrs" xml:space="preserve">
+    <value>عرض الاخطاء</value>
+  </data>
+  <data name="ScientificNameAr" xml:space="preserve">
+    <value>الاسم العلمي بالعربية</value>
+  </data>
+  <data name="ScientificNameEn" xml:space="preserve">
+    <value>الاسم العلمي بالإنجليزية</value>
+  </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>تسجيل خروج</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>الاسم الكامل</value>
+  </data>
+  <data name="LoginName" xml:space="preserve">
+    <value>أسم المستخدم</value>
+  </data>
+  <data name="Enterbarcode" xml:space="preserve">
+    <value>أدخل الباركود</value>
+  </data>
+</root>

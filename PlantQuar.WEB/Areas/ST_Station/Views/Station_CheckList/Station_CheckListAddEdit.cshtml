@@ -1,0 +1,163 @@
+﻿
+@model PlantQuar.DTO.DTO.Station.Station_CheckListDTO
+
+@{
+    ViewBag.Title = "Station_CheckListAddEdit";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">Station_CheckList</h2>
+}
+
+@section Path{
+   
+    <li class="active">Station_CheckList</li>
+}
+
+<style>
+    textarea {
+        resize: none;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-10"></div>
+        <div class="col-md-2">
+            @Html.ActionLink(PlantQuar.WEB.Language.Resource_data1.Back, "Index", "Station_CheckList", new { area = "ST_Station" }, new { @class = "btn btn-primary", @style = "width:100%" })
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm("SaveStation_CheckList", "Station_CheckList", FormMethod.Post, new { area = "ST_Station" }))
+{
+    @Html.HiddenFor(m => m.ID)
+    <div>
+        <div class="tab" role="tabpanel" style="min-height:80% !important;">
+            <div class="tab-content tabs" style="background-color:whitesmoke  !important;">
+                @*<div class="row">
+                        <div class="col-md-6">
+                            <label for="Fees_Process_ID" class="control-label">Fees_Process</label>
+                            @Html.DropDownListFor(m => m.Fees_Process_ID, new SelectList(ViewBag.Fees_Process, "Value", "DisplayText"), new { @class = "form-control", @id = "Fees_Process_ID" })
+                        </div>
+                        <div class="col-md-6">
+                            <label for="FeesType_Id" class="control-label">FeesType</label>
+                            @Html.DropDownListFor(m => m.FeesType_Id, new SelectList(ViewBag.Fees_Type, "Value", "DisplayText"), new { @class = "form-control", @id = "FeesType_Id" })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="Feer_Type_Action_ID" class="control-label">Feer_Type_Action</label>
+                            <select id="Feer_Type_Action_ID" name="Feer_Type_Action_ID" class="form-control">
+                                <option value="">----------</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <div>
+                                <label for="ItemId" class="control-label">Item</label>
+                                <select id="ItemId" name="ItemId" class="form-control">
+                                    <option value="">----------</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="ShiftTimingId" class="control-label">ShiftTiming</label>
+                                <select id="ShiftTimingId" name="ShiftTimingId" class="form-control">
+                                    <option value="">----------</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="TreatmentMethodsId" class="control-label">TreatmentMethods</label>
+                                <select id="TreatmentMethodsId" name="TreatmentMethodsId" class="form-control">
+                                    <option value="">----------</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>*@
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="ConstrainText_Ar" class="control-label">@PlantQuar.WEB.Language.Resource_data1.ConstrainText_Ar</label>
+                        @Html.TextAreaFor(m => m.ConstrainText_Ar, new { @class = "form-control", @id = "ConstrainText_Ar", rows = "5" })
+                    </div>
+                    <div class="col-md-6">
+                        <label for="ConstrainText_En" class="control-label">@PlantQuar.WEB.Language.Resource_data1.ConstrainText_En</label>
+                        @Html.TextAreaFor(m => m.ConstrainText_En, new { @class = "form-control", @id = "ConstrainText_En", rows = "5" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="Description_Ar" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Description_Ar</label>
+                        @Html.TextAreaFor(m => m.Description_Ar, new { @class = "form-control", @id = "Description_Ar", rows = "5" })
+                    </div>
+                    <div class="col-md-6">
+                        <label for="Description_En" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Description_En</label>
+                        @Html.TextAreaFor(m => m.Description_En, new { @class = "form-control", @id = "Description_En", rows = "5" })
+                    </div>
+                </div>
+                @*<br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="WeightFrom" class="control-label">WeightFrom</label>
+                            @Html.TextBoxFor(m => m.WeightFrom, new { @class = "form-control", @id = "WeightFrom" })
+                        </div>
+                        <div class="col-md-6">
+                            <label for="WeightTo" class="control-label">WeightTo</label>
+                            @Html.TextBoxFor(m => m.WeightTo, new { @class = "form-control", @id = "WeightTo" })
+                        </div>
+                    </div>*@
+                <br />
+                <div class="row">
+                    @*<div class="col-md-4">
+            <label for="IsPaidBefore" class="control-label">IsPaidBefore</label>
+            @Html.CheckBoxFor(m => m.IsPaidBefore, new { @class = "form-control", @id = "IsPaidBefore", @cols = 3 })
+        </div>*@
+                    <div class="col-md-4">
+                        <label for="IsActive" class="control-label">@PlantQuar.WEB.Language.Resource_data1.IsActive</label>
+                        @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-control", @id = "IsActive", @cols = 3 })
+                    </div>
+                    <div class="col-md-4">
+                        <label for="Number_Check" class="control-label">Number_Check</label>
+                       
+                   <input type="number" name="Number_Check" value="@Model.Number_Check" class = "form-control" cols = 3 />
+                    </div>
+                    @*<div class="col-md-4">
+            <label for="IsMandatory" class="control-label">IsMandatory</label>
+            @Html.CheckBoxFor(m => m.IsMandatory, new { @class = "form-control", @id = "IsMandatory" })
+        </div>*@
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-10"></div>
+                    <div class="col-md-2">
+                        <input type="submit" class="btn btn-primary" style="width:100%" value="حفظ" autocomplete="off">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<style>
+    .attach .jtable-input-field-container:nth-of-type(1),
+    .attach .jtable-input-field-container:nth-of-type(2),
+    .attach .jtable-input-field-container:nth-of-type(3),
+    .attach .jtable-input-field-container:nth-of-type(4) {
+        margin-bottom: 2px;
+        float: right;
+        width: 48% !important;
+    }
+
+
+    .attach .jtable-input-field-container:nth-of-type(5) {
+        margin-bottom: 2px;
+        float: right;
+        width: 98% !important;
+    }
+</style>
+
+<script>
+    
+</script>

@@ -1,0 +1,1684 @@
+﻿@model List<PlantQuar.DTO.DTO.Committee.Ex_Committee_Quick_DTO>
+
+@{
+    ViewBag.Title = "Committee";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    var x = 0;
+}
+
+
+@section Title{
+    <h2 class="ls-top-header">لجنة صادر</h2>
+}
+@section Path{
+
+    <li class="active" style="right: 43px; position: relative;">Export Committe</li>
+}
+<link href="~/Content/jquery.timepicker.css" rel="stylesheet" />
+<script src="~/scripts/jquery.timepicker.min.js"></script>
+
+
+<div class="row">
+    <input type="hidden" name="Hdn_CommitteeTypeId" id="Hdn_CommitteeTypeId" value="@ViewBag.CommitteeTypeId" />
+
+
+</div>
+<br />
+<div class="form-box" id="lagnaDiv">
+    <label class="label-info" style="margin-right:10px;">معلومات اللجنة</label>
+
+    <div id="DivCommitteeType">
+        <div class="row">
+            <div class="col-md-6">
+
+                <input type="checkbox" id="CommitteeType" name="CommitteeType" value="1" />@PlantQuar.WEB.Language.Resource_data1.CheckCommittee
+                <input type="checkbox" id="CommitteeType3" name="CommitteeType" value="3" onchange="checkBoxAlert()" />@PlantQuar.WEB.Language.Resource_data1.CommitteeSampleData
+                @*<input type="checkbox" id="CommitteeType" name="CommitteeType" value="6" />@PlantQuar.WEB.Language.Resource_data1.CommitteeTreatment*@
+                <input type="checkbox" id="CommitteeType" name="CommitteeType" value="2" />@PlantQuar.WEB.Language.Resource_data1.GeshneyCommittee
+                <br />
+                <select id="CommitteeType_ID" hidden>
+                    <option value="0">@PlantQuar.WEB.Language.Resource_data1.choose</option>
+
+                    <option value="1">@PlantQuar.WEB.Language.Resource_data1.CheckCommittee</option>
+                    <option value="3">@PlantQuar.WEB.Language.Resource_data1.CommitteeSampleData</option>
+                    <option value="6">@PlantQuar.WEB.Language.Resource_data1.CommitteeTreatment</option>
+                    <option value="2">@PlantQuar.WEB.Language.Resource_data1.GeshneyCommittee</option>
+
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label> @PlantQuar.WEB.Language.Resource_data1.Date_of_committee</label>
+                <input type="text" name="Delegation_Date" id="Delegation_Date" class="form-control" required />
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <label class="label-info" style="margin-right:10px;">بيانات الموظفين</label>
+
+    <div id="DivEmpolyee">
+        <span>@ViewBag.Accreditation_Type_ID</span>
+
+
+
+        <div class="row">
+            <div class="col-md-3">
+                <label>اسم المنفذ</label>
+                @if (ViewBag.Outlet != null)
+                {
+                    @Html.DropDownList("CustomerDropDown", new SelectList(ViewBag.Outlet, "Value", "DisplayText"), new { @class = "form-control col-md-8" })
+                }
+            </div>
+            <div class="col-md-3">
+                <label> @PlantQuar.WEB.Language.Resource_data1.EmpolyeeName</label>
+                <input type="text" id="Employee_name" placeholder="enter emp name" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <label>  @PlantQuar.WEB.Language.Resource_data1.EmpolyeeNumber</label>
+                <input type="text" name="Employee_No" id="Employee_No" class="form-control" />
+            </div>
+            <div class="col-md-3" style="text-align:center">
+                <input type="button" id="search" onclick="MyFunction()" value="بحث بالموظف" />
+                <input type="hidden" id="CheckRequest_Id" value="@ViewBag.requestId" />
+                <input type="hidden" id="shiftId" />
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <table id="Farm_Constrain_TextTable" class="table table-bordered table-striped dataTable" role="grid" style="padding:5px; width:100%">
+                <thead>
+                    <tr>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.EmpolyeeNumber </th>
+                        <th>اسم الموظف </th>
+                        <th>محافظة الموظف </th>
+                        <th>منفذ الموظف </th>
+                        <th hidden>ادمن</th>
+                        <th>تسجيل</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <table id="myTable" border="1" name="gh" class="table table-bordered table-striped dataTable">
+                <thead>
+                    <tr>
+                        <th>اسم المهندس </th>
+                        <th>كود المهندس </th>
+                        <th>ادمن</th>
+                        <th>حذف</th>
+                    </tr>
+                </thead>
+                <tbody id="myTable2">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <label class="label-info" style="margin-right:10px;">النوبتجية</label>
+
+    <div id="DivShift">
+        <div class="row">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <label> مواعيد النبواتجية</label>
+                    <select id="ShiftTiming_select" name="Analysiss_name" class="form-control"></select>
+                </div>
+
+                <div class="col-md-3">
+                    <label>المبلغ </label>
+                    <input type="text" name="Txt_money" id="Txt_money" class="form-control" readonly />
+                </div>
+                <div class="col-md-3">
+                    <label>
+                        عدد الأيام
+                    </label>
+                    <input type="number" id="Txt_Count" name="name" class="form-control" value="1" />
+                </div>
+
+                <div class="col-md-3">
+                    <label>نوع اللجنة</label>
+                    <select id="CommitteeType_Shift_ID" class="form-control ">
+                        <option value="0">@PlantQuar.WEB.Language.Resource_data1.choose</option>
+
+                        <option value="1">@PlantQuar.WEB.Language.Resource_data1.CheckCommittee</option>
+                        <option value="3">@PlantQuar.WEB.Language.Resource_data1.CommitteeSampleData</option>
+                        @*<option value="6">@PlantQuar.WEB.Language.Resource_data1.CommitteeTreatment</option>*@
+                        <option value="2">@PlantQuar.WEB.Language.Resource_data1.GeshneyCommittee</option>
+
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <input id="" class="btn btn-primary btnNext float-left " name="" type="button" onClick="reply_ShiftTiming(this)" value="اضافة">
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 30px; width: 100%; ">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+
+                    <table id="ShiftTiming_Table" border="1" name="ShiftTiming" class="table table-bordered table-striped dataTable">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>مواعيد النبواتجية</th>
+                                <th>الحساب</th>
+                                <th>عدد الأيام </th>
+                                <th>الاجمالى</th>
+                                <th>اللجنة</th>
+                                <th> رقم اللجنة</th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="ShiftTiming_tbody">
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+            @*/*noooooooooooo*/*@
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+    <label class="label-info" style="margin-right:10px;">البدلات</label>
+
+    <div id="DivShiftTiming">
+        <div class="row">
+            <div class="col-md-3">
+                <label>اسم الوردية</label>
+                <select id="Station_Fees_Type_select" name="Analysiss_name" class="form-control "></select>
+            </div>
+            <div class="col-md-3">
+                <label>المبلغ </label>
+                <input type="text" name="Txt_money_Station_Fees_Type" id="Txt_money_Station_Fees_Type" class="form-control" readonly />
+            </div>
+            <div class="col-md-3">
+                <label>نوع اللجنة</label>
+                <select id="CommitteeType_Eng_ID" class="form-control ">
+                    <option value="0">@PlantQuar.WEB.Language.Resource_data1.choose</option>
+
+                    <option value="1">@PlantQuar.WEB.Language.Resource_data1.CheckCommittee</option>
+                    <option value="3">@PlantQuar.WEB.Language.Resource_data1.CommitteeSampleData</option>
+                    @*<option value="6">@PlantQuar.WEB.Language.Resource_data1.CommitteeTreatment</option>*@
+                    <option value="2">@PlantQuar.WEB.Language.Resource_data1.GeshneyCommittee</option>
+
+                </select>
+            </div>
+            <div class="col-md-3">
+                <input id="" class="btn btn-primary btnNext float-left " name="" type="button" onClick="reply_Station_Fees_Type(this)" value="اضافة">
+            </div>
+        </div>
+        <br />
+        <br />
+        <div class="row">
+            <table id="Station_Fees_Type_Table" border="1" name="ShiftTiming" class="table table-bordered table-striped dataTable">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>وردية المهندس</th>
+                        <th>الحساب</th>
+                        <th>عدد المهندسين </th>
+                        <th>الاجمالى</th>
+                        <th>اسم اللجنة</th>
+                        <th>رقم اللجنة</th>
+                    </tr>
+                </thead>
+                <tbody id="Station_Fees_Type_tbody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+    <div id="DivAnlysis_all">
+        <div id="DivAnlysis_il">
+            <label class="label-info" style="margin-right:10px;">السحوبات</label>
+            <div class="row">
+
+                <div class="col-md-3">
+                    <label>عدد السحوبات </label>
+                    <input type="text" name="Txt_Sample_Count" id="Txt_Sample_Count" class="form-control" value="1" />
+                    @*<input type="text" id="Txt_money_Station_Fees_Type" name="name" />*@
+                </div>
+                <div class="col-md-3">
+                    <label>المبلغ </label>
+                    <input type="text" name="Txt_money_Sample_Fees" id="Txt_money_Sample_Fees" value="200" class="form-control" disabled />
+                    @*<input type="text" id="Txt_money_Station_Fees_Type" name="name" />*@
+                </div>
+                <div class="col-md-3">
+                    <label>الاجمالي </label>
+                    <input type="text" name="Txt_Total_Samples_Fees" id="Txt_Total_Samples_Fees" class="form-control" value="200" disabled />
+                    @*<input type="text" id="Txt_money_Station_Fees_Type" name="name" />*@
+                </div>
+
+            </div>
+
+        </div>
+
+        <br />
+        <br />
+        @*السحب*@
+        <div id="DivAnlysis_il">
+            <div class="row">
+
+                <div class="col-md-3">
+                    <label>@PlantQuar.WEB.Language.Resource_data1.AnalysisType </label>
+                    @Html.DropDownList("Analysisstr", new SelectList(ViewBag.lstAnalysisType, "Value", "DisplayText"), new { @class = "form-control AnalysisLst" })
+
+                    @*<select id="Analysisstr" name="Analysiss_name" class="form-control AnalysisLst"></select>*@
+                </div>
+                <div class="col-md-3">
+                    <label>@PlantQuar.WEB.Language.Resource_data1.AnalysisLab </label>
+                    <select id="AnalysisLabLstr" class="form-control AnalysisLabLst"></select>
+                </div>
+                <div class="col-md-3">
+                    <input id="" class="style-but" name="" type="button" onClick="reply_click7(this)" value="@PlantQuar.WEB.Language.Resource_data1.Add">
+                </div>
+            </div>
+
+            <div class="row">
+
+                <table id="myAnlysesTable" border="1" name="myAnlysesTable" class="table table-bordered table-striped dataTable">
+                    <thead>
+                        <tr>
+                            <th>التحاليل</th>
+                            <th>ID</th>
+                            <th>المعمل </th>
+                            <th>ID</th>
+                        </tr>
+                    </thead>
+                    <tbody id="myAnlysesTable_Data"></tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+    @*المعالجة*@
+    <div id="DivTreatment_il" hidden>
+        <div class="row">
+            <div class="col-md-3">
+                <label>@PlantQuar.WEB.Language.Resource_data1.TreatmentMainType</label>
+                @Html.DropDownList("TreatmentMainType", new SelectList(ViewBag.lstTreatmentMain, "Value", "DisplayText"), new { @class = "form-control TreatmentMain_Lst" })
+            </div>
+            <div class="col-md-3">
+                <label>@PlantQuar.WEB.Language.Resource_data1.TreatmentType </label>
+                <select id="TreatmentType" name="TreatmentType_name" class="form-control TreatmentType_Lst"></select>
+            </div>
+            <div class="col-md-3">
+                <label>@PlantQuar.WEB.Language.Resource_data1.TreatmentMethod </label>
+                <select id="TreatmentMethod" name="TreatmentMethod_name" class="form-control TreatmentMethod_lst"></select>
+            </div>
+            @*<div class="col-md-4">
+                                نص المعالجة للأندريد
+                                <br />
+                <textarea id="Txt_Procedures"></textarea>
+                            </div>*@
+            <div class="col-md-3">
+                <input id="Btn_Treatment" class="style-but" name="Btn_Treatment" type="button" onClick="reply_Treatment(this)" value="@PlantQuar.WEB.Language.Resource_data1.Add">
+
+            </div>
+        </div>
+
+        <div class="row">
+            <table id="my_Treatment_Table" border="1" name="my_Treatment_Table" class="table table-bordered table-striped dataTable">
+                <thead>
+                    <tr>
+                        <th>نوع المعالجة الرئيسى</th>
+                        <th>ID</th>
+                        <th>نوع المعالجة</th>
+                        <th>ID</th>
+                        <th>طريقة المعالجة</th>
+                        <th>ID</th>
+                    </tr>
+                </thead>
+                <tbody id="my_Treatment_tbody_Data"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <br />
+    <br />
+    <label class="label-info" style="margin-right:10px;">بيانات الرسالة</label>
+
+    <div id="DivItem_Lot">
+        <div class="row" id="checkAllDiv" hidden>
+            <div class="col-md-4"></div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <input type="checkbox" name="allCH"
+                       id="allCH_Id" /> أختيار كل اللوطات   <br />
+
+            </div>
+        </div>
+
+
+
+        <div id="MessageData" style="padding:10px;">
+            <div class="row">
+                <div class="col-md-12">
+                    @if (Model != null)
+                    {
+                        <table style="width:100%">
+                            <thead>
+                                <tr class="color-3">
+
+                                    <td>رقم الطلب</td>
+
+                                    <td>المنتج</td>
+                                    <td>المسمي المختصر</td>
+
+                                    <td>رقم اللوط</td>
+                                    <td>اختيار</td>
+
+                                    <td hidden>id Requst</td>
+                                    <td hidden>id Item</td>
+                                    <td hidden>id Lot</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var List in Model)
+                                {
+                                    <tr>
+                                        <td>@List.EX_CheckRequest_Number</td>
+                                        <td>@List.EX_ItemsName</td>
+                                        <td>@List.EX_Item_ShortName</td>
+                                        <td>@List.Lot_Number</td>
+                                        <td hidden>@List.EX_CheckRequest_ID</td>
+                                        <td hidden>@List.ID_EX_Items</td>
+                                        <td hidden>@List.ID_Lot</td>
+                                        <td>
+                                            <input type="checkbox" name="fav" id="Chb_@List.EX_CheckRequest_ID"
+                                                   class="checkboxdisabledCH"
+                                                   value="@List.ID_Lot*@List.ID_EX_Items*@List.EX_Item_ShortName_ID*@List.EX_CheckRequest_ID">
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    }
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-4" style="text-align:center">
+        <input type="button" class=" btn btn-primary btnNext float-left" id="messagedata" value="@PlantQuar.WEB.Language.Resource_data1.Save">
+
+    </div>
+</div>
+
+
+<!-- Modal Details -->
+<div id="mymodalemanexamination" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
+                <h4 class="modal-title">@PlantQuar.WEB.Language.Resource_data1.Details </h4>
+            </div>
+            <div class="modal-body" id="modaldetails">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default " data-dismiss="modal">@PlantQuar.WEB.Language.Resource_data1.Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--End_Modal Details -->
+@section scripts{
+
+
+    <script>
+        function checkBoxAlert() {
+            const checkbox = document.getElementById("CommitteeType3").value;
+            if (checkbox == 3) {
+                if (document.getElementById("CommitteeType3").checked) {
+                    $("#DivAnlysis_all").show();
+                } else { $("#DivAnlysis_all").hide(); };
+
+            }
+        }
+
+
+        var list = [];
+        var _ShiftTiming_List=[];
+        function MyFunction() {
+
+                // $(search).prop('disabled', true); // Unchecks it
+                $("#Farm_Constrain_TextTable tbody").empty();
+                var EmplyeeName = document.getElementById("Employee_name").value;
+            var Emplyee_No = $('#Employee_No').val();
+            var Outlet_ID ="0";
+
+            const urlSearchParams = new URLSearchParams(window.location.search);
+            const params = Object.fromEntries(urlSearchParams.entries());
+
+
+
+
+            var OutLet_HR_ID = 0;
+            if ($('#CustomerDropDown').val().length >0) {
+                OutLet_HR_ID = $('#CustomerDropDown').val();
+            }
+
+                var EmplyeeNo;
+                if (Emplyee_No === "") {
+                    EmplyeeNo = 0;
+                }
+                else {
+                    EmplyeeNo = parseInt($('#Employee_No').val());
+                }
+                $.ajax({
+                    url: '@Url.Action("GetPR_User_Id", "Ex_Committee_Quick")',
+                    type: "POST",
+                    data: {
+                        FullName: EmplyeeName,
+                        EmplyeeNo: EmplyeeNo,
+                        Outlet_ID: Outlet_ID,
+                        OutLet_HR_ID: OutLet_HR_ID,
+
+                    },
+                    success: function (data) {
+
+
+                        if (data.length > 0) {
+                            for (var i = 0; i < data.length; i++) {
+
+                                var item = data[i];
+                                carName = 1;
+                                $("#Farm_Constrain_TextTable tbody").append("<tr>" +
+                                    "<td>  " + item.UserID + "  </td>"
+                                    + "<td>" + item.UserFullName + "</td>" +
+                                    "<td>  " + item.Adress_Ar + "  </td>"
+                                    + "<td>" + item.OutletName + "</td>"
+                                    + '<td><input type="checkbox" id="chckBox_' + data[i].UserID + '" class="chckClass_' + i + '" value="' + data[i].UserID + '" Name="' + data[i].UserFullName + '"  onchange="Emplyee_List(this)" " /></td>'
+                                    + "</tr>");
+                            }
+                        }
+                        else {
+
+                            $("#Farm_Constrain_TextTable tbody").append("<tr>" +
+                                "<td >لا توجد بيانات</td></tr>");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                    }
+                });
+                let checkboxes = $("input[type='checkbox']");
+                selectedCboxes = Array.prototype.slice.call(checkboxes).filter(ch => ch.checked == true);
+                //console.log(checkboxes);
+            }
+
+
+            function DeleteRow(element) {
+                //////alert(element.name);
+                //console.log(element);
+                var table = document.getElementById("myTable");
+                var c = '#id' + element.name + '';
+                $(c).remove();
+                //remove the checked employee chckBox_729
+                var ch = '#chckBox_' + element.name + '';
+                $(ch).prop('checked', false); // Unchecks it
+            }
+        function helloo(element) {
+            // ////alert(element.value);
+
+
+            if (element.checked) {
+                //document.getElementById("myTable").insertRow(-1).innerHTML = '<td id=' + element.value + '>' + element.name
+                //    + '</td><td>' + element.value + '</td>';
+                //debugger;
+                var table = document.getElementById("myTable2");
+
+                var rowCount = table.rows.length;
+                var row = table.insertRow(rowCount);
+                row.id = 'id' + element.value;
+                row.insertCell(0).innerHTML = element.name;
+                row.insertCell(1).innerHTML = element.value;
+                row.insertCell(2).innerHTML =
+                    '<td><input type="radio" id="chckBox_' + element.value+'" class="change-selector" value="' + element.value + '" name="hello"   )"/></td>';
+                row.insertCell(3).innerHTML =
+                    '<td><a href="#" onclick="DeleteRow(this)" name="' + element.value + '">Delete</a></td>';
+            }
+            else {
+                var c = '#id' + element.value + '';
+                $(c).remove();
+            }
+        }
+
+
+    function saveList() {
+       list = [];
+                var selectedOption = $("input:radio[name=hello]:checked").val()
+                // ////alert("Your are a - " + selectedOption);
+                if (typeof selectedOption !== "undefined") {
+
+                    var rows = document.getElementById("myTable2").rows;
+                    for (var i = 0, ceiling = rows.length; i < ceiling; i++) {
+                        cells = rows[i].getElementsByTagName('td');
+                        Employee_name = cells[0].innerHTML;
+                        Employee_Id = cells[1].innerHTML;
+
+
+                        var id = parseInt(Employee_Id);
+                        if (id == selectedOption) {
+                            ISAdmin = true;
+                            //////alert('d');
+                            //console.log(selectedOption + ',,,,' + Employee_Id);
+                        }
+                        else {
+                            ISAdmin = false;
+                        }
+
+                        list.push({ Employee_name: Employee_name, Employee_Id: Employee_Id, ISAdmin: ISAdmin });
+
+                    }
+                    return list;
+                }
+                else {
+                    return null;
+                }
+            }
+
+        $(document).ready(function () {
+            $("#DivAnlysis_all").hide();
+           
+            $.ajax(
+                {
+                    url: '@Url.Action("getShiftTiming_Lst", "Committee", new { area = "Committees" })',
+                    type: 'Post',
+                    success: function (data) {
+                        $('#ShiftTiming_select').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#ShiftTiming_select').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+
+            $.ajax(
+                {
+                    url: '@Url.Action("get_Station_Fees_Type_Lst", "Station_Fees_Type", new { area = "Station_Pages" })',
+                    type: 'Post',
+                    data: { Fees_Type: 137 },
+                    success: function (data) {
+                        $('#Station_Fees_Type_select').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#Station_Fees_Type_select').append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+        })
+        var _Station_Fees_List = [];
+
+
+            $("#Station_Fees_Type_select").change(function () {
+                $.ajax(
+                    {
+
+                        url: '@Url.Action("get_Station_Fees_Type_Mony", "Station_Fees_Type", new { area = "Station_Pages" })',
+                        type: 'Post',
+                        data: { Station_Fees_Type_ID: $(this).val() },
+                        success: function (data) {
+                            if (data.Options != null) {
+                                $("#Txt_money_Station_Fees_Type").val(data.Options);
+                            }
+                        } //success
+                    });//ajax
+            });
+
+        function reply_Station_Fees_Type(element) {
+
+            $(".toggle-div7-" + element.id + "").toggle('fast', "linear");
+            var Station_Fees_select_GetName = $("#Station_Fees_Type_select  option:selected").text();
+            var Station_Fees_select_GetID = $("#Station_Fees_Type_select  option:selected").val();
+
+            var _CommitteeType_Eng_ID = $("#CommitteeType_Eng_ID  option:selected").val();
+            var _CommitteeType_Eng_Name = $("#CommitteeType_Eng_ID  option:selected").text();
+
+            var Txt_money_Get = $("#Txt_money_Station_Fees_Type").val();
+            var Txt_Count_Get = $("#Txt_money_Station_Fees_Type").val();
+            var _Lbl_Station_Requst_ID = $("#Lbl_Station_Requst_ID").val();
+            var Station_Fees_List = document.getElementById("Station_Fees_Type_tbody").rows;
+            var id = 0;
+
+            var Employee_List = document.getElementById("myTable2").rows;
+
+            Count_Employee = Employee_List.length;
+            if (Count_Employee > 0) {
+                if (_CommitteeType_Eng_ID > 0) {
+                    if (Station_Fees_select_GetID > 0) {
+                        if (Txt_Count_Get > 0) {
+                            for (var i = 0, ceiling = Station_Fees_List.length; i < ceiling; i++) {
+                                cells = Station_Fees_List[i].getElementsByTagName('td');
+                                var id_cells = cells[0].innerHTML;
+                                var id_Commity = cells[6].innerHTML;
+                                if (Station_Fees_select_GetID == id_cells) {
+                                    if (_CommitteeType_Eng_ID == id_Commity) {
+                                        id = 1;
+                                    }
+                                }
+                            }
+                            /*var Count_Employee = 0;*/
+
+                            if (id == 0) {
+                                var table = document.getElementById("Station_Fees_Type_tbody");
+                                var rowCount = table.rows.length;
+                                var row = table.insertRow(rowCount);
+                                row.id = '' + Station_Fees_select_GetID;
+                                row.insertCell(0).innerHTML = Station_Fees_select_GetID;
+                                row.insertCell(1).innerHTML = Station_Fees_select_GetName;
+                                row.insertCell(2).innerHTML = Txt_money_Get;
+                                row.insertCell(3).innerHTML = Count_Employee;
+                                row.insertCell(4).innerHTML = Txt_money_Get * Count_Employee;//2
+                                row.insertCell(5).innerHTML = _CommitteeType_Eng_Name;//2
+                                row.insertCell(6).innerHTML = _CommitteeType_Eng_ID;//2
+                                row.insertCell(7).innerHTML = '<td><a href="#" onclick="DeleteRow_Station_Fees_Type(this)" name="' + Station_Fees_select_GetID + '">حذف</a></td>';;
+                                //Farm_Committee_ShiftDTO
+                                _Station_Fees_List.push({
+                                    Ex_RequestCommittee_ID: _Lbl_Station_Requst_ID,
+                                    Ex_Fees_Type_ID: Station_Fees_select_GetID,
+                                    Num_Eng: Count_Employee,
+                                    Value: Txt_money_Get,
+                                    Station_Table_Type: 4,//وردية
+                                    Committee_ID: _CommitteeType_Eng_ID
+                                });
+
+                                alertify.success("تمت الاضافه ");
+                            }
+                            else {
+                                alertify.error("موجود مسبقا");
+                            }
+                        }
+                        else {
+                            alertify.error("يجب كتابة عدد الايام");
+                        }
+                    }
+                    else {
+                        alertify.error("يجب اختيار نوبتجية");
+                    }
+                }
+                else {
+                    alertify.error("يجب اختيار لجنة");
+                }
+            }
+            else {
+                alertify.error("يجب اختيار فاحصين");
+            }
+           
+            
+        }
+
+
+            function DeleteRow_Station_Fees_Type(element) {
+                var table = document.getElementById("Station_Fees_Type_tbody");
+                var c = '#' + element.name + '';
+                alert(c)
+               // $(c).remove();
+                $(c).closest("tr").remove();
+               // _Station_Fees_List.clear();
+                _Station_Fees_List.length = 0;
+
+                //  empty(_Station_Fees_List);
+                alertify.error("برجاء اعاده الادخال مره اخري بطريقه صحيحة");
+                $('#Station_Fees_Type_tbody').empty();
+
+            }
+
+        $(function () {
+
+            $("#Delegation_Date").datepicker(
+                {
+                    dateFormat: 'yy-mm-dd',
+                    changeYear: true,
+                    changeMonth: false,
+                    minDate: 0,
+                    yearRange: "-100:+20",
+
+                }
+            );
+
+        });
+
+        String.prototype.compose = (function () {
+            var re = /\{{(.+?)\}}/g;
+            return function (o) {
+                return this.replace(re, function (_, k) {
+                    return typeof o[k] != 'undefined' ? o[k] : '';
+                });
+            }
+                }());
+
+
+
+        function changeElement(id) {
+           // //alert(id);
+            var el = document.getElementById(id);
+            ////alert(el);
+            el.style.display = "none !important";
+            el.style.fontSize = "15px";
+            el.style.backgroundColor = "#FFFFFF";
+        }
+
+
+        //CheckRequest_Number save Committee
+        function GetCheckRequest_Number_Data(isChange=false) {
+
+
+            CommitteeType_ID = $("#CommitteeType_ID").val();
+                if ( CommitteeType_ID == "")
+            {
+                    alertify.error("يجب اختيار نوع اللجنة");
+                return false;
+            }
+            $.ajax(
+                {
+                    url: "/Committee/SaveCommittee",
+                    type: "POST",
+                    data: {
+                        CheckRequest_Number: $("#CheckRequest_Number").val(),
+                        CommitteeType_ID: CommitteeType_ID
+                    },
+                    success: function (res) {
+
+                        //reset data
+                        //   $("#CommitteeType_ID").val(null);
+                        $("#Check_Date").val(null);
+                        $("#Delegation_Date").val(null);
+                        $("#StartTime").val(null);
+                        $("#EndTime").val(null);
+                        $("#Employee_AddEDIT").hide();
+                        $("#CheckRequest_Id").val(0);
+                        if (res.Result == 1) {
+                            //set data found
+                            var Request_committe = res.Request_committe;
+
+                            if (Request_committe.Check_Date != null) {
+                                $("#Check_Date").val($.datepicker.formatDate('yy-mm-dd', (new Date(parseInt(Request_committe.Check_Date.substr(6))))));
+                            } if (Request_committe.Delegation_Date != null) {
+                                $("#Delegation_Date").val($.datepicker.formatDate('yy-mm-dd', (new Date(parseInt(Request_committe.Delegation_Date.substr(6))))));
+                            }$("#StartTime").val(Request_committe.StartTime);
+                            $("#EndTime").val(Request_committe.EndTime);
+                            $("#Employee_AddEDIT").show();
+                            $("#submitValue").removeAttr("disabled");
+                            //get check_request id
+                            $("#CheckRequest_Id").val(Request_committe.CheckRequest_Id);
+                            //var Committe_Id = Request_committe.Committe_Id ;
+                            //$("#Committe_Id").val(Request_committe.Committe_Id);
+                        if (Committe_Id == -1)
+                            {
+                            //no committe is found
+                            }
+                        else if (Committe_Id >0) {
+                                    //there is a committe for the current request
+                            //edit data and display employee data
+                            var Employee_list = Request_committe.Employee_list;
+                            //Value    Employee_name    Employee_Id
+
+                            var tbody = $('#Employee_AddEDIT').children('tbody');
+                            var table = tbody.length ? tbody : $('#Employee_AddEDIT').children('tbody');
+                            //19-3-2020 fz clear table body
+                            $('#Employee_List  tbody').empty();
+                            /*noooooooooooo*/
+                            //$.each(Employee_list, function (index, r) {
+                            //var row = ' <tr class="jtable-data-row-selected"><td class="jtable-selecting-column"><input type="checkbox" checked></td><td>' + r.Employee_Id + '</td><td>' + r.Employee_name + '</td><td>' + r.Employee_Id + '</td></tr>';
+                            //    $("#Employee_AddEDIT tbody").append(row);
+                            //});
+                            /*noooooooooooo*/
+                                }
+                        }
+                        else {
+
+                            $("#submitValue").attr("disabled", true);
+                            alertify.error("خطأ فى رقم طلب الفحص");
+                        }
+                    }
+                });
+        }
+        //btn_Search
+                var arrayRecords = new Array();
+                var Admin_List = [];
+                var admin_index = 0;
+                var is_Admin = 0;
+        ///////////////////////////////////////////////1877
+        //
+        $('#Txt_Sample_Count').change(function (e) {
+            //Get The Amount and Count of Samples
+            // Txt_Sample_Count,Txt_money_Sample_Fees,Txt_Total_Samples_Fees
+
+
+            var _Txt_Sample_Count = $("#Txt_Sample_Count").val();
+
+            var _Txt_money_Sample_Fees = $("#Txt_money_Sample_Fees").val();
+            var Total = _Txt_Sample_Count * _Txt_money_Sample_Fees;
+
+            $("#Txt_Total_Samples_Fees").val(Total);
+
+        });
+
+         ///////////////////////////////////////////////Next 1
+
+        $('#Next1').click(function (e) {
+
+            var CommitteeType_ID = $("#CommitteeType_ID").val();
+            Delegation_Date = $("#Delegation_Date").val();
+            StartTime = $("#StartTime").val();
+            EndTime = $("#EndTime").val();
+
+            if (CommitteeType_ID == 0 ||Delegation_Date == ""
+                || StartTime == "" || EndTime == "") {
+                alertify.error(" يجب أختيار لجنة واستكمال البيانات ");
+            }
+            else {
+                if (StartTime > EndTime) {
+                    alertify.error(" يجب ان يكون توقيت النهاية اكبر من توقيت البداية ");
+                }
+                else {
+                    $('.nav-tabs > .active').next('li').find('a').trigger('click');
+                }
+            }
+        });
+
+
+        //// Next_empploy
+        $('#Next_empploy').click(function (e) {
+
+            var selectedOption = $("input:radio[name=hello]:checked").val()
+            if (typeof selectedOption !== "undefined") {
+                $('.nav-tabs > .active').next('li').find('a').trigger('click');
+            }
+            else {
+                alertify.error("يجب اختيار موظفين")
+            }
+        });
+
+        /*noooooooooooo*/
+
+        $("#ShiftTiming_select").change(function () {
+                $.ajax(
+                    {
+                                    url: '@Url.Action("getShiftTiming_Mony", "Committee", new { area = "Committees" })',
+                        type: 'Post',
+                        data: { shiftId: $(this).val() },
+                        success: function (data) {
+                                            if (data.Options != null) {
+                                $("#Txt_money").val(data.Options);
+                                            }
+                                        } //success
+                                    });//ajax
+        });
+         $("#ShiftTiming_select").change(function () {
+                $.ajax(
+                    {
+                                    url: '@Url.Action("getShiftTiming_Mony", "Committee", new { area = "Committees" })',
+                        type: 'Post',
+                        data: { shiftId: $(this).val() },
+                        success: function (data) {
+                                            if (data.Options != null) {
+                                $("#Txt_money").val(data.Options);
+                                            }
+                                        } //success
+                                    });//ajax
+                                });
+
+        function reply_ShiftTiming(element) {
+
+            $(".toggle-div7-" + element.id + "").toggle('fast', "linear");
+            ////alert(element.value);
+            ////alert(element.id);
+            ////alert(element.name);
+
+            var ShiftTiming_select_GetName = $("#ShiftTiming_select  option:selected").text();
+            var ShiftTiming_select_GetID = $("#ShiftTiming_select  option:selected").val();
+
+            var CommitteeType_Shift_Name = $("#CommitteeType_Shift_ID  option:selected").text();
+            var CommitteeType_Shift_ID = $("#CommitteeType_Shift_ID  option:selected").val();
+
+             Txt_money_Get = $("#Txt_money").val();
+            var Txt_Count_Get = $("#Txt_Count").val();
+
+            var ShiftTiming_List = document.getElementById("ShiftTiming_tbody").rows;
+            var id = 0;
+            if (CommitteeType_Shift_ID > 0) {
+                if (ShiftTiming_select_GetID > 0) {
+                    if (Txt_Count_Get > 0) {
+                        for (var i = 0, ceiling = ShiftTiming_List.length; i < ceiling; i++) {
+                            cells = ShiftTiming_List[i].getElementsByTagName('td');
+                            var id_cells = cells[0].innerHTML;
+                            var id_Commity = cells[6].innerHTML;
+                            if (ShiftTiming_select_GetID == id_cells) {
+                                if (CommitteeType_Shift_ID == id_Commity) {
+                                    id = 1;
+                                }
+                            }
+                        }
+                        if (id == 0) {
+                            var table = document.getElementById("ShiftTiming_tbody");
+                            var rowCount = table.rows.length;
+                            var row = table.insertRow(rowCount);
+                            row.id = '' + ShiftTiming_select_GetID;
+                            row.insertCell(0).innerHTML = ShiftTiming_select_GetID;
+                            row.insertCell(1).innerHTML = ShiftTiming_select_GetName;
+                            row.insertCell(2).innerHTML = Txt_money_Get;
+                            row.insertCell(3).innerHTML = Txt_Count_Get;
+                            row.insertCell(4).innerHTML = Txt_money_Get * Txt_Count_Get;//2
+                            row.insertCell(5).innerHTML = CommitteeType_Shift_Name;//2
+                            row.insertCell(6).innerHTML = CommitteeType_Shift_ID ;//2
+                            row.insertCell(7).innerHTML = '<td><a href="#" onclick="DeleteRow_ShiftTiming(this)" name="' + ShiftTiming_select_GetID + '">حذف</a></td>';;
+                            //Farm_Committee_ShiftDTO
+                            _ShiftTiming_List.push({
+                                ShiftTiming_ID: ShiftTiming_select_GetID,
+                                Count: Txt_Count_Get,
+                                Amount: Txt_money_Get,
+                                Committee_ID: CommitteeType_Shift_ID
+                            });
+                            console.log(_ShiftTiming_List);
+                            alertify.success("تمت الاضافه ");
+                        }
+                        else {
+                            alertify.error("موجود مسبقا");
+                        }
+                    }
+                    else {
+                        alertify.error("يجب كتابة عدد الايام");
+                    }
+                }
+                else {
+                    alertify.error("يجب اختيار نوبتجية");
+                }
+            }
+
+            else {
+                alertify.error("يجب اختيار لجنة");
+            }
+           
+        }
+
+        function DeleteRow_ShiftTiming(element) {
+            var table = document.getElementById("ShiftTiming_tbody");
+            var c = '#' + element.name + '';
+            $(c).remove();
+            _ShiftTiming_List.length = 0
+            //  empty(_Station_Fees_List);
+            alertify.error("برجاء اعاده الادخال مره اخري بطريقه صحيحة");
+            $('#ShiftTiming_tbody').empty();
+
+            /* _ShiftTiming_List.remove*/
+        }
+
+        $('#Next_QualGrpTab').click(function (e) {
+            $('.nav-tabs > .active').next('li').find('a').trigger('click');
+        });
+        $('#Next_SampleData').click(function (e) {
+            $('.nav-tabs > .active').next('li').find('a').trigger('click');
+        });
+       /* end noooooooooooo*/
+        $('#Next_Fees_TypeTab').click(function (e) {
+            var CommitteeType_ID = $("#CommitteeType_ID").val();
+            if (CommitteeType_ID == 1 || CommitteeType_ID == 2 ) {
+                $('.nav-tabs > .active').next('li').next('li').find('a').trigger('click');
+            }
+            if (CommitteeType_ID == 3) {
+                $('.nav-tabs > .active').next('li').find('a').trigger('click');
+            }
+
+            if (CommitteeType_ID == 6) {
+                $('.nav-tabs > .active').next('li').next('li').find('a').trigger('click');
+            }
+
+
+        });
+        /// ////////////////////////////////////////////Save Lots
+    var CheckedAnalysisList = [];
+    var Checked_TreatmentMethod_List = [];
+
+        $('#messagedata').click(function (e) {
+            confirm('هل تريد الحفظ ؟')
+            var checkboxesLot = document.querySelectorAll('input[name=fav]:checked');
+
+            if (checkboxesLot.length) {
+                //حفظ اللجنة
+                var CommitteeType = document.querySelectorAll('input[name=CommitteeType]:checked');
+                if (CommitteeType.length == 0) {
+                    alertify.error("يجب أختيار لجنة ");
+                    return false;
+                }
+                Delegation_Date = $("#Delegation_Date").val();
+
+                if (Delegation_Date == "") {
+                    alertify.error("يجب ادخال التاريخ ");
+                    return false;
+                }
+                var CommitteeTypeList = [];
+                for (var cm = 0; cm < CommitteeType.length; cm++)   //to full CommitteeTypeList
+                {
+                    var CommitteeType_ID_Check = CommitteeType[cm].value;
+                    CommitteeTypeList.push({
+                        CommitteeType_ID: CommitteeType_ID_Check,
+                        Delegation_Date: Delegation_Date
+                    });
+                }
+
+                //نهاية حفظ اللجنة
+                // الموظفين
+                var employees = saveList();
+                if (employees == null) {
+                    alertify.error("يجب اختيار  ادمن ");
+                    return false;
+                }
+
+                var Contnue = true;
+                var Contnue_TreatmentMethod = true;
+
+
+                var CheckedItemsList = [];
+                for (var m = 0; m < checkboxesLot.length; m++)   //to full CheckedItemsList
+                {
+                    var LotData_ID_Check = checkboxesLot[m].value.split('*')[0].trim();
+                    var Ex_Request_Item_Id_Check = checkboxesLot[m].value.split('*')[1].trim();
+                    var Item_ShortName_ID_Check = checkboxesLot[m].value.split('*')[2].trim();
+                    var EX_CheckRequest_ID = checkboxesLot[m].value.split('*')[3].trim();
+                    //if (Item_ShortName_ID_Radio == Item_ShortName_ID_Check) {
+
+                    // كلى
+                    TotalORPart = true;
+
+                    CheckedItemsList.push({
+                        EX_Request_Item_Id: Ex_Request_Item_Id_Check,
+                        LotData_ID: LotData_ID_Check,
+                        IS_Total: TotalORPart,
+                        Item_ShortName_ID: Item_ShortName_ID_Check,
+                        EX_CheckRequest_ID: EX_CheckRequest_ID
+                    });
+
+                    // }
+                }
+
+                //السحب
+                var rows = document.getElementById("myAnlysesTable_Data").rows;//جدول اختيار التحاليل
+                if (rows.length > 0) {
+                    var _Txt_money_Sample_Fees = $("#Txt_money_Sample_Fees").val();
+                    var _Txt_Sample_Count = $("#Txt_Sample_Count").val();
+                    //if (_Txt_money_Sample_Fees) {
+                    //    alertify.error("يجب ادخال المبلغ ");
+                    //    return false;
+                    //}
+                    //if (_Txt_Sample_Count) {
+                    //    alertify.error("يجب ادخال عدد السحوبات ");
+                    //    return false;
+                    //}
+                    for (var i = 0, ceiling = rows.length; i < ceiling; i++) {
+                        // //alert(rows.length);
+                        cells = rows[i].getElementsByTagName('td');
+                        var Analysis_Lab_GetID = cells[1].innerHTML;
+                        CheckedAnalysisList.push({
+                            AnalysisLabType_ID: Analysis_Lab_GetID,
+                            Amount: _Txt_money_Sample_Fees,
+                            Count_Sample: _Txt_Sample_Count
+                        });
+                    }
+                }
+
+
+                //المعالجة
+                var rows = document.getElementById("my_Treatment_tbody_Data").rows;//جدول اختيار المعالجة
+                if (rows.length > 0) {
+
+                    for (var i = 0, ceiling = rows.length; i < ceiling; i++) {
+
+                        cells = rows[i].getElementsByTagName('td');
+                        var TreatmentType_GetID = cells[3].innerHTML;
+                        var TreatmentMethod_GetID = cells[5].innerHTML;
+                        Checked_TreatmentMethod_List.push({
+                            TreatmentType_ID:TreatmentType_GetID,
+                            TreatmentMethod_ID: TreatmentMethod_GetID,
+                        });
+                    }
+                }
+
+                        $('#messagedata').prop('disabled', true);
+                        //save committe
+                        $.ajax({
+                            type: "POST",
+                            url: "/Ex_Committee_Quick/Save_Committe",
+                            dataType: "json",
+                            //data: dataToSend,
+                            data: JSON.stringify(
+                                {
+                                    CommitteeType: CommitteeTypeList,
+
+                                    // employees
+                                    emp_Dto: employees,
+                                    CheckedItemsList: CheckedItemsList,
+                                    CheckedAnalysisList: CheckedAnalysisList,
+                                    Checked_TreatmentMethod: Checked_TreatmentMethod_List,
+                                    ShiftTiming_List: _ShiftTiming_List,
+                                    EX_Fees_List: _Station_Fees_List,
+
+                                }),
+
+                            contentType: "application/json; charset=utf-8",
+                            success: function (data) {
+                                confirm(data);
+                                location.href = "/Export_CheckRequest/List_EXCheckRequest/IndexQuick"
+                                if (data == "ok") {
+                                    ////alert("Committee Inserted before");
+
+                                    //  $('.nav-tabs > .active').next('li').find('a').trigger('click');
+                                    alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+                                    location.href = "/Export_CheckRequest/List_EXCheckRequest/IndexQuick"
+                                }
+                                else if (data == "لم يتم التشكيل") {
+                                    alertify.error("لم يتم تشكيل لجنة");
+                                }
+
+                                else {
+
+
+                                    $("#Check_Date").val(null);
+                                    $("#Delegation_Date").val(null);
+                                    $("#StartTime").val(null);
+                                    $("#EndTime").val(null);
+
+                                    $("#CheckRequest_Id").val(0);
+
+                                    //  $("#CheckRequest_Id").val(0);
+                                    //$("#Committe_Id").val(data),
+
+                                }
+                            }
+                        });
+
+
+            }
+            else {
+                alertify.error("يجب اختيار لوطات ");
+            }
+
+        });
+
+        function reply_click(element) {
+
+            $(".toggle-div-" + element.id + "").toggle('fast', "linear");
+
+
+        }
+        function reply_click2(element) {
+
+            $(".toggle-div2-" + element.id + "").toggle('fast', "linear");
+
+        }
+        function reply_click3(element) {
+
+            $(".toggle-div3-" + element.id + "").toggle('fast', "linear");
+
+            //alert($(element).data("shortname"))
+            var ExportCountry_Id =0;
+            var shortnameId = $(element).data("shortname");
+           // alert(shortnameId)
+
+
+
+    }
+        function reply_click4(element) {
+
+            $(".toggle-div4-" + element.id + "").toggle('fast', "linear");
+
+    }
+        function reply_click4(element) {
+
+            $(".toggle-div4-" + element.id + "").toggle('fast', "linear");
+
+        }
+
+
+
+         function Treatment_click(element) {
+            // get exportcountryid shortnameid checkrequestid
+
+            var EX_CheckRequest_ID =0;
+            var ExportCountry_Id =0;
+            var shortnameId = $(element).data("shortname")
+
+            $(".toggle-div3-" + element.id + "").toggle('fast', "linear");
+
+    }
+
+   $('.TreatmentMain_Lst').on("change", function () {
+
+       var id = $(this).find('option:selected').val();
+
+$.ajax(
+    {
+        url: '@Url.Action("TreatmentTypeByTreatmentMain_Id", "TreatmentType", new { area = "DE_Treatments" })',
+        type: 'Post',
+        data: { TreatmentMain_Id: id },
+        success: function (data) {
+            $('#TreatmentType' ).empty();
+            $.each(data.Options, function (i, index) {
+                $('#TreatmentType' ).append($('<option />').val(index.Value).text(index.DisplayText));
+            }); //each
+        } //success
+    });//ajax
+     });
+
+
+        $('.TreatmentType_Lst').on("change", function () {
+            var id = $(this).find('option:selected').val();
+
+            $.ajax(
+                {
+        url: '@Url.Action("TreatmentMethod_AddEDIT", "Ex_Committee_Quick", new { area = "Committees" })',
+        type: 'Post',
+                    data: { TreatmentTypeId: id },
+        success: function (data) {
+            $('#TreatmentMethod' ).empty();
+            $.each(data.Options, function (i, index) {
+                $('#TreatmentMethod' ).append($('<option />').val(index.Value).text(index.DisplayText));
+            }); //each
+        } //success
+    });//ajax
+
+
+        });
+
+
+    function reply_Treatment(element) {
+
+        var Item_ID = element.name;
+
+        var TreatmentMainType_GetName = $("#TreatmentMainType option:selected").text();// $('#Analysiss_name').innerHTML.text;
+        var TreatmentMainType_GetID = $("#TreatmentMainType  option:selected").val();
+
+
+        var TreatmentType_GetName = $("#TreatmentType  option:selected").text();
+        var TreatmentType_GetID = $("#TreatmentType option:selected").val();
+
+        //var Txt_Procedures_GetName = $("#Txt_Procedures").val();
+
+
+
+        var TreatmentMethod_GetName = $("#TreatmentMethod  option:selected").text();
+        var TreatmentMethod_GetID = $("#TreatmentMethod  option:selected").val();
+
+        var rows = document.getElementById("my_Treatment_tbody_Data").rows;
+
+        var id = 0;
+        if (TreatmentMainType_GetID > 0) {
+            if (TreatmentType_GetID > 0) {
+                if (TreatmentMethod_GetID > 0) {
+                    for (var i = 0, ceiling = rows.length; i < ceiling; i++) {
+                        // //alert(rows.length);
+                        cells = rows[i].getElementsByTagName('td');
+                        var id_cells = cells[5].innerHTML;
+
+                        if (TreatmentMethod_GetID == id_cells) {
+                            id = 1;
+                        }
+                    }
+
+                    if (id == 0) {
+                        var table = document.getElementById("my_Treatment_tbody_Data");
+                        if (TreatmentMethod_GetID != 0) {
+
+                            var rowCount = table.rows.length;
+                            var row = table.insertRow(rowCount);
+
+
+                            row.id = 'TreatmentMethod_GetID' + element.value;
+                            row.insertCell(0).innerHTML = TreatmentMainType_GetName;
+                            row.insertCell(1).innerHTML = TreatmentMainType_GetID;
+
+                            row.insertCell(2).innerHTML = TreatmentType_GetName;
+                            row.insertCell(3).innerHTML = TreatmentType_GetID;//2
+
+                             row.insertCell(4).innerHTML = TreatmentMethod_GetName;
+                            row.insertCell(5).innerHTML = TreatmentMethod_GetID;//2
+
+                            //row.insertCell(6).innerHTML = Txt_Procedures_GetName;//2
+
+                            //Checked_TreatmentMethod_List.push({
+                            //    EX_Request_Item_Id: Item_ID,
+                            //    TreatmentType_ID:TreatmentType_GetID,
+                            //    TreatmentMethod_ID: TreatmentMethod_GetID,
+                            //    Procedures: Txt_Procedures_GetName
+                            //});
+                            alertify.success("تمت الاضافه ");
+
+                        } else {
+                            alertify.error("اختار طريقة معالجة");
+                        }
+                    }
+
+                    else {
+                        alertify.error("طريقة المعالجة موجود مسبقا");
+                    }
+                }
+
+                else {
+                    alertify.error("يجب اختيار طريقة المعالجة");
+                }
+            }
+            else {
+                alertify.error("يجب اختيار نوع المعالجة");
+            }
+        }
+        else {
+            alertify.error("يجب اختيار المعالجة الاساسية");
+        }
+    }
+
+        // المعالجة انتهاء
+
+        function reply_click4(element) {
+
+            $(".toggle-div4-" + element.id + "").toggle('fast', "linear");
+
+        }
+        function reply_click5(element) {
+            $(".toggle-div5-" + element.id + "").toggle('fast', "linear");
+
+        }
+        function reply_click6(element) {
+
+            $(".toggle-div6-" + element.id + "").toggle('fast', "linear");
+
+    }
+
+
+        $('.AnalysisLst').on("change", function () {
+
+            var id_Item = $(this).attr('id').split('_')[1];
+            var id = $(this).find('option:selected').val();
+            $.ajax(
+                {
+                    url: '@Url.Action("AnalysisLab_List", "AnalysisType", new { area = "DE_Analysis" })',
+                    type: 'Post',
+                    data: { AnalysisTypeId: id },
+                    success: function (data) {
+                        $('#AnalysisLabLstr' ).empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#AnalysisLabLstr' ).append($('<option />').val(index.Value).text(index.DisplayText));
+                        }); //each
+                    } //success
+                });//ajax
+              });
+
+        function reply_click7(element) {
+
+
+            var _Txt_Sample_Count = $("#Txt_Sample_Count").val();
+            confirm('هل عدد السحوبات ='+ _Txt_Sample_Count);
+
+            var _Txt_money_Sample_Fees = $("#Txt_money_Sample_Fees").val();
+            //$(".toggle-div7-" + element.id + "").toggle('fast', "linear");
+            //var Item_ShortName_ID = element.name;
+            var Analysisstr_GetName = $("#Analysisstr  option:selected").text();// $('#Analysiss_name').innerHTML.text;
+            var Analysisstr_GetID = $("#Analysisstr option:selected").val();
+
+
+            var Analysis_Lab_GetName = $("#AnalysisLabLstr  option:selected").text();
+            var Analysis_Lab_GetID = $("#AnalysisLabLstr  option:selected").val();
+
+            var rows = document.getElementById("myAnlysesTable_Data").rows;//جدول اختيار التحاليل
+
+            var id = 0;
+            if (Analysisstr_GetID > 0) {
+                if (Analysis_Lab_GetID > 0) {
+                    for (var i = 0, ceiling = rows.length; i < ceiling; i++) {
+                        // //alert(rows.length);
+                        cells = rows[i].getElementsByTagName('td');
+                        var id_cells = cells[1].innerHTML;
+                        if (Analysisstr_GetID == id_cells) {
+                            id = 1;
+                        }
+
+                    }
+                    if (id == 0) {
+                        var table = document.getElementById("myAnlysesTable_Data");
+
+                        if (Analysisstr_GetID != 0) {
+
+                            var rowCount = table.rows.length;
+                            var row = table.insertRow(rowCount);
+
+
+                            row.id = 'Analysisstr_GetID' + element.value;
+                            row.insertCell(0).innerHTML = Analysisstr_GetName;
+                            row.insertCell(1).innerHTML = Analysisstr_GetID;
+
+                            row.insertCell(2).innerHTML = Analysis_Lab_GetName;
+                            row.insertCell(3).innerHTML = Analysis_Lab_GetID;//2
+
+                            alertify.success("تمت الاضافه ");
+
+                        } else {
+                            alertify.error("اختار التحاليل");
+                        }
+                    }
+                    else {
+                        alertify.error("التحليل موجود مسبقا");
+                    }
+                }
+                 else {
+                    alertify.error("يجب اختيار معمل");
+                }
+            }
+             else {
+                    alertify.error("يجب اختيار تحليل");
+                }
+        }
+
+        function Emplyee_List(element) {
+            // alert(element.value);
+            if (element.checked) {
+                //debugger;
+                var table = document.getElementById("myTable2");
+
+                var rowCount = table.rows.length;
+                var row = table.insertRow(rowCount);
+                row.id = 'id' + element.value;
+                row.insertCell(0).innerHTML = element.name;
+                row.insertCell(1).innerHTML = element.value;
+                row.insertCell(2).innerHTML =
+                    '<td><input type="radio" id="chckBox_' + element.value + '" class="change-selector" value="' + element.value + '" name="hello"   )"/></td>';
+                row.insertCell(3).innerHTML =
+                    '<td><a href="#" onclick="DeleteRow(this)" name="' + element.value + '">Delete</a></td>';
+            }
+            else {
+                var c = '#id' + element.value + '';
+                $(c).remove();
+
+            }
+
+
+        }
+
+    $(".quickview1").click(function () {
+
+
+         var netweight = $(this).data("netweight");
+             var grossweight = $(this).data("grossweight");
+         var packagecount = $(this).data("packagecount");
+         if (packagecount == null || packagecount == 0 || packagecount == '') {
+             packagecount = '#####'
+         }
+         var packageweight = $(this).data("packageweight");
+         if (packageweight == null || packageweight == 0 || packageweight == '') {
+             packageweight = '#####'
+         }
+                  var number_wooden_package = $(this).data("number_wooden_package");
+         if (number_wooden_package == null || number_wooden_package == 0 || number_wooden_package == '') {
+             number_wooden_package = '#####'
+         }
+         var ordertext = $(this).data("ordertext");
+         if (ordertext == null || ordertext == 0 || ordertext == '') {
+             ordertext = '#####'
+         }
+         //var navigationalfluidnumber = $(this).data("navigationalfluidnumber");
+         var packagetype = $(this).data("packagetype");
+         if (packagetype == null || packagetype == 0 || packagetype == '') {
+             packagetype = '#####'
+         }
+         var reasonentry = $(this).data("reasonentry");
+         if (reasonentry == null || reasonentry == 0 || reasonentry == '') {
+             reasonentry = '#####'
+         }
+         var size = $(this).data("size");
+         if (size == null || size == 0 || size == '') {
+             size = '#####'
+         }
+         var basedweight = $(this).data("basedweight");
+         var itemcat = $(this).data("itemcat");
+         if (itemcat == null || itemcat == 0 || itemcat == '') {
+             itemcat = '#####'
+         }
+         var itemcatgroup = $(this).data("itemcatgroup");
+         if (itemcatgroup == null || itemcatgroup == 0 || itemcatgroup == '') {
+             itemcatgroup = '#####'
+         }
+         var pckgematerial = $(this).data("pckgematerial");
+         if (pckgematerial == null || pckgematerial == 0 || pckgematerial == '') {
+             pckgematerial = '#####'
+         }
+         var packagebasedweight = $(this).data("packagebasedweight");
+
+         if (packagebasedweight == null || packagebasedweight == 0 || packagebasedweight == '')
+         {
+             packagebasedweight = '#####'
+         }
+         var packagenetweight = $(this).data("packagenetweight");
+
+         if (packagenetweight == null || packagenetweight == 0 || packagenetweight == '')
+         {
+             packagenetweight = '#####'
+         }
+         var unitsnumber = $(this).data("unitsnumber");
+      //   var subpartname = '';
+       // alert(unitsnumber)
+         if (unitsnumber == null || unitsnumber == 0 || unitsnumber == '') {
+             unitsnumber = '######';
+
+        }
+        var subpartname = $(this).data("subpartname");
+         if (subpartname == null || subpartname == 0 || subpartname == '') {
+                 subpartname = '#####'
+
+         }
+
+         var shipmentpolicynumber = $(this).data("shipmentpolicynumber");
+        if (shipmentpolicynumber == null || shipmentpolicynumber == 0 || shipmentpolicynumber == '') {
+          //  alert(shipmentpolicynumber)
+             shipmentpolicynumber = '#####'
+         }
+         var _grower_number = $(this).data("grower_number");
+         if (_grower_number == null || _grower_number == 0 || _grower_number == '') {
+             _grower_number = '#####'
+         }
+         var recorded = $(this).data("recorded");
+         if (recorded == null || recorded == 0 || recorded == '') {
+             recorded = '#####'
+         }
+
+
+        var FarmCode_14 = $(this).data("farmcode");
+        //    alert(FarmCode_14);
+        if (FarmCode_14 == null || FarmCode_14 == 0 || FarmCode_14 == '') {
+            /*  FarmCode_14 = '#####'*/
+            FarmCode_14 = 'لا يوجد'
+        }
+
+        var governatename = $(this).data("governatename");
+        if (governatename == null || governatename == 0 || governatename == '') {
+            //governatename = '#####'
+            governatename = 'لا يوجد'
+        }
+        var centername = $(this).data("centername");
+        if (centername == null || centername == 0 || centername == '') {
+            /*  centername = '#####'*/
+            centername = 'لا يوجد'
+        }
+        var villagename = $(this).data("villagename");
+        if (villagename == null || villagename == 0 || villagename == '') {
+            //villagename = '#####'
+            villagename = 'لا يوجد'
+        }
+        var agriculturehand = $(this).data("agriculturehand");
+        if (agriculturehand == null || agriculturehand == 0 || agriculturehand == '') {
+            agriculturehand = '#####'
+        }
+
+         @**@
+
+         $("#modaldetails").empty();
+
+        //  $("#modaldetails").append("<table id='popup'><tr><td>@PlantQuar.WEB.Language.Resource_data1.PackageCount</td><td><span class='modalspan'> " + packagecount + "</span></td><td>سبب الدخول   </td><td><span class='modalspan'> " + reasonentry + "</span></td></tr><tr><td> @PlantQuar.WEB.Language.Resource_data1.PackageWeight</td><td><span class='modalspan'> " + packageweight + "</span><span class='red'>كجم</span></td><td>@PlantQuar.WEB.Language.Resource_data1.PackageType</td><td><span class='modalspan'> " + packagetype + "</span></td></tr><tr><td> @PlantQuar.WEB.Language.Resource_data1.PackageMaterial</td><td><span class='modalspan'> " + pckgematerial + "</span></td><td>@PlantQuar.WEB.Language.Resource_data1.PackageWeight</td><td><span class='modalspan'> " + packagebasedweight + "</span></td></tr><tr><td> @PlantQuar.WEB.Language.Resource_data1.Size</td><td><span class='modalspan'> " + size + "</span></td><td>@PlantQuar.WEB.Language.Resource_data1.order_text</td><td><span class='modalspan'> " + ordertext + "</span></td></tr><tr><td> @PlantQuar.WEB.Language.Resource_data1.ItemsCategoryGrp</td><td><span class='modalspan'> " + itemcatgroup + "</span></td><td>الرقم الملاحي</td><td><span class='modalspan'> " + navigationalfluidnumber + "</span></td></tr><tr><td>@PlantQuar.WEB.Language.Resource_data1.PackageNetWeight </td><td>" + packagenetweight + "</td><tr><td>@PlantQuar.WEB.Language.Resource_data1.Units_Number </td><td>" + unitsnumber + "</td><td>رقم بوليصة الشحن</td><td>" + shipmentpolicynumber + "</td></tr></tr></table>");
+/*//// Start Hadeer //////*/
+
+        //$("#modaldetails").append("<table id='popup'><tr><td>@PlantQuar.WEB.Language.Resource_data1.PackageType</td><td><span class='modalspan'> " + packagetype + "</span></td><td> @PlantQuar.WEB.Language.Resource_data1.PackageMaterial</td><td><span class='modalspan'> " + pckgematerial + "</span></td></tr><tr><td>@PlantQuar.WEB.Language.Resource_data1.PackageCount</td><td><span class='modalspan'> " + packagecount + "</span><span class='red'>عبوة</span></td><td>الوزن القائم للعبوة</td><td><span class='modalspan'> " + packagebasedweight + "</span><span class='red'>كجم</span></td></tr><tr><td> الوزن الصافي للعبوة	</td><td><span class='modalspan'> " + packageweight + "</span><span class='red'>كجم</span></td><td>الوزن العبوة الفارغ	</td><td><span class='modalspan'> " + packagenetweight + "</span><span class='red'>كجم</span></td></tr><tr><td> الوزن الاجمالي للوط 	</td><td><span class='modalspan'> " + grossweight + "</span><span class='red'>كجم</span></td><td>الوزن الصافي للوط 	</td><td><span class='modalspan'> " + netweight + "</span><span class='red'>كجم</span></td></tr><tr><td>  عدد الوحدات </span></td><td>" + unitsnumber + "</td><td>  حجم الرسالة </td> <td>" + size + "[م³]</td> </tr><tr><td>@PlantQuar.WEB.Language.Resource_data1.order_text</td><td><span class='modalspan'> " + ordertext + "</span></td><td>رقم بوليصة الشحن</td><td><span class='modalspan'>" + shipmentpolicynumber + "</span></td></tr><tr><td>سبب الدخول   </td><td><span class='modalspan'> " + reasonentry + "</span></td><td>رقم المزارع</td><td><span class='modalspan'> " + _grower_number + "</span></td></tr><tr><td>المجموعة الصنفية</td><td><span class='modalspan'> " + itemcatgroup + "</span></td><td>مسجل/غير مسجل</td><td><span class='modalspan'> " + recorded + "</span></td></tr><tr><td>الصنف الزراعي/السلالة</td><td><span class='modalspan'> " + itemcat + "</span></td><td>واحدت التعبئة الخشبية</td><td><span class='modalspan'> " + number_wooden_package + "</span></td></tr></table>");
+        $("#modaldetails").append("<table id='popup'><tr><td>@PlantQuar.WEB.Language.Resource_data1.PackageType</td><td><span class='modalspan'> " + packagetype + "</span></td>"+
+            "<td > @PlantQuar.WEB.Language.Resource_data1.PackageMaterial</td > <td><span class='modalspan'> " + pckgematerial + "</span></td></tr >"+
+            "<tr><td>@PlantQuar.WEB.Language.Resource_data1.PackageCount</td><td><span class='modalspan'> " + packagecount + "</span><span class='red'>عبوة</span></td>"+
+            "<td>الوزن القائم للعبوة</td><td><span class='modalspan'> " + packagebasedweight + "</span><span class='red'>كجم</span></td></tr> "+
+            "<tr><td> الوزن العبوة الفارغ	</td><td><span class='modalspan'> " + packageweight + "</span><span class='red'>كجم</span></td>"+
+            "<td>الوزن الصافي للعبوة 	</td><td><span class='modalspan'> " + packagenetweight + "</span><span class='red'>كجم</span></td></tr>"+
+            "<tr><td> الوزن الاجمالي للوط 	</td><td><span class='modalspan'> " + grossweight + "</span><span class='red'>كجم</span></td>"+
+            "<td>الوزن الصافي للوط 	</td><td><span class='modalspan'> " + netweight + "</span><span class='red'>كجم</span></td></tr>"+
+            "<tr><td>  عدد الوحدات </span></td><td>" + unitsnumber + "</td><td>  حجم الرسالة </td> <td>" + size + "[م³]</td> </tr >"+
+            "<tr><td>@PlantQuar.WEB.Language.Resource_data1.order_text</td><td><span class='modalspan'> " + ordertext + "</span></td>"+
+            "<td>المحافظة</td><td><span class='modalspan'>" + governatename + "</span></td></tr >"+
+            "<tr><td>المركز   </td><td><span class='modalspan'> " + centername + "</span></td>"+
+            " <td>قرية</td><td><span class='modalspan'> " + villagename + "</span></td></tr >"+
+            "<tr><td>ناحية الزراعة</td><td><span class='modalspan'> " + agriculturehand + "</span></td>" +
+            "<td>كود المزرعة</td><td><span class='modalspan'> " + FarmCode_14 + "</span></td></tr >" +
+            "<tr><td>المجموعة الصنفية</td><td><span class='modalspan'> " + itemcatgroup + "</span></td>"+
+            "<td>مسجل/غير مسجل</td><td><span class='modalspan'> " + recorded + "</span></td></tr>"+
+            "<tr ><td>الصنف الزراعي/السلالة</td><td><span class='modalspan'> " + itemcat + "</span></td>"+
+            "<td >عدد البالتات والوزن القائم للبلته</td > <td><span class='modalspan'> " + number_wooden_package + "</span></td></tr ></table > ");
+
+/*        ///////////// Start Hadeer ////////*/
+
+        //  $("#modaldetails").append("<table><tr><td> @PlantQuar.WEB.Language.Resource_data1.LotNumber</td><td><span class='modalspan'> " + lotnumber + "</span></td><td>@PlantQuar.WEB.Language.Resource_data1.CategoryName</td><td><span class='modalspan'> " + categoryname + "</span></td></tr><tr><td> @PlantQuar.WEB.Language.Resource_data1.LotNumber</td><td><span class='modalspan'> " + lotnumber + "</span></td><td>@PlantQuar.WEB.Language.Resource_data1.CategoryName</td><td><span class='modalspan'> " + categoryname + "</span></td></tr><tr><td> @PlantQuar.WEB.Language.Resource_data1.LotNumber</td><td><span class='modalspan'> " + lotnumber + "</span></td><td>@PlantQuar.WEB.Language.Resource_data1.CategoryName</td><td><span class='modalspan'> " + categoryname + "</span></td></tr><tr><td> @PlantQuar.WEB.Language.Resource_data1.LotNumber</td><td><span class='modalspan'> " + lotnumber + "</span></td><td>@PlantQuar.WEB.Language.Resource_data1.CategoryName</td><td><span class='modalspan'> " + categoryname + "</span></td></tr><tr><td> @PlantQuar.WEB.Language.Resource_data1.LotNumber</td><td><span class='modalspan'> " + lotnumber + "</span></td><td>@PlantQuar.WEB.Language.Resource_data1.CategoryName</td><td><span class='modalspan'> " + categoryname + "</span></td></tr><tr><td> @PlantQuar.WEB.Language.Resource_data1.LotNumber</td><td><span class='modalspan'> " + lotnumber + "</span></td><td>@PlantQuar.WEB.Language.Resource_data1.CategoryName</td><td><span class='modalspan'> " + categoryname + "</span></td></tr></table>");
+     });
+
+    $(".quickview3").click(function () {
+
+        var _ContainerNumber = $(this).data("containernumber");
+        var contid = $(this).data("contid");
+        var containers_type_ID = $(this).data("containerstypeid");
+        var shipholdnumber = $(this).data("shipholdnumber");
+        var NavigationalNumber = $(this).data("navigationalnumber");
+        var Total_Weight = $(this).data("totalweight");
+
+
+        $("#modaldetails").empty();
+        $("#modaldetails").append("<table id='popup'><tbody><tr><td>وحدة الشحن</td><td> " + contid
+            + "</td><td>رقم وحدة الشحن</td><td> " + _ContainerNumber
+            + " </td> </tr><tr> <td>السيل الملاحي</td><td>" + NavigationalNumber
+            + "</td> <td>رقم العنبر</td><td>" + shipholdnumber
+            + "</td> </tr><tr><tr> <td>طريقة التعبئة</td><td>" + containers_type_ID
+            + "</td><td>وزن وحدة الشحن</td><td>" + Total_Weight + "</span><span class='red'>كجم</span>"
+            + "</td> </tr><tr> </tbody> </table>")
+    });
+    </script>
+}
+

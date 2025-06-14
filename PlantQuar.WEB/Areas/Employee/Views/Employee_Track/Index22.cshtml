@@ -1,0 +1,158 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+
+}
+@section Title{
+    <h2 class="ls-top-header">مأموريات الموظفين</h2>
+}
+
+<script src="~/scripts/jquery.dataTables.min.js"></script>
+<link href="~/assets/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+
+<div class="row">
+    <div class="col-md-6">
+        <label class="col-md-4">نوع المنفذ</label>
+        <select id="OperationTypeDropDown" name="OperationTypeDropDown" class="form-control col-md-8">
+            @* <option value="0">أختر</option>
+
+                    <option value="73">73</option>
+                <option value="74">74</option>
+                <option value="78">78</option>
+                <option value="79">79</option>*@
+
+            <option value="74">الوارد</option>
+        </select>
+    </div>
+    <div class="col-md-6">
+        <label class="col-md-4">اسم المنفذ</label>
+        @Html.DropDownList("CustomerDropDown", new SelectList(ViewBag.ddd, "Value", "DisplayText"), new { @class = "form-control col-md-8", @onchange = "MyFunction()" })
+
+    </div>
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-6">
+        <label class="col-md-4">من</label>
+        <input type="date" id="Date_From"class="col-md-8 form-control" />
+    </div>
+    <div class="col-md-6">
+        <label class="col-md-4">الى</label>
+        <input type="date" id="Date_To" class="col-md-8 form-control" />
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-4"></div> 
+    <div class="col-md-4"></div> 
+    <div class="col-md-4">
+        <input required type="button" class=" btn btn-primary" id="LoadRecordsButton" value="@PlantQuar.WEB.Language.Resource_data1.Search" style="width: 50%;float: left;right: 0;">
+    </div>
+    </div>
+
+
+<br />
+
+
+
+    <div class="tbl-report" id="listFarm_Constrain_Text" style="height: 800px;overflow-y: scroll;">
+        <table width="100%" id="Farm_Constrain_TextTable">
+            <thead>
+                <tr>
+
+                    <th>@PlantQuar.WEB.Language.Resource_data1.EmpolyeeNumber</th>
+                    <th>@PlantQuar.WEB.Language.Resource_data1.EmpolyeeName</th>
+                    <th>@PlantQuar.WEB.Language.Resource_data1.isadmin</th>
+                    <th>@PlantQuar.WEB.Language.Resource_data1.Committee</th>
+
+                    <th>@PlantQuar.WEB.Language.Resource_data1.Date</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+
+
+
+
+<br />
+    <div class="row">
+        <div class="col-md-5">
+        </div>
+        <div class="col-md-3">
+            <button id="Print" value='Print' onclick='printtab("listFarm_Constrain_Text")' style="background-color: #1e7c80;border: 2px solid #1e8084;box-shadow: 0 4px #1d9fa5;outline: none;position: relative;width: 50%;color: white;">@PlantQuar.WEB.Language.Resource_data1.Print</button>
+        </div>
+        <div class="col-md-4"></div>
+
+    </div>
+    @section scripts{
+
+        <script type="text/javascript">
+              $('#LoadRecordsButton').click(function (e) {
+            //string x;
+            //if (item.ISAdmin == 1) { x = "أدمن" } else { x ="مساعد" }
+            $("#Farm_Constrain_TextTable tbody").empty();
+            var Outlet_ID = document.getElementById("CustomerDropDown").value;
+                  var Operation_Type = document.getElementById("OperationTypeDropDown").value;
+                  if (Outlet_ID > 0) {
+                      var Date_From = document.getElementById("Date_From").value;
+                      var date_To = document.getElementById("Date_To").value;
+
+                      //var Operation_Type = 74;
+                      $.ajax({
+                          url: '@Url.Action("UsersOutlet", "Employee_Track")',
+                          type: "POST",
+                          data: { outletId: Outlet_ID, Operation_Type: Operation_Type ,Start_Date:Date_From,End_Date:date_To},
+                          success: function (result) {
+                              for (var i = 1; i < result.length; i++) {
+                                  var item = result[i];
+                                  $("#Farm_Constrain_TextTable tbody").append("<tr>" +
+                                      "<td>" + item.EmpId_user + "</td>"
+                                      + "<td>" + item.FullName + "</td>"
+                                      + "<td>  " + item.ISAdmin + "  </td>"
+                                      + "<td>  " + item.Name_Committee + "  </td>"
+                                      + "<td>  " + $.datepicker.formatDate('yy-mm-dd', (new Date(parseInt(item.Delegation_Date.substr(6))))) + "  </td>"
+                                      //+ "<td>  " + item. + "  </td>"
+                                      + "</tr>");
+                              }
+                          },
+                          error: function (xhr, status, error) {
+
+                          }
+                      });
+
+                         $('#Farm_Constrain_TextTable').DataTable();
+                  }
+                  else {
+                      alertify.error("يحب اخيار منفذ على الاقل");
+                  }
+           });
+
+        function printtab(mm) {
+            var restorepage2 = document.body.innerHTML;
+            var printcontent2 = $('#' + mm).html();
+            document.body.innerHTML = printcontent2;
+            var css = `table{border-collapse: collapse;}#Farm_Constrain_TextTable thead tr th{border: 1px solid black!important;padding: 5px;} #Farm_Constrain_TextTable tbody tr td{border: 1px solid black!important;padding: 5px;}@@page{margin:.5cm .5cm .5cm .5cm!important;}.col-md-4 {width: 33.33333333%;}.col-md-8 {width: 66.66666667%;}.col-md-6 {width: 50%;}.col-md-7 {width: 58.33333333%;}.col-md-5 {width: 41.66666667%;}.col-md-3 {width: 25%;}`,
+                head = document.head || document.getElementsByTagName('head')[0],
+                style = document.createElement('style');
+            style.type = 'text/css';
+            style.media = 'print';
+
+            if (style.styleSheet) {
+                style.styleSheet.cssText = css;
+            }
+            else {
+                style.appendChild(document.createTextNode(css));
+            }
+            head.appendChild(style);
+            window.print();
+            history.go(0);
+            document.body.innerHTML = restorepage2;
+        }
+        </script>
+
+    }

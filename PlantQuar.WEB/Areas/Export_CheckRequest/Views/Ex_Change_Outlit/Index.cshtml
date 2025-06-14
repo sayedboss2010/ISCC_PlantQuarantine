@@ -1,0 +1,137 @@
+﻿
+@model List<PlantQuar.DTO.DTO.Export_CheckRequest.Ex_Change_OutlitDTO>
+                                                   
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    var model = Model;
+}
+<script src="~/scripts/jquery.dataTables.min.js"></script>
+<link href="~/assets/css/jquery.dataTables.min.css" rel="stylesheet" />
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.Requeststatus</h2>
+}
+@*@{
+        ViewBag.Title = "Im Check Request By Outlet List";
+        Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+        var model = Model;
+    }
+
+
+
+
+    @section Path{
+        <li style="position: relative;right: 28px;">فحص</li>
+        <li class="active" style="right: 43px; position: relative;">Im Check Request List</li>
+    }*@
+
+<br />
+@*<div id="GovsList">
+    </div>*@
+<table class="table table-bordered" id="tblCheckLst">
+    <thead>
+        <tr class="label-primary">
+            <td hidden></td>
+            <th>رقم طلب الفحص</th>
+            <th>ميناء محلي</th>
+            <th>المحافظة</th>
+            <td hidden></td>
+            <th>اختيار المنفذ</th>
+        </tr>
+    </thead>
+    <tbody id="mybody">
+
+        @if (model != null)
+        {
+            foreach (var item in model.OrderBy(x => x.ID))
+            {
+                <tr>
+                    <td hidden>@item.ID</td>
+                    @*error link to Im*@
+                    <td><a href='/Im_CheckRequests/Im_CheckRequestDetails/Index?ImCheckRequest_Number=@item.ExCheckRequest_Number&Outlet_ID=0&Hide_Button=1'>@item.ExCheckRequest_Number</a> </td>
+                    <td>@item.port_Name</td>
+                    <td>@item.Gov_Name</td>
+                    <td hidden>@item.Outlet_ID</td>
+                    <td id="ExportIdtd_@item.ID">
+                        <select id="@item.ID" name="ImportId">
+
+                            @foreach (var type in ViewBag.Fees_Money_List)
+                            {
+                                <option id="@item.ID" value="@type.Value">@type.DisplayText</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4"><span>لا يوجد محافظة على المنفذ الخاص بالمستخدم برجاء مراجعة الإدارة</span></td>
+                <td hidden></td>
+                <td hidden></td>
+                <td hidden></td>
+                <td hidden></td>
+                <td hidden></td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4 text-align-center">
+        <button onclick='updateUserPass()' class="button but-style">حفظ</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var list = [];
+    var CheckedItemsList = [];
+    function updateUserPass() {
+
+        var rows = document.getElementById("mybody").rows;
+            for (var i = 0, ceiling = rows.length; i < ceiling; i++) {
+                cells = rows[i].getElementsByTagName('td');
+                var id = cells[0].innerHTML;
+
+
+                var Export_selected = $("#ExportIdtd_" + id + " option:selected").val();
+
+                if (Export_selected > 0) {
+
+                    Selected_Export_Item = $("#ExportIdtd_" + id + " option:selected").val();
+                   // alert(Selected_Export_Item)
+                    CheckedItemsList.push({ ID: id, Outlet_ID: Selected_Export_Item });
+                }
+        }
+             $.ajax({
+                 url: '@Url.Action("Update_Check_Outlet", "Ex_Change_Outlit")',
+                 type: "POST",
+                 data: "{model:" + JSON.stringify(CheckedItemsList) + "}",
+                 contentType: "application/json; charset=utf-8",
+                 dataType: "json",
+                 success: function (response) {
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+                alertify.success("تم الحفظ بنجاح");
+                     location.href = "/Export_CheckRequest/Ex_Change_Outlit/Index"
+                        },
+                        error: function (xhr, status, error) {
+                            alertify.error("خطأ فى اضافه اللوطات");
+                        }
+                    });
+    }
+
+
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        $('#tblCheckLst').DataTable();
+    });</script>

@@ -1,0 +1,118 @@
+﻿
+@model PlantQuar.DTO.DTO.Company.PersonDTO
+
+@{
+    ViewBag.Title = "PersonDetails";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.Details</h2>
+}
+
+@section Path{
+    <li>@PlantQuar.WEB.Language.Resource_data1.Details</li>
+    <li class="active">@PlantQuar.WEB.Language.Resource_data1.Details</li>
+}
+
+<style>
+    textarea {
+        resize: none;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-10"></div>
+        <div class="col-md-2">
+            @Html.ActionLink(PlantQuar.WEB.Language.Resource_data1.Back, "Index", "Person", new { area = "CO_Company" }, new { @class = "btn btn-primary", @style = "width:100%" })
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm("SavePerson", "Person", FormMethod.Post, new { area = "CO_Company" }))
+{
+    @Html.HiddenFor(m => m.ID)
+    <div>
+        <div class="tab" role="tabpanel" style="min-height:80% !important;">
+            <div class="tab-content tabs" style="background-color:whitesmoke  !important;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="Name" class="control-label">@PlantQuar.WEB.Language.Resource_data1.ArabicName</label>
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @id = "Name", @readonly = "readonly" })
+                    </div>
+                    <div class="col-md-6">
+                        <label for="Person_IDType" class="control-label">Person_IDType</label>
+                        @Html.TextBoxFor(m => m.Person_IDType, new { @class = "form-control", @id = "Person_IDType", @readonly = "readonly" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="IDNumber" class="control-label">@PlantQuar.WEB.Language.Resource_data1.IdentityNumber</label>
+                        @Html.TextBoxFor(m => m.IDNumber, new { @class = "form-control", @id = "IDNumber", @readonly = "readonly" })
+                    </div>
+                    <div class="col-md-6">
+                        <label for="Country_ID" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Country</label>
+                        @Html.DropDownListFor(m => m.Country_ID, new SelectList(ViewBag.CountryList, "Value", "DisplayText"), new { @class = "form-control", @id = "CountryLst", @readonly = "readonly" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="Job" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Job</label>
+                        @Html.TextBoxFor(m => m.Job, new { @class = "form-control", @id = "Job", @cols = 3, @rows = 3, @readonly = "readonly" })
+                    </div>
+                    <div class="col-md-6">
+                        <label for="Phone" class="control-label">@PlantQuar.WEB.Language.Resource_data1.PhoneNumber</label>
+                        @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", @id = "Phone", @readonly = "readonly" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="Email" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Email</label>
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @id = "Email", @readonly = "readonly" })
+                    </div>
+                    <div class="col-md-6">
+                        <label for="Address" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Address</label>
+                        @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @id = "Address", @readonly = "readonly" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="IsActive" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Active</label>
+                        @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-control", @id = "IsActive" })
+                    </div><div class="col-md-6">
+                        <input type="submit" class="btn btn-primary" style="width:100%" value="حفظ" autocomplete="off">
+                    </div>
+                </div>
+                <br />
+                <div class="col-md-12">
+                    <div class="col-md-10"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<style>
+    .attach .jtable-input-field-container:nth-of-type(1),
+    .attach .jtable-input-field-container:nth-of-type(2),
+    .attach .jtable-input-field-container:nth-of-type(3),
+    .attach .jtable-input-field-container:nth-of-type(4) {
+        margin-bottom: 2px;
+        float: right;
+        width: 48% !important;
+    }
+
+
+    .attach .jtable-input-field-container:nth-of-type(5) {
+        margin-bottom: 2px;
+        float: right;
+        width: 98% !important;
+    }
+</style>

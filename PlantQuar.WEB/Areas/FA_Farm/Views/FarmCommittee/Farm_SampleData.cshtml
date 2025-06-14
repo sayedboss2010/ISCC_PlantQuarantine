@@ -1,0 +1,224 @@
+﻿
+@model List<PlantQuar.DTO.DTO.Farm.FarmCommittee.FarmCommitteeExaminationAndSampleDataVM>
+
+@{
+    ViewBag.Title = "Farm_SampleData";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.FarmCommittee</h2>
+}
+
+@section Path{
+    <li>@PlantQuar.WEB.Language.Resource_data1.Constrains</li>
+    <li class="active">@PlantQuar.WEB.Language.Resource_data1.FarmCommittee</li>
+}
+
+@section filter{
+    <div class="row">
+        <label class="col-lg-2 col-md-12 col-sm-12">@PlantQuar.WEB.Language.Resource_data1.ArabicName</label>
+        <input type="text" class="form-inline col-lg-3  col-md-12 col-sm-12" autocomplete="off" name="txt_AR_BTNSearch" id="txt_AR_BTNSearch" />
+        <label class="col-lg-2 col-md-12 col-sm-12">@PlantQuar.WEB.Language.Resource_data1.EnglishName</label>
+        <input type="text" class="form-inline col-lg-3  col-md-12 col-sm-12" autocomplete="off" name="txt_EN_BTNSearch" id="txt_EN_BTNSearch" />
+        <input type="button" class="col-lg-1 col-md-2 btn btn-primary" id="LoadRecordsButton" value="@PlantQuar.WEB.Language.Resource_data1.Search">
+    </div>
+}
+
+<link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/scripts/DataTables/jquery.dataTables.min.js"></script>
+<link href="~/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<style>
+    @@media screen and (min-width: 768px){
+        .modal-dialog {
+             left: 0% !important; 
+            
+        }}
+
+    th {
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    td {
+        font-size: 12px;
+        text-align: center;
+    }
+</style>
+
+<br /><br />
+
+<form id="form2" style="padding: 10px; background-color: whitesmoke">
+    <h3 class="text-center">@PlantQuar.WEB.Language.Resource_data1.Farm_SampleData</h3>
+    <div id="listFarm_SampleData" class="row">
+        <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap">
+            <table id="Farm_SampleDataTable" class="table table-bordered table-striped dataTable" role="grid" style="padding:5px; width:100%">
+                <thead>
+                    <tr>
+                        <th hidden>ID</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.WithdrawDate</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Sample_BarCode</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.SampleSize</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.SampleRatio</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.IsAccepted</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Accept</th>
+                        <th>@PlantQuar.WEB.Language.Resource_data1.Reject</th>
+                        <th class="reason">@PlantQuar.WEB.Language.Resource_data1.RejectReason</th>
+                        <th class="reason">@PlantQuar.WEB.Language.Resource_data1.RejectReason</th>
+                        <th class="reason"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        if (Model.Count > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td hidden>@item.SampleData.ID</td>
+                                    <td>@item.SampleData.WithdrawDate</td>
+                                    <td>@item.SampleData.Sample_BarCode</td>
+                                    <td>@item.SampleData.SampleSize</td>
+                                    <td>@item.SampleData.SampleRatio</td>
+                                    <td>@item.SampleData.IsAccepted</td>
+                                    <td>
+                                        <input type='checkbox' class='acceptChk' />
+                                    </td>
+                                    <td>
+                                        <input type='checkbox' class='rejectChk' />
+                                    </td>
+                                    <td class="reason txtRejectReason_Ar">@item.SampleData.RejectReason_Ar</td>
+                                    <td class="reason txtRejectReason_En">@item.SampleData.RejectReason_En</td>
+                                    <td class="reason"><input type="button" class="btn btn-primary" value="@PlantQuar.WEB.Language.Resource_data1.Save" /></td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>
+
+
+<script>
+    $(document).ready(function () {
+        $("#btnRedir").click(function () {
+            window.open("/FA_Farm/FarmData/FarmDetails?FarmId=@ViewBag.FarmCommittee_ID&RequestId=" + localStorage.farmRequestId + "", "_self");
+        });
+        
+        $("#Farm_SampleDataTable").DataTable({
+            paging: true,
+            lengthChange: true,
+            pageLength: 10,
+            searching: false,
+            ordering: false
+        });
+
+        FillTable();
+        
+        $("#Farm_SampleDataTable").on("click", ".acceptChk", function () {
+            var sampleId = $(this).prev().val();
+            if ($(this).is(":checked") == true) {
+                $(this).parent().prev().replaceWith("<td>@PlantQuar.WEB.Language.Resource_data1.Accept</td>");
+                $.ajax({
+                    type: "Get",
+                    url: "@Url.Action("updateFarm_SampleData", "FarmCommittee", new { area = "FA_Farm" })",
+                    data: { ID: sampleId,IsAccepted: true },
+                    dataType: "Json",
+                    success: function (data) {
+                    }
+                });
+            }
+        });
+
+        $("#Farm_SampleDataTable").on("click", ".rejectChk", function () {
+            if ($(this).is(":checked") == true) {
+                $(".reason").show();
+                $(".txtRejectReason_Ar").replaceWith("<td class='reason txtRejectReason_Ar'><input type='text' class='form-control' id='txtAr' /></td>");
+                $(".txtRejectReason_En").replaceWith("<td class='reason txtRejectReason_En'><input type='text' class='form-control' id='txtEn' /></td>");
+            }
+            else {
+                $(".reason").hide();
+            }
+        });
+
+        $("#Farm_SampleDataTable").on("click", ".btnSave", function () {
+            var sampleId = $(this).prev().val();
+            var reasonAr = $(this).parent().prev().prev().find('input').val();
+            var reasonEn = $(this).parent().prev().find('input').val();
+            $(this).parent().prev().prev().prev().prev().prev().replaceWith("<td>@PlantQuar.WEB.Language.Resource_data1.Reject</td>");
+            $.ajax({
+                type: "Get",
+                url: "@Url.Action("updateFarm_SampleData", "FarmCommittee", new { area = "FA_Farm" })",
+                data: { ID: sampleId, IsAccepted: false, RejectReason_Ar: reasonAr, RejectReason_En: reasonEn },
+                dataType: "Json",
+                success: function (data) {
+                }
+            });
+        });
+
+    });
+
+    function FillTable() {
+        var FarmCommittee_ID = window.location.search.split('=')[1];
+
+        $.ajax({
+            url: '/FA_Farm/FarmCommittee/listFarm_SampleData',
+            data: {
+                txt_AR_BTNSearch: $('#txt_AR_BTNSearch').val(),
+                txt_EN_BTNSearch: $('#txt_EN_BTNSearch').val(),
+                FarmCommittee_ID: FarmCommittee_ID
+            },
+            success: function (listFarm_SampleData) {
+                $("#Farm_SampleDataTable tbody").empty();
+                $.each(listFarm_SampleData.Records, function (index, item) {
+                    if (item.IsAccepted == 1)
+                    {
+                        item.IsAccepted = "@PlantQuar.WEB.Language.Resource_data1.Accept";
+                        //$("tbody tr td.txtRejectReason_Ar").replaceWith("<td class='reason txtRejectReason_Ar' checked='checked'></td>");
+                    }
+                    else if (item.IsAccepted == 0)
+                    {
+                        item.IsAccepted = "@PlantQuar.WEB.Language.Resource_data1.Reject";
+                    }
+                    else
+                    {
+                        item.IsAccepted = "@PlantQuar.WEB.Language.Resource_data1.NoWork";
+                    }
+
+                    $("#Farm_SampleDataTable tbody").append("<tr>" +
+                        "<td hidden>" + item.ID + "</td>" +
+                        "<td>" + item.WithdrawDate + "</td>" +
+                        "<td>" + item.Sample_BarCode + "</td>" +
+                        "<td>" + item.SampleSize + "</td>" +
+                        "<td>" + item.SampleRatio + "</td>" +
+                        "<td>" + item.IsAccepted + "</td>" +
+                        "<td><input type='hidden' value='" + item.ID + "' /><input type='checkbox' class='acceptChk' /></td>" +
+                        "<td><input type='checkbox' class='rejectChk' /></td>" +
+                        "<td class='reason txtRejectReason_Ar'>" + item.RejectReason_Ar + "</td>" +
+                        "<td class='reason txtRejectReason_En'>" + item.RejectReason_En + "</td>" +
+                        "<td class='reason'><input type='hidden' value='" + item.ID + "' /><input type='button' class='btn btn-primary btnSave' value='@PlantQuar.WEB.Language.Resource_data1.Save' /></td>" +
+                        "</tr>");
+                });//each
+                if ($("#Farm_SampleDataTable tbody").children('tr').length > 0)
+                    $("#form2").show();
+                else
+                    $("#form2").hide();
+
+                $(".reason").hide();
+            }
+        });
+    }
+
+    $('#LoadRecordsButton').click(function (e) {
+        FillTable();
+    });
+</script>

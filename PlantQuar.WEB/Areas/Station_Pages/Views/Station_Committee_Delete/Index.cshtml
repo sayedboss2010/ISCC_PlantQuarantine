@@ -1,0 +1,86 @@
+﻿@model List<PlantQuar.DTO.DTO.Station_Pages.Station_Committee_Delete_DTO>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@section Title{
+    <h2 class="ls-top-header">تعديل لجان المحطات</h2>
+
+
+
+}
+
+
+<div id="checkRequest_lst" class="table-responsive">
+    <table class="table table-bordered" id="tblStationCommitteeDeleteLst">
+        <thead>
+            <tr class="label-primary">
+                <th>اختيار</th>
+                <th>اسم المحطة</th>
+                <th>كود المحطة</th>
+                <th>مسمي الاعتماد</th>
+                @*<th>@PlantQuar.WEB.Language.Resource_data1.Requests</th>
+                    <th>@PlantQuar.WEB.Language.Resource_data1.Print</th>*@
+            </tr>
+        </thead>
+        <tbody id="mytbody_list_Recoust">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td><input type="checkbox" name="delete_checkbox_name" id="Req_checkbox" onchange="deleted_StationCommitteeID(this)" value="@item.Station_Accreditation_Committee_ID" /></td>
+                        <td>
+                            @Html.DisplayFor(m => item.Station_Ar_Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.Station_Code)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.Station_Accreditation_Data_Name)
+                        </td>
+                        @*<td><a href="/FA_Farm/FarmRequest/Index?farmId=@item.FarmID">@PlantQuar.WEB.Language.Resource_data1.Requests</a>&nbsp;<i class="fa fa-link"></i></td>
+                            <td><a href="/FA_Farm/farm_Print/Index?Farm_ID=@item.FarmID">@PlantQuar.WEB.Language.Resource_data1.Print</a>&nbsp;<i class="fa fa-print"></i></td>*@
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <br />
+
+</div>
+<input type="button" class=" btn btn-primary btnNext float-left" id="delete_committee" value="تعديل">
+
+<script>
+    var lst = [];
+    function deleted_StationCommitteeID(element) {
+        /*if ($(this).is(':checked'))*/
+        var x = $(element).is(':checked');
+        if (x == true) {
+            lst.push(element.value);
+            alert(element.value)
+        }
+        else { lst.pop(element.value); }
+    }
+    console.log(lst);
+
+  
+
+    $('#delete_committee').click(function () {
+        // alert(lst.length);
+        if (lst.length > 0) {
+
+            $.post('/Station_Pages/Station_Committee_Delete/DeleteStationCommittee_List', { deleted_lst: lst }, function (data, succ) {
+                window.location.reload();
+                alertify.success('تم تعديا اللجنة ')
+            });
+
+          
+        } else
+        {
+            alert('يجب أختيار لجنة');
+        }
+      
+    });
+</script>

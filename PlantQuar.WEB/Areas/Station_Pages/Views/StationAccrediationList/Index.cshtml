@@ -1,0 +1,182 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+
+}
+
+@section Title{
+    <h2 class="ls-top-header">لجان المحطة</h2>
+}
+<link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
+
+<div class="row">
+    <div style="margin-right: 60px;">
+        <input type="radio" id="requestid" name="gender" value="1">
+        <label for="female"> الاعتماد الذى تم الموافقة عليه</label>
+    </div>
+    <div style="margin-right: 60px;">
+        <input type="radio" id="requestidxx" name="gender" value="2">
+        <label for="femalexx"> لم يتخذ اجراء علي المحطة</label>
+    </div>
+    <div style="margin-right: 60px;">
+        <input type="radio" id="requestidx" name="gender" value="3">
+        <label for="femalex">  المرفوض من قبل المحطة</label>
+    </div>
+    <div style="margin-right: 60px;">
+        <input type="radio" id="requestidx2" name="gender" value="4">
+        <label for="femalex">  المرفوض من قبل الإعتماد</label>
+    </div>
+    <div class="col-md-4 col-sm-12" style="display:none">
+        <input type="submit" value='@PlantQuar.WEB.Language.Resource_data1.Search' placeholder="search" id="Results" class="form-control" />
+    </div>
+</div>
+<br />
+<div class="row mar-bottom-15">
+    <div class="col-md-6 flex-align" id="Start_Date" hidden>
+        <label class="col-md-4" style="margin-top:10px">بداية البحث</label>
+        <input class="form-control col-md-8" id="dateFrom" name="date" value="@ViewBag.DateFrom.Date.ToString("yyyy-MM-dd")" placeholder="DD/MM/YYY" type="date" />
+    </div>
+    <div class="col-md-6 flex-align" id="End_Date" hidden>
+        <label class="col-md-4" style="margin-top:10px">نهاية البحث</label>
+        <input class="form-control col-md-8" id="dateEnd" name="date" placeholder="DD/MM/YYY" value="@ViewBag.DateTo.Date.ToString("yyyy-MM-dd")" type="date" />
+    </div>
+    <div class="col-md-6 flex-align" id="stationcode_div">
+        <label class="col-md-4" style="margin-top:10px">@PlantQuar.WEB.Language.Resource_data1.stationCode</label>
+        <input class="form-control col-md-8" type="number" id="stationcode" placeholder=@PlantQuar.WEB.Language.Resource_data1.stationCode>
+    </div>
+    <div class="col-md-6 flex-align" id="stationAccrType_div">
+        <label class="col-md-4" style="margin-top:10px">نوع الطلب</label>
+        <select id="stationAccrTypeLst" class="form-control col-md-8">
+        </select>
+    </div>
+    <div class="col-md-6 flex-align" id="CompanyName_div">
+        <label class="col-md-4" style="margin-top:10px">@PlantQuar.WEB.Language.Resource_data1.CompanyName_</label>
+        <select id="CompanyNameLst" class="form-control col-md-8 " name="CompanyNameLst">
+        </select>
+    </div>
+    <div class="col-md-6 flex-align" id="StationActivity_div">
+        <label class="col-md-4" style="margin-top:10px">نوع النشاط</label>
+        <select id="StationActivityTypeLst" class="form-control col-md-8  ">
+        </select>
+    </div>
+    <br />
+</div>
+<br />
+<br />
+<div class="row mar-bottom-15">
+    <div class="col-md-4"> <input type="hidden" id="Hid_Outlet_ID" name="name" value="@ViewBag.Outlet_ID" /></div>
+    <div class="col-md-4 col-sm-12">
+        <input type="button" value='@PlantQuar.WEB.Language.Resource_data1.Search' placeholder="search" id="btn_Approved" class="form-control" />
+
+    </div>
+    <div class="col-md-4">  <input type="hidden" id="Hid_message" name="name" value="@ViewBag.message" /></div>
+
+
+
+
+
+</div>
+<script src="~/assets/js/bootstrap-select1.min.js"></script>
+@section scripts{
+    <script>
+    $(document).ready(function () {
+        $.ajax(
+            {
+                url: '@Url.Action("Station_Accreditation_Request_Type_AddEDIT", "StationAccrediationList", new { area = "Station_Pages" })',
+                type: 'Post',
+                success: function (data) {
+                    $('#stationAccrTypeLst').empty();
+
+                    $.each(data.Options, function (i, index) {
+                        $('#stationAccrTypeLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                    });
+                    //each
+                } //success
+            });//ajax
+
+           $.ajax(
+            {
+                url: '@Url.Action("CompanyNameLst_AddEDIT", "StationAccrediationList", new { area = "Station_Pages" })',
+                type: 'Post',
+                success: function (data) {
+                    $('#CompanyNameLst').empty();
+                    $('#CompanyNameLst').append($('<option />').val(-1).text('اختار'));
+                    $.each(data.Options, function (i, index) {
+                        $('#CompanyNameLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                    }); // $('#CompanyNameLst').selectpicker('refresh');//each
+                } //success
+               });//ajax
+        //StationActivityLst
+            $.ajax(
+            {
+                url: '@Url.Action("StationActivityLst_AddEDIT", "StationAccrediationList", new { area = "Station_Pages" })',
+                type: 'Post',
+                success: function (data) {
+                    $('#StationActivityTypeLst').empty();
+
+                    $.each(data.Options, function (i, index) {
+                        $('#StationActivityTypeLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                    }); //each
+                } //success
+               });//ajax
+    });
+
+    var _message = $('#Hid_message').val();
+    if (_message != "") {
+        if (_message != null) {
+            alert(_message);
+        }
+    }
+
+    var _Outlet_ID = $('#Hid_Outlet_ID').val();
+
+    $('#btn_Approved').click(function () {
+
+         //   var radios = document.getElementsByName('gender');
+    var selectedOption = $("input:radio[name=gender]:checked").val()
+   // alert(selectedOption);
+
+         var stationCode = $("#stationcode").val();
+        var stationAccrTypeLstId = $("#stationAccrTypeLst Option:selected").val();
+
+         var StationActivityType_ID = $("#StationActivityTypeLst Option:selected").val();
+
+
+           var CompanyNameLst_Id = $("#CompanyNameLst Option:selected").val();
+
+        var stationActivityType = 0;
+
+
+
+        if (selectedOption > 0) {
+
+            var FinalResultListId = "";
+            if ($("#FinalResultList Option:selected").val() == 0) {
+
+                FinalResultListId = 0;
+            }
+            else {
+                FinalResultListId = $("#FinalResultList Option:selected").val();
+            }
+            var DateFrom = $('#dateFrom').val();
+            var DateEnd = $('#dateEnd').val();
+            var _stationcode = $('#stationcode').val();
+
+            window.open("/Station_Pages/StationAccrediationList/Get_Station_List?DateFrom=" + DateFrom
+                + "&DateEnd=" +DateEnd
+                + "&stationCode=" + stationCode
+                + "&Status=" + selectedOption
+                + "&stationActivityType=" + stationActivityType
+                + "&outlet_ID=" + _Outlet_ID
+                + "&stationAccrTypeLstId=" + stationAccrTypeLstId
+                + "&CompanyNameLst_Id=" + CompanyNameLst_Id
+                + "&StationActivityType_ID=" + StationActivityType_ID
+                );
+        }
+        else {
+            alert("يجب اختيار  موقف الطلب");
+        }
+    });
+    </script>
+}

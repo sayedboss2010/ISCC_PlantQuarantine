@@ -1,0 +1,272 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<style>
+    .bootstrap-select .dropdown-menu.inner {
+        margin-right: 0px !important;
+    }
+</style>
+<link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
+
+
+@section Title
+        {
+    <h2 class="ls-top-header">تغيير الدولة للشهادات</h2>
+
+}
+<div class="row">
+    <div class="col-md-5">
+        <label class="col-md-4">رقم الطلب</label>
+        <input type="text" id="request_number" class="col-md-8 form-control" />
+        <br />
+        <input required type="button" class=" btn btn-primary" onclick="showCountryButton()" id="showCountryButton" value="عـــــــــــرض" style="width: 100%;float: left;right: 0;">
+    </div>
+</div>
+<div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap" style="padding:20px;">
+    <table id="Employee_Transation_Logs" class="table table-bordered table-striped dataTable" role="grid">
+        <thead>
+            <tr>
+
+                <th></th>
+                <th>الدولة الحالية</th>
+                <th>  الدولة الجديدة </th>
+                <th>  نوع الميناء </th>
+                <th> الميناء </th>
+            </tr>
+
+        </thead>
+        <tbody>
+
+            <tr>
+                <td id="Import">الإستيراد</td>
+                <td id="currentImportCountry"> </td>
+                <td> <select id="newImportCountry" class="form-control  "> </select>  </td>
+                <td> <select id="newImportPortType" class="form-control  " onchange="getInternationalImportPorts(this)"> </select>  </td>
+                <td> <select id="newImportPort" class="form-control  "> </select>  </td>
+            </tr>
+            <tr>
+                <td id="Passenger" name="11">العبور</td>
+                <td id="currentPassengerCountry"></td>
+                <td> <select id="newPassengerCountry" class="form-control  "> </select> </td>
+                <td> <select id="newPassengerPortType" class="form-control  " onchange="getInternationalPassengerPorts(this)"> </select> </td>
+                <td> <select id="newPassengerPort" class="form-control   "> </select> </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <div class="col-md-5">
+
+        <input required type="button" class=" btn btn-primary" onclick="changeCountryButton()" id="changeCountryButton" value="تغـــــــــــيير" style="width: 100%;float: left;right: 0;">
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+        $.ajax({
+            url: '@Url.Action("GetCountriesName", "ChangeCountryCertificate")',
+            type: "POST",
+            data: {},
+            success: function (res) {
+                $.each(res.Options, function (i, e) {
+                    $("#newImportCountry").append("<option Value='" + e.Value + "'>" + e.DisplayText + "</option>");
+                    $("#newPassengerCountry").append("<option Value='" + e.Value + "'>" + e.DisplayText + "</option>");
+                })
+                $('#newImportCountry').selectpicker('refresh');
+                $('#newPassengerCountry').selectpicker('refresh');
+            }
+        });
+         $.ajax({
+            url: '@Url.Action("GetPortType", "ChangeCountryCertificate")',
+            type: "POST",
+            data: {},
+            success: function (res) {
+                $.each(res.Options, function (i, e) {
+                    $("#newImportPortType").append("<option Value='" + e.Value + "'>" + e.DisplayText + "</option>");
+                    console.log(e.DisplayText);
+                    $("#newPassengerPortType").append("<option Value='" + e.Value + "'>" + e.DisplayText + "</option>");
+                })
+                $('#newImportPortType').selectpicker('refresh');
+                $('#newPassengerPortType').selectpicker('refresh');
+            }
+        });
+    });
+    function getInternationalImportPorts(element) {
+        $("#newImportPort").empty();
+      //  alert(element.value);
+        var portType = element.value;
+        var CountryID = document.getElementById("newImportCountry").value;
+        if (CountryID > 0) {
+            $.ajax({
+                url: "../../CommonActions/PortData/PortInternationalWithType",
+                type: "POST",
+                data: {
+                    CountryID: CountryID,
+                    portType: portType,
+                },
+                success: function (result) {
+                    $.each(result.Options, function (i, e) {
+                        $("#newImportPort").append("<option Value='" + e.Value + "'>" + e.DisplayText + "</option>");
+                    })
+                    $('#newImportPort').selectpicker('refresh');
+                },
+                error: function (xhr, status, error) {
+                }
+            });
+        }
+        else {
+            alertify.error("يجب اختيار دولة")
+        }
+    }
+    function getInternationalPassengerPorts(element) {
+        $("#newPassengerPort").empty();
+        //  alert(element.value);
+        var portType = element.value;
+        var CountryID = document.getElementById("newPassengerCountry").value;
+        if (CountryID > 0) {
+            $.ajax({
+                url: "../../CommonActions/PortData/PortInternationalWithType",
+                type: "POST",
+                data: {
+                    CountryID: CountryID,
+                    portType: portType,
+                },
+                success: function (result) {
+                    $.each(result.Options, function (i, e) {
+                        $("#newPassengerPort").append("<option Value='" + e.Value + "'>" + e.DisplayText + "</option>");
+                    })
+                    $('#newPassengerPort').selectpicker('refresh');
+                },
+                error: function (xhr, status, error) {
+                }
+            });
+        }
+        else {
+            alertify.error("يجب اختيار دولة")
+        }
+    }
+
+
+    //function refreshImportPortType() {
+    //    $("#newImportPortType").append($('<option>', { value: 0, text: '---------' }));
+    //}
+    //function refreshPassengerPortType() {
+    // //   $('#newPassengerPortType').empty();
+    //    document.getElementById("newPassengerPortType").contentWindow.location.reload(true);
+    //}
+    var currentImportCountryID = 0;
+    var currentPassengerCountryID = 0;
+    var currentImportPortID = 0;
+    var currentPassengerPortID = 0;
+    function showCountryButton() {
+        var request_number = document.getElementById("request_number").value;
+          if (request_number > 0) {
+
+        $.ajax({
+                  url: '@Url.Action("GetCountryName", "ChangeCountryCertificate")',
+            type: "POST",
+            data: { CheckRequestNumber: request_number },
+            success: function (data) {
+                for (i = 0; i < data.length; i++) {
+                    if (data[i].ReqPortType_ID == 10) //وصول
+                    {
+                        document.getElementById("currentImportCountry").innerText = data[i].Country_Name;
+                        currentImportCountryID = data[i].Country_ID;
+                        currentImportPortID = data[i].Port_ID;
+                    }
+                    if (data[i].ReqPortType_ID == 11)//عبور
+                    {
+                        document.getElementById("currentPassengerCountry").innerText = data[i].Country_Name;
+                        currentPassengerCountryID = data[i].Country_ID;
+                        currentPassengerPortID = data[i].Port_ID;
+                    }
+                }
+            },
+        });
+
+             // alert(currentPassengerCountryID + "-----" + currentPassengerPortID)
+          }
+    }
+
+
+    function changeCountryButton() {
+        var request_number = document.getElementById("request_number").value;
+        var currentImportCountry = document.getElementById("currentImportCountry").innerText;
+        var currentPassengerCountry = document.getElementById("currentPassengerCountry").innerText;
+        //alert(currentImportCountry);
+             if (request_number > 0) {
+                 var Import_Name = document.getElementById("Import").innerText;
+                 if (Import_Name == "الإستيراد") {
+                     var ReqImportPortType_ID = 10;
+                    var newImportCountryID = document.getElementById("newImportCountry").value;
+                     var newImportPortType = document.getElementById("newImportPortType").value;
+                     var newImportPortID = document.getElementById("newImportPort").value;
+                     alert(newImportPortID);
+                 //    alert(newImportCountry);
+                       $.ajax({
+                                 url: '@Url.Action("GetchangeImportCountry", "ChangeCountryCertificate")',
+                                       type: "POST",
+                           data: {
+                               CheckRequestNumber: request_number,
+                               newImportPortType: newImportPortType,
+                               newImportCountryID: newImportCountryID,
+                               newImportPortID: newImportPortID,
+                               currentImportCountryID: currentImportCountryID,
+                               currentImportPortID: currentImportPortID,
+                           },
+                           success: function (data) {
+                               console.log(data.Result);
+                               if (data.Result != "Import") { alertify.success("تم تغيير ميناء الإستيراد بنجاح للطلب  "); }
+                               else if (data.Result != "Passenger") { alertify.success("تم تغيير ميناء الشحن  بنجاح للطلب  "); }
+                               else { alertify.error("لم يتم تغيير ميناء للطلب  "); }
+                               //if (data.Result != "Empty") {
+
+                               //    alertify.success("تم تغيير الدولة بنجاح للطلب  "); console.log(data);
+                               //}
+                               //else {
+                               //    alertify.error("لم يتم تغيير الدولة للطلب  "); console.log(data);
+                               //}
+
+                           },
+  });
+                 }
+                 var Passenger_Name = document.getElementById("Passenger").innerText;
+                 if (Passenger_Name == "العبور") {
+                     var ReqPassengerPortType_ID = 11;
+                     var newPassengerCountryID = document.getElementById("newPassengerCountry").value;
+                     var newPassengerPortType = document.getElementById("newPassengerPortType").value;
+                     var newPassengerPortID = document.getElementById("newPassengerPort").value;
+                                          $.ajax({
+                               url: '@Url.Action("GetchangePassengerCountry", "ChangeCountryCertificate")',
+                                     type: "POST",
+                         data: {
+                             CheckRequestNumber: request_number,
+                             newPassengerPortType: newPassengerPortType,
+                             newPassengerCountryID: newPassengerCountryID,
+                             newPassengerPortID: newPassengerPortID,
+                             currentPassengerCountryID: currentPassengerCountryID,
+                             currentPassengerPortID: currentPassengerPortID,
+                         },
+                         success: function (data) {
+                             console.log(data.Result);
+                             if (data.Result != "Import") { alertify.success("تم تغيير ميناء الإستيراد بنجاح للطلب  "); }
+                             else if (data.Result != "Passenger") { alertify.success("تم تغيير ميناء الشحن  بنجاح للطلب  "); }
+                             else { alertify.error("لم يتم تغيير ميناء للطلب  "); }
+                             //if (data.Result != "Empty") {
+
+                             //    alertify.success("تم تغيير الدولة بنجاح للطلب  "); console.log(data);
+                             //}
+                             //else {
+                             //    alertify.error("لم يتم تغيير الدولة للطلب  "); console.log(data);
+                             //}
+
+                         },
+});
+                 }
+     }
+    }
+</script>

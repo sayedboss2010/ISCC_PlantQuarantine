@@ -1,0 +1,235 @@
+﻿@model List<PlantQuar.DTO.DTO.Export_CheckRequest_New.EX_Committee_Sample_Lot>
+@{
+    ViewBag.Title = "Print_Barcode";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+
+
+@section Title{
+    <h2 class="ls-top-header">نتيجة لجنة الصادر</h2>
+}
+
+@section Path{
+    <li>@PlantQuar.WEB.Language.Resource_data1.Constrains</li>
+    <li class="active">
+        نتيجة لجنة الصادر
+    </li>
+}
+
+@section filter{
+
+}
+
+<link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/scripts/DataTables/jquery.dataTables.min.js"></script>
+<link href="~/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
+
+@*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
+
+<style>
+    @@media screen and (min-width: 768px) {
+        .modal-dialog {
+            left: 0% !important;
+        }
+    }
+
+    th {
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    td {
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .btn-default {
+        color: #f7f4f4;
+        background-color: #167479;
+        border-color: #1b6569;
+    }
+
+        .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default {
+            color: #333;
+            background-color: #a0dde0;
+            border-color: #adadad;
+        }
+
+    .modal-content {
+        color: #167479;
+    }
+
+    .modal-header {
+        background-color: #167479;
+        color: white;
+    }
+
+    .modalspan {
+        color: #333;
+    }
+
+    .labelspan {
+        font-weight: bold;
+        color: #167479;
+        margin: auto;
+    }
+
+    .pagination, .dataTables_length, .dataTables_info {
+        display: none;
+    }
+
+    .tapp-title {
+        padding: 10px 30px;
+    }
+
+    .form-inline .form-control {
+        width: 100px !important;
+    }
+</style>
+
+<br />
+<br />
+@if (ViewBag.FarmCommittee_ID == 0)
+{
+    <div style="padding: 10px;margin-top:200px;background-color: whitesmoke">
+        <h4 class="tapp-title">@PlantQuar.WEB.Language.Resource_data1.NoResults</h4>
+    </div>
+}
+else
+{
+    //المعاينة
+
+
+    <form style="padding: 10px; background-color: whitesmoke">
+
+
+
+        <div id="form2">
+            <h4 class="tapp-title"> نتيجة لجنة الصادر</h4>
+            <br />
+            <div id="listFarm_SampleData" class="row">
+                <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap">
+                    <table id="Farm_SampleDataTable" class="table table-bordered table-striped dataTable" role="grid" style=" width:100%">
+                        <thead>
+                            <tr>
+                                <th hidden>ID</th>
+                                <th>النبات</th>
+                                <th>المسمي المختصر</th>
+                                <th>الباركود</th>
+                                <th>@PlantQuar.WEB.Language.Resource_data1.AnalysisType</th>
+                                <th>تحليل/معمل</th>
+                                <th>التاريخ</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.OrderByDescending(a => a.ItemShortName) != null)
+                            {
+                                if (Model.Count > 0)
+                                {
+
+                                    @*foreach (var item in Model)
+                            {
+                <tr>
+                    <td>@item.ItemName</td>
+                    <td>@item.ItemShortName</td>
+                    <td>@item.Sample_BarCode</td>
+                    <td><a href='/LaboratoryResult/LaboratoryResult_Report/Index?barcode=@item.Sample_BarCode'>@item.Sample_BarCode</a></td>
+                    <td>
+                        <span>التحاليل  :@item.Analysis_Name</span>
+                        <br />
+                        <span>المعمل :@item.Lab_Name</span>
+
+                    </td>
+                </tr>
+                            }*@
+                                    foreach (var item in Model.OrderByDescending(a => a.ItemShortName).ThenBy(n => n.Analysis_Name))
+                                    {
+                                        if (item.SampleSize != null)
+                                        {
+
+
+                                            <tr>
+                                                <td>@item.ItemName</td>
+                                                <td>@item.ItemShortName</td>
+                                                <td>
+                                                    @if (@item.AnalysisLabID == 4)
+                                                    {
+                                                        <a href='/LaboratoryResult/LaboratoryResult_Report/IndexNew?barcode=@item.Sample_BarCode'>@item.Sample_BarCode</a>
+                                                        <sanp>المتبقيات</sanp><br />}
+                                                    else
+                                                    {
+                                                        <a href='/LaboratoryResult/LaboratoryResult_Report/Index?barcode=@item.Sample_BarCode'>@item.Sample_BarCode</a>
+                                                        <sanp>أخرى</sanp>
+                                                    }
+                                                    @* <a href='/LaboratoryResult/LaboratoryResult_Report/IndexNew?barcode=@item.Sample_BarCode'>@item.Sample_BarCode</a>*@
+                                                </td>
+
+                                                <td>@item.IS_Total_Name</td>
+                                                <td>
+                                                    <span>التحاليل  :@item.Analysis_Name</span>
+                                                    <br />
+                                                    <span>المعمل :@item.Lab_Name</span>
+
+                                                </td>
+                                                <td>
+                                                    @item.Delegation_Date.Value.ToString("dd/MM/yyyy")
+                                                </td>
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                            <tr style="background-color:yellow">
+                                                <td>@item.ItemName</td>
+                                                <td>@item.ItemShortName</td>
+                                                @*<td><a href='/LaboratoryResult/LaboratoryResult_Report/Index?barcode=@item.Sample_BarCode'>@item.Sample_BarCode</a></td>*@
+                                            <td>
+                                                @* <a href='/LaboratoryResult/LaboratoryResult_Report/IndexNew?barcode=@item.Sample_BarCode'>@item.Sample_BarCode</a>*@
+                                                @if (@item.AnalysisLabID == 4)
+                                                {
+                                                    <a href='/LaboratoryResult/LaboratoryResult_Report/IndexNew?barcode=@item.Sample_BarCode'>@item.Sample_BarCode</a>
+                                                    <sanp>المتبقيات</sanp><br />}
+                                                else
+                                                {
+                                                    <a href='/LaboratoryResult/LaboratoryResult_Report/Index?barcode=@item.Sample_BarCode'>@item.Sample_BarCode</a>
+                                                    <sanp>أخرى</sanp>
+                                                }
+                                            </td>
+
+                                                <td>@item.IS_Total_Name</td>
+                                                <td>
+                                                    <span>التحاليل  :@item.Analysis_Name</span>
+                                                    <br />
+                                                    <span>المعمل :@item.Lab_Name</span>
+
+                                                </td>
+                                                <td>
+                                                    @item.Delegation_Date.Value.ToString("dd/MM/yyyy")
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <br />
+        <br />
+    </form>
+
+
+
+
+}
+

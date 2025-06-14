@@ -1,0 +1,1599 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="dbPrivilageModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Error_Save">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PageName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ErrorMessage" Type="varchar(max)" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="FunctionName" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="CreatedDateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PR_Admin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="LoginName" Type="nvarchar" MaxLength="150" />
+          <Property Name="IsMinistry" Type="bit" Nullable="false" />
+          <Property Name="LK_DirectorateId" Type="smallint" />
+          <Property Name="IsAdmin" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PR_Application">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="ApplicationName" Type="nvarchar" MaxLength="150" />
+          <Property Name="ApplicationDescription" Type="nvarchar" MaxLength="250" />
+          <Property Name="PR_ApplicationCategoryId" Type="int" />
+        </EntityType>
+        <EntityType Name="PR_ApplicationCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="PR_ApplicationCategoryName" Type="nvarchar" MaxLength="150" />
+          <Property Name="ApplicationURL" Type="nvarchar" MaxLength="550" />
+          <Property Name="ApplicationCategoryDescription" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="PR_Group">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="GroupName" Type="nvarchar" MaxLength="150" />
+          <Property Name="GroupName_En" Type="varchar" MaxLength="150" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="date" />
+          <Property Name="LastModifiedDate" Type="date" />
+          <Property Name="Note" Type="nvarchar" MaxLength="150" />
+          <Property Name="PR_ApplicationId" Type="int" />
+          <Property Name="PR_ApplicationCategoryId" Type="int" />
+          <Property Name="IsMinistry" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PR_GroupModuleMenu">
+          <Key>
+            <PropertyRef Name="PR_GroupId" />
+            <PropertyRef Name="PR_ModuleId" />
+            <PropertyRef Name="PR_MenuId" />
+          </Key>
+          <Property Name="PR_GroupId" Type="int" Nullable="false" />
+          <Property Name="PR_ModuleId" Type="int" Nullable="false" />
+          <Property Name="PR_MenuId" Type="int" Nullable="false" />
+          <Property Name="IS_Active" Type="bit" />
+          <Property Name="Order_BY" Type="int" />
+        </EntityType>
+        <EntityType Name="PR_GroupModuleMenuConstraint">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PR_GroupModuleMenuPrivilageId" Type="int" />
+          <Property Name="PR_MenuConstraintId" Type="int" />
+        </EntityType>
+        <EntityType Name="PR_GroupModuleMenuPrivilage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="PR_GroupId" Type="int" />
+          <Property Name="PR_ModuleId" Type="int" />
+          <Property Name="PR_MenuId" Type="int" />
+          <Property Name="CanView" Type="bit" Nullable="false" />
+          <Property Name="CanAdd" Type="bit" Nullable="false" />
+          <Property Name="CanEdit" Type="bit" Nullable="false" />
+          <Property Name="CanDelete" Type="bit" Nullable="false" />
+          <Property Name="CanPrint" Type="bit" />
+          <Property Name="PR_User_id" Type="smallint" />
+          <Property Name="IS_Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="PR_Menu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="MenuTitle" Type="nvarchar" MaxLength="150" />
+          <Property Name="MenuTitle_En" Type="nvarchar" MaxLength="150" />
+          <Property Name="MenuURL" Type="nvarchar" MaxLength="250" />
+          <Property Name="PR_MenuId" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="PR_ModuleId" Type="int" />
+          <Property Name="PR_ApplicationId" Type="int" />
+          <Property Name="PR_ApplicationCategoryId" Type="int" />
+          <Property Name="Group_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="PR_MenuConstraint">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="ConstraintName" Type="nvarchar" MaxLength="150" />
+          <Property Name="PR_MenuId" Type="int" />
+        </EntityType>
+        <EntityType Name="PR_Mission">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="PR_User_Id" Type="smallint" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="Outlet_ID" Type="bigint" />
+          <Property Name="User_Creation_Id" Type="bigint" Nullable="false" />
+          <Property Name="User_Creation_Date" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="User_Updation_Date" Type="datetime2" Precision="7" />
+          <Property Name="User_Updation_Id" Type="bigint" />
+          <Property Name="User_Deletion_Id" Type="bigint" />
+          <Property Name="User_Deletion_Date" Type="smalldatetime" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PR_Module">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="ModuleName" Type="nvarchar" MaxLength="150" />
+          <Property Name="ModuleName_En" Type="varchar" MaxLength="150" />
+          <Property Name="ModuleDescription" Type="nvarchar" MaxLength="250" />
+          <Property Name="PR_ApplicationId" Type="int" />
+          <Property Name="PR_ApplicationCategoryId" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PR_Setting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="SettingName" Type="nvarchar" MaxLength="100" />
+          <Property Name="SettingValue" Type="int" />
+          <Property Name="IsRange" Type="bit" Nullable="false" />
+          <Property Name="SettingMinValue" Type="int" />
+          <Property Name="SettingMaxValue" Type="int" />
+          <Property Name="PR_ModuleId" Type="int" />
+        </EntityType>
+        <EntityType Name="PR_User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="150" />
+          <Property Name="LoginName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="150" />
+          <Property Name="Email" Type="nvarchar" MaxLength="150" />
+          <Property Name="JobTitleName" Type="nvarchar" MaxLength="150" />
+          <Property Name="RegisterationDate" Type="date" />
+          <Property Name="LastLoginDate" Type="date" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="DomainLK_DirectorateId" Type="smallint" />
+          <Property Name="EmpId" Type="bigint" Nullable="false" />
+          <Property Name="Outlet_ID" Type="bigint" />
+          <Property Name="Adress_Ar" Type="nvarchar" MaxLength="150" />
+          <Property Name="Adress_En" Type="nvarchar" MaxLength="150" />
+          <Property Name="FullNameEn" Type="nvarchar" MaxLength="150" />
+          <Property Name="IS_Change_Password" Type="bit" />
+          <Property Name="Governorate" Type="nvarchar(max)" />
+          <Property Name="Station" Type="nvarchar(max)" />
+          <Property Name="Function_Group" Type="nvarchar(max)" />
+          <Property Name="Job_Code" Type="nvarchar(max)" />
+          <Property Name="Carreer_Code" Type="nvarchar(max)" />
+          <Property Name="IS_Mail_Send" Type="bit" />
+          <Property Name="IS_Failure" Type="bit" />
+          <Property Name="Failure_Notes" Type="nvarchar(max)" />
+          <Property Name="TEL_HOME" Type="nvarchar" MaxLength="50" />
+          <Property Name="TEL_MOBIL" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PR_UserGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="PR_UserId" Type="smallint" />
+          <Property Name="PR_GroupId" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="CanView" Type="bit" />
+          <Property Name="CanAdd" Type="bit" />
+          <Property Name="CanEdit" Type="bit" />
+          <Property Name="CanDelete" Type="bit" />
+          <Property Name="CanPrint" Type="bit" />
+        </EntityType>
+        <EntityType Name="PR_UserWorkPlace">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="PR_UserId" Type="smallint" />
+          <Property Name="IsAdmin" Type="bit" Nullable="false" />
+          <Property Name="IsSecurity" Type="bit" Nullable="false" />
+          <Property Name="IsMinistry" Type="bit" Nullable="false" />
+          <Property Name="LK_DirectorateId" Type="smallint" />
+          <Property Name="LK_ZoneId" Type="smallint" />
+          <Property Name="LK_OfficeId" Type="smallint" />
+          <Property Name="IsCurrentWork" Type="bit" Nullable="false" />
+          <Property Name="FromDate" Type="date" />
+          <Property Name="ToDate" Type="date" />
+          <Property Name="LK_CenterDepartmentId" Type="smallint" />
+          <Property Name="IsTrainingCenter" Type="bit" Nullable="false" />
+          <Property Name="TS_TrainingCenterId" Type="int" />
+        </EntityType>
+        <Association Name="FK_PR_Group_PR_Application">
+          <End Role="PR_Application" Type="Self.PR_Application" Multiplicity="0..1" />
+          <End Role="PR_Group" Type="Self.PR_Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR_Application">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PR_Group">
+              <PropertyRef Name="PR_ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PR_GroupModuleMenuConstraint_PR_GroupModuleMenuPrivilage">
+          <End Role="PR_GroupModuleMenuPrivilage" Type="Self.PR_GroupModuleMenuPrivilage" Multiplicity="0..1" />
+          <End Role="PR_GroupModuleMenuConstraint" Type="Self.PR_GroupModuleMenuConstraint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR_GroupModuleMenuPrivilage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PR_GroupModuleMenuConstraint">
+              <PropertyRef Name="PR_GroupModuleMenuPrivilageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PR_GroupModuleMenuConstraint_PR_MenuConstraint">
+          <End Role="PR_MenuConstraint" Type="Self.PR_MenuConstraint" Multiplicity="0..1" />
+          <End Role="PR_GroupModuleMenuConstraint" Type="Self.PR_GroupModuleMenuConstraint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR_MenuConstraint">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PR_GroupModuleMenuConstraint">
+              <PropertyRef Name="PR_MenuConstraintId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PR_GroupModuleMenuPrivilage_PR_Group">
+          <End Role="PR_Group" Type="Self.PR_Group" Multiplicity="0..1" />
+          <End Role="PR_GroupModuleMenuPrivilage" Type="Self.PR_GroupModuleMenuPrivilage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR_Group">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PR_GroupModuleMenuPrivilage">
+              <PropertyRef Name="PR_GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PR_GroupModuleMenuPrivilage_PR_Menu">
+          <End Role="PR_Menu" Type="Self.PR_Menu" Multiplicity="0..1" />
+          <End Role="PR_GroupModuleMenuPrivilage" Type="Self.PR_GroupModuleMenuPrivilage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR_Menu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PR_GroupModuleMenuPrivilage">
+              <PropertyRef Name="PR_MenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PR_GroupModuleMenuPrivilage_PR_Module">
+          <End Role="PR_Module" Type="Self.PR_Module" Multiplicity="0..1" />
+          <End Role="PR_GroupModuleMenuPrivilage" Type="Self.PR_GroupModuleMenuPrivilage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR_Module">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PR_GroupModuleMenuPrivilage">
+              <PropertyRef Name="PR_ModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PR_GroupModuleMenuPrivilage_PR_User">
+          <End Role="PR_User" Type="Self.PR_User" Multiplicity="0..1" />
+          <End Role="PR_GroupModuleMenuPrivilage" Type="Self.PR_GroupModuleMenuPrivilage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR_User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PR_GroupModuleMenuPrivilage">
+              <PropertyRef Name="PR_User_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PR_Menu_PR_Module">
+          <End Role="PR_Module" Type="Self.PR_Module" Multiplicity="0..1" />
+          <End Role="PR_Menu" Type="Self.PR_Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR_Module">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PR_Menu">
+              <PropertyRef Name="PR_ModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PR_MenuConstraint_PR_Menu">
+          <End Role="PR_Menu" Type="Self.PR_Menu" Multiplicity="0..1" />
+          <End Role="PR_MenuConstraint" Type="Self.PR_MenuConstraint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR_Menu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PR_MenuConstraint">
+              <PropertyRef Name="PR_MenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PR_Module_PR_Application">
+          <End Role="PR_Application" Type="Self.PR_Application" Multiplicity="0..1" />
+          <End Role="PR_Module" Type="Self.PR_Module" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR_Application">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PR_Module">
+              <PropertyRef Name="PR_ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PR_Setting_PR_Module">
+          <End Role="PR_Module" Type="Self.PR_Module" Multiplicity="0..1" />
+          <End Role="PR_Setting" Type="Self.PR_Setting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR_Module">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PR_Setting">
+              <PropertyRef Name="PR_ModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PR_UserPlace_PR_User">
+          <End Role="PR_User" Type="Self.PR_User" Multiplicity="0..1" />
+          <End Role="PR_UserWorkPlace" Type="Self.PR_UserWorkPlace" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR_User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PR_UserWorkPlace">
+              <PropertyRef Name="PR_UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="FN_PR_GEtALLmenuPrivilage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PR_ApplicationCategoryId" Type="int" Mode="In" />
+          <Parameter Name="PR_ModuleId" Type="int" Mode="In" />
+          <Parameter Name="PR_UserId" Type="smallint" Mode="In" />
+          <Parameter Name="Is_Group" Type="bit" Mode="In" />
+          <Parameter Name="Language" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="CanView" Type="bit" Nullable="false" />
+                <Property Name="Id" Type="int" Nullable="false" />
+                <Property Name="MenuId" Type="int" Nullable="false" />
+                <Property Name="PR_MenuId" Type="int" />
+                <Property Name="MenuTitle" Type="nvarchar" MaxLength="150" />
+                <Property Name="MenuURL" Type="nvarchar" MaxLength="250" />
+                <Property Name="PR_GroupId" Type="int" />
+                <Property Name="PR_ModuleId" Type="int" />
+                <Property Name="privilageCount" Type="tinyint" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="GetGroupsNameByUserAndApplication" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PR_UserId" Type="smallint" Mode="In" />
+          <Parameter Name="PR_ApplicationCategoryId" Type="int" Mode="In" />
+          <Parameter Name="Language" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetMenuUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PR_ApplicationCategoryId" Type="int" Mode="In" />
+          <Parameter Name="PR_ModuleId" Type="int" Mode="In" />
+          <Parameter Name="PR_UserId" Type="smallint" Mode="In" />
+          <Parameter Name="GroupID" Type="int" Mode="In" />
+          <Parameter Name="Language" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetModulNameByUserAndApplicationandGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PR_UserId" Type="smallint" Mode="In" />
+          <Parameter Name="PR_GroupId" Type="int" Mode="In" />
+          <Parameter Name="Language" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Sp_Admin_Error_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PageName" Type="varchar" Mode="In" />
+          <Parameter Name="ErrorMessage" Type="varchar(max)" Mode="In" />
+          <Parameter Name="FunctionName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_PR_GetAllMenuFilterList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PR_ApplicationCategoryId" Type="int" Mode="In" />
+          <Parameter Name="PR_ApplicationId" Type="int" Mode="In" />
+          <Parameter Name="PR_ModuleId" Type="int" Mode="In" />
+          <Parameter Name="jtStartIndex" Type="int" Mode="In" />
+          <Parameter Name="jtPageSize" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_PR_GetAllMenuFilterListCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PR_ApplicationCategoryId" Type="int" Mode="In" />
+          <Parameter Name="PR_ApplicationId" Type="int" Mode="In" />
+          <Parameter Name="PR_ModuleId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_PR_GetAllMenuSuperPrivilageBy_AppCatId_ModuleId_UserId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PR_ApplicationCategoryId" Type="int" Mode="In" />
+          <Parameter Name="PR_ModuleId" Type="int" Mode="In" />
+          <Parameter Name="PR_UserId" Type="smallint" Mode="In" />
+          <Parameter Name="Is_Group" Type="bit" Mode="In" />
+          <Parameter Name="Language" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_PR_GetAllModuleFilterList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PR_ApplicationCategoryId" Type="int" Mode="In" />
+          <Parameter Name="PR_ApplicationId" Type="int" Mode="In" />
+          <Parameter Name="jtStartIndex" Type="int" Mode="In" />
+          <Parameter Name="jtPageSize" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_PR_GetAllModuleFilterListCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PR_ApplicationCategoryId" Type="int" Mode="In" />
+          <Parameter Name="PR_ApplicationId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_PR_GetGroupsByUserIdAndAppCategoryId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PR_UserId" Type="smallint" Mode="In" />
+          <Parameter Name="PR_ApplicationCategoryId" Type="int" Mode="In" />
+          <Parameter Name="jtStartIndex" Type="int" Mode="In" />
+          <Parameter Name="jtPageSize" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_PR_GetGroupsByUserIdAndAppCategoryIdCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PR_UserId" Type="smallint" Mode="In" />
+          <Parameter Name="PR_ApplicationCategoryId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_PR_GetUserAllInfoById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="smallint" Mode="In" />
+        </Function>
+        <Function Name="SP_PR_UserGetDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="smallint" Mode="In" />
+        </Function>
+        <EntityContainer Name="dbPrivilageModelStoreContainer">
+          <EntitySet Name="Error_Save" EntityType="Self.Error_Save" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PR_Admin" EntityType="Self.PR_Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PR_Application" EntityType="Self.PR_Application" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PR_ApplicationCategory" EntityType="Self.PR_ApplicationCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PR_Group" EntityType="Self.PR_Group" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PR_GroupModuleMenu" EntityType="Self.PR_GroupModuleMenu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PR_GroupModuleMenuConstraint" EntityType="Self.PR_GroupModuleMenuConstraint" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PR_GroupModuleMenuPrivilage" EntityType="Self.PR_GroupModuleMenuPrivilage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PR_Menu" EntityType="Self.PR_Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PR_MenuConstraint" EntityType="Self.PR_MenuConstraint" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PR_Mission" EntityType="Self.PR_Mission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PR_Module" EntityType="Self.PR_Module" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PR_Setting" EntityType="Self.PR_Setting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PR_User" EntityType="Self.PR_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PR_UserGroup" EntityType="Self.PR_UserGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PR_UserWorkPlace" EntityType="Self.PR_UserWorkPlace" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_PR_Group_PR_Application" Association="Self.FK_PR_Group_PR_Application">
+            <End Role="PR_Application" EntitySet="PR_Application" />
+            <End Role="PR_Group" EntitySet="PR_Group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PR_GroupModuleMenuConstraint_PR_GroupModuleMenuPrivilage" Association="Self.FK_PR_GroupModuleMenuConstraint_PR_GroupModuleMenuPrivilage">
+            <End Role="PR_GroupModuleMenuPrivilage" EntitySet="PR_GroupModuleMenuPrivilage" />
+            <End Role="PR_GroupModuleMenuConstraint" EntitySet="PR_GroupModuleMenuConstraint" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PR_GroupModuleMenuConstraint_PR_MenuConstraint" Association="Self.FK_PR_GroupModuleMenuConstraint_PR_MenuConstraint">
+            <End Role="PR_MenuConstraint" EntitySet="PR_MenuConstraint" />
+            <End Role="PR_GroupModuleMenuConstraint" EntitySet="PR_GroupModuleMenuConstraint" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PR_GroupModuleMenuPrivilage_PR_Group" Association="Self.FK_PR_GroupModuleMenuPrivilage_PR_Group">
+            <End Role="PR_Group" EntitySet="PR_Group" />
+            <End Role="PR_GroupModuleMenuPrivilage" EntitySet="PR_GroupModuleMenuPrivilage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PR_GroupModuleMenuPrivilage_PR_Menu" Association="Self.FK_PR_GroupModuleMenuPrivilage_PR_Menu">
+            <End Role="PR_Menu" EntitySet="PR_Menu" />
+            <End Role="PR_GroupModuleMenuPrivilage" EntitySet="PR_GroupModuleMenuPrivilage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PR_GroupModuleMenuPrivilage_PR_Module" Association="Self.FK_PR_GroupModuleMenuPrivilage_PR_Module">
+            <End Role="PR_Module" EntitySet="PR_Module" />
+            <End Role="PR_GroupModuleMenuPrivilage" EntitySet="PR_GroupModuleMenuPrivilage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PR_GroupModuleMenuPrivilage_PR_User" Association="Self.FK_PR_GroupModuleMenuPrivilage_PR_User">
+            <End Role="PR_User" EntitySet="PR_User" />
+            <End Role="PR_GroupModuleMenuPrivilage" EntitySet="PR_GroupModuleMenuPrivilage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PR_Menu_PR_Module" Association="Self.FK_PR_Menu_PR_Module">
+            <End Role="PR_Module" EntitySet="PR_Module" />
+            <End Role="PR_Menu" EntitySet="PR_Menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PR_MenuConstraint_PR_Menu" Association="Self.FK_PR_MenuConstraint_PR_Menu">
+            <End Role="PR_Menu" EntitySet="PR_Menu" />
+            <End Role="PR_MenuConstraint" EntitySet="PR_MenuConstraint" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PR_Module_PR_Application" Association="Self.FK_PR_Module_PR_Application">
+            <End Role="PR_Application" EntitySet="PR_Application" />
+            <End Role="PR_Module" EntitySet="PR_Module" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PR_Setting_PR_Module" Association="Self.FK_PR_Setting_PR_Module">
+            <End Role="PR_Module" EntitySet="PR_Module" />
+            <End Role="PR_Setting" EntitySet="PR_Setting" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PR_UserPlace_PR_User" Association="Self.FK_PR_UserPlace_PR_User">
+            <End Role="PR_User" EntitySet="PR_User" />
+            <End Role="PR_UserWorkPlace" EntitySet="PR_UserWorkPlace" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbPrivilageModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="FN_PR_GEtALLmenuPrivilage_Result">
+          <Property Name="CanView" Type="Boolean" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="MenuId" Type="Int32" Nullable="false" />
+          <Property Name="PR_MenuId" Type="Int32" />
+          <Property Name="MenuTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="MenuURL" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="PR_GroupId" Type="Int32" />
+          <Property Name="PR_ModuleId" Type="Int32" />
+          <Property Name="privilageCount" Type="Byte" />
+        </ComplexType>
+        <EntityContainer Name="dbPrivilageEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="FN_PR_GEtALLmenuPrivilage" IsComposable="true" ReturnType="Collection(dbPrivilageModel.FN_PR_GEtALLmenuPrivilage_Result)">
+            <Parameter Name="PR_ApplicationCategoryId" Mode="In" Type="Int32" />
+            <Parameter Name="PR_ModuleId" Mode="In" Type="Int32" />
+            <Parameter Name="PR_UserId" Mode="In" Type="Int16" />
+            <Parameter Name="Is_Group" Mode="In" Type="Boolean" />
+            <Parameter Name="Language" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetGroupsNameByUserAndApplication" ReturnType="Collection(dbPrivilageModel.GetGroupsNameByUserAndApplication_Result)">
+            <Parameter Name="PR_UserId" Mode="In" Type="Int16" />
+            <Parameter Name="PR_ApplicationCategoryId" Mode="In" Type="Int32" />
+            <Parameter Name="Language" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetModulNameByUserAndApplicationandGroup" ReturnType="Collection(dbPrivilageModel.GetModulNameByUserAndApplicationandGroup_Result)">
+            <Parameter Name="PR_UserId" Mode="In" Type="Int16" />
+            <Parameter Name="PR_GroupId" Mode="In" Type="Int32" />
+            <Parameter Name="Language" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Sp_Admin_Error_Insert">
+            <Parameter Name="PageName" Mode="In" Type="String" />
+            <Parameter Name="ErrorMessage" Mode="In" Type="String" />
+            <Parameter Name="FunctionName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_PR_GetAllMenuFilterList" ReturnType="Collection(dbPrivilageModel.SP_PR_GetAllMenuFilterList_Result)">
+            <Parameter Name="PR_ApplicationCategoryId" Mode="In" Type="Int32" />
+            <Parameter Name="PR_ApplicationId" Mode="In" Type="Int32" />
+            <Parameter Name="PR_ModuleId" Mode="In" Type="Int32" />
+            <Parameter Name="jtStartIndex" Mode="In" Type="Int32" />
+            <Parameter Name="jtPageSize" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_PR_GetAllMenuFilterListCount" ReturnType="Collection(Int32)">
+            <Parameter Name="PR_ApplicationCategoryId" Mode="In" Type="Int32" />
+            <Parameter Name="PR_ApplicationId" Mode="In" Type="Int32" />
+            <Parameter Name="PR_ModuleId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_PR_GetAllMenuSuperPrivilageBy_AppCatId_ModuleId_UserId" ReturnType="Collection(dbPrivilageModel.SP_PR_GetAllMenuSuperPrivilageBy_AppCatId_ModuleId_UserId_Result)">
+            <Parameter Name="PR_ApplicationCategoryId" Mode="In" Type="Int32" />
+            <Parameter Name="PR_ModuleId" Mode="In" Type="Int32" />
+            <Parameter Name="PR_UserId" Mode="In" Type="Int16" />
+            <Parameter Name="Is_Group" Mode="In" Type="Boolean" />
+            <Parameter Name="Language" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_PR_GetAllModuleFilterList" ReturnType="Collection(dbPrivilageModel.SP_PR_GetAllModuleFilterList_Result)">
+            <Parameter Name="PR_ApplicationCategoryId" Mode="In" Type="Int32" />
+            <Parameter Name="PR_ApplicationId" Mode="In" Type="Int32" />
+            <Parameter Name="jtStartIndex" Mode="In" Type="Int32" />
+            <Parameter Name="jtPageSize" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_PR_GetAllModuleFilterListCount" ReturnType="Collection(Int32)">
+            <Parameter Name="PR_ApplicationCategoryId" Mode="In" Type="Int32" />
+            <Parameter Name="PR_ApplicationId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_PR_GetGroupsByUserIdAndAppCategoryId" ReturnType="Collection(dbPrivilageModel.SP_PR_GetGroupsByUserIdAndAppCategoryId_Result)">
+            <Parameter Name="PR_UserId" Mode="In" Type="Int16" />
+            <Parameter Name="PR_ApplicationCategoryId" Mode="In" Type="Int32" />
+            <Parameter Name="jtStartIndex" Mode="In" Type="Int32" />
+            <Parameter Name="jtPageSize" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_PR_GetGroupsByUserIdAndAppCategoryIdCount" ReturnType="Collection(Int32)">
+            <Parameter Name="PR_UserId" Mode="In" Type="Int16" />
+            <Parameter Name="PR_ApplicationCategoryId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_PR_GetUserAllInfoById" ReturnType="Collection(dbPrivilageModel.SP_PR_GetUserAllInfoById_Result)">
+          <Parameter Name="UserId" Mode="In" Type="Int16" />
+          </FunctionImport>
+          <FunctionImport Name="SP_PR_UserGetDetails">
+          <Parameter Name="Id" Mode="In" Type="Int16" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="Error_Save" EntityType="dbPrivilageModel.Error_Save" />
+          <EntitySet Name="PR_Admin" EntityType="dbPrivilageModel.PR_Admin" />
+          <EntitySet Name="PR_Application" EntityType="dbPrivilageModel.PR_Application" />
+          <EntitySet Name="PR_ApplicationCategory" EntityType="dbPrivilageModel.PR_ApplicationCategory" />
+          <EntitySet Name="PR_Group" EntityType="dbPrivilageModel.PR_Group" />
+          <EntitySet Name="PR_GroupModuleMenu" EntityType="dbPrivilageModel.PR_GroupModuleMenu" />
+          <EntitySet Name="PR_GroupModuleMenuConstraint" EntityType="dbPrivilageModel.PR_GroupModuleMenuConstraint" />
+          <EntitySet Name="PR_GroupModuleMenuPrivilage" EntityType="dbPrivilageModel.PR_GroupModuleMenuPrivilage" />
+          <EntitySet Name="PR_Menu" EntityType="dbPrivilageModel.PR_Menu" />
+          <EntitySet Name="PR_MenuConstraint" EntityType="dbPrivilageModel.PR_MenuConstraint" />
+          <EntitySet Name="PR_Mission" EntityType="dbPrivilageModel.PR_Mission" />
+          <EntitySet Name="PR_Module" EntityType="dbPrivilageModel.PR_Module" />
+          <EntitySet Name="PR_Setting" EntityType="dbPrivilageModel.PR_Setting" />
+          <EntitySet Name="PR_User" EntityType="dbPrivilageModel.PR_User" />
+          <EntitySet Name="PR_UserGroup" EntityType="dbPrivilageModel.PR_UserGroup" />
+          <EntitySet Name="PR_UserWorkPlace" EntityType="dbPrivilageModel.PR_UserWorkPlace" />
+          <AssociationSet Name="FK_PR_Group_PR_Application" Association="dbPrivilageModel.FK_PR_Group_PR_Application">
+            <End Role="PR_Application" EntitySet="PR_Application" />
+            <End Role="PR_Group" EntitySet="PR_Group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PR_Module_PR_Application" Association="dbPrivilageModel.FK_PR_Module_PR_Application">
+            <End Role="PR_Application" EntitySet="PR_Application" />
+            <End Role="PR_Module" EntitySet="PR_Module" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PR_GroupModuleMenu_PR_Group" Association="dbPrivilageModel.FK_PR_GroupModuleMenu_PR_Group">
+            <End Role="PR_Group" EntitySet="PR_Group" />
+            <End Role="PR_GroupModuleMenu" EntitySet="PR_GroupModuleMenu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PR_GroupModuleMenuPrivilage_PR_Group" Association="dbPrivilageModel.FK_PR_GroupModuleMenuPrivilage_PR_Group">
+            <End Role="PR_Group" EntitySet="PR_Group" />
+            <End Role="PR_GroupModuleMenuPrivilage" EntitySet="PR_GroupModuleMenuPrivilage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PR_GroupModuleMenu_PR_Menu" Association="dbPrivilageModel.FK_PR_GroupModuleMenu_PR_Menu">
+            <End Role="PR_Menu" EntitySet="PR_Menu" />
+            <End Role="PR_GroupModuleMenu" EntitySet="PR_GroupModuleMenu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PR_GroupModuleMenu_PR_Module" Association="dbPrivilageModel.FK_PR_GroupModuleMenu_PR_Module">
+            <End Role="PR_Module" EntitySet="PR_Module" />
+            <End Role="PR_GroupModuleMenu" EntitySet="PR_GroupModuleMenu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PR_GroupModuleMenuConstraint_PR_GroupModuleMenuPrivilage" Association="dbPrivilageModel.FK_PR_GroupModuleMenuConstraint_PR_GroupModuleMenuPrivilage">
+            <End Role="PR_GroupModuleMenuPrivilage" EntitySet="PR_GroupModuleMenuPrivilage" />
+            <End Role="PR_GroupModuleMenuConstraint" EntitySet="PR_GroupModuleMenuConstraint" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PR_GroupModuleMenuConstraint_PR_MenuConstraint" Association="dbPrivilageModel.FK_PR_GroupModuleMenuConstraint_PR_MenuConstraint">
+            <End Role="PR_MenuConstraint" EntitySet="PR_MenuConstraint" />
+            <End Role="PR_GroupModuleMenuConstraint" EntitySet="PR_GroupModuleMenuConstraint" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PR_GroupModuleMenuPrivilage_PR_Menu" Association="dbPrivilageModel.FK_PR_GroupModuleMenuPrivilage_PR_Menu">
+            <End Role="PR_Menu" EntitySet="PR_Menu" />
+            <End Role="PR_GroupModuleMenuPrivilage" EntitySet="PR_GroupModuleMenuPrivilage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PR_GroupModuleMenuPrivilage_PR_Module" Association="dbPrivilageModel.FK_PR_GroupModuleMenuPrivilage_PR_Module">
+            <End Role="PR_Module" EntitySet="PR_Module" />
+            <End Role="PR_GroupModuleMenuPrivilage" EntitySet="PR_GroupModuleMenuPrivilage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PR_GroupModuleMenuPrivilage_PR_User" Association="dbPrivilageModel.FK_PR_GroupModuleMenuPrivilage_PR_User">
+            <End Role="PR_User" EntitySet="PR_User" />
+            <End Role="PR_GroupModuleMenuPrivilage" EntitySet="PR_GroupModuleMenuPrivilage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PR_Menu_PR_Module" Association="dbPrivilageModel.FK_PR_Menu_PR_Module">
+            <End Role="PR_Module" EntitySet="PR_Module" />
+            <End Role="PR_Menu" EntitySet="PR_Menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PR_MenuConstraint_PR_Menu" Association="dbPrivilageModel.FK_PR_MenuConstraint_PR_Menu">
+            <End Role="PR_Menu" EntitySet="PR_Menu" />
+            <End Role="PR_MenuConstraint" EntitySet="PR_MenuConstraint" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PR_Setting_PR_Module" Association="dbPrivilageModel.FK_PR_Setting_PR_Module">
+            <End Role="PR_Module" EntitySet="PR_Module" />
+            <End Role="PR_Setting" EntitySet="PR_Setting" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PR_UserPlace_PR_User" Association="dbPrivilageModel.FK_PR_UserPlace_PR_User">
+            <End Role="PR_User" EntitySet="PR_User" />
+            <End Role="PR_UserWorkPlace" EntitySet="PR_UserWorkPlace" />
+          </AssociationSet>
+          <FunctionImport Name="GetMenuUser" ReturnType="Collection(dbPrivilageModel.GetMenuUser_Result)">
+            <Parameter Name="PR_ApplicationCategoryId" Mode="In" Type="Int32" />
+            <Parameter Name="PR_ModuleId" Mode="In" Type="Int32" />
+            <Parameter Name="PR_UserId" Mode="In" Type="Int16" />
+            <Parameter Name="GroupID" Mode="In" Type="Int32" />
+            <Parameter Name="Language" Mode="In" Type="Int32" />
+          </FunctionImport>
+          </EntityContainer>
+        <ComplexType Name="GetGroupsNameByUserAndApplication_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="GroupName" Nullable="true" MaxLength="150" />
+          <Property Type="Int32" Name="CountPR_ModuleId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetModulNameByUserAndApplicationandGroup_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="ModuleName" Nullable="true" MaxLength="150" />
+        </ComplexType>
+        <ComplexType Name="SP_PR_GetAllMenuFilterList_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="MenuTitle" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="MenuURL" Nullable="true" MaxLength="250" />
+          <Property Type="Boolean" Name="Active" Nullable="false" />
+          <Property Type="Int32" Name="PR_ModuleId" Nullable="true" />
+          <Property Type="String" Name="ModuleName" Nullable="true" MaxLength="150" />
+          <Property Type="Int32" Name="PR_ApplicationId" Nullable="true" />
+          <Property Type="Int32" Name="PR_ApplicationCategoryId" Nullable="true" />
+          <Property Type="String" Name="PR_ApplicationCategoryName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="ApplicationName" Nullable="true" MaxLength="150" />
+        </ComplexType>
+        <ComplexType Name="SP_PR_GetAllMenuSuperPrivilageBy_AppCatId_ModuleId_UserId_Result">
+          <Property Type="Int32" Name="Id" Nullable="true" />
+          <Property Type="String" Name="MenuTitle" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="MenuURL" Nullable="true" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="SP_PR_GetAllModuleFilterList_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="ModuleName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="ModuleDescription" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="PR_ApplicationId" Nullable="true" />
+          <Property Type="Int32" Name="PR_ApplicationCategoryId" Nullable="true" />
+          <Property Type="String" Name="PR_ApplicationCategoryName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="ApplicationName" Nullable="true" MaxLength="150" />
+        </ComplexType>
+        <ComplexType Name="SP_PR_GetGroupsByUserIdAndAppCategoryId_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int16" Name="PR_UserId" Nullable="true" />
+          <Property Type="Int32" Name="PR_GroupId" Nullable="true" />
+          <Property Type="Boolean" Name="Active" Nullable="false" />
+          <Property Type="String" Name="GroupName" Nullable="true" MaxLength="150" />
+        </ComplexType>
+        <ComplexType Name="SP_PR_GetUserAllInfoById_Result">
+          <Property Type="Int16" Name="Id" Nullable="false" />
+          <Property Type="String" Name="FullName" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="LoginName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="JobTitleName" Nullable="false" MaxLength="150" />
+          <Property Type="Boolean" Name="Active" Nullable="false" />
+          <Property Type="Int32" Name="LK_DirectorateId" Nullable="true" />
+          <Property Type="Int32" Name="LK_ZoneId" Nullable="false" />
+          <Property Type="Int32" Name="LK_OfficeId" Nullable="false" />
+          <Property Type="Int32" Name="IsTrainingCenter" Nullable="false" />
+          <Property Type="Int32" Name="TS_TrainingCenterId" Nullable="false" />
+          <Property Type="Int32" Name="IsAdmin" Nullable="false" />
+          <Property Type="Int32" Name="IsSecurity" Nullable="false" />
+          <Property Type="Int32" Name="IsMinistry" Nullable="false" />
+          <Property Type="Int32" Name="LK_CenterDepartmentId" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Error_Save">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PageName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ErrorMessage" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FunctionName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDateTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="PR_Admin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="LoginName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="IsMinistry" Type="Boolean" Nullable="false" />
+          <Property Name="LK_DirectorateId" Type="Int16" />
+          <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PR_Application">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ApplicationName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ApplicationDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="PR_ApplicationCategoryId" Type="Int32" />
+          <NavigationProperty Name="PR_Group" Relationship="dbPrivilageModel.FK_PR_Group_PR_Application" FromRole="PR_Application" ToRole="PR_Group" />
+          <NavigationProperty Name="PR_Module" Relationship="dbPrivilageModel.FK_PR_Module_PR_Application" FromRole="PR_Application" ToRole="PR_Module" />
+        </EntityType>
+        <EntityType Name="PR_ApplicationCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="PR_ApplicationCategoryName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ApplicationURL" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="ApplicationCategoryDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PR_Group">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="GroupName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="GroupName_En" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="LastModifiedDate" Type="DateTime" Precision="0" />
+          <Property Name="Note" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="PR_ApplicationId" Type="Int32" />
+          <Property Name="PR_ApplicationCategoryId" Type="Int32" />
+          <Property Name="IsMinistry" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PR_Application" Relationship="dbPrivilageModel.FK_PR_Group_PR_Application" FromRole="PR_Group" ToRole="PR_Application" />
+          <NavigationProperty Name="PR_GroupModuleMenu" Relationship="dbPrivilageModel.FK_PR_GroupModuleMenu_PR_Group" FromRole="PR_Group" ToRole="PR_GroupModuleMenu" />
+          <NavigationProperty Name="PR_GroupModuleMenuPrivilage" Relationship="dbPrivilageModel.FK_PR_GroupModuleMenuPrivilage_PR_Group" FromRole="PR_Group" ToRole="PR_GroupModuleMenuPrivilage" />
+        </EntityType>
+        <EntityType Name="PR_GroupModuleMenu">
+          <Key>
+            <PropertyRef Name="PR_GroupId" />
+            <PropertyRef Name="PR_ModuleId" />
+            <PropertyRef Name="PR_MenuId" />
+          </Key>
+          <Property Name="PR_GroupId" Type="Int32" Nullable="false" />
+          <Property Name="PR_ModuleId" Type="Int32" Nullable="false" />
+          <Property Name="PR_MenuId" Type="Int32" Nullable="false" />
+          <Property Name="IS_Active" Type="Boolean" />
+          <NavigationProperty Name="PR_Group" Relationship="dbPrivilageModel.FK_PR_GroupModuleMenu_PR_Group" FromRole="PR_GroupModuleMenu" ToRole="PR_Group" />
+          <NavigationProperty Name="PR_Menu" Relationship="dbPrivilageModel.FK_PR_GroupModuleMenu_PR_Menu" FromRole="PR_GroupModuleMenu" ToRole="PR_Menu" />
+          <NavigationProperty Name="PR_Module" Relationship="dbPrivilageModel.FK_PR_GroupModuleMenu_PR_Module" FromRole="PR_GroupModuleMenu" ToRole="PR_Module" />
+          <Property Name="Order_BY" Type="Int32" />
+        </EntityType>
+        <EntityType Name="PR_GroupModuleMenuConstraint">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PR_GroupModuleMenuPrivilageId" Type="Int32" />
+          <Property Name="PR_MenuConstraintId" Type="Int32" />
+          <NavigationProperty Name="PR_GroupModuleMenuPrivilage" Relationship="dbPrivilageModel.FK_PR_GroupModuleMenuConstraint_PR_GroupModuleMenuPrivilage" FromRole="PR_GroupModuleMenuConstraint" ToRole="PR_GroupModuleMenuPrivilage" />
+          <NavigationProperty Name="PR_MenuConstraint" Relationship="dbPrivilageModel.FK_PR_GroupModuleMenuConstraint_PR_MenuConstraint" FromRole="PR_GroupModuleMenuConstraint" ToRole="PR_MenuConstraint" />
+        </EntityType>
+        <EntityType Name="PR_GroupModuleMenuPrivilage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="PR_GroupId" Type="Int32" />
+          <Property Name="PR_ModuleId" Type="Int32" />
+          <Property Name="PR_MenuId" Type="Int32" />
+          <Property Name="CanView" Type="Boolean" Nullable="false" />
+          <Property Name="CanAdd" Type="Boolean" Nullable="false" />
+          <Property Name="CanEdit" Type="Boolean" Nullable="false" />
+          <Property Name="CanDelete" Type="Boolean" Nullable="false" />
+          <Property Name="CanPrint" Type="Boolean" />
+          <Property Name="PR_User_id" Type="Int16" />
+          <Property Name="IS_Active" Type="Boolean" />
+          <NavigationProperty Name="PR_Group" Relationship="dbPrivilageModel.FK_PR_GroupModuleMenuPrivilage_PR_Group" FromRole="PR_GroupModuleMenuPrivilage" ToRole="PR_Group" />
+          <NavigationProperty Name="PR_GroupModuleMenuConstraint" Relationship="dbPrivilageModel.FK_PR_GroupModuleMenuConstraint_PR_GroupModuleMenuPrivilage" FromRole="PR_GroupModuleMenuPrivilage" ToRole="PR_GroupModuleMenuConstraint" />
+          <NavigationProperty Name="PR_Menu" Relationship="dbPrivilageModel.FK_PR_GroupModuleMenuPrivilage_PR_Menu" FromRole="PR_GroupModuleMenuPrivilage" ToRole="PR_Menu" />
+          <NavigationProperty Name="PR_Module" Relationship="dbPrivilageModel.FK_PR_GroupModuleMenuPrivilage_PR_Module" FromRole="PR_GroupModuleMenuPrivilage" ToRole="PR_Module" />
+          <NavigationProperty Name="PR_User" Relationship="dbPrivilageModel.FK_PR_GroupModuleMenuPrivilage_PR_User" FromRole="PR_GroupModuleMenuPrivilage" ToRole="PR_User" />
+        </EntityType>
+        <EntityType Name="PR_Menu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="MenuTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="MenuTitle_En" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="MenuURL" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="PR_MenuId" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="PR_ModuleId" Type="Int32" />
+          <Property Name="PR_ApplicationId" Type="Int32" />
+          <Property Name="PR_ApplicationCategoryId" Type="Int32" />
+          <Property Name="Group_Id" Type="Int32" />
+          <NavigationProperty Name="PR_GroupModuleMenu" Relationship="dbPrivilageModel.FK_PR_GroupModuleMenu_PR_Menu" FromRole="PR_Menu" ToRole="PR_GroupModuleMenu" />
+          <NavigationProperty Name="PR_GroupModuleMenuPrivilage" Relationship="dbPrivilageModel.FK_PR_GroupModuleMenuPrivilage_PR_Menu" FromRole="PR_Menu" ToRole="PR_GroupModuleMenuPrivilage" />
+          <NavigationProperty Name="PR_Module" Relationship="dbPrivilageModel.FK_PR_Menu_PR_Module" FromRole="PR_Menu" ToRole="PR_Module" />
+          <NavigationProperty Name="PR_MenuConstraint" Relationship="dbPrivilageModel.FK_PR_MenuConstraint_PR_Menu" FromRole="PR_Menu" ToRole="PR_MenuConstraint" />
+        </EntityType>
+        <EntityType Name="PR_MenuConstraint">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ConstraintName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="PR_MenuId" Type="Int32" />
+          <NavigationProperty Name="PR_GroupModuleMenuConstraint" Relationship="dbPrivilageModel.FK_PR_GroupModuleMenuConstraint_PR_MenuConstraint" FromRole="PR_MenuConstraint" ToRole="PR_GroupModuleMenuConstraint" />
+          <NavigationProperty Name="PR_Menu" Relationship="dbPrivilageModel.FK_PR_MenuConstraint_PR_Menu" FromRole="PR_MenuConstraint" ToRole="PR_Menu" />
+        </EntityType>
+        <EntityType Name="PR_Mission">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="PR_User_Id" Type="Int16" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="Outlet_ID" Type="Int64" />
+          <Property Name="User_Creation_Id" Type="Int64" Nullable="false" />
+          <Property Name="User_Creation_Date" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="User_Updation_Date" Type="DateTime" Precision="7" />
+          <Property Name="User_Updation_Id" Type="Int64" />
+          <Property Name="User_Deletion_Id" Type="Int64" />
+          <Property Name="User_Deletion_Date" Type="DateTime" Precision="0" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PR_Module">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ModuleName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ModuleName_En" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="ModuleDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="PR_ApplicationId" Type="Int32" />
+          <Property Name="PR_ApplicationCategoryId" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PR_Application" Relationship="dbPrivilageModel.FK_PR_Module_PR_Application" FromRole="PR_Module" ToRole="PR_Application" />
+          <NavigationProperty Name="PR_GroupModuleMenu" Relationship="dbPrivilageModel.FK_PR_GroupModuleMenu_PR_Module" FromRole="PR_Module" ToRole="PR_GroupModuleMenu" />
+          <NavigationProperty Name="PR_GroupModuleMenuPrivilage" Relationship="dbPrivilageModel.FK_PR_GroupModuleMenuPrivilage_PR_Module" FromRole="PR_Module" ToRole="PR_GroupModuleMenuPrivilage" />
+          <NavigationProperty Name="PR_Menu" Relationship="dbPrivilageModel.FK_PR_Menu_PR_Module" FromRole="PR_Module" ToRole="PR_Menu" />
+          <NavigationProperty Name="PR_Setting" Relationship="dbPrivilageModel.FK_PR_Setting_PR_Module" FromRole="PR_Module" ToRole="PR_Setting" />
+        </EntityType>
+        <EntityType Name="PR_Setting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="SettingName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SettingValue" Type="Int32" />
+          <Property Name="IsRange" Type="Boolean" Nullable="false" />
+          <Property Name="SettingMinValue" Type="Int32" />
+          <Property Name="SettingMaxValue" Type="Int32" />
+          <Property Name="PR_ModuleId" Type="Int32" />
+          <NavigationProperty Name="PR_Module" Relationship="dbPrivilageModel.FK_PR_Setting_PR_Module" FromRole="PR_Setting" ToRole="PR_Module" />
+        </EntityType>
+        <EntityType Name="PR_User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="LoginName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="JobTitleName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="RegisterationDate" Type="DateTime" Precision="0" />
+          <Property Name="LastLoginDate" Type="DateTime" Precision="0" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="DomainLK_DirectorateId" Type="Int16" />
+          <Property Name="EmpId" Type="Int64" Nullable="false" />
+          <Property Name="Outlet_ID" Type="Int64" />
+          <Property Name="Adress_Ar" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Adress_En" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="FullNameEn" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="IS_Change_Password" Type="Boolean" />
+          <Property Name="Governorate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Station" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Function_Group" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Job_Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Carreer_Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IS_Mail_Send" Type="Boolean" />
+          <Property Name="IS_Failure" Type="Boolean" />
+          <Property Name="Failure_Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PR_GroupModuleMenuPrivilage" Relationship="dbPrivilageModel.FK_PR_GroupModuleMenuPrivilage_PR_User" FromRole="PR_User" ToRole="PR_GroupModuleMenuPrivilage" />
+          <NavigationProperty Name="PR_UserWorkPlace" Relationship="dbPrivilageModel.FK_PR_UserPlace_PR_User" FromRole="PR_User" ToRole="PR_UserWorkPlace" />
+          <Property Name="TEL_HOME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TEL_MOBIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PR_UserGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="PR_UserId" Type="Int16" />
+          <Property Name="PR_GroupId" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="CanView" Type="Boolean" />
+          <Property Name="CanAdd" Type="Boolean" />
+          <Property Name="CanEdit" Type="Boolean" />
+          <Property Name="CanDelete" Type="Boolean" />
+          <Property Name="CanPrint" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="PR_UserWorkPlace">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="PR_UserId" Type="Int16" />
+          <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
+          <Property Name="IsSecurity" Type="Boolean" Nullable="false" />
+          <Property Name="IsMinistry" Type="Boolean" Nullable="false" />
+          <Property Name="LK_DirectorateId" Type="Int16" />
+          <Property Name="LK_ZoneId" Type="Int16" />
+          <Property Name="LK_OfficeId" Type="Int16" />
+          <Property Name="IsCurrentWork" Type="Boolean" Nullable="false" />
+          <Property Name="FromDate" Type="DateTime" Precision="0" />
+          <Property Name="ToDate" Type="DateTime" Precision="0" />
+          <Property Name="LK_CenterDepartmentId" Type="Int16" />
+          <Property Name="IsTrainingCenter" Type="Boolean" Nullable="false" />
+          <Property Name="TS_TrainingCenterId" Type="Int32" />
+          <NavigationProperty Name="PR_User" Relationship="dbPrivilageModel.FK_PR_UserPlace_PR_User" FromRole="PR_UserWorkPlace" ToRole="PR_User" />
+        </EntityType>
+        <Association Name="FK_PR_Group_PR_Application">
+          <End Type="dbPrivilageModel.PR_Application" Role="PR_Application" Multiplicity="0..1" />
+          <End Type="dbPrivilageModel.PR_Group" Role="PR_Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR_Application">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PR_Group">
+              <PropertyRef Name="PR_ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PR_Module_PR_Application">
+          <End Type="dbPrivilageModel.PR_Application" Role="PR_Application" Multiplicity="0..1" />
+          <End Type="dbPrivilageModel.PR_Module" Role="PR_Module" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR_Application">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PR_Module">
+              <PropertyRef Name="PR_ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PR_GroupModuleMenu_PR_Group">
+          <End Type="dbPrivilageModel.PR_Group" Role="PR_Group" Multiplicity="1" />
+          <End Type="dbPrivilageModel.PR_GroupModuleMenu" Role="PR_GroupModuleMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR_Group">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PR_GroupModuleMenu">
+              <PropertyRef Name="PR_GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PR_GroupModuleMenuPrivilage_PR_Group">
+          <End Type="dbPrivilageModel.PR_Group" Role="PR_Group" Multiplicity="0..1" />
+          <End Type="dbPrivilageModel.PR_GroupModuleMenuPrivilage" Role="PR_GroupModuleMenuPrivilage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR_Group">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PR_GroupModuleMenuPrivilage">
+              <PropertyRef Name="PR_GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PR_GroupModuleMenu_PR_Menu">
+          <End Type="dbPrivilageModel.PR_Menu" Role="PR_Menu" Multiplicity="1" />
+          <End Type="dbPrivilageModel.PR_GroupModuleMenu" Role="PR_GroupModuleMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR_Menu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PR_GroupModuleMenu">
+              <PropertyRef Name="PR_MenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PR_GroupModuleMenu_PR_Module">
+          <End Type="dbPrivilageModel.PR_Module" Role="PR_Module" Multiplicity="1" />
+          <End Type="dbPrivilageModel.PR_GroupModuleMenu" Role="PR_GroupModuleMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR_Module">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PR_GroupModuleMenu">
+              <PropertyRef Name="PR_ModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PR_GroupModuleMenuConstraint_PR_GroupModuleMenuPrivilage">
+          <End Type="dbPrivilageModel.PR_GroupModuleMenuPrivilage" Role="PR_GroupModuleMenuPrivilage" Multiplicity="0..1" />
+          <End Type="dbPrivilageModel.PR_GroupModuleMenuConstraint" Role="PR_GroupModuleMenuConstraint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR_GroupModuleMenuPrivilage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PR_GroupModuleMenuConstraint">
+              <PropertyRef Name="PR_GroupModuleMenuPrivilageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PR_GroupModuleMenuConstraint_PR_MenuConstraint">
+          <End Type="dbPrivilageModel.PR_MenuConstraint" Role="PR_MenuConstraint" Multiplicity="0..1" />
+          <End Type="dbPrivilageModel.PR_GroupModuleMenuConstraint" Role="PR_GroupModuleMenuConstraint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR_MenuConstraint">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PR_GroupModuleMenuConstraint">
+              <PropertyRef Name="PR_MenuConstraintId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PR_GroupModuleMenuPrivilage_PR_Menu">
+          <End Type="dbPrivilageModel.PR_Menu" Role="PR_Menu" Multiplicity="0..1" />
+          <End Type="dbPrivilageModel.PR_GroupModuleMenuPrivilage" Role="PR_GroupModuleMenuPrivilage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR_Menu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PR_GroupModuleMenuPrivilage">
+              <PropertyRef Name="PR_MenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PR_GroupModuleMenuPrivilage_PR_Module">
+          <End Type="dbPrivilageModel.PR_Module" Role="PR_Module" Multiplicity="0..1" />
+          <End Type="dbPrivilageModel.PR_GroupModuleMenuPrivilage" Role="PR_GroupModuleMenuPrivilage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR_Module">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PR_GroupModuleMenuPrivilage">
+              <PropertyRef Name="PR_ModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PR_GroupModuleMenuPrivilage_PR_User">
+          <End Type="dbPrivilageModel.PR_User" Role="PR_User" Multiplicity="0..1" />
+          <End Type="dbPrivilageModel.PR_GroupModuleMenuPrivilage" Role="PR_GroupModuleMenuPrivilage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR_User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PR_GroupModuleMenuPrivilage">
+              <PropertyRef Name="PR_User_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PR_Menu_PR_Module">
+          <End Type="dbPrivilageModel.PR_Module" Role="PR_Module" Multiplicity="0..1" />
+          <End Type="dbPrivilageModel.PR_Menu" Role="PR_Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR_Module">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PR_Menu">
+              <PropertyRef Name="PR_ModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PR_MenuConstraint_PR_Menu">
+          <End Type="dbPrivilageModel.PR_Menu" Role="PR_Menu" Multiplicity="0..1" />
+          <End Type="dbPrivilageModel.PR_MenuConstraint" Role="PR_MenuConstraint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR_Menu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PR_MenuConstraint">
+              <PropertyRef Name="PR_MenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PR_Setting_PR_Module">
+          <End Type="dbPrivilageModel.PR_Module" Role="PR_Module" Multiplicity="0..1" />
+          <End Type="dbPrivilageModel.PR_Setting" Role="PR_Setting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR_Module">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PR_Setting">
+              <PropertyRef Name="PR_ModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PR_UserPlace_PR_User">
+          <End Type="dbPrivilageModel.PR_User" Role="PR_User" Multiplicity="0..1" />
+          <End Type="dbPrivilageModel.PR_UserWorkPlace" Role="PR_UserWorkPlace" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR_User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PR_UserWorkPlace">
+              <PropertyRef Name="PR_UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="GetMenuUser_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="MenuTitle" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="MenuURL" Nullable="true" MaxLength="250" />
+          <Property Type="Boolean" Name="CanView" Nullable="false" />
+          <Property Type="Boolean" Name="CanAdd" Nullable="false" />
+          <Property Type="Boolean" Name="CanEdit" Nullable="false" />
+          <Property Type="Boolean" Name="CanDelete" Nullable="false" />
+        </ComplexType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbPrivilageModelStoreContainer" CdmEntityContainer="dbPrivilageEntities">
+          <FunctionImportMapping FunctionName="dbPrivilageModel.Store.FN_PR_GEtALLmenuPrivilage" FunctionImportName="FN_PR_GEtALLmenuPrivilage">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbPrivilageModel.FN_PR_GEtALLmenuPrivilage_Result">
+                <ScalarProperty Name="CanView" ColumnName="CanView" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+                <ScalarProperty Name="PR_MenuId" ColumnName="PR_MenuId" />
+                <ScalarProperty Name="MenuTitle" ColumnName="MenuTitle" />
+                <ScalarProperty Name="MenuURL" ColumnName="MenuURL" />
+                <ScalarProperty Name="PR_GroupId" ColumnName="PR_GroupId" />
+                <ScalarProperty Name="PR_ModuleId" ColumnName="PR_ModuleId" />
+                <ScalarProperty Name="privilageCount" ColumnName="privilageCount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetGroupsNameByUserAndApplication" FunctionName="dbPrivilageModel.Store.GetGroupsNameByUserAndApplication">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbPrivilageModel.GetGroupsNameByUserAndApplication_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="CountPR_ModuleId" ColumnName="CountPR_ModuleId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetModulNameByUserAndApplicationandGroup" FunctionName="dbPrivilageModel.Store.GetModulNameByUserAndApplicationandGroup">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbPrivilageModel.GetModulNameByUserAndApplicationandGroup_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Sp_Admin_Error_Insert" FunctionName="dbPrivilageModel.Store.Sp_Admin_Error_Insert" />
+          <FunctionImportMapping FunctionImportName="SP_PR_GetAllMenuFilterList" FunctionName="dbPrivilageModel.Store.SP_PR_GetAllMenuFilterList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbPrivilageModel.SP_PR_GetAllMenuFilterList_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MenuTitle" ColumnName="MenuTitle" />
+                <ScalarProperty Name="MenuURL" ColumnName="MenuURL" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="PR_ModuleId" ColumnName="PR_ModuleId" />
+                <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+                <ScalarProperty Name="PR_ApplicationId" ColumnName="PR_ApplicationId" />
+                <ScalarProperty Name="PR_ApplicationCategoryId" ColumnName="PR_ApplicationCategoryId" />
+                <ScalarProperty Name="PR_ApplicationCategoryName" ColumnName="PR_ApplicationCategoryName" />
+                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_PR_GetAllMenuFilterListCount" FunctionName="dbPrivilageModel.Store.SP_PR_GetAllMenuFilterListCount" />
+          <FunctionImportMapping FunctionImportName="SP_PR_GetAllMenuSuperPrivilageBy_AppCatId_ModuleId_UserId" FunctionName="dbPrivilageModel.Store.SP_PR_GetAllMenuSuperPrivilageBy_AppCatId_ModuleId_UserId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbPrivilageModel.SP_PR_GetAllMenuSuperPrivilageBy_AppCatId_ModuleId_UserId_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MenuTitle" ColumnName="MenuTitle" />
+                <ScalarProperty Name="MenuURL" ColumnName="MenuURL" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_PR_GetAllModuleFilterList" FunctionName="dbPrivilageModel.Store.SP_PR_GetAllModuleFilterList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbPrivilageModel.SP_PR_GetAllModuleFilterList_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+                <ScalarProperty Name="ModuleDescription" ColumnName="ModuleDescription" />
+                <ScalarProperty Name="PR_ApplicationId" ColumnName="PR_ApplicationId" />
+                <ScalarProperty Name="PR_ApplicationCategoryId" ColumnName="PR_ApplicationCategoryId" />
+                <ScalarProperty Name="PR_ApplicationCategoryName" ColumnName="PR_ApplicationCategoryName" />
+                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_PR_GetAllModuleFilterListCount" FunctionName="dbPrivilageModel.Store.SP_PR_GetAllModuleFilterListCount" />
+          <FunctionImportMapping FunctionImportName="SP_PR_GetGroupsByUserIdAndAppCategoryId" FunctionName="dbPrivilageModel.Store.SP_PR_GetGroupsByUserIdAndAppCategoryId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbPrivilageModel.SP_PR_GetGroupsByUserIdAndAppCategoryId_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PR_UserId" ColumnName="PR_UserId" />
+                <ScalarProperty Name="PR_GroupId" ColumnName="PR_GroupId" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_PR_GetGroupsByUserIdAndAppCategoryIdCount" FunctionName="dbPrivilageModel.Store.SP_PR_GetGroupsByUserIdAndAppCategoryIdCount" />
+          <FunctionImportMapping FunctionImportName="SP_PR_GetUserAllInfoById" FunctionName="dbPrivilageModel.Store.SP_PR_GetUserAllInfoById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbPrivilageModel.SP_PR_GetUserAllInfoById_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="JobTitleName" ColumnName="JobTitleName" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="LK_DirectorateId" ColumnName="LK_DirectorateId" />
+                <ScalarProperty Name="LK_ZoneId" ColumnName="LK_ZoneId" />
+                <ScalarProperty Name="LK_OfficeId" ColumnName="LK_OfficeId" />
+                <ScalarProperty Name="IsTrainingCenter" ColumnName="IsTrainingCenter" />
+                <ScalarProperty Name="TS_TrainingCenterId" ColumnName="TS_TrainingCenterId" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="IsSecurity" ColumnName="IsSecurity" />
+                <ScalarProperty Name="IsMinistry" ColumnName="IsMinistry" />
+                <ScalarProperty Name="LK_CenterDepartmentId" ColumnName="LK_CenterDepartmentId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_PR_UserGetDetails" FunctionName="dbPrivilageModel.Store.SP_PR_UserGetDetails" />
+          <EntitySetMapping Name="Error_Save">
+            <EntityTypeMapping TypeName="dbPrivilageModel.Error_Save">
+              <MappingFragment StoreEntitySet="Error_Save">
+                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+                <ScalarProperty Name="FunctionName" ColumnName="FunctionName" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ErrorMessage" ColumnName="ErrorMessage" />
+                <ScalarProperty Name="PageName" ColumnName="PageName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PR_Admin">
+            <EntityTypeMapping TypeName="dbPrivilageModel.PR_Admin">
+              <MappingFragment StoreEntitySet="PR_Admin">
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="LK_DirectorateId" ColumnName="LK_DirectorateId" />
+                <ScalarProperty Name="IsMinistry" ColumnName="IsMinistry" />
+                <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PR_Application">
+            <EntityTypeMapping TypeName="dbPrivilageModel.PR_Application">
+              <MappingFragment StoreEntitySet="PR_Application">
+                <ScalarProperty Name="PR_ApplicationCategoryId" ColumnName="PR_ApplicationCategoryId" />
+                <ScalarProperty Name="ApplicationDescription" ColumnName="ApplicationDescription" />
+                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PR_ApplicationCategory">
+            <EntityTypeMapping TypeName="dbPrivilageModel.PR_ApplicationCategory">
+              <MappingFragment StoreEntitySet="PR_ApplicationCategory">
+                <ScalarProperty Name="ApplicationCategoryDescription" ColumnName="ApplicationCategoryDescription" />
+                <ScalarProperty Name="ApplicationURL" ColumnName="ApplicationURL" />
+                <ScalarProperty Name="PR_ApplicationCategoryName" ColumnName="PR_ApplicationCategoryName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PR_Group">
+            <EntityTypeMapping TypeName="dbPrivilageModel.PR_Group">
+              <MappingFragment StoreEntitySet="PR_Group">
+                <ScalarProperty Name="IsMinistry" ColumnName="IsMinistry" />
+                <ScalarProperty Name="PR_ApplicationCategoryId" ColumnName="PR_ApplicationCategoryId" />
+                <ScalarProperty Name="PR_ApplicationId" ColumnName="PR_ApplicationId" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="GroupName_En" ColumnName="GroupName_En" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PR_GroupModuleMenu">
+            <EntityTypeMapping TypeName="dbPrivilageModel.PR_GroupModuleMenu">
+              <MappingFragment StoreEntitySet="PR_GroupModuleMenu">
+                <ScalarProperty Name="Order_BY" ColumnName="Order_BY" />
+                <ScalarProperty Name="IS_Active" ColumnName="IS_Active" />
+                <ScalarProperty Name="PR_MenuId" ColumnName="PR_MenuId" />
+                <ScalarProperty Name="PR_ModuleId" ColumnName="PR_ModuleId" />
+                <ScalarProperty Name="PR_GroupId" ColumnName="PR_GroupId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PR_GroupModuleMenuConstraint">
+            <EntityTypeMapping TypeName="dbPrivilageModel.PR_GroupModuleMenuConstraint">
+              <MappingFragment StoreEntitySet="PR_GroupModuleMenuConstraint">
+                <ScalarProperty Name="PR_MenuConstraintId" ColumnName="PR_MenuConstraintId" />
+                <ScalarProperty Name="PR_GroupModuleMenuPrivilageId" ColumnName="PR_GroupModuleMenuPrivilageId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PR_GroupModuleMenuPrivilage">
+            <EntityTypeMapping TypeName="dbPrivilageModel.PR_GroupModuleMenuPrivilage">
+              <MappingFragment StoreEntitySet="PR_GroupModuleMenuPrivilage">
+                <ScalarProperty Name="IS_Active" ColumnName="IS_Active" />
+                <ScalarProperty Name="PR_User_id" ColumnName="PR_User_id" />
+                <ScalarProperty Name="CanPrint" ColumnName="CanPrint" />
+                <ScalarProperty Name="CanDelete" ColumnName="CanDelete" />
+                <ScalarProperty Name="CanEdit" ColumnName="CanEdit" />
+                <ScalarProperty Name="CanAdd" ColumnName="CanAdd" />
+                <ScalarProperty Name="CanView" ColumnName="CanView" />
+                <ScalarProperty Name="PR_MenuId" ColumnName="PR_MenuId" />
+                <ScalarProperty Name="PR_ModuleId" ColumnName="PR_ModuleId" />
+                <ScalarProperty Name="PR_GroupId" ColumnName="PR_GroupId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PR_Menu">
+            <EntityTypeMapping TypeName="dbPrivilageModel.PR_Menu">
+              <MappingFragment StoreEntitySet="PR_Menu">
+                <ScalarProperty Name="Group_Id" ColumnName="Group_Id" />
+                <ScalarProperty Name="PR_ApplicationCategoryId" ColumnName="PR_ApplicationCategoryId" />
+                <ScalarProperty Name="PR_ApplicationId" ColumnName="PR_ApplicationId" />
+                <ScalarProperty Name="PR_ModuleId" ColumnName="PR_ModuleId" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="PR_MenuId" ColumnName="PR_MenuId" />
+                <ScalarProperty Name="MenuURL" ColumnName="MenuURL" />
+                <ScalarProperty Name="MenuTitle_En" ColumnName="MenuTitle_En" />
+                <ScalarProperty Name="MenuTitle" ColumnName="MenuTitle" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PR_MenuConstraint">
+            <EntityTypeMapping TypeName="dbPrivilageModel.PR_MenuConstraint">
+              <MappingFragment StoreEntitySet="PR_MenuConstraint">
+                <ScalarProperty Name="PR_MenuId" ColumnName="PR_MenuId" />
+                <ScalarProperty Name="ConstraintName" ColumnName="ConstraintName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PR_Mission">
+            <EntityTypeMapping TypeName="dbPrivilageModel.PR_Mission">
+              <MappingFragment StoreEntitySet="PR_Mission">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="User_Deletion_Date" ColumnName="User_Deletion_Date" />
+                <ScalarProperty Name="User_Deletion_Id" ColumnName="User_Deletion_Id" />
+                <ScalarProperty Name="User_Updation_Id" ColumnName="User_Updation_Id" />
+                <ScalarProperty Name="User_Updation_Date" ColumnName="User_Updation_Date" />
+                <ScalarProperty Name="User_Creation_Date" ColumnName="User_Creation_Date" />
+                <ScalarProperty Name="User_Creation_Id" ColumnName="User_Creation_Id" />
+                <ScalarProperty Name="Outlet_ID" ColumnName="Outlet_ID" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="PR_User_Id" ColumnName="PR_User_Id" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PR_Module">
+            <EntityTypeMapping TypeName="dbPrivilageModel.PR_Module">
+              <MappingFragment StoreEntitySet="PR_Module">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="PR_ApplicationCategoryId" ColumnName="PR_ApplicationCategoryId" />
+                <ScalarProperty Name="PR_ApplicationId" ColumnName="PR_ApplicationId" />
+                <ScalarProperty Name="ModuleDescription" ColumnName="ModuleDescription" />
+                <ScalarProperty Name="ModuleName_En" ColumnName="ModuleName_En" />
+                <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PR_Setting">
+            <EntityTypeMapping TypeName="dbPrivilageModel.PR_Setting">
+              <MappingFragment StoreEntitySet="PR_Setting">
+                <ScalarProperty Name="PR_ModuleId" ColumnName="PR_ModuleId" />
+                <ScalarProperty Name="SettingMaxValue" ColumnName="SettingMaxValue" />
+                <ScalarProperty Name="SettingMinValue" ColumnName="SettingMinValue" />
+                <ScalarProperty Name="IsRange" ColumnName="IsRange" />
+                <ScalarProperty Name="SettingValue" ColumnName="SettingValue" />
+                <ScalarProperty Name="SettingName" ColumnName="SettingName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PR_User">
+            <EntityTypeMapping TypeName="dbPrivilageModel.PR_User">
+              <MappingFragment StoreEntitySet="PR_User">
+                <ScalarProperty Name="TEL_MOBIL" ColumnName="TEL_MOBIL" />
+                <ScalarProperty Name="TEL_HOME" ColumnName="TEL_HOME" />
+                <ScalarProperty Name="Failure_Notes" ColumnName="Failure_Notes" />
+                <ScalarProperty Name="IS_Failure" ColumnName="IS_Failure" />
+                <ScalarProperty Name="IS_Mail_Send" ColumnName="IS_Mail_Send" />
+                <ScalarProperty Name="Carreer_Code" ColumnName="Carreer_Code" />
+                <ScalarProperty Name="Job_Code" ColumnName="Job_Code" />
+                <ScalarProperty Name="Function_Group" ColumnName="Function_Group" />
+                <ScalarProperty Name="Station" ColumnName="Station" />
+                <ScalarProperty Name="Governorate" ColumnName="Governorate" />
+                <ScalarProperty Name="IS_Change_Password" ColumnName="IS_Change_Password" />
+                <ScalarProperty Name="FullNameEn" ColumnName="FullNameEn" />
+                <ScalarProperty Name="Adress_En" ColumnName="Adress_En" />
+                <ScalarProperty Name="Adress_Ar" ColumnName="Adress_Ar" />
+                <ScalarProperty Name="Outlet_ID" ColumnName="Outlet_ID" />
+                <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+                <ScalarProperty Name="DomainLK_DirectorateId" ColumnName="DomainLK_DirectorateId" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="RegisterationDate" ColumnName="RegisterationDate" />
+                <ScalarProperty Name="JobTitleName" ColumnName="JobTitleName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PR_UserGroup">
+            <EntityTypeMapping TypeName="dbPrivilageModel.PR_UserGroup">
+              <MappingFragment StoreEntitySet="PR_UserGroup">
+                <ScalarProperty Name="CanPrint" ColumnName="CanPrint" />
+                <ScalarProperty Name="CanDelete" ColumnName="CanDelete" />
+                <ScalarProperty Name="CanEdit" ColumnName="CanEdit" />
+                <ScalarProperty Name="CanAdd" ColumnName="CanAdd" />
+                <ScalarProperty Name="CanView" ColumnName="CanView" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="PR_GroupId" ColumnName="PR_GroupId" />
+                <ScalarProperty Name="PR_UserId" ColumnName="PR_UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PR_UserWorkPlace">
+            <EntityTypeMapping TypeName="dbPrivilageModel.PR_UserWorkPlace">
+              <MappingFragment StoreEntitySet="PR_UserWorkPlace">
+                <ScalarProperty Name="TS_TrainingCenterId" ColumnName="TS_TrainingCenterId" />
+                <ScalarProperty Name="IsTrainingCenter" ColumnName="IsTrainingCenter" />
+                <ScalarProperty Name="LK_CenterDepartmentId" ColumnName="LK_CenterDepartmentId" />
+                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+                <ScalarProperty Name="IsCurrentWork" ColumnName="IsCurrentWork" />
+                <ScalarProperty Name="LK_OfficeId" ColumnName="LK_OfficeId" />
+                <ScalarProperty Name="LK_ZoneId" ColumnName="LK_ZoneId" />
+                <ScalarProperty Name="LK_DirectorateId" ColumnName="LK_DirectorateId" />
+                <ScalarProperty Name="IsMinistry" ColumnName="IsMinistry" />
+                <ScalarProperty Name="IsSecurity" ColumnName="IsSecurity" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="PR_UserId" ColumnName="PR_UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetMenuUser" FunctionName="dbPrivilageModel.Store.GetMenuUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbPrivilageModel.GetMenuUser_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MenuTitle" ColumnName="MenuTitle" />
+                <ScalarProperty Name="MenuURL" ColumnName="MenuURL" />
+                <ScalarProperty Name="CanView" ColumnName="CanView" />
+                <ScalarProperty Name="CanAdd" ColumnName="CanAdd" />
+                <ScalarProperty Name="CanEdit" ColumnName="CanEdit" />
+                <ScalarProperty Name="CanDelete" ColumnName="CanDelete" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

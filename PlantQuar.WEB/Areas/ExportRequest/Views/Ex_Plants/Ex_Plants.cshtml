@@ -1,0 +1,661 @@
+﻿<div id="Ex_Plants" style="min-height:300px;margin:10px;">
+    <div id="lotjtabePlants"></div>
+</div>
+
+
+<script type="text/javascript">
+    //TABLES
+    var plant_state = 1;
+    $(function () {
+        $('#lotjtabePlants').jtable({
+            title: '@PlantQuar.WEB.Language.Resource_data1.MessegeContents',
+            paging: true,
+            pageSize: 10,
+            sorting: true,
+            columnResizable: true,
+            columnSelectable: true,
+            saveUserPreferences: true,
+            actions: {
+                listAction: '/ExportRequest/Ex_Plants/ListPlantsRows',
+                createAction: '/ExportRequest/Ex_Plants/CreatePlantsRows',
+                updateAction: '/ExportRequest/Ex_Plants/UpdatePlantsRows',
+                deleteAction: '/ExportRequest/Ex_Plants/DeletePlantsRows',
+            },
+            fields: {
+                index: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                plantPart_ID: {
+
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                //requestItemId
+                requestItemId: {
+
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                Item_Id: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.Plant',
+                    width: '10.3359%',
+                    options: '/ExportRequest/Ex_Plants/Plant_List',
+
+                },
+                //plantPartType or plantPart_ID
+                plantPartType: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.PlantPart',
+                    width: '8.7235%',
+                    dependsOn: 'Item_Id',
+                    options: function (data) {
+                        return '/ExportRequest/Ex_Plants/PlantPartsList?plantId=' + data.dependedValues.Item_Id;
+                    },
+                    inputClass: 'validate[required]',
+                },
+                ItemStatus_ID: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.Status',
+                    width: '10.5943%',
+                    options: '../../CommonActions/PlantParts/ProductStatus_AddEDIT',
+                    inputClass: 'validate[required]',
+                },
+                Purpose_ID: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.ExeportPurpose',
+                    width: '8.7235%',
+                    options: '../../CommonActions/PlantParts/PlantPurpose_AddEDIT',
+                    inputClass: 'validate[required]',
+                },
+                Item_ShortName: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.ShortName ',
+                    width: '10.9819%',
+                    input: function () { return '<label>--</lable>'; }
+                },
+                Hscode: {
+                    title: 'HSCODE ',
+                    width: '11.1111%',
+                    input: function () { return '<label>--</lable>'; }
+                },
+                PlantCat_ID: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.PlantCategory ',
+                    width: '8.7235%',
+                    dependsOn: 'Item_Id',
+                    options: function (data) {
+                        return '/ExportRequest/Ex_Plants/PlantCategoryList?plantId=' + data.dependedValues.Item_Id;
+                    },
+                },
+                a1: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.Constrains',
+                    display: function (data) {
+                        return '<input type="button"  value="@PlantQuar.WEB.Language.Resource_data1.Constrains"  class="btn btn-success btn-sm" onclick="btnPlantConstrains_click(' + data.record.Item_Id + ',' + data.record.plantPart_ID + ',' + data.record.Purpose_ID + ',' + data.record.ItemStatus_ID + ')"/>';
+                    },
+                    width: '11.1447%',
+                    create: false,
+                    edit: false
+                },
+                lotList: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.LotData',
+                    width: '12.6615%',
+                    sorting: false,
+                    edit: false,
+                    create: false,
+                    display: function (PlantData) {
+                        var $img = $('<input type="button"  value="@PlantQuar.WEB.Language.Resource_data1.LotData" id="lotdata" class="btn btn-success btn-sm"/>');
+                        //Open child table when user clicks the image
+                        $img.click(function () {
+
+                            $('#lotjtabePlants').jtable('openChildTable',
+                                $img.closest('tr'), //Parent row
+                                {
+                                    title: '@PlantQuar.WEB.Language.Resource_data1.LotData',
+                                    paging: true,
+                                    pageSize: 10,
+                                    sorting: true,
+                                    //defaultSorting: 'CourseName ASC',
+                                    columnResizable: true,
+                                    columnSelectable: true,
+                                    saveUserPreferences: true,
+                                    actions: {
+                                        listAction: '/ExportRequest/Ex_Plants/ListPlants_LotRows?indexPlant=' + PlantData.record.index,
+                                        createAction: '/ExportRequest/Ex_Plants/CreatePlants_LotRows?indexPlant=' + PlantData.record.index,
+                                        updateAction: '/ExportRequest/Ex_Plants/UpdatePlants_LotRows?indexPlant=' + PlantData.record.index,
+                                        deleteAction: '/ExportRequest/Ex_Plants/DeletePlants_LotRows?indexPlant=' + PlantData.record.index,
+                                    },
+                                    fields: {
+                                        LotIndex: {
+                                            key: true,
+                                            create: false,
+                                            edit: false,
+                                            list: false
+                                        },
+                                        Lot_Number: {
+                                            title: '@PlantQuar.WEB.Language.Resource_data1.LotNumber',
+
+                                        },
+                                        packageTypeName: {
+                                            title: '@PlantQuar.WEB.Language.Resource_data1.PackageType',
+                                            //inputClass: 'validate[required]',
+                                            //options: '../ExportRequest/PackageType_List'
+                                        },
+                                        materialName: {
+                                            title: '@PlantQuar.WEB.Language.Resource_data1.PackageMaterial',
+                                            //inputClass: 'validate[required]',
+                                            //options: '../ExportRequest/PackageMaterial_List'
+                                        },
+                                        Package_Count: {
+                                            title: '@PlantQuar.WEB.Language.Resource_data1.PackageCount',
+
+                                        },
+                                        Package_Weight: {
+                                            title: '@PlantQuar.WEB.Language.Resource_data1.PackageWeight',
+                                        },
+                                        @*Package_Weight_Ton: {
+                                            title: '@PlantQuar.WEB.Language.Resource_data1.Ton',
+                                            inputClass: 'validate[required]',
+                                            defaultValue: 0,
+                                            list: false
+                                        },
+                                        Package_Weight_Kilo: {
+                                            title: '@PlantQuar.WEB.Language.Resource_data1.Kilo',
+                                            inputClass: 'validate[required]',
+                                            defaultValue: 0,
+                                            list: false
+                                        },
+                                        Package_Weight_Gram: {
+                                            title: '@PlantQuar.WEB.Language.Resource_data1.Gram',
+                                            inputClass: 'validate[required]',
+                                            defaultValue: 0,
+                                            list: false
+                                        },*@
+                                        Package_NetWeight: {
+                                            title: '@PlantQuar.WEB.Language.Resource_data1.PackageNetWeight',
+                                        },
+                                        @*PackageNet_Weight_Ton: {
+                                            title: '@PlantQuar.WEB.Language.Resource_data1.Ton',
+                                            inputClass: 'validate[required]',
+                                            defaultValue: 0,
+                                            list: false
+                                        },
+                                        PackageNet_Weight_Kilo: {
+                                            title: '@PlantQuar.WEB.Language.Resource_data1.Kilo',
+                                            inputClass: 'validate[required]',
+                                            defaultValue: 0,
+                                            list: false
+                                        },
+                                        PackageNet_Weight_Gram: {
+                                            title: '@PlantQuar.WEB.Language.Resource_data1.Gram',
+                                            inputClass: 'validate[required]',
+                                            defaultValue: 0,
+                                            list: false
+                                        },*@
+                                        Gross_Weight: {
+                                            title: '@PlantQuar.WEB.Language.Resource_data1.TotalWeight',
+                                        },
+                                        @*Gross_Weight_Ton: {
+                                            title: '@PlantQuar.WEB.Language.Resource_data1.Ton',
+                                            inputClass: 'validate[required]',
+                                            defaultValue: 0,
+                                            list: false,
+                                        },
+                                        Gross_Weight_Kilo: {
+                                            title: '@PlantQuar.WEB.Language.Resource_data1.Kilo',
+                                            inputClass: 'validate[required]',
+                                            defaultValue: 0,
+                                            list: false
+                                        },
+                                        Gross_Weight_Gram: {
+                                            title: '@PlantQuar.WEB.Language.Resource_data1.Gram',
+                                            inputClass: 'validate[required]',
+                                            defaultValue: 0,
+                                            list: false
+                                        },*@
+                                        Net_Weight: {
+                                            title: '@PlantQuar.WEB.Language.Resource_data1.NetWeight',
+                                        },
+                                        @*Net_Weight_Ton: {
+                                            title: '@PlantQuar.WEB.Language.Resource_data1.Ton',
+                                            inputClass: 'validate[required]',
+                                            defaultValue: 0,
+                                            list: false
+                                        },
+                                        Net_Weight_Kilo: {
+                                            title: '@PlantQuar.WEB.Language.Resource_data1.Kilo',
+                                            inputClass: 'validate[required]',
+                                            defaultValue: 0,
+                                            list: false
+                                        },
+                                        Net_Weight_Gram: {
+                                            title: '@PlantQuar.WEB.Language.Resource_data1.Gram',
+                                            inputClass: 'validate[required]',
+                                            defaultValue: 0,
+                                            list: false
+                                        },*@
+                                        @*govID: {
+                                            title: '@PlantQuar.WEB.Language.Resource_data1.Governate',
+                                            options: '../ExportRequest/getGovernates',
+                                            list: false,
+                                        },
+                                        centerID: {
+                                            title: '@PlantQuar.WEB.Language.Resource_data1.Center',
+                                            dependsOn: 'govID',
+                                            options: function (data) {
+                                                return '../ExportRequest/getCenters?govID=' + data.dependedValues.govID;
+                                            },
+                                            list: false,
+                                        },
+                                        villageID: {
+                                            title: '@PlantQuar.WEB.Language.Resource_data1.Village',
+                                            dependsOn: 'centerID',
+                                            options: function (data) {
+                                                return '../ExportRequest/getVillages?centerID=' + data.dependedValues.centerID;
+                                            },
+                                            list: false,
+                                        },
+                                        Farm_ID: {
+                                            title: '@PlantQuar.WEB.Language.Resource_data1.Farm',
+                                            dependsOn: 'villageID',
+                                            options: function (data) {
+                                                return '../ExportRequest/Farms_List?villageID=' + data.dependedValues.villageID;
+                                            },
+                                            list: false,
+                                        },
+                                        farmAddress: {
+                                            title: '@PlantQuar.WEB.Language.Resource_data1.PlantingPlace',
+                                            type: 'textarea',
+                                            list: false,
+                                        },*@
+                                    },
+                                    formCreated: function (event, data) {
+                                        $(".jtable-dialog-form").height(630);
+                                        $(".jtable-dialog-form").width(450);
+
+                                        $('#jtable-create-form').addClass('ChildTable');
+                                        $('#jtable-edit-form').addClass('ChildTable');
+
+                                        var temp = "";
+                                        if (data.formType == "create") {
+                                            $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.AddLot");
+                                        }
+                                        else {
+                                            $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.EditLot");
+                                            temp = $("#Edit-Lot_Number").val();
+                                            //get package net weight
+
+                                            $.ajax({
+                                                url: '/ExportRequest/Ex_Plants/GetPackageNetWeight',
+                                                data:
+                                                {
+                                                    count: $("#Edit-Package_Count").val(),
+                                                    ton: $("#Edit-Net_Weight_Ton").val(),
+                                                    kilo: $("#Edit-Net_Weight_Kilo").val(),
+                                                    gram: $("#Edit-Net_Weight_Gram").val(),
+                                                },
+                                                success: function (res) {
+                                                    $("#Edit-PackageNet_Weight_Ton").val(res.ton);
+                                                    $("#Edit-PackageNet_Weight_Kilo").val(res.kilo);
+                                                    $("#Edit-PackageNet_Weight_Gram").val(res.gram);
+                                                }
+                                            });
+                                        }
+
+                                        $("#Edit-Gross_Weight_Ton, #Edit-Gross_Weight_Kilo, #Edit-Gross_Weight_Gram, #Edit-Net_Weight_Ton, #Edit-Net_Weight_Kilo, #Edit-Net_Weight_Gram, #Edit-Package_Count, #Edit-Package_Weight_Ton, #Edit-Package_Weight_Kilo, #Edit-Package_Weight_Gram, #Edit-PackageNet_Weight_Ton, #Edit-PackageNet_Weight_Kilo, #Edit-PackageNet_Weight_Gram").keypress(function (e) {
+                                            var iKeyCode  = e.charCode ? e.charCode : e.keyCode
+                                            if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
+                                                return false;
+
+                                            return true;
+                                        });
+
+                                        $("#Edit-Package_Count, #Edit-Package_Weight_Ton, #Edit-Package_Weight_Kilo, #Edit-Package_Weight_Gram").on(
+                                            'blur', function () {
+                                                $.ajax({
+                                                    url: '/ExportRequest/Ex_Plants/GetGrossWeight',
+                                                    data:
+                                                    {
+                                                          count : $("#Edit-Package_Count").val(),
+                                                          ton : $("#Edit-Package_Weight_Ton").val(),
+                                                          kilo : $("#Edit-Package_Weight_Kilo").val(),
+                                                          gram : $("#Edit-Package_Weight_Gram").val(),
+                                                    },
+                                                    success: function (res) {
+                                                        $("#Edit-Gross_Weight_Ton").val(res.ton);
+                                                        $("#Edit-Gross_Weight_Kilo").val(res.kilo);
+                                                        $("#Edit-Gross_Weight_Gram").val(res.gram);
+                                                    }
+                                                });
+                                            }
+                                        );
+
+                                        $("#Edit-Package_Count, #Edit-PackageNet_Weight_Ton, #Edit-PackageNet_Weight_Kilo, #Edit-PackageNet_Weight_Gram").on(
+                                            'blur', function () {
+                                                $.ajax({
+                                                    url: '/ExportRequest/Ex_Plants/GetGrossWeight',
+                                                    data:
+                                                    {
+                                                          count : $("#Edit-Package_Count").val(),
+                                                          ton : $("#Edit-PackageNet_Weight_Ton").val(),
+                                                          kilo : $("#Edit-PackageNet_Weight_Kilo").val(),
+                                                          gram : $("#Edit-PackageNet_Weight_Gram").val(),
+                                                    },
+                                                    success: function (res) {
+                                                        $("#Edit-Net_Weight_Ton").val(res.ton);
+                                                        $("#Edit-Net_Weight_Kilo").val(res.kilo);
+                                                        $("#Edit-Net_Weight_Gram").val(res.gram);
+                                                    }
+                                                });
+                                            }
+                                        );
+
+                                        $("#Edit-Gross_Weight_Ton, #Edit-Gross_Weight_Kilo, #Edit-Gross_Weight_Gram, #Edit-Net_Weight_Ton, #Edit-Net_Weight_Kilo, #Edit-Net_Weight_Gram").attr("readonly", "true")
+
+                                        $("#Edit-Lot_Number").on('blur', function () {
+                                            //lotNumbers_all -- to add .push('') -- to check exist .includes('')
+                                            if (temp == "") { // insert new row
+                                                if (lotNumbers_all.includes($("#Edit-Lot_Number").val())) {
+                                                    alert("@PlantQuar.WEB.Language.Resource_data1.LotNumberExists");
+                                                    lotRepeated = -1;
+                                                } else {
+                                                    lotRepeated = -2;
+                                                }
+                                            } else {
+                                                if ($("#Edit-Lot_Number").val() == temp) { //update existing row
+                                                    lotRepeated = -3; //No change
+                                                } else {
+                                                    lotRepeated = lotNumbers_all.indexOf(temp);
+                                                }
+                                            }
+                                        });
+                                    },
+                                    formSubmitting: function (event, data) {
+                                        if (lotRepeated == -1) {
+                                            return false;
+                                        } else if(lotRepeated == -2) {
+                                            lotNumbers_all.push($("#Edit-Lot_Number").val());
+                                        } else if (lotRepeated >= 0) {
+                                            lotNumbers_all[lotRepeated] = $("#Edit-Lot_Number").val();
+                                        }
+                                        return data.form.validationEngine('validate');
+                                    },
+                                    formClosed: function (event, data) {
+                                        data.form.validationEngine('hide');
+                                        data.form.validationEngine('detach');
+                                        $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.DeleteLot");
+                                    },
+                                    recordAdded: function (event, data) {
+                                        alertify.success("@PlantQuar.WEB.Language.Resource_data1.LotDataAddad");
+                                    },
+                                }
+                                , function (data) { //opened handler
+                                    data.childTable.jtable('load');
+                                }
+                            );
+                        });
+                        return $img;
+                    }
+                },
+            },
+            formCreated: function (event, data) {
+                $(".jtable-dialog-form").height(260);
+                $(".jtable-dialog-form").width(420);
+
+                $('#jtable-create-form').addClass('ParentTable');
+                $('#jtable-edit-form').addClass('ParentTable');
+
+                $("#Edit-Item_Id , #Edit-Purpose_ID,  #Edit-ItemStatus_ID  ,#Edit-plantPart_ID").on('change', function () {
+
+                    if ($("#Edit-Item_Id").val() > 0 && $("#Edit-Purpose_ID").val() > 0
+                        && $("#Edit-ItemStatus_ID").val() > 0 && $("#Edit-plantPart_ID").val() > 0)
+                    {
+                        $.ajax(
+                            {
+                                url: '/ExportRequest/Ex_Plants/GetItem_ShortName',
+                                data:
+                                {
+                                    plantId: $("#Edit-Item_Id").val(),
+                                    purposeId: $("#Edit-Purpose_ID").val(),
+                                    statusId: $("#Edit-ItemStatus_ID").val(),
+                                    partType: $("#Edit-plantPart_ID").val()
+                                },
+                                success: function (res) {
+
+                                    $("#Edit-Item_ShortName").text(res.shortName);
+                                    $("#Edit-HSCODE").text(res.hsCode);
+                                    plant_state = res.state;
+                                    if (res.state == 0) {
+                                        alert("@PlantQuar.WEB.Language.Resource_data1.ExportPlantNotPermitted");
+                                    }
+                                }
+                            });//ajax
+                    }
+                });
+
+                if (data.formType == "create") {
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.AddMessageData");
+                }
+                else {
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.EditMessageData");
+                }
+
+                $("#Edit-Ar_Name, #Edit-En_Name, #Edit-Address_Ar, #Edit-Address_En, #Edit-CommertialRecord, #Edit-CommertialRecord,#txt_AR_BTNSearch, #txt_EN_BTNSearch").attr('autocomplete', 'off');
+
+                // Arabic + spaces + numeric
+                $("#Edit-Ar_Name,#Edit-Address_Ar, #txt_AR_BTNSearch").keypress(function (e) {
+                    var unicode = e.charCode ? e.charCode : e.keyCode
+                    if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+                        if (unicode == 32)
+                            return true;
+                        else {
+                            if ((unicode < 48 || unicode > 57) && (unicode < 0x0600 || unicode > 0x06FF)) //if not a number or arabic
+                                return false; //disable key press
+                        }
+                    }
+                });
+            },
+            formSubmitting: function (event, data) {
+                if (plant_state == 0)
+                {
+                    alert("@PlantQuar.WEB.Language.Resource_data1.ExportPlantNotPermitted");
+                    return false;
+                }
+                return data.form.validationEngine('validate');
+            },
+            formClosed: function (event, data) {
+                data.form.validationEngine('hide');
+                data.form.validationEngine('detach');
+                $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.DeleteMessageData ");
+            },
+            recordAdded: function (event, data) {
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.NewMessageDataAdded");
+            },
+        });
+        $('#lotjtabePlants').jtable('load');
+
+        $(".jtable-toolbar-item-add-record .jtable-toolbar-item-text").text("@PlantQuar.WEB.Language.Resource_data1.AddMessageData");
+    });
+    //***************************************************//
+    function btnPlantConstrains_click(Item_Id, partType_Id, purpose_Id, status_Id) {
+        var importCountry = $("#ImportCountry").val();
+        var transitCountry = $("#TransitCountry").val();
+        console.log(importCountry)
+        console.log(transitCountry)
+        if (importCountry != "") {
+            $.ajax(
+                {
+                    url: '/ExportRequest/Ex_Plants/GetPlantConstrain',
+                    data:
+                    {
+                        plantId: Item_Id,
+                        purposeId: purpose_Id,
+                        statusId: status_Id,
+                        partType: partType_Id,
+                        importerCountryId: importCountry,
+                        transitCountryId: transitCountry
+                    },
+                    success: function (res) {
+
+                        if (res.Records.length > 0) {
+                            $("#dialog-modal").dialog({ height: 600, width: 700, modal: true }).css("display", "block");
+                            $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Constrains");
+
+                            $('#div_egyptConstrain').empty();
+                            $('#div_CountryConstrain').empty();
+                            $('#div_TransitConstrain').empty();
+                            $("#unionName").text('');
+                            $('#div_UnionConstrain').empty();
+
+                            var local = 1; var country = 1; var transit = 1; var union = 1;
+                            $.each(res.Records, function (index, constrain) {
+                                if (constrain.CountryConstrain_Type == 1) {
+                                    $('#div_egyptConstrain').append(
+                                        "<div class='constrainText'>" +
+                                        "<label class='label label-dark'>" + local + "</label>" +
+                                        "<p>" + constrain.ConstrainText_Ar + "</p></div>"
+                                    );
+                                    local = local + 1;
+                                } else if (constrain.CountryConstrain_Type == 2) {
+                                    if (constrain.ConstrainOwner_ID == importCountry) {
+                                        $('#div_CountryConstrain').append(
+                                            "<div class='constrainText'>" +
+                                            "<label class='label label-dark'>" + country + "</label>" +
+                                            "<p>" + constrain.ConstrainText_Ar + "</p></div>"
+                                        );
+                                        country = country + 1;
+                                    } else if (constrain.ConstrainOwner_ID == transitCountry) {
+                                        $('#div_TransitConstrain').append(
+                                            "<div class='constrainText'>" +
+                                            "<label class='label label-dark'>" + transit + "</label>" +
+                                            "<p>" + constrain.ConstrainText_Ar + "</p></div>"
+                                        );
+                                        transit = transit + 1;
+                                    }
+                                } else if (constrain.CountryConstrain_Type == 3) {
+                                    $("#unionName").text($("#unionName").text() + constrain.union_Name + "/");
+                                    $('#div_UnionConstrain').append(
+                                        "<div class='constrainText'>" +
+                                        "<label class='label label-dark'>" + union + "</label>" +
+                                        "<p>" + constrain.ConstrainText_Ar + "</p></div>"
+                                    );
+                                    union = union + 1;
+                                }
+                            });//each
+                        } else {
+                            alert("No Constrains");
+                        }//if count
+                    }//success
+                });//ajax
+        } else {
+            alert("@PlantQuar.WEB.Language.Resource_data1.YouMustSelectImportCountry !!!");
+        }
+    }//function
+    //***************************************************//
+</script>
+
+<style>
+    .ParentTable .jtable-input-field-container:nth-of-type(1),
+    .ParentTable .jtable-input-field-container:nth-of-type(2),
+    .ParentTable .jtable-input-field-container:nth-of-type(3),
+    .ParentTable .jtable-input-field-container:nth-of-type(4),
+    .ParentTable .jtable-input-field-container:nth-of-type(5),
+    .ParentTable .jtable-input-field-container:nth-of-type(6) {
+        margin-bottom: 2px;
+        float: right;
+        width: 48% !important;
+    }
+
+    .ChildTable .jtable-input-field-container:nth-of-type(1),
+    .ChildTable .jtable-input-field-container:nth-of-type(25) {
+        margin-bottom: 2px;
+        float: right;
+        width: 100% !important;
+    }
+
+    .ChildTable .jtable-input-field-container:nth-of-type(5),
+    .ChildTable .jtable-input-field-container:nth-of-type(6),
+    .ChildTable .jtable-input-field-container:nth-of-type(7),
+    .ChildTable .jtable-input-field-container:nth-of-type(8),
+    .ChildTable .jtable-input-field-container:nth-of-type(9),
+    .ChildTable .jtable-input-field-container:nth-of-type(10),
+    .ChildTable .jtable-input-field-container:nth-of-type(11),
+    .ChildTable .jtable-input-field-container:nth-of-type(12),
+    .ChildTable .jtable-input-field-container:nth-of-type(13),
+    .ChildTable .jtable-input-field-container:nth-of-type(14),
+    .ChildTable .jtable-input-field-container:nth-of-type(15),
+    .ChildTable .jtable-input-field-container:nth-of-type(16),
+    .ChildTable .jtable-input-field-container:nth-of-type(17),
+    .ChildTable .jtable-input-field-container:nth-of-type(18),
+    .ChildTable .jtable-input-field-container:nth-of-type(19),
+    .ChildTable .jtable-input-field-container:nth-of-type(20) {
+        margin-bottom: 2px;
+        float: right;
+        width: 25% !important;
+    }
+
+    .ChildTable .jtable-input-field-container:nth-of-type(2),
+    .ChildTable .jtable-input-field-container:nth-of-type(3),
+    .ChildTable .jtable-input-field-container:nth-of-type(4) {
+        margin-bottom: 2px;
+        float: right;
+        width: 33% !important;
+    }
+
+        .ChildTable .jtable-input-field-container:nth-of-type(4) .jtable-text-input input {
+            width: 90% !important;
+        }
+
+    .ChildTable .jtable-input-field-container:nth-of-type(21),
+    .ChildTable .jtable-input-field-container:nth-of-type(22),
+    .ChildTable .jtable-input-field-container:nth-of-type(23),
+    .ChildTable .jtable-input-field-container:nth-of-type(24) {
+        margin-bottom: 2px;
+        float: right;
+        width: 50% !important;
+    }
+
+    .ChildTable .jtable-input-field-container:nth-of-type(1) .jtable-text-input input {
+        width: 48%;
+    }
+
+    .ChildTable .jtable-input-field-container:nth-of-type(9) .jtable-text-input input,
+    .ChildTable .jtable-input-field-container:nth-of-type(5) .jtable-text-input input,
+    .ChildTable .jtable-input-field-container:nth-of-type(13) .jtable-text-input input,
+    .ChildTable .jtable-input-field-container:nth-of-type(17) .jtable-text-input input {
+        visibility: collapse;
+    }
+
+    .ChildTable .jtable-input-field-container:nth-of-type(6) .jtable-text-input input,
+    .ChildTable .jtable-input-field-container:nth-of-type(7) .jtable-text-input input,
+    .ChildTable .jtable-input-field-container:nth-of-type(8) .jtable-text-input input,
+    .ChildTable .jtable-input-field-container:nth-of-type(10) .jtable-text-input input,
+    .ChildTable .jtable-input-field-container:nth-of-type(11) .jtable-text-input input,
+    .ChildTable .jtable-input-field-container:nth-of-type(12) .jtable-text-input input,
+    .ChildTable .jtable-input-field-container:nth-of-type(14) .jtable-text-input input,
+    .ChildTable .jtable-input-field-container:nth-of-type(15) .jtable-text-input input,
+    .ChildTable .jtable-input-field-container:nth-of-type(16) .jtable-text-input input,
+    .ChildTable .jtable-input-field-container:nth-of-type(18) .jtable-text-input input,
+    .ChildTable .jtable-input-field-container:nth-of-type(19) .jtable-text-input input,
+    .ChildTable .jtable-input-field-container:nth-of-type(20) .jtable-text-input input {
+        width: 40% !important;
+    }
+
+    .ChildTable .jtable-input-field-container:nth-of-type(25) .jtable-textarea-input textarea {
+        width: 96% !important;
+    }
+
+    #jtable-create-form, #jtable-edit-form {
+        overflow: hidden !important;
+    }
+
+    .constrainText {
+        background-color: #beb3a0;
+        border-radius: 16px 55px;
+        padding-right: 20px;
+        padding-left: 10px;
+        font-size: 12px;
+        font-family: fantasy !important;
+        color: white;
+    }
+    /**************************************/
+</style>

@@ -1,0 +1,267 @@
+﻿@model PlantQuar.DTO.DTO.IM_Check_Requst_Report.Check_Requst_Accepted_All_DTO
+@{
+    /**/
+
+    ViewBag.Title = "Committee";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+
+
+}
+
+@section Title{
+    <h2 class="ls-top-header">تم النهاية من الطلب</h2>
+}
+@section Path{
+
+    <li class="active" style="right: 43px; position: relative;">Import Committe</li>
+}
+<link href="~/Content/jquery.timepicker.css" rel="stylesheet" />
+<script src="~/scripts/jquery.timepicker.min.js"></script>
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style>
+        .lab-2 {
+            margin-top: 45px;
+            margin-right: 8px;
+            text-align: center;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+ 
+        <div id="tableArabic" style="width:21cm;height:29.7cm;background:gray;margin:auto;padding-top:.6cm">
+            <div id="border" style="width:20cm;background:white;margin:auto;border:1px solid #000;font-family: 'Arial regular'!important;font-size:10pt;">
+                <div id="header" style="height:4.5cm;">
+                    <div class="" style="margin:auto;height:inherit;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style="width: 50%; height:inherit;padding:3px">
+                            <div class="col-md-4 col-sm-4" style="display:inline-block;float:right;padding: 3px;height: inherit;">
+                                <img class="img1" style="" src="~/assets/images/capq/logo-capq-114.png" />
+                            </div>
+                            <div class="col-md-8 col-sm-8" style="display:inline-block;height: inherit;">
+                                <p class="lab-2" style="font-weight:bold">
+                                    جمهورية مصر العربية<br />
+                                    وزارة الزراعة واستصلاح الأراضي<br />
+                                    الإدارة المركزية للحجر الزراعي
+
+                                </p>
+                            </div>
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style="width: 50%;height: inherit;padding: 3px;">
+                            <div class="col-md-6 col-sm-6" style="display:inline-block;float:right;height: inherit;text-align: right;">
+                                <label style="margin-top: 10px;font-size: 20px;">بيان فحص رسائل وارد</label>
+                                <label>رقم:</label><span></span>
+                                <br />
+                                <label>الإدارة العامة:</label><span></span>
+                                <br />
+                                <label>ميناء:</label><span></span>
+                            </div>
+                            <div class="col-md-6 col-sm-6" style="display:inline-block;height:inherit;padding: 35px 10px;"><label style="width: 100px; height: 100px; margin-bottom: 0px; float: left;font-size: 70px;font-family:'Alphanumericqr-E5zz'">1</label></div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="content" style="height:20cm;">
+                    <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>رقم الشهادة الجمركية:</label>
+                            <span></span>
+
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div style="width :50%; height :inherit;padding :3px">
+                            <label>تاريخ الشهادة الجمركية:</label>
+                            <span>etre</span>
+
+                        </div>
+                    </div>
+                    <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style="width:50%;height:inherit;padding:3px">
+                            <label>رقم المنافستو:</label>
+                            <span></span>
+
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>ACID:</label>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>تاريخ الشحن:</label>
+                            <span></span>
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>تاريخ الوصول:</label>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>نوع العملية:</label>
+                            <span></span>
+
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>التوكيل الملاحي:</label>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>اسم المستورد:</label>
+                            <span></span>
+
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>العنوان:</label>
+                            <span></span>
+
+
+                        </div>
+                    </div>
+                    <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>رقم السجل التجاري:</label>
+                            <span></span>
+
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>رقم البطاقة الضربية:</label>
+                            <span></span>
+
+                        </div>
+                    </div>
+                    <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>نوع النشاط ورقم النشاط:</label>
+                            <span></span>
+
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+
+                            <label>المندوب:</label>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>الدولة المصدرة:</label>
+                            <span></span>
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>نوع وميناء الشحن:</label>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>دولة العبور:</label>
+                            <span></span>
+
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>نوع وميناء الشحن:</label>
+                            <span></span>
+
+
+                        </div>
+                    </div>
+                    <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>نوع وسيلة الشحن:</label>
+                            <span></span>
+
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>اسم وسيلة الشحن:</label>
+                            <span></span>
+
+                        </div>
+                    </div>
+                    <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+                            <label>اسم المورد:</label>
+                            <span></span>
+
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style="width:50%; height:inherit;padding:3px">
+
+                            <label>العنوان:</label>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="" style="margin:auto;height:.6cm;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style="width:100%; height:inherit;padding:3px">
+                            <label>رقم أذون الاستيراد للرسالة:</label>
+                            <span></span>
+                        </div>
+
+                    </div>
+
+                    <div class="" style="margin:auto;height:12.8cm;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style="width:100%; height:inherit;padding:0px 3px">
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div id="footer3" style="height:3cm;">
+                    <div class="" style="margin:auto;height:inherit;display:flex;">
+                        <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                            <label>مكان الإصدار:</label>
+                            <span></span>
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                            <label>اسم المسئول المفوض:</label>
+                            <span></span>
+                            <br />
+                            <label>التوقيع:</label>
+                            <span>..............................</span>
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style="width: 33.33333333%; height: inherit;padding: 3px">
+                            <label>تاريخ الإصدار:</label>
+                            <span></span>
+                            <div class="circle" style="margin: 9px 3px; width:92px; height:92px; background-color:white; border:1px solid black; border-radius :50%; float :left;">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="text-width" style="font-family: 'Arial regular' !important; font-size: 10pt; width: 20cm; background-color: white; margin: auto; height: 1cm; display: flex; text-align: center">
+                <div class="" style="width:100%; height:inherit; padding:3px">
+                    <span>
+                        لا تتحمل الإدارة المركزية للحجر الزراعي أو أي من موظفيها أو ممثليها أي مسئولية مالية قد تنجم عن هذه الشهادة
+                    </span>
+                </div>
+            </div>
+
+        </div>
+    
+    </body>
+</html>
+

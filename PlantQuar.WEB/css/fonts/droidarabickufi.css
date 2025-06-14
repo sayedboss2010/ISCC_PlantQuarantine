@@ -1,0 +1,24 @@
+/*
+ * Droid Arabic Kufi (Arabic) http://www.google.com/fonts/earlyaccess
+ */
+@font-face {
+    font-family: 'Droid Arabic Kufi';
+    font-style: normal;
+    font-weight: 400;
+    src: url('DroidKufi-Regular.eot');
+    src: url('DroidKufi-Regular.eot') format('embedded-opentype');
+    src: url('DroidKufi-Regular.woff2') format('woff2');
+    src: url('DroidKufi-Regular.woff') format('woff');
+    src: url('DroidKufi-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Droid Arabic Kufi';
+  font-style: normal;
+  font-weight: 700;
+  src: url('DroidKufi-Bold.eot');
+  src: url('DroidKufi-Bold.eot') format('embedded-opentype'),
+       url('DroidKufi-Bold.woff2') format('woff2'),
+       url('DroidKufi-Bold.woff') format('woff'),
+       url('DroidKufi-Bold.ttf') format('truetype');
+}

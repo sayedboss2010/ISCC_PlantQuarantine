@@ -1,0 +1,123 @@
+﻿
+
+@model PlantQuar.DTO.DTO.Farm.FarmConstrain.Farm_CheckList_Constrain_DTO
+
+@{ var model = Model;
+    ViewBag.Title = "FarmAddEdit";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.Import_CountryConstrain</h2>
+}
+
+@section Path{
+    <li>@PlantQuar.WEB.Language.Resource_data1.Constrains</li>
+    <li class="active">@PlantQuar.WEB.Language.Resource_data1.Import_CountryConstrain</li>
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-10"></div>
+        <div class="col-md-2">
+            @Html.ActionLink(PlantQuar.WEB.Language.Resource_data1.Back, "Index", "Farm_CheckList_Constrain", new { area = "FA_Farm" }, new { @class = "btn btn-primary", @style = "width:100%" })
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm("SaveFarm_CheckList_Constrain", "Farm_CheckList_Constrain", FormMethod.Post, new { area = "FA_Farm" }))
+{
+    @Html.HiddenFor(m => m.ID)
+
+        <div class="tab" role="tabpanel" style="min-height:80% !important;">
+            <div class="tab-content tabs" style="background-color:whitesmoke  !important;">   
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="col-md-5">
+                            <label for="Constrain_Country" class="control-label">@Model.Country_Id</label>
+                            <label for="Constrain_Country" class="control-label">@ViewBag.Country_Id</label>
+                        </div>
+                        <div class="col-md-7">
+                            @if (ViewBag.Country_Id != null)
+                            {
+
+                                @Html.DropDownListFor(m => m.Country_Id, new SelectList(ViewBag.Country_Id, "Value", "DisplayText"), new { @class = "form-control", @id = "Farm_Constrain_Country_Item_List" })
+                            }
+                            else
+                            {
+                                <select id="Farm_Constrain_Country_Item_List" class="form-control"></select>
+                            }
+                        </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="ConstrainText_Ar" class="control-label">عنوان الاشتراط بالعربية </label>
+                            @Html.TextAreaFor(m => m.ConstrainText_Ar, new { @class = "form-control", @id = "ConstrainText_Ar", @cols = 3, @rows = 3, @required = "required" })
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="ConstrainText_En" class="control-label">condition titlle</label>
+                            @Html.TextAreaFor(m => m.ConstrainText_En, new { @class = "form-control", @id = "ConstrainText_En", @cols = 3, @rows = 3, @required = "required" })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="InSide_Certificate_Ar" class="control-label">نص الاشتراط /الاضافة  </label>
+                            @Html.TextAreaFor(m => m.Description_Ar, new { @class = "form-control", @id = "InSide_Certificate_Ar", @cols = 3, @rows = 3 })
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="InSide_Certificate_En" class="control-label">condition /Addition</label>
+                            @Html.TextAreaFor(m => m.Description_En, new { @class = "form-control", @id = "InSide_Certificate_En", @cols = 3, @rows = 3 })
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <input type="submit" class="btn btn-primary" style="width:100%" value="@PlantQuar.WEB.Language.Resource_data1.Save" autocomplete="off">
+                        </div>
+                    </div>
+
+                </div>
+    </div>
+}
+
+
+<style>
+    .attach .jtable-input-field-container:nth-of-type(1),
+    .attach .jtable-input-field-container:nth-of-type(2),
+    .attach .jtable-input-field-container:nth-of-type(3),
+    .attach .jtable-input-field-container:nth-of-type(4) {
+        margin-bottom: 2px;
+        float: right;
+        width: 48% !important;
+    }
+
+
+    .attach .jtable-input-field-container:nth-of-type(5) {
+        margin-bottom: 2px;
+        float: right;
+        width: 98% !important;
+    }
+</style>
+
+<script>
+     $(function () {
+                $.ajax(
+                    {
+                        url: '@Url.Action("Country_List", "Farm_CheckList_Constrain", new { area = "FA_Farm" })',
+                        type: 'Post',
+                        success: function (data) {
+                            $('#Farm_Constrain_Country_Item_List').empty();
+                            $.each(data.Options, function (i, index) {
+                                $('#Farm_Constrain_Country_Item_List').append($('<option />').val(index.Value).text(index.DisplayText));
+                            }); //each
+                        } //success
+                    });//ajax
+            });
+</script>

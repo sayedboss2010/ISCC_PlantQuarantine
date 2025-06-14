@@ -1,0 +1,1147 @@
+﻿
+@model PlantQuar.DTO.DTO.Farm.FarmData.FarmsDataDTO
+
+@{
+    ViewBag.Title = "FarmAddEdit";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.StationAccreditation</h2>
+}
+
+@section Path{
+    <li>@PlantQuar.WEB.Language.Resource_data1.Farm </li>
+    <li class="active">@PlantQuar.WEB.Language.Resource_data1.FarmData</li>
+}
+ 
+<style>
+    blockquote.styles {
+        margin-bottom: 60px;
+    }
+    #Print {
+        background-color: #1e7c80 !important;
+        border: 2px solid #1e8084 !important;
+        box-shadow: 0 4px #1d9fa5 !important;
+        outline: none;
+        color: white;
+        margin-bottom: 10px;
+        width: 50%;
+    }
+
+    .tbl-report th, td {
+        border: 1px solid black;
+        padding: 5px;
+    }
+
+    th {
+        background: #1f6c6f;
+        color: white;
+    }
+
+    #Farm_Constrain_TextTable {
+        font-size: 16px;
+    }
+</style>
+
+
+<div class="row" style="display:none">
+    <div class="col-lg-4 col-md-5 ta1">
+        <label for="NamedName" class="control-label">اسم المسمى</label>
+        <input class="form-control" />
+        @*@Html.DropDownListFor(m => m.Govern_ID, new SelectList(ViewBag.ActivityType, "Value", "DisplayText"), new { @class = "form-control", @id = "govLst" })*@
+    </div>
+    <div class="col-lg-4 col-md-5 ta1">
+        <label for="GoveName2" class="control-label">@PlantQuar.WEB.Language.Resource_data1.ActivityType</label>
+        <input class="form-control" />
+        @*@Html.DropDownListFor(m => m.Govern_ID, new SelectList(ViewBag.ActivityType, "ID", "Ar_Name"), new { @class = "form-control", @id = "govLst" })*@
+    </div>
+    <div class="col-lg-4 col-md-5 ta1">
+        <label for="GoveName" class="control-label">نوع الإعتماد</label>
+        <input class="form-control" />
+        @*@Html.DropDownListFor(m => m.Govern_ID, new SelectList(ViewBag.ActivityType, "Value", "DisplayText"), new { @class = "form-control", @id = "govLst" })*@
+    </div>
+
+
+    <br />
+    <br />
+
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-10"></div>
+            <div class="col-md-2">
+                <input type="submit" class="btn btn-primary LoadRecordsButton" style="width:100%" value="@PlantQuar.WEB.Language.Resource_data1.Search" />
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <br />
+</div>
+
+@*@using (Html.BeginForm("SaveFarm", "FarmData", FormMethod.Post, new { area = "FA_Farm", id = "farmForm" }))
+    {*@
+<div>
+    <div class="tab" role="tabpanel" style="min-height:80% !important;">
+        <ul class="row nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#ActivityTab" aria-controls="profile" role="tab" data-toggle="tab">بيانات مسمى النشاط</a>
+            </li>
+            <li role="presentation">
+                <a href="#countryTab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Country</a>
+            </li>
+            <li role="presentation">
+                <a href="#Item_ShortNameTab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.ShortName </a>
+            </li>
+            <li role="presentation">
+                <a href="#ConstrainsTab" aria-controls="profile" role="tab" data-toggle="tab">اشتراطات الاعتماد</a>
+            </li>
+            <li role="presentation" >
+                <a href="#attachmentTab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Attachment</a>
+            </li>
+        </ul>
+        <div class="tab-content tabs" style="background-color:whitesmoke  !important;">
+
+
+
+            <div role="tabpanel" class="tab-pane fade in active" id="ActivityTab" style="height:600px;">      
+                    <div class="row">
+                       
+                            <div class="col-lg-3 col-md-5 ta1">
+                                <label for="CenterName" class="control-label">نوع الاعتماد</label>
+                                <select class="form-control" data-val="true" data-val-number="The field Center_Id must be a number." data-val-required="The Center_Id field is required." id="AccreditionTypeID" name="Center_Id" autocomplete="off">
+                                    <option value="">----------</option>
+                                    <option value="80">صادر</option>
+                                    <option value="81">وارد</option>
+                                </select>
+                                </div>
+                                <div class="col-lg-3 col-md-5 ta1">
+                                    <label for="Name_Ar" class="control-label">  مسمى الاعتماد بالعربية</label>
+                                    @Html.TextBoxFor(m => m.Name_Ar, new { @class = "form-control required", @id = "txtName_Ar" })
+                                </div>
+                                <div class="col-lg-3 col-md-5 ta1">
+                                    <label for="Name_En" class="control-label">مسمى الاعتماد بالاجنبية</label>
+                                    @Html.TextBoxFor(m => m.Name_En, new { @class = "form-control", @id = "txtName_En" })
+                                    @Html.HiddenFor(m => m.IS_OnlineOffline, new { @class = "form-control", @readonly = "readonly", @id = "IS_OnlineOffline" })
+                                </div>                           
+                        </div>
+          
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-lg-3 col-md-5 ta1">
+                                <label for="GoveName" class="control-label">@PlantQuar.WEB.Language.Resource_data1.ActivityType</label>
+                                @Html.DropDownListFor(m => m.Govern_ID, new SelectList(ViewBag.ActivityType, "ID", "Ar_Name"), new { @class = "form-control", @id = "ActivityType" })
+
+
+                                @*@Html.DropDownListFor(m => m.Govern_ID, new SelectList(ViewBag.ActivityType, "Value", "DisplayText"), new { @class = "form-control", @id = "govLst" })*@
+                            </div>
+                            <div class="col-lg-3 col-md-5 ta1">
+                                <label for="Name_Ar" class="control-label">@PlantQuar.WEB.Language.Resource_data1.MainTreatment</label>
+                                @Html.TextBoxFor(m => m.Name_Ar, new { @class = "form-control", @id = "Name_Ar", @readonly = "readonly" })
+                            </div>
+                            <div class="col-lg-3 col-md-5 ta1">
+                                <label for="Name_Ar" class="control-label">@PlantQuar.WEB.Language.Resource_data1.TreatmentType</label>
+                                @Html.TextBoxFor(m => m.Name_Ar, new { @class = "form-control", @id = "TreatmentType", @readonly = "readonly" })
+                            </div>                           
+                        </div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-lg-5 col-md-5 ta1">
+                                <label for="Address_Ar" class="control-label">@PlantQuar.WEB.Language.Resource_data1.ArabicDescription</label>
+                                @Html.TextAreaFor(m => m.Address_Ar, new { @class = "form-control", @id = "txtAddress_Ar" })
+                            </div>
+                            <div class="col-lg-5 col-md-5 ta1">
+                                <label for="Address_En" class="control-label">@PlantQuar.WEB.Language.Resource_data1.EnglishDescription</label>
+                                @Html.TextAreaFor(m => m.Address_En, new { @class = "form-control", @id = "txtAddress_En" })
+                            </div>
+                        </div>
+                    </div>
+   
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-lg-5 col-md-5 ta1">
+                                <label for="Address_Ar" class="control-label">@PlantQuar.WEB.Language.Resource_data1.ArabicDescription اكثر</label>
+                                @Html.TextAreaFor(m => m.Address_Ar, new { @class = "form-control", @id = "ArabicDescription" })
+                            </div>
+                            <div class="col-lg-5 col-md-5 ta1">
+                                <label for="Address_En" class="control-label">@PlantQuar.WEB.Language.Resource_data1.EnglishDescription More</label>
+                                @Html.TextAreaFor(m => m.Address_En, new { @class = "form-control", @id = "EnglishDescription" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="col-lg-2 col-md-5 ta1">
+                                @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-control" ,@id="isAccreditionActive"})
+                                <label for="IsActive" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Active</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-10"></div>
+                            <div class="col-md-2">
+                                <input type="submit" class="btn btn-primary LoadRecordsButton" style="width:100%" value="@PlantQuar.WEB.Language.Resource_data1.Save" onclick="SaveStationAccrditationData()" />
+                            </div>
+                        </div>
+                    </div>                
+            </div>
+
+            <div role="tabpanel" class="tab-pane fade in" id="countryTab" style="height:600px;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="Country_Id" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Country</label>
+                        @Html.DropDownListFor(m => m.Address_Ar, new SelectList(ViewBag.Unions, "Value", "DisplayText"), new { @class = "form-control", @id = "CountryId", @required = "required" })
+
+                    </div>
+                    <div class="col-md-6">
+                        <label for="Union_Id" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Union</label>
+                        @Html.DropDownListFor(m => m.Address_Ar, new SelectList(ViewBag.Unions, "Value", "DisplayText"), new { @class = "form-control", @id = "Union_Id", @required = "required" })
+                    </div>
+                </div>         
+                <br />
+                <div>
+                    <div class="row">
+                        <div class="col-lg-3 col-md-5 ta1">
+                            @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-control", @id = "CountryIsActive" })
+                            <label for="Address_En" class="control-label"> @PlantQuar.WEB.Language.Resource_data1.IsActive</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10"></div>
+                    <div class="col-md-2">
+                        <input type="submit" class="btn btn-primary LoadRecordsButton" style="width:100%" value="@PlantQuar.WEB.Language.Resource_data1.Add" onclick="addCountry()" />
+                    </div>
+                </div>
+                <br />
+                <div class="row tbl-report" id="listFarm_Constrain_Text">
+                    <table width="100%" id="Farm_Constrain_TextTable">
+                        <thead>
+                            <tr>
+                                @*//<th>@PlantQuar.WEB.Language.Resource_data1.EmpolyeeNumber</th>*@
+                                <th>اسم الاتحاد</th>
+                                <th>اسم الدوله</th>
+
+                                <th>الحالة</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <br />
+                <div class="row">
+
+                    <div class="col-md-10"></div>
+                    <div class="col-md-2">
+                        <input type="submit" class="btn btn-primary LoadRecordsButton" style="width:100%" value="@PlantQuar.WEB.Language.Resource_data1.Save" onclick="SaveStationAccrditationDataCountry()" />
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12" id="countryFarmList" style="height:500px;">
+                        @* jTable *@
+                    </div>
+                </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane fade in" id="Item_ShortNameTab" style="height:600px;">
+                <div class="row">
+                    <div class="col-lg-3 col-md-5 ta1">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.MainCalssification</label>
+                        @Html.DropDownListFor(m => m.mainClass_Id, new SelectList(ViewBag.MainClassification, "Value", "DisplayText"),
+                           new { @class = "form-control", @id = "mainClassLst" })
+                    </div>
+                    <div class="col-lg-3 col-md-5 ta1">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.SecondaryClassification</label>
+                        @Html.DropDownListFor(m => m.secClass_Id, new SelectList(ViewBag.SecondaryClassification, "Value", "DisplayText"),
+                           new { @class = "form-control", @id = "secClassLst" })
+                    </div>
+                    <div class="col-lg-3 col-md-5 ta1">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.PlantGroup</label>
+                        @Html.DropDownListFor(m => m.group_Id, new SelectList(ViewBag.GroupLst, "Value", "DisplayText"),
+                           new { @class = "form-control", @id = "groupLst", @onclick = "getitemsLst()" })
+                    </div>
+                    <div class="col-lg-3 col-md-5 ta1">
+                        <label class="control-label" for="isKnown">نوع العنصر</label>
+                        <select name="isKnown" id="isKnownID" class="form-control" onclick="getitemsLst()">
+                            <option>@PlantQuar.WEB.Language.Resource_data1.Isknown</option>
+                            <option>@PlantQuar.WEB.Language.Resource_data1.un_known</option>
+
+                        </select>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="col-lg-3 col-md-5 ta1">
+                            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Items</label>
+                            @Html.DropDownListFor(m => m.Item_ID, new SelectList(ViewBag.ItemsLst, "Value", "DisplayText"),
+                               new { @class = "form-control", @id = "itemsLst" })
+                        </div>
+                        <div class="col-lg-3 col-md-5 ta1">
+                            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.ScientificName</label>
+                            @Html.TextBoxFor(m => m.ScientificName, new { @class = "form-control", @readonly = "readonly", @id = "txtScientificName" })
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div>
+                    @*<div class="row">
+                <div class="col-md-12">
+
+                    <div class="col-lg-3 col-md-5 ta1">
+                        @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-control" })
+                        <label for="Address_En" class="control-label"> اختيار كل المسميات</label>
+                    </div>
+                </div>
+            </div>*@
+
+                    <div class="row" id="ShortNames">
+                        @*<div class="col-md-12">
+                    <div class="col-lg-3 col-md-5 ta1">
+                        @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-control" })
+                        <label for="IsActive" class="control-label">مسمى1</label>
+                    </div>
+                    <div class="col-lg-3 col-md-5 ta1">
+                        @Html.CheckBoxFor(m => m.IsApproved, new { @class = "form-control", @id = "chkFarmApproved" })
+                        <label for="IsApproved" class="control-label">مسمى2</label>
+                    </div>
+                    <div class="col-lg-3 col-md-5 ta1">
+                        @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-control" })
+                        <label for="IsActive" class="control-label">مسمى3</label>
+                    </div>
+                </div>*@
+                    </div>
+                    @*<div class="row">
+                <div class="col-md-12">
+                    <div class="col-lg-3 col-md-5 ta1">
+                        @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-control" })
+                        <label for="IsActive" class="control-label"> مسمى4</label>
+                    </div>
+                    <div class="col-lg-3 col-md-5 ta1">
+                        @Html.CheckBoxFor(m => m.IsApproved, new { @class = "form-control", @id = "chkFarmApproved" })
+                        <label for="IsApproved" class="control-label">مسمى5</label>
+                    </div>
+                    <div class="col-lg-3 col-md-5 ta1">
+                        @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-control" })
+                        <label for="IsActive" class="control-label">مسمى6</label>
+                    </div>
+                </div>
+            </div>*@
+                </div>
+                <br />
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-10"></div>
+                        <div class="col-md-2">
+                            <input type="submit" class="btn btn-primary LoadRecordsButton" id="AddshortName" style="width:100%" value="@PlantQuar.WEB.Language.Resource_data1.Add" onclick="AddshortName()" />
+                        </div>
+                    </div>
+                </div>
+
+                <br /><br />
+                <div class="row tbl-report" id="ListShortName">
+                    <table width="100%" id="ListShortNameID">
+                        <thead>
+                            <tr>
+                                @*//<th>@PlantQuar.WEB.Language.Resource_data1.EmpolyeeNumber</th>*@
+                                <th>اسم النبات</th>
+                                <th> المسمى المختصر  </th>
+
+                                @*<th>الحالة</th>*@
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-10"></div>
+                        <div class="col-md-2">
+                            <input type="submit" class="btn btn-primary LoadRecordsButton" id="SaveshortNames" style="width:100%" value="@PlantQuar.WEB.Language.Resource_data1.Add" onclick="SaveshortNames()" />
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br /><br />
+                <div class="row">
+                    <div class="col-md-12" id="plantsFarmList" style="height:500px;">
+                        @* jTable *@
+                    </div>
+                </div>
+            </div>
+           
+            <div role="tabpanel" class="tab-pane fade in" id="ConstrainsTab" style="height:600px;">
+                <div>
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="col-lg-3 col-md-5 ta1">
+                                @*@Html.CheckBoxFor(m => m.IsActive, new { @class = "form-control" })*@
+                                <label for="Address_En" class="control-label"> اختيار إشتراط أو أكثر</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            @{
+                                var privsInApp = ViewBag.checkLists;
+                                foreach (var priv in privsInApp)
+                                {
+                                                        <div class="col-lg-3 col-md-5 ta1">
+                                                            <input type="checkbox" id="@priv.ID " name="constrainsName" value="@priv.ConstrainText_Ar" >
+                                                             <label for="IsActive" class="control-label" >@priv.ConstrainText_Ar</label>
+                                                        </div>
+                                }
+                            }                           
+                        </div>
+                    </div>               
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-10"></div>
+                        <div class="col-md-2">
+                            <input type="submit" class="btn btn-primary LoadRecordsButton" style="width:100% " value="@PlantQuar.WEB.Language.Resource_data1.Add" onclick="AddConstrains()" />
+                        </div>
+                    </div>
+                </div>
+                <br /><br />
+                <div class="row tbl-report" id="ListConstrainssID">
+                    <table width="100%" id="ListConstrainsID">
+                        <thead>
+                            <tr>
+                                 <th>اسم الاشتراط</th>
+ 
+                             </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <br />
+                <br />
+                <br />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-10"></div>
+                        <div class="col-md-2">
+                            <input type="submit" class="btn btn-primary LoadRecordsButton" style="width:100% " value="@PlantQuar.WEB.Language.Resource_data1.Save" onclick="SaveConstrains()" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" id="RequireFarmList" style="height:500px;">
+                        @* jTable *@
+                    </div>
+                </div>
+            </div>
+            
+            <div role="tabpanel" class="tab-pane fade in" id="attachmentTab" style="height:600px;">
+                <div class="row">
+                    <div class="col-md-12 attach" id="fileAttach">
+                        @* jTable *@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+   
+
+    function SaveConstrains() {
+        var lst = [];
+        var constrains = document.getElementById("ListConstrainsID").rows.length;
+
+
+        //  console.log(constrains);
+
+        for (i = 1; i < constrains; i++) {
+            var object = {};
+
+            //  var CountCountries1 = document.getElementById("Farm_Constrain_TextTable").rows[i];
+
+            //   console.log(constrains);
+
+            object.Station_CheckList_ID = document.getElementById("ListConstrainsID").rows[i]['id'];
+            //var c = document.getElementById("ListShortNameID").rows[i].cells.item(2).innerHTML;
+            //if (c == "فعال") {
+            //    object.IsActive = true;
+            //}
+            //else if (c == "غير فعال") {
+            //    object.IsActive = false;
+            //}
+            //console.log(constrains)
+            lst.push(object);
+
+
+        }
+        console.log(lst)
+
+        //var dataSended = {};
+        //dataSended.CountryData = lst;
+
+        //dataSended.User_Creation_Id = 1;
+        //dataSended.Station_Accreditation_Data_ID = 1;
+
+
+        $.ajax({
+            url: '/ST_Station/StationActivityData/SendStationAccreditionConstrains',
+            type: "POST",
+            data: { Dtos: lst },
+            success: function (result) {
+
+                alertify.success('Saved');
+
+
+
+            },
+            error: function (ex) {
+
+
+                alertify.alert('We face some technical difficulties. Hello World');
+            }
+
+
+
+
+
+
+
+
+
+
+        });
+
+
+    }
+
+    function AddConstrains() {
+       // Union = $("#itemsLst option:selected").text();
+
+      //  alert("ssss");
+        $.each($("input[name='constrainsName']:checked"), function () {
+ 
+            $("#ListConstrainsID tbody").append("<tr id=" + $(this).attr('id')+">" +
+
+                "<td>"  + $(this).attr('value')+   "</td>"
+               
+            + "</tr>");
+ 
+        });
+
+
+
+
+
+
+    }
+
+/////////////////////////
+    function AddshortName() {
+        Union = $("#itemsLst option:selected").text();
+
+
+        $.each($("input[name='interest']:checked"), function () {
+
+
+
+            $("#ListShortNameID tbody").append("<tr id=" + $(this).attr('value') + ">" +
+
+
+                "<td>" + Union + "</td>" +
+                "<td>" + $(this).attr('id') + "</td>"
+                + "</tr>");
+
+
+        });
+
+
+
+
+
+
+    }
+
+
+    function SaveshortNames() {
+        var lst = [];
+        var shortNames = document.getElementById("ListShortNameID").rows.length;
+      //  console.log(shortNames);
+
+        for (i = 1; i < shortNames; i++) {
+            var object = {};
+
+            //  var CountCountries1 = document.getElementById("Farm_Constrain_TextTable").rows[i];
+
+         //   console.log(shortNames);
+
+            object.Item_ShortName_ID = document.getElementById("ListShortNameID").rows[i]['id'];
+            //var c = document.getElementById("ListShortNameID").rows[i].cells.item(2).innerHTML;
+            //if (c == "فعال") {
+            //    object.IsActive = true;
+            //}
+            //else if (c == "غير فعال") {
+            //    object.IsActive = false;
+            //}
+              //console.log(shortNames)
+            lst.push(object);
+
+
+        }
+        //console.log(lst)
+
+        //var dataSended = {};
+        //dataSended.CountryData = lst;
+
+        //dataSended.User_Creation_Id = 1;
+        //dataSended.Station_Accreditation_Data_ID = 1;
+
+
+        $.ajax({
+            url: '/ST_Station/StationActivityData/SendStationAccreditionShortName',
+            type: "POST",
+            data: { Dtos: lst },
+            success: function (result) {
+
+
+
+
+
+                alertify.success('Saved');
+
+
+
+            },
+            error: function (ex) {
+
+
+                alertify.alert('We face some technical difficulties. Hello World');
+            }
+
+
+
+
+
+
+
+
+
+
+        });
+
+
+    }
+
+
+    function SaveStationAccrditationData() {
+
+        var StationAccrditationData = {}
+
+        StationAccrditationData.Name_AR = $('#txtName_Ar').val();
+        StationAccrditationData.Name_En = $('#txtName_En').val();
+        StationAccrditationData.Description_Ar = $('#txtAddress_Ar').val();
+
+        StationAccrditationData.DescriptionMore_EN = $('#txtAddress_En').val();
+        StationAccrditationData.DescriptionMore_AR = $('#ArabicDescription').val();
+        StationAccrditationData.Description_En = $('#EnglishDescription').val();
+
+        StationAccrditationData.StationActivityType_ID = $('#ActivityType').val();
+        StationAccrditationData.Accreditation_Type_ID = $('#AccreditionTypeID').val();
+     //   StationAccrditationData.IsActive = $('#isAccreditionActive').val();
+        StationAccrditationData.IsActive = $('#isAccreditionActive').is(":checked");
+        console.log(StationAccrditationData);
+
+
+
+        if (!(StationAccrditationData.Name_AR == "" &&
+            StationAccrditationData.Name_En == "" &&
+            StationAccrditationData.Description_Ar == "" &&
+            StationAccrditationData.DescriptionMore_EN == "" &&
+            StationAccrditationData.DescriptionMore_AR == "" &&
+            StationAccrditationData.Description_En == "" &&
+            StationAccrditationData.StationActivityType_ID == 0 &&
+            StationAccrditationData.Accreditation_Type_ID == 0)) {
+            $.ajax({
+                url: '/ST_Station/StationActivityData/SendStationAccredition',
+                type: "POST",
+                data: { Dto: StationAccrditationData },
+                success: function (result) {
+
+
+                    $("#txtName_Ar").prop("disabled", true);
+                    $("#txtName_En").prop("disabled", true);
+                    $("#txtAddress_Ar").prop("disabled", true);
+                    $("#txtAddress_En").prop("disabled", true);
+                    $("#ArabicDescription").prop("disabled", true);
+                    $("#EnglishDescription").prop("disabled", true);
+                    $("#ActivityType").prop("disabled", true);
+                    $("#AccreditionTypeID").prop("disabled", true);
+                    $("#IsActive").prop("disabled", true);
+
+
+
+
+
+
+                },
+                error: function (ex) {
+
+
+                    alertify.alert('We face some technical difficulties. Hello World');
+                }
+
+
+
+
+
+
+
+
+
+
+            });
+        }
+        else {
+            alertify.error("Please complete data");
+        }
+
+
+
+
+        var val = '@ViewBag.checkLists';
+        console.log(val);
+//alert(val);
+
+    }
+    function SaveStationAccrditationDataCountry() {
+
+
+        var lst = [];
+        var CountCountries = document.getElementById("Farm_Constrain_TextTable").rows.length;
+        for (i = 1; i < CountCountries; i++) {
+            var object = {};
+
+          //  var CountCountries1 = document.getElementById("Farm_Constrain_TextTable").rows[i];
+
+           // console.log(CountCountries1);
+
+            object.CountryID=document.getElementById("Farm_Constrain_TextTable").rows[i]['id'];
+            var c=document.getElementById("Farm_Constrain_TextTable").rows[i].cells.item(2).innerHTML ;
+            if (c == "فعال") {
+                object.IsActive = true;
+            }
+            else if (c == "غير فعال") {
+                object.IsActive = false;
+            }
+
+            lst.push(object);
+
+
+        }
+        var dataSended = {};
+        dataSended.CountryData = lst;
+
+        dataSended.User_Creation_Id = 1;
+        dataSended.Station_Accreditation_Data_ID = 1;
+
+
+            $.ajax({
+                url: '/ST_Station/StationActivityData/SendStationAccreditionCountry',
+                type: "POST",
+                data: { Dtos: dataSended },
+                success: function (result) {
+
+
+
+
+
+                    alertify.success('Saved');
+
+
+
+                },
+                error: function (ex) {
+
+
+                    alertify.alert('We face some technical difficulties. Hello World');
+                }
+
+
+
+
+
+
+
+
+
+
+            });
+
+
+    }
+
+
+
+
+    function addCountry() {
+
+
+
+     //   Union = $('#Union_Id').text();
+        Union = $("#Union_Id option:selected").text();
+        CountryId = $('#CountryId').val();
+        Country = $('#CountryId').text();
+        CountryIsActive =
+            $('#CountryIsActive').is(":checked") ? "فعال" : "غير فعال";
+        CountryIsActivebool =
+        $('#CountryIsActive').is(":checked") ;
+
+
+        Country = $("#CountryId option:selected").text();
+        CountryId = $("#CountryId option:selected").val();
+
+        $("#Farm_Constrain_TextTable tbody").append("<tr id=" + CountryId + ">" +
+
+
+                "<td>" + Union + "</td>" +
+                "<td>" + Country+ "</td>"+
+            "<td name=" + CountryIsActivebool+">" + CountryIsActive+ "</td>"
+
+                + "</tr>");
+
+
+        }
+
+
+
+
+    function getitemsLst() {
+
+
+        var isKnown = $("#isKnownID option:selected").text();
+        var groupId = $("#groupLst option:selected").val();
+         var isKnownflag = false;
+        if (isKnown == "معروف") {
+            isKnownflag = true;
+
+        }
+        else if (isKnown == "غير معروف") {
+            isKnownflag = false;
+
+        }
+
+
+
+        $("#itemsLst").empty();
+
+
+        $.ajax({
+            url: '/ST_Station/StationActivityData/ItemData_AddEDIT_Known',
+            type: "POST",
+            data: { Group_ID: groupId, IsKnown: isKnownflag },
+            success: function (response) {
+
+
+
+                for (var i = 0; i < response.length; i++) {
+                    item = response[i];
+                    console.log(item);
+
+                    $("#itemsLst").append('<option value="'
+                        + item.Value + '">' +
+                        item.DisplayText + '</option>');
+
+                }
+
+
+
+
+            },
+            error: function (ex) {
+
+
+                alertify.alert('We face some technical difficulties. Hello World');
+            }
+
+
+
+
+
+
+
+
+
+
+        });
+
+
+
+    }
+
+
+    /////////////////////////
+
+    $(document).on('change', "#itemsLst", function () {
+
+
+        $("#ShortNames").empty();
+
+        var label = document.createElement("label");
+        $.ajax({
+            url: '/ST_Station/StationActivityData/GetItemShortnames',
+            type: "POST",
+            data: { itemId: $(this).val() },
+            success: function (response) {
+
+                console.log(response);
+
+                for (var i = 0; i < response.length; i++) {
+
+
+                    $('#ShortNames')
+                        .append('<input type="checkbox" id="' + response[i].ShortName_Ar + '"" name="interest" value="' + response[i].ID+'">')
+                        .append('<label name="checkName" for="car">' + response[i].ShortName_Ar+'</label></div>')
+                        .append(`<br>`);
+                }
+
+
+
+
+            },
+            error: function (ex) {
+
+
+                alertify.alert('We face some technical difficulties. Hello World');
+            }
+
+
+
+
+
+
+
+
+
+
+        });
+
+
+
+    });
+
+      /////////////////////////
+
+    $(document).on('change', "#secClassLst", function () {
+
+
+        $("#groupLst").empty();
+
+
+        $.ajax({
+            url: '/ST_Station/StationActivityData/ItemGroup_AddEDIT',
+            type: "POST",
+            data: { SecClass_ID: $(this).val() },
+            success: function (response) {
+
+
+
+                for (var i = 0; i < response.length; i++) {
+                    item = response[i];
+                    console.log(item);
+
+                    $("#groupLst").append('<option value="'
+                        + item.Value + '">' +
+                        item.DisplayText + '</option>');
+
+                }
+
+
+
+
+            },
+            error: function (ex) {
+
+
+                alertify.alert('We face some technical difficulties. Hello World');
+            }
+
+
+
+
+
+
+
+
+
+
+        });
+
+
+
+    });
+
+
+    $(document).on('change', "#mainClassLst", function () {
+
+
+        $("#secClassLst").empty();
+
+
+        $.ajax({
+            url: '/ST_Station/StationActivityData/SecondaryClassification_AddEDIT',
+            type: "POST",
+            data: { MainClass_ID: $(this).val() },
+            success: function (response) {
+
+
+
+                for (var i = 0; i < response.length; i++) {
+                    item = response[i];
+                    console.log(item);
+
+                    $("#secClassLst").append('<option value="'
+                        + item.Value + '">' +
+                        item.DisplayText + '</option>');
+
+                }
+
+
+
+
+            },
+            error: function (ex) {
+
+
+                alertify.alert('We face some technical difficulties. Hello World');
+            }
+
+
+
+
+
+
+
+
+
+
+        });
+
+
+
+    });
+
+
+    $(document).on('change', "#ActivityType", function () {
+
+
+
+
+
+        $.ajax({
+            url: '/ST_Station/StationActivityData/GetTreatmentData',
+            type: "POST",
+            data: { ActivityTypeId: $(this).val() },
+            success: function (result) {
+                if (result != null) {
+                    $("#Name_Ar").text = result.Treatment_Type_Name_Ar;
+                    $("#TreatmentType").text = result.Treatment_Main_Name_Ar;
+                }
+
+
+
+            },
+            error: function (ex) {
+
+
+                alertify.alert('We face some technical difficulties. Hello World');
+            }
+
+
+        });
+
+
+
+    });
+
+
+    $(document).on('change', "#Union_Id", function () {
+
+
+        $("#CountryId").empty();
+
+
+        $.ajax({
+            url: '/ST_Station/StationActivityData/GetUnoinCountries',
+            type: "POST",
+            data: { unoinID: $(this).val() },
+            success: function (response) {
+
+
+
+
+                for (var i = 0; i < response.length; i++) {
+                    item = response[i];
+                    console.log(item);
+
+                    $("#CountryId").append('<option value="'
+                        + item.Value + '">' +
+                        item.DisplayText + '</option>');
+
+                }
+
+
+            },
+            error: function (ex) {
+
+
+                alertify.alert('We face some technical difficulties. Hello World');
+            }
+
+
+
+
+
+
+
+
+
+
+        });
+
+
+
+    });
+
+</script>
+
+<style>
+    .attach .jtable-input-field-container:nth-of-type(1),
+    .attach .jtable-input-field-container:nth-of-type(2),
+    .attach .jtable-input-field-container:nth-of-type(3),
+    .attach .jtable-input-field-container:nth-of-type(4) {
+        margin-bottom: 2px;
+        float: right;
+        width: 48% !important;
+    }
+
+    .attach .jtable-input-field-container:nth-of-type(5) {
+        margin-bottom: 2px;
+        float: right;
+        width: 98% !important;
+    }
+</style>

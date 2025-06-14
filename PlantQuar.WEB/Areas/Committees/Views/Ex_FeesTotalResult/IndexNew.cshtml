@@ -1,0 +1,179 @@
+﻿@model List<PlantQuar.DTO.DTO.Committee.FeesExDTO>
+
+
+
+@*@model PlantQuar.DTO.DTO.Import.IM_Committee.Fees_ALL*@
+
+@*@model List<PlantQuar.DTO.DTO.Import.Permissions.ImRequestDetailsDTO>*@
+@{
+    /**/
+
+    ViewBag.Title = "Committee";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    var x = 0;
+
+}
+
+@section Title{
+    <h2 class="ls-top-header">اجمالي الرسوم</h2>
+}
+@section Path{
+
+    <li class="active" style="right: 43px; position: relative;">Export Committe</li>
+}
+<link href="~/Content/jquery.timepicker.css" rel="stylesheet" />
+<script src="~/scripts/jquery.timepicker.min.js"></script>
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+
+        <h3> اجمالي الرسوم </h3>
+        <div class="row">
+            <div class="col-md-12">
+
+                <table class="table table-bordered" id="tblCheck_FixedFeesLst" style="margin:10px;">
+                    <thead>
+                        <tr class="label-primary">
+                            <th style="text-align:center;">الرســم</th>
+                            <th style="text-align:center;">التاريخ</th>
+                            <th style="text-align:center;">القيمـة</th>
+                            <th style="text-align:center;">الدفع</th>
+                            <th style="text-align:center;" hidden>حالة الدفع</th>
+                            <th style="text-align:center;" hidden>Ex_CheckRequestID</th>
+                            <th style="text-align:center;" hidden>Ex_CommitteeID</th>
+                            <th style="text-align:center;" hidden>Ex_ShiftID</th>
+                            <th style="text-align:center;" hidden>Ex_EngID</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyFees">
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.typeFees</td>
+                                <td>@item.dateEx.Value.ToString("yyyy/MM/dd")</td>
+                                <td>@item.Amount</td>
+                                <td>
+                                    @if (@item.IsPaid == true)
+                                    {
+                                        <span>تم الدفع</span>
+                                    }
+                                    else
+                                    {
+                                        <span style="color:red">لم يتم الدفع</span>
+                                    }
+                                </td>
+                                <td hidden>
+                                    @if (@item.IsPaid == true)
+                                    {
+                                        <span>1</span>
+                                    }
+                                    else
+                                    {
+                                        <span>0</span>
+                                    }
+                                    @item.IsPaid
+                                </td>
+                                <td hidden>@item.Ex_CheckRequestID</td>
+                                <td hidden>@item.Ex_CommitteeID</td>
+                                <td hidden>@item.Ex_ShiftID</td>
+                                <td hidden>@item.Ex_EngID</td>
+
+                            </tr>
+                        }
+                        <tr>
+                            <th colspan="2" style="text-align:center;">الاجمالي</th>
+                            @{
+
+                                var AllPaid = Model.Sum(a => a.Amount);
+                                var totalPaid = Model.Where(a => a.IsPaid == true).Sum(a => a.Amount);
+                                var totalNoPaid = Model.Where(a => a.IsPaid != true).Sum(a => a.Amount);
+
+                                <td style="color:darkred" colspan="2">
+                                    <span>الاجمالي : @AllPaid</span>
+                                    <br />
+                                    <span>المدفوع : @totalPaid</span>
+                                    <br />
+                                    <span>غير مدفوع : @totalNoPaid</span>
+                                </td>
+                            }
+                            <td hidden>
+                                @if (Model.Where(a => a.IsPaid != true).Count() > 0)
+                                {
+                                    <input id="" class="btn btn-primary btnNext float-left " name="" type="button" onClick="reply_ShiftTiming(this)" value="دفع">
+                                    <input type="button" name="name" value="دفع" />
+                                }
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    @section scripts{
+        <script>
+            var Fees_List = [];
+            function reply_ShiftTiming(element) {
+
+                var FeesTable_List = document.getElementById("tbodyFees").rows;
+                var id = 0;
+
+                for (var i = 0, ceiling = FeesTable_List.length; i < ceiling; i++) {
+                    cells = FeesTable_List[i].getElementsByTagName('td');
+                    alert(cells[2].innerHTML)
+                    var Amount = cells[2].innerHTML;
+                    var IsPaid = cells[4].innerHTML;
+                    var Ex_CheckRequestID = cells[5].innerHTML;
+                    var Ex_CommitteeID = cells[6].innerHTML;
+                    var Ex_ShiftID = cells[7].innerHTML;
+                    var Ex_EngID = cells[8].innerHTML;
+
+
+
+                    if (IsPaid == 0) {
+                        id = 1;
+                        Fees_List.push({
+                            Amount: Amount,
+                            IsPaid: IsPaid,
+                            Ex_CheckRequestID: Ex_CheckRequestID,
+                            Ex_CommitteeID: Ex_CommitteeID,
+                            Ex_ShiftID: Ex_ShiftID,
+                            Ex_EngID: Ex_EngID,
+                        });
+                    }
+                }
+
+                if (id == 1) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Ex_FeesTotalResult/Save_FeesEX",
+                        dataType: "json",
+                        //data: dataToSend,
+                        data: JSON.stringify(
+                            {
+                                CommitteeType: CommitteeTypeList,
+                            }),
+
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            confirm(data);
+                            location.href = "/Committees/Ex_Committee_Quick/Index"
+
+                        }
+                    });
+                }
+            }
+        </script>
+        }
+    </body>
+</html>
+
+

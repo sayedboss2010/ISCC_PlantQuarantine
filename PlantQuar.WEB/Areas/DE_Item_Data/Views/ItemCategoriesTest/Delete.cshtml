@@ -1,0 +1,477 @@
+﻿@model PlantQuar.DAL.ItemCategory
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h2>Delete</h2>
+
+
+    <hr />
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="control-label mar-b-10">@PlantQuar.WEB.Language.Resource_data1.Item_Type</label>
+
+                    <input type="text" id="itemTypeLst" value="@ViewBag.itemTypeLst" readonly class="form-control" />
+
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label mar-b-10">@PlantQuar.WEB.Language.Resource_data1.MainCalssification</label>
+
+                    <input type="text" id="mainClassLst" value="@ViewBag.mainClassLst" readonly class="form-control" />
+
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label mar-b-10">@PlantQuar.WEB.Language.Resource_data1.SecondaryClassification</label>
+
+                    <input type="text" id="secClassLst" value="@ViewBag.secClassLst" readonly class="form-control" />
+
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="control-label mar-b-10">@PlantQuar.WEB.Language.Resource_data1.PlantGroup</label>
+
+                    <input type="text" id="groupLst" value="@ViewBag.groupLst" readonly class="form-control" />
+
+
+                </div>
+                <div class="col-md-4 ta1" style="margin-top: 35px;">
+                    @*<input type="checkbox" class="form-control" id="chkIsKNown" readonly disabled />*@
+                    @if (@Model.Item.Is_known_item == true)
+                    {
+                        <input type="checkbox" name="chkIsKNown" class="form-control" id="chkIsKNown" checked readonly disabled>
+                        <span class="jtable-option-text-clickable mar-r-30 ">@PlantQuar.WEB.Language.Resource_data1.Isknown</span>
+                    }
+                    else
+                    {
+                        <input type="checkbox" name="chkIsKNown" class="form-control" id="chkIsKNown" readonly disabled>
+                        <span class="jtable-option-text-clickable mar-r-30 ">غير معروف</span>
+                    }
+                    @*<label class="control-label" id="lblknown">@PlantQuar.WEB.Language.Resource_data1.Isknown</label>*@
+                </div>
+                <div class="col-md-4">
+                    <label class="mar-b-10 control-label">@PlantQuar.WEB.Language.Resource_data1.Items</label>
+                    <input type="text" id="Item_ID" value="@ViewBag.Item_ID" readonly class="form-control" />
+
+                </div>
+
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="control-label mar-b-10">الأسم العلمى</label>
+                    <input type="text" id="Scientific_Name" value="@ViewBag.Scientific_Name" readonly class="form-control" />
+
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label mar-b-10">
+                        @PlantQuar.WEB.Language.Resource_data1.ItemCategoryType
+                    </label>
+                    <input type="text" id="ItemCategories_Type" value="@ViewBag.ItemCategories_Type" readonly class="form-control" />
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <label class="control-label mar-b-10">
+                        @PlantQuar.WEB.Language.Resource_data1.ItemsCategoryGrp
+                    </label>
+                    <input type="text" id="ItemCategories_Group_ID" value="@ViewBag.ItemCategories_Group_ID" readonly class="form-control" />
+
+                </div>
+
+
+            </div>
+
+            <br />
+            <div class="row">
+
+                <div class="col-md-4">
+                    <label class="control-label mar-b-10">
+                        @PlantQuar.WEB.Language.Resource_data1.ArabicName
+                    </label>
+
+                    @Html.EditorFor(model => model.Name_Ar, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+
+                    @Html.ValidationMessageFor(model => model.Name_Ar, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label mar-b-10">
+                        @PlantQuar.WEB.Language.Resource_data1.EnglishName
+                    </label>
+                    @Html.EditorFor(model => model.Name_En, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.Name_En, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="control-label mar-b-10">
+                        @PlantQuar.WEB.Language.Resource_data1.IsRegister
+                    </label>
+                    <div class="checkbox ta1 ">
+                        @if (@Model.IsRegister == true)
+                        {
+                            <input type="checkbox" name="IsRegister" class="form-control" id="IsRegister" checked readonly disabled>
+                            <span class="jtable-option-text-clickable mar-r-30 " id="Is_Plant_EgyptText">@PlantQuar.WEB.Language.Resource_data1.Yes</span>
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="IsRegister" class="form-control" id="IsRegister" readonly disabled>
+                            <span class="jtable-option-text-clickable mar-r-30 " id="Is_Plant_EgyptText">@PlantQuar.WEB.Language.Resource_data1.No</span>
+                        }
+                        @*<input type="checkbox" name="IsRegister" id="IsRegister" readonly disabled>*@
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label mar-b-10">
+                        @PlantQuar.WEB.Language.Resource_data1.Resolution_Number
+                    </label>
+                    <label class="control-label mar-b-10">
+                        @Html.EditorFor(model => model.Resolution_Number, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                        @Html.ValidationMessageFor(model => model.Resolution_Number, "", new { @class = "text-danger" })
+                    </label>
+                </div>
+            </div>
+            <br />
+            <div id="firstDiv" style="display:block">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label mar-b-10">
+                            @PlantQuar.WEB.Language.Resource_data1.Resolution_year
+                        </label>
+                        @Html.EditorFor(model => model.Resolution_Date, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                        @*@Html.ValidationMessageFor(model => model.Resolution_Date, "", new { @class = "text-danger" })*@
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-label mar-b-10">
+                            @PlantQuar.WEB.Language.Resource_data1.RegisterDate
+                        </label>
+
+                        @Html.EditorFor(model => model.Register_NumDate, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                        @Html.ValidationMessageFor(model => model.Register_NumDate, "", new { @class = "text-danger" })
+                        @*@Html.EditorFor(model => model.Register_NumDate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Register_NumDate, "", new { @class = "text-danger" })*@
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-label mar-b-10">
+                            @PlantQuar.WEB.Language.Resource_data1.RegisterDate_End
+                        </label>
+                        @* <input type="date" name="Register_EndDate" id="Register_EndDate" value="" class="form-control" />*@
+
+                        @Html.EditorFor(model => model.Register_EndDate, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                        @Html.ValidationMessageFor(model => model.Register_EndDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <br />
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label mar-b-10">
+                            @PlantQuar.WEB.Language.Resource_data1.TimeOut
+                        </label>
+
+                        @Html.EditorFor(model => model.TimeOut, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                        @Html.ValidationMessageFor(model => model.TimeOut, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-label mar-b-10">
+
+                            موجود فى مصر
+                        </label>
+                        <div class="checkbox">
+                            @if (@Model.Is_Plant_Egypt == true)
+                            {
+                                <input type="checkbox" name="Is_Plant_Egypt" class="form-control" id="Is_Plant_Egypt" checked readonly disabled>
+                                <span class="jtable-option-text-clickable mar-r-30 " id="Is_Plant_EgyptText">@PlantQuar.WEB.Language.Resource_data1.Yes</span>
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="Is_Plant_Egypt" class="form-control" id="Is_Plant_Egypt" readonly disabled>
+                                <span class="jtable-option-text-clickable mar-r-30 " id="Is_Plant_EgyptText">@PlantQuar.WEB.Language.Resource_data1.No</span>
+                            }
+
+
+
+
+
+                            @*@Html.EditorFor(model => model.Is_Plant_Egypt)
+                                @Html.ValidationMessageFor(model => model.Is_Plant_Egypt, "", new { @class = "text-danger" })*@
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <br />
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="control-label mar-b-10">
+                        @PlantQuar.WEB.Language.Resource_data1.ForbiddenStatus
+                    </label>
+                    <div class="checkbox">
+
+                        @Html.CheckBoxFor(model => model.IsForbidden, new { @class = "form-control", @disabled = "true" })
+                        <span class="jtable-option-text-clickable mar-r-30" id="IsForbiddenText">ممنوع</span>
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label mar-b-10">
+                        @PlantQuar.WEB.Language.Resource_data1.Status
+                    </label>
+                    <div class="checkbox">
+
+                        @Html.CheckBoxFor(model => model.CurrentStatus, new { @class = "form-control", @disabled = "true" })
+                        <span class="jtable-option-text-clickable mar-r-30" id="statusText">@PlantQuar.WEB.Language.Resource_data1.UnderProtectionNot</span>
+                        @*@Html.EditorFor(model => model.CurrentStatus)
+                            @Html.ValidationMessageFor(model => model.CurrentStatus, "", new { @class = "text-danger" })*@
+                    </div>
+                </div>
+
+
+            </div>
+            <br />
+            <div id="secondDiv" style="display:block" class="row">
+                <div class="col-md-4">
+                    <label class="control-label mar-b-10">
+                        @PlantQuar.WEB.Language.Resource_data1.ProtectionDecision
+                    </label>
+                    @*<input type="file" name="Protect_Property_File" value="" />*@
+
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label mar-b-10">
+                        @PlantQuar.WEB.Language.Resource_data1.FileName
+                    </label>
+                    @Html.EditorFor(model => model.Protect_Property, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.Protect_Property, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="control-label mar-b-10">
+
+                        @PlantQuar.WEB.Language.Resource_data1.Notes
+                    </label>
+                    @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+        </div>
+    }
+    @*<dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name_Ar)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name_Ar)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Name_En)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name_En)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IsRegister)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IsRegister)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Register_NumDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Register_NumDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Register_EndDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Register_EndDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TimeOut)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TimeOut)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IsForbidden)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IsForbidden)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CurrentStatus)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CurrentStatus)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Protect_Property)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Protect_Property)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Notes)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Notes)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.User_Updation_Id)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.User_Updation_Id)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.User_Updation_Date)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.User_Updation_Date)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.User_Deletion_Id)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.User_Deletion_Id)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.User_Deletion_Date)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.User_Deletion_Date)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.User_Creation_Id)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.User_Creation_Id)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.User_Creation_Date)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.User_Creation_Date)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Resolution_Number)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Resolution_Number)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Is_Plant_Egypt)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Is_Plant_Egypt)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Resolution_Date)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Resolution_Date)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Company_National.Name_Ar)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Company_National.Name_Ar)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Item.Name_Ar)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Item.Name_Ar)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ItemCategories_Group.Name_En)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ItemCategories_Group.Name_En)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ItemCategories_Type1.Name_Ar)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ItemCategories_Type1.Name_Ar)
+            </dd>
+
+        </dl>*@
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,35 @@
+﻿<h3>بيانات الرسالة</h3>
+@*<div id="div_messageDetails" class="form-box">*@
+    <div class="tab" role="tabpanel">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active" id="tab_PlantTab">
+                <a href="#PlantTab" aria-controls="home" role="tab" data-toggle="tab">النباتات</a>
+            </li>
+            <li role="presentation">
+                <a href="#ProductTab" aria-controls="profile" role="tab" data-toggle="tab">منتجات نباتية</a>
+            </li>
+            <li role="presentation">
+                <a href="#AliveLiableItemsTab" aria-controls="messages" role="tab" data-toggle="tab">بنود خاضعة - كائنات حية</a>
+            </li>
+            <li role="presentation">
+                <a href="#NotAliveLiableItemsTab" aria-controls="messages" role="tab" data-toggle="tab">بنود خاضعة - مواد غير حية</a>
+            </li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content tabs">
+            <div role="tabpanel" class="tab-pane fade in active" id="PlantTab">
+                @*@Html.Partial("~/Areas/ExportRequest/Views/ExportRequest/Ex_Plants.cshtml")*@
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="ProductTab">
+                @*@Html.Partial("~/Areas/ExportRequest/Views/Ex_Products/Ex_Products.cshtml")*@
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="AliveLiableItemsTab">
+                @Html.Partial("~/Areas/ExportRequest/Views/EX_AliveLiable/Ex_AliveLiable.cshtml")
+                </div>
+            <div role="tabpanel" class="tab-pane fade" id="NotAliveLiableItemsTab">
+                @Html.Partial("~/Areas/ExportRequest/Views/EX_NotAliveLiable/Ex_NotAliveLiable.cshtml")
+            </div>
+        </div>
+    </div>
+@*</div>*@

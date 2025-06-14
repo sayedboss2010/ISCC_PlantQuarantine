@@ -1,0 +1,182 @@
+﻿@{
+    ViewBag.Title = "Company Activity";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.CompanyActivity </h2>
+}
+
+<br />
+
+@*@section filter{
+        <div class="row">
+            <label class="col-md-2">@PlantQuar.WEB.Language.Resource_data1.ArabicName</label>
+            <input type="text" class="form-inline col-md-3" autocomplete="off" name="txt_AR_BTNSearch" id="txt_AR_BTNSearch" />
+            <label class="col-md-2">@PlantQuar.WEB.Language.Resource_data1.EnglishName</label>&nbsp;
+            <input type="text" class="form-inline col-md-3" autocomplete="off" name="txt_EN_BTNSearch" id="txt_EN_BTNSearch" />&nbsp;
+            <input type="button" class="btn btn-primary" id="LoadRecordsButton" value="@PlantQuar.WEB.Language.Resource_data1.Search">
+        </div>
+    }*@
+
+@section Path{
+    <li>@PlantQuar.WEB.Language.Resource_data1.Company</li>
+    <li class="active">@PlantQuar.WEB.Language.Resource_data1.CompanyActivity</li>
+}
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $('#MyJTBL_List').jtable({
+                title: '@PlantQuar.WEB.Language.Resource_data1.CompanyActivity',
+                paging: true,
+                pageSize: 10,
+                sorting: true,
+                //defaultSorting: 'CourseName ASC',
+                columnResizable: true,
+                columnSelectable: true,
+                saveUserPreferences: true,
+                actions: {
+                    listAction: 'listTBLRows',
+                    createAction: 'CreateTBLRows',
+                    updateAction: 'UpdateTBLRows',
+                    deleteAction: 'DeletelistTBLRows'
+                },
+                fields: {
+                    ID: {
+                        key: true,
+                        create: false,
+                        edit: false,
+                        list: false
+                    },
+                    Company_ID: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.Company',
+                        options: function (data) {
+                            if (data.source == 'list') {
+                                return '../../CommonActions/CompanyData/Company_National_List';
+                            }
+                                // ADD OR EDIT
+                            else {
+                                return '../../CommonActions/CompanyData/Company_National_AddEDIT';
+                            }
+                        },
+                        inputClass: 'validate[required]'
+                    },
+                    CompActivityType_ID: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.CompanyActivityType',
+                        options: function (data) {
+                            if (data.source == 'list') {
+                                return '../../CommonActions/CompanyData/CompanyActivityType_List';
+                            }
+                                // ADD OR EDIT
+                            else {
+                                return '../../CommonActions/CompanyData/CompanyActivityType_AddEDIT';
+                            }
+                        },
+                        inputClass: 'validate[required]'
+                    },
+                    Enrollment_Start: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.DateStart',
+                        type: 'date',
+                        inputClass: 'validate[required,custom[date]]',
+                        displayFormat: 'yy-mm-dd'
+                    },
+                    Enrollment_End: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.DateEnd',
+                        type: 'date',
+                        inputClass: 'validate[required,custom[date]]',
+                        displayFormat: 'yy-mm-dd'
+                        //inputClass: 'validate[required]'
+                    },
+                    IsActive: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.Status',
+                        type: 'checkbox',
+                        values: { 'false': ' @PlantQuar.WEB.Language.Resource_data1.NotActive ', 'true': '@PlantQuar.WEB.Language.Resource_data1.Active ' },
+                        defaultValue: 'true',
+                    },
+                },
+                formCreated: function (event, data) {
+
+                    if (data.formType == "create") {
+                        $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Add");
+                    }
+                    else {
+                        $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Edit");
+                    }
+
+                    $("#Edit-Enrollment_Start , #Edit-Enrollment_End").removeClass('hasDatepicker');
+                    $("#Edit-Enrollment_Start").datepicker({
+                        dateFormat: 'yy-mm-dd',
+                        changeYear: true,
+
+                        onSelect: function (selected) {
+                            $("#Edit-Enrollment_End").datepicker("option", "minDate", selected)
+                        }
+                    });
+                    $("#Edit-Enrollment_End").datepicker({
+                        dateFormat: 'yy-mm-dd',
+                        changeYear: true,
+
+                        onSelect: function (selected) {
+                            $("#Edit-Enrollment_Start").datepicker("option", "maxDate", selected)
+                        }
+                    });
+
+
+                    //$("#Edit-Ar_Name, #Edit-En_Name, #txt_AR_BTNSearch, #txt_EN_BTNSearch").attr('autocomplete', 'off');
+
+                    //// Arabic + spaces + numeric
+                    //$("#Edit-Ar_Name, #txt_AR_BTNSearch").keypress(function (e) {
+                    //
+                    //    var unicode = e.charCode ? e.charCode : e.keyCode
+                    //    if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+                    //        if (unicode == 32)
+                    //            return true;
+                    //        else {
+                    //            if ((unicode < 48 || unicode > 57) && (unicode < 0x0600 || unicode > 0x06FF)) //if not a number or arabic
+                    //                return false; //disable key press
+                    //        }
+                    //    }
+                    //});
+
+                },
+                formSubmitting: function (event, data) {
+                    return data.form.validationEngine('validate');
+                },
+                formClosed: function (event, data) {
+                    data.form.validationEngine('hide');
+                    data.form.validationEngine('detach');
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Delete");
+                },
+                recordAdded: function (event, data) {
+                    //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+                },
+                recordUpdated: function (event, data) {
+                                        //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Update");
+                },recordDeleted: function (event, data) {
+                                        //Mah+Ag 17-4-2019 change display message
+                    alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Delete");
+                },
+            });
+            $('#MyJTBL_List').jtable('load');
+
+
+            //$('#LoadRecordsButton').click(function (e) {
+
+            //    e.preventDefault();
+            //    $('#MyJTBL_List').jtable('load', {
+
+            //        txt_AR_BTNSearch: $('#txt_AR_BTNSearch').val(),
+            //        txt_EN_BTNSearch: $('#txt_EN_BTNSearch').val()
+            //    });
+            //});
+
+            $(".jtable-toolbar-item-add-record .jtable-toolbar-item-text").text("@PlantQuar.WEB.Language.Resource_data1.Add");نشاط شركة");
+        });
+    </script>
+}
+<br />
+<div id="MyJTBL_List">
+</div>

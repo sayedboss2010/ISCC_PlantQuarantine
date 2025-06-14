@@ -1,0 +1,1293 @@
+﻿@model List<PlantQuar.DTO.DTO.Station_Pages.Station_Get_Data_ResultDTO>
+
+@{
+    ViewBag.Title = "@PlantQuar.WEB.Language.Resource_data1.StationDetails";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.StationDetails</h2>
+}
+
+@if (Model == null)
+{
+    @PlantQuar.WEB.Language.Resource_data1.NoResults;
+    return;
+}
+<style>
+
+    th {
+        font-size: 14px !important;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    td {
+        font-size: 12px !important;
+        text-align: center;
+        padding: 10px 6px !important;
+        border: 1px solid;
+    }
+
+    blockquote.styles {
+        margin-bottom: 70px !important;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+
+
+<div class="tab" role="tabpanel" style="min-height:80% !important;">
+    <ul class="row nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+            <a href="#companyTab" aria-controls="profile" role="tab" data-toggle="tab">بيانات المحطه</a>
+        </li>
+        <li role="presentation">
+            <a href="#BasicTab" aria-controls="profile" role="tab" data-toggle="tab">المدير المسؤول</a>
+        </li>
+        <li role="presentation">
+            <a href="#countryTab" aria-controls="profile" role="tab" data-toggle="tab">وسائل الاتصال</a>
+        </li>
+        <li role="presentation">
+            <a href="#plantTab" aria-controls="profile" role="tab" data-toggle="tab">المرفقات</a>
+        </li>
+
+        @if (@Model.FirstOrDefault().IsActive_Station == true)
+        {
+            <li role="presentation">
+                <a href="#plantTab2" aria-controls="profile" role="tab" data-toggle="tab">الاعتماد</a>
+            </li>
+        }
+
+
+        <li role="presentation">
+            <a href="#CompanyInfoTab" aria-controls="profile" role="tab" data-toggle="tab">بيانات الشركة</a>
+        </li>
+
+
+
+    </ul>
+    <div class="tab-content tabs" style="background-color:whitesmoke  !important;">
+        <div role="tabpanel" class="tab-pane fade in active" id="companyTab" style="height:auto;">
+            @*<div class="row">
+                    <div class="col-md-4">
+                        <i class="fa fa-user color-606f49"></i>     <label>اسم المحطة</label>
+                    </div>
+                </div>
+                <br />*@
+            <div class="row">
+                <div class="col-md-6">
+                    <label>الاسم باللغة العربية</label>
+                    <input type="text" class="form-control" value="@Model.FirstOrDefault().Ar_Name" disabled="disabled" />
+                </div>
+                <div class="col-md-6">
+                    <label>الاسم باللغة الانجليزية</label>
+                    <input type="text" class="form-control" value="@Model.FirstOrDefault().En_Name" disabled="disabled" />
+                </div>
+            </div>
+
+            <br />
+
+            @*<div class="row">
+                    <div class="col-md-4">
+                        <i class="fa fa-home color-606f49"></i>    <label>عنوان الشركة</label>
+                    </div>
+                </div>
+                <br />*@
+            <div class="row">
+                <div class="col-md-6">
+                    <label>العنوان باللغة العربية</label>
+                    <input type="text" class="form-control" value="@Model.FirstOrDefault().Address_Ar" disabled="disabled" />
+                </div>
+                <div class="col-md-6">
+                    <label>العنوان باللغة الانجليزية</label>
+                    <input type="text" class="form-control" value="@Model.FirstOrDefault().Address_En" disabled="disabled" />
+                </div>
+            </div>
+
+
+            <br />
+
+            @*<div class="row">
+                    <div class="col-md-4">
+                        <i class="fa fa-home color-606f49"></i>   <label>موقع الشركة</label>
+                    </div>
+                </div>
+                <br />*@
+            <div class="row">
+                <div class="col-md-4">
+                    <label>المحافظة</label>
+                    <input type="text" class="form-control" value="@Model.FirstOrDefault().governorateName" disabled="disabled" />
+                </div>
+                <div class="col-md-4">
+                    <label>المركز</label>
+                    <input type="text" class="form-control" value="@Model.FirstOrDefault().centerName" disabled="disabled" />
+                </div>
+                <div class="col-md-4">
+                    <label>القرية</label>
+                    <input type="text" class="form-control" value="@Model.FirstOrDefault().villageName" disabled="disabled" />
+                </div>
+            </div>
+
+            <br />
+
+
+            @*<div class="row">
+                    <div class="col-md-4">
+                        <i class="fa fa-bars color-606f49"></i>     <label>بيانات المحطة</label>
+                    </div>
+                </div>
+                <br />*@
+            <div class="row">
+                <div class="col-md-4">
+                    <label>كود المحطة</label>
+                    @if (@Model.FirstOrDefault().StationCode != null)
+                    {
+                        <input type="text" class="form-control" value="@Model.FirstOrDefault().StationCode" disabled="disabled" id="station_code" />
+                    }
+                    else
+                    {
+                        <input type="text" class="form-control" value="غير موجود" id="station_code" disabled="disabled" />
+                    }
+                </div>
+                <div class="col-md-4">
+                    <label>السجل التجاري</label>
+                    <input type="text" class="form-control" value="@Model.FirstOrDefault().CommertialRecord" disabled="disabled" />
+                </div>
+                <div class="col-md-4">
+                    <label>البطاقة الضريبية</label>
+                    <input type="text" class="form-control" value="@Model.FirstOrDefault().TaxesRecord" disabled="disabled" />
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-4">
+                    <label>رقم الترخيص الصناعي</label>
+                    <input type="text" class="form-control" value="@Model.FirstOrDefault().Industrial_License_Num" disabled="disabled" />
+                </div>
+                <div class="col-md-4">
+                    <label>تاريخ بداية الترخيص الصناعي</label>
+                    <input type="text" class="form-control" value="@Model.FirstOrDefault().StartDate_Industrial_License_Num" disabled="disabled" />
+                </div>
+                <div class="col-md-4">
+                    <label>تاريخ نهاية الترخيص الصناعي</label>
+                    <input type="text" class="form-control" value="@Model.FirstOrDefault().EndDate_Industrial_License_Num" disabled="disabled" />
+                </div>
+            </div>
+
+
+            <br />
+            <div class="row">
+                <div class="col-md-4">
+                    <label>مساحة المنشأة (بالمتر المربع)</label>
+                    <input type="text" class="form-control" value="@Model.FirstOrDefault().Facility_area" disabled="disabled" />
+                </div>
+                <div class="col-md-4">
+                    <label>عدد ثلاجات الحفظ  </label>
+                    <input type="text" class="form-control" value="@Model.FirstOrDefault().The_num_of_storage_refrigerators" disabled="disabled" />
+                </div>
+                <div class="col-md-4">
+                    <label>سعة ثلاجات الحفظ (بالطن)</label>
+                    <input type="text" class="form-control" value="@Model.FirstOrDefault().Storage_fridge_capacity" disabled="disabled" />
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-4">
+                    <label>عدد ثلاجات تبريد سريع</label>
+                    <input type="text" class="form-control" value="@Model.FirstOrDefault().Fast_cooling_refrigerators" disabled="disabled" />
+                </div>
+                <div class="col-md-4">
+                    <label>عدد خطوط الأنتاج </label>
+                    <input type="text" class="form-control" value="@Model.FirstOrDefault().The_num_of_production_lines" disabled="disabled" />
+                </div>
+                <div class="col-md-4">
+                    <label>الطاقة الأنتاجية (بالطن / اليوم)</label>
+                    <input type="text" class="form-control" value="@Model.FirstOrDefault().Production_capacity" disabled="disabled" />
+                </div>
+            </div>
+            <br />
+            @*<br />
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>متوسط عدد العمال</label>
+                        <input type="text" class="form-control" value="@Model.FirstOrDefault().Average_number_workers" disabled="disabled" />
+                    </div>
+                    <div class="col-md-4">
+                        <label>عدد ساعات العمل</label>
+                        <input type="text" class="form-control" value="@Model.FirstOrDefault().working_hours" disabled="disabled" />
+                    </div>
+                    <div class="col-md-4">
+                        <label>عدد ايام العمل</label>
+                        <input type="text" class="form-control" value="@Model.FirstOrDefault().Number_working_Days" disabled="disabled" />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>عدد الورديات</label>
+                        <input type="text" class="form-control" value="@Model.FirstOrDefault().Number_Shifts" disabled="disabled" />
+                    </div>
+                    <div class="col-md-4">
+                        <label>المحطة تعمل طيلة العام/ موسمية</label>
+                        <input type="text" class="form-control" value="@Model.FirstOrDefault().Seasonal_Annual" disabled="disabled" />
+                    </div>
+                    <div class="col-md-4">
+                        <label>سنة الانشاء</label>
+                        <input type="text" class="form-control" value="@Model.FirstOrDefault().Year_Creation" disabled="disabled" />
+                    </div>
+                </div>
+                <br />*@
+            <div class="row">
+                <div class="col-md-4"></div>
+                @if (@Model.FirstOrDefault().IsActive_Station == null)
+                {
+                    <div class="col-md-4 text-center">  <button class="download-button" autocomplete="off" id="accept_Button" onClick="Add_accept_NOT(this)">موافق</button></div>
+                    <div class="col-md-4 text-center">
+                        @*<button class="download-button" autocomplete="off" id="Not_accept_Button" onClick="Add_accept_NOT(this)">غير موافق</button>*@
+                        <input type="button" id="saverejectreason" class="download-button" autocomplete="off" value="غير موافق"
+                               data-toggle="modal" data-target="#Modal-refuse" />
+                    </div>
+                }
+                else
+                {
+                    if (@Model.FirstOrDefault().IsActive_Station == true)
+                    {
+                        <label> الطلب مقبول</label>
+                    }
+                    else if (@Model.FirstOrDefault().IsActive_Station == false)
+                    {
+                        <label> الطلب مرفوض الاسباب :</label>
+                        <br />
+                        <br />
+                        <span>@Model.FirstOrDefault().Notes_Reject</span>
+                    }
+                }
+
+
+
+                <div class="col-md-4"></div>
+
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane fade in" id="BasicTab" style="height:auto;">
+            <div class="row">
+                <div class="col-md-4">
+                    <i class="fa fa-user color-606f49"></i>     <label>المدير المسؤول</label>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <table class="tbl-report col-md-12">
+                    <thead>
+                        <tr>
+                            @*<th>م</th>*@
+                            <th>اسم المدير باللغة العربية</th>
+                            <th>اسم المدير باللغة الانجليزية</th>
+                            <th>العنوان باللغة العربية</th>
+                            <th>العنوان باللغة الانجليزيه</th>
+                            <th>رقم الهاتف</th>
+                            <th>الرقم القومي</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @{
+
+                            var disGroup = Model.GroupBy(d =>
+                                new
+                                {
+                                    Manager_ID = d.Manager_ID,
+                                    Manager_Ar_Name = d.Manager_Ar_Name,
+                                    Manager_En_Name = d.Manager_En_Name,
+                                    Manager_Address_Ar = d.Manager_Address_Ar,
+                                    Manager_Address_En = d.Manager_Address_En,
+                                    Manager_Mobile = d.Manager_Mobile,
+                                    Managing_Director_NID = d.Managing_Director_NID
+                                }).Select(a => new
+                                {
+                                    Manager_ID = a.Key.Manager_ID,
+                                    Manager_Ar_Name = a.Key.Manager_Ar_Name,
+                                    Manager_En_Name = a.Key.Manager_En_Name,
+                                    Manager_Address_Ar = a.Key.Manager_Address_Ar,
+                                    Manager_Address_En = a.Key.Manager_Address_En,
+                                    Manager_Mobile = a.Key.Manager_Mobile,
+                                    Managing_Director_NID = a.Key.Managing_Director_NID
+                                });
+
+                            //int count = 1;
+                            foreach (var item in disGroup)
+                            {
+                                <tr>
+                                    @*<td>@count</td>*@
+                                    <td>@item.Manager_Ar_Name </td>
+                                    <td>@item.Manager_En_Name</td>
+                                    <td>@item.Manager_Address_Ar</td>
+                                    <td>@item.Manager_Address_En </td>
+                                    <td>@item.Manager_Mobile </td>
+                                    <td>@item.Managing_Director_NID</td>
+
+                                </tr>
+                                @*@count = @count+1;*@
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane fade in" id="countryTab" style="height:auto;">
+            <div class="row">
+                <div class="col-md-4">
+                    <i class="fa fa-bars color-606f49"></i>     <label>وسائل الاتصال</label>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <table class="tbl-report col-md-12">
+                    <thead>
+                        <tr>
+                            @*<th>م</th>*@
+                            <th>وسيلة الاتصال</th>
+                            <th>البيان</th>
+
+                    </thead>
+                    <tbody>
+                        @{
+
+                            var dis_contactValue = Model.GroupBy(d =>
+                                new
+                                {
+                                    contactType = d.contactType,
+                                    contactValue = d.contactValue,
+
+                                }).Select(a => new
+                                {
+                                    contactType = a.Key.contactType,
+                                    contactValue = a.Key.contactValue,
+
+                                });
+                            foreach (var item in dis_contactValue)
+                            {
+                                <tr>
+                                    @*<td>1</td>*@
+                                    <td>@item.contactType</td>
+                                    <td>@item.contactValue</td>
+
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane fade in" id="plantTab" style="height:auto;">
+            <div class="row">
+                <div class="col-md-4">
+                    <i class="fa fa-bars color-606f49"></i>     <label>المرفقات</label>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+
+
+                <table class="table">
+                    <thead style="background-color:#4d9e97 !important;">
+                        <tr>
+                            <th>نوع المرفق</th>
+                            <th>اسم المرفق</th>
+                            <th>@PlantQuar.WEB.Language.Resource_data1.AttachmentNumber</th>
+                            <th>@PlantQuar.WEB.Language.Resource_data1.DateStart</th>
+                            <th>@PlantQuar.WEB.Language.Resource_data1.ExpireDate</th>
+                            <th>@PlantQuar.WEB.Language.Resource_data1.Attachment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.FirstOrDefault().Attachments != null)
+                        {
+                            for (int i = 0; i < Model.FirstOrDefault().Attachments.Count(); i++)
+                            {
+                                <tr>
+                                    <td class="ModelxmlItem_Data@(i)">
+                                        @Model.FirstOrDefault().Attachments[i].Attachment_Name
+                                    </td>
+                                    <td class="ModelxmlItem_Data@(i)">
+                                        @Model.FirstOrDefault().Attachments[i].Attachment_TypeName
+                                    </td>
+                                    <td class="ModelxmlItem_Data@(i)">
+                                        @Model.FirstOrDefault().Attachments[i].Attachment_Number
+                                    </td>
+
+                                    @if (@Model.FirstOrDefault().Attachments[i].StartDate != null)
+                                    {
+                                        <td class="ModelxmlItem_Data@(i)">@Model.FirstOrDefault().Attachments[i].StartDate.Value.ToString("dd/MM/yyyy")</td>
+
+                                    }
+                                    else
+                                    {
+                                        <td class="ModelxmlItem_Data@(i)"></td>
+                                    }
+                                    @if (@Model.FirstOrDefault().Attachments[i].EndDate != null)
+                                    {
+                                        <td class="ModelxmlItem_Data@(i)">@Model.FirstOrDefault().Attachments[i].EndDate.Value.ToString("dd/MM/yyyy")</td>
+
+                                    }
+                                    else
+                                    {
+                                        <td class="ModelxmlItem_Data@(i)"></td>
+                                    }
+
+                                    <td class="ModelxmlItem_Data@(i)">
+
+
+                                        <input type="button" value="تحميل الملف" class="btn btn - info" onclick="btndownload_click(this)" data-assigned-id=@Model.FirstOrDefault().Attachments[i].AttachmentPath />
+
+                                        @*<input type="button" class="Show_Imge" data-id="@Model.Attachments[i].AttachmentPath" value="عرض الصورة" />*@
+                                        @*<button id="prdsgfsdgfr" onclick=btndownload_click(this) data-assigned-id=@Model.Attachments[i].AttachmentPath>File</button>
+                                            <a href="././.@Model.Attachments[i].AttachmentPath">File</a>*@
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+
+                    </tbody>
+                </table>
+                @*<table class="tbl-report col-md-12">
+                        <thead>
+                            <tr>
+                                <th>م</th>
+                                <th>اسم الملف</th>
+                                <th>نوع المرفق</th>
+                                <th>رقم المرفق</th>
+                                <th>تحميل الملف</th>
+
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>khjh</td>
+                                <td>بيان حمولة السفينة</td>
+                                <td>343</td>
+                                <td><button class="download-button">تحميل الملف</button></td>
+
+                            </tr>
+                        </tbody>
+                    </table>*@
+            </div>
+        </div>
+        @if (@Model.FirstOrDefault().StationCode != null)
+
+        {
+            if (@Model.FirstOrDefault().IsActive_Station == true)
+            {
+                <div role="tabpanel" class="tab-pane fade in" id="plantTab2" style="height:auto;">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <i class="fa fa-bars color-606f49"></i>     <label>الاعتماد</label>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <table class="tbl-report col-md-12">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2" hidden>id</th>
+                                    <th rowspan="2">الاعتماد</th>
+                                    <th rowspan="2">نوع الاعتماد</th>
+                                    <th rowspan="2">نوع النشاط</th>
+                                    <th rowspan="2">نوع الطلب</th>
+                                    <th colspan="2">التاريخ</th>
+                                    <th rowspan="2">حالة الطلب	</th>
+                                    <th rowspan="2">الرسوم</th>
+                                    <th rowspan="2">حالة الاعتماد</th>
+                                </tr>
+                                <tr>
+                                    <th>من</th>
+                                    <th>الى</th>
+                                </tr>
+                            </thead>
+                            <tbody id="Accreditation_Table">
+                                @{
+
+                                    var dis_Station_Accreditation_Data = Model.GroupBy(d =>
+                                        new
+                                        {
+                                            StationId = d.StationId,
+                                            //station_btn=d.station_btn,
+                                            //station_Status = d.station_Status,
+
+                                            requestId = d.requestId,
+                                            IsPaid_Request = d.IsPaid_Request,
+                                            IsActive_Station = d.IsActive_Station,
+                                            Accreditation_Type_ID = d.Accreditation_Type_ID,
+                                            Station_Accreditation_Data_Name = d.Station_Accreditation_Data_Name,
+                                            StationActivityType_Name = d.StationActivityType_Name,
+                                            Station_Request_Type_Name = d.Station_Request_Type_Name,
+                                            Start_Date = d.Start_Date,
+                                            End_Date = d.End_Date,
+                                            IsAccepted_Request = d.IsAccepted_Request,
+                                            IsActive_Request = d.IsActive_Request,
+                                            Is_Final_requst = d.Is_Final_requst,
+                                            Station_Accreditation_Data_ID = d.Station_Accreditation_Data_ID,
+                                            Notes_Reject = d.Notes_Reject,
+
+                                        }).Select(a => new
+                                        {
+
+                                            StationId = a.Key.StationId,
+                                            //station_btn = a.Key.station_btn,
+                                            //station_Status = a.Key.station_Status,
+                                            requestId = a.Key.requestId,
+                                            IsPaid_Request = a.Key.IsPaid_Request,
+                                            IsActive_Station = a.Key.IsActive_Station,
+                                            Accreditation_Type_ID = a.Key.Accreditation_Type_ID,
+                                            Station_Accreditation_Data_Name = a.Key.Station_Accreditation_Data_Name,
+                                            StationActivityType_Name = a.Key.StationActivityType_Name,
+                                            Station_Request_Type_Name = a.Key.Station_Request_Type_Name,
+                                            Start_Date = a.Key.Start_Date,
+                                            End_Date = a.Key.End_Date,
+                                            IsAccepted_Request = a.Key.IsAccepted_Request,
+                                            IsActive_Request = a.Key.IsActive_Request,
+                                            Is_Final_requst = a.Key.Is_Final_requst,
+                                            Station_Accreditation_Data_ID = a.Key.Station_Accreditation_Data_ID,
+                                            Notes_Reject = a.Key.Notes_Reject,
+
+                                        }).OrderByDescending(a => a.requestId);
+                                    foreach (var item in dis_Station_Accreditation_Data)
+                                    {
+                                        <tr>
+                                            <td hidden>@item.Accreditation_Type_ID</td>
+                                            <td>@item.Station_Accreditation_Data_Name</td>
+                                            <td>@item.StationActivityType_Name</td>
+                                            @if (@item.Accreditation_Type_ID == 80)
+                                            {
+                                                <td>صارد</td>
+                                            }
+                                            else if (@item.Accreditation_Type_ID == 81)
+                                            {
+                                                <td>وراد</td>
+                                            }
+                                            <td>@item.Station_Request_Type_Name</td>
+                                            @if (@item.Start_Date != null)
+                                            {
+                                                <td>@item.Start_Date.Value.ToString("dd/MM/yyyy")</td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                            }
+                                            @if (@item.End_Date != null)
+                                            {
+                                                <td>@item.End_Date.Value.ToString("dd/MM/yyyy")</td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                            }
+                                            <td>
+                                                @if (@item.IsActive_Station == true)
+                                                {
+                                                    <span>تم قبول الطلب</span>
+                                                }
+                                                else if (@item.IsActive_Station == false)
+                                                {
+                                                    <span>تم رفض الطلب</span>
+                                                    <br />
+                                                    <span>@item.Notes_Reject</span>
+                                                }
+                                                else if (@item.IsActive_Station == null)
+                                                {
+                                                    <span>لم يتم النظر للطلب</span>
+                                                }
+                                            </td>
+
+                                            <td>
+                                                <div class="col-md-10">
+                                                    <table id="More_Fees_@item.requestId" border="1" name="gh" class="table table-bordered table-striped dataTable">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="text-center">قيمة الرسم </th>
+
+
+                                                                <th class="text-center" hidden>row id</th>
+                                                                <th class="text-center" hidden>id الرسم </th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="myTable2_@item.requestId">
+                                                            @{var dis_Station_Accreditation_Fees = Model.Where(a => a.requestId == @item.requestId).GroupBy(d =>
+                                                                                            new
+                                                                                            {
+                                                                                                StationId = d.StationId,
+                                                                                                requestId = d.requestId,
+
+                                                                                                Request_Fees_Value = d.Request_Fees_Value,
+                                                                                                Request_Fees_ID = d.Request_Fees_ID,
+                                                                                                Is_Final_requst = d.Is_Final_requst,
+                                                                                                IsActive_Request = d.IsActive_Request,
+                                                                                            }).Select(a => new
+                                                                                            {
+                                                                                                StationId = a.Key.StationId,
+                                                                                                requestId = a.Key.requestId,
+
+                                                                                                Request_Fees_Value = a.Key.Request_Fees_Value,
+                                                                                                Request_Fees_ID = a.Key.Request_Fees_ID,
+                                                                                                Is_Final_requst = a.Key.Is_Final_requst,
+                                                                                                IsActive_Request = a.Key.IsActive_Request,
+                                                                                            });
+                                                                if (dis_Station_Accreditation_Fees.Count() > 0)
+                                                                {
+                                                                    foreach (var item_Fees in dis_Station_Accreditation_Fees)
+                                                                    {
+                                                                        if (@item_Fees.Request_Fees_ID != null)
+                                                                        {
+                                                                            <tr id="Btn_Fees_@item_Fees.requestId@item_Fees.Request_Fees_ID">
+                                                                                <td>@item_Fees.Request_Fees_Value</td>
+                                                                                @if (@item_Fees.IsActive_Request == null)
+                                                                                {
+                                                                                    <td>
+                                                                                        <input type="button" id="Btn_Fees_@item_Fees.requestId@item_Fees.Request_Fees_ID" onClick="Delete_Station_Fees_Type(this)" value="حذف" class="btn btn-primary margin-top-10" />
+                                                                                    </td>
+                                                                                }
+                                                                                <td hidden>@item_Fees.requestId</td>
+                                                                                <td hidden>@item_Fees.Request_Fees_ID</td>
+                                                                            </tr>
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                @if (item.IsActive_Request == null)
+                                                {
+                                                    <select id="activityType_selected_@item.requestId" class="form-control">
+                                                        <option value="0">@PlantQuar.WEB.Language.Resource_data1.choose</option>
+                                                        @if (@item.Accreditation_Type_ID == 80)//صادر
+                                                        {
+                                                            foreach (var type in ViewBag.StationActivityTypes_Export)
+                                                            {
+                                                                <option value="@type.Station_Fees_Id">@type.Station_Fees_Money</option>
+                                                            }
+                                                        }
+                                                        else if (@item.Accreditation_Type_ID == 81)//وارد
+                                                        {
+                                                            foreach (var type in ViewBag.StationActivityTypes_Import)
+                                                            {
+                                                                <option value="@type.Station_Fees_Id">@type.Station_Fees_Money</option>
+                                                            }
+                                                        }
+                                                    </select>
+                                                    <input type="button" id="Btn_Fees_@item.requestId" onClick="Add_Station_Fees_Type(this)" value="اضافه" class="btn btn-primary margin-top-10" />
+                                                    @*<div>bnbv</div><div>gfgf</div><div>yygft</div>*@
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (item.IsActive_Request == null)
+                                                {
+                                                    <input type="button" onClick="reply_Station_Fees_Type_Accepted(this)" value="موافق" class="btn btn-primary acceptBTn" id="Btn_Accepted_@item.requestId _@item.StationId" />
+
+                                                    <input type="button" value="رافض" onClick="reply_Station_Fees_Type_Accepted(this)" class="btn btn-primary acceptBTn margin-top-10" id="Btn_NotAccepted_@item.requestId _@item.StationId" />
+                                                }
+                                                else if (item.IsActive_Request == false)
+                                                {
+                                                    <span>تم رفض بيانات الاعتماد</span>
+                                                }
+                                                else if (item.IsActive_Request == true)
+                                                {
+                                                    <span>تم قبول بيانات الاعتماد</span>
+                                                    <br />
+                                                    var Btn_StationFinalResult11 = Model.Where(a => a.requestId == @item.requestId && a.Station_Committee_ID != null)
+                                                                          .Select(a => new
+                                                                          {
+                                                                              a.StationId,
+                                                                              a.Station_Committee_ID,
+                                                                              a.station_btn,
+                                                                              a.station_Status,
+                                                                          }).OrderBy(a => a.Station_Committee_ID).ToList();
+                                                    if (Btn_StationFinalResult11.Count() > 0)
+                                                    {
+                                                        if (@Btn_StationFinalResult11.LastOrDefault().station_btn == 0)
+                                                        {
+                                                            @Btn_StationFinalResult11.LastOrDefault().station_Status
+
+                                                        }
+                                                        else if (Btn_StationFinalResult11.LastOrDefault().station_btn == 1)
+                                                        {
+
+                                                            @Btn_StationFinalResult11.LastOrDefault().station_Status
+                                                            <br />
+                                                            <a href='/Committees/Committee_Station/Index?Station_Requst_ID=@item.requestId&Accreditation_Type_ID=@item.Accreditation_Type_ID'>تشكيل لجنة </a>
+
+                                                        }
+                                                        else if (@Btn_StationFinalResult11.LastOrDefault().station_btn == 2)
+                                                        {
+
+                                                            @Btn_StationFinalResult11.LastOrDefault().station_Status
+                                                            <br />
+                                                            <input type="button" value="عرض النتائج" class="btn btn-primary" id="StationFinalResult_@item.StationId" onClick="Station_Final_Result(this)" />
+
+
+                                                        }
+                                                        else if (@Btn_StationFinalResult11.LastOrDefault().station_btn == 3)
+                                                        {
+
+                                                            @Btn_StationFinalResult11.LastOrDefault().station_Status
+                                                            <br />
+                                                            <input type="button" value="عرض النتائج" class="btn btn-primary" id="StationFinalResult_@item.StationId" onClick="Station_Final_Result(this)" />
+                                                            <br />
+                                                            if (item.IsAccepted_Request == true)
+                                                            {
+                                                                <input type="button" id="print_@item.Station_Accreditation_Data_ID" onclick="Station_Print(this)" value="طباعة" class="btn btn-primary" />
+                                                            }
+                                                        }
+                                                        <br />
+                                                        if (item.IsAccepted_Request == false)
+                                                        {
+                                                            <span> تم ايقاف الاعتماد</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="button" id="Stop_@item.requestId" onclick="stop_Check(this)" value="ايقاف الاعتماد" class="btn btn-primary" />
+                                                        }
+                                                    }
+                                                }
+                                                @*var Btn_StationFinalResult = Model.Where(a => a.requestId == @item.requestId && a.Station_Committee_ID != null)
+                                                             .Select(a => new
+                                                             {
+                                                                 a.StationId,
+                                                                 a.station_Status,
+                                                                 a.station_btn,
+                                                                 a.Station_Committee_ID,
+                                                                 a.Station_Committee_Is_Cancel,
+                                                                 a.Station_Committee_Delegation_Date,
+                                                                 a.Station_Committee_IsPaid,
+                                                                 a.Station_Committee_STATUS,
+                                                                 a.Station_Committee_Is_Start_Android,
+                                                             }).OrderBy(a => a.Station_Committee_ID).ToList();
+
+                                                        if (@Btn_StationFinalResult.Count() > 0)
+                                                        {
+                                                            if (@Btn_StationFinalResult.LastOrDefault().Station_Committee_STATUS == true)
+                                                            {
+                                                                if (@Btn_StationFinalResult.LastOrDefault().Station_Committee_Is_Cancel != true)
+                                                                {
+                                                                    <input type="button" value="عرض النتائج" class="btn btn-primary" id="StationFinalResult_@item.StationId" onClick="Station_Final_Result(this)" />
+                                                                }
+                                                                else if (item.IsAccepted_Request != false)
+                                                                {
+                                                                    <span>تعذر الفحص</span>
+                                                                    <a href='/Committees/Committee_Station/Index?Station_Requst_ID=@item.requestId&Accreditation_Type_ID=@item.Accreditation_Type_ID'> تشكيل لجنة </a>
+
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                <span>لم يتم نزول الاندريد</span>
+                                                                var date1 = Convert.ToDateTime(DateTime.Now.ToString("dd/MM/yyyy"));
+                                                                var date2 = Convert.ToDateTime(@Btn_StationFinalResult.LastOrDefault().Station_Committee_Delegation_Date.Value.ToString("dd/MM/yyyy"));
+                                                                if (date2 < date1 && (item.IsAccepted_Request != false))
+                                                                {
+                                                                    <a href='/Committees/Committee_Station/Index?Station_Requst_ID=@item.requestId&Accreditation_Type_ID=@item.Accreditation_Type_ID'> تشكيل لجنة </a>
+                                                                }
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            if (item.IsActive_Request == true)
+                                                            {
+                                                                if (@item.IsPaid_Request == true && (item.IsAccepted_Request != false))
+                                                                {
+                                                                    <a href='/Committees/Committee_Station/Index?Station_Requst_ID=@item.requestId&Accreditation_Type_ID=@item.Accreditation_Type_ID'> تشكيل لجنة </a>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span> و لم يتم دفع الرسوم</span>
+                                                                }
+                                                            }
+                                                        }
+
+                                                        <br />
+                                                        if (item.End_Date >= DateTime.Now.Date || item.End_Date == null)
+                                                        {
+                                                            if (item.IsAccepted_Request == true || item.IsAccepted_Request == null)
+                                                            {
+                                                                <input type="button" id="Stop_@item.requestId" onclick="stop_Check(this)" value="ايقاف الاعتماد" class="btn btn-primary" />
+                                                                if (item.Is_Final_requst == true)
+                                                                {
+                                                                    <input type="button" id="print_@item.Station_Accreditation_Data_ID" onclick="Station_Print(this)" value="طباعة" class="btn btn-primary" />
+                                                                }
+                                                            }
+
+                                                            else if (item.IsAccepted_Request == false)
+                                                            {
+                                                                <span>تم ايقاف الاعتماد</span>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>تم ايقاف الاعتماد</span>
+                                                        }
+                                                    }*@
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+        }
+        @*---------------*@
+        <div role="tabpanel" class="tab-pane fade in" id="CompanyInfoTab">
+            <div class="form-group" style="padding:10px;">
+                <div class="row">
+                    <div class="form-group col-sm-4 bmd-form-group">
+                        <label class="bmd-label-static">@PlantQuar.WEB.Language.Resource_data1.TypeOfImporter</label>
+                        @Html.TextBoxFor(m => @Model.FirstOrDefault().ImporterName, new { @class = "demo-default form-control", @readonly = "true" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-4 bmd-form-group">
+                        <label class="bmd-label-static">@PlantQuar.WEB.Language.Resource_data1.ImportCompany</label>
+                        @Html.TextBoxFor(m => m.FirstOrDefault().ImporterName, new { @class = "demo-default  form-control", @readonly = "true" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-4 bmd-form-group">
+                        <label class="bmd-label-static">صاحب الشركة</label>
+                        @Html.TextBoxFor(m => m.FirstOrDefault().Company_National_Owner_Ar, new { @class = "demo-default  form-control", @readonly = "true" })
+                    </div>
+                    <div class="form-group col-sm-4 bmd-form-group">
+                        <label class="bmd-label-static">عنوان الشركة</label>
+                        @Html.TextBoxFor(m => m.FirstOrDefault().Importer_Adrres, new { @class = "demo-default  form-control", @readonly = "true" })
+                    </div>
+                </div>
+                <!--<div class="row">
+                    <div class="form-group col-sm-4 bmd-form-group">
+
+                        <label class="bmd-label-static">مندوب صاحب الرسالة</label>-->
+                @*      @Html.TextBoxFor(m => m.MessageOwner, new { @class = "demo-default  form-control", @readonly = "true" })*@
+
+                <!--</div>
+                <div class="form-group col-sm-4 bmd-form-group">
+
+                    <label class="bmd-label-static">الرقم القومي لمندوب صاحب الرسالة</label>-->
+                @*     @Html.TextBoxFor(m => m.MessageOwnerNationalID, new { @class = "demo-d efault  form-control", @readonly = "true" })*@
+                <!--</div>
+                </div>-->
+                <div class="row">
+                    <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap">
+
+                        <table id="farmsTable" class="table table-bordered table-striped dataTable" role="grid" style="margin: 15px;width: 97%;background-color: lightgray; ">
+                            <tbody>
+                                <tr>
+                                    <th>نوع النشاط</th>
+                                    <th colspan="2"> رقم التسجيل</th>
+                                    <th colspan="2">انواع التسجيل </th>
+                                    <th colspan="2">التاريخ من </th>
+                                    <th colspan="2">التاريخ الي </th>
+                                </tr>
+                                @if (Model.FirstOrDefault()._CompanyActivitys != null)
+                                {
+                                    if (Model.FirstOrDefault()._CompanyActivitys.Count() != null)
+                                    {
+                                        for (int i = 0; i < @Model.FirstOrDefault()._CompanyActivitys.Count(); i++)
+                                        {
+                                            <tr>
+                                                <td>@Model.FirstOrDefault()._CompanyActivitys[i].CompActivityType__Name</td>
+                                                <td colspan="2">@Model.FirstOrDefault()._CompanyActivitys[i].Enrollment_Number</td>
+                                                @if (@Model.FirstOrDefault()._CompanyActivitys[i].Enrollment_type_Name != null)
+                                                {
+                                                    <td colspan="2">@Model.FirstOrDefault()._CompanyActivitys[i].Enrollment_type_Name</td>
+                                                }
+                                                else
+                                                {
+                                                    <td colspan="2">غير معروف</td>
+                                                }
+                                                <td colspan="2">@Model.FirstOrDefault()._CompanyActivitys[i].Enrollment_Start</td>
+                                                <td colspan="2">@Model.FirstOrDefault()._CompanyActivitys[i].Enrollment_End</td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap">
+                        <table id="farmsTable" class="table table-bordered table-striped dataTable" role="grid" style="margin: 15px;width: 97%;background-color: lightgray; ">
+                            <thead>
+                                <tr>
+                                    <th>@PlantQuar.WEB.Language.Resource_data1.ContactType</th>
+                                    <th>@PlantQuar.WEB.Language.Resource_data1.ContactData</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.FirstOrDefault().ImporterContacts != null)
+                                {
+                                    foreach (var item in Model.FirstOrDefault().ImporterContacts)
+                                    {
+                                        <tr>
+                                            <td>@item.Name_Ar</td>
+                                            <td>@item.Value</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--ChooseReason-->
+<div>
+
+    <div id="Modal-refuse" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">@PlantQuar.WEB.Language.Resource_data1.ChooseReasons</h4>
+                </div>
+                <div class="modal-body">
+
+                    <label>  أسباب الرفض </label>
+                    <textarea id="Notes_Reject_text"></textarea>
+
+                </div>
+                <div class="modal-footer">
+                    @if (Model != null)
+                    {
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="saverejectreason"
+                                onClick="Add_accept_NOT(this)">
+                            @PlantQuar.WEB.Language.Resource_data1.Save
+                            </button>
+                        }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<br />
+<script>
+    var _Station_Fees_List = [];
+    var _Selection_Fees_List = [];
+
+    function reply_Station_Fees_Type(element) {
+
+
+        var _Station_Requst_ID = element.id.split('_')[2];
+        var Station_Fees_select_GetID = $("#activityType_selected_" + _Station_Requst_ID + "  option:selected").val();
+
+
+        var Station_Fees_select_GetName = $("#activityType_selected_" + _Station_Requst_ID + " option:selected").text();
+
+
+
+
+        var _Station_Requst_ID_List = document.getElementById("More_Fees_" + _Station_Requst_ID).rows;
+
+        var id = 0;
+        for (var i = 0, ceiling = _Station_Requst_ID_List.length; i < ceiling; i++) {
+            cells = _Station_Requst_ID_List[i].getElementsByTagName('td');
+            var id_cells = cells[0].innerHTML;
+
+            if (Station_Fees_select_GetID == id_cells) {
+                id = 1;
+            }
+        }
+        if (id == 0) {
+            _Station_Fees_List.push({
+                Station_Accreditation_Request_ID: _Station_Requst_ID,
+                Station_Fees_Type_ID: Station_Fees_select_GetID,
+                Value: Station_Fees_select_GetName,
+                Station_Table_Type: 1      //محطة
+            });
+        } else {
+            alertify.error("موجود مسبقا");
+        }
+        console.log(_Station_Fees_List)
+
+
+
+    }
+
+    function Add_accept_NOT(element) {
+
+        var Btn_Name = element.id;
+        //alert(Btn_Name);
+        //alert(Btn_Name.length);
+        var _IsActive = 0;
+        if (Btn_Name.length < 16) {
+            _IsActive=1
+
+        }
+        var Station_Id =@Model.FirstOrDefault().StationId;
+        var station_code = $("#station_code").val();
+        var Notes_Reject = $("#Notes_Reject_text").val();
+
+        if (station_code.trim().length == 0 || station_code.trim() == null) {
+              alertify.alert('يجب أدخال كود المحطة');
+
+        }
+        else {
+
+               $.ajax({
+                type: "POST",
+                url: "/StationDetails/UpdateStation_Details",
+                dataType: "json",
+                data: JSON.stringify({
+                    Station_Code: station_code,
+                    Station_Id: Station_Id,
+                    IsActive: _IsActive,
+                    Notes_Reject: Notes_Reject
+                }),
+                contentType: "application/json; charset=utf-8",
+                  success: function (result) {
+                    if (result != null) {
+                        alertify.success("تم القبول");
+                        location.reload(true);
+                       }
+                    else
+                          alertify.success("تم الرفض");
+                     location.reload(true);
+                }
+            });
+        }
+    };
+
+    function Station_Final_Result(element) {
+
+        var _Station_Id =element.id.split('_')[1];
+        location.href = "/Station_Pages/Station_Final_Result/Index?stationId=" + _Station_Id
+    }
+
+    function reply_Station_Fees_Type_Accepted(element) {
+      // alert(element.id);
+        //var _Station_Idd = element.id.split('_')[3];
+
+        //alert(_Station_Idd);
+        //alert(_Station_Idd.length);
+
+
+
+        var ISActive = 1;
+        var _Station_Fees_Accreditation_List = [];
+        var _Station_Requst_ID = element.id.split('_')[2].trim();
+        var _Station_Id = element.id.split('_')[3].trim();
+        var _Station_Accepted = element.id.split('_')[1];
+
+
+
+        var button = document.getElementById(element.id);
+    // alert(button);
+      button.disabled = true;
+        if (_Station_Accepted == "NotAccepted") {
+            ISActive = 0;
+        }
+
+        var Station_Fees_select_GetID = $("#activityType_selected_" + _Station_Requst_ID + "  option:selected").val();
+        var Station_Fees_select_GetName = $("#activityType_selected_" + _Station_Requst_ID + " option:selected").text();
+
+        var rows_Fee = document.getElementById("myTable2_" + _Station_Requst_ID).rows;
+
+
+        for (var i =0, ceiling = rows_Fee.length; i < ceiling; i++) {
+            cells = rows_Fee[i].getElementsByTagName('td');
+            _Value = cells[0].innerHTML;
+            _Id1 = cells[1].innerHTML;
+            _Id2 = cells[2].innerHTML;
+            _Selection_Fees_List.push({
+                Station_Fees_Type_ID: _Id2,
+                Station_Accreditation_Request_ID: _Id1,
+                Value: _Value,
+                Station_ID: _Station_Id,
+
+            });
+            console.log(_Selection_Fees_List);
+        }
+
+        if (_Station_Accepted == "NotAccepted") {
+            $.ajax({
+                type: "POST",
+                url: "/StationDetails/SaveStation_Accreditation_Fees",
+                dataType: "json",
+                data: JSON.stringify({
+                    ISActive: ISActive,
+                    requestId: _Station_Requst_ID,
+                    Selection_Fees_List: _Selection_Fees_List,
+                }),
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    if (result != null) {
+                        /* $('.acceptBTn').css("display", "none");*/
+                        alertify.success("تم التعديل بنجاح");
+                        location.reload(true);
+                    }
+                    else
+                        alertify.alert('لم يتم التعديل ');
+                }
+            });
+        }
+        else {
+            if (_Selection_Fees_List.length > 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "/StationDetails/SaveStation_Accreditation_Fees",
+                    dataType: "json",
+                    data: JSON.stringify({
+                        ISActive: ISActive,
+                        requestId: _Station_Requst_ID,
+                        Selection_Fees_List: _Selection_Fees_List,
+                    }),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                        if (result != null) {
+                            /* $('.acceptBTn').css("display", "none");*/
+                            alertify.success("تم التعديل بنجاح");
+                            location.reload(true);
+                            alertify.success("تمت العملية بنجاح");
+                        }
+                        else
+                            alertify.alert('لم يتم التعديل ');
+                    }
+                });
+            }
+            else {
+                alertify.error("يجب اختيار الرسوم");
+            }
+        }
+
+
+    }
+    function Add_Station_Fees_Type(element) {
+        var _Station_Requst_ID = element.id.split('_')[2];
+        //alert(_Station_Requst_ID);
+        var Station_Fees_select_GetID = $("#activityType_selected_" + _Station_Requst_ID +"  option:selected").val();
+        //alert(Station_Fees_select_GetID);
+        var Station_Fees_select_GetName = $("#activityType_selected_" + _Station_Requst_ID +" option:selected").text();
+        //alert(Station_Fees_select_GetName);
+
+        var Station_Fees_List = document.getElementById("myTable2_" + _Station_Requst_ID).rows;
+
+        var id = 0;
+        if (Station_Fees_select_GetID > 0) {
+            for (var i = 0, ceiling = Station_Fees_List.length; i < ceiling; i++) {
+                cells = Station_Fees_List[i].getElementsByTagName('td');
+                var id_cells = cells[2].innerHTML;
+                if (Station_Fees_select_GetID == id_cells) {
+                    id = 1;
+                }
+            }
+            if (id == 0) {
+                _Station_Fees_List.push({
+                    Station_Accreditation_Request_ID: _Station_Requst_ID,
+                    Station_Fees_Type_ID: Station_Fees_select_GetID,
+                    Value: Station_Fees_select_GetName,
+                    Station_Table_Type: 1      //محطة
+                });
+                $("#More_Fees_" + _Station_Requst_ID + " tbody").append("<tr id='Btn_Fees_" + Station_Fees_select_GetID + "" + _Station_Requst_ID +"'>" +
+                    "<td>" + Station_Fees_select_GetName + "</td>" +
+
+                    "<td hidden>" + _Station_Requst_ID + "</td>" +
+                    "<td hidden>" + Station_Fees_select_GetID + "</td>" +
+                /* "<td><a href='#' onclick='DeleteRow_Fees(this)' name='More_Fees_" + _Station_Requst_ID +"'>حذف</a></td>"+*/
+                    "<td>" + "<input type='button' id='Btn_Fees_" + Station_Fees_select_GetID + "" + _Station_Requst_ID + "'  onClick='Delete_Station_Fees_Type(this)' value='حذف' class='btn btn-primary margin-top-10' />" + "</td>" +
+                    "</tr>");
+                alertify.success("تمت الاضافه ");
+            }
+            else {
+                alertify.error("موجود مسبقا");
+            }
+        } else {
+            alertify.error("يجب اختيار الرسم");
+        }
+    }
+
+
+    function Delete_Station_Fees_Type(element) {
+
+        var _Station_Requst_ID = element.id;
+        $("#" + _Station_Requst_ID +"").remove();
+       // alert(_Station_Requst_ID)
+    }
+
+
+
+
+
+
+
+
+    //function DeleteRow_Fees(element) {
+    //    alert(11)
+    //   // var table = document.getElementById("More_Fees_" + _Station_Requst_ID);
+    //    var c = '#' + element.name + '';
+    //    alert(c)
+    //    $(c).remove();
+    //    /* _ShiftTiming_List.remove*/
+    //}
+
+    function stop_Check(element) {
+
+        var _Station_Requst_ID = element.id.split('_')[1];
+        var _Station_Accepted = element.id.split('_')[0];
+
+        var IsAccepted = 1;
+        if (_Station_Accepted == "Stop") {
+            IsAccepted = 0;
+        }
+        $.ajax({
+            type: "POST",
+            url: "/StationDetails/Update_StartStop_Request",
+            dataType: "json",
+            data: JSON.stringify({ Reqest_id: _Station_Requst_ID, IsAccepted: IsAccepted}),
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
+
+                /* alert(result.Options);*/
+                if (result != null) {
+
+                    window.location.reload(true);
+                    alertify.success("تم ايقاف الشرط");
+                }
+                else
+                    alertify.alert('We face some technical difficulties. Hello World');
+            }
+        });
+    }
+    function btndownload_click(elem) {
+
+        var path = $(elem).data('assigned-id');
+
+        window.open('/Imges/Downlood_Imge/Get_Downlood_Imge?path1=' + path + '', "_blank");
+
+
+    }
+
+    function Station_Print(element) {
+
+        var _station_id = @Model.FirstOrDefault().StationId;
+      //  alert(_station_id);
+
+        var Station_Accreditation_Data_ID = element.id.split('_')[1];
+      //  alert(Station_Accreditation_Data_ID);
+
+        location.href = "/Station_Pages/StationDetails/Station_Print?stationId=" + _station_id + "&Station_Accreditation_Data_ID=" + Station_Accreditation_Data_ID;
+    }
+</script>

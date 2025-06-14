@@ -1,0 +1,920 @@
+﻿@model PlantQuar.DTO.DTO.labResult.LaboratoryResult_ReportDTO
+
+@{
+    ViewBag.Title = "yyyyyyyyyyyyyyy";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<script type="text/javascript" src="~/assets/js/jquery-barcode.js"></script>
+<script type="text/javascript" src="~/assets/js/jquery-barcode.min.js"></script>
+
+<style>
+    #PrintResultButton {
+        background-color: #1e7c80 !important;
+        border: 2px solid #1e8084 !important;
+        box-shadow: 0 4px #1d9fa5 !important;
+        outline: none;
+        color: white;
+        margin-bottom: 10px;
+        width: 50%;
+    }
+
+    .barcodeoutput {
+        padding: 0px !important;
+        overflow: inherit !important;
+        height: 50px !important;
+        background-color: #ffffff00 !important;
+    }
+
+        .barcodeoutput div {
+            background-color: #ffffff00 !important;
+            clear: unset !important;
+            /*      height: 50px !important;*/
+        }
+
+            .barcodeoutput div :last-child {
+                background-color: #ffffff00 !important;
+            }
+
+    .demo-blockquote {
+        margin-bottom: 70px !important;
+    }
+</style>
+<script type="text/javascript">
+    window.onload = function () {
+        //  Function to generate the barcode
+
+
+        // Taking input values from the user
+
+        // Text value
+        var inputValue = $(".input_box").val();
+
+        //var inputValue = "92312342432";// $("#textValue").val();
+        // Barcode type
+        var barcodeType = "code128";// $("input[name=barcodeType]:checked").val();
+        // Renederer type
+        var rendererType = "css";// $("input[name=rendererType]:checked").val();
+
+        // Settings to generate barcode
+        var settings = {
+            output: rendererType,
+            bgColor: '#FFFFFF',
+            color: '#000000',
+            barWidth: '1.5',
+            barHeight: '70',
+            moduleSize: '5',
+            posX: '15',
+            posY: '30',
+            addQuietZone: '1'
+        };
+
+        if (rendererType != 'canvas') {
+            // If renderer type is not canvas, show barcodeoutput div and
+            // add output from barcode() function to that div
+            $(".canvasOutput").hide();
+            $(".barcodeoutput").html("").show();
+            $(".barcodeoutput").barcode(inputValue,
+                barcodeType,
+                settings);
+        } else {
+            // If renderer type is canvas, create new canvas by
+            // clearing previous one, and add the output generated
+            // from barcode() function to new canvas
+            createCanvas();
+            $(".barcodeoutput").hide();
+            $(".canvasOutput").show();
+            $(".canvasOutput").barcode(inputValue,
+                barcodeType,
+                settings);
+        }
+
+    };
+    // Function to clear canvas.
+    function createCanvas() {
+
+        // Get canvas element from HTML
+        var canvas = $('.canvasOutput').get(0);
+
+        // Add 2d context to canvas
+        var ctx = canvas.getContext('2d');
+
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.strokeRect(0, 0, canvas.width, canvas.height);
+    }
+
+</script>
+
+
+<div id="barcode-print" style="width:14.8cm;height:20.8cm;background:gray;margin:auto;">
+    <div id="border" style="font-size: 10pt; width: 13.8cm; background: white; margin: auto; font-family: 'Arial regular' !important;">
+        @*@for (int i = 0; i < 2; i++)
+            {*@
+        <div id="table1" style="height:10.4cm;">
+            <div style="height:1.2cm;"></div>
+            <div class="" style="margin:auto;height:8.5cm;">
+                <div id="header" style="height:2.6cm;">
+                    <div class="" style="margin:auto;height:inherit;border:1px solid #000;display:flex;">
+                        <div class="" style=" width: 20%; height: inherit;padding: 3px;text-align: center;">
+                            <div class="" style="">
+                                <img class="img1" style="margin-top: 2px;" src="~/assets/images/capq/logo-capq-72.png" />
+                            </div>
+
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style=" width: 40%; height: inherit;padding: 3px;">
+                            <div class="" style="height: inherit;">
+                                @if (Model.Outlet_Name != null)
+                                {
+                                    <label>
+                                        المنفذ:
+                                    </label>
+                                    <span style="font-size: 13px;font-weight: bold;">@Model.Outlet_Name</span><br />
+
+                                }
+                                else if (Model.Station_Name != null)
+                                {
+                                    <label>
+                                        محطة:
+                                    </label>
+                                    <span style="font-size: 13px;font-weight: bold;">@Model.Station_Name</span><br />
+
+                                }
+                                else
+                                {
+                                    <span style="font-size: 13px;font-weight: bold;">لا يوجد اسم للمحطة او المنفذ</span><br />
+                                }
+
+
+                                <label>رقم الختامة/السيل:</label>
+                                <span style="font-weight:normal">@Model.Syl_ALkhatima_Number</span><br />
+                                <label>تاريخ سحب العينة:</label>
+                                <span>(@DateTime.Now.ToString("yyyy/MM/dd").Split(' ')[0])</span>
+
+                            </div>
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style=" width: 40%; height: inherit;padding: 3px;text-align: center;">
+                            <div class="" style=" height: inherit;">
+                                <input type="hidden" id="textValue" value="@Model.Sample_BarCode" class="input_box textValue" style="top:30% !important;">
+                                <div class="barcodeoutput"></div>
+                                <canvas class="canvasOutput"></canvas>
+                                @*<span style="font-size:30px; font-family:'LibreBarcode128Text-Regular'!important;">* @Model.Sample_BarCode *</span>*@
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+                <div id="content" style="height:6cm;">
+                    <div class="" style="margin:auto;height:.85cm;border:1px solid #000;border-top:none;display:flex;">
+                        <div class="" style=" width: 50%; height: inherit; padding: 3px">
+                            <label style="  ">اسم النبات:</label>
+                            <span style="font-size: 13px;font-weight: bold;">@Model.itemName</span>
+
+                        </div>
+                        @if (Model.Sample_BarCode != null)
+                        {
+                            if (Model.Sample_BarCode.StartsWith("74"))
+                            {
+                                <div class="" style=" width: 50%; height: inherit; padding: 3px">
+                                    <label style="  ">المنتــج :</label>
+                                    <span style="font-size: 13px;font-weight: bold;">@Model.ShortName</span>
+
+                                </div>
+                            }
+                        }
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style=" width: 50%; height: inherit; padding: 3px">
+                            <label style="  ">الصنف الزراعي:</label>
+
+                            @if (String.IsNullOrEmpty(Model.itemCategoryName))
+                            {
+                                <span>####</span>
+                            }
+                            else
+                            {
+                                <span style="font-size: 13px;font-weight: bold;">@Model.itemCategoryName</span>
+                            }
+
+
+                        </div>
+                    </div>
+
+                    <div class="" style="margin:auto;height:.85cm;border:1px solid #000;border-top:none;display:flex;">
+                        <div class="verticalLine" style="margin:0;"></div>
+                        <div class=" " style=" width: 33.3333%; height: inherit; padding: 3px">
+                            <label style="  ">الجزء النباتي:</label>
+                            @if (Model.Sample_BarCode != null)
+                            {
+                                if (Model.Sample_BarCode.StartsWith("78"))
+                                {
+                                    <span>####</span>
+                                }
+                                else if (Model.Sample_BarCode.StartsWith("74"))
+                                {
+                                    if (Model.SubPart_Name != null)
+                                    {
+                                        <span style="font-size: 13px;font-weight: bold;">@Model.SubPart_Name</span>
+                                    }
+                                    else
+                                    {
+                                        <span>####</span>
+                                    }
+                                }
+                                else if (Model.Sample_BarCode.StartsWith("73"))
+                                {
+                                    if (Model.SubPart_Name != null)
+                                    {
+                                        <span style="font-size: 13px;font-weight: bold;">@Model.SubPart_Name</span>
+                                    }
+                                    else
+                                    {
+                                        <span>####</span>
+                                    }
+                                }
+                            }
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class=" " style=" width: 33.3333%; height: inherit; padding: 3px">
+                            <label style="  ">الحالة:</label>
+                            @if (Model.Sample_BarCode != null)
+                            {
+                                if (Model.Sample_BarCode.StartsWith("78"))
+                                {
+                                    <span>####</span>
+                                }
+                                else if (Model.Sample_BarCode.StartsWith("74"))
+                                {
+                                    if (Model.Item_Status_Name != null)
+                                    {
+                                        <span style="font-size: 13px;font-weight: bold;">@Model.Item_Status_Name</span>
+                                    }
+                                    else
+                                    {
+                                        <span>####</span>
+                                    }
+                                }
+                                else if (Model.Sample_BarCode.StartsWith("73"))
+                                {
+                                    if (Model.Item_Status_Name != null)
+                                    {
+                                        <span style="font-size: 13px;font-weight: bold;">@Model.Item_Status_Name</span>
+                                    }
+                                    else
+                                    {
+                                        <span>####</span>
+                                    }
+                                }
+                            }
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class=" " style=" width: 33.3333%; height: inherit; padding: 3px">
+                            <label style="  ">الغرض:</label>
+                            @if (Model.Sample_BarCode != null)
+                            {
+                                if (Model.Sample_BarCode.StartsWith("78"))
+                                {
+                                    <span>####</span>
+                                }
+                                else if (Model.Sample_BarCode.StartsWith("74"))
+                                {
+                                    if (Model.Item_Purpose_Name != null)
+                                    {
+                                        <span style="font-size: 13px;font-weight: bold;">@Model.Item_Purpose_Name</span>
+                                    }
+                                    else
+                                    {
+                                        <span>####</span>
+                                    }
+                                }
+                                else if (Model.Sample_BarCode.StartsWith("73"))
+                                {
+                                    if (Model.Item_Purpose_Name != null)
+                                    {
+                                        <span style="font-size: 13px;font-weight: bold;">@Model.Item_Purpose_Name</span>
+                                    }
+                                    else
+                                    {
+                                        <span>####</span>
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+
+                    <div class="" style="margin:auto;height:.85cm;border:1px solid #000;border-top:none;display:flex;">
+                        <div class="" style=" width: 33.3333%; height: inherit; padding: 3px">
+                            <label style="  ">حجم العينة:</label>
+
+                            @if (Model.SampleSize == null)
+                            {
+                                <span>####</span>
+                            }
+                            else
+                            {
+                                <span style="font-size: 13px;font-weight: bold;">@Model.SampleSize</span>
+                            }
+
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class=" " style=" width: 33.3333%; height: inherit; padding: 3px">
+                            <label style="  ">الوحدة:</label>
+                            <span></span><span style="font-size: 13px;font-weight: bold;color:red">كجم</span>
+
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class=" " style=" width: 33.3333%; height: inherit; padding: 3px">
+                            <label style="  ">الدرجة:</label>
+                            <span>####</span>
+
+                        </div>
+
+
+                    </div>
+                    <div class="" style="margin:auto;height:.85cm;border:1px solid #000;border-top:none;display:flex;">
+                        @if (Model.Sample_BarCode != null)
+                        {
+                            if (Model.Sample_BarCode.StartsWith("78"))
+                            {
+                                <div class=" " style=" width: 100%; height: inherit; padding: 3px">
+                                    <label style="  ">رقم المزارع/ناحية الزراعة:</label>
+                                    <span>@Model.governate - @Model.center - @Model.village - @Model.farmAddress</span>
+
+                                </div>
+                            }
+                            else if (Model.Sample_BarCode.StartsWith("74"))
+                            {
+                                <div class=" " style=" width: 100%; height: inherit; padding: 3px">
+                                    <label style="  ">رقم المزارع/ناحية الزراعة:</label>
+                                    <span>@Model.Grower_Number/</span><span> @Model.governate - @Model.center - @Model.village - @Model.farmAddress</span>
+
+                                </div>
+                            }
+                            else if (Model.Sample_BarCode.StartsWith("73"))
+                            {
+                                <div class=" " style=" width: 100%; height: inherit; padding: 3px">
+                                    <label style="  ">رقم المزارع/ناحية الزراعة:</label>
+                                    <span>@Model.farmCode/</span>
+                                    <span> @Model.governate - @Model.center - @Model.village - @Model.farmAddress</span>
+
+                                </div>
+                            }
+
+                        }
+                    </div>
+                    <div class="" style="margin:auto;height:.85cm;border:1px solid #000;border-top:none;display:flex;">
+                        <div class=" " style=" width: 100%; height: inherit; padding: 3px">
+                            @if (Model.Sample_BarCode != null)
+                            {
+                                if (Model.Sample_BarCode.StartsWith("78"))
+                                {
+                                    <label style="  ">الدولة المستوردة/المصدرة :(اعتماد مزارع) </label>
+                                }
+                                else if (Model.Sample_BarCode.StartsWith("74"))
+                                {
+                                    <label style="  ">الشركة المستوردة:- <span style="font-size: 13px;font-weight: bold;">@Model.companyName</span> </label>
+                                }
+                                else if (Model.Sample_BarCode.StartsWith("73"))
+                                {
+                                    <label style="  ">الشركة المصدرة:- <span style="font-size: 13px;font-weight: bold;">@Model.companyName</span> </label>
+                                }
+                                <span></span>
+                            }
+                        </div>
+                    </div>
+                    <div class="" style="margin:auto;height:.85cm;border:1px solid #000;border-top:none;display:flex;">
+                        <div class=" " style=" width: 100%; height: inherit; padding: 3px">
+                            <label style="  ">المعمل:</label>
+                            @if (String.IsNullOrEmpty(Model.labName))
+                            {
+                                <span>####</span>
+                            }
+                            else
+                            {
+                                <span @Model.companyName>@Model.labName</span>
+                            }
+
+
+                        </div>
+                    </div>
+                    <div class="" style="margin:auto;height:.85cm;border:1px solid #000;border-top:none;display:flex;">
+                        <div class=" " style=" width: 100%; height: inherit; padding: 3px">
+                            <label style="  ">التحليل1:</label>
+                            <span @Model.companyName>@Model.analysisType</span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="height:.5cm;"></div>
+            <hr style=" border: none; border-top: 1px dotted #131313; color: #fff; background-color: #fff!important;width: 100%!important;margin:0!important" />
+
+        </div>
+        <div id="table1" style="height:10.4cm;">
+            <div style="height:1.2cm;"></div>
+            <div class="" style="margin:auto;height:8.5cm;">
+                <div id="header" style="height:2.6cm;">
+                    <div class="" style="margin:auto;height:inherit;border:1px solid #000;display:flex;">
+                        <div class="" style=" width: 20%; height: inherit;padding: 3px;text-align: center;">
+                            <div class="" style="">
+                                <img class="img1" style="margin-top: 2px;" src="~/assets/images/capq/logo-capq-72.png" />
+                            </div>
+
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style=" width: 40%; height: inherit;padding: 3px;">
+                            <div class="" style="height: inherit;">
+                                @*<label>
+                                        المنفذ:
+                                    </label>
+                                    <span style="font-size: 13px;font-weight: bold;"></span><br />*@
+                                @if (Model.Outlet_Name != null)
+                                {
+                                    <label>
+                                        المنفذ:
+                                    </label>
+                                    <span style="font-size: 13px;font-weight: bold;">@Model.Outlet_Name</span><br />
+
+                                }
+                                else if (Model.Station_Name != null)
+                                {
+                                    <label>
+                                        محطة:
+                                    </label>
+                                    <span style="font-size: 13px;font-weight: bold;">@Model.Station_Name</span><br />
+
+                                }
+                                else
+                                {
+                                    <span style="font-size: 13px;font-weight: bold;">لا يوجد اسم للمحطة او المنفذ</span><br />
+                                }
+
+
+
+
+                                <label>رقم الختامة/السيل:</label>
+                                <span style="font-weight:normal">@Model.Syl_ALkhatima_Number</span><br />
+                                <label>تاريخ سحب العينة:</label>
+                                <span>(@DateTime.Now.ToString("yyyy/MM/dd").Split(' ')[0])</span>
+
+                            </div>
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style=" width: 40%; height: inherit;padding: 3px;text-align: center;">
+                            <div class="" style=" height: inherit;">
+                                <input type="hidden" id="textValue" value="@Model.Sample_BarCode" class="input_box textValue">
+                                <div class="barcodeoutput"></div>
+                                <canvas class="canvasOutput"></canvas>
+                                @*<span style="font-size:30px; font-family:'LibreBarcode128Text-Regular'!important;">* @Model.Sample_BarCode *</span>*@
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+                <div id="content" style="height:6cm;">
+                    <div class="" style="margin:auto;height:.85cm;border:1px solid #000;border-top:none;display:flex;">
+                        <div class="" style=" width: 50%; height: inherit; padding: 3px">
+                            <label style="  ">اسم النبات:</label>
+                            <span style="font-size: 13px;font-weight: bold;">@Model.itemName</span>
+
+                        </div>
+                        @if (Model.Sample_BarCode != null)
+                        {
+                            if (Model.Sample_BarCode.StartsWith("74"))
+
+                            {
+                                <div class="" style=" width: 50%; height: inherit; padding: 3px">
+                                    <label style="  ">المنتــج :</label>
+                                    <span style="font-size: 13px;font-weight: bold;">@Model.ShortName</span>
+
+                                </div>
+                            }
+                        }
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style=" width: 50%; height: inherit; padding: 3px">
+                            <label style="  ">الصنف الزراعي:</label>
+
+                            @if (String.IsNullOrEmpty(Model.itemCategoryName))
+                            {
+                                <span>####</span>
+                            }
+                            else
+                            {
+                                <span style="font-size: 13px;font-weight: bold;">@Model.itemCategoryName</span>
+                            }
+
+
+                        </div>
+                    </div>
+
+                    <div class="" style="margin:auto;height:.85cm;border:1px solid #000;border-top:none;display:flex;">
+                        <div class="verticalLine" style="margin:0;"></div>
+                        <div class=" " style=" width: 33.3333%; height: inherit; padding: 3px">
+                            <label style="  ">الجزء النباتي:</label>
+                            @if (Model.Sample_BarCode != null)
+                            {
+                                if (Model.Sample_BarCode.StartsWith("78"))
+                                {
+                                    <span>####</span>
+                                }
+                                else if (Model.Sample_BarCode.StartsWith("74"))
+                                {
+                                    if (Model.SubPart_Name != null)
+                                    {
+                                        <span style="font-size: 13px;font-weight: bold;">@Model.SubPart_Name</span>
+                                    }
+                                    else
+                                    {
+                                        <span>####</span>
+                                    }
+                                }
+                                else if (Model.Sample_BarCode.StartsWith("73"))
+                                {
+                                    if (Model.SubPart_Name != null)
+                                    {
+                                        <span style="font-size: 13px;font-weight: bold;">@Model.SubPart_Name</span>
+                                    }
+                                    else
+                                    {
+                                        <span>####</span>
+                                    }
+                                }
+                            }
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class=" " style=" width: 33.3333%; height: inherit; padding: 3px">
+                            <label style="  ">الحالة:</label>
+                            @if (Model.Sample_BarCode != null)
+                            {
+                                if (Model.Sample_BarCode.StartsWith("78"))
+                                {
+                                    <span>####</span>
+                                }
+                                else if (Model.Sample_BarCode.StartsWith("74"))
+                                {
+                                    if (Model.Item_Status_Name != null)
+                                    {
+                                        <span style="font-size: 13px;font-weight: bold;">@Model.Item_Status_Name</span>
+                                    }
+                                    else
+                                    {
+                                        <span>####</span>
+                                    }
+                                }
+                                else if (Model.Sample_BarCode.StartsWith("73"))
+                                {
+                                    if (Model.Item_Status_Name != null)
+                                    {
+                                        <span style="font-size: 13px;font-weight: bold;">@Model.Item_Status_Name</span>
+                                    }
+                                    else
+                                    {
+                                        <span>####</span>
+                                    }
+                                }
+                            }
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class=" " style=" width: 33.3333%; height: inherit; padding: 3px">
+                            <label style="  ">الغرض:</label>
+                            @if (Model.Sample_BarCode != null)
+                            {
+                                if (Model.Sample_BarCode.StartsWith("78"))
+                                {
+                                    <span>####</span>
+                                }
+                                else if (Model.Sample_BarCode.StartsWith("74"))
+                                {
+                                    if (Model.Item_Purpose_Name != null)
+                                    {
+                                        <span style="font-size: 13px;font-weight: bold;">@Model.Item_Purpose_Name</span>
+                                    }
+                                    else
+                                    {
+                                        <span>####</span>
+                                    }
+                                }
+                                else if (Model.Sample_BarCode.StartsWith("73"))
+                                {
+                                    if (Model.Item_Purpose_Name != null)
+                                    {
+                                        <span style="font-size: 13px;font-weight: bold;">@Model.Item_Purpose_Name</span>
+                                    }
+                                    else
+                                    {
+                                        <span>####</span>
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+
+                    <div class="" style="margin:auto;height:.85cm;border:1px solid #000;border-top:none;display:flex;">
+                        <div class="" style=" width: 33.3333%; height: inherit; padding: 3px">
+                            <label style="  ">حجم العينة:</label>
+
+                            @if (Model.SampleSize == null)
+                            {
+                                <span>####</span>
+                            }
+                            else
+                            {
+                                <span style="font-size: 13px;font-weight: bold;">@Model.SampleSize</span>
+                            }
+
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class=" " style=" width: 33.3333%; height: inherit; padding: 3px">
+                            <label style="  ">الوحدة:</label>
+                            <span></span><span style="font-size: 13px;font-weight: bold;color:red">كجم</span>
+
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class=" " style=" width: 33.3333%; height: inherit; padding: 3px">
+                            <label style="  ">الدرجة:</label>
+                            <span>####</span>
+
+                        </div>
+
+
+                    </div>
+                    <div class="" style="margin:auto;height:.85cm;border:1px solid #000;border-top:none;display:flex;">
+                        @if (Model.Sample_BarCode != null)
+                        {
+                            if (Model.Sample_BarCode.StartsWith("78"))
+                            {
+                                <div class=" " style=" width: 100%; height: inherit; padding: 3px">
+                                    <label style="  ">رقم المزارع/ناحية الزراعة:</label>
+                                    <span>@Model.governate - @Model.center - @Model.village - @Model.farmAddress</span>
+
+                                </div>
+                            }
+                            else if (Model.Sample_BarCode.StartsWith("74"))
+                            {
+                                <div class=" " style=" width: 100%; height: inherit; padding: 3px">
+                                    <label style="  ">رقم المزارع/ناحية الزراعة:</label>
+                                    <span>@Model.Grower_Number/</span><span> @Model.governate - @Model.center - @Model.village - @Model.farmAddress</span>
+
+                                </div>
+                            }
+                            else if (Model.Sample_BarCode.StartsWith("73"))
+                            {
+                                <div class=" " style=" width: 100%; height: inherit; padding: 3px">
+                                    <label style="  ">رقم المزارع/ناحية الزراعة:</label>
+                                    <span>@Model.farmCode/</span>
+                                    <span> @Model.governate - @Model.center - @Model.village - @Model.farmAddress</span>
+
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div class="" style="margin:auto;height:.85cm;border:1px solid #000;border-top:none;display:flex;">
+                        <div class=" " style=" width: 100%; height: inherit; padding: 3px">
+                            @if (Model.Sample_BarCode != null)
+                            {
+                                if (Model.Sample_BarCode.StartsWith("78"))
+                                {
+                                    <label style="  ">الدولة المستوردة/المصدرة :(اعتماد مزارع) </label>
+                                }
+                                else if (Model.Sample_BarCode.StartsWith("74"))
+                                {
+                                    <label style="  ">الشركة المستوردة:- <span style="font-size: 13px;font-weight: bold;">@Model.companyName</span> </label>
+                                }
+                                else if (Model.Sample_BarCode.StartsWith("73"))
+                                {
+                                    <label style="  ">الشركةالمصدرة:- <span style="font-size: 13px;font-weight: bold;">@Model.companyName</span> </label>
+                                }
+                            }
+                            <span></span>
+
+                        </div>
+                    </div>
+                    <div class="" style="margin:auto;height:.85cm;border:1px solid #000;border-top:none;display:flex;">
+                        <div class=" " style=" width: 100%; height: inherit; padding: 3px">
+                            <label style="  ">المعمل:</label>
+                            @if (String.IsNullOrEmpty(Model.labName))
+                            {
+                                <span>####</span>
+                            }
+                            else
+                            {
+                                <span @Model.companyName>@Model.labName</span>
+                            }
+
+
+                        </div>
+                    </div>
+                    <div class="" style="margin:auto;height:.85cm;border:1px solid #000;border-top:none;display:flex;">
+                        <div class=" " style=" width: 100%; height: inherit; padding: 3px">
+                            <label style="  ">التحليل1:</label>
+                            <span @Model.companyName>@Model.analysisType</span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="height:.5cm;"></div>
+            <hr style=" border: none; border-top: 1px dotted #131313; color: #fff; background-color: #fff!important;width: 100%!important;margin:0!important" />
+
+        </div>
+        @*}*@
+
+        @*<div id="table2" style="height:10.4cm;">
+                <div style="height:1.5cm;"></div>
+                <div class="" style="margin:auto;height:8.5cm;">
+                    <div id="header" style="height:2.2cm;">
+                        <div class="" style="margin:auto;height:inherit;border:1px solid #000;display:flex;">
+                            <div class="" style=" width: 20%; height: inherit;padding: 3px;text-align: center;">
+                                <div class="" style="">
+                                    <img class="img1" style="margin-top: 2px;" src="~/assets/images/capq/logo-capq-72.png" />
+                                </div>
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class="" style=" width: 40%; height: inherit;padding: 3px;">
+                                <div class="" style="height: inherit;">
+                                    <label>
+                                        المنفذ:
+                                    </label>
+                                    <span style="font-weight:normal">:@Model.farmName</span><br />
+                                    <label>رقم الختامة/السيل:</label>
+                                    <span style="font-weight:normal"></span><br />
+                                     <label>تاريخ سحب العينة:</label>
+                                    <span>(@DateTime.Now.ToString("yyyy/MM/dd").Split(' ')[0])</span>
+
+                                </div>
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class="" style=" width: 40%; height: inherit;padding: 3px;text-align: center;">
+                                <div class="" style=" height: inherit;">
+                                    <span style="font-size:30px; font-family:'LibreBarcode128Text-Regular'!important;">@Model.Sample_BarCode</span>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div id="content" style="height:6cm;">
+                        <div class="" style="margin:auto;height:.85cm;border:1px solid #000;border-top:none;display:flex;">
+                            <div class="" style=" width: 50%; height: inherit; padding: 3px">
+                                <label style="  ">اسم النبات:</label>
+                                <span>@Model.itemName</span>
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class="" style=" width: 50%; height: inherit; padding: 3px">
+                                <label style="  ">الصنف الزراعي:</label>
+
+                                @if (String.IsNullOrEmpty(Model.itemCategoryName))
+                                {
+                                    <span>####</span>
+                                }
+                                else
+                                {
+                                    <span>@Model.itemCategoryName</span>
+                                }
+
+
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:.85cm;border:1px solid #000;border-top:none;display:flex;">
+                            <div class="verticalLine" style="margin:0;"></div>
+                            <div class=" " style=" width: 33.3333%; height: inherit; padding: 3px">
+                                <label style="  ">الجزء النباتي:</label>
+                                <span>####</span>
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 33.3333%; height: inherit; padding: 3px">
+                                <label style="  ">الحالة:</label>
+                                <span>####</span>
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 33.3333%; height: inherit; padding: 3px">
+                                <label style="  ">الغرض:</label>
+                                <span>####</span>
+
+                            </div>
+                        </div>
+
+
+                        <div class="" style="margin:auto;height:.85cm;border:1px solid #000;border-top:none;display:flex;">
+                            <div class="" style=" width: 33.3333%; height: inherit; padding: 3px">
+                                <label style="  ">حجم العينة:</label>
+
+                                @if (Model.SampleSize == null)
+                                {
+                                    <span>####</span>
+                                }
+                                else
+                                {
+                                    <span>@Model.SampleSize</span>
+                                }
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 33.3333%; height: inherit; padding: 3px">
+                                <label style="  ">الوحدة:</label>
+                                <span></span><span>كجم</span>
+
+                            </div>
+                            <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                            <div class=" " style=" width: 33.3333%; height: inherit; padding: 3px">
+                                <label style="  ">الدرجة:</label>
+                                <span>####</span>
+
+                            </div>
+
+
+                        </div>
+                        <div class="" style="margin:auto;height:.85cm;border:1px solid #000;border-top:none;display:flex;">
+                            <div class=" " style=" width: 100%; height: inherit; padding: 3px">
+                                <label style="  ">رقم المزارع/ناحية الزراعة:</label>
+                                <span>@Model.governate - @Model.center - @Model.village - @Model.farmAddress</span>
+
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:.85cm;border:1px solid #000;border-top:none;display:flex;">
+                            <div class=" " style=" width: 100%; height: inherit; padding: 3px">
+                                <label style="  ">الدولة المستوردة/المصدرة :(اعتماد مزارع)</label>
+                                <span></span>
+
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:.85cm;border:1px solid #000;border-top:none;display:flex;">
+                            <div class=" " style=" width: 100%; height: inherit; padding: 3px">
+                                <label style="  ">المعمل:</label>
+                                @if (String.IsNullOrEmpty(Model.labName))
+                                {
+                                    <span>####</span>
+                                }
+                                else
+                                {
+                                    <span>@Model.labName</span>
+                                }
+
+
+                            </div>
+                        </div>
+                        <div class="" style="margin:auto;height:.85cm;border:1px solid #000;border-top:none;display:flex;">
+                            <div class=" " style=" width: 100%; height: inherit; padding: 3px">
+                                <label style="  ">التحليل1:</label>
+                                <span>@Model.analysisType</span>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="height:.5cm;"></div>
+            </div>*@
+
+    </div>
+
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-5">
+    </div>
+    <div class="col-md-3">
+        <button id="PrintResultButton" class="btn" value='Print' onclick='print1("barcode-print")'> اطبع </button>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+<script>
+    //save isprint true in farm sample data when print
+
+    function print1(prin1) {
+
+        $.post('/LaboratoryResult/LaboratoryResult_Report/savePrintBarcode', {farmSampleId:'@Model.farmSampleId'}, function (data, succ) {
+
+        });
+        var restorepage2 = document.body.innerHTML;
+        var printcontent2 = $('#' + prin1).html();
+        document.body.innerHTML = printcontent2;
+        var css = `@@page{margin: 0cm .5cm 0cm .5cm!important;}.verticalLine{width:1px !important;margin: 0!important;background: #000!important;}.col-md-4 {width: 33.33333333%;}.col-md-8 {width: 66.66666667%;}.col-md-6 {width: 50%;}.col-md-7 {width: 58.33333333%;}.col-md-5 {width: 41.66666667%;} .barcodeoutput{  padding: 0px !important;overflow: inherit !important; width: 150px !important; height: 50px !important;background-color: #ffffff00 !important;}  .barcodeoutput div {background-color: #ffffff00 !important; height: 50px !important; } .barcodeoutput div :last-child {background-color: #ffffff00 !important; }.barcodeoutput div {clear: unset !important;}`,
+            head = document.head || document.getElementsByTagName('head')[0],
+            style = document.createElement('style');
+        style.type = 'text/css';
+        style.media = 'print';
+
+        if (style.styleSheet) {
+            style.styleSheet.cssText = css;
+        }
+        else {
+            style.appendChild(document.createTextNode(css));
+        }
+        head.appendChild(style);
+        window.print();
+        history.go(0);
+        document.body.innerHTML = restorepage2;
+    }
+
+</script>

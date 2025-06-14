@@ -1,0 +1,686 @@
+﻿@model  List<PlantQuar.DTO.DTO.ExportRequest.QuickRequestDetailsDTO>
+@{ var CertificateNo_printed = 0;
+    //var certificateNo = Model.data.CertificateNo;
+    //if (Model.data.CertificateNo > 0)
+    //{
+    //    CertificateNo_printed = Model.data.CertificateNo;
+
+    //}
+    //else
+    //{
+    //    CertificateNo_printed = 0;
+    //}
+
+    //var totItems = Model.data.totItems;
+    ////eman
+    //int? totPackageCount = 0;
+    //decimal? totNetWeight = 0;
+    //decimal? totGrossWeight = 0;
+    //var totLotNo = 0;
+
+
+    ViewBag.Title = "@PlantQuar.WEB.Language.Resource_data1.agriculturalCertificate";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    PlantQuar.WEB.App_Start.User_Session Current = PlantQuar.WEB.App_Start.User_Session.GetInstance;
+    var Language_IsAr = Current.Language_IsAr;
+    //bool? isEnglish = (Model.ISEnglish == null) ? false : Model.data.ISEnglish;
+}
+
+
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.agriculturalCertificate</h2>
+}
+<style>
+
+
+
+
+    .prag {
+        text-align: center;
+    }
+
+
+
+    #PrintResultButton, #PrintResultButton2 {
+        background-color: #1e7c80 !important;
+        border: 2px solid #1e8084 !important;
+        box-shadow: 0 4px #1d9fa5 !important;
+        outline: none;
+        color: white;
+        margin-bottom: 10px;
+        width: 50%;
+    }
+
+
+    .lab-2 {
+        margin-top: 10px;
+        text-align: right;
+        font-size: 16px;
+    }
+
+
+
+    .demo-blockquote {
+        margin-bottom: 70px !important;
+    }
+</style>
+<script src="~/scripts/jquery.qrcode.js"></script>
+<script src="~/scripts/qrcode.js"></script>
+
+@section Path{
+    <li>@PlantQuar.WEB.Language.Resource_data1.agriculturalCertificate</li>
+    <li class="active">@PlantQuar.WEB.Language.Resource_data1.agriculturalCertificate</li>
+}
+@*<script>
+           var Get_dir = (@Language_IsAr==1) ? 'rtl' : 'ltr';
+    </script>*@
+<input hidden value="@ViewBag.requestId" name="requestId" />
+
+@{
+
+    var Get_dir = (@Language_IsAr == 1) ? "rtl" : "ltr";
+}
+
+
+<div id="PrintAr">
+    <div id="tableArabic">
+        <div style="width:21cm;height:29.7cm;background:gray;margin:auto;padding-top:.5cm">
+            <div id="border" style="width:20cm;background:white;margin:auto;border:1px solid #000;font-family: 'Arial regular'!important;font-size:10pt;">
+                <div id="header" style="height: 3.5cm; border-bottom: 1px solid #000;">
+                    <div class="" style="margin:auto;height:inherit;display:flex;">
+                        <div class="" style=" width: 70%; height: inherit;padding: 3px">
+
+                            <div class="col-md-6 col-sm-8" style="display:inline-block;">
+                                <p class="lab-2" style="font-weight:bold">
+                                    جمهورية مصر العربية<br />
+                                    وزارة الزراعة واستصلاح الأراضي<br />
+                                    الإدارة المركزية للحجر الزراعي
+                                </p>
+
+                            </div>
+
+
+                            <div class="col-md-6 col-sm-4" style="display:inline-block;float:right;">
+                                <label style="margin-top: 10px;font-size: 15px;">طلب فحص واستخراج شهاده زراعية</label>
+                            </div>
+
+
+                            <div style="display:inline-block;" class="col-md-12 col-sm-12">
+                                <br />
+                                <label style="text-align:right;"> السيد رئيس مكتب الحجر الزراعي بجمرك:  </label>
+                            </div>
+
+                        </div>
+
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class="" style=" width: 30%; height: inherit;padding: 0px">
+                            <div class="" style="margin:auto;height:3cm;display:flex;">
+                                <div class="col-md-12 col-sm-12" style="display:inline-block;float:right;height: 3cm;">
+
+                                    <label style="text-align: right; font-size: smaller;"> رقم المسلسل:  </label><br />
+                                    <label style="text-align: right; font-size: smaller;"> رقم الشهادة الزراعية:  </label><br />
+                                    <label style="text-align: right; font-size: smaller;"> رقم البوليصة:  </label><br />
+                                    <label style="text-align: right; font-size: smaller;"> إسم شركة الملاحة:  </label><br />
+                                    <label style="text-align: right; font-size: smaller;"> رقم شهاده الصادر:  </label>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-12 col-sm-12" style="display:block;height:1cm;padding: 0px 10px;">
+                                <label> @*1.إلى المنظمة الوطنية لوقاية النباتات في :*@ </label>
+                                <label name="Orag_Plant">
+                                   
+
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="content" style="height:21.2cm;">
+
+                    <div class="" style="margin:auto;height:1.2cm;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style=" width: 100%; height: inherit; padding:0px 3px;text-align:center;">
+
+                            <label>
+                                النباتات والمنتجات الوارد بيانها أدناه مطلوب تصديرها للخارج بمعرفتي وأرجو بعد فحصها إعطائي الشهادة اللازمة يسري العمل
+                                بهذا الطلب فى مده أقصاها إسبوع من تاريخ فحص الرسالة
+                            </label>
+
+                        </div>
+                    </div>
+
+                    <div class="" style="margin:auto;height:1cm;border-bottom:1px solid #000;display:flex;">
+
+                        <div class="" style=" width: 25%; height: inherit;padding: 3px">
+                            <label> الصنف  </label>
+
+
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class=" " style=" width: 25%; height: inherit;padding: 3px">
+                            <label>   الطرود </label>
+
+
+
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class=" " style=" width: 25%; height: inherit;padding: 3px">
+                            <label> الوزن </label>
+
+
+                        </div>
+
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class=" " style=" width:25%; height: inherit;padding: 3px">
+                            <label style="font-size: smaller;"> الماركة أو العلامات المميزة للطرود </label>
+
+
+                        </div>
+                    </div>
+
+                    <div class="" style="margin:auto;height:2cm;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style=" width: 25%; height: inherit;padding: 3px">
+
+                            @if (Model.Count() > 0)
+                            {
+                                foreach (var item in Model.FirstOrDefault().ItemEx_CheckRequest)
+                                {
+
+                                    <label style="font-size: smaller;">@item.ItemNameAr</label><span>/</span>
+                                    <label style="font-size: smaller;">@item.ItemShortNameAr</label><br />
+
+
+                                }
+                            }
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+
+
+
+                        <div class=" " style=" width: 25%; height: inherit;padding: 3px">
+                            @foreach (var item in Model.FirstOrDefault().ItemEx_CheckRequest)
+                            {
+                                foreach (var item2 in item.item_lots)
+                                {
+
+
+                                    <label style="font-size: smaller;">  @item2.Package_Count </label><span>/</span>
+                                    <label style="font-size: smaller;">  @item2.packageType </label><br />
+
+                                }
+
+
+                            }
+
+
+                        </div>
+
+
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class=" " style=" width: 25%; height: inherit;padding: 3px">
+                            @foreach (var item in Model.FirstOrDefault().ItemEx_CheckRequest)
+                            {
+                                foreach (var item2 in item.item_lots)
+                                {
+                                    <label style="font-size: smaller;">  @item2.Gross_Weight_Final </label><span>/</span>
+                                    <label style="font-size: smaller;">  @item2.Net_Weight_Final </label><br />
+                                }
+
+                            }
+
+                        </div>
+                        <div class="verticalLine" style="margin:0;border-right: 1px solid black;"></div>
+                        <div class=" " style=" width: 25%; height: inherit;padding: 3px">
+                            @foreach (var item in Model.FirstOrDefault().ItemEx_CheckRequest)
+                            {
+
+                                foreach (var item2 in item.item_lots2)
+                                {
+                                    <label style="font-size: small;"> @item2.Lot_Number </label><span>/</span>
+                                }
+
+                            }
+                        </div>
+
+                    </div>
+
+                    <div class="" style="margin: auto; height:7cm;">
+                        <div class="" style="width: 100%; display: flex;">
+
+                            <div class="" style=" width: 70%;padding: 3px">
+                                <label>الناحية التي كانت منزرعة بها: </label>
+                                @*@foreach (var item in Model.FirstOrDefault().ItemEx_CheckRequest)
+                                    {
+                                        <span>@Model.FirstOrDefault().Farm_Agriculture_Hand</span>
+                                    }*@
+                                <span>مـصــر</span>
+                            </div>
+                            <div class="" style=" width: 30%;padding: 3px">
+                                <label>ميناء التصدير: </label>
+                                <span>@Model.FirstOrDefault().ArrivePortName</span>
+
+                            </div>
+                        </div>
+
+                        <div class="" style="width: 100%; display: flex">
+
+                            <div class="" style=" width: 50%;padding: 3px">
+                                <label>اسم الراسل: </label>
+                                <span style="font-size: small;">@Model.FirstOrDefault().ImporterName</span>
+
+                            </div>
+                            <div class="" style=" width: 50%;padding: 3px">
+                                <label>عنوانه: </label>
+                                <span style="font-size: small;">@Model.FirstOrDefault().CompanyAddress</span>
+
+                            </div>
+                        </div>
+
+                        <div class="" style="width: 100%; display: flex">
+
+                            <div class="" style=" width: 33.333%; padding: 3px">
+                                <label>جهة الوصول:</label>
+                                @foreach (var item in Model)
+                                {
+
+
+                                    <span style="font-size: small;">@Model.FirstOrDefault().ExportCountryName;</span><span>/</span>
+                                    foreach (var item2 in @Model.FirstOrDefault().QuickList_Port)
+                                    {
+
+
+                                        <span style="font-size: small;">
+                                            @item2.TransportPortType<span>/</span>
+
+                                        </span> <span style="font-size: small;">
+                                            @item2.TransportPortName
+                                        </span>
+                                    }
+                                }
+
+                            </div>
+                            <div class="" style=" width: 33.333%; padding: 3px">
+                                <label>اسم الباخرة:</label>
+                                <span style="font-size: small;">@Model.FirstOrDefault().Ship_Name</span>
+
+                            </div>
+                            <div class="" style=" width: 33.333%; padding: 3px">
+                                <label>وقت وتاريخ قيامها:</label>
+                                <span style="font-size: small;">@Model.FirstOrDefault().Shipment_Date</span>
+
+                            </div>
+                        </div>
+
+                        <div class="" style="width: 100%; display: flex">
+
+                            <div class="" style=" width: 50%;padding: 3px">
+                                <label>اسم المرسل إليه: </label>
+                                <span style="font-size: smaller;">@Model.FirstOrDefault().ExportCompany</span>
+
+                            </div>
+                            <div class="" style=" width: 50%;padding: 3px">
+                                <label>عنوانه: </label>
+                                <span style="font-size: smaller;">@Model.FirstOrDefault().ExportCompanyAddress</span>
+
+                            </div>
+                        </div>
+
+                        <div class="" style="width: 100%; display: flex">
+                            <label>تاريخ الطلب: </label>
+                            <span>@Model.FirstOrDefault().User_Creation_Date</span>
+                        </div>
+
+                        <div class="" style="width: 100%; display: flex">
+                            <label>
+                                أشهد أن البيانات السابقة جميعها صحيحة وأني مسؤل عنها شخصيا وأتعهد بتقديم التسهيلات اللازمة لفحص الرسالة بالطريقة التي
+                                تراها وزارة الزراعة وبمصاريف من طرفي
+                            </label>
+                        </div>
+
+                        <div class="" style="width: 100%; display: flex">
+
+                            <div class="" style=" width: 50%;padding: 3px">
+
+
+                            </div>
+                            <div class="" style=" width: 50%;padding: 3px">
+                                <label>إمضاء الطالب: </label>
+                                <span></span>
+                                <br />
+                                <label>اسم وإمضاء المهندس النقابي: </label>
+                                <span></span>
+                                <br />
+                                <label>رقم قيده بالنقابة: </label>
+                                <span></span>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="" style="margin: auto; height: 3cm; border-bottom: 1px solid #000;">
+
+                        <div class="" style="width: 100%; display: flex">
+                            <label style="font-size: smaller;"> تحريرا في @DateTime.Now.Date </label>
+
+                        </div>
+
+                        <div class="" style="width: 100%; display: flex">
+                            <label>اسم أعضاء اللجنة : </label>
+                            @if (Model.Count() > 0 && Model.FirstOrDefault().QuickCommitteList != null && Model.FirstOrDefault().QuickCommitteList.Count() > 0)
+                            {
+                                foreach (var item in Model.FirstOrDefault().QuickCommitteList)
+                                {
+                                    <span style="font-size: smaller;" class="col-md-3">@Model.FirstOrDefault().QuickCommitteList.FirstOrDefault().committeeFullEmployee_Name</span>
+                                }
+
+                            }
+                            else
+                            {
+                                <span style="font-size: small;">@Model.FirstOrDefault().CommitteeNotFound </span>
+
+                            }
+
+                        </div>
+
+                        <div class="" style="width: 100%; display: flex">
+
+                            <div class="" style=" width: 50%;padding: 3px">
+                                <label>تاريخ اللإنتداب: </label>
+
+                                @if (Model.Count() > 0 && Model.FirstOrDefault().QuickCommitteList != null && Model.FirstOrDefault().QuickCommitteList.Count() > 0)
+                                {
+                                    foreach (var item in Model.FirstOrDefault().QuickCommitteList)
+                                    {
+                                        <span style="font-size: smaller;">@item.CreationDate.Value.Date</span>
+                                    }
+
+                                }
+
+                            </div>
+                            <div class="" style=" width: 50%;padding: 3px">
+                                <label>الساعة: </label>
+                                @if (Model.Count() > 0 && Model.FirstOrDefault().QuickCommitteList != null && Model.FirstOrDefault().QuickCommitteList.Count() > 0)
+                                {
+                                    foreach (var item in Model.FirstOrDefault().QuickCommitteList)
+                                    {
+                                        <span style="font-size: smaller;">@item.CreationDate.Value.TimeOfDay</span>
+                                    }
+
+                                }
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="" style="margin: auto; height: 2.5cm;">
+
+                        <div class="" style="width: 100%; display: flex;">
+                            <label>عدد الطرود التي فحصت:  </label>
+                            <span></span>
+                        </div>
+
+                        <div class="" style="width: 100%; display: flex">
+
+                            <div class="" style=" width: 25%;padding: 3px">
+                                <label>ميعاد الفحص: </label>
+                                @if (Model.Count() > 0 && Model.FirstOrDefault().QuickCommitteList != null && Model.FirstOrDefault().QuickCommitteList.Count() > 0)
+                                {
+                                    foreach (var item in Model.FirstOrDefault().QuickCommitteList)
+                                    {
+                                        <span style="font-size: smaller;">@item.Delegation_Date.Value.Date</span>
+                                    }
+
+                                }
+
+
+                            </div>
+                            <div class="" style=" width: 25%;padding: 3px">
+                                <label>من: </label>
+                                @if (Model.Count() > 0 && Model.FirstOrDefault().QuickCommitteList != null && Model.FirstOrDefault().QuickCommitteList.Count() > 0)
+                                {
+                                    foreach (var item in Model.FirstOrDefault().QuickCommitteList)
+                                    {
+                                        <span style="font-size: smaller;">@item.StartTime</span>
+                                    }
+
+                                }
+
+                            </div>
+                            <div class="" style=" width: 25%;padding: 3px">
+                                <label>الى: </label>
+                                @if (Model.Count() > 0 && Model.FirstOrDefault().QuickCommitteList != null && Model.FirstOrDefault().QuickCommitteList.Count() > 0)
+                                {
+                                    foreach (var item in Model.FirstOrDefault().QuickCommitteList)
+                                    {
+                                        <span style="font-size: smaller;">@item.EndTime</span>
+                                    }
+
+                                }
+
+
+                            </div>
+                            <div class="" style=" width: 25%;padding: 3px">
+                                <label>التاريخ:</label>
+                                @if (Model.Count() > 0 && Model.FirstOrDefault().QuickCommitteList != null && Model.FirstOrDefault().QuickCommitteList.Count() > 0)
+                                {
+                                    foreach (var item in Model.FirstOrDefault().QuickCommitteList)
+                                    {
+                                        <span style="font-size: smaller;">@item.Delegation_Date.Value.Date</span>
+                                    }
+
+                                }
+
+                            </div>
+                        </div>
+
+                        <div class="" style="width: 100%; display: flex;">
+
+                            <label>نتيجة الفحص: </label>
+                            @if (Model.Count() > 0 && Model.FirstOrDefault().QuickCommitteList != null && Model.FirstOrDefault().QuickCommitteList.Count() > 0)
+                            {
+                                foreach (var item in Model.FirstOrDefault().QuickCommitteList)
+                                {
+                                    <span style="font-size: smaller;">@item.ResultTypes_Name</span>
+                                }
+
+                            }
+                        </div>
+                    </div>
+                    <div class="" style="width: 100%; display: flex;">
+                        <div class="" style=" width: 70%; height: inherit; padding: 3px; text-align: center;">
+                            <label> إمضاء أعضاء اللجنة </label>
+
+
+                            <span></span>
+                            <span></span>
+                            <span></span>
+
+                        </div>
+                        <div class="" style=" width: 30%; height: inherit;padding: 3px;">
+                            <label> إمضاء المراقب </label>
+
+                            <span></span>
+                        </div>
+                    </div>
+
+
+                    <div class="" style="margin: auto; height: 3.5cm;">
+
+                        <div class="" style="width: 100%;padding: 3px">
+
+                            <label>الإجراءات النهائية: </label>
+                            <span></span>
+
+                        </div>
+
+                        <div class="" style="width: 100%; display: flex">
+
+                            <div class="" style=" width: 50%;padding: 3px">
+                                <label> تحريرا في &nbsp &nbsp / &nbsp &nbsp/ &nbsp &nbsp20 </label>
+                                <span></span>
+
+
+                            </div>
+                            <div class="" style=" width: 50%;padding: 3px">
+
+                                <label>إمضاء رئيس المكتب:</label>
+                                <span></span>
+
+                            </div>
+                        </div>
+
+                        <div class="" style="width: 100%; display: flex">
+
+                            <div class="" style=" width: 50%;padding: 3px;text-align:center">
+                                <label>استلمت الشهادة الزراعية </label>
+
+                                <span></span>
+
+
+                            </div>
+                            <div class="" style=" width: 50%; padding: 3px; text-align: center">
+
+                                <label>إمضاء الطالب</label>
+
+                                <span></span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+
+                <div id="footer3" style="height: 4cm; border-top: 1px solid #000;">
+                    <div class="" style="margin:auto;height:0.5cm;display:flex;">
+                        <div class="" style="width: 40%; height: inherit;text-align: left;">
+                            <label style="margin:0px !important">قرش </label>
+                            &nbsp  &nbsp                                     <label style="margin:0px !important">جنية </label>
+
+                        </div>
+
+                    </div>
+
+                    <div class="" style="margin:auto;height:3.5cm;border-bottom:1px solid #000;display:flex;">
+                        <div class="" style="width: 40%; height: inherit;padding: 3px">
+                            <label style="font-size: smaller;">نفقات النوبتجية </label>
+
+
+                            @if (Model.Count() > 0 && Model.FirstOrDefault().QuickCommitteList != null && Model.FirstOrDefault().QuickCommitteList.Count() > 0)
+                            {
+                                foreach (var item in Model.FirstOrDefault().QuickCommitteList.FirstOrDefault().QuickList_Shift)
+                                {
+                                    <span style="font-size: smaller;">@item.Shift_Sum_All</span>
+                                }
+
+                            }
+
+                            <span style="float:left"> </span>
+                            <br />
+                            <label style="font-size: smaller;">رسم استخراج الشهادة الزراعية </label><span style="float:left">  </span> <br />
+                            <label style="font-size: smaller;">رسم استخراج  </label><span style="float:left"></span><br />
+                            <label style="font-size: smaller;">رسم الفحص  </label><span style="float:left">  </span>
+
+
+                        </div>
+                        <div class="" style="width: 25%; height: inherit;padding: 3px">
+                            <label style="font-size: smaller;"> بقسيمة </label>
+                            <span style="float:left"> </span><br />
+
+                            <label style="font-size: smaller;">بقسيمة</label>
+                            <span style="float:left"></span><br />
+
+                            <label style="font-size: smaller;">بقسيمة</label>
+                            <span style="float:left"></span><br />
+
+                            <label style="font-size: smaller;">بقسيمة</label>
+                            <span style="float:left"> </span>
+                        </div>
+                        <div class="" style="width: 25%; height: inherit;padding: 3px">
+
+                            <label style="font-size: smaller;">بتاريخ </label>
+                            @if (Model.Count() > 0 && Model.FirstOrDefault().QuickCommitteList != null && Model.FirstOrDefault().QuickCommitteList.Count() > 0)
+                            {
+                                foreach (var item in Model.FirstOrDefault().QuickCommitteList.FirstOrDefault().QuickList_Shift)
+                                {
+                                    <span style="float: left; font-size: smaller;">@item.User_Creation_Date.Date</span>
+
+                                }
+
+                            }
+
+                            <br />
+                            <label style="font-size: smaller;">بتاريخ </label><span style="float:left">@Model.FirstOrDefault().User_Creation_Date.Value.Date</span><br />
+                            <label style="font-size: smaller;">بتاريخ </label><span style="float:left">@Model.FirstOrDefault().User_Creation_Date.Value.Date</span><br />
+                            <label style="font-size: smaller;">بتاريخ </label><span style="float:left">@Model.FirstOrDefault().User_Creation_Date.Value.Date</span>
+
+                        </div>
+                        <div class="" style="width: 10%; height: inherit;padding: 3px">
+                            <label style="font-size: smaller;">سنه @Model.FirstOrDefault().User_Creation_Date.Value.Year </label><br />
+                            <label style="font-size: smaller;">سنه @Model.FirstOrDefault().User_Creation_Date.Value.Year </label><br />
+                            <label style="font-size: smaller;">سنه @Model.FirstOrDefault().User_Creation_Date.Value.Year </label><br />
+                            <label style="font-size: smaller;">سنه @Model.FirstOrDefault().User_Creation_Date.Value.Year</label>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+<br />
+<br />
+<br />
+
+<div class="row">
+    <div class="col-md-4 "></div>
+    <div class="col-md-4 text-align-center">
+        <button class="btn btnar" value='Print' onclick='printar("PrintAr")'> طباعة </button>
+    </div>
+    <div class="col-md-4 "></div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+
+
+<script>
+    function printar(k) {
+        var restorepage2 = document.body.innerHTML;
+        var printcontent2 = $('#' + k).children();
+        var printData = '';
+        for (var i = 0; i < printcontent2.length; i++) {
+            printData += printcontent2[i].innerHTML;
+        }
+        document.body.innerHTML = printData;
+        // jQuery('.qrcodeimport').qrcode("r");
+        var css = `@@page{margin:.6cm .5cm .55cm .5cm!important;}.verticalLine{width:1px !important;margin: 0!important;background: #000!important;}.lab-2 {margin-right: 8px;font-size: 16px}.col-md-4 {width: 33.33333333%;}.col-md-8 {width: 66.66666667%;}.col-md-6 {width: 50%;}.col-md-7 {width: 58.33333333%;}.col-md-5 {width: 41.66666667%;}`,
+            head = document.head || document.getElementsByTagName('head')[0],
+            style = document.createElement('style');
+        style.type = 'text/css';
+        style.media = 'print';
+
+        if (style.styleSheet) {
+            style.styleSheet.cssText = css;
+        }
+        else {
+            style.appendChild(document.createTextNode(css));
+        }
+        head.appendChild(style);
+        window.print();
+        history.go(0);
+        window.location.reload();
+        document.body.innerHTML = restorepage2;
+    }</script>
+

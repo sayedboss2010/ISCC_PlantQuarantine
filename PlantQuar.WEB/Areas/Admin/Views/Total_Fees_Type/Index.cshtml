@@ -1,0 +1,44 @@
+﻿@model List<PlantQuar.DTO.DTO.Admin.Total_Fees_Type_DTO>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">موقف الحسابات</h2>
+}
+
+<div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap" style="padding:20px;">
+    <table class="table table-bordered table-striped dataTable" role="grid">
+        <thead>
+            <tr>
+                <th>  البند </th>
+                <th>الاجمالي</th>
+                <th>حساب خاص</th>
+                <th>حساب حكومي</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Description</td>
+                        <td>@item.Amount_Total</td>
+                        <td>@item.حسابخاص</td>
+                        <td>@item.حسابحكومي</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4"><span>لا توجد بيانات</span></td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+

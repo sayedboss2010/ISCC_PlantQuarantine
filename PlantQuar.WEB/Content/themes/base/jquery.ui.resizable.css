@@ -1,0 +1,27 @@
+/*!
+ * jQuery UI Resizable 1.9.1
+ * http://jqueryui.com
+ *
+ * Copyright 2012 jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Resizable#theming
+ */
+.ui-resizable { position: relative;}
+.ui-resizable-handle {
+    position: absolute;
+    font-size: 0.1px;
+    display: none;
+    resize: none;
+    overflow: auto
+}
+.ui-resizable-disabled .ui-resizable-handle, .ui-resizable-autohide .ui-resizable-handle { display: none!important; }
+.ui-resizable-n { cursor:  default; height: 7px; width: 100%; top: -5px; left: 0;display:none!important }
+.ui-resizable-s { cursor: default; height: 7px; width: 100%; bottom: -5px; left: 0;display:none!important }
+.ui-resizable-e { cursor: default; width: 7px; right: -5px; top: 0; height: 100%;display:none!important }
+.ui-resizable-w { cursor: default; width: 7px; left: -5px; top: 0; height: 100%;display:none!important }
+.ui-resizable-se { cursor: default; width: 12px; height: 12px; right: 1px; bottom: 1px;display:none!important }
+.ui-resizable-sw { cursor: default; width: 9px; height: 9px; left: -5px; bottom: -5px;display:none!important }
+.ui-resizable-nw { cursor: default; width: 9px; height: 9px; left: -5px; top: -5px; display:none!important}
+.ui-resizable-ne { cursor: default; width: 9px; height: 9px; right: -5px; top: -5px;display:none!important}

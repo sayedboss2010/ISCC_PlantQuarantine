@@ -1,0 +1,259 @@
+﻿@model PlantQuar.DTO.DTO.Station_Pages.Station_Get_Data_ResultDTO
+
+@{
+    ViewBag.Title = "@PlantQuar.WEB.Language.Resource_data1.StationDetails";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.StationDetails</h2>
+}
+<style>
+    .form-rowr {
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px dashed #cbc5ba;
+    }
+
+    .control-label {
+        font-size: 14px;
+    }
+
+    .form-control {
+        font-size: 13px;
+    }
+
+    .label-info {
+        font-size: 16px;
+        text-align: center;
+        padding: 6px;
+        border-radius: 6px 20px;
+    }
+
+    th, tr, td {
+        text-align: center;
+    }
+
+    button, html input[type="button"], input[type="reset"], input[type="submit"] {
+        margin-right: 0px;
+    }
+
+
+    #btnSave, #btnReject, #btnReject, #PrintResultButton {
+        background-color: #1e7c80 !important;
+        border: 2px solid #1e8084 !important;
+        box-shadow: 0 4px #1d9fa5 !important;
+        outline: none;
+        color: white;
+        margin-bottom: 10px;
+    }
+
+        #btnSave, #btnReject, #btnReject, #PrintResultButton:hover {
+            background-color: #1a8488 !important;
+            border: 1px solid #1a8488 !important;
+        }
+
+    /*blockquote {
+        margin-bottom: 70px !important;
+    }*/
+
+    .jtable thead tr {
+        height: 50px;
+    }
+
+    div.jtable-main-container > table.jtable > thead th.jtable-column-header div.jtable-column-header-container {
+        bottom: 12px !important;
+    }
+
+    #print {
+        width: 90%;
+        background-color: #1a8488 !important;
+        border: 1px solid #1a8488 !important;
+        box-shadow: 0 4px #1d9fa5 !important;
+        outline: none;
+        color: white;
+        margin-bottom: 10px;
+        height: 40px;
+        font-size: 18px;
+    }
+
+    #innerDiv {
+        border: 1px solid gray;
+        border-radius: 20px;
+        padding: 20px;
+        height: auto;
+        background-color: white;
+        width: 100%;
+    }
+
+        #innerDiv input, #innerDiv textarea {
+            width: 95%;
+            border-radius: 20px;
+            text-align: center
+        }
+
+        #innerDiv label {
+            color: #185658;
+        }
+
+        #innerDiv .col-md-2 {
+            text-align: center;
+        }
+</style>
+
+@if (Model == null)
+{
+    @PlantQuar.WEB.Language.Resource_data1.NoResults;
+    return;
+}
+@using (Html.BeginForm("acceptRequest", "StationDetails", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "submform" }))
+{
+    @Html.HiddenFor(m => m.requestId)
+    @Html.HiddenFor(m => m.StationId)
+    <div class="form-group" style="min-height:400px;padding:10px;">
+
+        <div class="row">
+            <div id="innerDiv">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.StationName </label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" value="@Model.StationName" disabled />
+                    </div>
+                    <div class="col-md-2">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Address </label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" value="@Model.StationAddress" disabled />
+                    </div>
+                </div>
+                <br />
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.ActivityType</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" value="@Model.ActiveType_Name" disabled />
+
+                    </div>
+
+                    <div class="col-md-2">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.itemName</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" value="@Model.ItemName" disabled />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Governate</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" value="@Model.governorateName" disabled />
+                    </div>
+                    <div class="col-md-2">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Center</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" value="@Model.centerName" disabled />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Village</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" value="@Model.villageName" disabled />
+                    </div>
+                    <div class="col-md-2">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.IndustrialLicenseNumber</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" value="@Model.Industrial_License_Num" disabled />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.TaxesRecord</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" value="@Model.TaxesRecord" disabled />
+                    </div>
+                    <div class="col-md-2">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.CommertialRecord</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" value="@Model.CommertialRecord" disabled />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.DateStart</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" value="@Model.Start_Date" disabled />
+                    </div>
+                    <div class="col-md-2">
+                        <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.DateEnd</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" value="@Model.End_Date" disabled />
+                    </div>
+
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+
+    @Html.HiddenFor(m => m.IsApproved, new { @id = "txtIsAccepted" })
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+                @{
+                    var Disabled = Model.IsApproved == true ? "disabled" : "";
+                    Disabled = Model.IsApproved == false ? "disabled" : Disabled;
+                    var t = @PlantQuar.WEB.Language.Resource_data1.approvalOfRequest;
+                    var t1 = @PlantQuar.WEB.Language.Resource_data1.requestApproval;
+
+                    var txt = Model.IsApproved == true ? t1 : t;
+                    var temp = @PlantQuar.WEB.Language.Resource_data1.expensesNotPaid;
+                    <input type="submit" id="btnSave" value="@txt"
+                           @Disabled
+                           class="btn ls-light-green-btn btn-round" style="width:90%;" />
+                }
+            </div>
+            <div class="col-md-3">
+
+                <input type="button" id="btnReject" value="@PlantQuar.WEB.Language.Resource_data1.requestrejected"
+                       @Disabled
+                       class="btn ls-light-green-btn btn-round" data-toggle="modal" data-target="#Modal-refuse"
+                       style="width:90%;" />
+            </div>
+            <div class="col-md-3">
+                <a id="print" class="btn ls-light-green-btn btn-round" href=""> print</a>
+            </div>
+
+        </div>
+    </div>
+                    }
+<script>
+    $(document).ready(function () {
+
+        $("#btnSave").click(function () {
+            $("#txtIsAccepted").val(true);
+        });
+        $("#btnReject").click(function () {
+            $("#txtIsAccepted").val(false);
+            $("#submform").submit();
+        });
+    });
+
+</script>

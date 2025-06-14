@@ -1,0 +1,124 @@
+﻿
+@model PlantQuar.DTO.DTO.Import.Constrains.Im_CountryConstrain_TextDTO
+
+@{
+    ViewBag.Title = "FarmAddEdit";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">@PlantQuar.WEB.Language.Resource_data1.Import_CountryConstrain</h2>
+}
+
+@section Path{
+    <li>@PlantQuar.WEB.Language.Resource_data1.Constrains</li>
+    <li class="active">@PlantQuar.WEB.Language.Resource_data1.Import_CountryConstrain</li>
+}
+
+<style>
+    textarea {
+        resize: none;
+    }
+    .tab .tab-content {
+        padding: 30px!important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-10"></div>
+        <div class="col-md-2">
+            @Html.ActionLink(PlantQuar.WEB.Language.Resource_data1.Back, "Index", "Im_CountryConstrain", new { area = "Im_Constrains" }, new { @class = "btn btn-primary", @style = "width:100%" })
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm("SaveIm_CountryConstrain", "Im_CountryConstrain", FormMethod.Post, new { area = "Im_Constrains" }))
+{
+    @Html.HiddenFor(m => m.ID)
+    <div>
+        <div class="tab" role="tabpanel" style="min-height:80% !important;">
+            <div class="tab-content tabs" style="background-color:whitesmoke  !important;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="Im_Constrain_Type" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Im_Constrain_Type</label>
+                        <label for="Im_Constrain_Type" class="control-label">@Model.Im_Constrain_Type_ID</label>
+                        @Html.DropDownListFor(m => m.Im_Constrain_Type_ID, new SelectList(ViewBag.Im_Constrain_Type, "Value", "DisplayText"), new { @class = "form-control", @id = "Im_Constrain_TypeLst" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="ConstrainText_Ar" class="control-label">@PlantQuar.WEB.Language.Resource_data1.ConstrainText_Ar</label>
+                        @Html.TextAreaFor(m => m.ConstrainText_Ar, new { @class = "form-control", @id = "ConstrainText_Ar", @cols = 3, @rows = 3 })
+                    </div>
+               
+                    <div class="col-md-6">
+                        <label for="ConstrainText_En" class="control-label">@PlantQuar.WEB.Language.Resource_data1.ConstrainText_En</label>
+                        @Html.TextAreaFor(m => m.ConstrainText_En, new { @class = "form-control", @id = "ConstrainText_En", @cols = 3, @rows = 3 })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="InSide_Certificate_Ar" class="control-label">@PlantQuar.WEB.Language.Resource_data1.ArabicDescription</label>
+                        @Html.TextAreaFor(m => m.InSide_Certificate_Ar, new { @class = "form-control", @id = "InSide_Certificate_Ar", @cols = 3, @rows = 3 })
+                    </div>
+              
+                    <div class="col-md-6">
+                        <label for="InSide_Certificate_En" class="control-label">@PlantQuar.WEB.Language.Resource_data1.EnglishDescription</label>
+                        @Html.TextAreaFor(m => m.InSide_Certificate_En, new { @class = "form-control", @id = "InSide_Certificate_En", @cols = 3, @rows = 3 })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6 ta1">
+
+                        <label for="IsActive" class="control-label">@PlantQuar.WEB.Language.Resource_data1.IsActive</label>
+                        @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-control", @id = "IsActive" })
+
+                    </div>
+                    <div class="col-md-6 ta1" hidden>
+
+                        <label for="IsAcceppted" class="control-label">@PlantQuar.WEB.Language.Resource_data1.IsAccepted</label>
+                        @Html.CheckBoxFor(m => m.IsAcceppted, new { @class = "form-control", @id = "IsAcceppted" })
+
+                    </div>
+
+
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <input type="submit" class="btn btn-primary" style="width:100%" value="@PlantQuar.WEB.Language.Resource_data1.Save" autocomplete="off">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<style>
+    .attach .jtable-input-field-container:nth-of-type(1),
+    .attach .jtable-input-field-container:nth-of-type(2),
+    .attach .jtable-input-field-container:nth-of-type(3),
+    .attach .jtable-input-field-container:nth-of-type(4) {
+        margin-bottom: 2px;
+        float: right;
+        width: 48% !important;
+    }
+
+
+    .attach .jtable-input-field-container:nth-of-type(5) {
+        margin-bottom: 2px;
+        float: right;
+        width: 98% !important;
+    }
+</style>
+<script>
+    if ('@ViewBag.message' != "") {
+            alert('@ViewBag.message')
+        }
+</script>

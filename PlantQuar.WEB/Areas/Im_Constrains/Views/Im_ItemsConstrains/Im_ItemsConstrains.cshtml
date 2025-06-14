@@ -1,0 +1,937 @@
+﻿<style>
+    .ta1 {
+        display: inline-block;
+    }
+</style>
+
+<div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 ta1">
+            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.choose</label>
+            <select id="selecttype" class="form-control">
+                <option value="1">@PlantQuar.WEB.Language.Resource_data1.QualitativeGroup</option>
+                <option value="2">@PlantQuar.WEB.Language.Resource_data1.itemName</option>
+            </select>
+        </div>
+        <div class="col-lg-6 col-md-6 ta1" id="qualg">
+            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.QualitativeGroup</label>
+            @Html.DropDownList("QualGroup_ID", new SelectList(ViewBag.qualitiveGroup, "Value", "DisplayText"), new { @class = "form-control", id = "qualgLst" })
+        </div>
+        <div id="itemdiv2" class="col-lg-6 col-md-6 ta1">
+            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Item_Type</label>
+            @Html.DropDownList("ItemType_ID", new SelectList(ViewBag.ItemTypesLst, "Value", "DisplayText"), new { @class = "form-control", id = "ItemTypeLst" })
+        </div>
+
+    </div>
+
+
+</div>
+
+<div id="itemdiv">
+
+
+    <br />
+    <div class="row">
+        <div class="col-lg-4 col-md-4 ta1">
+            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.MainCalssification</label>
+            <select name="MainClass_ID" id="MainClassLst" class="form-control"></select>
+        </div>
+        <div class="col-lg-4 col-md-4 ta1">
+            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.SecondaryClassification</label>
+            <select name="SecClass_ID" id="SecClassLst" class="form-control"></select>
+        </div>
+        <div class="col-lg-4 col-md-4 ta1">
+            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Group</label>
+            <select name="Group_ID" id="groupLst" class="form-control"></select>
+        </div>
+    </div>
+    <br />
+    
+    <div class="row">
+        <div class="col-lg-6 col-md-6 ta1">
+            <label class="control-label" id="knownId">@PlantQuar.WEB.Language.Resource_data1.un_known</label>
+            <input type="checkbox" id="isKnowns" value="false" />
+        </div>
+        <div class="col-lg-6 col-md-6 ta1">
+            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.Items</label>
+            <select name="ItemId" id="itemLst" class="form-control"></select>
+        </div>
+        <div class="col-lg-6 col-md-6 ta1" id="proddiv">
+            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.ProductName</label>
+            <select name="ProductId" id="productLst" class="form-control"></select>
+        </div>
+        <div class="col-lg-6 col-md-6 ta1">
+            <label class="control-label">@PlantQuar.WEB.Language.Resource_data1.LiableItems_ShortName</label>
+            <select name="ItemShortNameId" id="ItemShortNames" class="form-control"></select>
+        </div>
+    </div>
+    <br />
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6 col-md-6" id="InitiatorList_Itemdiv">
+        <label>@PlantQuar.WEB.Language.Resource_data1.Initiators</label>
+        <select name="InitiatorList_Items" id="InitiatorList_item"></select>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <div class="tab" role="tabpanel">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a data-id="1" href="#textsTab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.all</a>
+                </li>
+                <li role="presentation" id="port2">
+                    <a data-id="2" href="#portstab" aria-controls="profile" role="tab" data-toggle="tab">@PlantQuar.WEB.Language.Resource_data1.Ports</a>
+                </li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content tabs" style="min-height:433px;">
+                <div role="tabpanel" class="tab-pane fade in active" id="textsTab">
+                    <div id="itemConstrainDiv"></div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="portstab">
+                    <div id="itemConstrainDiv_ports"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" style="margin-top:15px">
+</div>
+@*/**********************************/*@
+<style>
+    div[ aria-labelledby="ui-id-4"] {
+        top: 100px !important;
+    }
+
+    .jtable-radiobuttonlist-input {
+        margin-right: 20px !important;
+        padding: 3px;
+    }
+
+    .jtable-radio-input {
+        width: 20%;
+        float: right;
+        padding: 3px;
+    }
+
+    #jtable-create-form, #jtable-edit-form {
+        overflow: hidden !important;
+        height: auto;
+        width: 550px;
+    }
+
+    .jtable-input-field-container:nth-of-type(1),
+    .jtable-input-field-container:nth-of-type(2),
+    .jtable-input-field-container:nth-of-type(3),
+    .jtable-input-field-container:nth-of-type(4) {
+        margin-bottom: 2px;
+        float: right;
+        width: 98% !important;
+    }
+
+
+    .jtable-input-field-container:nth-of-type(5) {
+        margin-bottom: 2px;
+        float: right;
+        width: 98% !important;
+    }
+
+    .jtable-input-field-container:nth-of-type(6),
+    .jtable-input-field-container:nth-of-type(10) {
+        margin-bottom: 2px;
+        float: right;
+        width: 98% !important;
+    }
+
+    .jtable-input-field-container:nth-of-type(1) .jtable-textarea-input textarea,
+    .jtable-input-field-container:nth-of-type(2) .jtable-textarea-input textarea,
+    .jtable-input-field-container:nth-of-type(3) .jtable-textarea-input textarea,
+    .jtable-input-field-container:nth-of-type(4) .jtable-textarea-input textarea {
+        width: 98% !important;
+        min-height: 80px !important;
+    }
+</style>
+@*/**********************************/*@
+<script>
+        $(function () {
+            $("#InitiatorList_item").chosen({
+               // ltr: true,
+                //max_shown_results: 20,
+               // placeholder_text_single: "إختار اسم النوع",
+                search_contains: true,
+                enable_split_word_search: false,
+               // no_results_text: "لا يوجد نتائج",
+                width: "100%",
+                 no_results_text: "@PlantQuar.WEB.Language.Resource_data1.no_results : ",
+                        placeholder_text_multiple: "@PlantQuar.WEB.Language.Resource_data1.Select_One_More",
+                        //placeholder_text_single: "حدد @PlantQuar.WEB.Language.Resource_data1.Governate",
+                       // width: "95%",
+                        rtl: true,
+                       // search_contains: true,
+            });
+           // $("#InitiatorList_item").addClass("chosen-select").prop("multiple", true);
+           
+        });
+     $("#InitiatorList_item").attr("multiple", "multiple");
+    $("#InitiatorList_item").trigger('chosen:updated');
+    $("#isKnowns").on('change', function () {
+        if ($(this).is(':checked')) {
+            $(this).attr('value', 'true');
+            $("#knownId").text('@PlantQuar.WEB.Language.Resource_data1.IsKnownItem');
+        } else {
+            $(this).attr('value', 'false');
+            $("#knownId").text('@PlantQuar.WEB.Language.Resource_data1.un_known');
+        }
+
+
+    });
+   // $("#InitiatorList_item").attr("multiple", "multiple");
+     
+
+    if ($('#selecttype').val() == 1) {
+        $('#qualg').show();
+        $('#itemdiv').hide();
+        $('#itemdiv2').hide();
+    } else {
+        $('#qualg').hide();
+        $('#itemdiv').show();
+        $('#itemdiv2').show();
+    }
+    $('#selecttype').on('change', function () {
+        //qualgLst
+        $('#qualgLst').val(0);
+        $('#MainClassLst').empty();
+        $('#SecClassLst').empty();
+        $('#groupLst').empty();
+        $('#productLst').empty();
+        $('#itemLst').empty();
+        $('#InitiatorList_item').empty();
+        $('#ItemShortNames').empty();
+        if ($('#selecttype').val() == 1) {
+            $('#qualg').show();
+            $('#itemdiv').hide();
+            $('#itemdiv2').hide();
+        } else {
+            $('#qualg').hide();
+            $('#itemdiv').show();
+            $('#itemdiv2').show();
+        }
+    });
+    //qualgLst
+
+    //ItemTypeLst
+    if ($('#ItemTypeLst').val() == 2) {
+        $('#proddiv').show();
+    } else {
+        $('#proddiv').hide();
+    }
+    $('#ItemTypeLst').on('change', function () {
+        var ItemTypeId = $('#ItemTypeLst').val();
+        $('#MainClassLst').empty();
+        $('#SecClassLst').empty();
+        $('#groupLst').empty();
+        $('#productLst').empty();
+        $('#itemLst').empty();
+        $('#InitiatorList_item').empty();
+        $('#ItemShortNames').empty();
+        if (ItemTypeId == 2) {
+            $('#proddiv').show();
+        } else {
+            $('#proddiv').hide();
+        }
+        $.ajax(
+            {
+                url: "/Im_Constrains/Im_Constrains/MainClassification_List",
+                data: {
+                    itemTypeId: ItemTypeId,
+                },
+                success: function (data) {
+                    $('#MainClassLst').empty();
+                   // ////debugger;
+                    $.each(data.Options, function (i, index) {
+                        $('#MainClassLst').append("<option value='" + index.Value + "'>" + index.DisplayText + "</option>");
+                    }); //each
+                } //success
+            });//ajax
+        //*********************//
+
+    });
+    $('#MainClassLst').on('change', function () {
+        var mainClassId = $('#MainClassLst').val();
+
+        $('#SecClassLst').empty();
+        $('#groupLst').empty();
+        $('#productLst').empty();
+        $('#itemLst').empty();
+        $('#InitiatorList_item').empty();
+        $('#ItemShortNames').empty();
+        $.ajax(
+            {
+                url: "/Im_Constrains/Im_Constrains/SecClassification_List",
+                data: {
+                    MainClass_ID: mainClassId,
+                },
+                success: function (data) {
+                    $('#SecClassLst').empty();
+                    $.each(data.Options, function (i, index) {
+                        //$('#SecClassLst').append($('<option />').val(index.Value).text(index.DisplayText));
+                        $('#SecClassLst').append("<option value='" + index.Value + "'>" + index.DisplayText + "</option>");
+                    }); //each
+                } //success
+            });//ajax
+        //*********************//
+
+    });
+    $('#SecClassLst').on('change', function () {
+        var SecClassId = $('#SecClassLst').val();
+
+        $('#groupLst').empty();
+        $('#productLst').empty();
+        $('#itemLst').empty();
+        $('#InitiatorList_item').empty();
+        $('#ItemShortNames').empty();
+        $.ajax(
+            {
+                url: "/Im_Constrains/Im_Constrains/Group_List",
+                data: {
+                    SecClass_ID: SecClassId,
+                },
+                success: function (data) {
+                    $('#groupLst').empty();
+                    $.each(data.Options, function (i, index) {
+                        $('#groupLst').append("<option value='" + index.Value + "'>" + index.DisplayText + "</option>");
+                    }); //each
+                } //success
+            });//ajax
+        //*********************//
+
+    });
+
+    $('#groupLst,#isKnowns').on('change', function () {
+        // check if item type =2 get product list with null itemid
+
+        var groupId = $('#groupLst').val();
+        console.log($('#isKnowns').val())
+        $('#productLst').empty();
+        $('#itemLst').empty();
+        $('#InitiatorList_item').empty();
+        $('#ItemShortNames').empty();
+        $.ajax(
+            {
+                url: "/Im_Constrains/Im_Constrains/ItemsByGroupId_List",
+                data: {
+                    groupId: groupId,
+                    known: $("#isKnowns").val()
+                },
+                success: function (data) {
+                    $('#itemLst').empty();
+                    $.each(data.Options, function (i, index) {
+                        $('#itemLst').append("<option value='" + index.Value + "'>" + index.DisplayText + "</option>");
+                    }); //each
+                } //success
+            });//ajax
+        if ($('#ItemTypeLst').val() == 2) {
+            $.ajax(
+                {
+                    url: "/Im_Constrains/Im_Constrains/ProductsByGroupId_List",
+                    data: {
+                        groupId: groupId,
+                    },
+                    success: function (data) {
+                        $('#productLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#productLst').append("<option value='" + index.Value + "'>" + index.DisplayText + "</option>");
+                        }); //each
+                    } //success
+                });//ajax
+        }
+        //*********************//
+    });
+
+    $('#itemLst').on('change', function () {
+        //eman get short names
+        // here if itemtype =2 get product
+        $('#InitiatorList_item').empty();
+        $('#ItemShortNames').empty();
+
+        if ($('#ItemTypeLst').val() == 2) {
+            $.ajax(
+                {
+                    url: "/Im_Constrains/Im_Constrains/Products_List",
+                    data: {
+                        itemId: $('#itemLst').val(),
+                    },
+                    success: function (data) {
+                        $('#productLst').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#productLst').append("<option value='" + index.Value + "'>" + index.DisplayText + "</option>");
+                        }); //each
+                    } //success
+                });//ajax
+        }
+
+        //GetShortNames_List
+        if ($('#ItemTypeLst').val() == 2) {
+            $.ajax(
+                {
+                    url: "/Im_Constrains/Im_Constrains/GetShortNames_List",
+                    data: {
+                        itemId: $('#productLst').val(),
+                        isProduct: true
+                    },
+                    success: function (data) {
+                        $('#ItemShortNames').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#ItemShortNames').append("<option value='" + index.Value + "'>" + index.DisplayText + "</option>");
+                        }); //each
+                    } //success
+                });//ajax
+        } else {
+            $.ajax(
+                {
+                    url: "/Im_Constrains/Im_Constrains/GetShortNames_List",
+                    data: {
+                        itemId: $('#itemLst').val(),
+                        isProduct: false
+                    },
+                    success: function (data) {
+                        $('#ItemShortNames').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#ItemShortNames').append("<option value='" + index.Value + "'>" + index.DisplayText + "</option>");
+                        }); //each
+                    } //success
+                });//ajax
+        }
+    });
+    $('#productLst').on('change', function () {
+        var productId = $('#productLst').val();
+        $('#InitiatorList_item').empty();
+        $('#ItemShortNames').empty();
+
+        $.ajax(
+            {
+                url: "/Im_Constrains/Im_Constrains/GetShortNames_List",
+                data: {
+                    itemId: $('#productLst').val(),
+                    isProduct: true
+                },
+                success: function (data) {
+                    $('#ItemShortNames').empty();
+                    $.each(data.Options, function (i, index) {
+                        $('#ItemShortNames').append("<option value='" + index.Value + "'>" + index.DisplayText + "</option>");
+                    }); //each
+                } //success
+            });//ajax
+    });
+
+    //*********** JTable ******************//
+    var itemOperation = 0
+    $(function () {
+        $("#itemConstrainDiv").jtable({
+            title: '@PlantQuar.WEB.Language.Resource_data1.Constrains',
+            paging: true,
+            pageSize: 10,
+            sorting: true,
+            columnResizable: true,
+            columnSelectable: true,
+            saveUserPreferences: true,
+
+            actions: {
+                listAction: '/Im_Constrains/Im_ItemsConstrains/ListItemsRows',
+                createAction: '/Im_Constrains/Im_ItemsConstrains/CreateItemsRows',
+                updateAction: '/Im_Constrains/Im_ItemsConstrains/UpdateItemsRows',
+                deleteAction: '/Im_Constrains/Im_ItemsConstrains/DeleteItemsRows',
+            },
+            fields: {
+                index: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                countryName:{
+                    title: '@PlantQuar.WEB.Language.Resource_data1.Initiators',
+                    type: 'textarea',
+                create: false,
+                edit: false,
+                list: true
+                },
+                conTypeId: {
+                          title: '@PlantQuar.WEB.Language.Resource_data1.Constrain_Type',
+
+                           options: function (data) {
+                               return '../../Im_Constrains/Im_Constrains/constrainTypeList';
+                          },
+                        inputClass: 'validate[required]',
+                },
+                Id: {
+                        title: '@PlantQuar.WEB.Language.Resource_data1.ConstrainText',
+                    dependsOn: 'conTypeId',
+                        options: function (data) {
+                            return '../../Im_Constrains/Im_Constrains/constrainTextsList?conTypeId=' + data.dependedValues.conTypeId;
+                        },
+                        inputClass: 'validate[required]'
+                },
+                InSide_Certificate_Ar: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.TextDetails',
+                     type: 'textarea',
+
+                },
+                @*ConstrainText_Ar: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.Constrain_Ar ',
+                    type: 'textarea',
+                    inputClass: 'validate[required]'
+                },
+                ConstrainText_En: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.Constrain_En ',
+                    type: 'textarea',
+                    inputClass: 'validate[required]'
+                },
+                InSide_Certificate_Ar: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.Includedcertificate_Ar',
+                     type: 'textarea',
+                    list: true,
+                },
+                InSide_Certificate_En: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.Includedcertificate_En',
+                     type: 'textarea',
+                     list: true,
+                },*@
+                //Id: {
+                //    type: 'text',
+                //    create: false,
+                //    edit: false,
+                //    list: false
+                //},
+                countryConstraintext_Id: {
+                    type: 'text',
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+            },
+            formCreated: function (event, data) {
+                //Edit-Id
+                //Edit-InSide_Certificate_Ar
+
+                $("#Edit-Id").change(function () {
+                    var TextId = $(this).val();
+                     $.ajax(
+                         {
+
+                    url: '@Url.Action("getConstrainTextDetail", "Im_Constrains", new { area = "Im_Constrains" })',
+                    type: 'Post',
+                    data: { textId: TextId },
+                    success: function (data) {
+                        //console.log(data)
+    $("#Edit-InSide_Certificate_Ar").val()
+                        $("#Edit-InSide_Certificate_Ar").val(data)
+                    } //success
+                });//ajax
+                });
+                // Arabic + spaces + numeric
+                $("#Edit-ConstrainText_Ar, #Edit-InSide_Certificate_Ar").keypress(function (e) {
+
+                    var unicode = e.charCode ? e.charCode : e.keyCode
+                    if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+                        if (unicode == 32)
+                            return true;
+                        else {
+                            //remove arabic validation
+                            //&& (unicode < 0x0600 || unicode > 0x06FF)
+                            if ((unicode < 48 || unicode > 57) && (unicode < 0x0600 || unicode > 0x06FF)) //if not a number or arabic
+                                return false; //disable key press
+                        }
+                    }
+                });
+                // English + spaces + numeric
+                $("#Edit-ConstrainText_En, #Edit-InSide_Certificate_En").keypress(function (e) {
+
+                    var unicode = e.charCode ? e.charCode : e.keyCode
+                    if (unicode != 8) { //if the key isn't the backspace key (which we should allow)
+                        if (unicode == 32)
+                            return true;
+                        else {
+                            if (!(unicode < 0x0600 || unicode > 0x06FF)) //if not english
+                                return false; //
+                        }
+                    }
+                });
+                //*********************Jtable
+                if (data.formType == "create") {
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.AddConstrainData");
+                }
+                else {
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.EditConstrainData");
+                }
+            },
+            formSubmitting: function (event, data) {
+                if ($("#selecttype").val() == 1) {
+                    if (($("#qualgLst").val() > 0)) {
+                        return data.form.validationEngine('validate');
+                    }
+                    else {
+                        alertify.error('تاكد من اختيار المجموعه النوعيه');
+                        return false;
+                    }
+                } else {
+                    if ($('#ItemTypeLst').val() == 2) {
+                        if (($("#productLst").val() > 0) && $("#ItemShortNames").val() > 0) {
+                            return data.form.validationEngine('validate');
+                        }
+                        else {
+                            alertify.error('تاكد من اختيار المنتج والاسم المختصر');
+                            return false;
+                        }
+                    } else {
+                        if (($("#itemLst").val() > 0) && $("#ItemShortNames").val() > 0) {
+                            return data.form.validationEngine('validate');
+                        }
+                        else {
+                            alertify.error('تاكد من اختيار المنتج والاسم المختصر');
+                            return false;
+                        }
+                    }
+                }
+            },
+            formClosed: function (event, data) {
+                data.form.validationEngine('hide');
+                data.form.validationEngine('detach');
+                $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Delete");
+
+                itemOperation = 0;
+            },
+            recordAdded: function (event, data) {
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+            },
+            recordUpdated: function (event, data) {
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Update");
+            },
+            recordDeleted: function (event, data) {
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Delete");
+            },
+        });
+        $("#itemConstrainDiv").jtable('load');
+
+        $("#itemConstrainDiv_ports").jtable({
+            title: '@PlantQuar.WEB.Language.Resource_data1.Constrains',
+            paging: true,
+            pageSize: 10,
+            sorting: true,
+            columnResizable: true,
+            columnSelectable: true,
+            saveUserPreferences: true,
+
+            actions: {
+                listAction: '/Im_Constrains/Im_ItemsConstrains/ListItems_ports',
+                createAction: '/Im_Constrains/Im_ItemsConstrains/CreateItems_ports',
+                updateAction: '/Im_Constrains/Im_ItemsConstrains/UpdateItems_ports',
+                deleteAction: '/Im_Constrains/Im_ItemsConstrains/DeleteItems_ports',
+            },
+            fields: {
+                index: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                Id: {
+                    type: 'text',
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                ArrivalConstrain_ID: {
+                    type: 'text',
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                PortType_ID: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.PortType',
+                    options: function (data) {
+                        return '/CommonActions/PortData/PortType_List';
+                    },
+                    list: true,
+                    //inputClass: 'validate[required]'
+                },
+                PortnationalID: {
+                    title: '@PlantQuar.WEB.Language.Resource_data1.PortNational',
+                    dependsOn: 'PortType_ID',
+                    options: function (data) {
+                        return '/CommonActions/PortData/Portnational?IsJtable=true&portType=' + data.dependedValues.PortType_ID;
+                    },
+                    list: true,
+                    //inputClass: 'validate[required]'
+                },
+            },
+            formCreated: function (event, data) {
+                //*********************Jtable
+                if (data.formType == "create") {
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.AddConstrainData");
+                }
+                else {
+                    $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.EditConstrainData");
+
+                }
+            },
+            formSubmitting: function (event, data) {
+                if ($("#selecttype").val() == 1) {
+                    if (($("#qualgLst").val() > 0)) {
+                        return data.form.validationEngine('validate');
+                    }
+                    else {
+                        alertify.error('تاكد من اختيار المجموعه النوعيه');
+                        return false;
+                    }
+                } else {
+                    if ($('#ItemTypeLst').val() == 2) {
+                        if (($("#productLst").val() > 0) && $("#ItemShortNames").val() > 0) {
+                            return data.form.validationEngine('validate');
+                        }
+                        else {
+                            alertify.error('تاكد من اختيار المنتج والاسم المختصر');
+                            return false;
+                        }
+                    } else {
+                        if (($("#itemLst").val() > 0) && $("#ItemShortNames").val() > 0) {
+                            return data.form.validationEngine('validate');
+                        }
+                        else {
+                            alertify.error('تاكد من اختيار المنتج والاسم المختصر');
+                            return false;
+                        }
+                    }
+                }
+            },
+            formClosed: function (event, data) {
+                data.form.validationEngine('hide');
+                data.form.validationEngine('detach');
+                $(".ui-dialog-title").text("@PlantQuar.WEB.Language.Resource_data1.Delete");
+
+                //1-6-2020 rest treatment/analysis selection
+                itemOperation = 0;
+            },
+            recordAdded: function (event, data) {
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+            },
+            recordUpdated: function (event, data) {
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Update");
+            },
+            recordDeleted: function (event, data) {
+                alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Delete");
+            },
+        });
+        $("#itemConstrainDiv_ports").jtable('load');
+
+        $('#qualgLst').change(function (e) {
+                ////debugger;
+                $("#InitiatorList_item").empty();
+                $("#InitiatorList_item").trigger("chosen:updated");
+                if ($("#qualgLst").val() > 0
+
+                ) {
+
+                    $.ajax({
+                        async: true,
+                        url: '../../Im_Constrains/Im_Constrains/InitiatorListQualG?QualGId=' + $('#qualgLst').val(),
+                        type: 'POST',
+                        success: function (data) {
+
+                            $.each(data.Options, function (index, row) {
+                                $("#InitiatorList_item").append("<option value='" + row.Value + "'>" + row.DisplayText + " </option>");
+                                $("#InitiatorList_item").trigger("chosen:updated");
+                            });
+
+                        }
+                    });
+                    //$.ajax(
+                    //    {
+                    //        url: "/Im_Constrains/Im_Constrains/getConstrainsQualG",
+                    //        data: {
+                    //            qualGId: $('#qualgLst').val()
+                    //        },
+                    //        complete: function (res) {
+                    //            $('#itemConstrainDiv').jtable('load');
+                    //            $('#itemConstrainDiv_ports').jtable('load');
+                    //        },
+                    //        success: function (res) {
+                    //            ////debugger;
+                    //            console.log(res)
+                    //            if (res != null) {
+
+                    //                var values = res.InitiatorList_Items;
+                    //                console.log(values)
+                    //                $.each(values, function (i, e) {
+                    //                    $("#InitiatorList_item option[value='" + e + "']").prop("selected", true);
+
+                    //                });
+                    //                var options_selected = res.InitiatorList_Items;
+                    //                console.log(options_selected)
+                    //                var optionValues = [];
+                    //                $('#InitiatorList_item option:not(:selected)').each(function () {
+                    //                    if ($.inArray(this.value, optionValues) > -1) {
+
+                    //                        $(this).remove()
+
+                    //                    }
+                    //                    else {
+                    //                        optionValues.push(this.value);
+                    //                    }
+                    //                    var found = jQuery.inArray(this.value, options_selected);
+                    //                    if (found != -1) {
+                    //                        $(this).remove()
+                    //                    }
+                    //                });
+
+                    //                $("#InitiatorList_item").trigger('chosen:updated');
+                    //            }
+                    //        } //success
+                    //    });//ajax
+                }
+            });
+
+        $('#itemLst, #ItemShortNames,#productLst').change(function (e) {
+                //////debugger;
+                $("#InitiatorList_item").empty();
+                $("#InitiatorList_item").trigger("chosen:updated");
+                if (($("#itemLst").val() > 0 || $("#productLst").val() > 0) && $("#ItemShortNames").val() > 0) {
+                    $.ajax({
+                        async: true,
+                        url: '../../Im_Constrains/Im_Constrains/InitiatorList?ItemShortNameId=' + $('#ItemShortNames').val(),
+                        type: 'POST',
+                        success: function (data) {
+
+                            $.each(data.Options, function (index, row) {
+                                $("#InitiatorList_item").append("<option value='" + row.Value + "'>" + row.DisplayText + " </option>");
+                                $("#InitiatorList_item").trigger("chosen:updated");
+                            });
+                        }
+                    });
+                    //$.ajax(
+                    //    {
+                    //        url: "/Im_Constrains/Im_Constrains/getConstrainsItems",
+                    //        data: {
+                    //            itemId: $('#itemLst').val(),
+
+                    //            catId: $("#plantCatLst").val(),
+                    //            ItemShortNameId: $("#ItemShortNames").val()
+
+                    //        },
+                    //        complete: function (res) {
+                    //            $('#itemConstrainDiv').jtable('load');
+                    //            $('#itemConstrainDiv_ports').jtable('load');
+                    //        },
+                    //        success: function (res) {
+                    //            ////debugger;
+                    //            console.log(res)
+                    //            if (res != null) {
+                    //                //var values = res.InitiatorList_Items;
+                    //                //console.log(values)
+                    //                //$.each(values, function (i, e) {
+                    //                //    $("#InitiatorList_item option[value='" + e + "']").prop("selected", true);
+
+                    //                //});
+                    //                //var options_selected = res.InitiatorList_Items;
+                    //                //console.log(options_selected)
+                    //                //var optionValues = [];
+                    //                //$('#InitiatorList_item option:not(:selected)').each(function () {
+                    //                //    if ($.inArray(this.value, optionValues) > -1) {
+
+                    //                //        $(this).remove()
+
+                    //                //    }
+                    //                //    else {
+                    //                //        optionValues.push(this.value);
+                    //                //    }
+                    //                //    var found = jQuery.inArray(this.value, options_selected);
+                    //                //    if (found != -1) {
+                    //                //        $(this).remove()
+                    //                //    }
+                    //                //});
+
+                    //                //$("#InitiatorList_item").trigger('chosen:updated');
+                    //            }
+                    //        } //success
+                    //    });//ajax
+                }
+        });
+        $('#InitiatorList_item').change(function (e) {
+           
+
+               // console.log($('#InitiatorList_item').val())
+
+                var InitiatorData = $('#InitiatorList_item').val();//JSON.stringify($('#InitiatorList_item').val());
+            var InitiatorList = [];
+            console.log(InitiatorData)
+            if (InitiatorData != null) {
+                 $("#InitiatorList_item").trigger('chosen:updated');
+                $.each(InitiatorData, function (index, r) {
+                    ////debugger;
+                    InitiatorList[index] = r;
+                });
+            } 
+                
+                ////debugger;
+                $.ajax(
+                    {
+                        url: "/Im_Constrains/Im_Constrains/getConstrainsItems",
+                        dataType: "json",
+                        data: {
+                            qualGId: $('#qualgLst').val(),
+                            initiatorId: JSON.stringify(InitiatorList),
+                            ItemShortNameId: $("#ItemShortNames").val(),
+                            itemId: $('#itemLst').val(),
+                           catId: $("#plantCatLst").val(),
+
+                        },
+                        complete: function (res) {
+                            $('#itemConstrainDiv').jtable('load');
+                            $('#itemConstrainDiv_ports').jtable('load');
+                        },
+                        success: function (res) {
+                            ////debugger;
+                            console.log(res)
+                            if (res != null) {
+                                //var values = res.InitiatorList_Items;
+                                //console.log(values)
+                                //$.each(values, function (i, e) {
+                                //    $("#InitiatorList_item option[value='" + e + "']").prop("selected", true);
+
+                                //});
+                                //var options_selected = res.InitiatorList_Items;
+                                //console.log(options_selected)
+                                //var optionValues = [];
+                                //$('#InitiatorList_item option:not(:selected)').each(function () {
+                                //    if ($.inArray(this.value, optionValues) > -1) {
+
+                                //        $(this).remove()
+
+                                //    }
+                                //    else {
+                                //        optionValues.push(this.value);
+                                //    }
+                                //    var found = jQuery.inArray(this.value, options_selected);
+                                //    if (found != -1) {
+                                //        $(this).remove()
+                                //    }
+                                //});
+
+                                //$("#InitiatorList_item").trigger('chosen:updated');
+                            }
+                        } //success
+                    });//ajax
+
+        });
+
+        $(".jtable-toolbar-item-add-record .jtable-toolbar-item-text").text("@PlantQuar.WEB.Language.Resource_data1.AddConstrainData");
+    });
+</script>

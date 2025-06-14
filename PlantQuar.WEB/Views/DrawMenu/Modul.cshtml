@@ -1,0 +1,42 @@
+﻿
+@model List<Privilages.DAL.GetModulNameByUserAndApplicationandGroup_Result>
+
+@foreach (var item in Model)
+{    
+    <li>
+        <a href="#" onclick="getId('@item.Id')">@item.ModuleName</a>
+        <ul>
+            @Html.Action("SubIndex", "DrawMenu", new { id = item.Id, Is_Group = false })
+        </ul>
+    </li>
+}
+
+
+<script>
+    function getId(Element) {
+        var moduleId = parseInt(Element);
+   
+        $.ajax({
+                        url: '@Url.Action("SetModuleID", "DrawMenu")',
+                        type: "POST",
+
+
+            data: { moduleId: moduleId},
+
+                  success: function (result) {
+
+
+                     // alert(Element +"SetModuleID");
+                            }
+                    
+
+              
+                    ,
+                        error: function (xhr, status, error) {
+
+                    }
+        });
+    
+     
+    }
+</script>

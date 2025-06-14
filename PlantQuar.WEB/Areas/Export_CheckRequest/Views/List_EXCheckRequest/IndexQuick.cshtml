@@ -1,0 +1,352 @@
+﻿@*@model PagedList.IPagedList<PlantQuar.DTO.DTO.ImPermissionsListDTO>*@
+
+@model List<PlantQuar.DTO.DTO.Export_CheckRequest.Ex_ListDTO>
+
+@*@using PagedList.Mvc;*@
+@using PlantQuar.WEB.HtmlHelpers;
+<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<link href="~/assets/css/jquery.dataTables.min.css" rel="stylesheet" />
+<style>
+    .bootstrap-select .dropdown-menu.inner {
+        margin-right: 0px !important;
+    }
+</style>
+<link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
+
+<script src="~/assets/js/bootstrap.min.js"></script>
+<link href="~/Content/login/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "طلبات فحص الصادر";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    var model = Model;
+}
+
+@section Title{
+    <h2 class="ls-top-header">@ViewBag.Title</h2>
+}
+
+@section Path{
+    <li style="position: relative;right: 28px;">فحص</li>
+    <li class="active" style="right: 29px; position: relative;">Im Check Request List</li>
+}
+
+
+<form method="get" class="filter-form">
+    
+    <input type="hidden" id="subId" value="-1">
+    <div class="row search-row">
+
+        <div class="col-md-4">
+            <label>البحث برقم الطلب</label>
+            <div>
+                <input type="text" class="form-control" placeholder="ابحث برقم الطلب" id="Search" name="Search">
+
+            </div>
+        </div>
+
+    </div>
+
+    <br>
+    <div class="text-center search-row">
+        <button type="submit" class="btn btn-primary px-4">
+            بحث
+        </button>
+        <button id="btn_clear_all" onclick="Cleardata()" class="btn btn-outline-primary px-4">
+            حذف
+        </button>
+    </div>
+</form>
+
+<br />
+<input type="button" class=" btn btn-primary btnNext float-left" id="messagedata" value="تشكيل لجنة مجمعة">
+<br />
+@*الكل*@
+<div id="checkRequest_lst4" class="table-responsive">
+    <table class="table table-bordered col-md-12" id="tblCheckLst">
+        <thead>
+            <tr class="label-primary">
+                <th>م</th>
+                <th>إختار</th>
+                
+                <th hidden>منفذ فحص</th>
+                <th>منفذ فحص</th>
+                <th hidden>محطة فحص</th>
+                <th>منفذ جشني</th>
+                <th hidden>منفذ جشني</th>
+
+                <th hidden>محطة جشني</th>
+
+                <th>@PlantQuar.WEB.Language.Resource_data1.RequestNumber</th>
+                <th>بيانات الطلب</th>
+                @*<th>Importer Name</th>
+                    <th>Export Country</th>*@
+                @*<th>Creation Date</th>*@
+                @*<th>@PlantQuar.WEB.Language.Resource_data1.Details</th>*@
+                <th>تشكيل اللجنه</th>
+                <th>عرض النتائج</th>
+               
+                <th>بيان الفحص</th>
+                @*<th>@PlantQuar.WEB.Language.Resource_data1.Print </th>*@
+            </tr>
+        </thead>
+        <tbody>
+            @if (model != null)
+            {
+
+                var i = 1;
+                foreach (var item in model.OrderByDescending(x => x.Ex_CheckRequest_ID))
+                {
+
+                    <tr>
+                        <td>@i</td>
+                        <td>
+                            @if(item.IsAccepted == true)
+                            {
+                            <input type='checkbox' class='messageCheckbox' name='name' id='Req_checkbox' onchange='send_list_Recoust(this)' value="@item.Ex_CheckRequest_ID" />
+                            }
+                        </td>
+
+                        <td hidden>@item.Outlet_Examination_ID</td>
+                        <td hidden>@item.Station_Examination_ID</td>
+                        <td hidden>@item.Outlet_Genshi_ID</td>
+                        <td hidden>@item.Station_Genshi_ID</td>
+                        <td>
+                            @if (item.Outlet_Examination_Name != null)
+                            {
+                                <span>منفذ :@item.Outlet_Examination_Name</span>
+                            }
+                            else if (item.Station_Examination_Name != null)
+                            {
+                                <span>محطة :@item.Station_Examination_Name</span>
+                            }
+                        </td>
+                        <td>
+                            @if (item.Outlet_Genshi_Name != null)
+                            {
+                                <span>منفذ :@item.Outlet_Genshi_Name</span>
+                            }
+                            else if (item.Station_Genshi_Name != null)
+                            {
+                                <span>محطة :@item.Station_Genshi_Name</span>
+                            }
+
+                        </td>
+                        @*
+
+                            <td hidden>@item.Outlet_Genshi_ID</td>
+                            <td hidden>@item.Station_Genshi_ID</td>*@
+                        <td> <a href='/Export_CheckRequest/EX_QuickCheckRequestDetails/Index?ImCheckRequest_Number=@item.ImCheckRequest_Number&Station_Examination_ID=@item.Station_Examination_ID&Outlet_Examination_ID=@item.Outlet_Examination_ID&Outlet_Genshi_ID=@item.Outlet_Genshi_ID&Station_Genshi_ID=@item.Station_Genshi_ID'>@item.ImCheckRequest_Number</a></td>
+                        <td style="width:150px;">
+                            <span>نوع الجهة:   @item.ImporterTypeName</span><br />
+                            <span>اسم الجهة :   @item.ImporterName</span><br />
+                            <span>الدولة  :   @item.ExportCountryName</span><br />
+                            <span>التاريخ :   @item.Creation_Date.Value.ToString("dd/MM/yyyy")</span>
+                        </td>
+
+                        @*<td><a href='/Export_CheckRequest/EX_QuickCheckRequestDetails/Index?ImCheckRequest_Number=@item.ImCheckRequest_Number'>@PlantQuar.WEB.Language.Resource_data1.Details</a></td>*@
+
+
+                        @if (item.IsAccepted == true && @item.IsPaid == null)
+                        {
+                            <td>
+                                <span>تمت الموافقة على الطلب ولم يتم الدفع </span><br />
+
+
+                         @*       <a href='/Committees/Ex_Committee/Index?requestId=@item.Ex_CheckRequest_ID&Outlet_Examination_ID=@item.Outlet_Examination_ID&Station_Examination_ID=@item.Station_Examination_ID&Outlet_Genshi_ID=@item.Outlet_Genshi_ID&Station_Genshi_ID=@item.Station_Genshi_ID'> تشكيل لجنه </a>*@
+
+
+                            </td>
+
+                        }
+                        else if (item.IsAccepted == false)
+                        {
+                            <td>تم رفض الطلب</td>
+                        }
+                        else if (@item.IsPaid == true && @item.Closed_Request == 0)
+                        {
+                            <td>
+                                <span>تم الدفع</span>
+
+                                <br />
+                                @*<a href='/Committees/Ex_Committee/Index?requestId=@item.Ex_CheckRequest_ID&Outlet_Examination_ID=@item.Outlet_Examination_ID&Station_Examination_ID=@item.Station_Examination_ID&Outlet_Genshi_ID=@item.Outlet_Genshi_ID&Station_Genshi_ID=@item.Station_Genshi_ID'>تشكيل لجنه </a>*@
+                                <br />
+                                @if (@item.Final_Result_Name != null || @item.Final_Result_Name == "")
+                                {
+                                    <span>@item.Final_Result_Name</span>
+                                }
+                                else
+                                {
+                                    <span>لم يتم اتخاذ موقف</span>
+                                }
+                            </td>
+                        }
+                        else if (@item.IsPaid == true && @item.Closed_Request == 0 && item.Final_Result_ID == 0)
+                        {
+                            <td>
+                                <span>تم الدفع</span>
+
+                                <br />
+                                @*<a href='/Committees/Ex_Committee/Index?requestId=@item.Ex_CheckRequest_ID&Outlet_Examination_ID=@item.Outlet_Examination_ID&Station_Examination_ID=@item.Station_Examination_ID&Outlet_Genshi_ID=@item.Outlet_Genshi_ID&Station_Genshi_ID=@item.Station_Genshi_ID'>تشكيل لجنه </a>*@
+                                <br />
+                                @if (@item.Final_Result_Name != null)
+                                {
+                                    <span>@item.Final_Result_Name</span>
+                                }
+                                else
+                                {
+                                    <span>لم يتم اتخاذ موقف</span>
+                                }
+                            </td>
+                        }
+                        else if (item.IsAccepted == null && @item.IsPaid == null && @item.Closed_Request == 0 && item.Final_Result_ID == 0)
+                        {
+                            <td>
+                                <span>لم يتم الدفع </span>
+                                <br />
+                                <br />
+                                @if (@item.Final_Result_Name != null)
+                                {
+                                    <span>لم يتم اتخاذ اجراء</span>
+                                }
+                                else
+                                {
+                                    <span>لم يتم اتخاذ موقف</span>
+                                }
+                                <br />
+                                @* <a href='/Committees/Ex_Committee/Index?requestId=@item.Ex_CheckRequest_ID&Outlet_Examination_ID=@item.Outlet_Examination_ID&Station_Examination_ID=@item.Station_Examination_ID&Outlet_Genshi_ID=@item.Outlet_Genshi_ID&Station_Genshi_ID=@item.Station_Genshi_ID'>تشكيل لجنه </a>*@
+
+                            </td>
+                        }
+                        else if (@item.IsPaid == true && @item.Closed_Request > 0 && item.Final_Result_ID > 0)
+                        {
+                            <td>
+                                @if (item.Final_Result_ID != 11)
+                                {
+
+
+                                    <span>تم الدفع</span>
+
+                                    <br />
+                                    @*<a href='/Committees/Ex_Committee/Index?requestId=@item.Ex_CheckRequest_ID&Outlet_Examination_ID=@item.Outlet_Examination_ID&Station_Examination_ID=@item.Station_Examination_ID&Outlet_Genshi_ID=@item.Outlet_Genshi_ID&Station_Genshi_ID=@item.Station_Genshi_ID'>تشكيل لجنه </a>*@
+                                } <br />
+                                @if (@item.Final_Result_Name != null)
+                                {
+                                    <span>@item.Final_Result_Name</span>
+                                }
+                                else
+                                {
+                                    <span>لم يتم اتخاذ موقف</span>
+                                }
+                            </td>
+                        }
+
+                        else if (item.IsPaid == false)
+                        {
+                            <td>
+                                <span>لم يتم الدفع </span><br />
+                                @*<a href='/Committees/Ex_Committee/Index?requestId=@item.Ex_CheckRequest_ID&Outlet_Examination_ID=@item.Outlet_Examination_ID&Station_Examination_ID=@item.Station_Examination_ID&Outlet_Genshi_ID=@item.Outlet_Genshi_ID&Station_Genshi_ID=@item.Station_Genshi_ID'>تشكيل لجنه </a>*@
+                            </td>
+                        }
+
+                        else
+                        {
+                            <td style='color: red;font-weight: 700;'>
+                                <span>
+                                    لم يتم اتخاذ اجراء
+                                </span><br />
+                                @* <a href='/Committees/Ex_Committee/Index?requestId=@item.Ex_CheckRequest_ID&Outlet_Examination_ID=@item.Outlet_Examination_ID&Station_Examination_ID=@item.Station_Examination_ID&Outlet_Genshi_ID=@item.Outlet_Genshi_ID&Station_Genshi_ID=@item.Station_Genshi_ID'>تشكيل لجنه </a>*@
+                            </td>
+                        }
+
+                    <td align="center" >
+                        <div class="coll2">
+                            <a href='/Export_CheckRequest_New/EX_Committee_Final_Result_Quick/Index?requestId=@item.Ex_CheckRequest_ID&Outlet_ID=@item.Outlet_ID'>عرض النتائج</a>
+                        </div>
+                        <div class="coll">
+                            <a href='/Committees/Ex_FeesTotalResult/IndexNew?Ex_CheckRequest_ID=@item.Ex_CheckRequest_ID'>الرسوم</a>
+                        </div>
+                        <div class="coll">
+                            @Html.ActionLink("طباعة الباركود ", "Print_Barcode", "EX_Committee_Final_Result", new { area = "Export_CheckRequest_New", Ex_CheckRequest_ID = item.Ex_CheckRequest_ID }, null)
+                            </div>
+                    </td>
+                      
+                        <td>
+                            <a href='/Export_CheckRequest/EX_CheckRequestCertificate/Index?ExCheckRequest_Number=@item.ImCheckRequest_Number'>بيان طلب الفحص</a><br />
+                            
+                            <a href='/Export_CheckRequest/QuickRequestDetails/Index?Ex_CheckRequest_Number=@item.ImCheckRequest_Number'>فحص زراعة 17</a><br />
+                            <a href='/Export_CheckRequest/QuickRequestDetails/Index?Ex_CheckRequest_Number=@item.ImCheckRequest_Number'>سحب زراعة 17</a><br />
+                            <a href='/Export_CheckRequest/QuickRequestDetails/Index?Ex_CheckRequest_Number=@item.ImCheckRequest_Number'>معالجة زراعة 17</a><br />
+                            <a href='/Export_CheckRequest/QuickRequestDetails/Index?Ex_CheckRequest_Number=@item.ImCheckRequest_Number'>جشني زراعة 17</a><br />
+                        
+                        </td>
+                    </tr>
+
+                    i++;
+
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+@*<div class="row justify-content-center">
+        @PagingHelpers.BootstrapPageLinks(ViewBag.CurrentPage, ViewBag.TotalPages, ViewBag.TotalResults, ViewBag.Search)
+    </div>*@
+<div class="row justify-content-center">
+    @if (@ViewBag.CurrentPage != null || @ViewBag.CurrentPage != null)
+    {
+        @Html.BootstrapPageLinks((int)ViewBag.CurrentPage, (int)ViewBag.TotalPages, ViewBag.Search as string ?? "")
+    }
+</div>
+
+
+<script>
+
+    var list_Recoust = [];
+    function send_list_Recoust(element) {
+        var F_List = element.value;   
+        
+        
+        if (element.checked) {
+            list_Recoust.push({ EX_CheckRequest_ID:F_List });
+            element.classList.add("messageCheckbox")
+        }
+        else {
+            element.classList.remove("messageCheckbox");
+
+            list_Recoust.splice(list_Recoust.findIndex(a => a.Farm_Committee_ID === _Commity_ID), 1)
+        }
+    }
+    $('#messagedata').click(function (e) {
+
+
+        var inputElements = document.getElementsByClassName('messageCheckbox');
+        var x = 0;
+
+        for (var i = 0; inputElements[i]; ++i) {
+            if (inputElements[i].checked) {
+                checkedValue = inputElements[i].value;
+
+                x++;
+            }
+        }
+        if (x != 0) {
+            console.log(list_Recoust);
+            console.log(list_Recoust.elm);
+            
+            $.ajax({
+
+                url: '@Url.Action("getListQuick", "List_EXCheckRequest", new { area = "Export_CheckRequest" })',
+                type: 'Post',
+                data: { F_List: list_Recoust },
+
+                success: function (message) {
+                    window.location.href = '/Committees/Ex_Committee_Quick/Index';
+                }
+            });
+
+        } else { alert('يجب أختيار لجنة'); }
+
+    });
+</script>

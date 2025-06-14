@@ -1,0 +1,628 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AB106310-9608-4DCF-83AF-656A67AA0F6A}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PlantQuar.API</RootNamespace>
+    <AssemblyName>PlantQuar.API</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\PlantQuar.BLL\bin\Debug\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Cors, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\sayed\New_PlantQuarantine1-11-2020\New_PlantQuarantine\PlantQuar.API\bin\System.Web.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http.Cors, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\Admin\AcceptAggreementBack_APIController.cs" />
+    <Compile Include="Controllers\Admin\AddUser_APIController.cs" />
+    <Compile Include="Controllers\Admin\ErrorDisplayController.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\Admin\PR_Mission_APIController.cs" />
+    <Compile Include="Controllers\Admin\Table_Action_Log_APIController.cs" />
+    <Compile Include="Controllers\Admin\Total_Fees_Type_APIController.cs" />
+    <Compile Include="Controllers\Admin\Transation_Logs_APIController.cs" />
+    <Compile Include="Controllers\Admin\userPriviledge_ApiController.cs" />
+    <Compile Include="Controllers\Admin\User_Privilage_APIController.cs" />
+    <Compile Include="Controllers\Committee\Ex_Committee_Quick_APIController.cs" />
+    <Compile Include="Controllers\Committee\Ex_Committee_APIController.cs" />
+    <Compile Include="Controllers\Committee\Committee_Station_APIController.cs" />
+    <Compile Include="Controllers\Committee\Committee_Farm_APIController.cs" />
+    <Compile Include="Controllers\Committee\Committee_Im_APIController.cs" />
+    <Compile Include="Controllers\Company\CompanyAccreditation_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\Company\CompanyActivityType_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\Company\CompanyActivity_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\Company\Company_National_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\Company\Enrollment_type_APIController.cs" />
+    <Compile Include="Controllers\Company\GetCompaniesNumbers_APIController.cs" />
+    <Compile Include="Controllers\Company\Person_APIController.cs" />
+    <Compile Include="Controllers\Company\PublicOrganizationType_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\Company\Public_Organization_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\AttachmentTable_APIController.cs" />
+    <Compile Include="Controllers\DataEntry\Fees\Im_Fees_Actions_APIController.cs" />
+    <Compile Include="Controllers\DataEntry\Treatments\TreatmentMaterial_APIController.cs" />
+    <Compile Include="Controllers\ExportRequest\CheckRequestStopping_APIController.cs" />
+    <Compile Include="Controllers\Export_Certificate\CertificateDetails_APIController.cs" />
+    <Compile Include="Controllers\Export_Certificate\CertificateList_APIController.cs" />
+    <Compile Include="Controllers\Export_Certificate\Certificate_APIController.cs" />
+    <Compile Include="Controllers\Export_Certificate\ChangeCountryCertificate_APIController.cs" />
+    <Compile Include="Controllers\Export_CheckRequest\CheckRequestChangeGeshni_APIController.cs" />
+    <Compile Include="Controllers\Export_CheckRequest\CheckRequestChangeLot_APIController.cs" />
+    <Compile Include="Controllers\Export_CheckRequest\Committee_Ex_APIController.cs" />
+    <Compile Include="Controllers\Export_CheckRequest\EX_CheckRequestCertificate_APIController.cs" />
+    <Compile Include="Controllers\Export_CheckRequest\EX_CheckRequestDetails_APIController.cs" />
+    <Compile Include="Controllers\Export_CheckRequest\EX_CheckRequestsNew_APIController.cs" />
+    <Compile Include="Controllers\Export_CheckRequest\EX_CheckRequests_APIController.cs" />
+    <Compile Include="Controllers\Export_CheckRequest\ExCommittee_Final_Result_APIController.cs" />
+    <Compile Include="Controllers\Export_CheckRequest\Ex_Change_Outlit_APIController.cs" />
+    <Compile Include="Controllers\Export_CheckRequest\EX_QuickCheckRequestDetails_APIController.cs" />
+    <Compile Include="Controllers\Export_CheckRequest\List_EXCheckRequest_APIController.cs" />
+    <Compile Include="Controllers\Export_CheckRequest\QuickRequestDetails_APIController.cs" />
+    <Compile Include="Controllers\Export_CheckRequest_New\EX_Committee_Final_Result_APIController.cs" />
+    <Compile Include="Controllers\Export_CheckRequest_New\EX_Committee_Final_Result_Quick_APIController.cs" />
+    <Compile Include="Controllers\Export_Constrains\Ex_ConstrainActivation_APIController.cs" />
+    <Compile Include="Controllers\Export_Constrains\EX_Constrain_Type_APIController.cs" />
+    <Compile Include="Controllers\Export_Constrains\EX_Constrain_Country_Item_APIController.cs" />
+    <Compile Include="Controllers\Export_Constrains\EX_Constrain_Text_APIController.cs" />
+    <Compile Include="Controllers\Export_Constrains\Ex_CountryConstrain_APIController.cs" />
+    <Compile Include="Controllers\Farm\FarmCommittee\Farm_Committee_DeleteAPIController.cs" />
+    <Compile Include="Controllers\Farm\FarmRequest\Farm_Final_Result_APIController.cs" />
+    <Compile Include="Controllers\Farm\FarmsDistribution\Farms_Organization_Distribution_APIController.cs" />
+    <Compile Include="Controllers\Farm\Farm_Constrains\Farm_CheckList_Constrain_APIController.cs" />
+    <Compile Include="Controllers\General_Permission\General_Stopping_PermissionAPIController.cs" />
+    <Compile Include="Controllers\General_Permission\ListGeneral_PermissionAPIController.cs" />
+    <Compile Include="Controllers\Import\CheckRequests\Change_request_StatusAPIController.cs" />
+    <Compile Include="Controllers\Import\CheckRequests\Im_CheckRequest_ShowData_APIController.cs" />
+    <Compile Include="Controllers\Import\CheckRequests\Im_checkRequest_Update_PortAPIController.cs" />
+    <Compile Include="Controllers\Import\DataEntry\Im_FinalResult_Data_APIController.cs" />
+    <Compile Include="Controllers\Import\DataEntry\Im_Visa_Data_APIController.cs" />
+    <Compile Include="Controllers\Employee\ChangePassword_APIController.cs" />
+    <Compile Include="Controllers\Employee\Employee_Track_API.cs" />
+    <Compile Include="Controllers\Import\CheckRequests\Im_CheckRequests_New_APIController.cs" />
+    <Compile Include="Controllers\Import\CheckRequests\List_Im_checkRequestsOutlet_APIController.cs" />
+    <Compile Include="Controllers\Import\Im_Committee\ImCommittee_Final_Result_APIController.cs" />
+    <Compile Include="Controllers\Import\Im_Committee\ImRequestCommittee_APIController.cs" />
+    <Compile Include="Controllers\Import\Im_Committee\Im_Check_Comitte_APIController.cs" />
+    <Compile Include="Controllers\Import\Im_Committee\Im_RequestCommittee_Shift_APIController.cs" />
+    <Compile Include="Controllers\Import\Im_Permissions\Stopping_PermissionAPIController.cs" />
+    <Compile Include="Controllers\Import_Custody\Im_CustodyPlace_APIController.cs" />
+    <Compile Include="Controllers\Im_CheckRequest_General\Committee_Im_General_APIController.cs" />
+    <Compile Include="Controllers\Im_CheckRequest_General\General_ImCommittee_Final_Result_APIController.cs" />
+    <Compile Include="Controllers\Im_CheckRequest_General\General_Im_CheckRequests_APIController.cs" />
+    <Compile Include="Controllers\Im_CheckRequest_General\RequestDetailsGeneral_APIController.cs" />
+    <Compile Include="Controllers\IM_Check_Requst_Report\Check_Requst_Accepted_All_APIController.cs" />
+    <Compile Include="Controllers\Log\Log_CheckRequest_APIController.cs" />
+    <Compile Include="Controllers\Pallet_Export_CheckRequest\Pallet_EX_CheckRequestDetails_APIController.cs" />
+    <Compile Include="Controllers\Pallet_Export_CheckRequest\Pallet_EX_CheckRequests_APIController.cs" />
+    <Compile Include="Controllers\Pallet_Export_CheckRequest\Pallet_Ex_Committee_APIController.cs" />
+    <Compile Include="Controllers\Pallet_Export_CheckRequest\Pallet_EX_Committee_Final_Result_APIController.cs" />
+    <Compile Include="Controllers\Pallet_Export_CheckRequest\Pallet_List_EXCheckRequest_APIController.cs" />
+    <Compile Include="Controllers\Shipping\InternationalTransportation_APIController.cs" />
+    <Compile Include="Controllers\Shipping\ShippingAgency_APIController.cs" />
+    <Compile Include="Controllers\Shipping\ShippingCompany_APIController.cs" />
+    <Compile Include="Controllers\DataEntry\Analysis\AnalysisLabType_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Analysis\AnalysisLab_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Analysis\AnalysisType_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Committees\CommitteeTypeController.cs" />
+    <Compile Include="Controllers\DataEntry\Countries\Continent_APIController.cs" />
+    <Compile Include="Controllers\DataEntry\Countries\Country_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Countries\RegionArea_APIController.cs" />
+    <Compile Include="Controllers\DataEntry\Countries\Region_APIController.cs" />
+    <Compile Include="Controllers\DataEntry\Countries\Union_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Countries\Union_Country_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Fees\FeesAction_APIController.cs" />
+    <Compile Include="Controllers\DataEntry\Fees\Fees_Type_Action_APIController.cs" />
+    <Compile Include="Controllers\DataEntry\Fees\ShiftTiming_APIController.cs" />
+    <Compile Include="Controllers\DataEntry\GovToVillage\Centers_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\GovToVillage\Governate_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\GovToVillage\Village_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Items\Agriculture_Classfication\Group_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Items\Agriculture_Classfication\ItemType_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Items\Agriculture_Classfication\MainClassification_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Items\Agriculture_Classfication\SecondaryClassification_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Items\ItemData\ItemCategories_Group_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Items\ItemData\ItemCategory_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Items\ItemData\Item_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Items\ItemData\Item_ShortName_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Items\ItemTypeData\ItemTypeController.cs" />
+    <Compile Include="Controllers\DataEntry\Items\Item_Descriptions\ItemCategories_TypeAPIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Items\Item_Descriptions\ItemPart_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Items\Item_Descriptions\Item_Purpose_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Items\Item_Descriptions\Item_Status_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Items\Item_Descriptions\QualitativeGroup_API.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Items\Item_Descriptions\SubPart_Type_API.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Items\Item_Descriptions\SubPart_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Items\Scientific Classfication\Family_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Items\Scientific Classfication\Kingdom_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Items\Scientific Classfication\Level_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Items\Scientific Classfication\Order_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Items\Scientific Classfication\PhylumSubphylum_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\LookUp\ContactType_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\LookUp\ShipmentMean_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\LookUp\TransportMean_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Outlets\GeneralAdmin_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Outlets\HagrContactController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Outlets\Outlet_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Packages\PackageMaterial_API.Controller.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Packages\PackageType_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Port\PortInternational_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Port\PortNational_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Port\PortOrganization_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Port\PortType_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\DataEntry\Treatments\TreatmentMainType_APIController.cs" />
+    <Compile Include="Controllers\DataEntry\Treatments\TreatMentMaterials_APIController.cs" />
+    <Compile Include="Controllers\DataEntry\Treatments\TreatmentMethod_APIController.cs" />
+    <Compile Include="Controllers\DataEntry\Treatments\TreatmentType_APIController.cs" />
+    <Compile Include="Controllers\Employee\AddEmployee_APIController.cs" />
+    <Compile Include="Controllers\Employee\Mission_APIController.cs" />
+    <Compile Include="Controllers\Farm\FarmCommittee\FarmRequestItem_Categories_APIController.cs" />
+    <Compile Include="Controllers\Farm\FarmCommittee\Farm_Committee_Examination_APIController.cs" />
+    <Compile Include="Controllers\Farm\FarmCommittee\Farm_Committee_Shift_APIController.cs" />
+    <Compile Include="Controllers\Farm\FarmCommittee\Farm_Country_APIController.cs" />
+    <Compile Include="Controllers\Farm\FarmCommittee\Farm_Request_APIController.cs" />
+    <Compile Include="Controllers\Farm\FarmCommittee\Farm_SampleData_APIController.cs" />
+    <Compile Include="Controllers\Farm\FarmData\FarmCompany_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\Farm\FarmData\FarmData_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\Farm\FarmData\FarmPlant_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\Farm\FarmRequest\Committee_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\Farm\FarmRequest\Employee_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\Farm\FarmRequest\FarmCommittee_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\Farm\FarmRequest\FarmDetails_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\Farm\FarmRequest\farmReqAnalysisType_APIController.cs" />
+    <Compile Include="Controllers\Farm\FarmRequest\FarmRequest_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\Farm\Farm_Constrains\Farm_Constrain_APIController.cs" />
+    <Compile Include="Controllers\Farm\Farm_Constrains\Farm_Constrain_Search_APIController.cs" />
+    <Compile Include="Controllers\Farm\Farm_Constrains\Farm_Constrain_Text_APIController.cs" />
+    <Compile Include="Controllers\Farm\Print\Farm_Print_APIController.cs" />
+    <Compile Include="Controllers\Import\CheckRequests\Im_CheckRequests_APIController.cs" />
+    <Compile Include="Controllers\Import\Constrains\Im_Constrains_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\Import\Constrains\Im_Constrain_Type_APIController.cs" />
+    <Compile Include="Controllers\Import\Constrains\Im_CountryConstrain_APIController.cs" />
+    <Compile Include="Controllers\Import\DataEntry\FreeZone_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\Import\DataEntry\Im_CustodyPlaceType_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\Import\DataEntry\Im_Initiator_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\Import\DataEntry\Im_Manafest_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\Import\DataEntry\Im_ProcedureType_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\Import\DataEntry\Im_Stores_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\Import\DataEntry\Im_TransUnderCustodyReason_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\Import\DataEntry\Im_Warehouses_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\Import\Im_Committee\Im_Committee_APIController.cs" />
+    <Compile Include="Controllers\Import\Im_Permissions\ListIm_PermissionAPIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\LaboratoryResult\LaboratoryResult_Report_APIController.cs" />
+    <Compile Include="Controllers\LaboratoryResult\SampleLABResult_APIController.cs" />
+    <Compile Include="Controllers\Log\Login_outController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\Log\OffLineSavingController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\Reports\EngineersReportController.cs" />
+    <Compile Include="Controllers\Station1\Station_Constrain_Country_Item_APIController.cs" />
+    <Compile Include="Controllers\Station1\Station_Constrain_Type_APIController.cs" />
+    <Compile Include="Controllers\Station1\Station_CheckList_Constrain_APIController.cs" />
+    <Compile Include="Controllers\Station1\StationAccrediationCommittee_APIController.cs" />
+    <Compile Include="Controllers\Station1\StationAccreditionDataAPIController.cs" />
+    <Compile Include="Controllers\Station1\StationActivityType_APIController.cs" />
+    <Compile Include="Controllers\Station1\Station_APIController.cs" />
+    <Compile Include="Controllers\Station1\Station_CheckListAPIController.cs" />
+    <Compile Include="Controllers\Station_Pages\AcceptedStation_Company_APIController.cs" />
+    <Compile Include="Controllers\Station_Pages\Station_Committee_Delete_APIController.cs" />
+    <Compile Include="Controllers\Station_Pages\Station_Final_Result_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Controllers\Station_Pages\StationDetails_APIController.cs" />
+    <Compile Include="Controllers\Station_Pages\Station_Accreditation_Data_Entry_APIController.cs" />
+    <Compile Include="Controllers\Station_Pages\Station_Accreditation_Data_Entry_List_APIController.cs" />
+    <Compile Include="Controllers\Station_Pages\Station_Fees_Type_APIController.cs" />
+    <Compile Include="Controllers\Station_Pages\Station_Sample_Result_APIController.cs" />
+    <Compile Include="Controllers\SystemCode\A_SystemCode_APIController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Content\Site.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Controllers\Export\" />
+    <Folder Include="Models\" />
+    <Folder Include="Views\CertificateDetails_API\" />
+    <Folder Include="Views\CheckRequestChangeGeshni_API\" />
+    <Folder Include="Views\QuickRequestDetails_API\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap.min.css.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap.css.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PlantQuar.BLL\PlantQuar.BLL.csproj">
+      <Project>{e0664a3a-8480-43b9-81f0-79c6fd724035}</Project>
+      <Name>PlantQuar.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantQuar.DAL\PlantQuar.DAL.csproj">
+      <Project>{BC477233-24CC-4B70-9E19-AC7920CB3B07}</Project>
+      <Name>PlantQuar.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantQuar.DTO\PlantQuar.DTO.csproj">
+      <Project>{1be918a5-165c-4095-8634-19717cec27d4}</Project>
+      <Name>PlantQuar.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantQuar.UOW\PlantQuar.UOW.csproj">
+      <Project>{8CB9FED1-6359-4AB5-8B16-8268F278D610}</Project>
+      <Name>PlantQuar.UOW</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantQuar.WEB\PlantQuar.WEB.csproj">
+      <Project>{9FB74E8F-5C88-4948-B6F5-4C48C76861FC}</Project>
+      <Name>PlantQuar.WEB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Privilages.DAL\Privilages.DAL.csproj">
+      <Project>{DC180A5A-01D3-484F-BB09-88E53E4A72F4}</Project>
+      <Name>Privilages.DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>49310</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:49310/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

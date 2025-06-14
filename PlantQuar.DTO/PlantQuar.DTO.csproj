@@ -1,0 +1,436 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1BE918A5-165C-4095-8634-19717CEC27D4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PlantQuar.DTO</RootNamespace>
+    <AssemblyName>PlantQuar.DTO</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DTO\Admin\AcceptAggreementBackDTO.cs" />
+    <Compile Include="DTO\Admin\AndroidDTO.cs" />
+    <Compile Include="DTO\Admin\A__plant_Error_SaveDTO.cs" />
+    <Compile Include="DTO\Admin\Classsss.cs" />
+    <Compile Include="DTO\Admin\logDataDTO.cs" />
+    <Compile Include="DTO\Admin\LogTableNamecs.cs" />
+    <Compile Include="DTO\Admin\PR_MissionDTO.cs" />
+    <Compile Include="DTO\Admin\Total_Fees_Type_DTO.cs" />
+    <Compile Include="DTO\Admin\Transation_LogsDTO.cs" />
+    <Compile Include="DTO\Admin\User.cs" />
+    <Compile Include="DTO\Admin\User_PrivilageDTO.cs" />
+    <Compile Include="DTO\Committee\Ex_Committee_Quick_DTO.cs" />
+    <Compile Include="DTO\Committee\Ex_Committee_DTO.cs" />
+    <Compile Include="DTO\Committee\Committee_ImDTO.cs" />
+    <Compile Include="DTO\Committee\Ex_GetUserDTO.cs" />
+    <Compile Include="DTO\Committee\Get_Ex_CountryConstrain_DTO.cs" />
+    <Compile Include="DTO\Common\userPriviledgeDTO.cs" />
+    <Compile Include="DTO\Company\CompanyAccreditationDTO.cs" />
+    <Compile Include="DTO\Company\CompanyActivityDTO.cs" />
+    <Compile Include="DTO\Company\CompanyActivityTypeDTO.cs" />
+    <Compile Include="DTO\Company\Enrollment_typeDTO.cs" />
+    <Compile Include="DTO\Company\PublicOrganizationTypeDTO.cs" />
+    <Compile Include="DTO\Company\SP_GetCompaniesNumbers_DTO.cs" />
+    <Compile Include="DTO\Company\StationAccrediationCountryDTO.cs" />
+    <Compile Include="DTO\Company\StationActivityTypeDTO.cs" />
+    <Compile Include="DTO\Company\Station_AccreditationDTO.cs" />
+    <Compile Include="DTO\Company\Station_AccreditationTreatmentDTO.cs" />
+    <Compile Include="DTO\DataEntry\Analysis\AnalysisLabDTO.cs" />
+    <Compile Include="DTO\DataEntry\Analysis\AnalysisLabTypeDTO.cs" />
+    <Compile Include="DTO\DataEntry\Analysis\AnalysisTypeDTO.cs" />
+    <Compile Include="DTO\DataEntry\Committees\CommitteeTypeDTO.cs" />
+    <Compile Include="DTO\DataEntry\Countries\ContinentDTO.cs" />
+    <Compile Include="DTO\DataEntry\Countries\CountryDTO.cs" />
+    <Compile Include="DTO\DataEntry\Countries\CustomCountry_UnionList.cs" />
+    <Compile Include="DTO\DataEntry\Countries\Regional_AreaDTO.cs" />
+    <Compile Include="DTO\DataEntry\Countries\RegionDTO.cs" />
+    <Compile Include="DTO\DataEntry\Countries\UnionDTO.cs" />
+    <Compile Include="DTO\DataEntry\Countries\Union_CountryDTO.cs" />
+    <Compile Include="DTO\DataEntry\Fees\Fees_ActionDTO.cs" />
+    <Compile Include="DTO\DataEntry\Fees\Fees_Type_ActionDTO.cs" />
+    <Compile Include="DTO\DataEntry\Fees\Im_Fees_ActionsDTO.cs" />
+    <Compile Include="DTO\DataEntry\Fees\ItemDTO.cs" />
+    <Compile Include="DTO\DataEntry\Fees\ShiftTimingDTO.cs" />
+    <Compile Include="DTO\DataEntry\Fees\TransferData.cs" />
+    <Compile Include="DTO\DataEntry\GovToVillage\CenterDTO.cs" />
+    <Compile Include="DTO\DataEntry\GovToVillage\Center_OutletDTO.cs" />
+    <Compile Include="DTO\DataEntry\GovToVillage\GovernateDTO.cs" />
+    <Compile Include="DTO\DataEntry\GovToVillage\VillageDTO.cs" />
+    <Compile Include="DTO\DataEntry\Items\Agriculture_Classfication\GroupDTO.cs" />
+    <Compile Include="DTO\DataEntry\Items\Agriculture_Classfication\Item_TypeDTO.cs" />
+    <Compile Include="DTO\DataEntry\Items\Agriculture_Classfication\MainCalssificationDTO.cs" />
+    <Compile Include="DTO\DataEntry\Items\Agriculture_Classfication\SecondaryClassificationDTO.cs" />
+    <Compile Include="DTO\DataEntry\Items\ItemData\ItemCategories_GroupDTO.cs" />
+    <Compile Include="DTO\DataEntry\Items\ItemData\ItemCategoryDTO.cs" />
+    <Compile Include="DTO\DataEntry\Items\ItemData\ItemDTO.cs" />
+    <Compile Include="DTO\DataEntry\Items\ItemData\Item_ShortNameDTO.cs" />
+    <Compile Include="DTO\DataEntry\Items\Item_Descriptions\ItemPartDTO.cs" />
+    <Compile Include="DTO\DataEntry\Items\Item_Descriptions\ItemCategories_TypeDTO.cs" />
+    <Compile Include="DTO\DataEntry\Items\Item_Descriptions\Item_PurposeDTO.cs" />
+    <Compile Include="DTO\DataEntry\Items\Item_Descriptions\Item_StatusDTO.cs" />
+    <Compile Include="DTO\DataEntry\Items\Item_Descriptions\SubPart_TypeDTO.cs" />
+    <Compile Include="DTO\DataEntry\Items\Item_Descriptions\SubPartDTO.cs" />
+    <Compile Include="DTO\DataEntry\Items\Scientific Classfication\FamilyDTO.cs" />
+    <Compile Include="DTO\DataEntry\Items\Scientific Classfication\KingdomDTO.cs" />
+    <Compile Include="DTO\DataEntry\Items\Scientific Classfication\LevelDTO.cs" />
+    <Compile Include="DTO\DataEntry\Items\Scientific Classfication\OrderDTO.cs" />
+    <Compile Include="DTO\DataEntry\Items\Scientific Classfication\PhylumSubphylumDTO.cs" />
+    <Compile Include="DTO\DataEntry\LookUp\ContactTypeDTO.cs" />
+    <Compile Include="DTO\DataEntry\LookUp\QualitativeGroupDTO.cs" />
+    <Compile Include="DTO\DataEntry\LookUp\ShipmentMeanDTO.cs" />
+    <Compile Include="DTO\DataEntry\LookUp\TransportMeanDTO.cs" />
+    <Compile Include="DTO\DataEntry\Outlets\GeneralAdminDTO.cs" />
+    <Compile Include="DTO\DataEntry\Outlets\HagrContactDTO.cs" />
+    <Compile Include="DTO\DataEntry\Outlets\OutletDTO.cs" />
+    <Compile Include="DTO\DataEntry\Packages\PackageMaterialDTO.cs" />
+    <Compile Include="DTO\DataEntry\Packages\PackageTypeDTO.cs" />
+    <Compile Include="DTO\DataEntry\Port\PortInternationalDTO.cs" />
+    <Compile Include="DTO\DataEntry\Port\PortNationalDTO.cs" />
+    <Compile Include="DTO\DataEntry\Port\PortOrganizationDTO.cs" />
+    <Compile Include="DTO\DataEntry\Port\PortTypeDTO.cs" />
+    <Compile Include="DTO\DataEntry\Port\Port_TypeDTO.cs" />
+    <Compile Include="DTO\DataEntry\Treatments\TreatmentMainTypeDTO.cs" />
+    <Compile Include="DTO\DataEntry\Treatments\TreatmentMaterialDTO.cs" />
+    <Compile Include="DTO\DataEntry\Treatments\TreatmentMethodDTO.cs" />
+    <Compile Include="DTO\DataEntry\Treatments\Treatments_XmlDTO.cs" />
+    <Compile Include="DTO\DataEntry\Treatments\TreatmentTypeDTO.cs" />
+    <Compile Include="DTO\Common\A_AttachmentDataDTO.cs" />
+    <Compile Include="DTO\Company\PersonDTO.cs" />
+    <Compile Include="DTO\Employee\Class1.cs" />
+    <Compile Include="DTO\Employee\Employee_TrackDTO.cs" />
+    <Compile Include="DTO\Employee\outletGeneralDTO.cs" />
+    <Compile Include="DTO\Employee\UserDataDto.cs" />
+    <Compile Include="DTO\ExportRequest\CheckRequestStoppingDTO.cs" />
+    <Compile Include="DTO\ExportRequest\ExportRequest_XmlDTO.cs" />
+    <Compile Include="DTO\ExportRequest\Export_CheckRequestDTO.cs" />
+    <Compile Include="DTO\ExportRequest\Ex_Request_LotDataDTO.cs" />
+    <Compile Include="DTO\ExportRequest\PlantCategoryDTO.cs" />
+    <Compile Include="DTO\Export_Certificate\AcceptCertificate.cs" />
+    <Compile Include="DTO\Export_Certificate\CertificateDTO.cs" />
+    <Compile Include="DTO\Export_Certificate\CertificateNewDTO.cs" />
+    <Compile Include="DTO\Export_Certificate\Certificate_Get_Data_ResultDTO.cs" />
+    <Compile Include="DTO\Export_Certificate\ChangeCountryCertificateDTO.cs" />
+    <Compile Include="DTO\Export_Certificate\CheckRequest_Getdata_AdditionDec_AdminDTO.cs" />
+    <Compile Include="DTO\Export_Certificate\CheckRequest_Getdata_CertifacteFeesDTO.cs" />
+    <Compile Include="DTO\Export_Certificate\CheckRequest_Getdata_CustomMessagesDTO.cs" />
+    <Compile Include="DTO\Export_Certificate\CheckRequest_GetData_web_ResultDTO.cs" />
+    <Compile Include="DTO\Export_Certificate\committeeEmployee_XmlDTO.cs" />
+    <Compile Include="DTO\Export_Certificate\Ex_CertificateAddtionUserDTO.cs" />
+    <Compile Include="DTO\Export_Certificate\Ex_CertificatesRequestsLotDataCategoryDTO.cs" />
+    <Compile Include="DTO\Export_Certificate\Ex_Im_CheckRequest_CertificateDTO.cs" />
+    <Compile Include="DTO\Export_Certificate\Treatments_XmlDTO.cs" />
+    <Compile Include="DTO\Export_CheckRequest\CheckedItemsListWeightDTO.cs" />
+    <Compile Include="DTO\Export_CheckRequest\CheckRequestChangeLotDTO.cs" />
+    <Compile Include="DTO\Export_CheckRequest\Committee_ExDTO.cs" />
+    <Compile Include="DTO\Export_CheckRequest\CompanyActivityDTO.cs" />
+    <Compile Include="DTO\Export_CheckRequest\EXCheckRequestListDTO.cs" />
+    <Compile Include="DTO\Export_CheckRequest\EXRequestDetailsDTO.cs" />
+    <Compile Include="DTO\Export_CheckRequest\Ex_Change_OutlitDTO.cs" />
+    <Compile Include="DTO\Export_CheckRequest\EX_CheckRequestCertificatesDTO.cs" />
+    <Compile Include="DTO\Export_CheckRequest\EX_CheckRequestDTO.cs" />
+    <Compile Include="DTO\Export_CheckRequest\EX_CheckRequest_RefuseReasonDTO.cs" />
+    <Compile Include="DTO\Export_CheckRequest\ExCommittee_Final_ResultDTO.cs" />
+    <Compile Include="DTO\Export_CheckRequest\EX_CheckRequest_Items_Lot_ResultDTO.cs" />
+    <Compile Include="DTO\Export_CheckRequest\EX_CheckRequest_VisaDTO.cs" />
+    <Compile Include="DTO\Export_CheckRequest\Ex_CheckRequest_Final_ResultDTO.cs" />
+    <Compile Include="DTO\Export_CheckRequest\Ex_ListDTO.cs" />
+    <Compile Include="DTO\Export_CheckRequest\Ex_List_Search.cs" />
+    <Compile Include="DTO\Export_CheckRequest\Ex_Visa_DataDTO.cs" />
+    <Compile Include="DTO\Export_CheckRequest\Ex_CheckRequest_SampleDataDTO.cs" />
+    <Compile Include="DTO\Export_CheckRequest\Ex_CommitteeResultDTO.cs" />
+    <Compile Include="DTO\Export_CheckRequest\Ex_RequestDetailsDTO.cs" />
+    <Compile Include="DTO\Export_CheckRequest\ExRequestDetails_NewDTO.cs" />
+    <Compile Include="DTO\Committee\FeesExDTO.cs" />
+    <Compile Include="DTO\Export_CheckRequest\GeshniCommitteesDTO.cs" />
+    <Compile Include="DTO\Export_CheckRequest\QuickRequestDetailsDTO.cs" />
+    <Compile Include="DTO\Export_CheckRequest\ReasonsListReqIdDTO.cs" />
+    <Compile Include="DTO\Export_CheckRequest_New\EX_CheckRequest_Final_ResultDTO.cs" />
+    <Compile Include="DTO\Export_CheckRequest_New\EX_CheckRequest_Items_Lot_ResultDTO.cs" />
+    <Compile Include="DTO\Export_CheckRequest_New\EX_CheckRequest_VisaDTO.cs" />
+    <Compile Include="DTO\Export_CheckRequest_New\EX_Committee_Final_ResultDTO.cs" />
+    <Compile Include="DTO\Export_CheckRequest_New\EX_Committee_Final_Result_QuickDTO.cs" />
+    <Compile Include="DTO\Export_CheckRequest_New\Ex_Visa_DataDTO.cs" />
+    <Compile Include="DTO\Export_Constrains\ConstrainCountryDTO.cs" />
+    <Compile Include="DTO\Export_Constrains\CountryConstrain_TreatmentDTO.cs" />
+    <Compile Include="DTO\Export_Constrains\CustomCountryConstrain.cs" />
+    <Compile Include="DTO\Export_Constrains\ExConstrainsLabsAndTyp.cs" />
+    <Compile Include="DTO\Export_Constrains\ExCountryConstainDisplay.cs" />
+    <Compile Include="DTO\Export_Constrains\ExportConstrainsNewDTO.cs" />
+    <Compile Include="DTO\Export_Constrains\Ex_ConstrainActivationDTO.cs" />
+    <Compile Include="DTO\Export_Constrains\Ex_ConstrainActivationProcedureDTO.cs" />
+    <Compile Include="DTO\Export_Constrains\EX_Constrain_TypeDTO.cs" />
+    <Compile Include="DTO\Export_Constrains\EX_Constrain_Text_DTO.cs" />
+    <Compile Include="DTO\Export_Constrains\Ex_CountryConstrainDTO.cs" />
+    <Compile Include="DTO\Export_Constrains\EX_CountryConstrainsDTO.cs" />
+    <Compile Include="DTO\Export_Constrains\Ex_CountryConstrain_AnalysisLabTypeDTO.cs" />
+    <Compile Include="DTO\Export_Constrains\Ex_CountryConstrain_ArrivalPortDTO.cs" />
+    <Compile Include="DTO\Export_Constrains\Ex_CountryConstrain_TextDTO.cs" />
+    <Compile Include="DTO\Export_Constrains\ProcedureDataToSendDTO.cs" />
+    <Compile Include="DTO\Export_Constrains\TakenEx_CounstrainDataDTO.cs" />
+    <Compile Include="DTO\Export_Constrains\EX_Constrain_Country_ItemDTO.cs" />
+    <Compile Include="DTO\Farm\FarmCommittee\FarmCommitteeDeleteDTO.cs" />
+    <Compile Include="DTO\Farm\FarmCommittee\FarmCommitteeExaminationAndSampleDataVM.cs" />
+    <Compile Include="DTO\Farm\FarmCommittee\Farm_Committee_CheckList_DTO.cs" />
+    <Compile Include="DTO\Farm\FarmCommittee\Farm_Committee_ConstrainDTO.cs" />
+    <Compile Include="DTO\Farm\FarmCommittee\Farm_Committee_ExaminationDTO.cs" />
+    <Compile Include="DTO\Farm\FarmCommittee\Farm_Committee_Final_ResultDTO.cs" />
+    <Compile Include="DTO\Farm\FarmCommittee\Farm_Committee_Requst_All_DTO.cs" />
+    <Compile Include="DTO\Farm\FarmCommittee\Farm_Committee_ShiftDTO.cs" />
+    <Compile Include="DTO\Farm\FarmCommittee\Farm_CountryDTO.cs" />
+    <Compile Include="DTO\Farm\FarmCommittee\Farm_Inser_Commit_DTO.cs" />
+    <Compile Include="DTO\Farm\FarmCommittee\Farm_Request_ItemCategoriesDTO.cs" />
+    <Compile Include="DTO\Farm\FarmConstrain\Farm_CheckList_Constrain_DTO.cs" />
+    <Compile Include="DTO\Farm\FarmConstrain\Farm_ConstrainDTO.cs" />
+    <Compile Include="DTO\Farm\FarmConstrain\Farm_Constrain_TextDTO.cs" />
+    <Compile Include="DTO\Farm\FarmConstrain\Farm_Constrain_Text_CheckList_DTO.cs" />
+    <Compile Include="DTO\Farm\FarmData\FarmPlantDTO.cs" />
+    <Compile Include="DTO\Farm\FarmData\FarmRequestDTO.cs" />
+    <Compile Include="DTO\Farm\FarmData\FarmsDataDTO.cs" />
+    <Compile Include="DTO\Farm\FarmData\Farm_CompanyDTO.cs" />
+    <Compile Include="DTO\Farm\FarmData\Farm_ItemCategoriesDTO.cs" />
+    <Compile Include="DTO\Farm\FarmData\Farm_SampleData2DTO.cs" />
+    <Compile Include="DTO\Farm\FarmData\ReasonsList_FarmDTO.cs" />
+    <Compile Include="DTO\Farm\FarmLog\Table_Action_Log_Farm_DTO.cs" />
+    <Compile Include="DTO\Farm\FarmRequest\Andriod_LocationDTO.cs" />
+    <Compile Include="DTO\Farm\FarmRequest\CheckRequest_GetCommitte_Data_ResultDTO.cs" />
+    <Compile Include="DTO\Farm\FarmRequest\CommitteeEmployeeDTO.cs" />
+    <Compile Include="DTO\Farm\FarmRequest\CompanyNationalDTO.cs" />
+    <Compile Include="DTO\Farm\FarmRequest\EmployeeDTO.cs" />
+    <Compile Include="DTO\Farm\FarmRequest\Exporter_ContactDTO.cs" />
+    <Compile Include="DTO\Farm\FarmRequest\Ex_RequestCommitteeDTO.cs" />
+    <Compile Include="DTO\Farm\FarmRequest\farmCountryConstrainReturnDTO.cs" />
+    <Compile Include="DTO\Farm\FarmRequest\FarmsListDTO.cs" />
+    <Compile Include="DTO\Farm\FarmRequest\Farm_CommitteeDTO.cs" />
+    <Compile Include="DTO\Farm\FarmRequest\Farm_Committee_ConfirmDTO.cs" />
+    <Compile Include="DTO\Farm\FarmRequest\Farm_Committee_GetData_DTO.cs" />
+    <Compile Include="DTO\Farm\FarmRequest\Farm_Country_RequestDTO.cs" />
+    <Compile Include="DTO\Farm\FarmRequest\Farm_Get_Data_ResultDTO.cs" />
+    <Compile Include="DTO\Farm\FarmRequest\Farm_RequestItemCategory_DTO.cs" />
+    <Compile Include="DTO\Farm\FarmRequest\Farm_Requst_ListDTO.cs" />
+    <Compile Include="DTO\Farm\FarmRequest\Farm_SampleDataDTO.cs" />
+    <Compile Include="DTO\Farm\FarmRequest\Public_OrganizationDTO.cs" />
+    <Compile Include="DTO\Farm\FarmRequest\Station_Accreditation_CommitteeDTO.cs" />
+    <Compile Include="DTO\Farm\FarmsDistribution\FarmsDistributionListDTO.cs" />
+    <Compile Include="DTO\Farm\Print\Farm_Data_Print_DTO.cs" />
+    <Compile Include="DTO\General_Permissions\ActivePrintDTO.cs" />
+    <Compile Include="DTO\General_Permissions\Im_Permission_RefuseReasonDTO.cs" />
+    <Compile Include="DTO\General_Permissions\Permissions\A_ImPermissionsListDTO.cs" />
+    <Compile Include="DTO\General_Permissions\Permissions\ImPermissionIsPrintDTO.cs" />
+    <Compile Include="DTO\General_Permissions\Permissions\ImPermissionPrintDetailsDTO.cs" />
+    <Compile Include="DTO\General_Permissions\Permissions\ImPermissionsListDTO.cs" />
+    <Compile Include="DTO\General_Permissions\Permissions\ImRequestDetailsDTO.cs" />
+    <Compile Include="DTO\General_Permissions\Permissions\ImRequestDetails_NewDTO.cs" />
+    <Compile Include="DTO\General_Permissions\Permissions\Im_PermissionRequestDTO.cs" />
+    <Compile Include="DTO\General_Permissions\Permissions\Im_PermissionRequest_RefuseReasonDTO.cs" />
+    <Compile Include="DTO\General_Permissions\Permissions\Stopping_PermissionsDTO.cs" />
+    <Compile Include="DTO\Import\CheckRequests\Change_request_StatusDTO.cs" />
+    <Compile Include="DTO\Import\CheckRequests\ImCheckRequestListDTO.cs" />
+    <Compile Include="DTO\Import\CheckRequests\ImCheckRequestListOutlitDTO.cs" />
+    <Compile Include="DTO\Import\CheckRequests\Im_CheckRequestDTO.cs" />
+    <Compile Include="DTO\Import\CheckRequests\Im_CheckRequest_RefuseReasonDTO.cs" />
+    <Compile Include="DTO\Import\CheckRequests\Im_CheckRequest_SampleDataDTO.cs" />
+    <Compile Include="DTO\Import\CheckRequests\Im_CheckRequest_ShowDataDTO.cs" />
+    <Compile Include="DTO\Import\CheckRequests\Im_checkRequest_Update_PortDTO.cs" />
+    <Compile Include="DTO\Import\CheckRequests\Im_ExecutionDTO.cs" />
+    <Compile Include="DTO\Import\CheckRequests\Im_CommitteeResultDTO.cs" />
+    <Compile Include="DTO\Import\CheckRequests\Im_PermissionItem_Division_Custody_DismissCommitteeDTO.cs" />
+    <Compile Include="DTO\Import\CheckRequests\Im_PermissionItem_Division_Custody_ReceiveCommitteeDTO.cs" />
+    <Compile Include="DTO\Import\CheckRequests\Im_RequestCommitteeDTO.cs" />
+    <Compile Include="DTO\Import\CheckRequests\ReasonsListReqIdDTO.cs" />
+    <Compile Include="DTO\Import\CheckRequests\Refuse_ReasonsDTO.cs" />
+    <Compile Include="DTO\Import\Committee\Im_Check_ComitteDTO.cs" />
+    <Compile Include="DTO\Import\Constrains\Ex_CountryConstrain_TextDTO.cs" />
+    <Compile Include="DTO\Import\Constrains\ImCustomCountryConstrain.cs" />
+    <Compile Include="DTO\Import\Constrains\Im_Constrain_TypeDTO.cs" />
+    <Compile Include="DTO\Import\Constrains\Im_CountryConstrainDTO.cs" />
+    <Compile Include="DTO\Import\Constrains\Im_CountryConstrain_ArrivalPortDTO.cs" />
+    <Compile Include="DTO\Import\Constrains\Im_CountryConstrain_TextDTO.cs" />
+    <Compile Include="DTO\Import\DataEntry\FreeZoneDTO.cs" />
+    <Compile Include="DTO\Import\DataEntry\Im_CustodyPlaceTypeDTO.cs" />
+    <Compile Include="DTO\Import\DataEntry\Im_FinalResult_DataDTO.cs" />
+    <Compile Include="DTO\Import\DataEntry\Im_InitiatorDTO.cs" />
+    <Compile Include="DTO\Import\DataEntry\Im_ManafestDTO.cs" />
+    <Compile Include="DTO\Import\DataEntry\Im_ProcedureTypeDTO.cs" />
+    <Compile Include="DTO\Import\DataEntry\Im_StoresDTO.cs" />
+    <Compile Include="DTO\Import\DataEntry\Im_TransUnderCustodyReasonDTO.cs" />
+    <Compile Include="DTO\Import\DataEntry\Im_Visa_DataDTO.cs" />
+    <Compile Include="DTO\Import\DataEntry\Im_WarehousesDTO.cs" />
+    <Compile Include="DTO\Import\IM_Committee\ImCommittee_Final_ResultDTO.cs" />
+    <Compile Include="DTO\Import\IM_Committee\Im_CheckRequest_Final_ResultDTO.cs" />
+    <Compile Include="DTO\Import\IM_Committee\Im_CheckRequest_Lot_Result_StatusDTO.cs" />
+    <Compile Include="DTO\Import\IM_Committee\Im_CheckRequest_VisaDTO.cs" />
+    <Compile Include="DTO\Import\IM_Committee\Im_CheckRequest_Items_Lot_ResultDTO.cs" />
+    <Compile Include="DTO\Import\IM_Committee\Im_RequestCommittee_ShiftDTO.cs" />
+    <Compile Include="DTO\Import\Permissions\A_ImPermissionsListDTO.cs" />
+    <Compile Include="DTO\Import\Permissions\ImPermissionIsPrintDTO.cs" />
+    <Compile Include="DTO\Import\Permissions\ImPermissionPrintDetailsDTO.cs" />
+    <Compile Include="DTO\Import\Permissions\ImPermissionsListDTO.cs" />
+    <Compile Include="DTO\Import\Permissions\ImRequestDetails_NewDTO.cs" />
+    <Compile Include="DTO\Import\Permissions\ImRequestDetailsDTO.cs" />
+    <Compile Include="DTO\Import\Permissions\Im_PermissionRequestDTO.cs" />
+    <Compile Include="DTO\Import\Permissions\Im_PermissionRequest_RefuseReasonDTO.cs" />
+    <Compile Include="DTO\Import\Permissions\Stopping_PermissionsDTO.cs" />
+    <Compile Include="DTO\Import\Permissions\Table_Action_Log_DTO.cs" />
+    <Compile Include="DTO\Import_Custody\Im_CustodyPlace_DTO.cs" />
+    <Compile Include="DTO\Im_CheckRequest_General\General_ImCheckRequestListDTO.cs" />
+    <Compile Include="DTO\Im_CheckRequest_General\General_ImCommittee_Final_ResultDTO.cs" />
+    <Compile Include="DTO\Im_CheckRequest_General\General_Im_CheckRequest_Final_ResultDTO.cs" />
+    <Compile Include="DTO\Im_CheckRequest_General\General_Im_CheckRequest_Items_Lot_ResultDTO.cs" />
+    <Compile Include="DTO\Im_CheckRequest_General\General_Im_CheckRequest_VisaDTO.cs" />
+    <Compile Include="DTO\Im_CheckRequest_General\General_Im_Visa_DataDTO.cs" />
+    <Compile Include="DTO\Im_CheckRequest_General\Im_CheckRequestDetails_General_DTO.cs" />
+    <Compile Include="DTO\Im_CheckRequest_General\Im_CheckRequestGeneralDTO.cs" />
+    <Compile Include="DTO\Im_CheckRequest_General\Im_CheckRequest_RefuseReasonGeneralDTO.cs" />
+    <Compile Include="DTO\Im_CheckRequest_General\ReasonsListReqIdGeneralDTO.cs" />
+    <Compile Include="DTO\IM_Check_Requst_Report\Check_Requst_Accepted_All_DTO.cs" />
+    <Compile Include="DTO\Im_Permissions\ActivePrintDTO.cs" />
+    <Compile Include="DTO\Im_Permissions\Im_Permission_RefuseReasonDTO.cs" />
+    <Compile Include="DTO\labResult\Ex_SampleDataDTO.cs" />
+    <Compile Include="DTO\labResult\LaboratoryResult_ReportDTO.cs" />
+    <Compile Include="DTO\labResult\LabResultDTO.cs" />
+    <Compile Include="DTO\labResult\sampleData_Info_ResultDTO.cs" />
+    <Compile Include="DTO\Log\Log_CheckRequest_DTO.cs" />
+    <Compile Include="DTO\Log\User_LoginDTO.cs" />
+    <Compile Include="DTO\Pallet_Export_CheckRequest\Pallet_EXCheckRequestListDTO.cs" />
+    <Compile Include="DTO\Pallet_Export_CheckRequest\Pallet_EXRequestDetailsDTO.cs" />
+    <Compile Include="DTO\Pallet_Export_CheckRequest\Pallet_EX_CheckRequestDTO.cs" />
+    <Compile Include="DTO\Pallet_Export_CheckRequest\Pallet_EX_CheckRequest_Final_ResultDTO.cs" />
+    <Compile Include="DTO\Pallet_Export_CheckRequest\Pallet_EX_CheckRequest_Items_Lot_ResultDTO.cs" />
+    <Compile Include="DTO\Pallet_Export_CheckRequest\Pallet_EX_CheckRequest_RefuseReasonDTO.cs" />
+    <Compile Include="DTO\Pallet_Export_CheckRequest\Pallet_EX_CheckRequest_VisaDTO.cs" />
+    <Compile Include="DTO\Pallet_Export_CheckRequest\Pallet_Ex_CommitteeResultDTO.cs" />
+    <Compile Include="DTO\Pallet_Export_CheckRequest\Pallet_Ex_Committee_DTO.cs" />
+    <Compile Include="DTO\Pallet_Export_CheckRequest\Pallet_EX_Committee_Final_ResultDTO.cs" />
+    <Compile Include="DTO\Pallet_Export_CheckRequest\Pallet_EX_Visa_DataDTO.cs" />
+    <Compile Include="DTO\Pallet_Export_CheckRequest\Pallet_ReasonsListReqIdDTO.cs" />
+    <Compile Include="DTO\Reports\Engineers\EngineersReportDTO.cs" />
+    <Compile Include="DTO\Search\SearchFilterDTO.cs" />
+    <Compile Include="DTO\Shipping\InternationalTransportationDTO.cs" />
+    <Compile Include="DTO\Shipping\ShippingAgencyDTO.cs" />
+    <Compile Include="DTO\Shipping\ShippingCompanyDTO.cs" />
+    <Compile Include="DTO\StationNew\Station_Constrain_Country_ItemDTO.cs" />
+    <Compile Include="DTO\StationNew\Station_Constrain_TypeDTO.cs" />
+    <Compile Include="DTO\StationNew\Station_CheckList_Constrain_DTO.cs" />
+    <Compile Include="DTO\StationNew\Ex_Im_Payment_GetDataDTO.cs" />
+    <Compile Include="DTO\StationNew\Fees_Constrain_DataDTO.cs">
+      <SubType>code</SubType>
+    </Compile>
+    <Compile Include="DTO\StationNew\Fees_Constrain_Data_Item_ShortNameDTO.cs" />
+    <Compile Include="DTO\StationNew\Payment_DataDTO.cs">
+      <SubType>code</SubType>
+    </Compile>
+    <Compile Include="DTO\StationNew\StationAccreditionDataDTO.cs" />
+    <Compile Include="DTO\StationNew\StationActivityDTO.cs" />
+    <Compile Include="DTO\StationNew\StationCompanyDTO.cs" />
+    <Compile Include="DTO\StationNew\StationContactDTO.cs" />
+    <Compile Include="DTO\StationNew\StationDTO.cs" />
+    <Compile Include="DTO\StationNew\Station_Accrediation_Committee_GetData_DTO.cs" />
+    <Compile Include="DTO\StationNew\Station_Accreditation_PaymentDTO.cs" />
+    <Compile Include="DTO\StationNew\Station_Accredition_CheckListDTO.cs" />
+    <Compile Include="DTO\StationNew\Station_CheckListDTO.cs" />
+    <Compile Include="DTO\StationNew\Station_Plant_ProductDTO.cs" />
+    <Compile Include="DTO\StationNew\TreatmentDataDTO.cs" />
+    <Compile Include="DTO\Station_Pages\AcceptedStation_Company_DTO.cs" />
+    <Compile Include="DTO\Station_Pages\Committee_Station_DTO.cs" />
+    <Compile Include="DTO\Station_Pages\EmployeeDTO.cs" />
+    <Compile Include="DTO\Station_Pages\Station_Accreditation_Data_Entry_DTO.cs" />
+    <Compile Include="DTO\Station_Pages\Station_Accreditation_Data_Entry_List_DTO.cs" />
+    <Compile Include="DTO\Station_Pages\Station_Accreditation_Request_DTO.cs" />
+    <Compile Include="DTO\Station_Pages\Station_CommitteeDTO.cs" />
+    <Compile Include="DTO\Station_Pages\Station_Committee_Delete_DTO.cs" />
+    <Compile Include="DTO\Station_Pages\Station_Emp_DTO.cs" />
+    <Compile Include="DTO\Station_Pages\Station_Fees_Type_DTO.cs" />
+    <Compile Include="DTO\Station_Pages\Station_Final_Result_New_DTO.cs" />
+    <Compile Include="DTO\Station_Pages\Station_Final_Result_DTO.cs" />
+    <Compile Include="DTO\Station_Pages\Station_Get_Data_ResultDTO.cs" />
+    <Compile Include="DTO\Station_Pages\Station_Get_EN_Print_DTO.cs" />
+    <Compile Include="DTO\Station_Pages\Station_Sample_Result_DTO.cs" />
+    <Compile Include="DTO\Station_Pages\Table_Action_Log_Station_DTO.cs" />
+    <Compile Include="DTO\SystemCodes\A_SystemCodeDTO.cs" />
+    <Compile Include="HelperClasses\API_HelperFunctions.cs" />
+    <Compile Include="HelperClasses\CustomOption.cs" />
+    <Compile Include="HelperClasses\CustomOptionLongId.cs" />
+    <Compile Include="HelperClasses\CustomOptionShortId.cs" />
+    <Compile Include="HelperClasses\CustomUserLogin.cs" />
+    <Compile Include="HelperClasses\DataReturn_Class.cs" />
+    <Compile Include="HelperClasses\DateConversion.cs" />
+    <Compile Include="HelperClasses\Default_Child_Model.cs" />
+    <Compile Include="HelperClasses\Default_Parent_Model.cs" />
+    <Compile Include="HelperClasses\DeleteParameters.cs" />
+    <Compile Include="HelperClasses\Enums.cs" />
+    <Compile Include="HelperClasses\objs.cs" />
+    <Compile Include="HelperClasses\PaginatedList.cs" />
+    <Compile Include="HelperClasses\Upload_File.cs" />
+    <Compile Include="HelperClasses\WeightCalculation.cs" />
+    <Compile Include="HelperClasses\XMLToClass.cs" />
+    <Compile Include="Language\Resource_data.Designer.cs" />
+    <Compile Include="Language\Resource_data.en.Designer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Language\Resource_data.en.resx" />
+    <EmbeddedResource Include="Language\Resource_data.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DTO\Export\" />
+    <Folder Include="DTO\Station\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\en\PlantQuar.DTO.resources.dll" />
+    <Content Include="bin\Debug\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\Debug\PlantQuar.DTO.dll" />
+    <Content Include="bin\Debug\PlantQuar.DTO.pdb" />
+    <Content Include="bin\Debug\System.Web.Mvc.dll" />
+    <Content Include="bin\Debug\System.Web.Mvc.xml" />
+    <Content Include="bin\Release\en\PlantQuar.DTO.resources.dll" />
+    <Content Include="bin\Release\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\Release\PlantQuar.DTO.dll" />
+    <Content Include="bin\Release\PlantQuar.DTO.pdb" />
+    <Content Include="bin\Release\System.Web.Mvc.dll" />
+    <Content Include="bin\Release\System.Web.Mvc.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

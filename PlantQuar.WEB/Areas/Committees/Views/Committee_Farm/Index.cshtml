@@ -1,0 +1,1289 @@
+﻿@using PlantQuar.DTO.DTO.Farm.FarmRequest
+
+@{
+    /**/
+
+    ViewBag.Title = "Committee";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    var Dissablle = "";
+    if (ViewBag.CommitteeTypeId == "2")
+    {
+        Dissablle = "disabled";
+    }
+    /* var reqCommiteeType = (farmCountryConstrainReturnDTO)ViewBag.reqCommiteeType;  */
+
+    var reqCommiteeType11 = (List<Farm_Requst_ListDTO>)ViewBag.reqCommiteeType;
+
+}
+@section Title{
+    <h2 class="ls-top-header">لجنة المزرعة</h2>
+}
+@section Path{
+    <li style="position: relative;right: 28px;">مزرعة</li>
+    <li class="active" style="right: 43px; position: relative;">@PlantQuar.WEB.Language.Resource_data1.FarmCommittee</li>
+}
+<link href="~/Content/jquery.timepicker.css" rel="stylesheet" />
+<script src="~/scripts/jquery.timepicker.min.js"></script>
+
+@using (Html.BeginForm("CreateCommittee", "Committee", FormMethod.Post))
+{
+
+    <div class="form-box" id="lagnaDiv">
+        <div class="tab" role="tabpanel" style="min-height:80% !important;">
+            <ul class="row nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#ItemsTab" aria-controls="profile" role="tab" id="itemTab_il" data-toggle="tab">معلومات</a>
+                </li>
+                <li role="presentation" id="Li_empploy_il" class=" Li_empploy_il">
+                    <a href="#empploy" aria-controls="profile" role="tab" id="empploy_il" data-toggle="tab">اسم الموظف</a>
+                </li>
+                <li role="presentation" class="">
+                    <a href="#Anlysis" aria-controls="profile" role="tab" id="anlysis_il" data-toggle="tab">نوع التحليل</a>
+                </li>
+                <li role="presentation" class="">
+                    <a href="#QualGrpTab" aria-controls="profile" role="tab" id="qualGrp_il" data-toggle="tab">مواعيد النبواتجية</a>
+                </li>
+                <li role="presentation" class="">
+                    <a href="#Constrain_Text" aria-controls="profile" role="tab" id="anlysis_il" data-toggle="tab">الاشتراطات</a>
+                </li>
+                <li role="presentation" class="">
+                    <a href="#CheckList" aria-controls="profile" role="tab" id="anlysis_il" data-toggle="tab">البنود</a>
+                </li>
+            </ul>
+            <div class="tab-content tabs" style="background-color:whitesmoke  !important;">
+                <div role="tabpanel" class="tab-pane fade in active" id="ItemsTab" style="height:220px;">
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>@PlantQuar.WEB.Language.Resource_data1.CommitteeType </label>
+                            <div>
+                                @{
+                                    string type_name = "";
+                                    int type_ID = 0;
+                                    if (reqCommiteeType11.Where(a => a.AnalysisType_Name != null).Any())
+                                    {
+                                        type_name += "لجان معيانة وسحب";
+                                        type_ID = 12;
+                                    }
+                                    else
+                                    {
+                                        type_name += "لجان معاينة";
+                                        type_ID = 5;
+                                    }
+                                }
+                                <input type="text" name="CheckRequest_Number" id="CheckRequest_Number" value="@type_name" class="form-control" readonly />
+                                <input type="hidden" name="Hdn_Comm_Type_ID" id="Hdn_Comm_Type_ID" value="@type_ID" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="">
+                                <label>اكواد المحطة</label>
+                                @{
+                                    var FarmCode1 = reqCommiteeType11.Where(a => a.FarmCode_14 != null).Select(a => a.FarmCode_14).ToList();
+                                    if (FarmCode1.Count() > 0)
+                                    {
+                                        <input type="text" name="CheckRequest_Number" id="CheckRequest_Number" value="@FarmCode1" class="form-control" readonly />
+
+                                    }
+                                    else
+                                    {
+                                        <input type="text" name="CheckRequest_Number" id="CheckRequest_Number" value="لا توجد اكواد" class="form-control" readonly />
+
+                                    }
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+
+                            @{
+                                if (ViewBag.type == 1)
+                                {
+                                    <label> @PlantQuar.WEB.Language.Resource_data1.Date_of_registration_request  </label>
+                                    <input type="text" name="Check_Date" id="Check_Date" class="form-control" readonly value="@ViewBag.creationDate" />
+                                }
+                                else if (ViewBag.type == 2)
+                                {
+                                    <label> @PlantQuar.WEB.Language.Resource_data1.FarmAccreditatRequestRegistrationDate  </label>
+                                    <input type="text" name="Check_Date" id="Check_Date" class="form-control" readonly value="@ViewBag.creationDate" />
+                                }
+                                else
+                                {
+                                    <label> @PlantQuar.WEB.Language.Resource_data1.StationAccreditatRequestRegistrationDate  </label>
+                                    <input type="text" name="Check_Date" id="Check_Date" class="form-control" readonly value="@ViewBag.creationDate" />
+                                }
+                            }
+
+
+                        </div>
+                        <div class="col-md-4">
+
+                            <label> @PlantQuar.WEB.Language.Resource_data1.Date_of_committee</label>
+                            <input type="text" name="Delegation_Date" id="Delegation_Date" class="form-control" required />
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label> @PlantQuar.WEB.Language.Resource_data1.Time_of_ActionFrom</label>
+                            <input type="time" name="StartTime" id="StartTime" class="form-control" />
+                        </div>
+                        <div class="col-md-4">
+
+                            <label>  @PlantQuar.WEB.Language.Resource_data1.To</label>
+                            <input type="time" name="EndTime" id="EndTime" class="form-control" />
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <input type="button" class="btn btn-primary btnNext float-left" id="Next1" value="التالى">
+                        </div>
+                    </div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane fade " id="empploy" style="height:auto;">
+                    <div class="row">
+                        @*<div class="col-md-6">
+                                <label class="col-md-4">نوع المنفذ</label>
+                                <select id="OperationTypeDropDown" name="OperationTypeDropDown" class="form-control col-md-8">
+                                    <option value="0">أختر</option>
+                                    <option value="96">الوارد</option>
+                                </select>
+                            </div>*@
+                        <div class="col-md-6">
+                            <label class="col-md-4">اسم المنفذ</label>
+                            @Html.DropDownList("CustomerDropDown", new SelectList(ViewBag.Outlet, "Value", "DisplayText"), new { @class = "form-control col-md-8" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label> @PlantQuar.WEB.Language.Resource_data1.EmpolyeeName</label>
+                            <input type="text" id="Employee_name" placeholder="enter emp name" class="form-control" />
+                        </div>
+                        <div class="col-md-4">
+                            <label>  @PlantQuar.WEB.Language.Resource_data1.EmpolyeeNumber</label>
+                            <input type="text" name="Employee_No" id="Employee_No" class="form-control" />
+                        </div>
+                        <div class="col-md-4" style="text-align:center">
+                            <input type="button" id="search" onclick="MyFunction()" value="بحث بالموظف" />
+                            <input type="hidden" id="CheckRequest_Id" value="@ViewBag.requestId" />
+                            <input type="hidden" id="shiftId" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <table id="Farm_Constrain_TextTable" class="table table-bordered table-striped dataTable" role="grid" style="padding:5px; width:100%">
+                            <thead>
+                                <tr>
+                                    <th>@PlantQuar.WEB.Language.Resource_data1.EmpolyeeNumber </th>
+                                    <th>اسم الموظف </th>
+                                    <th>محافظة الموظف </th>
+                                    <th>منفذ الموظف </th>
+                                    <th hidden>ادمن</th>
+                                    <th>تسجيل</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <table id="myTable" border="1" name="gh" class="table table-bordered table-striped dataTable">
+                            <thead>
+                                <tr>
+                                    <th>اسم المهندس </th>
+                                    <th>كود المهندس </th>
+                                    <th>ادمن</th>
+                                    <th>حذف</th>
+                                </tr>
+                            </thead>
+                            <tbody id="myTable2">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <input type="button" class="btn btn-primary btnNext float-left " id="Next_empploy" value="التالى">
+                        </div>
+                    </div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane fade" id="Anlysis" style="height:auto;">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="radio" id="Radio_Item" class="myRadios" onclick="onclick_Radio_Item(this)" name="Radio_Item" value="1">
+                            <label>نبات </label><br>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="radio" id="Radio_ItemCategories" class="myRadios" name="Radio_Item" value="2" onclick="onclick_Radio_ItemCategories(this)">
+                            <label>اصناف</label><br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>التحاليل </label>
+                            <select id="Analysis_Type" name="Analysiss_name" class="form-control AnalysisLst"></select>
+                        </div>
+                        <div class="col-md-4">
+                            <label>المعامل </label>
+                            <select id="Analysis_Lab" class="form-control AnalysisLabLst"></select>
+                        </div>
+                        <div class="col-md-4">
+                            <input id="" class="style-but" name="" type="button" onClick="reply_Farm_SampleData_Add(this)" value="اضافة">
+                        </div>
+                    </div>
+
+                    <div class="row" id="Div_analysisTypeIdList_Table" hidden>
+                        <table id="analysisTypeIdList_Table" border="1" name="myAnlysesTabl22e" class="table table-bordered table-striped dataTable">
+                            <thead>
+                                <tr>
+                                    <th>اسم المزرعة</th>
+                                    <th>النبات</th>
+                                    <th>الصنف </th>
+                                    <th>التحليل</th>
+                                    <th>المعمل</th>
+                                    <th hidden>رقم المزرعة</th>
+                                    <th hidden>رقم الصنف</th>
+                                    <th hidden>التحليل ID</th>
+                                    <th hidden>المعمل ID</th>
+                                </tr>
+                            </thead>
+                            <tbody id="analysisTypeIdList_tbody">
+                                @{
+                                    var Farm_Request_Data = (from lc in reqCommiteeType11
+                                                             where lc.AnalysisType_ID != null
+                                                             group lc by new
+                                                             {
+                                                                 farm_Id = lc.farm_Id,
+                                                                 farm_Name = lc.farm_Name,
+                                                                 reqId = lc.reqId,
+                                                                 Item_ID = lc.Item_ID,
+                                                                 Item_Name = lc.Item_Name,
+                                                                 ItemCategory_ID = lc.ItemCategory_ID,
+                                                                 ItemCategory_Name = lc.ItemCategory_Name,
+                                                                 AnalysisType_ID = lc.AnalysisType_ID,
+                                                                 AnalysisType_Name = lc.AnalysisType_Name,
+                                                                 Farm_Committee_ID = lc.Farm_Committee_ID
+                                                             } into grp
+
+                                                             select new Farm_Requst_ListDTO
+                                                             {
+                                                                 farm_Id = grp.Key.farm_Id,
+                                                                 Farm_Committee_ID = grp.Key.Farm_Committee_ID,
+                                                                 farm_Name = grp.Key.farm_Name,
+                                                                 reqId = grp.Key.reqId,
+                                                                 Item_ID = grp.Key.Item_ID,
+                                                                 Item_Name = grp.Key.Item_Name,
+                                                                 ItemCategory_ID = grp.Key.ItemCategory_ID,
+                                                                 ItemCategory_Name = grp.Key.ItemCategory_Name,
+                                                                 AnalysisType_ID = grp.Key.AnalysisType_ID,
+                                                                 AnalysisType_Name = grp.Key.AnalysisType_Name
+                                                             }).ToList();
+                                }
+                                @foreach (var item in Farm_Request_Data)
+                                {
+                                    <tr>
+                                        <td>@item.farm_Name</td>
+                                        <td>@item.Item_Name</td>
+                                        <td>@item.ItemCategory_Name</td>
+                                        <td>@item.AnalysisType_Name</td>
+                                        <td></td>
+
+                                        <td hidden>@item.Farm_Committee_ID</td>
+                                        <td hidden>@item.ItemCategory_ID</td>
+                                        <td hidden>@item.AnalysisType_ID</td>
+                                        <td hidden></td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="row" id="Div_analysisTypeIdList_NotItemCategory_Table" hidden>
+                        <table id="NotItemCategory_Table" border="1" class="table table-bordered table-striped dataTable">
+                            <thead>
+                                <tr>
+                                    <th>اسم المزرعة</th>
+                                    <th>النبات</th>
+                                    <th>التحليل</th>
+                                    <th>المعمل</th>
+                                    <th hidden>رقم اللجنة</th>
+                                    <th hidden>التحليل ID</th>
+                                    <th hidden>المعمل ID</th>
+                                </tr>
+                            </thead>
+                            <tbody id="NotItemCategory_tbody">
+                                @{
+                                    var Farm_Request_Data_NotItemCategory = (from lc in reqCommiteeType11
+                                                                             where lc.AnalysisType_ID != null
+                                                                             group lc by new
+                                                                             {
+                                                                                 farm_Id = lc.farm_Id,
+                                                                                 farm_Name = lc.farm_Name,
+                                                                                 reqId = lc.reqId,
+                                                                                 Item_ID = lc.Item_ID,
+                                                                                 Item_Name = lc.Item_Name,
+                                                                                 AnalysisType_ID = lc.AnalysisType_ID,
+                                                                                 AnalysisType_Name = lc.AnalysisType_Name,
+                                                                                 Farm_Committee_ID = lc.Farm_Committee_ID
+                                                                             } into grp
+
+                                                                             select new Farm_Requst_ListDTO
+                                                                             {
+                                                                                 farm_Id = grp.Key.farm_Id,
+                                                                                 Farm_Committee_ID = grp.Key.Farm_Committee_ID,
+                                                                                 farm_Name = grp.Key.farm_Name,
+                                                                                 reqId = grp.Key.reqId,
+                                                                                 Item_ID = grp.Key.Item_ID,
+                                                                                 Item_Name = grp.Key.Item_Name,
+                                                                                 AnalysisType_ID = grp.Key.AnalysisType_ID,
+                                                                                 AnalysisType_Name = grp.Key.AnalysisType_Name
+                                                                             }).ToList();
+
+                                    //int c = 0;
+
+                                    foreach (var item_Not in Farm_Request_Data_NotItemCategory)
+                                    {
+                                        <tr>
+
+                                            <td id="farm_Name">@item_Not.farm_Name</td>
+                                            <td id="Item_Name">@item_Not.Item_Name</td>
+                                            <td id="AnalysisType_Name">@item_Not.AnalysisType_Name</td>
+                                            <td id=""></td>
+                                            <td id="Farm_Committee_ID" hidden>@item_Not.Farm_Committee_ID</td>
+                                            <td id="AnalysisType_ID" hidden>@item_Not.AnalysisType_ID</td>
+                                            <td id="" hidden></td>
+                                        </tr>
+                                    }
+                                    @*@c++;*@
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <input type="button" class="btn btn-primary btnNext float-left " id="Next_Anlysis" value="التالى">
+                        </div>
+                    </div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane fade" id="QualGrpTab" style="height:auto;">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label> مواعيد النبواتجية</label>
+                            <select id="ShiftTiming_select" name="Analysiss_name" class="form-control AnalysisLst"></select>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label>المبلغ </label>
+
+                            <input type="text" name="Txt_money" id="Txt_money" class="form-control" readonly />
+                        </div>
+                        <div class="col-md-2">
+                            <label>
+                                عدد الأيام
+                            </label>
+                            <input type="number" id="Txt_Count" name="name" />
+                        </div>
+                        <div class="col-md-4">
+                            <input id="" class="style-but" name="" type="button" onClick="reply_ShiftTiming(this)" value="اضافة">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table id="ShiftTiming_Table" border="1" name="ShiftTiming" class="table table-bordered table-striped dataTable">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>مواعيد النبواتجية</th>
+                                    <th>الحساب</th>
+                                    <th>عدد الأيام </th>
+                                    <th>الاجمالى</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ShiftTiming_tbody">
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <div class="row">
+                        <div id="ShiftsAddEdit" style="width:100%">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <input type="button" class="btn btn-primary btnNext float-left " id="Next_QualGrpTab" value="التالى">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div role="tabpanel" class="tab-pane fade" id="Constrain_Text" style="height:auto;">
+
+                    <div class="row">
+                        <table id="Constrain_Text_Table" border="1" name="myAnlysesTabl22e" class="table table-bordered table-striped dataTable">
+                            <thead>
+                                <tr>
+
+                                    <th>المزرعة</th>
+                                    <th>التحليل</th>
+                                    <th>نص الشرط</th>
+                                    <th hidden>ID</th>
+                                    <th hidden>Farm_Committee_ID</th>
+                                </tr>
+                            </thead>
+                            <tbody id="Constrain_Text_tbody">
+                                @{
+
+                                    var Farm_Request_Dataff = (from lc in reqCommiteeType11
+
+                                                               group lc by new
+                                                               {
+                                                                   farm_Id = lc.farm_Id,
+                                                                   farm_Name = lc.farm_Name,
+                                                                   reqId = lc.reqId,
+                                                                   Item_ID = lc.Item_ID,
+                                                                   Item_Name = lc.Item_Name,
+
+                                                                   AnalysisType_ID = lc.AnalysisType_ID,
+                                                                   AnalysisType_Name = lc.AnalysisType_Name,
+                                                                   ConstrainText_ID = lc.ConstrainText_ID,
+                                                                   Farm_Constrain_ID = lc.Farm_Constrain_ID,
+                                                                   ConstrainText_text = lc.ConstrainText_text,
+                                                                   Farm_Committee_ID = lc.Farm_Committee_ID,
+                                                               } into grp
+
+                                                               select new Farm_Requst_ListDTO
+                                                               {
+                                                                   farm_Id = grp.Key.farm_Id,
+                                                                   farm_Name = grp.Key.farm_Name,
+                                                                   reqId = grp.Key.reqId,
+                                                                   Item_ID = grp.Key.Item_ID,
+                                                                   Item_Name = grp.Key.Item_Name,
+
+                                                                   AnalysisType_ID = grp.Key.AnalysisType_ID,
+                                                                   AnalysisType_Name = grp.Key.AnalysisType_Name,
+                                                                   ConstrainText_ID = grp.Key.ConstrainText_ID,
+                                                                   ConstrainText_text = grp.Key.ConstrainText_text,
+                                                                   Farm_Committee_ID = grp.Key.Farm_Committee_ID,
+                                                               }).ToList();
+
+                                }
+                                @foreach (var item in Farm_Request_Dataff)
+                                {
+                                    int typeID = 5;
+                                    if (Farm_Request_Dataff.Where(a => a.farm_Id == item.farm_Id && a.AnalysisType_Name != null).Any())
+                                    {
+                                        typeID = 12;
+                                    }
+                                    //double StationId_perv = 0;
+                                    //var id = item.farm_Id;
+                                    <tr>
+                                        @*@if (StationId_perv != id)
+                                            {*@
+                                        @*var count_stat = Farm_Request_Dataff.Where(a=>a.farm_Id== item.farm_Id).Count();*@
+                                        <td>@item.farm_Name</td>
+                                        <td>@item.AnalysisType_Name</td>
+                                        <td hidden>@item.ConstrainText_ID</td>
+                                        <td>@item.ConstrainText_text</td>
+                                        <td hidden>@item.Farm_Committee_ID</td>
+                                        <td hidden>@typeID</td>
+                                        @* StationId_perv = id;*@
+                                        @*}
+                                            else
+                                            {
+                                                <td>@item.AnalysisType_Name</td>
+                                                <td>@item.ConstrainText_ID</td>
+                                                <td>@item.ConstrainText_text</td>
+                                                <td>@item.Farm_Committee_ID</td>
+                                                StationId_perv = id;
+                                            }*@
+                                    </tr>
+
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <input type="button" class="btn btn-primary btnNext float-left " id="Next_Constrain_Text" value="التالى">
+                        </div>
+                    </div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane fade" id="CheckList" style="height:auto;">
+
+                    <div class="row">
+                        <table id="CheckListList_Table" border="1" name="CheckList" class="table table-bordered table-striped dataTable">
+                            <thead>
+                                <tr>
+                                    <th>المزرعة</th>
+                                    <th>الدولة</th>
+                                    <th>نص الشرط</th>
+
+                                    <th hidden> المزرعةID</th>
+                                    <th hidden>Constrain_CheckList_ID</th>
+                                    <th hidden>Farm_Committee_ID</th>
+
+                                </tr>
+                            </thead>
+                            <tbody id="CheckListList_tbody">
+                                @if (reqCommiteeType11.Count() > 0)
+                                {
+                                    if (reqCommiteeType11.FirstOrDefault().List_Farm_Country_CheckList != null)
+                                    {
+                                        var Farm_Request_Data77 = (from lc in reqCommiteeType11
+                                                                   group lc by new
+                                                                   {
+                                                                       farm_Id = lc.farm_Id,
+                                                                       farm_Name = lc.farm_Name,
+                                                                       reqId = lc.reqId,
+                                                                       Farm_Committee_ID = lc.Farm_Committee_ID
+                                                                   } into grp
+
+                                                                   select new Farm_Requst_ListDTO
+                                                                   {
+                                                                       farm_Id = grp.Key.farm_Id,
+                                                                       farm_Name = grp.Key.farm_Name,
+                                                                       reqId = grp.Key.reqId,
+                                                                       Farm_Committee_ID = grp.Key.Farm_Committee_ID,
+                                                                   }).ToList();
+                                        foreach (var item in Farm_Request_Data77)
+                                        {
+                                            foreach (var item_Null in reqCommiteeType11.FirstOrDefault().List_Farm_Country_CheckList.Where(a => a.Country_Name == null))
+                                            {
+                                                //double farm_Name = 0;
+                                                //var id = item.farm_Id;
+                                                <tr>
+                                                    <td>@item.farm_Name</td>
+                                                    <td></td>
+
+                                                    <td>@item_Null.Constrain_CheckList_text</td>
+                                                    <td hidden>@item.farm_Id</td>
+                                                    <td hidden>@item_Null.Constrain_CheckList_ID</td>
+                                                    <td hidden>@item.Farm_Committee_ID</td>
+                                                </tr>
+                                            }
+
+                                        }
+                                        foreach (var item in reqCommiteeType11.FirstOrDefault().List_Farm_Country_CheckList.Where(a => a.Country_Name != null))
+                                        {
+                                            <tr>
+                                                <td>@item.farm_Name</td>
+                                                <td>@item.Country_Name</td>
+
+                                                <td>@item.Constrain_CheckList_text</td>
+                                                <td hidden>@item.farm_Id</td>
+                                                <td hidden>@item.Constrain_CheckList_ID</td>
+                                                <td hidden>@item.Farm_Committee_ID</td>
+                                            </tr>
+                                        }
+                                    }
+
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4" style="text-align:center">
+        <input type="button" class="btn btn-primary" id="submitValue" value="@PlantQuar.WEB.Language.Resource_data1.Save">
+
+    </div>
+
+
+    @section scripts{
+
+        <script>
+            $('#Next1').click(function (e) {
+                Delegation_Date = $("#Delegation_Date").val();
+                StartTime = $("#StartTime").val();
+                EndTime = $("#EndTime").val();
+
+                if (Delegation_Date == ""
+                    || StartTime == "" || EndTime == "") {
+                    alertify.error(" يجب أختيار لجنة واستكمال البيانات ");
+                }
+                else {
+                    if (StartTime > EndTime) {
+                        alertify.error(" يجب ان يكون توقيت النهاية اكبر من توقيت البداية ");
+                    }
+                    else {
+                        $('.nav-tabs > .active').next('li').find('a').trigger('click');
+
+                    }
+                }
+            });
+            $('#Next_empploy').click(function (e) {
+                var selectedOption = $("input:radio[name=hello]:checked").val()
+                if (typeof selectedOption !== "undefined") {
+                    $('.nav-tabs > .active').next('li').find('a').trigger('click');
+
+                }
+                else {
+                    alertify.error("يجب اختيار موظفين")
+                }
+            });
+
+            $('#Next_Anlysis').click(function (e) {
+
+                var len = document.getElementById("Analysis_Type").length;
+                x = len - 1;
+                if (len > 1) {
+                    alertify.error("يوجد تحاليل لم يتم اضافةمعامل لها وعددهم  " + x);
+                }
+                else {
+                    $('.nav-tabs > .active').next('li').find('a').trigger('click');
+                }
+                //}
+                //else {
+                //    alertify.error("يجب اختيار موظفين")
+                //}
+            });
+
+            $('#Next_QualGrpTab').click(function (e) {
+                $('.nav-tabs > .active').next('li').find('a').trigger('click');
+            });
+            $('#Next_Constrain_Text').click(function (e) {
+                $('.nav-tabs > .active').next('li').find('a').trigger('click');
+            });
+        </script>
+
+        <script type="text/javascript">
+            var _ShiftTiming_List = [];
+                                            var _Farm_SampleData_List = [];
+
+                                            var _Emplo_List = [];
+                                          /*  var _CheckList_List = [];*/
+                                            var _Constrain_Text_List = [];
+                                            //sayed
+                                            function MyFunction() {
+
+           // $(search).prop('disabled', true); // Unchecks it
+            $("#Farm_Constrain_TextTable tbody").empty();
+                                        var EmplyeeName = document.getElementById("Employee_name").value;
+                                        var Emplyee_No = $('#Employee_No').val();
+                                        var OutLet_ID = $('#CustomerDropDown').val();
+                                        var EmplyeeNo;
+           // //alert(Emplyee_No)
+            if (Emplyee_No === "") {
+                 EmplyeeNo = 0;
+            }
+            else {
+                 EmplyeeNo = parseInt($('#Employee_No').val());
+            }
+              $.ajax({
+                                url: '@Url.Action("GetPR_User_Id", "Committee_Farm")',
+                        type: "POST",
+                  data: { FullName: EmplyeeName, EmplyeeNo: EmplyeeNo, OutLet_ID: OutLet_ID},
+                  success: function (data) {
+                                        for (var i = 0; i < data.length; i++) {
+                                            var item = data[i];
+                                            carName = 1;
+                                $("#Farm_Constrain_TextTable tbody").append("<tr>" +
+                                    "<td>  " + item.Value + "  </td>"
+                                    +"<td>" + item.DisplayText + "</td>" +
+                                    "<td>  " + item.Adress + "  </td>"
+                                    + "<td>" + item.JobTitleName + "</td>"
+                                    + '<td><input type="checkbox" id="chckBox_' + data[i].Value + '" class="chckClass_' + i + '" value="' + data[i].Value + '" Name="' + data[i].DisplayText + '"  onchange="Emplyee_List(this)" " /></td>'
+                                    + "</tr>");
+                                        }
+                                    },
+                        error: function (xhr, status, error) {
+                                    }
+                                });
+                                let checkboxes = $("input[type='checkbox']");
+                                selectedCboxes = Array.prototype.slice.call(checkboxes).filter(ch => ch.checked == true);
+            //console.log(checkboxes);
+            }
+
+            $('#OperationTypeDropDown').on("change", function () {
+                var Operation_Id = document.getElementById("OperationTypeDropDown").value;
+                $.ajax(
+                    {
+                        url: '@Url.Action("CommitteeTypeList_ByOperation", "Employee_Track", new { area = "Employee" })',
+                        data: {
+                            Operation_Id: Operation_Id
+                        },
+                        success: function (data) {
+                            $('#CommitteeDropDown').empty();
+                            $.each(data.Options, function (i, index) {
+                                $('#CommitteeDropDown').append($('<option />').val(index.Value).text(index.DisplayText));
+                            }); //each
+                        } //success
+                    });//ajax
+            });
+
+            $(document).ready(function () {
+
+                                    const urlSearchParams = new URLSearchParams(window.location.search);
+                                    const params = Object.fromEntries(urlSearchParams.entries());
+                                    var reqId = params.reqId;
+                //var id = $('#reqId').val();
+
+                $.ajax(
+                    {
+                        url: '@Url.Action("reqAnalysisType_List", "Committee_Farm", new { area = "Committees" })',
+                        type: 'Post',
+                        data: { requestId: reqId },
+                        success: function (data) {
+                            $('#Analysis_Type').empty();
+                            $.each(data.Options, function (i, index) {
+                                $('#Analysis_Type').append($('<option />').val(index.Value).text(index.DisplayText));
+                            }); //each
+                        } //success
+                    });//ajax
+
+                //ShiftTiming
+
+                $.ajax(
+                    {
+                                    url: '@Url.Action("getShiftTiming_Lst", "Committee", new { area = "Committees" })',
+                        type: 'Post',
+                        success: function (data) {
+                            $('#ShiftTiming_select').empty();
+                            $.each(data.Options, function (i, index) {
+                                $('#ShiftTiming_select').append($('<option />').val(index.Value).text(index.DisplayText));
+                                            }); //each
+                                        } //success
+                                    });//ajax
+                                });
+
+            //Farm_SampleData
+            $('#Analysis_Type').on("change", function () {
+                                    var id = $(this).attr('id');
+            $.ajax(
+                {
+                                    url: '@Url.Action("AnalysisLab_List", "AnalysisType", new { area = "DE_Analysis" })',
+                    type: 'Post',
+                    data: { AnalysisTypeId: $('#'+id).val() },
+                    success: function (data) {
+                        $('#Analysis_Lab').empty();
+                        $.each(data.Options, function (i, index) {
+                            $('#Analysis_Lab').append($('<option />').val(index.Value).text(index.DisplayText));
+                                            }); //each
+                                        } //success
+                                    });//ajax
+                                });
+
+            function onclick_Radio_Item(element) {
+           /*     alert(1);*/
+                var ItemCategory = document.getElementById("Div_analysisTypeIdList_Table");
+                var NotItemCategory = document.getElementById("Div_analysisTypeIdList_NotItemCategory_Table");
+                NotItemCategory.style.display = "block";
+                ItemCategory.style.display = "none";
+            }
+
+            function onclick_Radio_ItemCategories(element) {
+/*                alert(2);*/
+                var ItemCategory = document.getElementById("Div_analysisTypeIdList_Table");
+                var NotItemCategory = document.getElementById("Div_analysisTypeIdList_NotItemCategory_Table");
+                NotItemCategory.style.display = "none";
+                ItemCategory.style.display = "block";
+            }
+
+            function reply_Farm_SampleData_Add(element) {
+                //_Farm_SampleData_List = [];
+                //_Farm_SampleData_List_New = [];
+                var Analysis_Type_GetName = $("#Analysis_Type  option:selected").text();// $('#Analysiss_name').innerHTML.text;
+                var Analysis_Type_GetID = $("#Analysis_Type  option:selected").val();
+
+
+                var Analysis_Lab_GetName = $("#Analysis_Lab  option:selected").text();
+                var Analysis_Lab_GetID = $("#Analysis_Lab  option:selected").val();
+
+                var Analysis_Lab_Radio = $("input:radio[name=Radio_Item]:checked").val();
+
+                if (Analysis_Lab_Radio == 2)//لو نبات واصناف
+                {
+
+                    var analysisTypeIdList = document.getElementById("analysisTypeIdList_tbody").rows;
+                    var id = 0;
+                    if (Analysis_Type_GetID > 0) {
+                        if (Analysis_Lab_GetID > 0) {
+                            for (var i = 0, ceiling = analysisTypeIdList.length; i < ceiling; i++) {
+                                cells = analysisTypeIdList[i].getElementsByTagName('td');
+                                var id_cells = cells[7].innerHTML;
+                                var FarmCommittee_ID_cells = cells[5].innerHTML;
+                                var Farm_Request_ItemCategories_ID_cells = cells[6].innerHTML;
+
+                                if (Analysis_Type_GetID == id_cells) {
+                                    var firstRow = document.getElementById("analysisTypeIdList_tbody").rows[i];
+                                    firstRow.cells[4].innerHTML = Analysis_Lab_GetName;
+                                    firstRow.cells[8].innerHTML = Analysis_Lab_GetID;
+                                    //Farm_SampleData2DTO
+                                    _Farm_SampleData_List.push({
+                                        AnalysisLabType_ID: Analysis_Lab_GetID,
+                                        FarmCommittee_ID: FarmCommittee_ID_cells,
+                                        Farm_Request_ItemCategories_ID: Farm_Request_ItemCategories_ID_cells,
+                                        ListAnalysisType_Id: Analysis_Type_GetID,
+                                    });
+                                    $("#Analysis_Type option[value='" + Analysis_Type_GetID + "']").remove();
+                                    $("#Analysis_Lab option[value='" + Analysis_Lab_GetID + "']").remove();
+                                    /*  $("#Analysis_Type  option:selected", this).remove();*/
+                                }
+                            }
+                        }
+                        else {
+                            alertify.error("يجب اختيار معمل");
+                        }
+                    }
+                    else {
+                        alertify.error("يجب اختيار تحليل");
+                    }
+                }
+
+                else if (Analysis_Lab_Radio == 1)// لو نبات بس
+                {
+                    var NotItemCategoryList = document.getElementById("NotItemCategory_Table").rows;
+                    if (Analysis_Type_GetID > 0) {
+                        if (Analysis_Lab_GetID > 0) {
+                            for (var i = 1, ceiling = NotItemCategoryList.length; i < ceiling; i++) {
+                                cellsNotItemCategory = NotItemCategoryList[i].getElementsByTagName('td');
+                                var id_cells = cellsNotItemCategory[5].innerHTML;
+                              //  alert(id_cells)
+                                var FarmCommittee_ID_cells = cellsNotItemCategory[4].innerHTML;
+                              //  alert(FarmCommittee_ID_cells)
+                                if (Analysis_Type_GetID == id_cells) {
+                                    cellsNotItemCategory[3].innerHTML = Analysis_Lab_GetName;
+                                    cellsNotItemCategory[6].innerHTML = Analysis_Lab_GetID;
+                                    _Farm_SampleData_List.push({
+                                        AnalysisLabType_ID: Analysis_Lab_GetID,
+                                        FarmCommittee_ID: FarmCommittee_ID_cells,
+                                        ListAnalysisType_Id: Analysis_Type_GetID,
+                                    });
+                                    $("#Analysis_Type option[value='" + Analysis_Type_GetID + "']").remove();
+                                    $("#Analysis_Lab option[value='" + Analysis_Lab_GetID + "']").remove();
+                                    /*  $("#Analysis_Type  option:selected", this).remove();*/
+
+                                }
+                            }
+                        }
+                        else {
+                            alertify.error("يجب اختيار معمل");
+                        }
+                    }
+                    else {
+                        alertify.error("يجب اختيار تحليل");
+                    }
+                }
+                else {
+                    alertify.error("يجب طريقة التحليل نبات او اصناف");
+                }
+                console.log(_Farm_SampleData_List);
+            }
+
+            //ShiftTiming
+
+            $("#ShiftTiming_select").change(function () {
+                $.ajax(
+                    {
+                                    url: '@Url.Action("getShiftTiming_Mony", "Committee", new { area = "Committees" })',
+                        type: 'Post',
+                        data: { shiftId: $(this).val() },
+                        success: function (data) {
+                                            if (data.Options != null) {
+                                $("#Txt_money").val(data.Options);
+                                            }
+                                        } //success
+                                    });//ajax
+                                });
+
+                                function reply_ShiftTiming(element) {
+
+                                    $(".toggle-div7-" + element.id + "").toggle('fast', "linear");
+                                    _ShiftTiming_List = [];
+                                    //alert(element.value);
+                                    //alert(element.id);
+                                    //alert(element.name);
+
+                                    var ShiftTiming_select_GetName = $("#ShiftTiming_select  option:selected").text();
+                                    var ShiftTiming_select_GetID = $("#ShiftTiming_select  option:selected").val();
+
+                                    var Txt_money_Get = $("#Txt_money").val();
+                                    var Txt_Count_Get = $("#Txt_Count").val();
+
+                                    var ShiftTiming_List = document.getElementById("ShiftTiming_tbody").rows;
+                                    var id = 0;
+                                    if (ShiftTiming_select_GetID > 0) {
+                                        if (Txt_Count_Get > 0) {
+                                            for (var i = 0, ceiling = ShiftTiming_List.length; i < ceiling; i++) {
+                                                cells = ShiftTiming_List[i].getElementsByTagName('td');
+                                                var id_cells = cells[0].innerHTML;
+                                                if (ShiftTiming_select_GetID == id_cells) {
+                                                    id = 1;
+                                                }
+                                            }
+                                            if (id == 0) {
+                                                var table = document.getElementById("ShiftTiming_tbody");
+                                                var rowCount = table.rows.length;
+                                                var row = table.insertRow(rowCount);
+                                                row.id = '' + ShiftTiming_select_GetID;
+                                                row.insertCell(0).innerHTML = ShiftTiming_select_GetID;
+                                                row.insertCell(1).innerHTML = ShiftTiming_select_GetName;
+                                                row.insertCell(2).innerHTML = Txt_money_Get;
+                                                row.insertCell(3).innerHTML = Txt_Count_Get ;
+                                                row.insertCell(4).innerHTML = Txt_money_Get * Txt_Count_Get;//2
+                                                row.insertCell(5).innerHTML = '<td><a href="#" onclick="DeleteRow_ShiftTiming(this)" name="' + ShiftTiming_select_GetID + '">حذف</a></td>';;
+                                                //Farm_Committee_ShiftDTO
+                                                _ShiftTiming_List.push({
+                                                ShiftTiming_ID:ShiftTiming_select_GetID,
+                                Count:Txt_Count_Get,
+                                Amount:Txt_money_Get
+                                                });
+                                                console.log(_ShiftTiming_List);
+                                alertify.success("تمت الاضافه ");
+                        }
+                        else {
+                                    alertify.error("موجود مسبقا");
+                                }
+                    }
+                    else {
+                                    alertify.error("يجب كتابة عدد الايام");
+                                }
+                }
+                else {
+                                    alertify.error("يجب اختيار نوبتجية");
+                                }
+            }
+
+
+            function DeleteRow_ShiftTiming(element) {
+                                    var table = document.getElementById("ShiftTiming_tbody");
+                                    var c = '#' + element.name + '';
+                $(c).remove();
+                                    /* _ShiftTiming_List.remove*/
+                                }
+            //end sayed
+
+
+
+        </script>
+        @*//nabila script*@
+        <script>
+
+            function DeleteRow(element) {
+                //alert(element.name);
+                //console.log(element);
+                var table = document.getElementById("myTable");
+
+                var c = '#id' + element.name + '';
+                $(c).remove();
+            }
+            function Emplyee_List(element) {
+                // alert(element.value);
+                if (element.checked) {
+
+                    var table = document.getElementById("myTable2");
+
+                    var rowCount = table.rows.length;
+                    var row = table.insertRow(rowCount);
+                    row.id = 'id' + element.value;
+                    row.insertCell(0).innerHTML = element.name;
+                    row.insertCell(1).innerHTML = element.value;
+                    row.insertCell(2).innerHTML =
+                        '<td><input type="radio" id="chckBox_' + element.value + '" class="change-selector" value="' + element.value + '" name="hello"   )"/></td>';
+                    row.insertCell(3).innerHTML =
+                        '<td><a href="#" onclick="DeleteRow(this)" name="' + element.value + '">Delete</a></td>';
+                }
+                else {
+                    var c = '#id' + element.value + '';
+                    $(c).remove();
+
+                }
+
+
+            }
+            function save_List_Employee() {
+                _Emplo_List = [];
+                var selectedOption = $("input:radio[name=hello]:checked").val()
+                // alert("Your are a - " + selectedOption);
+                if (typeof selectedOption !== "undefined") {
+
+                    var rows = document.getElementById("myTable2").rows;
+                    for (var i = 0, ceiling = rows.length; i < ceiling; i++) {
+                        cells = rows[i].getElementsByTagName('td');
+                        Employee_name = cells[0].innerHTML;
+                        Employee_Id = cells[1].innerHTML;
+                        var id = parseInt(Employee_Id);
+                        if (id == selectedOption) {
+                            ISAdmin = true;
+                        }
+                        else {
+                            ISAdmin = false;
+                        }
+
+                        //ISAdmin
+                        //Employee_no
+                        _Emplo_List.push({ Employee_name: Employee_name, Employee_Id: Employee_Id, ISAdmin: ISAdmin });
+                    }
+                    return _Emplo_List;
+                }
+                else {
+                    return null;
+                }
+            }
+        </script>
+
+        <script type="text/javascript">
+                $(document).ready(function () {
+                    $("#CommitteeType_ID").attr("class", "form-control");
+                 //   GetCheckRequest_Number_Data();
+                })
+        $(function () {
+
+        $(".jtable-toolbar-item-add-record .jtable-toolbar-item-text").text("@PlantQuar.WEB.Language.Resource_data1.Add");
+
+        //Date&Time Form
+        $("#Delegation_Date").datepicker(
+            {
+                dateFormat: 'yy-mm-dd',
+                changeYear: true,
+            }
+        );
+
+                });
+
+        String.prototype.compose = (function () {
+            var re = /\{{(.+?)\}}/g;
+            return function (o) {
+                return this.replace(re, function (_, k) {
+                    return typeof o[k] != 'undefined' ? o[k] : '';
+                });
+            }
+                }());
+
+                $("#CommitteeType_ID").change(function () {
+                    GetCheckRequest_Number_Data(true);
+                });
+        //CheckRequest_Number
+                function GetCheckRequest_Number_Data(isChange=false) {
+                    //debugger;
+
+            CommitteeType_ID = $("#CommitteeType_ID").val()
+                if ( CommitteeType_ID == "")
+            {
+                    alertify.error("يجب اختيار نوع اللجنة");
+                return false;
+            }
+            $.ajax(
+                {
+                    url: "/Committee/GetCommittee",
+                    type: "POST",
+                    data: {
+                        CheckRequest_Number: $("#CheckRequest_Number").val(),
+                        CommitteeType_ID: CommitteeType_ID
+                    },
+                    success: function (res) {
+
+                        //reset data
+                        //   $("#CommitteeType_ID").val(null);
+                        $("#Check_Date").val(null);
+                        $("#Delegation_Date").val(null);
+                        $("#StartTime").val(null);
+                        $("#EndTime").val(null);
+                        $("#Employee_AddEDIT").hide();
+                        $("#CheckRequest_Id").val(0);
+                        if (res.Result == 1) {
+                            //set data found
+                            var Request_committe = res.Request_committe;
+
+                            if (Request_committe.Check_Date != null) {
+                                $("#Check_Date").val($.datepicker.formatDate('yy-mm-dd', (new Date(parseInt(Request_committe.Check_Date.substr(6))))));
+                            } if (Request_committe.Delegation_Date != null) {
+                                $("#Delegation_Date").val($.datepicker.formatDate('yy-mm-dd', (new Date(parseInt(Request_committe.Delegation_Date.substr(6))))));
+                            }$("#StartTime").val(Request_committe.StartTime);
+                            $("#EndTime").val(Request_committe.EndTime);
+                            $("#Employee_AddEDIT").show();
+                            $("#submitValue").removeAttr("disabled");
+                            //get check_request id
+                            $("#CheckRequest_Id").val(Request_committe.CheckRequest_Id);
+                            var Committe_Id = Request_committe.Committe_Id ;
+                            $("#Committe_Id").val(Request_committe.Committe_Id);
+                        if (Committe_Id == -1)
+                            {
+                            //no committe is found
+                            }
+                        else if (Committe_Id >0) {
+                                    //there is a committe for the current request
+                            //edit data and display employee data
+                            var Employee_list = Request_committe.Employee_list;
+                            //Value    Employee_name    Employee_Id
+
+                            var tbody = $('#Employee_AddEDIT').children('tbody');
+                            var table = tbody.length ? tbody : $('#Employee_AddEDIT').children('tbody');
+                            //19-3-2020 fz clear table body
+                                $('#Employee_List  tbody').empty();
+                            $.each(Employee_list, function (index, r) {
+                            //     var row = '<tr class="jtable-data-row jtable-row-even jtable-row-selected"><td class="jtable-selecting-column"><input type="checkbox" checked></td><td>' + r.Employee_name + '</td><td>' + r.Employee_Id + '</td></tr>';
+                                var row = ' <tr class="jtable-data-row-selected"><td class="jtable-selecting-column"><input type="checkbox" checked></td><td>' + r.Employee_Id + '</td><td>' + r.Employee_name + '</td><td>' + r.Employee_Id + '</td></tr>';
+                                $("#Employee_AddEDIT tbody").append(row);
+                            });
+                                }
+                        }
+                        else {
+
+                            $("#submitValue").attr("disabled", true);
+                            alertify.error("خطأ فى رقم طلب الفحص");
+                        }
+                    }
+                });
+        }
+        //btn_Search
+                var arrayRecords = new Array();
+                var Admin_List = [];
+                var admin_index = 0;
+                var is_Admin = 0;
+
+/// ////////////////////////////////////////////Save
+            //var _CheckList_List = [];
+            //var _Constrain_Text_List = [];
+            function save_CheckList_Constrain_Text_List() {
+               /* _CheckList_List = [];*/
+                _Constrain_Text_List = [];
+                //var rows = document.getElementById("CheckListList_tbody").rows;
+                //for (var i = 0, ceiling = rows.length; i < ceiling; i++) {
+                //    cells = rows[i].getElementsByTagName('td');
+                //    Farm_Country_CheckList_ID = cells[4].innerHTML;
+                //    FarmCommittee_ID = cells[5].innerHTML;
+
+
+                //    _CheckList_List.push({
+                //        Farm_Country_CheckList_ID: Farm_Country_CheckList_ID
+                //        , FarmCommittee_ID: FarmCommittee_ID
+                //    });
+                //}
+
+
+                var rows_Constrain_Text = document.getElementById("Constrain_Text_tbody").rows;
+                for (var i = 0, ceiling = rows_Constrain_Text.length; i < ceiling; i++) {
+                    cells = rows_Constrain_Text[i].getElementsByTagName('td');
+                    Farm_Constrain_ID = cells[2].innerHTML;
+                    Farm_Committee_ID = cells[4].innerHTML;
+                    Farm_type_ID = cells[5].innerHTML;
+             /*       alert(Farm_type_ID)*/
+                    _Constrain_Text_List.push({
+                        Farm_Constrain_ID: Farm_Constrain_ID, Farm_Committee_ID: Farm_Committee_ID
+                        , Farm_type_ID: Farm_type_ID
+                    });
+                }
+            }
+            $('#submitValue').click(function (e) {
+
+                var len = document.getElementById("Analysis_Type").length;
+
+                x = len - 1;
+                if (len > 1) {
+                    alertify.error("يوجد تحاليل لم يتم اضافةمعامل لها وعددهم  " + x);
+                    return false;
+                }
+
+                var employees = save_List_Employee();
+                var CheckList_List = save_CheckList_Constrain_Text_List();
+
+                console.log(_Emplo_List);
+                console.log(_Farm_SampleData_List);
+                console.log(_ShiftTiming_List);
+
+               /* console.log(_CheckList_List);*/
+                console.log(_Constrain_Text_List);
+
+
+                if (employees == null) {
+                    alertify.error("يجب اختيار  ادمن ");
+                    return false;
+                }
+                $('#Employee_List  tbody').empty();
+
+                Comm_Type_ID = $("#Hdn_Comm_Type_ID").val();
+                Delegation_Date = $("#Delegation_Date").val();
+                StartTime = $("#StartTime").val();
+                EndTime = $("#EndTime").val();
+
+                if (Delegation_Date == ""
+                        || StartTime == "" || EndTime == "") {
+                    alertify.error("يجب استكمال البيانات ");
+                    return false;
+                }
+
+
+                // get checklist
+
+
+
+                var _CheckList_List = $('#CheckListList_Table tr:has(td)').map(function (i, v) {
+                    var $td = $('td', this);
+                    return {
+                        //id: ++i,
+                        //name: $td.eq(0).text(),
+                        //age: $td.eq(1).text(),
+                        Farm_Country_CheckList_ID: $td.eq(4).text(),
+                        FarmCommittee_ID: $td.eq(5).text()
+                    }
+                }).get();
+
+
+
+                console.log(_CheckList_List)
+
+                 //save committe
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/Committee_Farm/Save_Committe",
+                                    dataType: "json",
+                                    data: JSON.stringify(
+                                        {
+                                            Check_Date: Delegation_Date,//$("#Check_Date").val(),
+                                            Delegation_Date: Delegation_Date,
+                                            StartTime: StartTime,
+                                            EndTime: EndTime,
+                                            // employees
+                                            Comm_Type_ID: Comm_Type_ID,
+                                            emp_Dto: _Emplo_List,
+                                            Farm_SampleData_List: _Farm_SampleData_List,
+                                            ShiftTiming_List: _ShiftTiming_List,
+                                            CheckList_List: _CheckList_List,
+                                            /*Constrain_Text_List: _Constrain_Text_List*/
+                                        }),
+                                    contentType: "application/json; charset=utf-8",
+                                    success: function (data) {
+                                        if (data == "Exist") {
+                                            alertify.success("@PlantQuar.WEB.Language.Resource_data1.Save_Insert");
+                                            location.href = "/FA_Farm/FarmListOnLine/Index"
+                                        }
+                                        else if (data == "error") {
+                                            alertify.error("لم يتم تشكيل لجنة لعدم وجود معامل متاحة");
+                                        }
+                                        else {
+                                            $("#Check_Date").val(null);
+                                            $("#Delegation_Date").val(null);
+                                            $("#StartTime").val(null);
+                                            $("#EndTime").val(null);
+
+                                            $("#CheckRequest_Id").val(0);
+                                        }
+                                    }
+                                });
+            });
+        </script>
+    }
+}

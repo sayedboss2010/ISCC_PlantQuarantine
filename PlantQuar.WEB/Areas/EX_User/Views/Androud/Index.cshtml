@@ -1,0 +1,80 @@
+﻿@model List<PlantQuar.DTO.DTO.Admin.AndroidDTO>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h2>Index</h2>
+<div class="row">
+    <div class="col-md-12">
+
+        <table class="table table-bordered" id="tblCheck_FixedFeesLst" style="margin:10px;">
+            <thead>
+                <tr class="label-primary">
+                    <th style="text-align:center;">typeFees</th>
+                    <th style="text-align:center;">Ex_CheckRequestID</th>
+                    <th style="text-align:center;">Ex_CommitteeID</th>
+                    <th style="text-align:center;">Delegation_Date</th>
+                    <th style="text-align:center;">IsPaid_RequestCommittee</th>
+                    <th style="text-align:center;">IsFinishedAll</th>
+                    <th style="text-align:center;">العدد</th>
+                    <th style="text-align:center;">الوزن القائم</th>
+                    <th style="text-align:center;">النتيجة</th>
+                    <th style="text-align:center;">إضافة تعليق</th>
+                </tr>
+            </thead>
+            <tbody id="table_Data">
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.CommitteeTypeName_Ar</td>
+                        <td>@item.Ex_CheckRequestID</td>
+                        <td>@item.Ex_CommitteeID</td>
+                        <td>@item.Delegation_Date.Value.ToString("yyyy/MM/dd")</td>
+                        <td>
+                            @if (@item.IsPaid_RequestCommittee == true)
+                            {
+                                <span>تم الدفع</span>
+                            }
+                            else
+                            {
+                                <span style="color:red">لم يتم الدفع</span>
+                            }
+                        </td>
+                        <td>
+                            @if (@item.IsFinishedAll == null)
+                            {
+                                <span>لم تنتهى</span>
+                            }
+                            else
+                            {
+                                <span style="color:red">انتهت</span>
+                            }
+                        </td>
+                        <td><input type="text" id="Lot_count" /><span>   كرتونة</span></td>
+                        <td>
+                            <input type="text" id="Lot_weightTon" /><span>    طن  </span>
+                            <input type="text" id="Lot_weightKilo" /><span>    كيلو  </span>
+                            <input type="text" id="Lot_weightGram" /><span>    جرام  </span>
+                        </td>
+                        <td><input type="text" id="Lot_result" /></td>
+                        <td><input type="text" id="Lot_not" /></td>
+                    </tr>
+                }
+              
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <button onclick="save()">حفظ</button>
+    </div>
+</div>
+<script>
+
+    function save() {
+        var row = document.getElementById("table_Data").l
+        var Lot_count = document.getElementById("Lot_count").innerHTML;
+        alert(Lot_count);
+    }
+</script>

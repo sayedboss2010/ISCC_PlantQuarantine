@@ -1,0 +1,485 @@
+﻿@using System.Web;
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    <link href="~/Scripts/chosen/chosen.min.css" rel="stylesheet" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-- Viewport metatags -->
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- iOS webapp metatags -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <!-- iOS webapp icons -->
+    @*<link rel="apple-touch-icon-precomposed" href="~/assets/images/capq/logo-capq-72.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/assets/images/capq/logo-capq-72.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/assets/images/capq/logo-capq-114.png" />*@
+    <!-- TODO: Add a favicon -->
+    <link rel="shortcut icon" href="~/assets/images/capq/favicon.ico">
+    <title>@PlantQuar.WEB.Language.Resource_data1.AgriculturalQuarantineMinistryofAgriculture</title>
+    <!--Page loading plugin Start -->
+    <link rel="stylesheet" href="~/assets/css/rtl-css/plugins/pace-rtl.css">
+    <script src="~/assets/js/pace.min.js"></script>
+    <!--Page loading plugin End   -->
+    <!-- Plugin Css Put Here -->
+    <!-- Plugin Css End -->
+    <!-- Custom styles Style -->
+    <link href="~/assets/css/rtl-css/style-rtl.css" rel="stylesheet">
+    <!-- Custom styles Style End-->
+    <!-- Responsive Style For-->
+    <link href="~/assets/css/rtl-css/responsive-rtl.css" rel="stylesheet">
+    <!-- Responsive Style For-->
+    <!-- Custom styles for this template -->
+
+    <link href="~/assets/css/custom-rtl.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/assets/DroidArabicKufi/css/Ar-fonts.css">
+    <link href="~/assets/css/rtl-css/bootstrap-rtl.css" rel="stylesheet" />
+    <link href="~/assets/css/bootstrap-flipped.min.css" rel="stylesheet" />
+    <link href="~/Content/StyleSheetCustomMg.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    @*[if lt IE 9]>*@
+    <script src="~/Content/html5shiv.js"></script>
+    <script src="~/Content/respond.min.js"></script>
+    @*<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>*@
+    @*<![endif]*@
+    <link href="~/Content/NewDesign/css/demo.css" rel="stylesheet" />
+    <link href="~/Content/NewDesign/css/Styles.css" rel="stylesheet" />
+    <link href="~/Content/NewDesign/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/assets/css/bootstrap-rtl.css" rel="stylesheet" />
+    <link href="~/Content/NewDesign/css/fontawesome-free-5.9.0-web/css/all.css" rel="stylesheet" />
+    <link href="~/Content/NewDesign/css/fontawesome-free-5.9.0-web/css/all.min.css" rel="stylesheet" />
+    <link href="~/Content/NewDesign/css/fontawesome-free-5.9.0-web/css/brands.css" rel="stylesheet" />
+    <link href="~/Content/NewDesign/css/fontawesome-free-5.9.0-web/css/brands.min.css" rel="stylesheet" />
+    <link href="~/Content/NewDesign/css/fontawesome-free-5.9.0-web/css/fontawesome.css" rel="stylesheet" />
+    <link href="~/Content/NewDesign/css/fontawesome-free-5.9.0-web/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="~/Content/NewDesign/css/fontawesome-free-5.9.0-web/css/regular.css" rel="stylesheet" />
+    <link href="~/Content/NewDesign/css/fontawesome-free-5.9.0-web/css/regular.min.css" rel="stylesheet" />
+    <link href="~/Content/NewDesign/css/fontawesome-free-5.9.0-web/css/solid.css" rel="stylesheet" />
+    <link href="~/Content/NewDesign/css/fontawesome-free-5.9.0-web/css/solid.min.css" rel="stylesheet" />
+    <link href="~/Content/NewDesign/css/fontawesome-free-5.9.0-web/css/svg-with-js.css" rel="stylesheet" />
+    <link href="~/Content/NewDesign/css/fontawesome-free-5.9.0-web/css/svg-with-js.min.css" rel="stylesheet" />
+    <link href="~/Content/NewDesign/css/fontawesome-free-5.9.0-web/css/v4-shims.css" rel="stylesheet" />
+    <link href="~/Content/NewDesign/css/fontawesome-free-5.9.0-web/css/v4-shims.min.css" rel="stylesheet" />
+    <link href="~/assets/css/custom.css" rel="stylesheet">
+    <!--Jquery-->
+    @*<script src="~/scripts/jquery-3.4.1.js"></script>
+        <script src="~/scripts/jquery-ui-1.12.1.js"></script>*@
+    <script src="~/scripts/jquery-ui-1.12.1.js"></script>
+    <script>
+        $(document).ready(function () {
+            //$("#alarm").click(function () {
+            //    $("#alarm2").toggle(500);
+            //});
+            //$("#impoort").next('ul').children('li').children('a').addClass("ward");
+            $(".ward").click(function () {
+                $("#min-wrapper").toggleClass("height");
+                $("blockquote.styles").toggleClass("height1");
+                $("#main-content").toggleClass("height2");
+
+            });
+            //if (
+            //    $("ul.mainNav ul li a").hasClass('ward active'))
+            //{
+            //    //alert("i have the protected class");
+            //    $("#min-wrapper").toggleClass("height");
+            //    $("blockquote.styles").toggleClass("height1");
+            //    $("#main-content").toggleClass("height2");
+            //}
+        });
+
+    </script>
+    <style>
+        .height {
+            height: 1446px
+        }
+
+        .height1 {
+            height: 1300px
+        }
+
+        .height2 {
+            height: 1397px !important
+        }
+
+        #pageTitle {
+            margin-left: 0;
+            margin-right: 0;
+        }
+    </style>
+</head>
+<body id="capq" class="pace-done deep-blue-color">
+    <!--Navigation Top Bar Start-->
+    <div class="row navbarr" style="margin-right: 0px;direction:ltr;margin-left: 0px;">
+        <ul class="navbar-nav " style="flex-direction: row;margin-right: auto!important;">
+            <li>
+                <a href="/Home/LogOut" class="icon2" data-toggle="tooltip" title="@PlantQuar.WEB.Language.Resource_data1.LogOut">
+                    @*<img src="~/Content/NewDesign/images/icons8-shutdown-25.png" style="height: 32px!important;" />*@
+                    <i class="fa fa-arrow-left icon-style" aria-hidden="true"></i>
+                </a>
+
+
+            </li>
+            <li>
+                <a href="/Base/ChangeLanguage" class="icon2" data-toggle="tooltip" title="@PlantQuar.WEB.Language.Resource_data1.Translate" hidden>
+                    <i class="fas fa-language icon-style" aria-hidden="true"></i>
+                </a>
+                <a href="/Base/ChangeLanguage" class="icon2" data-toggle="tooltip" title="@PlantQuar.WEB.Language.Resource_data1.Translate">
+                    @{
+
+                        PlantQuar.WEB.App_Start.User_Session current_Session = PlantQuar.WEB.App_Start.User_Session.GetInstance;
+                        
+                    var src = (HttpContext.Current.Session["Language"].ToString() == "ar-Eg") ? "../../Content/NewDesign/images/icons8-google-translate-353.png" :
+                            "../../Content/NewDesign/images/icons8-google-translate-35.png";
+
+                    }
+                    <i class="fas fa-language icon-style" aria-hidden="true"></i>
+                </a>
+            </li>
+            @*<li>
+                    <div>
+                        <a style="padding:4px 10px 33px 5px!important;" class="icon2" id="alarm" data-toggle="tooltip" title="@PlantQuar.WEB.Language.Resource_data1.Notifications">
+                            <i class="fas fa-bell fa-2x imgg " style="font-size: 25px;margin-top:3px;color:white"></i>
+                        </a>
+                        <div class="dropdown-menu right top-notification" id="alarm2" style="border-radius: 25px 25px 25px 25px;    border: 2px solid #359599;position: absolute!important;">
+                            <div style="background-image: linear-gradient(to top,#32a2a5, #2b7e81)!important;height: 37px;padding-top: 10px;margin-top: -6px;    border-radius: 25px 25px 0px 0px    ">
+                                <h4 style="margin-top:-4px;text-align: center;font-size: 20px;">@PlantQuar.WEB.Language.Resource_data1.Notifications</h4>
+                            </div>
+                            <ul class="ls-feed">
+
+                                <li>
+                                    <span class="label label-green">
+                                        <i class="fa fa-check white" style="color: #5c0000;margin-right: -3px;border-radius: 11px;padding: 0px 3px 3px 3px;float: right;text-align: center;"></i>
+                                    </span>
+                                    <a href="#" class="mass" style="cursor:pointer;color:gray;"> تم الموافقة على اللجنة</a> <span class="date">Just now</span>
+                                </li>
+
+
+                                <li>
+                                    <span class="label label-red"> <i class="fa fa-times white" style="color: #5c0000;background-color: #ff7878;margin-right: -3px;border-radius: 11px;padding: 0px 3px 3px 3px;float: right;"></i> </span>
+                                    <a href="#" class="mass" style="cursor:pointer;color:gray;"> تم رفض اللجنة</a> <span class="date">Just now</span>
+                                </li>
+
+                                <li class="only-link"><a href="~/Home/notifications" style="cursor:pointer;color:gray;">View All</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>*@
+            <li>
+                <a href="/Employee/ChangePassword/Index" class="icon2" data-toggle="tooltip" title="تغيير كلمه السر" style="text-align: center;">
+                    <i class="fa fa-unlock-alt icon-style" aria-hidden="true"></i>
+                </a>
+            </li>
+            <li>
+                @{try
+                    {
+
+                        if (Session["FullName"] != null || !string.IsNullOrEmpty(Session["FullName"] as string))
+                        {
+                            if (Session["Outlet_Name"] != null || !string.IsNullOrEmpty(Session["Outlet_Name"] as string))
+                            {
+
+
+                                var FullName1 = Session["FullName"].ToString();
+
+                                var Outlet_Name1 = Session["Outlet_Name"].ToString();
+                                <a href="#" style="text-shadow: -1px 2px 2px #161e04;font-size: 20px;color:#fafbd3;text-decoration: none;font-weight: bold; margin-right: 0px; "> منفذ: @Outlet_Name1   دخول باسم :@FullName1</a>
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+
+                        throw ex;
+                    }
+                }
+
+            </li>
+            @*<li>
+
+                    <a href="#" style="display: inline-block;padding: 23px 0px 0px 0px;margin: 0px 0px 0px 15px;direction:ltr" data-toggle="tooltip" title="@PlantQuar.WEB.Language.Resource_data1.Search">
+                        <form id="searchForm" action="">
+                            <input class="inputt" type="search" placeholder="@PlantQuar.WEB.Language.Resource_data1.Search" style="text-align:left;color:black">
+                            <i class="fa fa-search searchIcon" style="font-size: 15px;top: 2px;right: 2px;"></i>
+                        </form>
+                    </a>
+                </li>*@
+        </ul>
+
+        <!--<div class="menu-controls">-->
+        @*<a href="#" style="text-shadow: -1px 2px 2px #161e04;font-size: 20px;color:#fafbd3;text-decoration: none;font-weight: bold; margin-right: 0px; ">@PlantQuar.WEB.Language.Resource_data1.CentralAdministration</a>*@
+        <!--@{
+            try
+            {
+                if (Session["FullName"] != null)
+                {
+                    var FullName = Session["FullName"].ToString();
+                    var Outlet_Name = Session["Outlet_Name"].ToString();
+                    <a href="#" style="text-shadow: -1px 2px 2px #161e04;font-size: 20px;color:#fafbd3;text-decoration: none;font-weight: bold; margin-right: 0px; "> منفذ: @Outlet_Name   دخول باسم :@FullName</a>
+                    }
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+
+            <div class="menu-control" style="color:#ffbb84;outline: 0;cursor: pointer;"><a> <i class="fa fa-bars"></i> </a></div>
+        </div>-->
+    </div>
+    <!-- Title -->
+    <div id="pageTitle" class="row">
+        <div class="col-md-4 col-sm-4"></div>
+        <div class="col-md-4 col-sm-5 navbarr" style="border-radius: 0px 0px 45px 45px; background-color: #39627f; text-align: center;">
+            <span style="text-align: center !important;color:white;font-size: 28px;margin-top: 6px;">
+
+                @RenderSection("Title", false)
+            </span>
+        </div>
+        <div class="col-md-4 col-sm-3"></div>
+    </div>
+    <!--Navigation Top Bar End-->
+    <section id="main-container">
+        <!--Left navigation section start-->
+        <section id="left-navigation">
+
+            <!--Top breadcrumb start -->
+            <!--Left navigation user details start-->
+            <div class="user-image">
+                <img src="~/assets/images/capq/logo-capq.png" alt="" />
+                <!--<div class="user-online-status"><span class="user-status is-online  "></span> </div>-->
+            </div>
+            <div id="brc1">
+                <ul class="breadcrumb">
+                    <li style="text-align: center;"><a href="/Home/Index"><i class="fa fa-home" title="الصفحة الرئيسية"></i></a></li>
+
+                    @RenderSection("Path", false)
+                </ul>
+            </div>
+            <ul class="social-icon">
+                @*<li><a href="javascript:void(0)"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="javascript:void(0)"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="javascript:void(0)"><i class="fa fa-github"></i></a></li>
+                    <li><a href="javascript:void(0)"><i class="fa fa-bitbucket"></i></a></li>*@
+            </ul>
+            <!--Left navigation user details end-->
+            <!--Phone Navigation Menu icon start-->
+            @*<div class="phone-nav-box visible-xs">
+                    <a class="phone-logo" href="#" title="">
+                        <h1> لإدارة المركزية</h1>
+                    </a> <a class="phone-nav-control" href="javascript:void(0)"> <span class="fa fa-bars"></span> </a>
+                    <div class="dropdown-menu top-dropDown-1">
+                        <h4>بحـــث</h4>
+                        <form>
+                            <input type="search" placeholder="أبحث عن...">
+                        </form>
+                    </div>
+                </div>*@
+            <!--Phone Navigation Menu icon start-->
+            <!--Left navigation start-->
+            <div id="NavMg">
+                <ul class="mainNav">
+
+                    @if (Session["UserId"] != null)
+                    {
+                        @Html.Action("Index", "DrawMenu", new { area = "" })
+                    }
+                </ul>
+            </div>
+            <!--Left navigation end-->
+        </section>
+        <!--Left navigation section end-->
+        <!--Page main section start-->
+        <section id="min-wrapper">
+            <div id="main-content">
+                <div class="container-fluid">
+                    <!-- Main Content Element  Start-->
+                    <div class="demo-blockquote">
+                        <blockquote class="styles" style="padding:25px;">
+                            @*@RenderSection("Title", false)*@
+                            <br />
+                            <!-- Filter Section-->
+                            @*مش عارفين لازمتهم اييييه*@
+                            <div class="filtering col-md-12">
+                                @RenderSection("filter", false)
+                                <div id="myModal" class="modall">
+                                    <div class="modall-content" hidden>
+                                        <div class="closee">&times;</div>
+                                        <div style="width:70%;float:right;">
+                                            <p style="margin-right:10px !important;">@PlantQuar.WEB.Language.Resource_data1.AreYouSureToSave</p>
+                                        </div>
+                                        <div style="float:left;">
+                                            <button class="btn btn-primary" id="sure_save">@PlantQuar.WEB.Language.Resource_data1.Sure</button>
+                                            <button class="btn btn-primary" id="cancel_save">@PlantQuar.WEB.Language.Resource_data1.Cancel</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            @RenderBody()
+                        </blockquote>
+                    </div>
+                    <!-- Main Content Element  End-->
+                </div>
+            </div>
+            <section id="footer" class="right"><b>@PlantQuar.WEB.Language.Resource_data1.AllRightsAreReserved<b class="red">@PlantQuar.WEB.Language.Resource_data1.ComputerAndInformationSystems</b> - <b class="red">@PlantQuar.WEB.Language.Resource_data1.MinistryofMilitaryProduction </b><b></b> @Html.Raw(" @ 2019")</b></section>
+            <!--add class(right) to  Place text right  -->
+        </section>
+        <!--Page main section end -->
+    </section>
+    @{ if (HttpContext.Current.Session["Language"].ToString() == "ar-Eg")
+        {
+            @Scripts.Render("~/bundles/jqueryval-ar")
+            @Scripts.Render("~/bundles/jtable-ar")
+        }
+        else
+        {@Scripts.Render("~/bundles/jqueryval-en")
+
+        @Scripts.Render("~/bundles/jtable-en")
+
+    }}
+    @*@Scripts.Render("~/bundles/jtable")*@
+    <script src="~/Scripts/chosen/chosen.jquery.min.js"></script>
+    @*<script src="~/Scripts/chosen.jquery.min.js"></script>*@
+    <!--Layout Script start -->
+    <script type="text/javascript" src="~/assets/js/color.js"></script>
+    <script type="text/javascript" src="~/assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/multipleAccordion.js"></script>
+    @*<script src="~/Scripts/jquery-ui-1.9.2.js"></script>
+        <script src="~/Scripts/jquery-1.10.2.js"></script>*@
+    @*<script src="~/Scripts/jtable/jquery.jtable.js"></script>*@
+    <!--easing Library Script Start -->
+    <!--////// <script src="~/assets/js/lib/jquery.easing.js"></script>-->
+    <!--easing Library Script End -->
+    <!--Nano Scroll Script Start -->
+    <script src="~/assets/js/jquery.nanoscroller.min.js"></script>
+    <!--Nano Scroll Script End -->
+    <!--switchery Script Start -->
+    <script src="~/assets/js/switchery.min.js"></script>
+    <!--switchery Script End -->
+    <!--bootstrap switch Button Script Start-->
+    <script src="~/assets/js/bootstrap-switch.js"></script>
+    <!--bootstrap switch Button Script End-->
+    <!--easypie Library Script Start -->
+    <script src="~/assets/js/jquery.easypiechart.min.js"></script>
+    <!--easypie Library Script Start -->
+    <!--bootstrap-progressbar Library script Start-->
+    <script src="~/assets/js/bootstrap-progressbar.min.js"></script>
+    <!--bootstrap-progressbar Library script End-->
+    <script src="~/assets/js/pages/layout.js"></script>
+    <!--Layout Script End -->
+    @Scripts.Render("~/bundles/alertify")
+    @Scripts.Render("~/bundles/ajax")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script>
+
+        $(function () {
+            var url = window.location.pathname;
+
+            $('#NavMg a[href="' + url + '"]').closest("ul").parent().parent().parent().addClass("active").css("color", "#161e04");
+            $('#NavMg a[href="' + url + '"]').closest("ul").parent().addClass("active").css("color", "#161e04");
+            var titlemodule = $('#NavMg a[href="' + url + '"]').closest("a").addClass("active").css("color", "#fafbd3").css("background", "#e16500");
+            $("#titlemodule").text(titlemodule.text().toString());
+
+            $(document).on('focus', ':input', function () {
+                $(this).attr('autocomplete', 'off');
+            });
+            //$("#translate_icon").click(function () {
+            //    var _this = $(this);
+            //    var current = _this.attr("~/Content/NewDesign/images/icons8-google-translate-353.png");
+            //    var swap = _this.attr("~/Content/NewDesign/images/icons8-google-translate-35.png");
+            //    _this.attr("~/Content/NewDesign/images/icons8-google-translate-353.png", swap).attr("~/Content/NewDesign/images/icons8-google-translate-35.png", current);
+            //});
+            // });
+
+        });
+
+
+
+
+
+
+    </script>
+    <style>
+        .modall {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 20; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+        /* Modal Content */
+        .modall-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 10px;
+            border: 3px solid #1a8488;
+            width: 30%;
+            margin-top: 265px;
+            border-radius: 15px;
+            overflow: auto;
+            /*height: 75px;*/
+        }
+
+            .modall-content .btn-primary {
+                color: #fff;
+                background-color: #1a8488;
+                border-color: #49a3a7;
+                padding: 5px 5px;
+                height: auto;
+            }
+
+        .modall-content2 {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 3px solid #1a8488;
+            width: 56%;
+            /*margin-top: 74px;*/
+            border-radius: 15px;
+            /*height: 873px;*/
+        }
+        /* The Close Button */
+        .closee {
+            width: 20%;
+            color: #1a8488;
+            float: right;
+            margin-top: -13px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+            .closee:hover,
+            .closee:focus {
+                color: #1a8488;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+        #NavMg {
+            background: none !important;
+        }
+    </style>
+</body>
+
+
+
+</html>

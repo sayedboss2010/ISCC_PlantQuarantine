@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@using (Html.BeginForm("save", "TestImage", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <br />
+    <br />
+    <br />
+    <input type="text" id="txtIp" name="txtIp" value="10.7.7.244" />
+    <br />
+    <br />
+    <input type="file" id="file" name="file" />
+    <br />
+    <br />
+    <input type="submit" value="Save" />
+
+
+
+
+}
+@using (Html.BeginForm("Upload_File_Path_NetworkShare", "TestImage", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    <br />
+    <input type="text" id="txtupload" name="txtIp" value="10.7.7.244" />
+    <br />
+    <br />
+    <input type="file" id="fileupload" name="fileupload" />
+    <br />
+    <br />
+    <input type="submit" value="Save" />
+    @*<br />
+        <input type="text" id="txtIp" name="txtIp" value="10.7.7.244/plant/test/" />
+        <br />
+        <input type="button" value="عرض الملف" class=" btn btn - info" onclick=btndownload_click(this) />
+        <script>
+
+            function btndownload_click(elem) {
+
+
+                var path = $(elem).data('assigned-id');
+
+
+
+                window.open('/TestImage/GetReport?path1=' + path + '', "_blank");
+
+
+
+            }
+        </script>*@
+
+
+}

@@ -1,0 +1,254 @@
+﻿
+
+@{
+    ViewBag.Title = "Station Payment";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    decimal totalPay = 0;
+    decimal remainPay = 0;
+}
+
+<script src="~/assets/print/print.min (2).js"></script>
+<link href="~/assets/print/print.min (3).css" rel="stylesheet" />
+
+
+@section Title{
+    <h2 class="ls-top-header">الدفع</h2>
+}
+<br />
+<style>
+    .modall {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+    /* Modal Content */
+    .modall-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 3px solid #3ba1a5;
+        width: 30%;
+        margin-top: 265px;
+        border-radius: 15px;
+        height: 75px;
+    }
+
+    .closee {
+        color: #3ba1a5;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+        .closee:hover,
+        .closee:focus {
+            color: #3ba1a2;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+    h3, .h3 {
+        font-size: 16px;
+    }
+
+    .btn-primary:not([disabled]):not(.disabled):active, .btn-primary:not([disabled]):not(.disabled).active, .show > .btn-primary.dropdown-toggle {
+        color: #fff;
+        background-color: #377577;
+        border-color: #377577;
+        box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125), 0 0 0 2px #269abc;
+    }
+</style>
+@section filter{
+    <div class="row">
+        <label class="col-md-2" style="font-size: 16px;">كود المحطة </label>
+        @*<input type="text" class="form-inline col-md-3" autocomplete="off" name="CheckRequest_Number" id="CheckRequest_Number" value="@ViewBag.CheckReqNumber" readonly/>*@
+
+        <input type="text" style="padding-right: 22px;width:36%;background-color:#80808070;" class="form-inline" autocomplete="off" name="CheckRequest_Number" id="CheckRequest_Number" value="@ViewBag.stationCode" readonly />
+
+        @*<input style="width:126px !important;" required type="button" class="btn btn-primary" id="showDetails" value="اظهار التفاصيل">*@
+    </div>
+
+
+    <!--valid Modal content -->
+    <div id="myModal" class="modall">
+        <div class="modall-content">
+            <span class="closee">&times;</span>
+            <p style="float: left;"> Please Enter Information </p>
+        </div>
+    </div>
+
+    <div id="myModal2" class="modall">
+        <div class="modall-content">
+            <span class="closee">&times;</span>
+            <p style="float: left;"> تم الحفظ </p>
+        </div>
+    </div>
+
+    <div id="myModal3" class="modall">
+        <div class="modall-content">
+            <span class="closee">&times;</span>
+            <p style="float: left;"> المبلغ خطأ</p>
+        </div>
+    </div>
+
+
+    <div id="Deatials" style="margin-top: 18px;">
+        <div class="row">
+            <div class="col-md-6" id="details" style="">
+                <div class="row">
+                    <h3 style="background-color: #40969a;color: white;padding: 10px;border-radius: 24px 0px;"> رسوم ثابتة</h3>
+                </div>
+                <div style="background-color: #c7edef;width: 90%;padding: 25px;border-radius:24px;min-height: 65%;" id="div_Fees_Fixed">
+                    <ul>
+
+                        @{
+                            foreach (var pay in ViewBag.feesAmount)
+                            {
+
+
+                                <li><span>@pay["feesName"] : </span>@pay["Amount"]<span></span></li>
+
+                            }
+
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6" id="details3" style="">
+                <div class="row">
+                    <h3 style="background-color: #40969a;color: white;padding: 10px;border-radius: 24px 0px;">  مبالغ سابقة</h3>
+                </div>
+                <div style="background-color: #c7edef;width: 90%;padding: 25px;border-radius:24px;min-height: 65%;" id="div_Paid">
+                    <ul>
+                        @{
+                            foreach (var pay in ViewBag.payments)
+                            {
+
+                                totalPay += pay["Amount"];
+                                <li class="pays">@pay["Amount"]</li>
+                            }
+                            remainPay = ViewBag.totalamount - totalPay;
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <label style="font-size: 16px;">الباقي :  </label>
+                <input type="text" style="padding-right: 22px;width:36%;background-color:#80808070;" class="form-inline" autocomplete="off" name="therest" id="therest" readonly value="@remainPay" />
+                <input type="hidden" id="hdn_stationcommitee_Id" value="@ViewBag.station_committee_Id" />
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 40px;">
+            <label class="col-md-2" style="font-size: 16px;">المبلغ المراد دفعه  </label>
+            <input type="number" min=0 oninput="validity.valid||(value='');" class="form-inline col-md-3" autocomplete="off" name="moneyamount" id="moneyamount" value="@remainPay" />
+            <input style="width:126px !important;" required type="button" class="btn btn-primary" id="save" value="حفظ ">
+            <input style="width:126px !important;" required type="button" class="btn btn-primary" onclick='printDiv()' id="print" value="طباعة ">
+        </div>
+    </div>
+
+
+}
+@section scripts{
+    <script>
+        $(document).ready(function () {
+
+            $("#save").click(function () {
+
+                if ($("#moneyamount").val() > 0 && parseFloat($("#moneyamount").val()) <= parseFloat($("#therest").val())) {
+                    //save data
+                    var IsPaid = false;
+                    if (parseFloat($("#moneyamount").val()) == parseFloat($("#therest").val()))
+                        {
+                        IsPaid = true;
+                    }
+                    $.ajax(
+                        {
+                            url: "/ST_Station/StationPayment/SaveStationCommitteePayment",
+                            type: "POST",
+                            data: {
+                                stationcommitee_Id: $("#hdn_stationcommitee_Id").val(),
+                                moneyamount: $("#moneyamount").val(),
+                                totalRequire: $("#therest").val()
+                            },
+                            success: function (res) {
+                                ////debugger;
+                            }
+                        });
+
+                    $('#myModal2').css("display", "block");
+                    $('#moneyamount').css("border-color", "gray");
+                    window.location = '/ST_Station/StationAccrediationCommittee/Index'
+                }
+                else {
+                    $('#moneyamount').css("border-color", "");
+                    if ($("#therest").val() < $("#moneyamount").val()) {
+                        $('#myModal3').css("display", "block");
+                        $('#moneyamount').css("border-color", "red");
+                       // alert("خطأ فى المبلغ");
+                       // alert($("#therest").val());
+                      //  alert($("#moneyamount").val());
+                    }
+                }
+            });
+            $('.closee').click(function (e) {
+                $('#myModal').css("display", "none");
+                $('#myModal2').css("display", "none");
+                $('#myModal3').css("display", "none");
+                $('#DisplayModal').css("display", "none");
+            });
+            $(window).click(function (e) {
+                if (e.target.id == "myModal") {
+                    $('#myModal').css("display", "none");
+                }
+                if (e.target.id == "myModal2") {
+                    $('#myModal2').css("display", "none");
+                }
+                if (e.target.id == "myModal3") {
+                    $('#myModal3').css("display", "none");
+                }
+            });
+        });
+    </script>
+    <script>
+        function printDiv() {
+            printJS({
+                printable: 'Deatials',
+                //printable: 'Search_tbl tbody tr td:nth-child(2)',
+                type: 'html',
+                //css: '~/Scripts/jtable/themes/lightcolor/orange/jtable.css',
+                showModal: true,
+                targetStyles: ['*'],
+                //documentTitle: 'Search Result',
+                ignoreElements: ['save', 'print'],
+
+
+            });
+        }
+
+    //function printDiv() {
+    //    var divToPrint = document.getElementById('Deatials');
+    //    var popupWin = window.open('', '_blank', 'width=300,height=300');
+    //    popupWin.document.open();
+    //    popupWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</html>');
+    //    popupWin.document.close();
+    //}
+    </script>
+}

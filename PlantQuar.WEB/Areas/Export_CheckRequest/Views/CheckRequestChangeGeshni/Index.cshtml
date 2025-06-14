@@ -1,0 +1,472 @@
+﻿
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    var indexx = 0;
+    var x = 0;
+}
+<style>
+    .bootstrap-select .dropdown-menu.inner {
+        margin-right: 0px !important;
+    }
+</style>
+<link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
+
+
+@section Title
+        {
+    <h2 class="ls-top-header"> تغيير مكان الجشني</h2>
+
+}
+<div class="row">
+    <div class="col-md-6">
+
+        <div class="row">
+            <div class="col-md-5">
+                <label class="col-md-4">رقم الطلب</label>
+                <input type="text" id="request_number" class="col-md-8 form-control" />
+            </div>
+
+        </div>
+
+        <br />
+        <div class="row">
+            <div class="col-md-7">
+                <label class="col-md-5">  مكان تغيير الجشني </label>
+
+
+                <input type="radio" id="portRdo" name="GeshniPlace" value="PORT" onchange="emptyInputs();" required>
+                <label for="portRdo">منفذ</label>
+                <input type="radio" id="stationRdo" name="GeshniPlace" value="STATION" onchange="emptyInputs();">
+                <label for="stationRdo">محطة</label>
+            </div>
+            <div class="col-md-5"></div>
+        </div>
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-md-4"></div>
+
+            <div class="col-md-4">
+                <input required type="button" class=" btn btn-primary" id="LoadRecordsButton" value="بحــــــــــــــــث" style="width: 100%;float: left;right: 0;">
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        <br />
+        <br />
+        <div class="row " id="OldGashniDiv">
+            <div class="col-md-3">  <h6>  مكان الجشني القديم</h6></div>
+            <div class="col-md-5">
+                <input type="text" id="geshniname" class="form-control " disabled />
+            </div>
+
+
+
+        </div>
+        <br />
+        <div class="row" id="Station_ExaminationTxtDiv">
+            <div class="col-md-3">  <h6>محطة الفحص     </h6></div>
+            <div class="col-md-5">
+                <input type="text" id="Station_ExaminationTxt" class="form-control " disabled />
+
+                @*<select id="NewGeshniNameStation" class="form-control NewGeshniNameStation  ">
+                </select>*@
+            </div>
+        </div>
+        <div class="row " id="stationDiv">
+
+            <div class="col-md-3">  <h6>أدخل محطة الجشني  الجديدة</h6></div>
+            <div class="col-md-5">
+                @*<input type="text" id="NewGeshniNameStation" class="form-control " />*@
+
+                <select id="NewGeshniNameStation" class="form-control NewGeshniNameStation  ">
+                </select>
+            </div>
+
+
+
+        </div>
+        <div class="row " id="PortDiv">
+            <div class="col-md-3">  <h6>أدخل مكان الجشني  الجديد</h6></div>
+
+            @*<input type="text" id="NewGeshniNamePort" class="form-control "  />*@
+            <div class="col-md-5">
+                <select id="NewGeshniNamePort" class="form-control  ">
+                </select>
+
+
+            </div>
+        </div>
+        <br />
+        <br />
+
+        <div class="row " id="SaveNewGeshniDiv">
+            <div class="col-md-4"> </div>
+            <div class="col-md-4">
+                <input type="button" id="NewGeshniNamePortBtn" value=" حـــفظ المنفذ   " class=" btn btn-primary" style="width:100%;float:left;right:0" />
+            </div>
+
+            <div class="col-md-4"> </div>
+        </div>
+        <br />
+        <br />
+        <div class="row " id="SaveNewGeshniStationDiv">
+            <div class="col-md-4"> </div>
+            <div class="col-md-4">
+                <input type="button" id="NewGeshniNameStationBtn" value="  حـــفظ المحطة  " class=" btn btn-primary" style="width:100%;float:left;right:0" />
+            </div>
+            <div class="col-md-4"> </div>
+
+        </div>
+
+
+
+
+    </div>
+    <div class="col-md-6">
+
+        <div class="row  " id="TableEmpChangeDIV">
+
+            <h4>موقف تغيير مكان الجشني</h4>
+            <br />
+            <table id="TableEmpChangeTbl" class="table table-bordered table-striped dataTable" role="grid" style="padding:5px; width:100%">
+
+                <thead>
+                    <tr>
+                        <th>رقم الموظف</th>
+                        <th>اسم الموظف</th>
+                        <th>الموقف </th>
+                        <th>التاريخ</th>
+                        <th>الوقت</th>
+                    </tr>
+                </thead>
+                <tbody id="myTable3">
+                </tbody>
+            </table>
+
+
+
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/assets/js/bootstrap-select1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#OldGashniDiv").hide();
+            $("#PortDiv").hide();
+            $("#stationDiv").hide();
+            $("#Station_ExaminationTxtDiv").hide();
+            $("#SaveNewGeshniDiv").hide();
+            $("#SaveNewGeshniStationDiv").hide();
+            $("#TableEmpChangeDIV").hide();
+            $("#NewGeshniNameStation").selectpicker({
+                liveSearch: true
+            });
+            //App.init();
+
+           
+          
+
+
+        });
+        function emptyInputs() {
+
+
+            $("#OldGashniDiv").hide();
+            $("#PortDiv").hide();
+            $("#stationDiv").hide();
+            $("#Station_ExaminationTxtDiv").hide();
+            $("#SaveNewGeshniDiv").hide();
+            $("#SaveNewGeshniStationDiv").hide();
+            $("#TableEmpChangeDIV").hide();
+            //Eslam
+            $("#LoadRecordsButton").removeAttr("disabled");
+            $("#TableEmpChangeTbl tbody").empty();
+        }
+        $("#request_number").on('change keydown paste input', function () {
+            //doSomething();
+            $("#TableEmpChangeTbl tbody").empty();
+           //$("#LoadRecordsButton").disabled = false;
+            $("#LoadRecordsButton").removeAttr("disabled");
+        });
+        $('#LoadRecordsButton').click(function (e) {
+           
+            var request_number = document.getElementById("request_number").value;
+           this.disabled = true;
+            if (request_number > 0) {
+
+                $.ajax({
+                    url: '@Url.Action("GetGeshniCommittee", "CheckRequestChangeGeshni")',
+                    type: "POST",
+                    data: { CheckRequestNumber: request_number },
+                    success: function (data) {
+                          if (data.Result != "Empty") {
+                              $("#geshniname").empty();
+                              if (data.Options.OutletNameGashni != null || data.Options.Station_Geshni_Name != null) {
+                                  //$('#OldGashniDiv').css('visibility', 'visible');
+                                  if (data.Options.OutletNameGashni != null) {
+                                      $("#geshniname").val(data.Options.OutletNameGashni);
+                                  }
+
+                                  if (data.Options.Station_Geshni_Name != null) {
+                                      $("#geshniname").val(data.Options.Station_Geshni_Name);
+                                  }
+                                 // alert(data.Options.Station_Examination);
+                                  //console.log(data);
+                                  if (data.Options.Station_Examination != null) {
+                                      $("#Station_ExaminationTxt").val(data.Options.Station_Examination);
+                                  }
+                                  //Start Get Employee Who make Geshni Change
+                                  $.ajax({
+                                      url: '@Url.Action("GetEmployeeGeshniChange", "CheckRequestChangeGeshni")',
+                                      type: "POST",
+                                      data: { requestNumber: request_number },
+                                      success: function (data) {
+                                          if (data.Result != "Empty") {
+
+                                              
+                                              for (var i = 0; i < data.Options.length; i++) {
+                                                  var item = data.Options[i];
+                                                 // alert(item);
+                                                  var User_Creation_Date = new Date(item.User_Creation_Date2.match(/\d+/)[0] * 1);
+                                                  //alert(User_Creation_Date)
+                                                  var User_Creation_Date3 = User_Creation_Date.getFullYear() + "/" + (User_Creation_Date.getMonth() + 1) + "/" + User_Creation_Date.getDate();
+                                                  var _time = User_Creation_Date.getHours() + ":" + User_Creation_Date.getMinutes();
+                                                  $("#TableEmpChangeTbl tbody").append("<tr>" +
+
+                                                      "<td>  " + item.Emp_ID2 + "  </td>"
+                                                    +  "<td>  " + item.EmpName2 + "  </td>"
+                                                      + "<td>" + item.Notes2 + "</td>" +
+                                                      "<td>  " + User_Creation_Date3 + "  </td>"
+                                                     + "<td>  " + _time + "  </td>"
+                                                  //.Value.ToString("dd/MM/yyyy")
+                                                     // item.User_Creation_Date2.Date.ToString("yyyy-MM-dd")
+
+                                                      + "</tr>");
+
+                                              }
+                                          }
+
+
+
+                                      }
+
+                                      });
+
+                                  // End Get Employee Who make Geshni Change
+
+                                  if (document.getElementById('portRdo').checked) {
+                                      $("#OldGashniDiv").show();
+
+
+                                      $("#PortDiv").show();
+                                      $("#SaveNewGeshniDiv").show();
+                                      $("#SaveNewGeshniStationDiv").hide();
+                                      $("#stationDiv").hide();
+                                      $("#Station_ExaminationTxtDiv").hide();
+                                      $.ajax({
+                                          url: '@Url.Action("GetGeshniPorts", "CheckRequestChangeGeshni")',
+                                          type: "POST",
+                                          success: function (data) {
+                                             // console.log(data);
+                                              $("#PortDiv").show();
+                                              $("#stationDiv").hide();
+                                              $("#Station_ExaminationTxtDiv").hide();
+                                              $("#SaveNewGeshniDiv").show();
+                                              $('#NewGeshniNamePort').empty();
+                                              /*  $('#LotStatusLst').append($('<option />').val(0).text(" أختار"));*/
+                                              $.each(data.Options, function (i, index) {
+
+                                                  $('#NewGeshniNamePort').append($('<option />').val(index.Value).text(index.DisplayText));
+                                              }); //each
+                                          }
+
+                                      });
+
+
+
+
+
+                                  }
+                                  else if (document.getElementById('stationRdo').checked) {
+                                      $("#OldGashniDiv").show();
+
+
+                                      $("#PortDiv").hide();
+                                      $("#SaveNewGeshniDiv").hide();
+                                      $("#SaveNewGeshniStationDiv").show();
+                                      $("#stationDiv").show();
+                                      $("#Station_ExaminationTxtDiv").show();
+                                      $.ajax({
+                                          url: '@Url.Action("GetGeshniStation", "CheckRequestChangeGeshni")',
+                                          type: "POST",
+                                          success: function (data) {
+                                             // console.log(data);
+
+                                              $('#NewGeshniNameStation').empty();
+                                              /*  $('#LotStatusLst').append($('<option />').val(0).text(" أختار"));*/
+                                              $.each(data.Options, function (i, index) {
+
+                                                  $('#NewGeshniNameStation').append($('<option />').val(index.Value).text(index.DisplayText));
+                                              }); //each
+                                              $('#NewGeshniNameStation').selectpicker('refresh');
+                                          }
+
+                                      });
+
+                                  }
+                                  else {
+                                      alertify.error("يجب اختيار مكان تغيير الجشني محطة او منفذ ");
+                                  }
+                              }
+                              else {
+                                  alertify.error("لا يوجد مكان جشني ");
+
+                              }
+                          }
+
+                          else {
+
+                              alertify.error("رقم الطلب غير صحيح");
+                          }
+
+
+
+        },
+            error: function (xhr, status, error) {
+
+        }
+  });
+                }
+                else {
+                    alertify.error("يحب ادخال رقم الطلب ");
+                }
+
+            $("#TableEmpChangeDIV").show();
+        });
+        var GeshniPortsDTO = [];
+        var GeshniStationDTO = [];
+        ///////////////////////////////////////////////////Change ports for Gegeshni  //////////////////////////////////
+        $('#NewGeshniNamePortBtn2').click(function (e) {
+            var newGeshniPortNu = document.getElementById("NewGeshniNamePort").value;
+            var request_number = document.getElementById("request_number").value;
+            //alert(newGeshniPortNu);
+
+            GeshniPortsDTO.push({
+
+                Ex_CheckRequest_Number: request_number,
+                NewPortGeshni_Id: newGeshniPortNu,
+
+            });
+
+            $.ajax({
+                url: '@Url.Action("GetNewPortGeshni", "CheckRequestChangeGeshni")',
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify({geshniPortsLst: GeshniPortsDTO}),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data.Result = "OK") {
+                        //alert(1);
+                        $("#SaveNewGeshniDiv").hide();
+                        alertify.success("تم تعديل منفذ الجشني  "); //console.log(data);
+                    }
+
+
+                }
+
+
+
+            });
+
+
+        });
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+          $('#NewGeshniNamePortBtn').click(function (e) {
+      var newGeshniPortNu = document.getElementById("NewGeshniNamePort").value;
+      var request_number = document.getElementById("request_number").value;
+      //alert(newGeshniPortNu);
+
+      //GeshniPortsDTO.push({
+
+      //    Ex_CheckRequest_Number: request_number,
+      //    NewPortGeshni_Id: newGeshniPortNu,
+
+      //});
+
+      $.ajax({
+          url: '@Url.Action("GetNewPortGeshni", "CheckRequestChangeGeshni")',
+          type: "POST",
+          dataType: "json",
+          data: JSON.stringify({
+              Ex_CheckRequest_Number: request_number,
+              NewPortGeshni_Id: newGeshniPortNu
+}),
+          contentType: "application/json; charset=utf-8",
+          success: function (data) {
+              if (data.Result = "OK") {
+                  //alert(1);
+                  $("#SaveNewGeshniDiv").hide();
+                  alertify.success("تم تعديل منفذ الجشني  ");
+                  //console.log(data);
+                  location.reload(true);
+              }
+
+
+          }
+
+
+
+      });
+
+
+  });
+
+
+
+
+
+
+        ///////////////////////////////////////////////////Change Station for Gegeshni  //////////////////////////////////
+        $('#NewGeshniNameStationBtn').click(function (e) {
+            var newGeshniStationNu = document.getElementById("NewGeshniNameStation").value;
+
+            var request_number = document.getElementById("request_number").value;
+
+
+
+
+
+            //alert(newGeshniStationNu);
+          //  alert(request_number);
+       $.ajax({
+           url: '@Url.Action("GetNewStationGeshni", "CheckRequestChangeGeshni")',
+           type: "POST",
+           dataType: "json",
+           tradational:true,
+           data: JSON.stringify({ Ex_CheckRequest_Number: request_number, NewStationGeshni_Id: newGeshniStationNu }),
+           contentType: "application/json; charset=utf-8",
+           success: function (data) {
+               if (data.Result = "OK") {
+                   //alert(1);
+                   $("#SaveNewGeshniDiv").hide();
+                   alertify.success("تم تعديل محطة الجشني  ");
+                   location.reload(true);
+                 //  console.log(data);
+               }
+
+
+           }
+
+
+
+       });
+
+
+       });
+    </script>
+
+}

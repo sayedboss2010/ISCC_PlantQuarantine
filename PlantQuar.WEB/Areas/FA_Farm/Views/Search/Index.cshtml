@@ -1,0 +1,386 @@
+﻿
+<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Farm Request";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    var model = Model;
+}
+
+@section Title{
+    <h2 class="ls-top-header">بحث في الاشتراطات</h2>
+}
+<style>
+    #getFarm, #Print {
+        background-color: #606f49 !important;
+        border: 2px solid #515e3b !important;
+        box-shadow: 0 4px #515e3b !important;
+        outline: none;
+        color: white;
+        margin-top: 25px;
+        width: 80px;
+    }
+    #getFarm:hover, #Print:hover{
+        background-color: #515e3b !important;
+    border: 2px solid #606f49 !important;
+    box-shadow: 0 4px #606f49 !important;
+    }
+    .tbl-report th, td {
+        border:1px solid #000;
+        padding: 5px;
+    }
+
+   
+
+    #Farm_Constrain_TextTable {
+        font-size: 16px;
+    }
+
+    #countrysearch, #FarmCodesearch {
+        height: 20px;
+        width: 20px;
+    }
+
+    .form-check-label {
+        margin-right: 35px;
+    }
+</style>
+
+
+@*ال checkbox و الدتا بتاعت الجدول*@
+<div class="row">
+    <div class="col-md-4">
+
+
+        <input class="form-check-input" type="radio" name="search" id="countrysearch" onclick="countrySearch()">
+        <label class="form-check-label" for="countrysearch">
+            بحث بالدولة
+        </label>
+    </div>
+    <div class="col-md-4">
+        <input class="form-check-input" type="radio" name="search" onclick="farmCodeSearch()" id="FarmCodesearch" checked>
+        <label class="form-check-label" for="FarmCodesearch">
+            بحث بكود المزرعة
+        </label>
+    </div>
+    <div class="col-md-4"></div>
+    </div>
+    <br />
+    <div class="row" id="country" style="display:none;">
+        <div class="col-md-4">
+            <label>@PlantQuar.WEB.Language.Resource_data1.Country</label>
+            @Html.DropDownList("CustomerDropDown", new SelectList(ViewBag.ddd, "Value", "DisplayText"), new { @class = "form-control", @onchange = "MyFunction1()" })
+
+        </div>
+
+        <div class="col-md-4">
+            <label>النبات</label>
+            @Html.DropDownList("CustomerDropDown1", new SelectList(ViewBag.ddd, "Value", "DisplayText"), new { @class = "form-control" })
+
+        </div>
+        <div class="col-md-4" style="text-align:center;">
+            <button id="getFarm" onclick="getData()">@PlantQuar.WEB.Language.Resource_data1.Search</button>
+        </div>
+    </div>
+
+
+    <div class="row" id="farmCode">
+        <div class="col-md-4">
+            <label>@PlantQuar.WEB.Language.Resource_data1.FarmCode</label>
+            <input type="text" id="FarmCode" class="form-control" />
+        </div>
+
+        <div class="col-md-4" style="text-align:center;">
+            <button id="getFarm" onclick="getFarm()">@PlantQuar.WEB.Language.Resource_data1.Search</button>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+
+    <br />
+    @*<div id="div3"></div>*@
+
+    <div class="row tbl-report" id="listFarm_Constrain_Text">
+        <table width="100%" id="Farm_Constrain_TextTable">
+            <thead>
+                <tr>
+                    <th hidden>ID</th>
+                    <th class="td_1">@PlantQuar.WEB.Language.Resource_data1.Country</th>
+                    <th>نبات</th>
+                    <th>شروط المزرعه</th>
+                    <th>@PlantQuar.WEB.Language.Resource_data1.AnalysisType</th>
+                    <th>حالة الشرط</th>
+                    <th>فعال</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td hidden></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-5">
+        </div>
+        <div class="col-md-3">
+            <button id="Print" value='Print' onclick='printtab("listFarm_Constrain_Text")'>@PlantQuar.WEB.Language.Resource_data1.Print</button>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+
+
+    @section Scripts{
+
+        <script>
+        function MyFunction1() {
+        var c = document.getElementById("CustomerDropDown").value;
+
+        $.ajax({
+
+              url: '@Url.Action("GetItems", "Search")',
+              type: "POST",
+              dataType: 'json',
+              data: {countryID: c},
+              success: function (result) {
+                $("#CustomerDropDown").empty();
+
+                  console.log(result);
+
+                 $("#CustomerDropDown").append('<option value="">Select One</option>');
+
+                    for (var i = 1; i < result.length; i++) {
+                        item = result[i];
+                        $("#CustomerDropDown").append('<option value="'
+                            + item.Value + '">' +
+                            item.Text + '</option>');
+
+                    }
+
+
+
+
+
+                    },
+                             error: function (xhr, status, error) {
+
+                    }
+          });
+
+        }
+        function getFarm() {
+
+        $("#Farm_Constrain_TextTable tbody").empty();
+
+           var c=document.getElementById("FarmCode").value;
+
+         //   $("#div3").empty();
+
+
+      //  var div = document.getElementById('div3');
+
+       // div.innerHTML = '<h3> كود المزرعه'+c+'</h3>';
+
+
+
+          //  document.getElementById('div3').innerHTML = '';
+
+        $(".td_1").show()
+
+              $.ajax({
+
+              url: '@Url.Action("GetFarmCode", "Search")',
+              type: "POST",
+              dataType: 'json',
+                  data: { FarmCode: c},
+
+
+
+                  success: function (result) {
+                      console.log(result)
+                for (var i = 0; i < result.length; i++) {
+                    var item = result[i];
+                    var temp;
+                    var temp1;
+
+                    if (item.User_Deletion_Id == null) {
+                        temp = "موجود";
+                    }
+                    else {
+                        temp = "غير موجود";
+
+                    }
+                    if (item.IsActive == true) {
+                        temp1 = "فعال";
+                    }
+                    else {
+                        temp1 = "غير فعال";
+
+                    }
+
+
+
+                    $("#Farm_Constrain_TextTable tbody").append("<tr>" +
+
+
+                        "<td>" + item.Description_En + "</td>" +
+                        "<td>" + item.Description_Ar + "</td>" +
+                        "<td>" + item.ConstrainText_Ar + "</td>" +
+                        "<td>" + temp + "</td>" +
+                        "<td>" + item.ConstrainText_En + "</td>"
+                        + "<td>  " + temp1 + "  </td>" + "</tr>");
+
+
+
+                }
+
+
+                    },
+                             error: function (xhr, status, error) {
+
+                    }
+          });
+
+
+        }
+        function getData() {
+         //   $("#div3").empty();
+
+
+
+
+            $("#Farm_Constrain_TextTable tbody").empty();
+            //$(".td_1").hide()
+
+            var c = document.getElementById("CustomerDropDown").value;
+           // var c2 = document.getElementById("CustomerDropDown").DisplayText;
+
+            var c1 = document.getElementById("CustomerDropDown1").value;
+         //   var c3 = document.getElementById("CustomerDropDown1").Text;
+
+
+
+            var c2 = $('#CustomerDropDown option:selected').text();
+
+            var c3 = $('#CustomerDropDown1 option:selected').text();
+
+
+
+            if (c1 == '') {
+                c1 = 0;
+            }
+
+
+
+       //     var div = document.getElementById('div3');
+            //div.innerHTML = '</br></br><p> الدوله والنبات</p>';
+
+        //    div.innerHTML = '<h3> الدولة' + c2 + '</h3> <h3> النبات ' + c3 +'</h3 > ';
+
+
+              $.ajax({
+
+              url: '@Url.Action("getCountryItemData", "Search")',
+              type: "POST",
+                  dataType: 'json',
+                  data: { countryID: c, Item_ID: c1},
+
+
+                  success: function (result) {
+
+
+
+                for (var i = 0; i < result.length; i++) {
+                    var item = result[i];
+
+
+                    var temp;
+                    var temp1;
+
+
+
+
+
+                    if (item.User_Deletion_Id == null) {
+                        temp = "موجود";
+                    }
+                    else {
+                        temp = "غير موجود";
+
+                    }
+                    if (item.IsActive == true) {
+                        temp1 = "فعال";
+                    }
+                    else {
+                        temp1 = "غير فعال";
+
+                    }
+
+
+
+                    $("#Farm_Constrain_TextTable tbody").append("<tr>" +
+                        "<td>" + item.Description_Ar + "</td>" +
+                        "<td>" + item.ConstrainText_Ar + "</td>" +
+                        "<td>" + temp + "</td>" +
+                        "<td>" + item.ConstrainText_En + "</td>"
+                        + "<td>  " + temp1+"  </td>" + "</tr>");
+
+
+
+                }
+
+
+
+
+                    },
+                             error: function (xhr, status, error) {
+
+                    }
+          });
+
+
+    }
+
+    function printtab(mm) {
+        var restorepage2 = document.body.innerHTML;
+        var printcontent2 = $('#' + mm).html();
+        document.body.innerHTML = printcontent2;
+        var css = `table{border-collapse: collapse;}#Farm_Constrain_TextTable thead tr th{border: 1px solid black!important;padding: 5px;} #Farm_Constrain_TextTable tbody tr td{border: 1px solid black!important;padding: 5px;}@@page{margin:.5cm .5cm .5cm .5cm!important;}.col-md-4 {width: 33.33333333%;}.col-md-8 {width: 66.66666667%;}.col-md-6 {width: 50%;}.col-md-7 {width: 58.33333333%;}.col-md-5 {width: 41.66666667%;}.col-md-3 {width: 25%;}`,
+            head = document.head || document.getElementsByTagName('head')[0],
+            style = document.createElement('style');
+        style.type = 'text/css';
+        style.media = 'print';
+
+        if (style.styleSheet) {
+            style.styleSheet.cssText = css;
+        }
+        else {
+            style.appendChild(document.createTextNode(css));
+        }
+        head.appendChild(style);
+        window.print();
+        history.go(0);
+        document.body.innerHTML = restorepage2;
+    }
+        function countrySearch() {
+            document.getElementById("country").style.display = "block";
+            document.getElementById("farmCode").style.display = "none";
+
+
+        } function farmCodeSearch() {
+            document.getElementById("country").style.display = "none";
+
+            document.getElementById("farmCode").style.display = "block";
+
+        }
+        </script>
+    }
+

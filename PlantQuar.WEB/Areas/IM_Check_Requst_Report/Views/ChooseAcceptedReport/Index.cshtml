@@ -1,0 +1,171 @@
+﻿
+@{
+    /**/
+
+    ViewBag.Title = "Committee";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    var x = 0;
+
+}
+
+<form>
+    <div class="checkList container">
+        <div class="row">
+            <div class="col-md-4">
+                <input type="checkbox" value="1" id="optionItm1" name="foo">
+                <label>المنتجات</label>
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" value="2" id="optionItm2" name="foo">
+                <label>الإجراءات التي تمت على الرسالة</label>
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" value="3" id="optionItm3" name="foo">
+                <label>نتائج سحب العينات</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <input type="checkbox" value="4" id="optionItm4" name="foo">
+                <label> اجراءات المعالجة</label>
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" value="5" id="optionItm5" name="foo">
+                <label>الإجراءات المرفوضة</label>
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" value="6" id="optionItm6" name="foo">
+                <label>اجراءات التحفظ</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <input type="checkbox" value="7" id="optionItm7" name="foo">
+                <label>الاجراءات النهائية</label>
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" value="8" id="optionItm8" name="foo">
+                <label>الرسوم</label>
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" value="9" id="optionItm9" name="foo">
+                <label>المرفقات</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <input type="checkbox" value="10" id="optionItm" name="foo">
+                <label>بيانات وحدات الشحن</label>
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" value="11" id="optionItm" name="foo">
+                <label>التأشيرة  </label>
+            </div>
+            <div class="col-md-4">
+                <input type="checkbox" value="12" id="optionItm" name="foo">
+                <label>الموقف النهائي </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <br>
+                <input type="checkbox" onClick="toggle(this)" /> اختار الكل<br />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-6 left">
+
+
+                <input type="button" id="Btn_Final_Result" onClick="reply_Insert_Final_Result(this)" value="طباعة استمارة طلب الفحص" />
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<script>
+    function toggle(source) {
+  checkboxes = document.getElementsByName('foo');
+  for(var i=0, n=checkboxes.length;i<n;i++) {
+    checkboxes[i].checked = source.checked;
+  }
+}
+        function reply_Insert_Final_Result(element) {
+            var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+            //if ($('#optionItm').is(':checked'))
+            //{
+            //    var x = $('#optionItm').val();
+
+            //}
+
+            if (checkboxes.length != null && checkboxes.length != 0)
+            {
+
+                var opt = 0; var opt1 = 0; var opt2 = 0; var opt3 = 0; var opt4 = 0; var opt5 = 0; var opt6 = 0; var opt7 = 0; var opt8 = 0;
+                var opt10 = 0;   var opt9 = 0;
+                 var opt11 = 0;
+                for (var m = 0; m < checkboxes.length; m++)   //to full CheckedItemsList
+                {
+                    var optionValue = checkboxes[m].value;
+                    //switch (optionValue) {
+                    //    case 1
+                    //        {            opt = 1;
+                    //            break;
+
+                    //        }
+                    //    default:
+                    //}
+
+                    if (optionValue == 1) {
+                        opt = 1;
+                    }
+                    if (optionValue == 2) {
+                        opt1 = 2;
+                    }
+                    if (optionValue == 3) {
+                        opt2 = 3;
+                    }
+                    if (optionValue == 4) {
+                        opt3 = 4;
+                    }
+                    if (optionValue == 5) {
+                        opt4 = 5;
+                    }
+                    if (optionValue == 6) {
+                        opt5 = 6;
+                    }
+                    if (optionValue == 7) {
+                        opt6 = 7;
+                    }
+                    if (optionValue == 8) {
+                        opt7 = 8;
+                    }
+                    if (optionValue == 9) {
+                        opt8 = 9;
+                    }
+                    if (optionValue == 10) {
+                        opt9 = 10;
+                    }
+                      if (optionValue == 11) {
+                        opt10= 11;
+                    }
+                      if (optionValue == 12) {
+                        opt11= 12;
+                    }
+                    if (opt != 0 || opt1 != 0 || opt2 != 0 || opt3 != 0 || opt4 != 0 || opt5 != 0 || opt6 != 0 || opt7 != 0 || opt8 != 0 || opt9 != 0|| opt10 != 0|| opt11 != 0) {
+
+                        location.href = "/IM_Check_Requst_Report/Check_Requst_Accepted_All/Index?ImCheckRequest_Number=@ViewBag.CheckRequest_Number&opt=" + opt + "&opt1=" + opt1 + "&opt2=" + opt2 + "&opt3=" + opt3 + "&opt4=" + opt4 + "&opt5=" + opt5 + "&opt6=" + opt6 + "&opt7=" + opt7 + "&opt8=" + opt8 + "&opt9=" + opt9+ "&opt10=" + opt10+ "&opt11=" + opt11;
+
+
+                    }
+
+                }
+            }
+            else {
+                alertify.error("يجب اختيار واحد علي الأقل")
+
+            }
+        }
+
+
+</script>

@@ -1,0 +1,215 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+
+}
+@section Title{
+    <h2 class="ls-top-header">تسجيل موظف جديد</h2>
+}
+<style>
+    .mag-bottom-5 {
+        margin-bottom: 5px;
+    }
+
+    input[type="radio"], input[type="checkbox"] {
+        margin: 4px 5px 0 !important;
+    }
+
+    .col-md-4.mag-bottom-5 {
+        font-size: 16px;
+    }
+
+    #Save {
+        background-color: #1e7c80;
+        border: 2px solid #1e8084;
+        box-shadow: 0 4px #1d9fa5;
+        outline: none;
+        position: relative;
+        width: 50%;
+        float: left;
+        color: white;
+    }
+
+    center {
+        border: 1px solid;
+        background: #f9f9f9;
+        padding: 10px;
+    }
+</style>
+<div class="row">
+    <div class="col-md-8">
+        <div class="col-md-3"><label>@PlantQuar.WEB.Language.Resource_data1.Outlet</label></div>
+        @if (ViewBag.AdminOrNot == 0)
+        {
+        <div class="col-md-8">
+            @Html.DropDownList("CustomerDropDown", new SelectList(ViewBag.ddd, "Value", "DisplayText"), new { @class = "form-control", @onchange = "MyFunction()" })
+        </div>
+        }
+        else
+        {
+        <div class="col-md-12">
+
+            <input id="Text1" value=" @ViewBag.Outlet_Name" type="text" />
+        </div> 
+        <div class="col-md-12">
+
+            <div class='col-md-4 mag-bottom-5'>
+                <input type="radio" name="EmpID" onchange="myfun()" id=" @ViewBag.UserId" />@ViewBag.FullName
+            </div>
+           
+        </div>
+        }
+
+    </div>
+    <div class="col-md-4"></div>
+
+</div>
+
+<br />
+
+
+<div id="listFarm_Constrain_Text" class="row">
+
+</div>
+
+<br />
+
+<center>
+
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4"><label>التسجيل</label></div>
+        <div class="col-md-4"></div>
+    </div>
+
+    <br />
+    <div class="row">
+        <div class="col-md-4">  <label>اسم المستخدم</label></div>
+        <div class="col-md-4">  <input type="text" id="user_name" class="form-control" /></div>
+        <div class="col-md-4"></div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-4">  <label>كلمة المرور</label></div>
+        <div class="col-md-4">  <input type="password" id="pass" class="form-control" /></div>
+        <div class="col-md-4"></div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-4">  <label>البريد الالكترونى</label></div>
+        <div class="col-md-4">  <input type="email" id="emailLab" class="form-control" readonly /></div>
+        <div class="col-md-4"></div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">  </div>
+        <div class="col-md-4">
+            <button id="Save" value='حفظ' onclick=''>@PlantQuar.WEB.Language.Resource_data1.Save</button>
+        </div>
+    </div>
+
+</center>
+
+<script>
+    function MyFunction() {
+
+        $("#listFarm_Constrain_Text").empty();
+
+        var Outlet_ID = document.getElementById("CustomerDropDown").value;
+
+
+
+        $.ajax({
+            url: '@Url.Action("UsersOutlet", "Add_User")',
+            type: "POST",
+            data: { outletID: Outlet_ID },
+            success: function (result) {
+
+                for (var i = 1; i < result.length; i++) {
+                    '<br/>'
+                    var item = result[i];
+                    $("#listFarm_Constrain_Text").append("<div class='col-md-4 mag-bottom-5'>" +
+
+                        '<input type="radio" name="EmpID" onchange="myfun()" id=" ' + item.Id + '"/>'  +
+                         item.FullName +
+
+                        "</div>");
+                }
+            },
+            error: function (xhr, status, error) {
+            }
+        });
+    };
+    $("#Save").click(function () {
+
+        var $radio = $('input[name=EmpID]:checked');
+        var Id = $radio.attr('id');
+        var user_name = $("#user_name").val();
+        var pass = $("#pass").val();
+        var email = $("#emailLab").val();
+        //alert(user_name);
+        //alert(email);
+        var _IS_Change_Password = false;
+        var xx = '@ViewBag.AdminOrNot';
+        
+        if (xx != 0)
+        {
+            _IS_Change_Password = true;
+        }
+        //alert(email);
+        if (email != "" ) {
+            $.ajax({
+                url: '@Url.Action("Insert_PR_User", "Add_User")',
+                type: "POST",
+                data: { Id: Id, user_name: user_name, pass: pass, email: email,IS_Change_Password:_IS_Change_Password },
+
+                success: function (result) {
+                        changed = result;
+                        if (changed == 1) {
+                            alertify.success("تم الحفظ بنجاح");
+                           //window.location.href ='../Home';
+                           // window.location = '/logout';
+
+                        }
+                        else {
+                            alertify.error("اسم المستخدم موجود مسبقا");
+                        }
+
+                    }
+                });
+            }
+            else {
+                alertify.error("هذا الموظف ليس لديه بريد الكتروني! برجاء مراجعة الموارد البشرية");
+            }
+            
+        });
+    function myfun() {
+        var $radio = $('input[name=EmpID]:checked');
+        var Id = $radio.attr('id');
+
+        $("#user_name").empty();
+        $("#pass").empty();
+        $("#emailLab").empty();
+        $.ajax({
+            url: '@Url.Action("Get_Email_PR_User", "Add_User")',
+            type: "POST",
+            data: { Id: Id},
+
+            success: function (result) {
+               
+                $("#user_name").empty();
+                $("#pass").empty();
+                $("#emailLab").empty();
+                $('#emailLab').val(result.Email);
+                
+
+
+            }
+        });
+    };
+
+</script>
+
+

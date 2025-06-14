@@ -1,0 +1,31 @@
+﻿@model List<PlantQuar.DTO.DTO.Import.CheckRequests.ImCheckRequestListDTO>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@section Title{
+    <h2 class="ls-top-header">Im check request List</h2>
+}
+
+@section Path{
+    <li style="position: relative;right: 28px;">فحص</li>
+    <li class="active" style="right: 29px; position: relative;">Im Check Request List</li>
+}
+
+
+
+<div class="row mar-bottom-15">
+    <div class="col-md-6 flex-align" id="Start_Date">
+        <label class="col-md-4" style="margin-top:10px">بداية البحث</label>
+
+        <input class="form-control col-md-8" id="dateFrom" name="date" value="@ViewBag.DateFrom.Date.ToString("yyyy-MM-dd")" placeholder="DD/MM/YYY" type="date" />
+
+    </div>
+    <div class="col-md-6 flex-align" id="End_Date">
+        <label class="col-md-4" style="margin-top:10px">نهاية البحث</label>
+
+        <input class="form-control col-md-8" id="dateEnd" name="date" placeholder="DD/MM/YYY" value="@ViewBag.DateTo.Date.ToString("yyyy-MM-dd")" type="date" />
+
+
+    </div>
+</div>

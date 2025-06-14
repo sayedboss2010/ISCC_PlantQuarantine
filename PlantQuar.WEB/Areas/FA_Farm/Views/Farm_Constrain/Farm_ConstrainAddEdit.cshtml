@@ -1,0 +1,221 @@
+﻿
+@model PlantQuar.DTO.DTO.Farm.FarmConstrain.Farm_ConstrainDTO
+
+@{
+    ViewBag.Title = "Farm_ConstrainAddEdit";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@section Title{
+    <h2 class="ls-top-header">تعديل وإضافة اشتراطات الدول للمزرعة</h2>
+}
+
+@section Path{
+    <li>@PlantQuar.WEB.Language.Resource_data1.Constrains</li>
+    <li class="active">@PlantQuar.WEB.Language.Resource_data1.Constrains</li>
+}
+<link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
+<style>
+    .bootstrap-select .dropdown-menu.inner {
+        float: left !important;
+    }
+</style>
+<style>
+    textarea {
+        resize: none;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-10"></div>
+        <div class="col-md-2">
+            @Html.ActionLink(PlantQuar.WEB.Language.Resource_data1.Back, "Index", "Farm_Constrain", new { area = "FA_Farm" }, new { @class = "btn btn-primary", @style = "width:100%" })
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm("SaveFarm_Constrain", "Farm_Constrain", FormMethod.Post, new { area = "FA_Farm" }))
+{
+    @Html.HiddenFor(m => m.ID)
+    <div>
+        <div class="tab" role="tabpanel" style="min-height:80% !important;">
+            <div class="tab-content tabs" style="background-color:whitesmoke  !important;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="AnalysisType_ID" class="control-label">@PlantQuar.WEB.Language.Resource_data1.AnalysisType</label>
+                        @Html.DropDownListFor(m => m.AnalysisType_ID, new SelectList(ViewBag.AnalysisType, "Value", "DisplayText"), new { @class = "form-control selectpicker", @id = "AnalysisType_ID" })
+                    </div>
+                    <div class="col-md-6">
+
+
+                        <label for="Farm_Constrain_Text_ID" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Constrains</label>
+                        @Html.DropDownListFor(m => m.Farm_Constrain_Text_ID, new SelectList(ViewBag.Farm_Constrain_Text, "Value", "DisplayText"), new { @class = "form-control selectpicker", @id = "Farm_Constrain_Text_ID", @required = "required" })
+                    </div>
+                </div>
+                <br />
+
+                <div class="row">
+
+                    <div class="col-md-6">
+
+                        @if (Model.ID > 0)
+                        {
+                            <label for="Country_Id" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Country</label>
+
+                            @Html.DropDownListFor(m => m.Country_Id, new SelectList(ViewBag.Country, "Value", "DisplayText"), new { @class = "form-control", @id = "Country_Id", @required = "required" })
+                        }
+                        else
+                        {
+                            <label for="Union_Id" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Union</label>
+                            @Html.DropDownListFor(m => m.Union_Id, new SelectList(ViewBag.Union, "Value", "DisplayText"), "----------", new { @class = "form-control", @id = "Union_Id", @required = "required" })
+                        }
+                    </div>
+
+                    <div class="col-md-6">
+
+                        @if (Model.ID > 0)
+                        {
+                            <label for="Item_ID" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Items</label>
+                            @Html.DropDownListFor(m => m.Item_ID, new SelectList(ViewBag.Item, "Value", "DisplayText"), new { @class = "form-control", @id = "Item_ID", @required = "required" })
+                        }
+                        else
+                        { <label for="Country_Id" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Country</label>
+
+                        <select id="Country_Id" name="Country_Id" class="form-control" required></select>
+                    }
+                    </div>
+                </div>
+
+                <br />
+                @if (Model.ID > 0)
+                {
+                    <div class="col-md-6">
+                        <label for="Item_ID" class="control-label">عدد الزيارات</label>
+                        <div class="editor-field">
+                            @Html.TextBoxFor(m => m.Count_Visit, new { @class = "form-control", @id = "Count_Visit_ID", @required = "required", @type = "number" })
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <label for="Item_ID" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Items</label>
+                            @Html.DropDownListFor(m => m.Item_ID, new SelectList(ViewBag.Item, "Value", "DisplayText"), new { @class = "form-control", @id = "Item_ID", @required = "required" })
+                        </div>
+                        <div class="col-md-6">
+                            <label for="Item_ID" class="control-label">عدد الزيارات</label>
+                            <div class="editor-field">
+                                @Html.TextBoxFor(m => m.Count_Visit, new { @class = "form-control", @id = "Count_Visit_ID", @required = "required", @type = "number", @Value = 1 })
+                            </div>
+                        </div>
+                    </div>
+                }
+                <br />
+
+                <br />
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <label for="IsActive" class="control-label">@PlantQuar.WEB.Language.Resource_data1.IsActive</label>
+                        @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-control", @id = "IsActive", @cols = 3 })
+                    </div>
+                    <div class="col-md-4">
+                        <label for="Is_Preview" class="control-label">@PlantQuar.WEB.Language.Resource_data1.Preview</label>
+                        @Html.CheckBoxFor(m => m.Is_Preview, new { @class = "form-control", @id = "Is_Preview", @disabled = "disabled", value = Model.Is_Preview = true })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-10"></div>
+                    <div class="col-md-2">
+                        <input type="submit" class="btn btn-primary" style="width:100%" value="حفظ" autocomplete="off">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<style>
+    .attach .jtable-input-field-container:nth-of-type(1),
+    .attach .jtable-input-field-container:nth-of-type(2),
+    .attach .jtable-input-field-container:nth-of-type(3),
+    .attach .jtable-input-field-container:nth-of-type(4) {
+        margin-bottom: 2px;
+        float: right;
+        width: 48% !important;
+    }
+
+
+    .attach .jtable-input-field-container:nth-of-type(5) {
+        margin-bottom: 2px;
+        float: right;
+        width: 98% !important;
+    }
+</style>
+
+
+<script>
+    $(function () {
+        $('#AnalysisType_ID,#Farm_Constrain_Text_ID,#Item_ID').selectpicker('refresh');
+        $("#Union_Id").change(function () {
+
+            $("#Country_Id").empty();
+            var Union_Id = $("#Union_Id").val();
+            //alert(Union_Id);
+            $.ajax({
+                url: "../../FA_Farm/Farm_Constrain/GetCountriesUnion_Name",
+                data: { CountriesUnion_Id: Union_Id },
+
+                success: function (res) {
+                    //alert(Union_Id);
+                    if (Union_Id == '') {
+                        $.each(res.Options, function (i, e) {
+
+                            $("#Country_Id").append("<option Value='" + e.Value + "'>" + e.DisplayText + "</option>")
+                        })
+                    }
+                    else {
+
+                        $.each(res.Options, function (i, e) {
+
+                            $("#Country_Id").append("<option Value='" + e.Value + "'>" + e.DisplayText + "</option>")
+                        })
+
+                        var selectobject = document.getElementById("Country_Id");
+                        for (var i = 1; i < selectobject.length; i++) {
+                            // $("#Country_Id").empty();
+                            if (selectobject.options[i].value == "null")
+                                selectobject.remove(i);
+                            // alert(selectobject);
+                        }
+
+
+
+                    }
+
+                    $('#Country_Id').selectpicker('refresh');
+
+                }
+            })
+
+        });
+    });
+
+    ////////////////
+
+
+    $("#AnalysisType_ID,#Farm_Constrain_Text_ID,#Country_Id,#Item_ID").selectpicker({
+        liveSearch: true
+
+
+
+    });
+
+    /* button save*/
+
+
+</script>
+<script src="~/assets/js/bootstrap-select1.min.js"></script>
