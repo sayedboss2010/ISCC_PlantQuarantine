@@ -543,6 +543,7 @@ namespace PlantQuar.BLL.BLL.Committee
                                 var DateTimeDate = DateTime.Now.Date;
 
                                 var allLot = entity.ListCommittee_Items_Lot.Where(a => a.EX_CheckRequest_ID == CheckRequestList.EX_CheckRequest_ID).Select(a => a.LotData_ID).ToList();
+                                // لجنة فحص او لجنة جشني
                                 if (CommitteeTypeList.CommitteeType_ID == 1 || CommitteeTypeList.CommitteeType_ID == 2)
                                 {
                                     var CheckCommity_Check_Gashny = (from r in context.Ex_RequestCommittee
@@ -735,6 +736,7 @@ namespace PlantQuar.BLL.BLL.Committee
                                         entity.message += "لم يتم الفحص لاكتمال العمل على الطلب " + CheckRequestList.EX_CheckRequest_ID + "";
                                     }
                                 }
+                                // لجنة السحب
                                 if (CommitteeTypeList.CommitteeType_ID == 3)
                                 {
                                     var all_AnalysisLabType = entity.List_SampleData.Select(a => a.AnalysisLabType_ID).ToList();
@@ -962,6 +964,7 @@ namespace PlantQuar.BLL.BLL.Committee
                                         entity.message = "لم يتم الفحص لاكتمال العمل على الطلب " + CheckRequestList.EX_CheckRequest_ID + "";
                                     }
                                 }
+                                //لجنة المعالجة
                                 if (CommitteeTypeList.CommitteeType_ID == 6)
                                 {
                                     var all_AnalysisLabType = entity.List_SampleData.Select(a => a.AnalysisLabType_ID).ToList();
