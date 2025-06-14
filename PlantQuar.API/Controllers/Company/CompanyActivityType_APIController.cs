@@ -11,6 +11,7 @@ using System.Web.Http.Cors;
 
 namespace PlantQuar.API.Controllers.Company
 {
+    //eslam9999
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CompanyActivityType_APIController : ApiController
     {
