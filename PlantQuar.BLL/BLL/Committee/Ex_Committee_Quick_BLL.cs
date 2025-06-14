@@ -896,13 +896,13 @@ namespace PlantQuar.BLL.BLL.Committee
 
                                                     #region barcode
                                                     Item_Analysis.EX_Request_Item_Id = itemLot.EX_Request_Item_Id;
-                                                    var checkBarcode = entity.List_SampleData
-                                                        .Where(a => a.AnalysisLabType_ID == Item_Analysis.AnalysisLabType_ID
-                                                        && a.EX_Request_Item_Id == itemLot.EX_Request_Item_Id
-                                                        && a.Sample_BarCode != null).Select(a => a.Sample_BarCode).ToList();
+                                                    //var checkBarcode = entity.List_SampleData
+                                                    //    .Where(a => a.AnalysisLabType_ID == Item_Analysis.AnalysisLabType_ID
+                                                    //    && a.EX_Request_Item_Id == itemLot.EX_Request_Item_Id
+                                                    //    && a.Sample_BarCode != null).Select(a => a.Sample_BarCode).ToList();
 
-                                                    if (checkBarcode.Count() == 0)
-                                                    {
+                                                    //if (checkBarcode.Count() == 0)
+                                                    //{
                                                         string barcode = "";
                                                         string rand = RandomNumber(0, 100000).ToString();
                                                         var dayofyear = "000" + DateTime.Now.DayOfYear;
@@ -913,7 +913,7 @@ namespace PlantQuar.BLL.BLL.Committee
                                                         var sec = (DateTime.Now.Second).ToString("D" + 2);
                                                         barcode = "73" + rand + dayofyear.Substring(dayofyear.Length - 3) + zx + hour + min + sec;
                                                         Item_Analysis.Sample_BarCode = barcode;
-                                                    }
+                                                    //}
                                                     #endregion
                                                     long EX_CheckRequest_SampleData_ID = uow.Repository<Object>().GetNextSequenceValue_Long("Ex_CheckRequest_SampleData_SEQ");
 
