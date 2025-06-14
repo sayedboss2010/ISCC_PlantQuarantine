@@ -19,7 +19,9 @@ namespace PlantQuar.WEB.Areas.ExportRequest
         // GET: ExportRequest/ExRequest_Details
         public ActionResult Index(long requestId)
         {
-            //eslam maher edit from my visual studio_ 9009
+            //eslam maher edit from my visual studio_ \
+
+
             var res = APIHandeling.getData("Export_CheckRequest_API?requestId=" + requestId);
             var model = res.Content.ReadAsAsync<CheckRequest_GetData_ResultDTO>().Result;//object
             var reasons = APIHandeling.getData("Export_CheckRequest_API?List=1&refuse=1");
